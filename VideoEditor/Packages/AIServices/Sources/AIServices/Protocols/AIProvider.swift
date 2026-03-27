@@ -43,24 +43,32 @@ public enum CostTier: String, Codable, Sendable {
 public struct AIMessage: Codable, Sendable {
     public let role: String
     public let content: String
+    /// For tool result messages — the tool use ID this is responding to
+    public let toolResultID: String?
+    /// Whether this is a tool result message
+    public let isToolResult: Bool
 
-    public init(role: String, content: String) {
+    public init(role: String, content: String, toolResultID: String? = nil, isToolResult: Bool = false) {
         self.role = role
         self.content = content
+        self.toolResultID = toolResultID
+        self.isToolResult = isToolResult
     }
 }
-
-// AIToolDefinition is now in Tools/AIToolRegistry.swift with full JSON schema support
 
 public struct AIResponse: Codable, Sendable {
     public let content: String
     public let toolCalls: [AIToolCall]
+    public let stopReason: String?
 
-    public init(content: String, toolCalls: [AIToolCall] = []) {
+    public init(content: String, toolCalls: [AIToolCall] = [], stopReason: String? = nil) {
         self.content = content
         self.toolCalls = toolCalls
+        self.stopReason = stopReason
     }
 }
+
+// AIToolDefinition is now in Tools/AIToolRegistry.swift with full JSON schema support
 
 public struct AIToolCall: Codable, Sendable {
     public let id: String

@@ -36,10 +36,22 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
         request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
 
-        let body = ClaudeRequest(
+        // Build messages — handle both regular and tool result messages
+        let claudeMessages = messages.map { msg -> ClaudeMessagePayload in
+            if msg.isToolResult, let toolID = msg.toolResultID {
+                return ClaudeMessagePayload(
+                    role: "user",
+                    content: .blocks([.toolResult(ClaudeToolResult(tool_use_id: toolID, content: msg.content))])
+                )
+            } else {
+                return ClaudeMessagePayload(role: msg.role, content: .text(msg.content))
+            }
+        }
+
+        let body = ClaudeRequestPayload(
             model: model,
             max_tokens: 4096,
-            messages: messages.map { ClaudeMessage(role: $0.role, content: $0.content) },
+            messages: claudeMessages,
             tools: tools.isEmpty ? nil : tools.map(convertTool),
             system: systemPrompt
         )
@@ -112,22 +124,54 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
             }
         }
 
-        return AIResponse(content: text, toolCalls: toolCalls)
+        return AIResponse(content: text, toolCalls: toolCalls, stopReason: response.stop_reason)
     }
 }
 
 // MARK: - Claude API types
 
-private struct ClaudeRequest: Encodable {
+private struct ClaudeRequestPayload: Encodable {
     let model: String
     let max_tokens: Int
-    let messages: [ClaudeMessage]
+    let messages: [ClaudeMessagePayload]
     let tools: [ClaudeTool]?
     let system: String?
 }
 
-private struct ClaudeMessage: Codable {
+private struct ClaudeMessagePayload: Encodable {
     let role: String
+    let content: ClaudeContent
+
+    enum ClaudeContent: Encodable {
+        case text(String)
+        case blocks([ClaudeContentBlock])
+
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .text(let s):
+                try container.encode(s)
+            case .blocks(let blocks):
+                try container.encode(blocks)
+            }
+        }
+    }
+
+    enum ClaudeContentBlock: Encodable {
+        case toolResult(ClaudeToolResult)
+
+        func encode(to encoder: Encoder) throws {
+            switch self {
+            case .toolResult(let result):
+                try result.encode(to: encoder)
+            }
+        }
+    }
+}
+
+private struct ClaudeToolResult: Encodable {
+    let type = "tool_result"
+    let tool_use_id: String
     let content: String
 }
 

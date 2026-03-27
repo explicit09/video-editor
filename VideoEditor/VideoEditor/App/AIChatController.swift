@@ -3,6 +3,7 @@ import EditorCore
 import AIServices
 
 /// Orchestrates AI chat: builds context, sends to provider, executes tool calls.
+/// Supports multi-turn tool execution — sends results back to Claude until it's done.
 @MainActor @Observable
 final class AIChatController {
     private(set) var messages: [ChatMessage] = []
@@ -50,71 +51,58 @@ final class AIChatController {
                 recentActions: recentActions
             )
 
-            // Send standard context (no transcripts — AI requests via tools if needed)
-            let apiMessages = [
+            // Build initial conversation
+            var conversation: [AIMessage] = [
                 AIMessage(
                     role: "user",
                     content: "Current editor state:\n```json\n\(context.toJSON())\n```\n\nUser request: \(message)"
                 )
             ]
 
-            let response = try await provider.complete(
-                messages: apiMessages,
-                tools: AIToolRegistry.allTools
-            )
+            // Multi-turn loop: send → get response → if tools, execute and send results back → repeat
+            var allToolResults: [ChatMessage.ToolResult] = []
+            var finalText = ""
+            let maxTurns = 10 // Safety limit
 
-            // Execute tool calls sequentially.
-            // After each call, the timeline state is updated, so subsequent calls
-            // can reference objects created by earlier calls.
-            // We fix up invalid IDs by inferring what the AI meant from context.
-            var toolResults: [ChatMessage.ToolResult] = []
-
-            for toolCall in response.toolCalls {
-                let args = fixupArguments(
-                    toolName: toolCall.name,
-                    arguments: toolCall.parsedArguments(),
-                    timeline: appState.timeline,
-                    assets: appState.assets
+            for _ in 0..<maxTurns {
+                let response = try await provider.complete(
+                    messages: conversation,
+                    tools: AIToolRegistry.allTools
                 )
 
-                do {
-                    // Content tools — return data, don't modify timeline
-                    if toolCall.name == "get_transcript" {
-                        let result = try await handleGetTranscript(args: args, appState: appState)
-                        toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
-                        continue
-                    }
-                    if toolCall.name == "transcribe_asset" {
-                        let result = try await handleTranscribeAsset(args: args, appState: appState)
-                        toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
-                        continue
-                    }
-                    if toolCall.name == "search_transcript" {
-                        let result = handleSearchTranscript(args: args, appState: appState)
-                        toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
-                        continue
-                    }
-                    if toolCall.name == "remove_silence" {
-                        let result = try handleRemoveSilence(args: args, appState: appState)
-                        toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
-                        continue
-                    }
-
-                    // Editing tools — resolve to intents and execute
-                    let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
-                    for intent in intents {
-                        try appState.perform(intent, source: .ai)
-                    }
-                    toolResults.append(.init(toolName: toolCall.name, success: true, message: "Done"))
-                } catch {
-                    toolResults.append(.init(toolName: toolCall.name, success: false, message: error.localizedDescription))
+                if !response.content.isEmpty {
+                    finalText = response.content
                 }
+
+                // If no tool calls, we're done
+                guard !response.toolCalls.isEmpty else { break }
+
+                // Add assistant response to conversation (Claude expects this)
+                conversation.append(AIMessage(role: "assistant", content: response.content))
+
+                // Execute each tool call and collect results
+                for toolCall in response.toolCalls {
+                    let result = await executeTool(toolCall: toolCall, appState: appState)
+                    allToolResults.append(result)
+
+                    // Send tool result back to Claude
+                    conversation.append(AIMessage(
+                        role: "user",
+                        content: result.message,
+                        toolResultID: toolCall.id,
+                        isToolResult: true
+                    ))
+                }
+
+                // If Claude stopped because of tool_use, continue the loop
+                // If it stopped for another reason, break
+                if response.stopReason != "tool_use" { break }
             }
 
-            let responseContent = response.content.isEmpty && !toolResults.isEmpty
-                ? "Executed \(toolResults.count) editing operation(s)."
-                : response.content
-            messages.append(ChatMessage(role: .assistant, content: responseContent, toolResults: toolResults))
+            let responseContent = finalText.isEmpty && !allToolResults.isEmpty
+                ? "Executed \(allToolResults.count) editing operation(s)."
+                : finalText
+            messages.append(ChatMessage(role: .assistant, content: responseContent, toolResults: allToolResults))
 
         } catch {
             messages.append(ChatMessage(role: .system, content: "Error: \(error.localizedDescription)", toolResults: []))
@@ -127,24 +115,60 @@ final class AIChatController {
         messages.removeAll()
     }
 
+    // MARK: - Tool execution
+
+    private func executeTool(toolCall: AIToolCall, appState: AppState) async -> ChatMessage.ToolResult {
+        let args = fixupArguments(
+            toolName: toolCall.name,
+            arguments: toolCall.parsedArguments(),
+            timeline: appState.timeline,
+            assets: appState.assets
+        )
+
+        do {
+            // Content tools — return data, don't modify timeline
+            if toolCall.name == "get_transcript" {
+                let result = try await handleGetTranscript(args: args, appState: appState)
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
+            if toolCall.name == "transcribe_asset" {
+                let result = try await handleTranscribeAsset(args: args, appState: appState)
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
+            if toolCall.name == "search_transcript" {
+                let result = handleSearchTranscript(args: args, appState: appState)
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
+            if toolCall.name == "remove_silence" {
+                let result = try handleRemoveSilence(args: args, appState: appState)
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
+
+            // Editing tools — resolve to intents and execute
+            let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
+            for intent in intents {
+                try appState.perform(intent, source: .ai)
+            }
+            return .init(toolName: toolCall.name, success: true, message: "Done")
+        } catch {
+            return .init(toolName: toolCall.name, success: false, message: error.localizedDescription)
+        }
+    }
+
     // MARK: - Content tool handlers
 
     private func handleGetTranscript(args: [String: Any], appState: AppState) async throws -> String {
         guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) else {
             throw AIToolError.invalidArgument("Missing asset_id")
         }
-
         guard let asset = await appState.media.mediaManager.asset(id: assetID) else {
             throw AIToolError.invalidArgument("Asset not found")
         }
-
-        // Check memory and disk — never triggers transcription
         if let result = await appState.media.transcriptionService.getTranscript(
             for: asset, bundleURL: appState.projectBundleURL
         ) {
             return "Transcript (\(result.words.count) words): \(result.text)"
         }
-
         return "No transcript for this asset. Use transcribe_asset to generate one."
     }
 
@@ -152,24 +176,19 @@ final class AIChatController {
         guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) else {
             throw AIToolError.invalidArgument("Missing asset_id")
         }
-
         guard let asset = await appState.media.mediaManager.asset(id: assetID) else {
             throw AIToolError.invalidArgument("Asset not found")
         }
-
-        // Check if already transcribed — won't re-transcribe without force
         if await appState.media.transcriptionService.hasTranscript(
             for: asset, bundleURL: appState.projectBundleURL
         ) {
             return "Already transcribed. Use get_transcript to read the content."
         }
-
         let result = try await appState.media.transcriptionService.transcribe(
             asset: asset,
             mediaManager: appState.media.mediaManager,
             bundleURL: appState.projectBundleURL
         )
-
         if let result {
             await appState.media.refreshAssets()
             return "Transcribed (\(result.words.count) words, \(String(format: "%.1f", result.duration))s). Use get_transcript to read."
@@ -182,24 +201,20 @@ final class AIChatController {
         guard let query = args["query"] as? String, !query.isEmpty else {
             return "Missing search query."
         }
-
         let maxResults = (args["max_results"] as? Int) ?? 10
         let searchEngine = TranscriptSearchEngine()
 
-        // Search specific asset or all assets
         let results: [SearchResult]
         if let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) {
             if let asset = appState.assets.first(where: { $0.id == assetID }) {
                 results = searchEngine.searchAsset(query: query, asset: asset)
-            } else {
-                return "Asset not found."
-            }
+            } else { return "Asset not found." }
         } else {
             results = searchEngine.search(query: query, assets: appState.assets, maxResults: maxResults)
         }
 
         guard !results.isEmpty else {
-            return "No matches found for '\(query)'. Make sure assets are transcribed first (use transcribe_asset)."
+            return "No matches found for '\(query)'. Make sure assets are transcribed first."
         }
 
         var output = "Found \(results.count) match(es) for '\(query)':\n\n"
@@ -213,7 +228,6 @@ final class AIChatController {
     private func handleRemoveSilence(args: [String: Any], appState: AppState) throws -> String {
         let timeline = appState.timeline
 
-        // Determine which clips to process
         let targetClips: [Clip]
         if let clipIDStrs = args["clip_ids"] as? [String], !clipIDStrs.isEmpty {
             let clipIDs = Set(clipIDStrs.compactMap { UUID(uuidString: $0) })
@@ -222,25 +236,17 @@ final class AIChatController {
             targetClips = timeline.tracks.flatMap(\.clips)
         }
 
-        guard !targetClips.isEmpty else {
-            return "No clips to process."
-        }
+        guard !targetClips.isEmpty else { return "No clips to process." }
 
-        // For each clip, find silence ranges from its asset's analysis
         var totalRemoved = 0
         var clipsToDelete: [UUID] = []
 
         for clip in targetClips {
             guard let asset = appState.assets.first(where: { $0.id == clip.assetID }),
-                  let silenceRanges = asset.analysis?.silenceRanges, !silenceRanges.isEmpty else {
-                continue
-            }
+                  let silenceRanges = asset.analysis?.silenceRanges, !silenceRanges.isEmpty else { continue }
 
-            // Find silence ranges that fall within this clip's source range
             let clipSourceStart = clip.sourceRange.start
             let clipSourceEnd = clip.sourceRange.end
-
-            // Map source-time silence ranges to timeline positions
             let timelineOffset = clip.timelineRange.start - clipSourceStart
 
             var silenceInClip: [TimeRange] = []
@@ -248,74 +254,46 @@ final class AIChatController {
                 let overlapStart = max(silence.start, clipSourceStart)
                 let overlapEnd = min(silence.end, clipSourceEnd)
                 guard overlapStart < overlapEnd else { continue }
-
-                // Convert to timeline time
-                let tlStart = overlapStart + timelineOffset
-                let tlEnd = overlapEnd + timelineOffset
-                silenceInClip.append(TimeRange(start: tlStart, end: tlEnd))
+                silenceInClip.append(TimeRange(start: overlapStart + timelineOffset, end: overlapEnd + timelineOffset))
             }
 
             guard !silenceInClip.isEmpty else { continue }
 
-            // Strategy: split at each silence boundary, then delete the silent clips.
-            // Process in reverse order so splits don't shift later positions.
-            // Sort silence ranges by start time, reversed.
             let sorted = silenceInClip.sorted { $0.start > $1.start }
-
             var currentClipID = clip.id
+
             for silence in sorted {
-                // Split at silence end (creates a clip after the silence)
                 if silence.end < clip.timelineRange.end {
-                    do {
-                        try appState.perform(.splitClip(clipID: currentClipID, at: silence.end), source: .ai)
-                    } catch {
-                        continue
-                    }
+                    try? appState.perform(.splitClip(clipID: currentClipID, at: silence.end), source: .ai)
                 }
-
-                // Split at silence start (isolates the silent segment)
                 if silence.start > clip.timelineRange.start {
-                    do {
-                        try appState.perform(.splitClip(clipID: currentClipID, at: silence.start), source: .ai)
-                    } catch {
-                        continue
-                    }
+                    try? appState.perform(.splitClip(clipID: currentClipID, at: silence.start), source: .ai)
                 }
 
-                // Find the silent clip (the one that starts at silence.start)
                 let updatedTimeline = appState.timeline
                 for track in updatedTimeline.tracks {
                     for c in track.clips {
-                        let clipStart = c.timelineRange.start
-                        let clipEnd = c.timelineRange.end
-                        // This clip covers the silence range
-                        if abs(clipStart - silence.start) < 0.01 && abs(clipEnd - silence.end) < 0.01 {
+                        if abs(c.timelineRange.start - silence.start) < 0.01 && abs(c.timelineRange.end - silence.end) < 0.01 {
                             clipsToDelete.append(c.id)
                         }
                     }
                 }
-
                 totalRemoved += 1
             }
         }
 
-        // Delete all silent segments in one batch
         if !clipsToDelete.isEmpty {
             try? appState.perform(.deleteClips(clipIDs: clipsToDelete), source: .ai)
         }
 
         if totalRemoved == 0 {
-            return "No silence ranges found in the specified clips. Make sure assets have been analyzed (silence detection runs automatically on import)."
+            return "No silence ranges found. Silence detection runs automatically on import."
         }
-
-        return "Removed \(totalRemoved) silent segment(s) and deleted \(clipsToDelete.count) clip(s)."
+        return "Removed \(totalRemoved) silent segment(s), deleted \(clipsToDelete.count) clip(s)."
     }
 
     // MARK: - Argument fixup
 
-    /// Fix up tool arguments by resolving invalid IDs.
-    /// - track_id: safe to infer (for insert_clip after add_track)
-    /// - clip_id/clip_ids: ONLY infer for non-destructive ops. Reject for destructive ones.
     private func fixupArguments(
         toolName: String,
         arguments: [String: Any],
@@ -325,7 +303,6 @@ final class AIChatController {
         var args = arguments
         let destructiveTools: Set<String> = ["delete_clips", "trim_clip", "split_clip", "move_clip"]
 
-        // Fix track_id: safe to infer — used for insertion targets
         if let trackIDStr = args["track_id"] as? String {
             let trackExists = timeline.tracks.contains { $0.id.uuidString == trackIDStr }
             if !trackExists {
@@ -336,8 +313,6 @@ final class AIChatController {
             }
         }
 
-        // clip_id: only infer for NON-destructive tools (e.g., after insert_clip created a new clip)
-        // For destructive tools, leave the invalid ID — the resolver will throw a clear error
         if let clipIDStr = args["clip_id"] as? String {
             let clipExists = timeline.tracks.flatMap(\.clips).contains { $0.id.uuidString == clipIDStr }
             if !clipExists && !destructiveTools.contains(toolName) {
@@ -345,14 +320,11 @@ final class AIChatController {
                     args["clip_id"] = lastClip.id.uuidString
                 }
             }
-            // For destructive tools: leave invalid ID, let resolver throw
         }
 
-        // clip_ids: filter to valid IDs only. Never guess on destructive ops.
         if let clipIDStrs = args["clip_ids"] as? [String] {
             let allClipIDs = Set(timeline.tracks.flatMap(\.clips).map(\.id.uuidString))
             args["clip_ids"] = clipIDStrs.filter { allClipIDs.contains($0) }
-            // If all IDs were invalid, leave empty array — resolver will throw
         }
 
         return args
