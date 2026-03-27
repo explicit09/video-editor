@@ -124,21 +124,18 @@ final class AIChatController {
             throw AIToolError.invalidArgument("Missing asset_id")
         }
 
-        // Check if transcript exists on the asset
-        if let asset = await appState.media.mediaManager.asset(id: assetID),
-           let words = asset.analysis?.transcript {
-            let text = words.map(\.word).joined(separator: " ")
-            return "Transcript: \(text)"
+        guard let asset = await appState.media.mediaManager.asset(id: assetID) else {
+            throw AIToolError.invalidArgument("Asset not found")
         }
 
-        // Check persisted transcript
-        if let result = await appState.media.transcriptionService.loadTranscript(
-            for: assetID, bundleURL: appState.projectBundleURL
+        // Check memory and disk — never triggers transcription
+        if let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
         ) {
-            return "Transcript: \(result.text)"
+            return "Transcript (\(result.words.count) words): \(result.text)"
         }
 
-        return "No transcript available. Use transcribe_asset to transcribe this asset first."
+        return "No transcript for this asset. Use transcribe_asset to generate one."
     }
 
     private func handleTranscribeAsset(args: [String: Any], appState: AppState) async throws -> String {
@@ -150,16 +147,24 @@ final class AIChatController {
             throw AIToolError.invalidArgument("Asset not found")
         }
 
-        let result = try await appState.media.transcriptionService.ensureTranscript(
-            for: asset,
+        // Check if already transcribed — won't re-transcribe without force
+        if await appState.media.transcriptionService.hasTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) {
+            return "Already transcribed. Use get_transcript to read the content."
+        }
+
+        let result = try await appState.media.transcriptionService.transcribe(
+            asset: asset,
             mediaManager: appState.media.mediaManager,
             bundleURL: appState.projectBundleURL
         )
 
         if let result {
-            return "Transcribed successfully (\(result.words.count) words, \(String(format: "%.1f", result.duration))s). Use get_transcript to read the content."
+            await appState.media.refreshAssets()
+            return "Transcribed (\(result.words.count) words, \(String(format: "%.1f", result.duration))s). Use get_transcript to read."
         } else {
-            return "Transcription service not configured. Add DEEPGRAM_API_KEY to .env file."
+            return "Transcription not configured. Add DEEPGRAM_API_KEY to .env file."
         }
     }
 

@@ -2,7 +2,7 @@ import Foundation
 import EditorCore
 
 /// Manages transcription lifecycle: trigger, cache, store results.
-/// Auto-transcribes assets before AI needs them.
+/// Transcripts are tied to asset IDs and never regenerated without explicit permission.
 public actor TranscriptionService {
     private var provider: (any TranscriptionProvider)?
     private var inProgress: Set<UUID> = []
@@ -13,15 +13,14 @@ public actor TranscriptionService {
         self.provider = provider
     }
 
-    /// Transcribe an asset if not already transcribed. Returns the transcript.
-    public func ensureTranscript(
+    /// Get transcript for an asset. Checks: in-memory → disk → returns nil.
+    /// Does NOT trigger transcription. Use `transcribe` for that.
+    public func getTranscript(
         for asset: MediaAsset,
-        mediaManager: MediaManager,
         bundleURL: URL
-    ) async throws -> TranscriptionResult? {
-        // Already has transcript
-        if asset.analysis?.transcript != nil {
-            let words = asset.analysis!.transcript!
+    ) -> TranscriptionResult? {
+        // Check in-memory (on the asset)
+        if let words = asset.analysis?.transcript, !words.isEmpty {
             return TranscriptionResult(
                 text: words.map(\.word).joined(separator: " "),
                 words: words,
@@ -30,25 +29,40 @@ public actor TranscriptionService {
             )
         }
 
-        // Already in progress
-        guard !inProgress.contains(asset.id) else { return nil }
+        // Check persisted on disk
+        return loadTranscript(for: asset.id, bundleURL: bundleURL)
+    }
 
+    /// Transcribe an asset. Only runs if no transcript exists (or force = true).
+    /// Returns the result, or nil if provider not configured.
+    public func transcribe(
+        asset: MediaAsset,
+        mediaManager: MediaManager,
+        bundleURL: URL,
+        force: Bool = false
+    ) async throws -> TranscriptionResult? {
+        // Don't re-transcribe unless forced
+        if !force {
+            if let existing = getTranscript(for: asset, bundleURL: bundleURL) {
+                return existing
+            }
+        }
+
+        // Don't duplicate in-flight work
+        guard !inProgress.contains(asset.id) else { return nil }
         guard let provider else { return nil }
 
         inProgress.insert(asset.id)
         defer { inProgress.remove(asset.id) }
 
-        // Extract audio from video if needed
-        let audioURL = asset.type == .audio ? asset.sourceURL : asset.sourceURL
-
         let result = try await provider.transcribe(
-            audioURL: audioURL,
+            audioURL: asset.sourceURL,
             language: nil,
             enableDiarization: true,
             progress: { _ in }
         )
 
-        // Store results on the asset
+        // Store on asset in memory
         await mediaManager.updateAsset(id: asset.id) { asset in
             var analysis = asset.analysis ?? MediaAnalysis()
             analysis.transcript = result.words
@@ -56,27 +70,42 @@ public actor TranscriptionService {
             asset.analysis = analysis
         }
 
-        // Persist transcript to project bundle
-        let transcriptDir = bundleURL.appendingPathComponent("analysis/transcripts")
-        try? FileManager.default.createDirectory(at: transcriptDir, withIntermediateDirectories: true)
-        let transcriptURL = transcriptDir.appendingPathComponent("\(asset.id.uuidString).json")
-        let data = try JSONEncoder().encode(result)
-        try data.write(to: transcriptURL)
+        // Persist to disk — tied to asset ID
+        persistTranscript(result, assetID: asset.id, bundleURL: bundleURL)
 
         return result
     }
 
-    /// Check if an asset has a transcript (either in memory or on disk).
+    /// Check if a transcript exists for this asset (memory or disk).
     public func hasTranscript(for asset: MediaAsset, bundleURL: URL) -> Bool {
         if asset.analysis?.transcript != nil { return true }
-        let path = bundleURL.appendingPathComponent("analysis/transcripts/\(asset.id.uuidString).json")
-        return FileManager.default.fileExists(atPath: path.path)
+        return FileManager.default.fileExists(atPath: transcriptPath(for: asset.id, bundleURL: bundleURL))
     }
 
     /// Load a persisted transcript from disk.
     public func loadTranscript(for assetID: UUID, bundleURL: URL) -> TranscriptionResult? {
-        let path = bundleURL.appendingPathComponent("analysis/transcripts/\(assetID.uuidString).json")
-        guard let data = try? Data(contentsOf: path) else { return nil }
+        let path = transcriptPath(for: assetID, bundleURL: bundleURL)
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else { return nil }
         return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
+    }
+
+    /// Check if transcription is currently running for an asset.
+    public func isTranscribing(assetID: UUID) -> Bool {
+        inProgress.contains(assetID)
+    }
+
+    // MARK: - Private
+
+    private func transcriptPath(for assetID: UUID, bundleURL: URL) -> String {
+        bundleURL.appendingPathComponent("analysis/transcripts/\(assetID.uuidString).json").path
+    }
+
+    private func persistTranscript(_ result: TranscriptionResult, assetID: UUID, bundleURL: URL) {
+        let dir = bundleURL.appendingPathComponent("analysis/transcripts")
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let url = dir.appendingPathComponent("\(assetID.uuidString).json")
+        if let data = try? JSONEncoder().encode(result) {
+            try? data.write(to: url)
+        }
     }
 }

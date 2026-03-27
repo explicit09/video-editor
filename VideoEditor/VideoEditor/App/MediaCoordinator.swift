@@ -69,12 +69,12 @@ final class MediaCoordinator {
         await transcriptionService.configure(provider: provider)
     }
 
-    /// Ensure all assets on the timeline have transcripts before AI processes them.
-    func ensureTranscripts(for assetIDs: [UUID]) async {
+    /// Transcribe specific assets (only if not already transcribed).
+    func transcribeAssets(_ assetIDs: [UUID]) async {
         for id in assetIDs {
             guard let asset = await mediaManager.asset(id: id) else { continue }
-            _ = try? await transcriptionService.ensureTranscript(
-                for: asset,
+            _ = try? await transcriptionService.transcribe(
+                asset: asset,
                 mediaManager: mediaManager,
                 bundleURL: bundleURL
             )
