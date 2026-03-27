@@ -14,7 +14,7 @@ final class TimelineViewState {
 
     // MARK: - Zoom
 
-    static let zoomRange: ClosedRange<Double> = 5...1000
+    static let zoomRange: ClosedRange<Double> = 0.01...1000
 
     func zoomIn() {
         zoom = min(zoom * 1.3, Self.zoomRange.upperBound)
@@ -27,8 +27,7 @@ final class TimelineViewState {
     /// Zoom to fit the entire timeline in the given visible width.
     func zoomToFit(duration: TimeInterval, visibleWidth: Double) {
         guard duration > 0, visibleWidth > 0 else { return }
-        let padding: Double = 40 // leave some padding on right
-        zoom = max((visibleWidth - padding) / duration, Self.zoomRange.lowerBound)
+        zoom = max((visibleWidth - 40) / duration, Self.zoomRange.lowerBound)
     }
 
     // MARK: - Conversions
