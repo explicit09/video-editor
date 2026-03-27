@@ -8,6 +8,7 @@ import AIServices
 final class AIChatController {
     private(set) var messages: [ChatMessage] = []
     private(set) var isProcessing = false
+    private(set) var processingStatus: String?
 
     private let contextBuilder = AIContextBuilder()
     private let toolResolver = AIToolResolver()
@@ -181,7 +182,6 @@ final class AIChatController {
         guard let asset = await appState.media.mediaManager.asset(id: assetID) else {
             throw AIToolError.invalidArgument("Asset not found")
         }
-        // Ensure transcription service is configured before use
         await appState.media.ensureTranscriptionConfigured()
 
         if await appState.media.transcriptionService.hasTranscript(
@@ -189,11 +189,18 @@ final class AIChatController {
         ) {
             return "Already transcribed. Use get_transcript to read the content."
         }
+
+        // Show status while transcribing
+        processingStatus = "Transcribing \(asset.name) via Deepgram..."
+
         let result = try await appState.media.transcriptionService.transcribe(
             asset: asset,
             mediaManager: appState.media.mediaManager,
             bundleURL: appState.projectBundleURL
         )
+
+        processingStatus = nil
+
         if let result {
             await appState.media.refreshAssets()
             return "Transcribed (\(result.words.count) words, \(String(format: "%.1f", result.duration))s). Use get_transcript to read."

@@ -44,12 +44,35 @@ struct InspectorPanel: View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 8) {
-                    if appState.aiChat.messages.isEmpty {
+                    if appState.aiChat.messages.isEmpty && !appState.aiChat.isProcessing {
                         emptyState
                     }
                     ForEach(appState.aiChat.messages) { msg in
                         ChatBubble(message: msg)
                             .id(msg.id)
+                    }
+
+                    // Show processing status for long-running operations
+                    if let status = appState.aiChat.processingStatus {
+                        HStack(spacing: 6) {
+                            ProgressView()
+                                .scaleEffect(0.5)
+                            Text(status)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(.horizontal, 10)
+                        .id("processing-status")
+                    } else if appState.aiChat.isProcessing {
+                        HStack(spacing: 6) {
+                            ProgressView()
+                                .scaleEffect(0.5)
+                            Text("Thinking...")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(.horizontal, 10)
+                        .id("processing-status")
                     }
                 }
                 .padding(8)
