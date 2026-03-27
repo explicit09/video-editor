@@ -34,6 +34,10 @@ final class AppState {
         self.playbackEngine = PlaybackEngine()
         self.exportEngine = ExportEngine()
 
+        // Open SQLite action log in project bundle
+        let dbPath = bundleURL.appendingPathComponent("metadata.sqlite").path
+        Task { try? await context.actionLog.open(at: dbPath) }
+
         startPlayheadSync()
     }
 
