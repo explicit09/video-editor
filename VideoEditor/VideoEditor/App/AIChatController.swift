@@ -94,6 +94,11 @@ final class AIChatController {
                         toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
                         continue
                     }
+                    if toolCall.name == "remove_silence" {
+                        let result = try handleRemoveSilence(args: args, appState: appState)
+                        toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
+                        continue
+                    }
 
                     // Editing tools — resolve to intents and execute
                     let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
@@ -203,6 +208,107 @@ final class AIChatController {
             output += "   Asset ID: \(result.assetID.uuidString), Time: \(String(format: "%.1f", result.matchTime))s\n\n"
         }
         return output
+    }
+
+    private func handleRemoveSilence(args: [String: Any], appState: AppState) throws -> String {
+        let timeline = appState.timeline
+
+        // Determine which clips to process
+        let targetClips: [Clip]
+        if let clipIDStrs = args["clip_ids"] as? [String], !clipIDStrs.isEmpty {
+            let clipIDs = Set(clipIDStrs.compactMap { UUID(uuidString: $0) })
+            targetClips = timeline.tracks.flatMap(\.clips).filter { clipIDs.contains($0.id) }
+        } else {
+            targetClips = timeline.tracks.flatMap(\.clips)
+        }
+
+        guard !targetClips.isEmpty else {
+            return "No clips to process."
+        }
+
+        // For each clip, find silence ranges from its asset's analysis
+        var totalRemoved = 0
+        var clipsToDelete: [UUID] = []
+
+        for clip in targetClips {
+            guard let asset = appState.assets.first(where: { $0.id == clip.assetID }),
+                  let silenceRanges = asset.analysis?.silenceRanges, !silenceRanges.isEmpty else {
+                continue
+            }
+
+            // Find silence ranges that fall within this clip's source range
+            let clipSourceStart = clip.sourceRange.start
+            let clipSourceEnd = clip.sourceRange.end
+
+            // Map source-time silence ranges to timeline positions
+            let timelineOffset = clip.timelineRange.start - clipSourceStart
+
+            var silenceInClip: [TimeRange] = []
+            for silence in silenceRanges {
+                let overlapStart = max(silence.start, clipSourceStart)
+                let overlapEnd = min(silence.end, clipSourceEnd)
+                guard overlapStart < overlapEnd else { continue }
+
+                // Convert to timeline time
+                let tlStart = overlapStart + timelineOffset
+                let tlEnd = overlapEnd + timelineOffset
+                silenceInClip.append(TimeRange(start: tlStart, end: tlEnd))
+            }
+
+            guard !silenceInClip.isEmpty else { continue }
+
+            // Strategy: split at each silence boundary, then delete the silent clips.
+            // Process in reverse order so splits don't shift later positions.
+            // Sort silence ranges by start time, reversed.
+            let sorted = silenceInClip.sorted { $0.start > $1.start }
+
+            var currentClipID = clip.id
+            for silence in sorted {
+                // Split at silence end (creates a clip after the silence)
+                if silence.end < clip.timelineRange.end {
+                    do {
+                        try appState.perform(.splitClip(clipID: currentClipID, at: silence.end), source: .ai)
+                    } catch {
+                        continue
+                    }
+                }
+
+                // Split at silence start (isolates the silent segment)
+                if silence.start > clip.timelineRange.start {
+                    do {
+                        try appState.perform(.splitClip(clipID: currentClipID, at: silence.start), source: .ai)
+                    } catch {
+                        continue
+                    }
+                }
+
+                // Find the silent clip (the one that starts at silence.start)
+                let updatedTimeline = appState.timeline
+                for track in updatedTimeline.tracks {
+                    for c in track.clips {
+                        let clipStart = c.timelineRange.start
+                        let clipEnd = c.timelineRange.end
+                        // This clip covers the silence range
+                        if abs(clipStart - silence.start) < 0.01 && abs(clipEnd - silence.end) < 0.01 {
+                            clipsToDelete.append(c.id)
+                        }
+                    }
+                }
+
+                totalRemoved += 1
+            }
+        }
+
+        // Delete all silent segments in one batch
+        if !clipsToDelete.isEmpty {
+            try? appState.perform(.deleteClips(clipIDs: clipsToDelete), source: .ai)
+        }
+
+        if totalRemoved == 0 {
+            return "No silence ranges found in the specified clips. Make sure assets have been analyzed (silence detection runs automatically on import)."
+        }
+
+        return "Removed \(totalRemoved) silent segment(s) and deleted \(clipsToDelete.count) clip(s)."
     }
 
     // MARK: - Argument fixup

@@ -13,6 +13,7 @@ public struct AIToolRegistry: Sendable {
         splitClip,
         trimClip,
         setMarker,
+        removeSilence,
         getTranscript,
         transcribeAsset,
         searchTranscript,
