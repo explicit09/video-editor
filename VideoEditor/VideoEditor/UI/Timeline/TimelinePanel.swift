@@ -30,6 +30,11 @@ struct TimelinePanel: View {
                         }
                         .frame(width: totalWidth)
 
+                        // Markers
+                        MarkersOverlay(markers: timeline.markers, viewState: viewState)
+                            .frame(width: totalWidth, height: geo.size.height)
+
+                        // Playhead
                         PlayheadView(viewState: viewState) {
                             appState.seekFromPlayhead()
                         }
