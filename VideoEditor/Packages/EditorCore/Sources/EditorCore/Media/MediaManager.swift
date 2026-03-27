@@ -64,9 +64,14 @@ public actor MediaManager {
         assets.first { $0.id == id }
     }
 
-    public func updateAsset(id: UUID, _ transform: (inout MediaAsset) -> Void) {
+    public func updateAsset(id: UUID, _ transform: @Sendable (inout MediaAsset) -> Void) {
         guard let index = assets.firstIndex(where: { $0.id == id }) else { return }
         transform(&assets[index])
+    }
+
+    public func setProxyURL(_ proxyURL: URL, for assetID: UUID) {
+        guard let index = assets.firstIndex(where: { $0.id == assetID }) else { return }
+        assets[index].proxyURL = proxyURL
     }
 
     public func allAssets() -> [MediaAsset] {

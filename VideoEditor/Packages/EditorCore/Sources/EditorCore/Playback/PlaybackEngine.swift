@@ -26,7 +26,9 @@ public final class PlaybackEngine {
         for track in timeline.tracks {
             for clip in track.clips {
                 guard let mediaAsset = assets.first(where: { $0.id == clip.assetID }) else { continue }
-                let avAsset = AVURLAsset(url: mediaAsset.sourceURL)
+                // Prefer proxy for preview playback, fall back to source
+                let mediaURL = mediaAsset.proxyURL ?? mediaAsset.sourceURL
+                let avAsset = AVURLAsset(url: mediaURL)
 
                 let insertTime = CMTime(seconds: clip.timelineRange.start, preferredTimescale: 600)
                 let sourceStart = CMTime(seconds: clip.sourceRange.start, preferredTimescale: 600)
