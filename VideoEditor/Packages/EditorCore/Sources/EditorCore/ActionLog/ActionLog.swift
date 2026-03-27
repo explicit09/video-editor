@@ -44,8 +44,8 @@ public actor ActionLog {
 
     public init() {}
 
-    public func record(_ command: some Command, source: ActionSource) {
-        let event = ActionEvent(commandName: command.name, source: source)
+    public func record(commandName: String, source: ActionSource) {
+        let event = ActionEvent(commandName: commandName, source: source)
         events.append(event)
     }
 

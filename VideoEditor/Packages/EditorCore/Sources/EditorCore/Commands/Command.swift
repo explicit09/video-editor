@@ -2,6 +2,7 @@ import Foundation
 
 // MARK: - Command Protocol
 
+@MainActor
 public protocol Command: Sendable {
     var name: String { get }
     mutating func execute(context: EditingContext) throws
@@ -9,33 +10,22 @@ public protocol Command: Sendable {
 }
 
 // MARK: - EditingContext (DI container — no singletons)
+// Single source of truth. Commands mutate timelineState directly.
 
+@MainActor
 public final class EditingContext: Sendable {
-    public let timeline: TimelineManager
+    public let timelineState: TimelineState
     public let media: MediaManager
-    public let projectStore: ProjectStore
     public let actionLog: ActionLog
 
     public init(
-        timeline: TimelineManager,
-        media: MediaManager,
-        projectStore: ProjectStore,
-        actionLog: ActionLog
+        timelineState: TimelineState = TimelineState(),
+        media: MediaManager = MediaManager(),
+        actionLog: ActionLog = ActionLog()
     ) {
-        self.timeline = timeline
+        self.timelineState = timelineState
         self.media = media
-        self.projectStore = projectStore
         self.actionLog = actionLog
-    }
-
-    /// Convenience initializer — creates fresh instances for a new project.
-    public convenience init() {
-        self.init(
-            timeline: TimelineManager(),
-            media: MediaManager(),
-            projectStore: ProjectStore(),
-            actionLog: ActionLog()
-        )
     }
 }
 
@@ -57,27 +47,30 @@ public final class CommandHistory: ObservableObject {
         undoStack.append(recorded)
         redoStack.removeAll()
         let log = context.actionLog
-        Task { await log.record(recorded, source: .user) }
+        let cmdName = recorded.name
+        Task { await log.record(commandName: cmdName, source: .user) }
         updateState()
     }
 
     public func undo(context: EditingContext) throws {
         guard var command = undoStack.popLast() else { return }
         try command.undo(context: context)
-        redoStack.append(command)
-        let log = context.actionLog
         let recorded = command
-        Task { await log.record(recorded, source: .undo) }
+        redoStack.append(recorded)
+        let log = context.actionLog
+        let cmdName = recorded.name
+        Task { await log.record(commandName: cmdName, source: .undo) }
         updateState()
     }
 
     public func redo(context: EditingContext) throws {
         guard var command = redoStack.popLast() else { return }
         try command.execute(context: context)
-        undoStack.append(command)
-        let log = context.actionLog
         let recorded = command
-        Task { await log.record(recorded, source: .redo) }
+        undoStack.append(recorded)
+        let log = context.actionLog
+        let cmdName = recorded.name
+        Task { await log.record(commandName: cmdName, source: .redo) }
         updateState()
     }
 
@@ -110,4 +103,3 @@ public struct BatchCommand: Command {
         }
     }
 }
-

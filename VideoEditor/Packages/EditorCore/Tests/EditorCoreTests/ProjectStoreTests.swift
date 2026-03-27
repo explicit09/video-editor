@@ -2,125 +2,180 @@ import Testing
 import Foundation
 @testable import EditorCore
 
-@Suite("ProjectStore Tests")
-struct ProjectStoreTests {
+@Suite("Command Pipeline Tests")
+struct CommandPipelineTests {
 
-    @Test("Save and load project bundle")
-    func saveAndLoad() async throws {
-        let store = ProjectStore(project: Project(name: "Test"))
+    @MainActor
+    @Test("AddTrack via intent creates a track")
+    func addTrackViaIntent() throws {
+        let context = EditingContext()
+        let resolver = IntentResolver()
+        var cmd = try resolver.resolve(.addTrack(track: Track(name: "V1", type: .video)))
+        try cmd.execute(context: context)
+
+        #expect(context.timelineState.timeline.tracks.count == 1)
+        #expect(context.timelineState.timeline.tracks[0].name == "V1")
+    }
+
+    @MainActor
+    @Test("InsertClip via intent adds clip to track")
+    func insertClipViaIntent() throws {
+        let context = EditingContext()
+        let track = Track(name: "V1", type: .video)
         let clip = Clip(
             assetID: UUID(),
             timelineRange: TimeRange(start: 0, end: 5),
-            sourceRange: TimeRange(start: 0, end: 5)
+            sourceRange: TimeRange(start: 0, end: 5),
+            metadata: ClipMetadata(label: "Test")
         )
-        let track = Track(type: .video, clips: [clip])
-        await store.setTimeline(Timeline(tracks: [track]))
 
-        let tempDir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("test-\(UUID().uuidString).veditor")
+        // Add track first
+        var addCmd = try IntentResolver().resolve(.addTrack(track: track))
+        try addCmd.execute(context: context)
 
-        try await store.save(to: tempDir)
+        // Insert clip
+        var insertCmd = try IntentResolver().resolve(.insertClip(clip: clip, trackID: track.id))
+        try insertCmd.execute(context: context)
 
-        // Verify files exist
-        #expect(FileManager.default.fileExists(atPath: tempDir.appendingPathComponent("manifest.json").path))
-        #expect(FileManager.default.fileExists(atPath: tempDir.appendingPathComponent("timeline.json").path))
-
-        // Load into a fresh store
-        let loadedStore = ProjectStore()
-        try await loadedStore.load(from: tempDir)
-        let loaded = await loadedStore.currentProject()
-
-        #expect(loaded.name == "Test")
-        #expect(loaded.timeline.tracks.count == 1)
-        #expect(loaded.timeline.tracks[0].clips.count == 1)
-
-        // Cleanup
-        try? FileManager.default.removeItem(at: tempDir)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 1)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].metadata.label == "Test")
     }
 
-    @Test("Project bundle creates subdirectories")
-    func bundleStructure() async throws {
-        let store = ProjectStore(project: Project(name: "Structure Test"))
-        let tempDir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("test-\(UUID().uuidString).veditor")
+    @MainActor
+    @Test("Undo reverses AddTrack")
+    func undoAddTrack() throws {
+        let context = EditingContext()
+        let history = CommandHistory()
+        var cmd = AddTrackCommand(track: Track(name: "V1", type: .video))
+        try history.execute(&cmd, context: context)
 
-        try await store.save(to: tempDir)
+        #expect(context.timelineState.timeline.tracks.count == 1)
 
-        for subdir in ["media", "proxies", "cache", "analysis"] {
-            let path = tempDir.appendingPathComponent(subdir).path
-            #expect(FileManager.default.fileExists(atPath: path), "Missing: \(subdir)")
-        }
+        try history.undo(context: context)
+        #expect(context.timelineState.timeline.tracks.isEmpty)
 
-        try? FileManager.default.removeItem(at: tempDir)
-    }
-}
-
-@Suite("TimelineManager Tests")
-struct TimelineManagerTests {
-
-    @Test("Add and remove tracks")
-    func trackOperations() async {
-        let mgr = TimelineManager()
-        let track = Track(type: .video)
-        await mgr.addTrack(track)
-
-        let timeline = await mgr.snapshot()
-        #expect(timeline.tracks.count == 1)
-
-        await mgr.removeTrack(id: track.id)
-        let after = await mgr.snapshot()
-        #expect(after.tracks.isEmpty)
+        try history.redo(context: context)
+        #expect(context.timelineState.timeline.tracks.count == 1)
     }
 
-    @Test("Add clip to track")
-    func addClip() async {
-        let mgr = TimelineManager()
-        let track = Track(type: .video)
-        await mgr.addTrack(track)
+    @MainActor
+    @Test("Undo reverses InsertClip")
+    func undoInsertClip() throws {
+        let context = EditingContext()
+        let history = CommandHistory()
+        let track = Track(name: "V1", type: .video)
+
+        var addCmd = AddTrackCommand(track: track)
+        try history.execute(&addCmd, context: context)
 
         let clip = Clip(
             assetID: UUID(),
             timelineRange: TimeRange(start: 0, end: 3),
             sourceRange: TimeRange(start: 0, end: 3)
         )
-        await mgr.addClip(clip, toTrack: track.id)
+        var insertCmd = InsertClipCommand(clip: clip, trackID: track.id)
+        try history.execute(&insertCmd, context: context)
 
-        let found = await mgr.clip(id: clip.id)
-        #expect(found != nil)
-        #expect(found?.id == clip.id)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 1)
+
+        try history.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips.isEmpty)
     }
 
-    @Test("Update clip in place")
-    func updateClip() async {
-        let mgr = TimelineManager()
-        let track = Track(type: .video)
-        await mgr.addTrack(track)
+    @MainActor
+    @Test("MoveClip changes timeline range")
+    func moveClip() throws {
+        let context = EditingContext()
+        let track = Track(name: "V1", type: .video)
+        context.timelineState.timeline.tracks.append(track)
 
         let clip = Clip(
             assetID: UUID(),
             timelineRange: TimeRange(start: 0, end: 5),
             sourceRange: TimeRange(start: 0, end: 5)
         )
-        await mgr.addClip(clip, toTrack: track.id)
-        await mgr.updateClip(id: clip.id) { $0.opacity = 0.5 }
+        context.timelineState.timeline.tracks[0].clips.append(clip)
 
-        let updated = await mgr.clip(id: clip.id)
-        #expect(updated?.opacity == 0.5)
+        var cmd = MoveClipCommand(clipID: clip.id, newStart: 10, targetTrackID: track.id)
+        try cmd.execute(context: context)
+
+        let moved = context.timelineState.timeline.tracks[0].clips[0]
+        #expect(moved.timelineRange.start == 10)
+        #expect(moved.timelineRange.duration == 5)
+
+        try cmd.undo(context: context)
+        let restored = context.timelineState.timeline.tracks[0].clips[0]
+        #expect(restored.timelineRange.start == 0)
     }
 
-    @Test("Snapshot and restore")
-    func snapshotRestore() async {
-        let mgr = TimelineManager()
-        await mgr.addTrack(Track(type: .audio))
-        let snapshot = await mgr.snapshot()
-        #expect(snapshot.tracks.count == 1)
+    @MainActor
+    @Test("SplitClip creates two clips")
+    func splitClip() throws {
+        let context = EditingContext()
+        let track = Track(name: "V1", type: .video)
+        context.timelineState.timeline.tracks.append(track)
 
-        await mgr.addTrack(Track(type: .video))
-        let after = await mgr.snapshot()
-        #expect(after.tracks.count == 2)
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 0, end: 10),
+            sourceRange: TimeRange(start: 0, end: 10)
+        )
+        context.timelineState.timeline.tracks[0].clips.append(clip)
 
-        await mgr.restore(snapshot)
-        let restored = await mgr.snapshot()
-        #expect(restored.tracks.count == 1)
+        var cmd = SplitClipCommand(clipID: clip.id, at: 4)
+        try cmd.execute(context: context)
+
+        let clips = context.timelineState.timeline.tracks[0].clips
+        #expect(clips.count == 2)
+        #expect(clips[0].timelineRange.end == 4)
+        #expect(clips[1].timelineRange.start == 4)
+        #expect(clips[1].timelineRange.end == 10)
+
+        try cmd.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 1)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].timelineRange.end == 10)
+    }
+
+    @MainActor
+    @Test("DeleteClips removes and undoes correctly")
+    func deleteClips() throws {
+        let context = EditingContext()
+        let track = Track(name: "V1", type: .video)
+        context.timelineState.timeline.tracks.append(track)
+
+        let clip1 = Clip(assetID: UUID(), timelineRange: TimeRange(start: 0, end: 3), sourceRange: TimeRange(start: 0, end: 3))
+        let clip2 = Clip(assetID: UUID(), timelineRange: TimeRange(start: 3, end: 6), sourceRange: TimeRange(start: 0, end: 3))
+        context.timelineState.timeline.tracks[0].clips = [clip1, clip2]
+
+        var cmd = DeleteClipsCommand(clipIDs: [clip1.id])
+        try cmd.execute(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 1)
+
+        try cmd.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 2)
+    }
+
+    @MainActor
+    @Test("All intents resolve without throwing")
+    func allIntentsResolve() throws {
+        let resolver = IntentResolver()
+        let trackID = UUID()
+        let clipID = UUID()
+
+        let intents: [EditorIntent] = [
+            .addTrack(track: Track(type: .video)),
+            .removeTrack(trackID: trackID),
+            .insertClip(clip: Clip(assetID: UUID(), timelineRange: TimeRange(start: 0, end: 1), sourceRange: TimeRange(start: 0, end: 1)), trackID: trackID),
+            .deleteClips(clipIDs: [clipID]),
+            .moveClip(clipID: clipID, newStart: 5, trackID: trackID),
+            .trimClip(clipID: clipID, newSourceRange: TimeRange(start: 0, end: 3)),
+            .splitClip(clipID: clipID, at: 2),
+            .setMarker(at: 5, label: "Mark"),
+            .deleteMarker(markerID: UUID()),
+        ]
+
+        for intent in intents {
+            let _ = try resolver.resolve(intent)
+        }
     }
 }

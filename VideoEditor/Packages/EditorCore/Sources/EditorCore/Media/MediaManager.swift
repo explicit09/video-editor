@@ -1,12 +1,55 @@
 import Foundation
+import AVFoundation
 
 /// Owns media asset registry. Single writer for the asset library.
 public actor MediaManager {
     public private(set) var assets: [MediaAsset] = []
+    private let importer = MediaImporter()
+    private var thumbnailCache: [UUID: CGImage] = [:]
 
     public init(assets: [MediaAsset] = []) {
         self.assets = assets
     }
+
+    // MARK: - Import
+
+    /// Import a file, copy to bundle, extract metadata, generate thumbnail.
+    public func importFile(from sourceURL: URL, bundleMediaDir: URL?) async throws -> MediaAsset {
+        var asset = try await importer.importFile(from: sourceURL)
+
+        // Copy to project bundle if a bundle dir is provided
+        if let mediaDir = bundleMediaDir {
+            let bundleURL = try importer.copyToBundle(
+                sourceURL: sourceURL,
+                bundleMediaDir: mediaDir,
+                assetID: asset.id
+            )
+            asset = MediaAsset(
+                id: asset.id,
+                name: asset.name,
+                sourceURL: bundleURL,
+                type: asset.type,
+                duration: asset.duration,
+                width: asset.width,
+                height: asset.height,
+                codec: asset.codec,
+                fileSize: asset.fileSize,
+                importedAt: asset.importedAt
+            )
+        }
+
+        // Generate thumbnail
+        if asset.type == .video || asset.type == .image {
+            if let thumb = try? await importer.generateThumbnail(for: asset.sourceURL) {
+                thumbnailCache[asset.id] = thumb
+            }
+        }
+
+        assets.append(asset)
+        return asset
+    }
+
+    // MARK: - CRUD
 
     public func add(_ asset: MediaAsset) {
         assets.append(asset)
@@ -14,6 +57,7 @@ public actor MediaManager {
 
     public func remove(id: UUID) {
         assets.removeAll { $0.id == id }
+        thumbnailCache.removeValue(forKey: id)
     }
 
     public func asset(id: UUID) -> MediaAsset? {
@@ -27,5 +71,11 @@ public actor MediaManager {
 
     public func allAssets() -> [MediaAsset] {
         assets
+    }
+
+    // MARK: - Thumbnails
+
+    public func thumbnail(for assetID: UUID) -> CGImage? {
+        thumbnailCache[assetID]
     }
 }

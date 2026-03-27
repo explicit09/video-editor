@@ -1,69 +1,70 @@
 import Foundation
 
-/// Owns project persistence. Save/load to project bundle on disk.
+/// Owns project persistence. Reads timeline from the authoritative TimelineState.
+/// Does NOT hold its own copy of the timeline.
 public actor ProjectStore {
-    private var project: Project
+    private var metadata: ProjectMetadata
     private var bundleURL: URL?
 
-    public init(project: Project = Project(name: "Untitled")) {
-        self.project = project
+    public init(name: String = "Untitled") {
+        self.metadata = ProjectMetadata(
+            id: UUID(),
+            name: name,
+            settings: .default,
+            createdAt: Date(),
+            modifiedAt: Date()
+        )
     }
 
     // MARK: - Read
 
-    public func currentProject() -> Project {
-        project
+    public func projectMetadata() -> ProjectMetadata {
+        metadata
     }
 
     // MARK: - Write
 
-    public func updateProject(_ transform: (inout Project) -> Void) {
-        transform(&project)
-        project.modifiedAt = Date()
+    public func updateMetadata(_ transform: (inout ProjectMetadata) -> Void) {
+        transform(&metadata)
+        metadata.modifiedAt = Date()
     }
 
-    public func setTimeline(_ timeline: Timeline) {
-        project.timeline = timeline
-        project.modifiedAt = Date()
-    }
+    // MARK: - Save (reads timeline from authoritative source)
 
-    // MARK: - Persistence
-
-    /// Save project to a bundle directory.
-    public func save(to url: URL) throws {
+    @MainActor
+    public func save(to url: URL, timeline: Timeline) async throws {
         let fm = FileManager.default
-        let mediaDir = url.appendingPathComponent("media")
-        let proxiesDir = url.appendingPathComponent("proxies")
-        let cacheDir = url.appendingPathComponent("cache")
-        let analysisDir = url.appendingPathComponent("analysis")
-
-        for dir in [url, mediaDir, proxiesDir, cacheDir, analysisDir] {
+        for subdir in ["media", "proxies", "cache", "analysis"] {
+            let dir = url.appendingPathComponent(subdir)
             if !fm.fileExists(atPath: dir.path) {
                 try fm.createDirectory(at: dir, withIntermediateDirectories: true)
             }
         }
+        if !fm.fileExists(atPath: url.path) {
+            try fm.createDirectory(at: url, withIntermediateDirectories: true)
+        }
+
+        let meta = await self.metadata
 
         // manifest.json
         let manifest = ProjectManifest(
-            id: project.id,
-            name: project.name,
-            settings: project.settings,
-            createdAt: project.createdAt,
-            modifiedAt: project.modifiedAt,
+            id: meta.id,
+            name: meta.name,
+            settings: meta.settings,
+            createdAt: meta.createdAt,
+            modifiedAt: meta.modifiedAt,
             version: 1
         )
         let manifestData = try JSONEncoder.pretty.encode(manifest)
         try manifestData.write(to: url.appendingPathComponent("manifest.json"))
 
-        // timeline.json
-        let timelineData = try JSONEncoder.pretty.encode(project.timeline)
+        // timeline.json — reads from the authoritative source passed in
+        let timelineData = try JSONEncoder.pretty.encode(timeline)
         try timelineData.write(to: url.appendingPathComponent("timeline.json"))
-
-        self.bundleURL = url
     }
 
-    /// Load project from a bundle directory.
-    public func load(from url: URL) throws {
+    /// Load project from a bundle directory. Returns the timeline to set on TimelineState.
+    public func load(from url: URL) throws -> Timeline {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
@@ -73,15 +74,34 @@ public actor ProjectStore {
         let timelineData = try Data(contentsOf: url.appendingPathComponent("timeline.json"))
         let timeline = try decoder.decode(Timeline.self, from: timelineData)
 
-        self.project = Project(
+        self.metadata = ProjectMetadata(
             id: manifest.id,
             name: manifest.name,
             settings: manifest.settings,
-            timeline: timeline,
             createdAt: manifest.createdAt,
             modifiedAt: manifest.modifiedAt
         )
         self.bundleURL = url
+
+        return timeline
+    }
+}
+
+// MARK: - ProjectMetadata (separate from Timeline — no split brain)
+
+public struct ProjectMetadata: Codable, Sendable {
+    public let id: UUID
+    public var name: String
+    public var settings: ProjectSettings
+    public var createdAt: Date
+    public var modifiedAt: Date
+
+    public init(id: UUID = UUID(), name: String, settings: ProjectSettings = .default, createdAt: Date = Date(), modifiedAt: Date = Date()) {
+        self.id = id
+        self.name = name
+        self.settings = settings
+        self.createdAt = createdAt
+        self.modifiedAt = modifiedAt
     }
 }
 
