@@ -17,6 +17,7 @@ final class MediaCoordinator {
     let bundleURL: URL
 
     private(set) var assets: [MediaAsset] = []
+    private var pendingTranscriptionProvider: (any TranscriptionProvider)?
 
     /// Called when background analysis/proxy completes. AppState uses this to rebuild composition.
     var onAnalysisComplete: (() -> Void)?
@@ -88,6 +89,19 @@ final class MediaCoordinator {
     }
 
     // MARK: - Transcription
+
+    /// Set provider synchronously — configures the actor on first use.
+    func setTranscriptionProvider(_ provider: any TranscriptionProvider) {
+        pendingTranscriptionProvider = provider
+    }
+
+    /// Ensure transcription service is configured before use.
+    func ensureTranscriptionConfigured() async {
+        if let provider = pendingTranscriptionProvider {
+            await transcriptionService.configure(provider: provider)
+            pendingTranscriptionProvider = nil
+        }
+    }
 
     func configureTranscription(provider: any TranscriptionProvider) async {
         await transcriptionService.configure(provider: provider)

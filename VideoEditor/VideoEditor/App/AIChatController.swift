@@ -181,6 +181,9 @@ final class AIChatController {
         guard let asset = await appState.media.mediaManager.asset(id: assetID) else {
             throw AIToolError.invalidArgument("Asset not found")
         }
+        // Ensure transcription service is configured before use
+        await appState.media.ensureTranscriptionConfigured()
+
         if await appState.media.transcriptionService.hasTranscript(
             for: asset, bundleURL: appState.projectBundleURL
         ) {

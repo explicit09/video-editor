@@ -52,7 +52,7 @@ final class AppState {
             aiChat.configure(provider: ClaudeProvider(apiKey: claudeKey))
         }
         if let dgKey = keys["DEEPGRAM_API_KEY"] {
-            Task { await media.configureTranscription(provider: DeepgramProvider(apiKey: dgKey)) }
+            media.setTranscriptionProvider(DeepgramProvider(apiKey: dgKey))
         }
 
         // Rebuild composition when proxy/analysis completes in background
