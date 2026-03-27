@@ -47,7 +47,10 @@ public struct AIContextBuilder: Sendable {
                 duration: asset.duration,
                 hasProxy: asset.proxyURL != nil,
                 hasTranscript: asset.analysis?.transcript != nil,
-                silenceRangeCount: asset.analysis?.silenceRanges?.count ?? 0
+                silenceRangeCount: asset.analysis?.silenceRanges?.count ?? 0,
+                shotBoundaryCount: asset.analysis?.shotBoundaries?.count ?? 0,
+                hasFaceData: false, // Visual analysis stored on disk, not on asset model
+                hasAnalysis: asset.analysis != nil
             )
         }
 
@@ -160,6 +163,9 @@ public struct AIContext: Codable, Sendable {
         public let hasProxy: Bool
         public let hasTranscript: Bool
         public let silenceRangeCount: Int
+        public let shotBoundaryCount: Int
+        public let hasFaceData: Bool
+        public let hasAnalysis: Bool
     }
 
     public struct ActionSummary: Codable, Sendable {

@@ -10,6 +10,7 @@ final class MediaCoordinator {
     let mediaManager: MediaManager
     let proxyService: ProxyService
     let transcriptionService: TranscriptionService
+    let analysisPipeline: LocalAnalysisPipeline
     let thumbnailCache: DiskCache
     let renderCache: DiskCache
     let memoryMonitor: MemoryPressureMonitor
@@ -22,6 +23,7 @@ final class MediaCoordinator {
         self.mediaManager = MediaManager()
         self.proxyService = ProxyService(proxiesDir: bundleURL.appendingPathComponent("proxies"))
         self.transcriptionService = TranscriptionService()
+        self.analysisPipeline = LocalAnalysisPipeline()
         self.thumbnailCache = DiskCache(
             directory: bundleURL.appendingPathComponent("cache/thumbnails"),
             policy: .thumbnails
@@ -40,14 +42,30 @@ final class MediaCoordinator {
     func importMedia(from url: URL, mediaDir: URL) async throws -> MediaAsset {
         var asset = try await mediaManager.importFile(from: url, bundleMediaDir: mediaDir)
 
-        // Background proxy generation for video
-        if asset.type == .video {
-            let assetID = asset.id
-            Task {
-                if let proxyURL = await proxyService.generateProxy(for: asset) {
-                    await mediaManager.setProxyURL(proxyURL, for: assetID)
-                    assets = await mediaManager.allAssets()
+        let importedAsset = asset
+
+        // Background: proxy generation + local analysis
+        Task {
+            // Generate proxy first (analysis uses proxy for speed)
+            if importedAsset.type == .video {
+                if let proxyURL = await proxyService.generateProxy(for: importedAsset) {
+                    await mediaManager.setProxyURL(proxyURL, for: importedAsset.id)
                 }
+            }
+
+            // Run local analysis (silence, faces, scenes, OCR) — free, automatic
+            let latestAsset = await mediaManager.asset(id: importedAsset.id) ?? importedAsset
+            await analysisPipeline.analyze(
+                asset: latestAsset,
+                mediaManager: mediaManager,
+                bundleURL: bundleURL,
+                progress: { stage, _ in
+                    // Could update UI progress here in the future
+                }
+            )
+
+            await MainActor.run {
+                Task { assets = await mediaManager.allAssets() }
             }
         }
 
