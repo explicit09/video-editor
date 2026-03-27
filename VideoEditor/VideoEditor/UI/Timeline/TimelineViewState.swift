@@ -10,6 +10,7 @@ final class TimelineViewState {
     var selectedTrackID: UUID?
     var isPlaying: Bool = false
     var snapEnabled: Bool = true
+    var visibleWidth: Double = 800
     let snapThresholdPixels: Double = 8
 
     // MARK: - Zoom
@@ -24,10 +25,10 @@ final class TimelineViewState {
         zoom = max(zoom / 1.3, Self.zoomRange.lowerBound)
     }
 
-    /// Zoom to fit the entire timeline in the given visible width.
-    func zoomToFit(duration: TimeInterval, visibleWidth: Double) {
+    /// Zoom to fit the entire timeline in the current visible width.
+    func zoomToFit(duration: TimeInterval) {
         guard duration > 0, visibleWidth > 0 else { return }
-        zoom = max((visibleWidth - 40) / duration, Self.zoomRange.lowerBound)
+        zoom = max((visibleWidth - 20) / duration, Self.zoomRange.lowerBound)
     }
 
     // MARK: - Conversions

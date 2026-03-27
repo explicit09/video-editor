@@ -3,8 +3,6 @@ import EditorCore
 
 struct TimelinePanel: View {
     @Environment(AppState.self) private var appState
-    @State private var visibleWidth: Double = 800
-
     var body: some View {
         let viewState = appState.timelineViewState
         let timeline = appState.timeline
@@ -40,8 +38,8 @@ struct TimelinePanel: View {
                         .frame(width: totalWidth, height: geo.size.height)
                     }
                 }
-                .onAppear { visibleWidth = geo.size.width }
-                .onChange(of: geo.size.width) { _, new in visibleWidth = new }
+                .onAppear { viewState.visibleWidth = geo.size.width }
+                .onChange(of: geo.size.width) { _, new in viewState.visibleWidth = new }
                 .gesture(
                     MagnifyGesture()
                         .onChanged { value in
@@ -113,7 +111,7 @@ struct TimelinePanel: View {
 
             // Fit to window
             Button(action: {
-                viewState.zoomToFit(duration: timeline.duration, visibleWidth: visibleWidth)
+                viewState.zoomToFit(duration: timeline.duration)
             }) {
                 Image(systemName: "arrow.left.and.right")
             }
