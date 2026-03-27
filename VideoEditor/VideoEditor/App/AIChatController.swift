@@ -41,12 +41,10 @@ final class AIChatController {
             return
         }
 
-        // Add user message
         messages.append(ChatMessage(role: .user, content: message, toolResults: []))
         isProcessing = true
 
         do {
-            // Build editor context
             let recentActions = await appState.context.actionLog.recentActions(count: 10)
             let context = contextBuilder.buildContext(
                 timeline: appState.timeline,
@@ -56,57 +54,64 @@ final class AIChatController {
                 recentActions: recentActions
             )
 
-            // Build messages for API
-            var apiMessages: [AIMessage] = []
+            let apiMessages = [
+                AIMessage(
+                    role: "user",
+                    content: "Current editor state:\n```json\n\(context.toJSON())\n```\n\nUser request: \(message)"
+                )
+            ]
 
-            // Inject editor context as first user message
-            apiMessages.append(AIMessage(
-                role: "user",
-                content: "Current editor state:\n```json\n\(context.toJSON())\n```\n\nUser request: \(message)"
-            ))
-
-            // Send to AI
             let response = try await provider.complete(
                 messages: apiMessages,
                 tools: AIToolRegistry.allTools
             )
 
-            // Execute tool calls sequentially — each call can see the state from previous calls
+            // Execute tool calls sequentially with ID remapping.
+            // The AI generates IDs for new objects (tracks, clips) that don't match
+            // the real IDs created by commands. We track the mapping and remap
+            // subsequent tool call arguments so they reference real objects.
             var toolResults: [ChatMessage.ToolResult] = []
+            var idMap: [String: String] = [:]  // AI-generated ID → real ID
+
             for toolCall in response.toolCalls {
                 var args = toolCall.parsedArguments()
 
-                // For insert_clip: if the track_id doesn't exist in the timeline,
-                // fall back to the last track of the appropriate type.
-                // This handles the case where add_track + insert_clip are in the same response
-                // and the AI used a made-up track_id.
-                if toolCall.name == "insert_clip" {
-                    if let trackIDStr = args["track_id"] as? String,
-                       let trackID = UUID(uuidString: trackIDStr),
-                       !appState.timeline.tracks.contains(where: { $0.id == trackID }) {
-                        // AI's track_id doesn't exist — find the right track by type
-                        let assetType = appState.assets.first(where: {
-                            $0.id.uuidString == (args["asset_id"] as? String ?? "")
-                        })?.type
-                        let trackType: TrackType = assetType == .audio ? .audio : .video
-                        if let realTrack = appState.timeline.tracks.last(where: { $0.type == trackType }) {
-                            args["track_id"] = realTrack.id.uuidString
-                        }
-                    }
-                }
+                // Remap all UUID-like string arguments through the ID map
+                args = remapIDs(args, idMap: idMap)
+
+                // Snapshot state before execution to detect new objects
+                let tracksBefore = Set(appState.timeline.tracks.map(\.id))
+                let clipsBefore = Set(appState.timeline.tracks.flatMap(\.clips).map(\.id))
 
                 do {
                     let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
                     for intent in intents {
                         try appState.perform(intent)
                     }
+
+                    // Detect newly created objects and map AI IDs to real IDs
+                    let tracksAfter = Set(appState.timeline.tracks.map(\.id))
+                    let clipsAfter = Set(appState.timeline.tracks.flatMap(\.clips).map(\.id))
+
+                    let newTracks = tracksAfter.subtracting(tracksBefore)
+                    let newClips = clipsAfter.subtracting(clipsBefore)
+
+                    // Map: if AI provided a track_id that doesn't exist, map it to the new track
+                    if let aiTrackID = originalID(for: "track_id", in: toolCall.parsedArguments()),
+                       let newTrack = newTracks.first {
+                        idMap[aiTrackID] = newTrack.uuidString
+                    }
+                    if let aiClipID = originalID(for: "clip_id", in: toolCall.parsedArguments()),
+                       let newClip = newClips.first {
+                        idMap[aiClipID] = newClip.uuidString
+                    }
+
                     toolResults.append(.init(toolName: toolCall.name, success: true, message: "Done"))
                 } catch {
                     toolResults.append(.init(toolName: toolCall.name, success: false, message: error.localizedDescription))
                 }
             }
 
-            // Add assistant response
             let responseContent = response.content.isEmpty && !toolResults.isEmpty
                 ? "Executed \(toolResults.count) editing operation(s)."
                 : response.content
@@ -121,5 +126,26 @@ final class AIChatController {
 
     func clearHistory() {
         messages.removeAll()
+    }
+
+    // MARK: - ID remapping
+
+    /// Remap all string values in arguments that exist in the ID map.
+    private func remapIDs(_ args: [String: Any], idMap: [String: String]) -> [String: Any] {
+        guard !idMap.isEmpty else { return args }
+        var result = args
+        for (key, value) in args {
+            if let str = value as? String, let mapped = idMap[str] {
+                result[key] = mapped
+            } else if let array = value as? [String] {
+                result[key] = array.map { idMap[$0] ?? $0 }
+            }
+        }
+        return result
+    }
+
+    /// Extract the original (un-remapped) ID value for a given key.
+    private func originalID(for key: String, in args: [String: Any]) -> String? {
+        args[key] as? String
     }
 }
