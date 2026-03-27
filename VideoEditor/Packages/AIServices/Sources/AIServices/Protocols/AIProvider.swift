@@ -60,11 +60,14 @@ public struct AIResponse: Codable, Sendable {
     public let content: String
     public let toolCalls: [AIToolCall]
     public let stopReason: String?
+    /// Raw JSON of the assistant's response content blocks — needed for multi-turn tool use
+    public let rawContentJSON: String?
 
-    public init(content: String, toolCalls: [AIToolCall] = [], stopReason: String? = nil) {
+    public init(content: String, toolCalls: [AIToolCall] = [], stopReason: String? = nil, rawContentJSON: String? = nil) {
         self.content = content
         self.toolCalls = toolCalls
         self.stopReason = stopReason
+        self.rawContentJSON = rawContentJSON
     }
 }
 

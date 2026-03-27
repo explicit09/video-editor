@@ -36,27 +36,61 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
         request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
 
-        // Build messages — handle both regular and tool result messages
-        let claudeMessages = messages.map { msg -> ClaudeMessagePayload in
+        // Build messages using JSONSerialization for full control over structure
+        var jsonMessages: [[String: Any]] = []
+        var pendingToolResults: [[String: Any]] = []
+
+        for msg in messages {
             if msg.isToolResult, let toolID = msg.toolResultID {
-                return ClaudeMessagePayload(
-                    role: "user",
-                    content: .blocks([.toolResult(ClaudeToolResult(tool_use_id: toolID, content: msg.content))])
-                )
+                pendingToolResults.append([
+                    "type": "tool_result",
+                    "tool_use_id": toolID,
+                    "content": msg.content,
+                ])
             } else {
-                return ClaudeMessagePayload(role: msg.role, content: .text(msg.content))
+                // Flush pending tool results as one user message
+                if !pendingToolResults.isEmpty {
+                    jsonMessages.append(["role": "user", "content": pendingToolResults])
+                    pendingToolResults = []
+                }
+
+                if msg.role == "assistant", let rawJSON = msg.toolResultID, rawJSON.hasPrefix("["),
+                   let data = rawJSON.data(using: .utf8),
+                   let contentArray = try? JSONSerialization.jsonObject(with: data) {
+                    // Assistant message with raw tool_use content blocks
+                    jsonMessages.append(["role": "assistant", "content": contentArray])
+                } else {
+                    jsonMessages.append(["role": msg.role, "content": msg.content])
+                }
+            }
+        }
+        if !pendingToolResults.isEmpty {
+            jsonMessages.append(["role": "user", "content": pendingToolResults])
+        }
+
+        // Build tools array
+        var jsonTools: [[String: Any]]?
+        if !tools.isEmpty {
+            jsonTools = tools.map { tool -> [String: Any] in
+                let schemaData = try? JSONEncoder().encode(tool.parameters)
+                let schema = schemaData.flatMap { try? JSONSerialization.jsonObject(with: $0) } ?? [:]
+                return [
+                    "name": tool.name,
+                    "description": tool.description,
+                    "input_schema": schema,
+                ]
             }
         }
 
-        let body = ClaudeRequestPayload(
-            model: model,
-            max_tokens: 4096,
-            messages: claudeMessages,
-            tools: tools.isEmpty ? nil : tools.map(convertTool),
-            system: systemPrompt
-        )
+        var body: [String: Any] = [
+            "model": model,
+            "max_tokens": 4096,
+            "messages": jsonMessages,
+            "system": systemPrompt,
+        ]
+        if let jsonTools { body["tools"] = jsonTools }
 
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
 
         let (data, response) = try await session.data(for: request)
 
@@ -70,7 +104,7 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         }
 
         let claudeResponse = try JSONDecoder().decode(ClaudeResponse.self, from: data)
-        return convertResponse(claudeResponse)
+        return convertResponse(claudeResponse, rawData: data)
     }
 
     // MARK: - System prompt
@@ -107,7 +141,7 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         )
     }
 
-    private func convertResponse(_ response: ClaudeResponse) -> AIResponse {
+    private func convertResponse(_ response: ClaudeResponse, rawData: Data) -> AIResponse {
         var text = ""
         var toolCalls: [AIToolCall] = []
 
@@ -116,7 +150,6 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
             case .text(let t):
                 text += t.text
             case .toolUse(let t):
-                // Encode the input dict back to JSON string
                 if let data = try? JSONSerialization.data(withJSONObject: t.input),
                    let jsonStr = String(data: data, encoding: .utf8) {
                     toolCalls.append(AIToolCall(id: t.id, name: t.name, arguments: jsonStr))
@@ -124,7 +157,16 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
             }
         }
 
-        return AIResponse(content: text, toolCalls: toolCalls, stopReason: response.stop_reason)
+        // Extract raw content array for multi-turn (needed to echo assistant message back)
+        var rawContentJSON: String?
+        if !toolCalls.isEmpty,
+           let json = try? JSONSerialization.jsonObject(with: rawData) as? [String: Any],
+           let contentArray = json["content"],
+           let contentData = try? JSONSerialization.data(withJSONObject: contentArray) {
+            rawContentJSON = String(data: contentData, encoding: .utf8)
+        }
+
+        return AIResponse(content: text, toolCalls: toolCalls, stopReason: response.stop_reason, rawContentJSON: rawContentJSON)
     }
 }
 
@@ -145,6 +187,7 @@ private struct ClaudeMessagePayload: Encodable {
     enum ClaudeContent: Encodable {
         case text(String)
         case blocks([ClaudeContentBlock])
+        case rawJSON(String) // Pre-encoded JSON for assistant tool_use messages
 
         func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
@@ -153,6 +196,14 @@ private struct ClaudeMessagePayload: Encodable {
                 try container.encode(s)
             case .blocks(let blocks):
                 try container.encode(blocks)
+            case .rawJSON(let json):
+                // Write pre-encoded JSON directly into the output
+                if let data = json.data(using: .utf8) {
+                    let wrapper = RawJSON(data: data)
+                    try container.encode(wrapper)
+                } else {
+                    try container.encode(json)
+                }
             }
         }
     }
@@ -173,6 +224,18 @@ private struct ClaudeToolResult: Encodable {
     let type = "tool_result"
     let tool_use_id: String
     let content: String
+}
+
+/// Wrapper that writes pre-encoded JSON data directly.
+private struct RawJSON: Encodable {
+    let data: Data
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        // This is a hack but necessary — we need to inject pre-encoded JSON
+        // Foundation's JSONEncoder doesn't support raw JSON injection natively
+        try container.encode(Array(data))
+    }
 }
 
 private struct ClaudeTool: Encodable {

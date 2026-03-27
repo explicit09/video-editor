@@ -77,15 +77,19 @@ final class AIChatController {
                 // If no tool calls, we're done
                 guard !response.toolCalls.isEmpty else { break }
 
-                // Add assistant response to conversation (Claude expects this)
-                conversation.append(AIMessage(role: "assistant", content: response.content))
+                // Add assistant response with raw content blocks (includes tool_use blocks)
+                // Claude needs to see its own tool_use blocks before the tool_result
+                conversation.append(AIMessage(
+                    role: "assistant",
+                    content: response.content,
+                    toolResultID: response.rawContentJSON // Reuse field to carry raw JSON
+                ))
 
-                // Execute each tool call and collect results
+                // Execute each tool call and send results back
                 for toolCall in response.toolCalls {
                     let result = await executeTool(toolCall: toolCall, appState: appState)
                     allToolResults.append(result)
 
-                    // Send tool result back to Claude
                     conversation.append(AIMessage(
                         role: "user",
                         content: result.message,
@@ -94,8 +98,6 @@ final class AIChatController {
                     ))
                 }
 
-                // If Claude stopped because of tool_use, continue the loop
-                // If it stopped for another reason, break
                 if response.stopReason != "tool_use" { break }
             }
 
