@@ -30,8 +30,10 @@ struct TimelinePanel: View {
                         }
                         .frame(width: totalWidth)
 
-                        PlayheadView(viewState: viewState)
-                            .frame(width: totalWidth, height: geo.size.height)
+                        PlayheadView(viewState: viewState) {
+                            appState.seekFromPlayhead()
+                        }
+                        .frame(width: totalWidth, height: geo.size.height)
                     }
                 }
             }

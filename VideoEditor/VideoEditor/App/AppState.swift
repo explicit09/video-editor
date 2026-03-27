@@ -1,5 +1,6 @@
 import SwiftUI
 import EditorCore
+import Combine
 
 @Observable
 @MainActor
@@ -8,36 +9,43 @@ final class AppState {
     let commandHistory: CommandHistory
     let intentResolver: IntentResolver
     let timelineViewState: TimelineViewState
+    let playbackEngine: PlaybackEngine
 
     // Reactive access — SwiftUI reads these directly
     var timeline: Timeline { context.timelineState.timeline }
     private(set) var assets: [MediaAsset] = []
+
+    private var playbackSyncTimer: Timer?
 
     init() {
         self.context = EditingContext()
         self.commandHistory = CommandHistory()
         self.intentResolver = IntentResolver()
         self.timelineViewState = TimelineViewState()
+        self.playbackEngine = PlaybackEngine()
+
+        startPlayheadSync()
     }
 
     // MARK: - The ONLY write path for editing actions
 
-    /// Execute an intent through the full pipeline: Intent → Command → Execute
-    /// This is the single entry point for ALL timeline mutations.
     func perform(_ intent: EditorIntent) throws {
         var command = try intentResolver.resolve(intent)
         try commandHistory.execute(&command, context: context)
+        rebuildComposition()
     }
 
     func undo() throws {
         try commandHistory.undo(context: context)
+        rebuildComposition()
     }
 
     func redo() throws {
         try commandHistory.redo(context: context)
+        rebuildComposition()
     }
 
-    // MARK: - Media import (not a timeline mutation, so not routed through intents)
+    // MARK: - Media import
 
     func importMedia(from url: URL, bundleMediaDir: URL?) async throws -> MediaAsset {
         let asset = try await context.media.importFile(from: url, bundleMediaDir: bundleMediaDir)
@@ -47,5 +55,35 @@ final class AppState {
 
     func refreshAssets() async {
         assets = await context.media.allAssets()
+    }
+
+    // MARK: - Playback
+
+    /// Rebuild the AVComposition from current timeline + assets.
+    /// Called after every timeline mutation.
+    func rebuildComposition() {
+        let allAssets = assets
+        playbackEngine.buildComposition(from: timeline, assets: allAssets)
+    }
+
+    /// Sync playhead position between PlaybackEngine and TimelineViewState.
+    private func startPlayheadSync() {
+        // Timer fires 30x/sec to sync playhead during playback
+        playbackSyncTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                guard let self else { return }
+                if self.playbackEngine.isPlaying {
+                    self.timelineViewState.playheadPosition = self.playbackEngine.currentTime
+                    self.timelineViewState.isPlaying = true
+                } else {
+                    self.timelineViewState.isPlaying = false
+                }
+            }
+        }
+    }
+
+    /// Seek playback when user drags the playhead.
+    func seekFromPlayhead() {
+        playbackEngine.seek(to: timelineViewState.playheadPosition)
     }
 }

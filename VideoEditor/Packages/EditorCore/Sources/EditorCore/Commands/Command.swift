@@ -31,10 +31,10 @@ public final class EditingContext: Sendable {
 
 // MARK: - CommandHistory
 
-@MainActor
-public final class CommandHistory: ObservableObject {
-    @Published public private(set) var canUndo = false
-    @Published public private(set) var canRedo = false
+@MainActor @Observable
+public final class CommandHistory {
+    public private(set) var canUndo = false
+    public private(set) var canRedo = false
 
     private var undoStack: [any Command] = []
     private var redoStack: [any Command] = []

@@ -3,6 +3,7 @@ import EditorCore
 
 struct PlayheadView: View {
     @ObservedObject var viewState: TimelineViewState
+    var onSeek: (() -> Void)?
 
     var body: some View {
         GeometryReader { geo in
@@ -23,14 +24,8 @@ struct PlayheadView: View {
                 path.closeSubpath()
             }
             .fill(Color.red)
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { value in
-                        viewState.playheadPosition = max(0, viewState.xToTime(value.location.x))
-                    }
-            )
 
-            // Click anywhere on ruler area to seek
+            // Scrub area (ruler height)
             Color.clear
                 .frame(height: 28)
                 .contentShape(Rectangle())
@@ -38,6 +33,7 @@ struct PlayheadView: View {
                     DragGesture(minimumDistance: 0)
                         .onChanged { value in
                             viewState.playheadPosition = max(0, viewState.xToTime(value.location.x))
+                            onSeek?()
                         }
                 )
         }
