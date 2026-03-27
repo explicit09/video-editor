@@ -43,10 +43,13 @@ final class AppState {
         self.media = MediaCoordinator(bundleURL: bundleURL)
         self.aiChat = AIChatController()
 
-        // Load API key from .env file or environment
-        let apiKey = Self.loadAPIKey()
-        if let apiKey {
-            aiChat.configure(provider: ClaudeProvider(apiKey: apiKey))
+        // Load API keys from .env file or environment
+        let keys = Self.loadEnvKeys()
+        if let claudeKey = keys["ANTHROPIC_API_KEY"] {
+            aiChat.configure(provider: ClaudeProvider(apiKey: claudeKey))
+        }
+        if let dgKey = keys["DEEPGRAM_API_KEY"] {
+            Task { await media.configureTranscription(provider: DeepgramProvider(apiKey: dgKey)) }
         }
 
         let dbPath = bundleURL.appendingPathComponent("metadata.sqlite").path
@@ -92,12 +95,11 @@ final class AppState {
 
     // MARK: - API key loading
 
-    private static func loadAPIKey() -> String? {
-        // Check environment first
-        if let key = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"], !key.isEmpty {
-            return key
-        }
-        // Check .env file in the project directory
+    /// Load all KEY=VALUE pairs from .env files and environment.
+    private static func loadEnvKeys() -> [String: String] {
+        var keys: [String: String] = [:]
+
+        // Load from .env files
         let envPaths = [
             Bundle.main.bundleURL.deletingLastPathComponent().appendingPathComponent(".env"),
             URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent(".env"),
@@ -107,14 +109,24 @@ final class AppState {
             if let contents = try? String(contentsOf: envPath, encoding: .utf8) {
                 for line in contents.components(separatedBy: .newlines) {
                     let trimmed = line.trimmingCharacters(in: .whitespaces)
-                    if trimmed.hasPrefix("ANTHROPIC_API_KEY=") {
-                        let key = String(trimmed.dropFirst("ANTHROPIC_API_KEY=".count))
-                        if !key.isEmpty { return key }
+                    guard !trimmed.isEmpty, !trimmed.hasPrefix("#") else { continue }
+                    if let eqIndex = trimmed.firstIndex(of: "=") {
+                        let key = String(trimmed[trimmed.startIndex..<eqIndex])
+                        let value = String(trimmed[trimmed.index(after: eqIndex)...])
+                        if !value.isEmpty { keys[key] = value }
                     }
                 }
             }
         }
-        return nil
+
+        // Environment variables override .env file
+        for key in ["ANTHROPIC_API_KEY", "DEEPGRAM_API_KEY"] {
+            if let value = ProcessInfo.processInfo.environment[key], !value.isEmpty {
+                keys[key] = value
+            }
+        }
+
+        return keys
     }
 
     private func startPlayheadSync() {

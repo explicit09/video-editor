@@ -1,6 +1,7 @@
 import Foundation
 import CoreGraphics
 import EditorCore
+import AIServices
 
 /// Orchestrates media import, proxy generation, and cache management.
 /// Extracted from AppState to keep it focused on editor state + commands.
@@ -8,15 +9,19 @@ import EditorCore
 final class MediaCoordinator {
     let mediaManager: MediaManager
     let proxyService: ProxyService
+    let transcriptionService: TranscriptionService
     let thumbnailCache: DiskCache
     let renderCache: DiskCache
     let memoryMonitor: MemoryPressureMonitor
+    let bundleURL: URL
 
     private(set) var assets: [MediaAsset] = []
 
     init(bundleURL: URL) {
+        self.bundleURL = bundleURL
         self.mediaManager = MediaManager()
         self.proxyService = ProxyService(proxiesDir: bundleURL.appendingPathComponent("proxies"))
+        self.transcriptionService = TranscriptionService()
         self.thumbnailCache = DiskCache(
             directory: bundleURL.appendingPathComponent("cache/thumbnails"),
             policy: .thumbnails
@@ -56,6 +61,25 @@ final class MediaCoordinator {
 
     func thumbnail(for assetID: UUID) async -> CGImage? {
         await mediaManager.thumbnail(for: assetID)
+    }
+
+    // MARK: - Transcription
+
+    func configureTranscription(provider: any TranscriptionProvider) async {
+        await transcriptionService.configure(provider: provider)
+    }
+
+    /// Ensure all assets on the timeline have transcripts before AI processes them.
+    func ensureTranscripts(for assetIDs: [UUID]) async {
+        for id in assetIDs {
+            guard let asset = await mediaManager.asset(id: id) else { continue }
+            _ = try? await transcriptionService.ensureTranscript(
+                for: asset,
+                mediaManager: mediaManager,
+                bundleURL: bundleURL
+            )
+        }
+        assets = await mediaManager.allAssets()
     }
 
     // MARK: - Memory pressure

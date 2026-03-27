@@ -50,10 +50,26 @@ final class AIChatController {
                 recentActions: recentActions
             )
 
+            // Auto-transcribe assets on the timeline before AI processes them
+            let assetIDs = Set(appState.timeline.tracks.flatMap(\.clips).map(\.assetID))
+            if !assetIDs.isEmpty {
+                await appState.media.ensureTranscripts(for: Array(assetIDs))
+                // Rebuild context with updated transcripts
+            }
+
+            // Rebuild context after transcription (may have new transcript data)
+            let updatedContext = contextBuilder.buildContext(
+                timeline: appState.timeline,
+                assets: appState.assets,
+                playheadPosition: appState.timelineViewState.playheadPosition,
+                selectedClipIDs: appState.timelineViewState.selectedClipIDs,
+                recentActions: recentActions
+            )
+
             let apiMessages = [
                 AIMessage(
                     role: "user",
-                    content: "Current editor state:\n```json\n\(context.toJSON())\n```\n\nUser request: \(message)"
+                    content: "Current editor state:\n```json\n\(updatedContext.toJSON())\n```\n\nUser request: \(message)"
                 )
             ]
 
