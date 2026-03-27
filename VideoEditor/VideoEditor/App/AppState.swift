@@ -1,5 +1,6 @@
 import SwiftUI
 import EditorCore
+import AIServices
 
 @Observable
 @MainActor
@@ -11,6 +12,7 @@ final class AppState {
     let playbackEngine: PlaybackEngine
     let exportEngine: ExportEngine
     let media: MediaCoordinator
+    let aiChat: AIChatController
 
     // Reactive access
     var timeline: Timeline { context.timelineState.timeline }
@@ -39,6 +41,12 @@ final class AppState {
         self.playbackEngine = PlaybackEngine()
         self.exportEngine = ExportEngine()
         self.media = MediaCoordinator(bundleURL: bundleURL)
+        self.aiChat = AIChatController()
+
+        // Configure AI provider from environment
+        if let claude = ClaudeProvider.fromEnvironment() {
+            aiChat.configure(provider: claude)
+        }
 
         let dbPath = bundleURL.appendingPathComponent("metadata.sqlite").path
         Task { try? await context.actionLog.open(at: dbPath) }

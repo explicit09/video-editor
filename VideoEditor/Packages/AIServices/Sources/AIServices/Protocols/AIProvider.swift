@@ -50,15 +50,7 @@ public struct AIMessage: Codable, Sendable {
     }
 }
 
-public struct AIToolDefinition: Codable, Sendable {
-    public let name: String
-    public let description: String
-
-    public init(name: String, description: String) {
-        self.name = name
-        self.description = description
-    }
-}
+// AIToolDefinition is now in Tools/AIToolRegistry.swift with full JSON schema support
 
 public struct AIResponse: Codable, Sendable {
     public let content: String
@@ -71,12 +63,21 @@ public struct AIResponse: Codable, Sendable {
 }
 
 public struct AIToolCall: Codable, Sendable {
+    public let id: String
     public let name: String
     public let arguments: String
 
-    public init(name: String, arguments: String) {
+    public init(id: String = UUID().uuidString, name: String, arguments: String) {
+        self.id = id
         self.name = name
         self.arguments = arguments
+    }
+
+    /// Parse arguments JSON string into dictionary.
+    public func parsedArguments() -> [String: Any] {
+        guard let data = arguments.data(using: .utf8),
+              let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return [:] }
+        return dict
     }
 }
 
