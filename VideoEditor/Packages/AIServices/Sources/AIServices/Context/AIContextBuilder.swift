@@ -2,19 +2,28 @@ import Foundation
 import EditorCore
 
 /// Serializes the current editor state into a structured representation
-/// that AI models can consume. This is what the AI "sees."
+/// that AI models can consume. Context is tiered to minimize token usage.
 public struct AIContextBuilder: Sendable {
+
+    public enum ContextLevel: Sendable {
+        /// Track names/IDs, clip count. For structural edits ("add track").
+        case minimal
+        /// Tracks + clip positions, asset names, selection. For most editing.
+        case standard
+        /// Everything + transcripts, analysis. For content-aware edits.
+        case full
+    }
 
     public init() {}
 
-    /// Build a full context snapshot for AI consumption.
     @MainActor
     public func buildContext(
         timeline: Timeline,
         assets: [MediaAsset],
         playheadPosition: TimeInterval,
         selectedClipIDs: Set<UUID>,
-        recentActions: [ActionEvent]
+        recentActions: [ActionEvent],
+        level: ContextLevel = .standard
     ) -> AIContext {
         let trackSummaries = timeline.tracks.map { track in
             AIContext.TrackSummary(
@@ -24,11 +33,13 @@ public struct AIContextBuilder: Sendable {
                 clipCount: track.clips.count,
                 isMuted: track.isMuted,
                 isLocked: track.isLocked,
-                clips: track.clips.map { buildClipSummary($0, assets: assets, isSelected: selectedClipIDs.contains($0.id)) }
+                clips: level == .minimal ? nil : track.clips.map {
+                    buildClipSummary($0, assets: assets, isSelected: selectedClipIDs.contains($0.id), includeTranscript: level == .full)
+                }
             )
         }
 
-        let assetSummaries = assets.map { asset in
+        let assetSummaries = level == .minimal ? nil : assets.map { asset in
             AIContext.AssetSummary(
                 id: asset.id.uuidString,
                 name: asset.name,
@@ -40,7 +51,7 @@ public struct AIContextBuilder: Sendable {
             )
         }
 
-        let actionSummaries = recentActions.map { action in
+        let actionSummaries = level == .full ? recentActions.map { action in
             AIContext.ActionSummary(
                 commandName: action.commandName,
                 source: action.source.rawValue,
@@ -48,7 +59,7 @@ public struct AIContextBuilder: Sendable {
                 trackIDs: action.trackIDs.map(\.uuidString),
                 parameters: action.parameters
             )
-        }
+        } : nil
 
         return AIContext(
             timeline: AIContext.TimelineSummary(
@@ -64,9 +75,8 @@ public struct AIContextBuilder: Sendable {
         )
     }
 
-    private func buildClipSummary(_ clip: Clip, assets: [MediaAsset], isSelected: Bool) -> AIContext.ClipSummary {
+    private func buildClipSummary(_ clip: Clip, assets: [MediaAsset], isSelected: Bool, includeTranscript: Bool) -> AIContext.ClipSummary {
         let assetName = assets.first(where: { $0.id == clip.assetID })?.name
-        let transcript = clip.metadata.transcriptSegment?.text
 
         return AIContext.ClipSummary(
             id: clip.id.uuidString,
@@ -79,7 +89,7 @@ public struct AIContextBuilder: Sendable {
             sourceEnd: clip.sourceRange.end,
             isSelected: isSelected,
             label: clip.metadata.label,
-            transcript: transcript,
+            transcript: includeTranscript ? clip.metadata.transcriptSegment?.text : nil,
             sceneType: clip.metadata.sceneType,
             tags: clip.metadata.tags,
             opacity: clip.opacity,
@@ -89,28 +99,22 @@ public struct AIContextBuilder: Sendable {
     }
 }
 
-// MARK: - AIContext (the structured snapshot AI receives)
+// MARK: - AIContext
 
 public struct AIContext: Codable, Sendable {
-
     public let timeline: TimelineSummary
-    public let assets: [AssetSummary]
+    public let assets: [AssetSummary]?
     public let playheadPosition: TimeInterval
     public let selectedClipIDs: [String]
-    public let recentActions: [ActionSummary]
+    public let recentActions: [ActionSummary]?
 
-    /// Serialize to JSON string for injection into prompts.
     public func toJSON() -> String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         guard let data = try? encoder.encode(self),
-              let json = String(data: data, encoding: .utf8) else {
-            return "{}"
-        }
+              let json = String(data: data, encoding: .utf8) else { return "{}" }
         return json
     }
-
-    // MARK: - Nested types
 
     public struct TimelineSummary: Codable, Sendable {
         public let trackCount: Int
@@ -126,7 +130,7 @@ public struct AIContext: Codable, Sendable {
         public let clipCount: Int
         public let isMuted: Bool
         public let isLocked: Bool
-        public let clips: [ClipSummary]
+        public let clips: [ClipSummary]?
     }
 
     public struct ClipSummary: Codable, Sendable {

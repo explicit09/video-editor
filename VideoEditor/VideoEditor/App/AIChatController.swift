@@ -50,26 +50,11 @@ final class AIChatController {
                 recentActions: recentActions
             )
 
-            // Auto-transcribe assets on the timeline before AI processes them
-            let assetIDs = Set(appState.timeline.tracks.flatMap(\.clips).map(\.assetID))
-            if !assetIDs.isEmpty {
-                await appState.media.ensureTranscripts(for: Array(assetIDs))
-                // Rebuild context with updated transcripts
-            }
-
-            // Rebuild context after transcription (may have new transcript data)
-            let updatedContext = contextBuilder.buildContext(
-                timeline: appState.timeline,
-                assets: appState.assets,
-                playheadPosition: appState.timelineViewState.playheadPosition,
-                selectedClipIDs: appState.timelineViewState.selectedClipIDs,
-                recentActions: recentActions
-            )
-
+            // Send standard context (no transcripts — AI requests via tools if needed)
             let apiMessages = [
                 AIMessage(
                     role: "user",
-                    content: "Current editor state:\n```json\n\(updatedContext.toJSON())\n```\n\nUser request: \(message)"
+                    content: "Current editor state:\n```json\n\(context.toJSON())\n```\n\nUser request: \(message)"
                 )
             ]
 
@@ -93,6 +78,19 @@ final class AIChatController {
                 )
 
                 do {
+                    // Content tools — return data, don't modify timeline
+                    if toolCall.name == "get_transcript" {
+                        let result = try await handleGetTranscript(args: args, appState: appState)
+                        toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
+                        continue
+                    }
+                    if toolCall.name == "transcribe_asset" {
+                        let result = try await handleTranscribeAsset(args: args, appState: appState)
+                        toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
+                        continue
+                    }
+
+                    // Editing tools — resolve to intents and execute
                     let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
                     for intent in intents {
                         try appState.perform(intent)
@@ -117,6 +115,52 @@ final class AIChatController {
 
     func clearHistory() {
         messages.removeAll()
+    }
+
+    // MARK: - Content tool handlers
+
+    private func handleGetTranscript(args: [String: Any], appState: AppState) async throws -> String {
+        guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) else {
+            throw AIToolError.invalidArgument("Missing asset_id")
+        }
+
+        // Check if transcript exists on the asset
+        if let asset = await appState.media.mediaManager.asset(id: assetID),
+           let words = asset.analysis?.transcript {
+            let text = words.map(\.word).joined(separator: " ")
+            return "Transcript: \(text)"
+        }
+
+        // Check persisted transcript
+        if let result = await appState.media.transcriptionService.loadTranscript(
+            for: assetID, bundleURL: appState.projectBundleURL
+        ) {
+            return "Transcript: \(result.text)"
+        }
+
+        return "No transcript available. Use transcribe_asset to transcribe this asset first."
+    }
+
+    private func handleTranscribeAsset(args: [String: Any], appState: AppState) async throws -> String {
+        guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) else {
+            throw AIToolError.invalidArgument("Missing asset_id")
+        }
+
+        guard let asset = await appState.media.mediaManager.asset(id: assetID) else {
+            throw AIToolError.invalidArgument("Asset not found")
+        }
+
+        let result = try await appState.media.transcriptionService.ensureTranscript(
+            for: asset,
+            mediaManager: appState.media.mediaManager,
+            bundleURL: appState.projectBundleURL
+        )
+
+        if let result {
+            return "Transcribed successfully (\(result.words.count) words, \(String(format: "%.1f", result.duration))s). Use get_transcript to read the content."
+        } else {
+            return "Transcription service not configured. Add DEEPGRAM_API_KEY to .env file."
+        }
     }
 
     // MARK: - Argument fixup

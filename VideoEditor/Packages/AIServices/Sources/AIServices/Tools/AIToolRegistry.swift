@@ -14,7 +14,27 @@ public struct AIToolRegistry: Sendable {
         trimClip,
         setMarker,
         removeSilence,
+        getTranscript,
+        transcribeAsset,
     ]
+
+    // MARK: - Content tools (request data on demand, save tokens)
+
+    public static let getTranscript = AIToolDefinition(
+        name: "get_transcript",
+        description: "Get the transcript text for a specific asset or clip. Call this ONLY when you need to read what's being said (e.g., finding ums, searching for topics, content-aware editing). Do NOT call for structural edits like moving/splitting/deleting clips.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset to get transcript for"),
+        ], required: ["asset_id"])
+    )
+
+    public static let transcribeAsset = AIToolDefinition(
+        name: "transcribe_asset",
+        description: "Transcribe a media asset that hasn't been transcribed yet. This sends audio to a transcription service and may take a moment. Only call if get_transcript returns no transcript.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset to transcribe"),
+        ], required: ["asset_id"])
+    )
 
     // MARK: - Tool definitions (matching Claude/OpenAI function-calling schema)
 
