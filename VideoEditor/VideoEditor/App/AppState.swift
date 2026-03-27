@@ -13,6 +13,7 @@ final class AppState {
     let exportEngine: ExportEngine
     let media: MediaCoordinator
     let aiChat: AIChatController
+    let projectStore: ProjectStore
 
     // Reactive access
     var timeline: Timeline { context.timelineState.timeline }
@@ -22,6 +23,7 @@ final class AppState {
     let projectBundleURL: URL
 
     private var playbackSyncTimer: Timer?
+    private var saveDebounceTask: Task<Void, Never>?
 
     init() {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
@@ -34,6 +36,7 @@ final class AppState {
         }
 
         self.projectBundleURL = bundleURL
+        self.projectStore = ProjectStore()
         self.context = EditingContext()
         self.commandHistory = CommandHistory()
         self.intentResolver = IntentResolver()
@@ -52,6 +55,14 @@ final class AppState {
             Task { await media.configureTranscription(provider: DeepgramProvider(apiKey: dgKey)) }
         }
 
+        // Rebuild composition when proxy/analysis completes in background
+        media.onAnalysisComplete = { [weak self] in
+            self?.rebuildComposition()
+        }
+
+        // Load existing project if timeline.json exists
+        loadProject()
+
         let dbPath = bundleURL.appendingPathComponent("metadata.sqlite").path
         Task { try? await context.actionLog.open(at: dbPath) }
 
@@ -64,16 +75,44 @@ final class AppState {
         var command = try intentResolver.resolve(intent)
         try commandHistory.execute(&command, context: context)
         rebuildComposition()
+        scheduleSave()
     }
 
     func undo() throws {
         try commandHistory.undo(context: context)
         rebuildComposition()
+        scheduleSave()
     }
 
     func redo() throws {
         try commandHistory.redo(context: context)
         rebuildComposition()
+        scheduleSave()
+    }
+
+    // MARK: - Project persistence
+
+    /// Save project after a short debounce (avoids saving on every keystroke/drag).
+    private func scheduleSave() {
+        saveDebounceTask?.cancel()
+        saveDebounceTask = Task {
+            try? await Task.sleep(for: .seconds(1))
+            guard !Task.isCancelled else { return }
+            try? await projectStore.save(to: projectBundleURL, timeline: timeline)
+        }
+    }
+
+    /// Load project from bundle on launch.
+    private func loadProject() {
+        let timelinePath = projectBundleURL.appendingPathComponent("timeline.json")
+        guard FileManager.default.fileExists(atPath: timelinePath.path) else { return }
+
+        Task {
+            if let loadedTimeline = try? await projectStore.load(from: projectBundleURL) {
+                context.timelineState.timeline = loadedTimeline
+                rebuildComposition()
+            }
+        }
     }
 
     // MARK: - Media import

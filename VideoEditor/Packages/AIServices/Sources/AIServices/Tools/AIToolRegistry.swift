@@ -249,8 +249,7 @@ public struct AIToolResolver: Sendable {
             return [.setMarker(at: time, label: label)]
 
         case "remove_silence":
-            // This will be implemented with silence detection data
-            return []
+            throw AIToolError.notYetImplemented("remove_silence is not yet implemented. Silence detection data is available on assets — use get_transcript and manual split/delete for now.")
 
         default:
             throw AIToolError.unknownTool(toolName)
@@ -263,11 +262,13 @@ public struct AIToolResolver: Sendable {
 public enum AIToolError: Error, LocalizedError {
     case unknownTool(String)
     case invalidArgument(String)
+    case notYetImplemented(String)
 
     public var errorDescription: String? {
         switch self {
         case .unknownTool(let name): "Unknown tool: \(name)"
         case .invalidArgument(let msg): "Invalid argument: \(msg)"
+        case .notYetImplemented(let msg): msg
         }
     }
 }

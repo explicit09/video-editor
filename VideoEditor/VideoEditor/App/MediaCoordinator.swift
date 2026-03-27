@@ -18,6 +18,9 @@ final class MediaCoordinator {
 
     private(set) var assets: [MediaAsset] = []
 
+    /// Called when background analysis/proxy completes. AppState uses this to rebuild composition.
+    var onAnalysisComplete: (() -> Void)?
+
     init(bundleURL: URL) {
         self.bundleURL = bundleURL
         self.mediaManager = MediaManager()
@@ -65,7 +68,10 @@ final class MediaCoordinator {
             )
 
             await MainActor.run {
-                Task { assets = await mediaManager.allAssets() }
+                Task {
+                    self.assets = await self.mediaManager.allAssets()
+                    self.onAnalysisComplete?()
+                }
             }
         }
 

@@ -170,9 +170,9 @@ final class AIChatController {
 
     // MARK: - Argument fixup
 
-    /// Fix up tool arguments by resolving invalid IDs to real objects.
-    /// The AI generates fake UUIDs that don't exist. Instead of mapping them,
-    /// we infer what the AI meant from the current timeline state.
+    /// Fix up tool arguments by resolving invalid IDs.
+    /// - track_id: safe to infer (for insert_clip after add_track)
+    /// - clip_id/clip_ids: ONLY infer for non-destructive ops. Reject for destructive ones.
     private func fixupArguments(
         toolName: String,
         arguments: [String: Any],
@@ -180,50 +180,42 @@ final class AIChatController {
         assets: [MediaAsset]
     ) -> [String: Any] {
         var args = arguments
+        let destructiveTools: Set<String> = ["delete_clips", "trim_clip", "split_clip", "move_clip"]
 
-        // Fix track_id: if it doesn't exist, use the last track of the appropriate type
+        // Fix track_id: safe to infer — used for insertion targets
         if let trackIDStr = args["track_id"] as? String {
             let trackExists = timeline.tracks.contains { $0.id.uuidString == trackIDStr }
             if !trackExists {
-                // Infer the right track type from context
-                let trackType = inferTrackType(toolName: toolName, args: args, assets: assets)
+                let trackType = inferTrackType(args: args, assets: assets)
                 if let realTrack = timeline.tracks.last(where: { $0.type == trackType }) {
                     args["track_id"] = realTrack.id.uuidString
                 }
             }
         }
 
-        // Fix clip_id: if it doesn't exist, infer from context
+        // clip_id: only infer for NON-destructive tools (e.g., after insert_clip created a new clip)
+        // For destructive tools, leave the invalid ID — the resolver will throw a clear error
         if let clipIDStr = args["clip_id"] as? String {
             let clipExists = timeline.tracks.flatMap(\.clips).contains { $0.id.uuidString == clipIDStr }
-            if !clipExists {
-                // Use the most recently added clip (last clip on last non-empty track)
+            if !clipExists && !destructiveTools.contains(toolName) {
                 if let lastClip = timeline.tracks.flatMap(\.clips).last {
                     args["clip_id"] = lastClip.id.uuidString
                 }
             }
+            // For destructive tools: leave invalid ID, let resolver throw
         }
 
-        // Fix clip_ids array: filter to existing IDs, fall back to all clips if none valid
+        // clip_ids: filter to valid IDs only. Never guess on destructive ops.
         if let clipIDStrs = args["clip_ids"] as? [String] {
             let allClipIDs = Set(timeline.tracks.flatMap(\.clips).map(\.id.uuidString))
-            let validIDs = clipIDStrs.filter { allClipIDs.contains($0) }
-            if validIDs.isEmpty && !clipIDStrs.isEmpty {
-                // AI referenced clips that don't exist — try to infer
-                // "delete the second clip" → the AI probably means the last clip
-                if let lastClip = timeline.tracks.flatMap(\.clips).last {
-                    args["clip_ids"] = [lastClip.id.uuidString]
-                }
-            } else {
-                args["clip_ids"] = validIDs
-            }
+            args["clip_ids"] = clipIDStrs.filter { allClipIDs.contains($0) }
+            // If all IDs were invalid, leave empty array — resolver will throw
         }
 
         return args
     }
 
-    private func inferTrackType(toolName: String, args: [String: Any], assets: [MediaAsset]) -> TrackType {
-        // If inserting a clip, check what type the asset is
+    private func inferTrackType(args: [String: Any], assets: [MediaAsset]) -> TrackType {
         if let assetIDStr = args["asset_id"] as? String,
            let asset = assets.first(where: { $0.id.uuidString == assetIDStr }) {
             return asset.type == .audio ? .audio : .video

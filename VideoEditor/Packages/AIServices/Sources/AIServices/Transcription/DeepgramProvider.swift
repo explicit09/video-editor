@@ -54,13 +54,10 @@ public final class DeepgramProvider: TranscriptionProvider, @unchecked Sendable 
         request.setValue("Token \(apiKey)", forHTTPHeaderField: "Authorization")
         request.setValue("audio/*", forHTTPHeaderField: "Content-Type")
 
-        // Read audio file
-        let audioData = try Data(contentsOf: audioURL)
-        request.httpBody = audioData
+        progress(0.1)
 
-        progress(0.1) // Upload starting
-
-        let (data, response) = try await session.data(for: request)
+        // Stream file from disk instead of loading into memory
+        let (data, response) = try await session.upload(for: request, fromFile: audioURL)
 
         guard let httpResponse = response as? HTTPURLResponse else {
             throw DeepgramError.invalidResponse
