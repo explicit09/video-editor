@@ -1,9 +1,12 @@
 import Foundation
 import EditorCore
 
-/// Searches transcript data across all assets for matching text.
-/// Pure local, zero cost. Keyword matching with context windows.
+/// Searches transcript data across all assets using lemma-based matching.
+/// Lemmas are computed at transcription time via NLTagger.
+/// "price" matches "pricing" because both lemmatize to "price".
 public struct TranscriptSearchEngine: Sendable {
+
+    private let lemmatizer = Lemmatizer()
 
     public init() {}
 
@@ -14,9 +17,8 @@ public struct TranscriptSearchEngine: Sendable {
         maxResults: Int = 20,
         contextWords: Int = 8
     ) -> [SearchResult] {
-        let queryLower = query.lowercased()
-        let queryTerms = queryLower.split(separator: " ").map(String.init)
-        guard !queryTerms.isEmpty else { return [] }
+        let queryLemmas = lemmatizeQuery(query)
+        guard !queryLemmas.isEmpty else { return [] }
 
         var results: [SearchResult] = []
 
@@ -24,7 +26,7 @@ public struct TranscriptSearchEngine: Sendable {
             guard let words = asset.analysis?.transcript, !words.isEmpty else { continue }
 
             let matches = searchWords(
-                queryTerms: queryTerms,
+                queryLemmas: queryLemmas,
                 words: words,
                 assetID: asset.id,
                 assetName: asset.name,
@@ -35,7 +37,6 @@ public struct TranscriptSearchEngine: Sendable {
             if results.count >= maxResults { break }
         }
 
-        // Sort by relevance (exact matches first, then partial)
         results.sort { $0.relevance > $1.relevance }
         return Array(results.prefix(maxResults))
     }
@@ -46,12 +47,12 @@ public struct TranscriptSearchEngine: Sendable {
         asset: MediaAsset,
         contextWords: Int = 8
     ) -> [SearchResult] {
-        let queryTerms = query.lowercased().split(separator: " ").map(String.init)
-        guard !queryTerms.isEmpty,
+        let queryLemmas = lemmatizeQuery(query)
+        guard !queryLemmas.isEmpty,
               let words = asset.analysis?.transcript, !words.isEmpty else { return [] }
 
         return searchWords(
-            queryTerms: queryTerms,
+            queryLemmas: queryLemmas,
             words: words,
             assetID: asset.id,
             assetName: asset.name,
@@ -62,7 +63,7 @@ public struct TranscriptSearchEngine: Sendable {
     // MARK: - Core search
 
     private func searchWords(
-        queryTerms: [String],
+        queryLemmas: [String],
         words: [TranscriptWord],
         assetID: UUID,
         assetName: String,
@@ -71,16 +72,13 @@ public struct TranscriptSearchEngine: Sendable {
         var results: [SearchResult] = []
 
         for (i, word) in words.enumerated() {
-            let wordLower = word.word.lowercased()
-                .trimmingCharacters(in: .punctuationCharacters)
+            let wordLemma = (word.lemma ?? word.word).lowercased()
 
-            // Check if this word matches any query term
+            // Match against query lemmas (all lowercased)
             var matchScore: Double = 0
-            for term in queryTerms {
-                if wordLower == term {
-                    matchScore += 1.0  // Exact match
-                } else if wordLower.range(of: term) != nil {
-                    matchScore += 0.5  // Partial/substring match
+            for queryLemma in queryLemmas {
+                if wordLemma == queryLemma {
+                    matchScore += 1.0
                 }
             }
 
@@ -92,7 +90,6 @@ public struct TranscriptSearchEngine: Sendable {
             let contextSlice = words[contextStart..<contextEnd]
             let contextText = contextSlice.map(\.word).joined(separator: " ")
 
-            // Time range of the context window
             let startTime = contextSlice.first?.start ?? word.start
             let endTime = contextSlice.last?.end ?? word.end
 
@@ -104,11 +101,20 @@ public struct TranscriptSearchEngine: Sendable {
                 contextText: contextText,
                 contextStartTime: startTime,
                 contextEndTime: endTime,
-                relevance: matchScore / Double(queryTerms.count)
+                relevance: matchScore / Double(queryLemmas.count)
             ))
         }
 
         return results
+    }
+
+    // MARK: - Query lemmatization
+
+    /// Lemmatize the search query terms.
+    private func lemmatizeQuery(_ query: String) -> [String] {
+        query.lowercased()
+            .split(separator: " ")
+            .map { lemmatizer.lemmatize(word: String($0)) }
     }
 }
 

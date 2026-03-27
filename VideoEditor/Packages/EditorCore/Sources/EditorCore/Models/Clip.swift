@@ -133,12 +133,14 @@ public struct TranscriptSegment: Codable, Sendable {
 
 public struct TranscriptWord: Codable, Sendable {
     public var word: String
+    public var lemma: String?
     public var start: TimeInterval
     public var end: TimeInterval
     public var confidence: Double
 
-    public init(word: String, start: TimeInterval, end: TimeInterval, confidence: Double = 1.0) {
+    public init(word: String, lemma: String? = nil, start: TimeInterval, end: TimeInterval, confidence: Double = 1.0) {
         self.word = word
+        self.lemma = lemma
         self.start = start
         self.end = end
         self.confidence = confidence

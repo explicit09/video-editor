@@ -55,11 +55,22 @@ public actor TranscriptionService {
         inProgress.insert(asset.id)
         defer { inProgress.remove(asset.id) }
 
-        let result = try await provider.transcribe(
+        let rawResult = try await provider.transcribe(
             audioURL: asset.sourceURL,
             language: nil,
             enableDiarization: true,
             progress: { _ in }
+        )
+
+        // Lemmatize words using full sentence context
+        let lemmatizer = Lemmatizer()
+        let lemmatizedWords = lemmatizer.lemmatizeTranscript(rawResult.words)
+        let result = TranscriptionResult(
+            text: rawResult.text,
+            words: lemmatizedWords,
+            speakers: rawResult.speakers,
+            language: rawResult.language,
+            duration: rawResult.duration
         )
 
         // Store on asset in memory
