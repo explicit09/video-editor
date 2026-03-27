@@ -3,7 +3,7 @@ import EditorCore
 
 struct MarkersOverlay: View {
     let markers: [Marker]
-    @ObservedObject var viewState: TimelineViewState
+    let viewState: TimelineViewState
 
     var body: some View {
         GeometryReader { geo in

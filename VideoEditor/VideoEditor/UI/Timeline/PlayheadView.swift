@@ -2,7 +2,7 @@ import SwiftUI
 import EditorCore
 
 struct PlayheadView: View {
-    @ObservedObject var viewState: TimelineViewState
+    let viewState: TimelineViewState
     var onSeek: (() -> Void)?
 
     var body: some View {

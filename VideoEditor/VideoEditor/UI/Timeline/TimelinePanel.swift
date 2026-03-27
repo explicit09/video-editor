@@ -3,19 +3,20 @@ import EditorCore
 
 struct TimelinePanel: View {
     @Environment(AppState.self) private var appState
+    @State private var visibleWidth: Double = 800
 
     var body: some View {
         let viewState = appState.timelineViewState
         let timeline = appState.timeline
 
         VStack(spacing: 0) {
-            timelineToolbar(viewState: viewState, trackCount: timeline.tracks.count)
+            timelineToolbar(viewState: viewState, timeline: timeline)
             Divider()
             GeometryReader { geo in
-                ScrollView(.horizontal, showsIndicators: true) {
-                    ZStack(alignment: .topLeading) {
-                        let totalWidth = max(viewState.durationToWidth(timeline.duration + 10), geo.size.width)
+                let totalWidth = max(viewState.durationToWidth(timeline.duration + 10), geo.size.width)
 
+                ScrollView([.horizontal], showsIndicators: true) {
+                    ZStack(alignment: .topLeading) {
                         VStack(spacing: 0) {
                             TimelineRuler(viewState: viewState, totalWidth: totalWidth)
                                 .frame(height: 28)
@@ -30,17 +31,24 @@ struct TimelinePanel: View {
                         }
                         .frame(width: totalWidth)
 
-                        // Markers
                         MarkersOverlay(markers: timeline.markers, viewState: viewState)
                             .frame(width: totalWidth, height: geo.size.height)
 
-                        // Playhead
                         PlayheadView(viewState: viewState) {
                             appState.seekFromPlayhead()
                         }
                         .frame(width: totalWidth, height: geo.size.height)
                     }
                 }
+                .onAppear { visibleWidth = geo.size.width }
+                .onChange(of: geo.size.width) { _, new in visibleWidth = new }
+                .gesture(
+                    MagnifyGesture()
+                        .onChanged { value in
+                            let newZoom = viewState.zoom * value.magnification
+                            viewState.zoom = min(max(newZoom, TimelineViewState.zoomRange.lowerBound), TimelineViewState.zoomRange.upperBound)
+                        }
+                )
             }
         }
         .background(Color(nsColor: .controlBackgroundColor))
@@ -69,10 +77,11 @@ struct TimelinePanel: View {
 
     // MARK: - Toolbar
 
-    private func timelineToolbar(viewState: TimelineViewState, trackCount: Int) -> some View {
+    private func timelineToolbar(viewState: TimelineViewState, timeline: Timeline) -> some View {
         HStack(spacing: 12) {
             Button(action: {
-                let track = Track(name: "Video \(trackCount + 1)", type: .video)
+                let count = timeline.tracks.count
+                let track = Track(name: "Video \(count + 1)", type: .video)
                 try? appState.perform(.addTrack(track: track))
             }) {
                 Label("Add Track", systemImage: "plus")
@@ -96,10 +105,21 @@ struct TimelinePanel: View {
 
             Spacer()
 
+            // Zoom controls
             Button(action: { viewState.zoomOut() }) {
                 Image(systemName: "minus.magnifyingglass")
             }
             .buttonStyle(.borderless)
+
+            // Fit to window
+            Button(action: {
+                viewState.zoomToFit(duration: timeline.duration, visibleWidth: visibleWidth)
+            }) {
+                Image(systemName: "arrow.left.and.right")
+            }
+            .buttonStyle(.borderless)
+            .help("Fit timeline to window")
+            .disabled(timeline.duration == 0)
 
             Text("\(Int(viewState.zoom))px/s")
                 .font(.caption)

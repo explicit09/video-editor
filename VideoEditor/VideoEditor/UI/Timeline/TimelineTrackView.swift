@@ -3,7 +3,7 @@ import EditorCore
 
 struct TimelineTrackView: View {
     let track: Track
-    @ObservedObject var viewState: TimelineViewState
+    let viewState: TimelineViewState
     let selectedClipIDs: Set<UUID>
     let isSelectedTrack: Bool
     let totalWidth: Double

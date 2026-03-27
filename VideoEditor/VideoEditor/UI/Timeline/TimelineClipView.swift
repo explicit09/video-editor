@@ -3,7 +3,7 @@ import EditorCore
 
 struct TimelineClipView: View {
     let clip: Clip
-    @ObservedObject var viewState: TimelineViewState
+    let viewState: TimelineViewState
     let isSelected: Bool
     let trackType: TrackType
     let trackHeight: Double
