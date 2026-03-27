@@ -20,10 +20,11 @@ public struct AIToolRegistry: Sendable {
 
     public static let addTrack = AIToolDefinition(
         name: "add_track",
-        description: "Add a new track to the timeline",
+        description: "Add a new track to the timeline. Returns the track ID for use in subsequent operations.",
         parameters: .object([
             "type": .init(type: "string", description: "Track type", enumValues: ["video", "audio", "text", "effect"]),
             "name": .init(type: "string", description: "Track name (optional)"),
+            "track_id": .init(type: "string", description: "UUID to assign to the track (optional, auto-generated if omitted)"),
         ], required: ["type"])
     )
 
@@ -149,14 +150,25 @@ public struct AIToolResolver: Sendable {
             guard let trackType = TrackType(rawValue: typeStr) else {
                 throw AIToolError.invalidArgument("Unknown track type: \(typeStr)")
             }
-            return [.addTrack(track: Track(name: name, type: trackType))]
+            // Use AI-provided ID if given, so subsequent tool calls can reference it
+            let trackID: UUID
+            if let idStr = arguments["track_id"] as? String, let id = UUID(uuidString: idStr) {
+                trackID = id
+            } else {
+                trackID = UUID()
+            }
+            return [.addTrack(track: Track(id: trackID, name: name, type: trackType))]
 
         case "insert_clip":
             guard let assetIDStr = arguments["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) else {
                 throw AIToolError.invalidArgument("Missing or invalid asset_id")
             }
-            guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
-                throw AIToolError.invalidArgument("Missing or invalid track_id")
+            // Resolve track: try exact ID, then fall back to last track of matching type
+            let trackID: UUID
+            if let trackIDStr = arguments["track_id"] as? String, let id = UUID(uuidString: trackIDStr) {
+                trackID = id
+            } else {
+                throw AIToolError.invalidArgument("Missing track_id")
             }
             let startTime = (arguments["start_time"] as? Double) ?? 0
             // Look up real asset duration, fall back to explicit duration param

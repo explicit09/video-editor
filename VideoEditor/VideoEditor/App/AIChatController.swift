@@ -71,10 +71,30 @@ final class AIChatController {
                 tools: AIToolRegistry.allTools
             )
 
-            // Execute tool calls
+            // Execute tool calls sequentially — each call can see the state from previous calls
             var toolResults: [ChatMessage.ToolResult] = []
             for toolCall in response.toolCalls {
-                let args = toolCall.parsedArguments()
+                var args = toolCall.parsedArguments()
+
+                // For insert_clip: if the track_id doesn't exist in the timeline,
+                // fall back to the last track of the appropriate type.
+                // This handles the case where add_track + insert_clip are in the same response
+                // and the AI used a made-up track_id.
+                if toolCall.name == "insert_clip" {
+                    if let trackIDStr = args["track_id"] as? String,
+                       let trackID = UUID(uuidString: trackIDStr),
+                       !appState.timeline.tracks.contains(where: { $0.id == trackID }) {
+                        // AI's track_id doesn't exist — find the right track by type
+                        let assetType = appState.assets.first(where: {
+                            $0.id.uuidString == (args["asset_id"] as? String ?? "")
+                        })?.type
+                        let trackType: TrackType = assetType == .audio ? .audio : .video
+                        if let realTrack = appState.timeline.tracks.last(where: { $0.type == trackType }) {
+                            args["track_id"] = realTrack.id.uuidString
+                        }
+                    }
+                }
+
                 do {
                     let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
                     for intent in intents {
