@@ -44,8 +44,20 @@ public actor ActionLog {
 
     public init() {}
 
-    public func record(commandName: String, source: ActionSource) {
-        let event = ActionEvent(commandName: commandName, source: source)
+    public func record(
+        commandName: String,
+        clipIDs: [UUID] = [],
+        trackIDs: [UUID] = [],
+        parameters: [String: String] = [:],
+        source: ActionSource
+    ) {
+        let event = ActionEvent(
+            commandName: commandName,
+            clipIDs: clipIDs,
+            trackIDs: trackIDs,
+            parameters: parameters,
+            source: source
+        )
         events.append(event)
     }
 

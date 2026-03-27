@@ -6,6 +6,8 @@ public struct InsertClipCommand: Command {
     public let name = "Insert Clip"
     public let clip: Clip
     public let trackID: UUID
+    public var affectedClipIDs: [UUID] { [clip.id] }
+    public var affectedTrackIDs: [UUID] { [trackID] }
 
     public init(clip: Clip, trackID: UUID) {
         self.clip = clip
@@ -30,6 +32,7 @@ public struct InsertClipCommand: Command {
 public struct DeleteClipsCommand: Command {
     public let name = "Delete Clips"
     public let clipIDs: [UUID]
+    public var affectedClipIDs: [UUID] { clipIDs }
     private var removedClips: [(clip: Clip, trackID: UUID)] = []
 
     public init(clipIDs: [UUID]) {
@@ -63,6 +66,9 @@ public struct MoveClipCommand: Command {
     public let clipID: UUID
     public let newStart: TimeInterval
     public let targetTrackID: UUID
+    public var affectedClipIDs: [UUID] { [clipID] }
+    public var affectedTrackIDs: [UUID] { [targetTrackID] }
+    public var metadata: [String: String] { ["newStart": String(newStart)] }
     private var previousRange: TimeRange?
     private var previousTrackID: UUID?
 
@@ -105,6 +111,7 @@ public struct TrimClipCommand: Command {
     public let name = "Trim Clip"
     public let clipID: UUID
     public let newSourceRange: TimeRange
+    public var affectedClipIDs: [UUID] { [clipID] }
     private var previousSourceRange: TimeRange?
 
     public init(clipID: UUID, newSourceRange: TimeRange) {
@@ -140,6 +147,8 @@ public struct SplitClipCommand: Command {
     public let name = "Split Clip"
     public let clipID: UUID
     public let at: TimeInterval
+    public var affectedClipIDs: [UUID] { [clipID] + (secondClipID.map { [$0] } ?? []) }
+    public var metadata: [String: String] { ["splitAt": String(at)] }
     private var originalClip: Clip?
     private var secondClipID: UUID?
     private var trackID: UUID?

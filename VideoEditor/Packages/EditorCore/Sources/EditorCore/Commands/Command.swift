@@ -5,8 +5,18 @@ import Foundation
 @MainActor
 public protocol Command: Sendable {
     var name: String { get }
+    var affectedClipIDs: [UUID] { get }
+    var affectedTrackIDs: [UUID] { get }
+    var metadata: [String: String] { get }
     mutating func execute(context: EditingContext) throws
     func undo(context: EditingContext) throws
+}
+
+// Defaults so existing commands don't all need boilerplate
+public extension Command {
+    var affectedClipIDs: [UUID] { [] }
+    var affectedTrackIDs: [UUID] { [] }
+    var metadata: [String: String] { [:] }
 }
 
 // MARK: - EditingContext (DI container — no singletons)
@@ -46,9 +56,7 @@ public final class CommandHistory {
         let recorded = command
         undoStack.append(recorded)
         redoStack.removeAll()
-        let log = context.actionLog
-        let cmdName = recorded.name
-        Task { await log.record(commandName: cmdName, source: .user) }
+        logCommand(recorded, source: .user, context: context)
         updateState()
     }
 
@@ -57,9 +65,7 @@ public final class CommandHistory {
         try command.undo(context: context)
         let recorded = command
         redoStack.append(recorded)
-        let log = context.actionLog
-        let cmdName = recorded.name
-        Task { await log.record(commandName: cmdName, source: .undo) }
+        logCommand(recorded, source: .undo, context: context)
         updateState()
     }
 
@@ -68,10 +74,17 @@ public final class CommandHistory {
         try command.execute(context: context)
         let recorded = command
         undoStack.append(recorded)
-        let log = context.actionLog
-        let cmdName = recorded.name
-        Task { await log.record(commandName: cmdName, source: .redo) }
+        logCommand(recorded, source: .redo, context: context)
         updateState()
+    }
+
+    private func logCommand(_ command: some Command, source: ActionSource, context: EditingContext) {
+        let log = context.actionLog
+        let name = command.name
+        let clipIDs = command.affectedClipIDs
+        let trackIDs = command.affectedTrackIDs
+        let params = command.metadata
+        Task { await log.record(commandName: name, clipIDs: clipIDs, trackIDs: trackIDs, parameters: params, source: source) }
     }
 
     private func updateState() {

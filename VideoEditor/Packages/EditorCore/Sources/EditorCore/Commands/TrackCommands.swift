@@ -5,6 +5,8 @@ import Foundation
 public struct AddTrackCommand: Command {
     public let name = "Add Track"
     public let track: Track
+    public var affectedTrackIDs: [UUID] { [track.id] }
+    public var metadata: [String: String] { ["trackType": track.type.rawValue, "trackName": track.name] }
 
     public init(track: Track) {
         self.track = track
@@ -24,6 +26,7 @@ public struct AddTrackCommand: Command {
 public struct RemoveTrackCommand: Command {
     public let name = "Remove Track"
     public let trackID: UUID
+    public var affectedTrackIDs: [UUID] { [trackID] }
     private var removedTrack: Track?
     private var removedIndex: Int?
 

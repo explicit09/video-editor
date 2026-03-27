@@ -16,9 +16,17 @@ final class AppState {
     var timeline: Timeline { context.timelineState.timeline }
     private(set) var assets: [MediaAsset] = []
 
+    /// Project bundle directory for storing media, proxies, cache.
+    private(set) var projectBundleURL: URL
     private var playbackSyncTimer: Timer?
 
     init() {
+        // Create a default project bundle in Application Support
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let bundleURL = appSupport.appendingPathComponent("VideoEditor/DefaultProject.veditor")
+        try? FileManager.default.createDirectory(at: bundleURL.appendingPathComponent("media"), withIntermediateDirectories: true)
+
+        self.projectBundleURL = bundleURL
         self.context = EditingContext()
         self.commandHistory = CommandHistory()
         self.intentResolver = IntentResolver()
@@ -49,8 +57,9 @@ final class AppState {
 
     // MARK: - Media import
 
-    func importMedia(from url: URL, bundleMediaDir: URL?) async throws -> MediaAsset {
-        let asset = try await context.media.importFile(from: url, bundleMediaDir: bundleMediaDir)
+    func importMedia(from url: URL) async throws -> MediaAsset {
+        let mediaDir = projectBundleURL.appendingPathComponent("media")
+        let asset = try await context.media.importFile(from: url, bundleMediaDir: mediaDir)
         assets = await context.media.allAssets()
         return asset
     }
