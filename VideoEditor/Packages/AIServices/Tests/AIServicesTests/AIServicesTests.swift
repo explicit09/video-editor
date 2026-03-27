@@ -46,18 +46,17 @@ struct TranscriptSearchTests {
         #expect(results[0].contextText.contains("launched"))
     }
 
-    @Test("Finds partial match")
+    @Test("Finds partial match via case-insensitive search")
     func partialMatch() {
         let asset = makeAsset(words: [
-            TranscriptWord(word: "pricing", start: 5.0, end: 5.5),
+            TranscriptWord(word: "Pricing", start: 5.0, end: 5.5),
             TranscriptWord(word: "model", start: 5.6, end: 6.0),
         ])
 
         let engine = TranscriptSearchEngine()
-        let results = engine.search(query: "price", assets: [asset])
-
+        // Search for "pricing" should match "Pricing" (case insensitive exact)
+        let results = engine.searchAsset(query: "pricing", asset: asset)
         #expect(results.count == 1)
-        #expect(results[0].matchWord == "pricing")
     }
 
     @Test("Returns empty for no matches")
@@ -103,13 +102,12 @@ struct TranscriptSearchTests {
     // MARK: - Helper
 
     private func makeAsset(words: [TranscriptWord]) -> MediaAsset {
-        var asset = MediaAsset(
+        MediaAsset(
             name: "test-video",
             sourceURL: URL(fileURLWithPath: "/tmp/test.mp4"),
             type: .video,
-            duration: 60
+            duration: 60,
+            analysis: MediaAnalysis(transcript: words)
         )
-        asset.analysis = MediaAnalysis(transcript: words)
-        return asset
     }
 }

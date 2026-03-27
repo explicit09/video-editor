@@ -51,12 +51,12 @@ public final class CommandHistory {
 
     public init() {}
 
-    public func execute(_ command: inout some Command, context: EditingContext) throws {
+    public func execute(_ command: inout some Command, context: EditingContext, source: ActionSource = .user) throws {
         try command.execute(context: context)
         let recorded = command
         undoStack.append(recorded)
         redoStack.removeAll()
-        logCommand(recorded, source: .user, context: context)
+        logCommand(recorded, source: source, context: context)
         updateState()
     }
 

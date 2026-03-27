@@ -71,9 +71,9 @@ final class AppState {
 
     // MARK: - Intent pipeline (ONLY write path)
 
-    func perform(_ intent: EditorIntent) throws {
+    func perform(_ intent: EditorIntent, source: ActionSource = .user) throws {
         var command = try intentResolver.resolve(intent)
-        try commandHistory.execute(&command, context: context)
+        try commandHistory.execute(&command, context: context, source: source)
         rebuildComposition()
         scheduleSave()
     }
@@ -98,7 +98,14 @@ final class AppState {
         saveDebounceTask = Task {
             try? await Task.sleep(for: .seconds(1))
             guard !Task.isCancelled else { return }
+            // Save timeline
             try? await projectStore.save(to: projectBundleURL, timeline: timeline)
+            // Save asset registry
+            let allAssets = await media.mediaManager.allAssets()
+            let assetsURL = projectBundleURL.appendingPathComponent("assets.json")
+            if let data = try? JSONEncoder().encode(allAssets) {
+                try? data.write(to: assetsURL)
+            }
         }
     }
 
@@ -108,10 +115,22 @@ final class AppState {
         guard FileManager.default.fileExists(atPath: timelinePath.path) else { return }
 
         Task {
+            // Load timeline
             if let loadedTimeline = try? await projectStore.load(from: projectBundleURL) {
                 context.timelineState.timeline = loadedTimeline
-                rebuildComposition()
             }
+
+            // Load assets
+            let assetsURL = projectBundleURL.appendingPathComponent("assets.json")
+            if let data = try? Data(contentsOf: assetsURL),
+               let loadedAssets = try? JSONDecoder().decode([MediaAsset].self, from: data) {
+                for asset in loadedAssets {
+                    await media.mediaManager.add(asset)
+                }
+                await media.refreshAssets()
+            }
+
+            rebuildComposition()
         }
     }
 

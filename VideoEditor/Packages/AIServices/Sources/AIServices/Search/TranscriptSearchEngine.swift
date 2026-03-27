@@ -79,8 +79,8 @@ public struct TranscriptSearchEngine: Sendable {
             for term in queryTerms {
                 if wordLower == term {
                     matchScore += 1.0  // Exact match
-                } else if wordLower.contains(term) {
-                    matchScore += 0.5  // Partial match
+                } else if wordLower.range(of: term) != nil {
+                    matchScore += 0.5  // Partial/substring match
                 }
             }
 

@@ -98,7 +98,7 @@ final class AIChatController {
                     // Editing tools — resolve to intents and execute
                     let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
                     for intent in intents {
-                        try appState.perform(intent)
+                        try appState.perform(intent, source: .ai)
                     }
                     toolResults.append(.init(toolName: toolCall.name, success: true, message: "Done"))
                 } catch {
