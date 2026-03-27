@@ -43,9 +43,10 @@ final class AppState {
         self.media = MediaCoordinator(bundleURL: bundleURL)
         self.aiChat = AIChatController()
 
-        // Configure AI provider from environment
-        if let claude = ClaudeProvider.fromEnvironment() {
-            aiChat.configure(provider: claude)
+        // Load API key from .env file or environment
+        let apiKey = Self.loadAPIKey()
+        if let apiKey {
+            aiChat.configure(provider: ClaudeProvider(apiKey: apiKey))
         }
 
         let dbPath = bundleURL.appendingPathComponent("metadata.sqlite").path
@@ -87,6 +88,33 @@ final class AppState {
 
     func seekFromPlayhead() {
         playbackEngine.seek(to: timelineViewState.playheadPosition)
+    }
+
+    // MARK: - API key loading
+
+    private static func loadAPIKey() -> String? {
+        // Check environment first
+        if let key = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"], !key.isEmpty {
+            return key
+        }
+        // Check .env file in the project directory
+        let envPaths = [
+            Bundle.main.bundleURL.deletingLastPathComponent().appendingPathComponent(".env"),
+            URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent(".env"),
+            URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("VideoEditor/.env"),
+        ]
+        for envPath in envPaths {
+            if let contents = try? String(contentsOf: envPath, encoding: .utf8) {
+                for line in contents.components(separatedBy: .newlines) {
+                    let trimmed = line.trimmingCharacters(in: .whitespaces)
+                    if trimmed.hasPrefix("ANTHROPIC_API_KEY=") {
+                        let key = String(trimmed.dropFirst("ANTHROPIC_API_KEY=".count))
+                        if !key.isEmpty { return key }
+                    }
+                }
+            }
+        }
+        return nil
     }
 
     private func startPlayheadSync() {

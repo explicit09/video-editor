@@ -141,7 +141,7 @@ public struct AIToolResolver: Sendable {
 
     /// Resolve an AI tool call into EditorIntents.
     @MainActor
-    public func resolve(toolName: String, arguments: [String: Any]) throws -> [EditorIntent] {
+    public func resolve(toolName: String, arguments: [String: Any], assets: [MediaAsset] = []) throws -> [EditorIntent] {
         switch toolName {
         case "add_track":
             let typeStr = arguments["type"] as? String ?? "video"
@@ -159,12 +159,15 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing or invalid track_id")
             }
             let startTime = (arguments["start_time"] as? Double) ?? 0
-            let duration = (arguments["duration"] as? Double) ?? 5
+            // Look up real asset duration, fall back to explicit duration param
+            let assetDuration = assets.first(where: { $0.id == assetID })?.duration
+            let duration = (arguments["duration"] as? Double) ?? assetDuration ?? 5
 
             let clip = Clip(
                 assetID: assetID,
                 timelineRange: TimeRange(start: startTime, duration: duration),
-                sourceRange: TimeRange(start: 0, duration: duration)
+                sourceRange: TimeRange(start: 0, duration: duration),
+                metadata: ClipMetadata(label: assets.first(where: { $0.id == assetID })?.name)
             )
             return [.insertClip(clip: clip, trackID: trackID)]
 

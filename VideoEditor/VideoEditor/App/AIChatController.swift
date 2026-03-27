@@ -76,7 +76,7 @@ final class AIChatController {
             for toolCall in response.toolCalls {
                 let args = toolCall.parsedArguments()
                 do {
-                    let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args)
+                    let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
                     for intent in intents {
                         try appState.perform(intent)
                     }

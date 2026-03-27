@@ -39,6 +39,27 @@ struct TimelinePanel: View {
             }
         }
         .background(Color(nsColor: .controlBackgroundColor))
+        .focusable()
+        .onKeyPress(.space) {
+            appState.playbackEngine.togglePlayPause()
+            return .handled
+        }
+        .onKeyPress(.delete) {
+            deleteSelectedClips()
+            return .handled
+        }
+        .onKeyPress(KeyEquivalent("\u{7F}")) {
+            guard !appState.timelineViewState.selectedClipIDs.isEmpty else { return .ignored }
+            deleteSelectedClips()
+            return .handled
+        }
+    }
+
+    private func deleteSelectedClips() {
+        let selected = Array(appState.timelineViewState.selectedClipIDs)
+        guard !selected.isEmpty else { return }
+        try? appState.perform(.deleteClips(clipIDs: selected))
+        appState.timelineViewState.clearSelection()
     }
 
     // MARK: - Toolbar

@@ -6,11 +6,9 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Top toolbar
             editorToolbar
             Divider()
 
-            // Main panels
             HSplitView {
                 MediaBrowserPanel()
                     .frame(minWidth: 200, idealWidth: 250)
@@ -28,19 +26,6 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 1200, minHeight: 700)
-        .focusable()
-        .onKeyPress(.space) {
-            appState.playbackEngine.togglePlayPause()
-            return .handled
-        }
-        .onKeyPress(.delete) {
-            deleteSelectedClips()
-            return .handled
-        }
-        .onKeyPress(KeyEquivalent("\u{7F}")) {
-            deleteSelectedClips()
-            return .handled
-        }
     }
 
     // MARK: - Toolbar
@@ -58,12 +43,5 @@ struct ContentView: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
         .background(Color(nsColor: .windowBackgroundColor))
-    }
-
-    private func deleteSelectedClips() {
-        let selected = Array(appState.timelineViewState.selectedClipIDs)
-        guard !selected.isEmpty else { return }
-        try? appState.perform(.deleteClips(clipIDs: selected))
-        appState.timelineViewState.clearSelection()
     }
 }
