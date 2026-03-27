@@ -13,12 +13,29 @@ public protocol Command: Sendable {
 public final class EditingContext: Sendable {
     public let timeline: TimelineManager
     public let media: MediaManager
+    public let projectStore: ProjectStore
     public let actionLog: ActionLog
 
-    public init(timeline: TimelineManager, media: MediaManager, actionLog: ActionLog) {
+    public init(
+        timeline: TimelineManager,
+        media: MediaManager,
+        projectStore: ProjectStore,
+        actionLog: ActionLog
+    ) {
         self.timeline = timeline
         self.media = media
+        self.projectStore = projectStore
         self.actionLog = actionLog
+    }
+
+    /// Convenience initializer — creates fresh instances for a new project.
+    public convenience init() {
+        self.init(
+            timeline: TimelineManager(),
+            media: MediaManager(),
+            projectStore: ProjectStore(),
+            actionLog: ActionLog()
+        )
     }
 }
 
@@ -94,12 +111,3 @@ public struct BatchCommand: Command {
     }
 }
 
-// MARK: - Manager protocols (minimal stubs for DI)
-
-public final class TimelineManager: Sendable {
-    public init() {}
-}
-
-public final class MediaManager: Sendable {
-    public init() {}
-}
