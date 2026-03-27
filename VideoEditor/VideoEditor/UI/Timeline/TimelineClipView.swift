@@ -6,16 +6,30 @@ struct TimelineClipView: View {
     @ObservedObject var viewState: TimelineViewState
     let isSelected: Bool
     let trackType: TrackType
+    let trackHeight: Double
     let onTap: (Bool) -> Void
     let onDrag: (TimeInterval) -> Void
 
     @State private var dragOffset: Double = 0
     @State private var isDragging = false
 
-    var body: some View {
-        let x = viewState.durationToWidth(clip.timelineRange.start) + dragOffset
-        let width = max(viewState.durationToWidth(clip.timelineRange.duration), 4)
+    private var clipX: Double {
+        viewState.durationToWidth(clip.timelineRange.start) + dragOffset
+    }
 
+    private var clipWidth: Double {
+        max(viewState.durationToWidth(clip.timelineRange.duration), 8)
+    }
+
+    var body: some View {
+        clipBody
+            .frame(width: clipWidth, height: trackHeight - 8)
+            .position(x: clipX + clipWidth / 2, y: trackHeight / 2)
+            .gesture(dragGesture)
+            .simultaneousGesture(tapGesture)
+    }
+
+    private var clipBody: some View {
         RoundedRectangle(cornerRadius: 4)
             .fill(clipColor)
             .overlay(
@@ -23,16 +37,20 @@ struct TimelineClipView: View {
                     .strokeBorder(isSelected ? Color.white : Color.clear, lineWidth: 1.5)
             )
             .overlay(clipLabel, alignment: .leading)
-            .frame(width: width, height: 52)
-            .offset(x: x, y: 4)
             .shadow(color: isDragging ? .black.opacity(0.3) : .clear, radius: 4)
-            .onTapGesture {
-                onTap(NSEvent.modifierFlags.contains(.shift))
-            }
-            .gesture(dragGesture)
     }
 
-    // MARK: - Clip color
+    // MARK: - Label
+
+    private var clipLabel: some View {
+        Text(clip.metadata.label ?? "Clip")
+            .font(.caption2)
+            .foregroundStyle(.white)
+            .lineLimit(1)
+            .padding(.horizontal, 6)
+    }
+
+    // MARK: - Color
 
     private var clipColor: Color {
         let base: Color = switch trackType {
@@ -44,18 +62,14 @@ struct TimelineClipView: View {
         return base.opacity(isDragging ? 0.8 : 0.6)
     }
 
-    // MARK: - Label
+    // MARK: - Gestures
 
-    private var clipLabel: some View {
-        Text(clip.metadata.label ?? "Clip")
-            .font(.caption2)
-            .foregroundStyle(.white)
-            .lineLimit(1)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 2)
+    private var tapGesture: some Gesture {
+        TapGesture()
+            .onEnded {
+                onTap(NSEvent.modifierFlags.contains(.shift))
+            }
     }
-
-    // MARK: - Drag
 
     private var dragGesture: some Gesture {
         DragGesture(minimumDistance: 3)
@@ -67,12 +81,6 @@ struct TimelineClipView: View {
                 isDragging = false
                 let timeDelta = value.translation.width / viewState.zoom
                 let newStart = max(0, clip.timelineRange.start + timeDelta)
-
-                // Snap
-                if viewState.snapEnabled {
-                    // Snap will be applied by the caller if needed
-                }
-
                 dragOffset = 0
                 onDrag(newStart)
             }

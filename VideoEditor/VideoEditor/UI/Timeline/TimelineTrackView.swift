@@ -15,7 +15,7 @@ struct TimelineTrackView: View {
 
     var body: some View {
         ZStack(alignment: .leading) {
-            // Track background — highlight if selected
+            // Track background
             Rectangle()
                 .fill(isSelectedTrack ? trackBackgroundColor.opacity(3) : trackBackgroundColor)
                 .frame(width: totalWidth, height: trackHeight)
@@ -32,20 +32,23 @@ struct TimelineTrackView: View {
                 .padding(.leading, 4)
                 .padding(.top, 2)
                 .frame(width: totalWidth, height: trackHeight, alignment: .topLeading)
+                .allowsHitTesting(false)
 
-            // Clips
+            // Clips — each positioned absolutely via .position() in TimelineClipView
             ForEach(track.clips) { clip in
                 TimelineClipView(
                     clip: clip,
                     viewState: viewState,
                     isSelected: selectedClipIDs.contains(clip.id),
                     trackType: track.type,
+                    trackHeight: trackHeight,
                     onTap: { extend in onClipTap(clip.id, extend) },
                     onDrag: { newStart in onClipDrag(clip.id, newStart) }
                 )
             }
         }
-        .frame(height: trackHeight)
+        .frame(width: totalWidth, height: trackHeight)
+        .clipped()
     }
 
     private var trackBackgroundColor: Color {
