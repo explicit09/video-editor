@@ -89,6 +89,11 @@ final class AIChatController {
                         toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
                         continue
                     }
+                    if toolCall.name == "search_transcript" {
+                        let result = handleSearchTranscript(args: args, appState: appState)
+                        toolResults.append(.init(toolName: toolCall.name, success: true, message: result))
+                        continue
+                    }
 
                     // Editing tools — resolve to intents and execute
                     let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
@@ -166,6 +171,38 @@ final class AIChatController {
         } else {
             return "Transcription not configured. Add DEEPGRAM_API_KEY to .env file."
         }
+    }
+
+    private func handleSearchTranscript(args: [String: Any], appState: AppState) -> String {
+        guard let query = args["query"] as? String, !query.isEmpty else {
+            return "Missing search query."
+        }
+
+        let maxResults = (args["max_results"] as? Int) ?? 10
+        let searchEngine = TranscriptSearchEngine()
+
+        // Search specific asset or all assets
+        let results: [SearchResult]
+        if let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) {
+            if let asset = appState.assets.first(where: { $0.id == assetID }) {
+                results = searchEngine.searchAsset(query: query, asset: asset)
+            } else {
+                return "Asset not found."
+            }
+        } else {
+            results = searchEngine.search(query: query, assets: appState.assets, maxResults: maxResults)
+        }
+
+        guard !results.isEmpty else {
+            return "No matches found for '\(query)'. Make sure assets are transcribed first (use transcribe_asset)."
+        }
+
+        var output = "Found \(results.count) match(es) for '\(query)':\n\n"
+        for (i, result) in results.prefix(maxResults).enumerated() {
+            output += "\(i + 1). [\(result.assetName)] at \(result.formattedTime) — \"...\(result.contextText)...\"\n"
+            output += "   Asset ID: \(result.assetID.uuidString), Time: \(String(format: "%.1f", result.matchTime))s\n\n"
+        }
+        return output
     }
 
     // MARK: - Argument fixup

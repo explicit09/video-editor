@@ -16,6 +16,7 @@ public struct AIToolRegistry: Sendable {
         removeSilence,
         getTranscript,
         transcribeAsset,
+        searchTranscript,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -34,6 +35,16 @@ public struct AIToolRegistry: Sendable {
         parameters: .object([
             "asset_id": .init(type: "string", description: "UUID of the asset to transcribe"),
         ], required: ["asset_id"])
+    )
+
+    public static let searchTranscript = AIToolDefinition(
+        name: "search_transcript",
+        description: "Search across all transcribed assets for mentions of a word or phrase. Returns matching timestamps with surrounding context. Assets must be transcribed first.",
+        parameters: .object([
+            "query": .init(type: "string", description: "Text to search for in transcripts"),
+            "asset_id": .init(type: "string", description: "Optional: search only this asset (omit to search all)"),
+            "max_results": .init(type: "number", description: "Maximum results to return (default 10)"),
+        ], required: ["query"])
     )
 
     // MARK: - Tool definitions (matching Claude/OpenAI function-calling schema)
