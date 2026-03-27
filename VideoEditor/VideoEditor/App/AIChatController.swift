@@ -31,11 +31,7 @@ final class AIChatController {
         self.provider = provider
     }
 
-    /// Send a user message and get AI response with tool execution.
-    func send(
-        message: String,
-        appState: AppState
-    ) async {
+    func send(message: String, appState: AppState) async {
         guard let provider else {
             messages.append(ChatMessage(role: .system, content: "No AI provider configured. Set ANTHROPIC_API_KEY environment variable.", toolResults: []))
             return
@@ -66,46 +62,25 @@ final class AIChatController {
                 tools: AIToolRegistry.allTools
             )
 
-            // Execute tool calls sequentially with ID remapping.
-            // The AI generates IDs for new objects (tracks, clips) that don't match
-            // the real IDs created by commands. We track the mapping and remap
-            // subsequent tool call arguments so they reference real objects.
+            // Execute tool calls sequentially.
+            // After each call, the timeline state is updated, so subsequent calls
+            // can reference objects created by earlier calls.
+            // We fix up invalid IDs by inferring what the AI meant from context.
             var toolResults: [ChatMessage.ToolResult] = []
-            var idMap: [String: String] = [:]  // AI-generated ID → real ID
 
             for toolCall in response.toolCalls {
-                var args = toolCall.parsedArguments()
-
-                // Remap all UUID-like string arguments through the ID map
-                args = remapIDs(args, idMap: idMap)
-
-                // Snapshot state before execution to detect new objects
-                let tracksBefore = Set(appState.timeline.tracks.map(\.id))
-                let clipsBefore = Set(appState.timeline.tracks.flatMap(\.clips).map(\.id))
+                let args = fixupArguments(
+                    toolName: toolCall.name,
+                    arguments: toolCall.parsedArguments(),
+                    timeline: appState.timeline,
+                    assets: appState.assets
+                )
 
                 do {
                     let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
                     for intent in intents {
                         try appState.perform(intent)
                     }
-
-                    // Detect newly created objects and map AI IDs to real IDs
-                    let tracksAfter = Set(appState.timeline.tracks.map(\.id))
-                    let clipsAfter = Set(appState.timeline.tracks.flatMap(\.clips).map(\.id))
-
-                    let newTracks = tracksAfter.subtracting(tracksBefore)
-                    let newClips = clipsAfter.subtracting(clipsBefore)
-
-                    // Map: if AI provided a track_id that doesn't exist, map it to the new track
-                    if let aiTrackID = originalID(for: "track_id", in: toolCall.parsedArguments()),
-                       let newTrack = newTracks.first {
-                        idMap[aiTrackID] = newTrack.uuidString
-                    }
-                    if let aiClipID = originalID(for: "clip_id", in: toolCall.parsedArguments()),
-                       let newClip = newClips.first {
-                        idMap[aiClipID] = newClip.uuidString
-                    }
-
                     toolResults.append(.init(toolName: toolCall.name, success: true, message: "Done"))
                 } catch {
                     toolResults.append(.init(toolName: toolCall.name, success: false, message: error.localizedDescription))
@@ -128,24 +103,66 @@ final class AIChatController {
         messages.removeAll()
     }
 
-    // MARK: - ID remapping
+    // MARK: - Argument fixup
 
-    /// Remap all string values in arguments that exist in the ID map.
-    private func remapIDs(_ args: [String: Any], idMap: [String: String]) -> [String: Any] {
-        guard !idMap.isEmpty else { return args }
-        var result = args
-        for (key, value) in args {
-            if let str = value as? String, let mapped = idMap[str] {
-                result[key] = mapped
-            } else if let array = value as? [String] {
-                result[key] = array.map { idMap[$0] ?? $0 }
+    /// Fix up tool arguments by resolving invalid IDs to real objects.
+    /// The AI generates fake UUIDs that don't exist. Instead of mapping them,
+    /// we infer what the AI meant from the current timeline state.
+    private func fixupArguments(
+        toolName: String,
+        arguments: [String: Any],
+        timeline: Timeline,
+        assets: [MediaAsset]
+    ) -> [String: Any] {
+        var args = arguments
+
+        // Fix track_id: if it doesn't exist, use the last track of the appropriate type
+        if let trackIDStr = args["track_id"] as? String {
+            let trackExists = timeline.tracks.contains { $0.id.uuidString == trackIDStr }
+            if !trackExists {
+                // Infer the right track type from context
+                let trackType = inferTrackType(toolName: toolName, args: args, assets: assets)
+                if let realTrack = timeline.tracks.last(where: { $0.type == trackType }) {
+                    args["track_id"] = realTrack.id.uuidString
+                }
             }
         }
-        return result
+
+        // Fix clip_id: if it doesn't exist, infer from context
+        if let clipIDStr = args["clip_id"] as? String {
+            let clipExists = timeline.tracks.flatMap(\.clips).contains { $0.id.uuidString == clipIDStr }
+            if !clipExists {
+                // Use the most recently added clip (last clip on last non-empty track)
+                if let lastClip = timeline.tracks.flatMap(\.clips).last {
+                    args["clip_id"] = lastClip.id.uuidString
+                }
+            }
+        }
+
+        // Fix clip_ids array: filter to existing IDs, fall back to all clips if none valid
+        if let clipIDStrs = args["clip_ids"] as? [String] {
+            let allClipIDs = Set(timeline.tracks.flatMap(\.clips).map(\.id.uuidString))
+            let validIDs = clipIDStrs.filter { allClipIDs.contains($0) }
+            if validIDs.isEmpty && !clipIDStrs.isEmpty {
+                // AI referenced clips that don't exist — try to infer
+                // "delete the second clip" → the AI probably means the last clip
+                if let lastClip = timeline.tracks.flatMap(\.clips).last {
+                    args["clip_ids"] = [lastClip.id.uuidString]
+                }
+            } else {
+                args["clip_ids"] = validIDs
+            }
+        }
+
+        return args
     }
 
-    /// Extract the original (un-remapped) ID value for a given key.
-    private func originalID(for key: String, in args: [String: Any]) -> String? {
-        args[key] as? String
+    private func inferTrackType(toolName: String, args: [String: Any], assets: [MediaAsset]) -> TrackType {
+        // If inserting a clip, check what type the asset is
+        if let assetIDStr = args["asset_id"] as? String,
+           let asset = assets.first(where: { $0.id.uuidString == assetIDStr }) {
+            return asset.type == .audio ? .audio : .video
+        }
+        return .video
     }
 }
