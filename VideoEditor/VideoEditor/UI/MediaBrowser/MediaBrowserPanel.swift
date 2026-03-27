@@ -93,7 +93,7 @@ struct MediaBrowserPanel: View {
                 defer { url.stopAccessingSecurityScopedResource() }
                 do {
                     let asset = try await appState.importMedia(from: url)
-                    let thumb = await appState.context.media.thumbnail(for: asset.id)
+                    let thumb = await appState.media.thumbnail(for: asset.id)
                     if let thumb { thumbnails[asset.id] = thumb }
                 } catch {
                     importError = error.localizedDescription
