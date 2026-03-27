@@ -10,6 +10,7 @@ final class AppState {
     let intentResolver: IntentResolver
     let timelineViewState: TimelineViewState
     let playbackEngine: PlaybackEngine
+    let exportEngine: ExportEngine
 
     // Reactive access — SwiftUI reads these directly
     var timeline: Timeline { context.timelineState.timeline }
@@ -23,6 +24,7 @@ final class AppState {
         self.intentResolver = IntentResolver()
         self.timelineViewState = TimelineViewState()
         self.playbackEngine = PlaybackEngine()
+        self.exportEngine = ExportEngine()
 
         startPlayheadSync()
     }

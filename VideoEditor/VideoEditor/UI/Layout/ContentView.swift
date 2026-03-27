@@ -5,20 +5,27 @@ struct ContentView: View {
     @Environment(AppState.self) private var appState
 
     var body: some View {
-        HSplitView {
-            MediaBrowserPanel()
-                .frame(minWidth: 200, idealWidth: 250)
+        VStack(spacing: 0) {
+            // Top toolbar
+            editorToolbar
+            Divider()
 
-            VSplitView {
-                PreviewPanel()
-                    .frame(minHeight: 200)
+            // Main panels
+            HSplitView {
+                MediaBrowserPanel()
+                    .frame(minWidth: 200, idealWidth: 250)
 
-                TimelinePanel()
-                    .frame(minHeight: 150)
+                VSplitView {
+                    PreviewPanel()
+                        .frame(minHeight: 200)
+
+                    TimelinePanel()
+                        .frame(minHeight: 150)
+                }
+
+                InspectorPanel()
+                    .frame(minWidth: 200, idealWidth: 250)
             }
-
-            InspectorPanel()
-                .frame(minWidth: 200, idealWidth: 250)
         }
         .frame(minWidth: 1200, minHeight: 700)
         .focusable()
@@ -34,6 +41,23 @@ struct ContentView: View {
             deleteSelectedClips()
             return .handled
         }
+    }
+
+    // MARK: - Toolbar
+
+    private var editorToolbar: some View {
+        HStack {
+            Text("Video Editor")
+                .font(.headline)
+                .foregroundStyle(.secondary)
+
+            Spacer()
+
+            ExportButton()
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(Color(nsColor: .windowBackgroundColor))
     }
 
     private func deleteSelectedClips() {
