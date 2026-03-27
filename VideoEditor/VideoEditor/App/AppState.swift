@@ -158,11 +158,13 @@ final class AppState {
         var keys: [String: String] = [:]
 
         // Load from .env files
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
         let envPaths = [
+            appSupport?.appendingPathComponent("VideoEditor/.env"),
             Bundle.main.bundleURL.deletingLastPathComponent().appendingPathComponent(".env"),
             URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent(".env"),
             URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("VideoEditor/.env"),
-        ]
+        ].compactMap { $0 }
         for envPath in envPaths {
             if let contents = try? String(contentsOf: envPath, encoding: .utf8) {
                 for line in contents.components(separatedBy: .newlines) {
