@@ -73,6 +73,55 @@ final class AppState {
         startPlayheadSync()
     }
 
+    // MARK: - Add to timeline (creates linked audio track for video assets)
+
+    func addAssetToTimeline(_ asset: MediaAsset, source: ActionSource = .user) {
+        let duration = max(asset.duration, 1)
+
+        if asset.type == .video {
+            // Video track
+            let videoTrackID = findOrCreateTrack(type: .video, name: "Video")
+            let videoEnd = timeline.tracks.first(where: { $0.id == videoTrackID })?.clips.map(\.timelineRange.end).max() ?? 0
+            let videoClip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: videoEnd, duration: duration),
+                sourceRange: TimeRange(start: 0, duration: duration),
+                metadata: ClipMetadata(label: asset.name)
+            )
+            try? perform(.insertClip(clip: videoClip, trackID: videoTrackID), source: source)
+
+            // Linked audio track (same asset, same position)
+            let audioTrackID = findOrCreateTrack(type: .audio, name: "Audio")
+            let audioClip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: videoEnd, duration: duration),
+                sourceRange: TimeRange(start: 0, duration: duration),
+                metadata: ClipMetadata(label: "\(asset.name) ♪")
+            )
+            try? perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: source)
+        } else {
+            // Audio-only asset
+            let trackID = findOrCreateTrack(type: .audio, name: "Audio")
+            let trackEnd = timeline.tracks.first(where: { $0.id == trackID })?.clips.map(\.timelineRange.end).max() ?? 0
+            let clip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: trackEnd, duration: duration),
+                sourceRange: TimeRange(start: 0, duration: duration),
+                metadata: ClipMetadata(label: asset.name)
+            )
+            try? perform(.insertClip(clip: clip, trackID: trackID), source: source)
+        }
+    }
+
+    private func findOrCreateTrack(type: TrackType, name: String) -> UUID {
+        if let existing = timeline.tracks.last(where: { $0.type == type }) {
+            return existing.id
+        }
+        let track = Track(name: name, type: type)
+        try? perform(.addTrack(track: track))
+        return track.id
+    }
+
     // MARK: - Intent pipeline (ONLY write path)
 
     func perform(_ intent: EditorIntent, source: ActionSource = .user) throws {

@@ -164,9 +164,19 @@ final class AIChatController {
 
             // Editing tools
             processingStatus = "Executing \(toolCall.name)..."
-            let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
-            for intent in intents {
-                try appState.perform(intent, source: .ai)
+
+            // Special case: insert_clip for video assets — create linked audio track
+            if toolCall.name == "insert_clip",
+               let assetIDStr = args["asset_id"] as? String,
+               let assetID = UUID(uuidString: assetIDStr),
+               let asset = appState.assets.first(where: { $0.id == assetID }),
+               asset.type == .video {
+                appState.addAssetToTimeline(asset, source: .ai)
+            } else {
+                let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
+                for intent in intents {
+                    try appState.perform(intent, source: .ai)
+                }
             }
 
             // Return detailed feedback for destructive operations

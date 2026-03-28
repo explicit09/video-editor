@@ -389,23 +389,7 @@ struct MediaWorkspacePanel: View {
     }
 
     private func addToTimeline(_ asset: MediaAsset) {
-        let trackType: TrackType = asset.type == .audio ? .audio : .video
-        var trackID: UUID
-        if let existing = appState.timeline.tracks.last(where: { $0.type == trackType }) {
-            trackID = existing.id
-        } else {
-            let track = Track(name: trackType.rawValue.capitalized, type: trackType)
-            trackID = track.id
-            try? appState.perform(.addTrack(track: track))
-        }
-        let trackEnd = appState.timeline.tracks.first(where: { $0.id == trackID })?.clips.map(\.timelineRange.end).max() ?? 0
-        let clip = Clip(
-            assetID: asset.id,
-            timelineRange: TimeRange(start: trackEnd, duration: max(asset.duration, 1)),
-            sourceRange: TimeRange(start: 0, duration: max(asset.duration, 1)),
-            metadata: ClipMetadata(label: asset.name)
-        )
-        try? appState.perform(.insertClip(clip: clip, trackID: trackID))
+        appState.addAssetToTimeline(asset)
     }
 
     private func handleImport(_ result: Result<[URL], Error>) async {

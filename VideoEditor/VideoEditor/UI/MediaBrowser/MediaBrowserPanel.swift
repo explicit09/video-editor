@@ -140,33 +140,7 @@ struct MediaBrowserPanel: View {
     // MARK: - Add to timeline
 
     private func addToTimeline(_ asset: MediaAsset) {
-        let timeline = appState.timeline
-        let trackType: TrackType = asset.type == .audio ? .audio : .video
-        let viewState = appState.timelineViewState
-
-        var trackID: UUID
-        if let selectedID = viewState.selectedTrackID,
-           let selected = timeline.tracks.first(where: { $0.id == selectedID && $0.type == trackType }) {
-            trackID = selected.id
-        } else if let existing = timeline.tracks.last(where: { $0.type == trackType }) {
-            trackID = existing.id
-        } else {
-            let newTrack = Track(name: trackType.rawValue.capitalized, type: trackType)
-            trackID = newTrack.id
-            try? appState.perform(.addTrack(track: newTrack))
-        }
-
-        let trackEnd = appState.timeline.tracks
-            .first(where: { $0.id == trackID })?
-            .clips.map(\.timelineRange.end).max() ?? 0
-
-        let clip = Clip(
-            assetID: asset.id,
-            timelineRange: TimeRange(start: trackEnd, duration: max(asset.duration, 1)),
-            sourceRange: TimeRange(start: 0, duration: max(asset.duration, 1)),
-            metadata: ClipMetadata(label: asset.name)
-        )
-        try? appState.perform(.insertClip(clip: clip, trackID: trackID))
+        appState.addAssetToTimeline(asset)
     }
 
     private static let allowedTypes: [UTType] = [
