@@ -73,8 +73,8 @@
 | 19 | HDR support | **MISSING** | Dolby Vision/HDR10+ | HDR10 | HDR/Dolby | No | No | P3 | Need color space management |
 | 20 | Transitions | **DONE** | Yes (full) | Yes (full) | Yes (full) | Yes | No | **P0** | 6 types modeled, command works, no rendering |
 | 21 | Motion effects (transform) | **DONE** | Yes | Yes | Yes | Yes | No | **P0** | Transform2D on every clip, not rendered |
-| 22 | Masking | **MISSING** | PowerWindows | Yes | Magnetic Mask | AI mask | No | P2 | |
-| 23 | Tracking | **MISSING** | Yes (full) | Yes | Object Tracker | AI tracking | No | P2 | |
+| 22 | Masking | **DONE** | PowerWindows | Yes | Magnetic Mask | AI mask | No | P2 | |
+| 23 | Tracking | **DONE** | Yes (full) | Yes | Object Tracker | AI tracking | No | P2 | |
 | 24 | Green screen (chroma key) | **DONE** | Yes | Yes | Yes | AI removal | No | P2 | CIChromaKeyFilter available |
 | 25 | Blur | 25 | Blur & sharpen | **STUBBED** sharpen | **DONE** | Yes | Yes | Yes | Yes | No | P1 | Type constants defined |
 | 26 | VFX layering | **STUBBED** | Fusion (full) | After Effects | Motion | No | No | P3 | TrackType.effect exists |
@@ -128,7 +128,7 @@
 | 55 | Auto reframing | **DONE** | Studio | Auto Reframe | Smart Conform | Yes | No | P1 | Subject tracking + crop |
 | 56 | AI subtitles | **DONE** | No | Yes | Yes | **Yes** | Yes | P1 | Transcription done, no burn-in rendering |
 | 57 | Caption styling | **DONE** | No | Basic | Basic | **Yes** | No | P2 | Animated word-by-word captions |
-| 58 | AI voice cleanup | **MISSING** | Studio | Enhance Speech | Voice Isolation | Yes | Studio Sound | P1 | |
+| 58 | AI voice cleanup | **DONE** | Studio | Enhance Speech | Voice Isolation | Yes | Studio Sound | P1 | |
 | 59 | AI upscaling | **MISSING** | Studio | No | No | No | No | P3 | CoreML super-resolution |
 | 60 | AI frame interpolation | **MISSING** | Yes | No | No | No | No | P3 | |
 
