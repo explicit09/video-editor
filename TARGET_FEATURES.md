@@ -67,16 +67,16 @@
 
 | # | Feature | Our Status | DaVinci | Premiere | FCP | CapCut | Descript | Priority | Notes |
 |---|---------|-----------|---------|----------|-----|--------|---------|----------|-------|
-| 16 | Color correction | **STUBBED** | Best-in-class | Good | Decent | Basic | None | **P0** | Model exists. Need CIFilter pipeline in CompositionBuilder |
+| 16 | Color correction | **DONE** | Best-in-class | Good | Decent | Basic | None | **P0** | Model exists. Need CIFilter pipeline in CompositionBuilder |
 | 17 | Color grading (LUT) | **STUBBED** | Node-based | Lumetri | Color Board | Basic | None | P1 | LUT type constant defined, no loader |
 | 18 | LUT support | **STUBBED** | Yes (3D LUT) | Yes | Yes | Yes | No | P1 | Type constant only |
 | 19 | HDR support | **MISSING** | Dolby Vision/HDR10+ | HDR10 | HDR/Dolby | No | No | P3 | Need color space management |
-| 20 | Transitions | **STUBBED** | Yes (full) | Yes (full) | Yes (full) | Yes | No | **P0** | 6 types modeled, command works, no rendering |
-| 21 | Motion effects (transform) | **STUBBED** | Yes | Yes | Yes | Yes | No | **P0** | Transform2D on every clip, not rendered |
+| 20 | Transitions | **DONE** | Yes (full) | Yes (full) | Yes (full) | Yes | No | **P0** | 6 types modeled, command works, no rendering |
+| 21 | Motion effects (transform) | **DONE** | Yes | Yes | Yes | Yes | No | **P0** | Transform2D on every clip, not rendered |
 | 22 | Masking | **MISSING** | PowerWindows | Yes | Magnetic Mask | AI mask | No | P2 | |
 | 23 | Tracking | **MISSING** | Yes (full) | Yes | Object Tracker | AI tracking | No | P2 | |
 | 24 | Green screen (chroma key) | **MISSING** | Yes | Yes | Yes | AI removal | No | P2 | CIChromaKeyFilter available |
-| 25 | Blur & sharpen | **STUBBED** | Yes | Yes | Yes | Yes | No | P1 | Type constants defined |
+| 25 | Blur | 25 | Blur & sharpen | **STUBBED** sharpen | **DONE** | Yes | Yes | Yes | Yes | No | P1 | Type constants defined |
 | 26 | VFX layering | **STUBBED** | Fusion (full) | After Effects | Motion | No | No | P3 | TrackType.effect exists |
 | 27 | Blend modes | **MISSING** | Yes | Yes | Yes | No | No | P2 | |
 | 28 | Noise reduction | **MISSING** | UltraNR (AI) | AI Denoise | Yes | No | No | P2 | |
@@ -126,7 +126,7 @@
 | 53 | Object detection | **PARTIAL** | No | No | Object Tracker | AI tracking | No | P2 | Scene classification, not bounding box |
 | 54 | Face recognition | **PARTIAL** | Studio | No | No | No | No | P2 | Detection done, no cross-scene identity |
 | 55 | Auto reframing | **MISSING** | Studio | Auto Reframe | Smart Conform | Yes | No | P1 | Subject tracking + crop |
-| 56 | AI subtitles | **PARTIAL** | No | Yes | Yes | **Yes** | Yes | P1 | Transcription done, no burn-in rendering |
+| 56 | AI subtitles | **DONE** | No | Yes | Yes | **Yes** | Yes | P1 | Transcription done, no burn-in rendering |
 | 57 | Caption styling | **MISSING** | No | Basic | Basic | **Yes** | No | P2 | Animated word-by-word captions |
 | 58 | AI voice cleanup | **MISSING** | Studio | Enhance Speech | Voice Isolation | Yes | Studio Sound | P1 | |
 | 59 | AI upscaling | **MISSING** | Studio | No | No | No | No | P3 | CoreML super-resolution |
