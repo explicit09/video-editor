@@ -60,7 +60,13 @@ final class TimelineViewState {
 
     // MARK: - Selection
 
-    func toggleSelection(_ clipID: UUID, extend: Bool) {
+    func selectTrack(_ trackID: UUID) {
+        selectedTrackID = trackID
+        selectedClipIDs.removeAll()
+    }
+
+    func toggleSelection(_ clipID: UUID, in trackID: UUID, extend: Bool) {
+        selectedTrackID = trackID
         if extend {
             if selectedClipIDs.contains(clipID) {
                 selectedClipIDs.remove(clipID)
@@ -74,6 +80,7 @@ final class TimelineViewState {
 
     func clearSelection() {
         selectedClipIDs.removeAll()
+        selectedTrackID = nil
     }
 
     private enum ZoomDirection {

@@ -39,6 +39,14 @@ struct TimelinePanel: View {
 
                 ScrollView([.horizontal], showsIndicators: true) {
                     ZStack(alignment: .topLeading) {
+                        Rectangle()
+                            .fill(Color.clear)
+                            .contentShape(Rectangle())
+                            .frame(width: totalWidth, height: geo.size.height)
+                            .onTapGesture {
+                                viewState.clearSelection()
+                            }
+
                         VStack(spacing: 0) {
                             TimelineRuler(viewState: viewState, totalWidth: totalWidth)
                                 .frame(height: 28)
@@ -251,7 +259,7 @@ struct TimelinePanel: View {
                     totalWidth: width,
                     thumbnails: thumbnails,
                     waveforms: waveforms,
-                    onTrackTap: { viewState.selectedTrackID = track.id },
+                    onTrackTap: { viewState.selectTrack(track.id) },
                     onRenameTrack: { newName in
                         appState.updateTrack(id: track.id) { $0.name = newName }
                     },
@@ -271,8 +279,7 @@ struct TimelinePanel: View {
                         try? appState.perform(.removeTrack(trackID: track.id))
                     } : nil,
                     onClipTap: { clipID, extend in
-                        viewState.selectedTrackID = track.id
-                        viewState.toggleSelection(clipID, extend: extend)
+                        viewState.toggleSelection(clipID, in: track.id, extend: extend)
                     },
                     onClipDrag: { clipID, newStart, verticalOffset in
                         let targetTrackID = targetTrackID(
@@ -323,18 +330,26 @@ struct TimelinePanel: View {
 
         var cursor: Double = 0
         let fallback = timeline.tracks[currentIndex]
+        let fallbackTrackID = (fallback.type == trackType && !fallback.isLocked) ? fallback.id : nil
 
         for track in timeline.tracks {
             let height = trackHeight(for: track.id)
             let upperBound = cursor + height
             if proposedCenter <= upperBound {
-                return track.type == trackType ? track.id : fallback.id
+                if track.type == trackType, !track.isLocked {
+                    return track.id
+                }
+                if let fallbackTrackID {
+                    return fallbackTrackID
+                }
             }
             cursor = upperBound + CinematicSpacing.clipGap
         }
 
-        let lastTrack = timeline.tracks.last ?? fallback
-        return lastTrack.type == trackType ? lastTrack.id : fallback.id
+        if let sameTypeUnlocked = timeline.tracks.last(where: { $0.type == trackType && !$0.isLocked }) {
+            return sameTypeUnlocked.id
+        }
+        return fallback.id
     }
 
     private func trackHeight(for trackID: UUID) -> Double {

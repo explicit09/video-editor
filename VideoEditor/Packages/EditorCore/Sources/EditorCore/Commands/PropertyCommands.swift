@@ -221,13 +221,55 @@ public struct DuplicateClipCommand: Command {
             keyframes: original.keyframes,
             metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (copy)")
         )
-        context.timelineState.timeline.tracks[location.trackIndex].clips.insert(duplicate, at: location.clipIndex + 1)
+        let insertionIndex = MoveClipCommand.insertionIndex(
+            for: duplicate,
+            in: context.timelineState.timeline.tracks[location.trackIndex].clips
+        )
+        context.timelineState.timeline.tracks[location.trackIndex].clips.insert(duplicate, at: insertionIndex)
     }
 
     public func undo(context: EditingContext) throws {
         guard let newClipID else { return }
         for trackIndex in context.timelineState.timeline.tracks.indices {
             context.timelineState.timeline.tracks[trackIndex].clips.removeAll { $0.id == newClipID }
+        }
+    }
+}
+
+/// Add or update an effect on a clip.
+public struct SetClipEffectCommand: Command {
+    public let name = "Set Effect"
+    public let clipID: UUID
+    public let effect: EffectInstance
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousEffects: [EffectInstance]?
+
+    public init(clipID: UUID, effect: EffectInstance) {
+        self.clipID = clipID
+        self.effect = effect
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        let location = try editableClipLocation(for: clipID, context: context)
+        let clip = context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex]
+        previousEffects = clip.effects
+
+        var effects = clip.effects
+        if let idx = effects.firstIndex(where: { $0.type == effect.type }) {
+            effects[idx] = effect
+        } else {
+            effects.append(effect)
+        }
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].effects = effects
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let prev = previousEffects else { return }
+        for trackIndex in context.timelineState.timeline.tracks.indices {
+            if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
+                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].effects = prev
+                return
+            }
         }
     }
 }

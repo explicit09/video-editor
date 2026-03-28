@@ -201,6 +201,32 @@ public struct EffectInstance: Codable, Sendable {
     }
 }
 
+extension EffectInstance {
+    /// Create a basic color correction effect.
+    public static func colorCorrection(
+        brightness: Double = 0,      // -1.0 to 1.0
+        contrast: Double = 1.0,      // 0.0 to 4.0
+        saturation: Double = 1.0,    // 0.0 to 3.0
+        temperature: Double = 6500   // Kelvin, 2000-10000
+    ) -> EffectInstance {
+        EffectInstance(
+            type: "colorCorrection",
+            parameters: [
+                "brightness": brightness,
+                "contrast": contrast,
+                "saturation": saturation,
+                "temperature": temperature,
+            ]
+        )
+    }
+
+    /// Known effect type constants.
+    public static let typeColorCorrection = "colorCorrection"
+    public static let typeLUT = "lut"
+    public static let typeBlur = "blur"
+    public static let typeSharpen = "sharpen"
+}
+
 public struct KeyframeStore: Codable, Sendable {
     public var tracks: [String: [Keyframe]]
 
