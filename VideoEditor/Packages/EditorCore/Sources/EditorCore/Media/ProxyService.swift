@@ -38,13 +38,8 @@ public actor ProxyService {
 
         let avAsset = AVURLAsset(url: asset.sourceURL)
 
-        // Use AppleProRes422Proxy if available, fall back to H.264
-        let preset: String
-        if AVAssetExportSession.exportPresets(compatibleWith: avAsset).contains(AVAssetExportPresetAppleProRes422LPCM) {
-            preset = AVAssetExportPresetAppleProRes422LPCM
-        } else {
-            preset = AVAssetExportPresetMediumQuality
-        }
+        // Use medium quality preset for smaller, scrub-friendly proxies
+        let preset = AVAssetExportPresetMediumQuality
 
         guard let session = AVAssetExportSession(asset: avAsset, presetName: preset) else {
             notify(.failed(assetID: asset.id, error: "Could not create export session"))

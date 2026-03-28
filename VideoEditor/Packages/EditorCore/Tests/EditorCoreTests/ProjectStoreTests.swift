@@ -156,6 +156,59 @@ struct CommandPipelineTests {
     }
 
     @MainActor
+    @Test("MoveClip across tracks")
+    func moveClipCrossTrack() throws {
+        let context = EditingContext()
+        let track1 = Track(name: "V1", type: .video)
+        let track2 = Track(name: "V2", type: .video)
+        context.timelineState.timeline.tracks = [track1, track2]
+
+        let clip = Clip(assetID: UUID(), timelineRange: TimeRange(start: 0, end: 5), sourceRange: TimeRange(start: 0, end: 5))
+        context.timelineState.timeline.tracks[0].clips.append(clip)
+
+        // Move clip from track1 to track2
+        var cmd = MoveClipCommand(clipID: clip.id, newStart: 2, targetTrackID: track2.id)
+        try cmd.execute(context: context)
+
+        #expect(context.timelineState.timeline.tracks[0].clips.isEmpty)
+        #expect(context.timelineState.timeline.tracks[1].clips.count == 1)
+        #expect(context.timelineState.timeline.tracks[1].clips[0].timelineRange.start == 2)
+
+        // Undo
+        try cmd.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 1)
+        #expect(context.timelineState.timeline.tracks[1].clips.isEmpty)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].timelineRange.start == 0)
+    }
+
+    @MainActor
+    @Test("Delete undo preserves clip order")
+    func deleteUndoOrder() throws {
+        let context = EditingContext()
+        let track = Track(name: "V1", type: .video)
+        context.timelineState.timeline.tracks.append(track)
+
+        let clip1 = Clip(assetID: UUID(), timelineRange: TimeRange(start: 0, end: 3), sourceRange: TimeRange(start: 0, end: 3), metadata: ClipMetadata(label: "first"))
+        let clip2 = Clip(assetID: UUID(), timelineRange: TimeRange(start: 3, end: 6), sourceRange: TimeRange(start: 0, end: 3), metadata: ClipMetadata(label: "second"))
+        let clip3 = Clip(assetID: UUID(), timelineRange: TimeRange(start: 6, end: 9), sourceRange: TimeRange(start: 0, end: 3), metadata: ClipMetadata(label: "third"))
+        context.timelineState.timeline.tracks[0].clips = [clip1, clip2, clip3]
+
+        // Delete the middle clip
+        var cmd = DeleteClipsCommand(clipIDs: [clip2.id])
+        try cmd.execute(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 2)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].metadata.label == "first")
+        #expect(context.timelineState.timeline.tracks[0].clips[1].metadata.label == "third")
+
+        // Undo — second clip should be back in the middle
+        try cmd.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 3)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].metadata.label == "first")
+        #expect(context.timelineState.timeline.tracks[0].clips[1].metadata.label == "second")
+        #expect(context.timelineState.timeline.tracks[0].clips[2].metadata.label == "third")
+    }
+
+    @MainActor
     @Test("All intents resolve without throwing")
     func allIntentsResolve() throws {
         let resolver = IntentResolver()

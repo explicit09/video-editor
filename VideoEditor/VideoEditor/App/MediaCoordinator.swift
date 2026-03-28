@@ -21,6 +21,8 @@ final class MediaCoordinator {
 
     /// Called when background analysis/proxy completes. AppState uses this to rebuild composition.
     var onAnalysisComplete: (() -> Void)?
+    /// Called when assets change (import, proxy, analysis). AppState uses this to trigger save.
+    var onAssetsChanged: (() -> Void)?
 
     init(bundleURL: URL) {
         self.bundleURL = bundleURL
@@ -72,11 +74,13 @@ final class MediaCoordinator {
                 Task {
                     self.assets = await self.mediaManager.allAssets()
                     self.onAnalysisComplete?()
+                    self.onAssetsChanged?()
                 }
             }
         }
 
         assets = await mediaManager.allAssets()
+        onAssetsChanged?()
         return asset
     }
 

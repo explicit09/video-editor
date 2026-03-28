@@ -59,6 +59,10 @@ final class AppState {
         media.onAnalysisComplete = { [weak self] in
             self?.rebuildComposition()
         }
+        // Save when assets change (import, proxy, analysis, transcription)
+        media.onAssetsChanged = { [weak self] in
+            self?.scheduleSave()
+        }
 
         // Load existing project if timeline.json exists
         loadProject()

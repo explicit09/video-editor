@@ -20,13 +20,16 @@ public final class PlaybackEngine {
     // MARK: - Build composition from timeline
 
     public func buildComposition(from timeline: Timeline, assets: [MediaAsset]) {
+        Task { await buildCompositionAsync(from: timeline, assets: assets) }
+    }
+
+    private func buildCompositionAsync(from timeline: Timeline, assets: [MediaAsset]) async {
         let comp = AVMutableComposition()
         var maxDuration: CMTime = .zero
 
         for track in timeline.tracks {
             for clip in track.clips {
                 guard let mediaAsset = assets.first(where: { $0.id == clip.assetID }) else { continue }
-                // Prefer proxy for preview playback, fall back to source
                 let mediaURL = mediaAsset.proxyURL ?? mediaAsset.sourceURL
                 let avAsset = AVURLAsset(url: mediaURL)
 
@@ -37,14 +40,14 @@ public final class PlaybackEngine {
 
                 // Insert video track
                 if track.type != .audio {
-                    if let sourceTrack = avAsset.tracks(withMediaType: .video).first,
+                    if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
                        let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
                     }
                 }
 
-                // Insert audio track (from video or audio clips)
-                if let sourceTrack = avAsset.tracks(withMediaType: .audio).first,
+                // Insert audio track
+                if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
                    let compTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
                     try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
                 }

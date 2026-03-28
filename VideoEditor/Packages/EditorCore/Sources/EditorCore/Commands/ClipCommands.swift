@@ -33,7 +33,7 @@ public struct DeleteClipsCommand: Command {
     public let name = "Delete Clips"
     public let clipIDs: [UUID]
     public var affectedClipIDs: [UUID] { clipIDs }
-    private var removedClips: [(clip: Clip, trackID: UUID)] = []
+    private var removedClips: [(clip: Clip, trackID: UUID, clipIndex: Int)] = []
 
     public init(clipIDs: [UUID]) {
         self.clipIDs = clipIDs
@@ -43,18 +43,20 @@ public struct DeleteClipsCommand: Command {
         removedClips = []
         for trackIndex in context.timelineState.timeline.tracks.indices {
             let trackID = context.timelineState.timeline.tracks[trackIndex].id
-            let toRemove = context.timelineState.timeline.tracks[trackIndex].clips.filter { clipIDs.contains($0.id) }
-            for clip in toRemove {
-                removedClips.append((clip: clip, trackID: trackID))
+            for (clipIndex, clip) in context.timelineState.timeline.tracks[trackIndex].clips.enumerated() where clipIDs.contains(clip.id) {
+                removedClips.append((clip: clip, trackID: trackID, clipIndex: clipIndex))
             }
             context.timelineState.timeline.tracks[trackIndex].clips.removeAll { clipIDs.contains($0.id) }
         }
     }
 
     public func undo(context: EditingContext) throws {
-        for entry in removedClips {
+        // Restore in order of original index (lowest first) so positions stay correct
+        let sorted = removedClips.sorted { $0.clipIndex < $1.clipIndex }
+        for entry in sorted {
             guard let trackIndex = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == entry.trackID }) else { continue }
-            context.timelineState.timeline.tracks[trackIndex].clips.append(entry.clip)
+            let insertAt = min(entry.clipIndex, context.timelineState.timeline.tracks[trackIndex].clips.count)
+            context.timelineState.timeline.tracks[trackIndex].clips.insert(entry.clip, at: insertAt)
         }
     }
 }
@@ -67,10 +69,14 @@ public struct MoveClipCommand: Command {
     public let newStart: TimeInterval
     public let targetTrackID: UUID
     public var affectedClipIDs: [UUID] { [clipID] }
-    public var affectedTrackIDs: [UUID] { [targetTrackID] }
+    public var affectedTrackIDs: [UUID] {
+        guard let previousTrackID, previousTrackID != targetTrackID else { return [targetTrackID] }
+        return [previousTrackID, targetTrackID]
+    }
     public var metadata: [String: String] { ["newStart": String(newStart)] }
     private var previousRange: TimeRange?
     private var previousTrackID: UUID?
+    private var previousClipIndex: Int?
 
     public init(clipID: UUID, newStart: TimeInterval, targetTrackID: UUID) {
         self.clipID = clipID
@@ -79,29 +85,60 @@ public struct MoveClipCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        // Find the clip
-        for trackIndex in context.timelineState.timeline.tracks.indices {
-            if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
-                let clip = context.timelineState.timeline.tracks[trackIndex].clips[clipIndex]
-                previousRange = clip.timelineRange
-                previousTrackID = context.timelineState.timeline.tracks[trackIndex].id
-
-                let duration = clip.timelineRange.duration
-                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].timelineRange = TimeRange(start: newStart, duration: duration)
-                return
-            }
+        guard let sourceTrackIndex = context.timelineState.timeline.tracks.firstIndex(where: { track in
+            track.clips.contains(where: { $0.id == clipID })
+        }) else {
+            throw CommandError.clipNotFound(clipID)
         }
-        throw CommandError.clipNotFound(clipID)
+        guard let targetTrackIndex = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == targetTrackID }) else {
+            throw CommandError.trackNotFound(targetTrackID)
+        }
+        guard let clipIndex = context.timelineState.timeline.tracks[sourceTrackIndex].clips.firstIndex(where: { $0.id == clipID }) else {
+            throw CommandError.clipNotFound(clipID)
+        }
+
+        let clip = context.timelineState.timeline.tracks[sourceTrackIndex].clips[clipIndex]
+        previousRange = clip.timelineRange
+        previousTrackID = context.timelineState.timeline.tracks[sourceTrackIndex].id
+        previousClipIndex = clipIndex
+
+        var movedClip = clip
+        movedClip.timelineRange = TimeRange(start: newStart, duration: clip.timelineRange.duration)
+
+        context.timelineState.timeline.tracks[sourceTrackIndex].clips.remove(at: clipIndex)
+
+        let insertionIndex = Self.insertionIndex(for: movedClip, in: context.timelineState.timeline.tracks[targetTrackIndex].clips)
+        context.timelineState.timeline.tracks[targetTrackIndex].clips.insert(movedClip, at: insertionIndex)
     }
 
     public func undo(context: EditingContext) throws {
-        guard let previousRange else { return }
-        for trackIndex in context.timelineState.timeline.tracks.indices {
-            if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
-                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].timelineRange = previousRange
-                return
-            }
+        guard let previousRange, let previousTrackID, let previousClipIndex else { return }
+        guard let currentTrackIndex = context.timelineState.timeline.tracks.firstIndex(where: { track in
+            track.clips.contains(where: { $0.id == clipID })
+        }), let currentClipIndex = context.timelineState.timeline.tracks[currentTrackIndex].clips.firstIndex(where: { $0.id == clipID }) else {
+            return
         }
+
+        var restoredClip = context.timelineState.timeline.tracks[currentTrackIndex].clips.remove(at: currentClipIndex)
+        restoredClip.timelineRange = previousRange
+
+        guard let destinationTrackIndex = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == previousTrackID }) else {
+            let insertAt = min(currentClipIndex, context.timelineState.timeline.tracks[currentTrackIndex].clips.count)
+            context.timelineState.timeline.tracks[currentTrackIndex].clips.insert(restoredClip, at: insertAt)
+            return
+        }
+
+        let insertAt = min(previousClipIndex, context.timelineState.timeline.tracks[destinationTrackIndex].clips.count)
+        context.timelineState.timeline.tracks[destinationTrackIndex].clips.insert(restoredClip, at: insertAt)
+    }
+
+    private static func insertionIndex(for clip: Clip, in clips: [Clip]) -> Int {
+        clips.firstIndex {
+            if $0.timelineRange.start != clip.timelineRange.start {
+                return $0.timelineRange.start > clip.timelineRange.start
+            }
+            return $0.timelineRange.end > clip.timelineRange.end
+        } ?? clips.count
     }
 }
 
@@ -165,7 +202,7 @@ public struct SplitClipCommand: Command {
                 originalClip = clip
                 trackID = context.timelineState.timeline.tracks[trackIndex].id
 
-                guard clip.timelineRange.contains(at) else {
+                guard at > clip.timelineRange.start && at < clip.timelineRange.end else {
                     throw CommandError.splitPointOutOfRange
                 }
 
@@ -196,7 +233,7 @@ public struct SplitClipCommand: Command {
                     keyframes: clip.keyframes,
                     metadata: clip.metadata
                 )
-                context.timelineState.timeline.tracks[trackIndex].clips.append(secondClip)
+                context.timelineState.timeline.tracks[trackIndex].clips.insert(secondClip, at: clipIndex + 1)
                 return
             }
         }

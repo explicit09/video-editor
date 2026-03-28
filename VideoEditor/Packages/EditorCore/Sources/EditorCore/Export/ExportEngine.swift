@@ -43,13 +43,13 @@ public final class ExportEngine {
                 let sourceRange = CMTimeRange(start: sourceStart, duration: sourceDuration)
 
                 if track.type != .audio {
-                    if let sourceTrack = avAsset.tracks(withMediaType: .video).first,
+                    if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
                        let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
                     }
                 }
 
-                if let sourceTrack = avAsset.tracks(withMediaType: .audio).first,
+                if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
                    let compTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
                     try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
                 }
@@ -107,9 +107,11 @@ public final class ExportEngine {
     // MARK: - Progress polling
 
     private func startProgressPolling(session: AVAssetExportSession) {
+        let pollSession = session
         progressTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            let progress = pollSession.progress
             Task { @MainActor in
-                self?.state = .exporting(progress: session.progress)
+                self?.state = .exporting(progress: progress)
             }
         }
     }
