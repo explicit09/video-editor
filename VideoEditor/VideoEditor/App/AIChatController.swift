@@ -163,6 +163,21 @@ final class AIChatController {
                 let result = try handleRemoveSilence(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
+            if toolCall.name == "remove_section" {
+                processingStatus = "Removing section..."
+                let result = try handleRemoveSection(args: args, appState: appState)
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
+            if toolCall.name == "ripple_delete" {
+                processingStatus = "Ripple deleting..."
+                let result = try handleRippleDelete(args: args, appState: appState)
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
+            if toolCall.name == "normalize_audio" {
+                processingStatus = "Normalizing audio..."
+                let result = try handleNormalizeAudio(args: args, appState: appState)
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
 
             // Editing tools
             processingStatus = "Executing \(toolCall.name)..."
@@ -189,6 +204,87 @@ final class AIChatController {
         } catch {
             return .init(toolName: toolCall.name, success: false, message: error.localizedDescription)
         }
+    }
+
+    // MARK: - Compound tool handlers
+
+    private func handleRemoveSection(args: [String: Any], appState: AppState) throws -> String {
+        guard let startTime = args["start_time"] as? Double,
+              let endTime = args["end_time"] as? Double,
+              endTime > startTime else {
+            throw AIToolError.invalidArgument("Invalid time range")
+        }
+
+        let allClips = appState.timeline.tracks.flatMap(\.clips)
+        let affectedClips = allClips.filter {
+            $0.timelineRange.start < endTime && $0.timelineRange.end > startTime
+        }
+
+        // Split at end first, then start, then delete the middle clips
+        for clip in affectedClips {
+            if endTime > clip.timelineRange.start && endTime < clip.timelineRange.end {
+                try? appState.perform(.splitClip(clipID: clip.id, at: endTime), source: .ai)
+            }
+        }
+        // Re-fetch clips after splits
+        let postSplitClips = appState.timeline.tracks.flatMap(\.clips)
+        for clip in postSplitClips {
+            if startTime > clip.timelineRange.start && startTime < clip.timelineRange.end {
+                try? appState.perform(.splitClip(clipID: clip.id, at: startTime), source: .ai)
+            }
+        }
+
+        // Delete clips that fall within the range
+        let toDelete = appState.timeline.tracks.flatMap(\.clips).filter {
+            $0.timelineRange.start >= startTime - 0.01 && $0.timelineRange.end <= endTime + 0.01
+        }.map(\.id)
+
+        if !toDelete.isEmpty {
+            try? appState.perform(.deleteClips(clipIDs: toDelete), source: .ai)
+        }
+
+        // Ripple close gaps
+        appState.rippleCloseGaps()
+
+        let duration = endTime - startTime
+        return "Removed \(String(format: "%.1f", duration))s section (\(String(format: "%.1f", startTime))s-\(String(format: "%.1f", endTime))s). Deleted \(toDelete.count) clip(s). Gaps closed."
+    }
+
+    private func handleRippleDelete(args: [String: Any], appState: AppState) throws -> String {
+        guard let clipIDStrs = args["clip_ids"] as? [String], !clipIDStrs.isEmpty else {
+            throw AIToolError.invalidArgument("Missing clip_ids")
+        }
+        let clipIDs = clipIDStrs.compactMap { UUID(uuidString: $0) }
+        try appState.perform(.deleteClips(clipIDs: clipIDs), source: .ai)
+        appState.rippleCloseGaps()
+        let remaining = appState.timeline.tracks.flatMap(\.clips).count
+        return "Deleted \(clipIDs.count) clip(s) and closed gaps. \(remaining) clip(s) remaining."
+    }
+
+    private func handleNormalizeAudio(args: [String: Any], appState: AppState) throws -> String {
+        let targetVolume = (args["target_volume"] as? Double) ?? 1.0
+        let clipIDStrs = args["clip_ids"] as? [String] ?? []
+
+        let audioClips: [Clip]
+        if clipIDStrs.isEmpty {
+            // All audio track clips
+            audioClips = appState.timeline.tracks
+                .filter { $0.type == .audio }
+                .flatMap(\.clips)
+        } else {
+            let ids = Set(clipIDStrs.compactMap { UUID(uuidString: $0) })
+            audioClips = appState.timeline.tracks.flatMap(\.clips).filter { ids.contains($0.id) }
+        }
+
+        var adjusted = 0
+        for clip in audioClips {
+            if clip.volume != targetVolume {
+                try? appState.perform(.setClipVolume(clipID: clip.id, volume: targetVolume), source: .ai)
+                adjusted += 1
+            }
+        }
+
+        return "Normalized \(adjusted) clip(s) to volume \(String(format: "%.1f", targetVolume)). \(audioClips.count - adjusted) already at target."
     }
 
     // MARK: - Intent classification

@@ -506,7 +506,26 @@ final class AppState {
         scheduleSave()
     }
 
-    /// After a delete or trim, shift subsequent clips left to close gaps.
+    /// Close all gaps on all tracks by shifting clips left. Public for compound tools.
+    func rippleCloseGaps() {
+        for trackIndex in context.timelineState.timeline.tracks.indices {
+            var clips = context.timelineState.timeline.tracks[trackIndex].clips
+            clips.sort { $0.timelineRange.start < $1.timelineRange.start }
+            var cursor: TimeInterval = 0
+            for i in clips.indices {
+                if clips[i].timelineRange.start > cursor {
+                    let duration = clips[i].timelineRange.duration
+                    clips[i].timelineRange = TimeRange(start: cursor, duration: duration)
+                }
+                cursor = clips[i].timelineRange.end
+            }
+            context.timelineState.timeline.tracks[trackIndex].clips = clips
+        }
+        rebuildComposition()
+        scheduleSave()
+    }
+
+    /// After a delete or trim, shift subsequent clips left to close gaps (auto, when ripple mode on).
     private func rippleCloseGaps(for intent: EditorIntent) {
         switch intent {
         case .deleteClips, .trimClip:

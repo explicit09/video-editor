@@ -19,6 +19,9 @@ public struct AIToolRegistry: Sendable {
         setClipSpeed,
         muteTrack,
         duplicateClip,
+        removeSection,
+        rippleDelete,
+        normalizeAudio,
         getTranscript,
         transcribeAsset,
         searchTranscript,
@@ -173,6 +176,35 @@ public struct AIToolRegistry: Sendable {
         parameters: .object([
             "clip_id": .init(type: "string", description: "UUID of the clip to duplicate"),
         ], required: ["clip_id"])
+    )
+
+    // MARK: - Compound tools (replace multi-step atomic sequences)
+
+    public static let removeSection = AIToolDefinition(
+        name: "remove_section",
+        description: "Remove a time range from the timeline and close the gap. Splits at start and end, deletes the middle, then shifts subsequent clips left. Use this instead of manual split+delete+move sequences.",
+        parameters: .object([
+            "start_time": .init(type: "number", description: "Start of the section to remove (timeline seconds)"),
+            "end_time": .init(type: "number", description: "End of the section to remove (timeline seconds)"),
+            "track_id": .init(type: "string", description: "Track to operate on (optional — all tracks if omitted)"),
+        ], required: ["start_time", "end_time"])
+    )
+
+    public static let rippleDelete = AIToolDefinition(
+        name: "ripple_delete",
+        description: "Delete clips and close the resulting gap by shifting subsequent clips left. Use instead of delete_clips when you want the timeline to contract.",
+        parameters: .object([
+            "clip_ids": .init(type: "array", description: "UUIDs of clips to delete", items: .init(type: "string")),
+        ], required: ["clip_ids"])
+    )
+
+    public static let normalizeAudio = AIToolDefinition(
+        name: "normalize_audio",
+        description: "Adjust volume of multiple clips to a consistent level. Use instead of calling set_clip_volume on each clip individually.",
+        parameters: .object([
+            "clip_ids": .init(type: "array", description: "Clip UUIDs to normalize (empty = all audio clips)", items: .init(type: "string")),
+            "target_volume": .init(type: "number", description: "Target volume level (default 1.0)"),
+        ], required: [])
     )
 }
 
