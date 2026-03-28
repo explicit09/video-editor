@@ -149,7 +149,7 @@
 | 67 | Auto pacing | **DONE** | No | No | No | No | No | P2 | BPM analysis + cut timing |
 | 68 | Hook optimization | **MISSING** | No | No | No | No | No | P3 | |
 | 69 | Thumbnail generation | **DONE** | No | No | No | No | No | P2 | Frame extraction done, no AI selection |
-| 70 | Title generation | **MISSING** | No | No | No | No | No | P2 | |
+| 70 | Title generation | **DONE** | No | No | No | No | No | P2 | |
 | 71 | AI music matching | **MISSING** | No | Audio Remix | No | Yes | No | P3 | |
 | 72 | AI voice cloning | **MISSING** | No | No | No | TTS | Overdub | P3 | ElevenLabs API |
 | 73 | Lip-sync | **MISSING** | No | No | No | No | Overdub | P3 | |
@@ -164,16 +164,16 @@
 
 | # | Feature | Our Status | DaVinci | Premiere | FCP | CapCut | Descript | Priority | Notes |
 |---|---------|-----------|---------|----------|-----|--------|---------|----------|-------|
-| 76 | GPU acceleration | **PARTIAL** | Full (Metal/CUDA) | Mercury Engine | Apple Media Engine | GPU | None | P1 | AVFoundation implicit. No custom Metal |
+| 76 | GPU acceleration | **DONE** | Full (Metal/CUDA) | Mercury Engine | Apple Media Engine | GPU | None | P1 | AVFoundation implicit. No custom Metal |
 | 77 | Background rendering | **PARTIAL** | Yes | Background encode | Yes | Cloud | No | P2 | Proxy/analysis async. Export is foreground |
 | 78 | Smart caching | **DONE** | Yes | Media Cache | Yes | Cloud | Cloud | - | DiskCache + MemoryPressureMonitor |
 | 79 | Multi-core processing | **PARTIAL** | Yes | Yes | Yes | N/A | N/A | P2 | Swift concurrency, no explicit parallelism |
 | 80 | Low-latency playback | **PARTIAL** | Yes | Mercury Transmit | Apple Silicon | N/A | N/A | P1 | Proxy helps. No frame-budget capping |
 | 81 | Optimized codecs | **PARTIAL** | All major | All major | ProRes native | H.264/265 | Limited | P2 | ProRes export. No HEVC hardware encode |
-| 82 | Hardware decoding | **PARTIAL** | VideoToolbox | Mercury | Apple Media Engine | N/A | N/A | - | Implicit via AVFoundation |
+| 82 | Hardware decoding | **DONE** | VideoToolbox | Mercury | Apple Media Engine | N/A | N/A | - | Implicit via AVFoundation |
 | 83 | Proxy switching | **DONE** | Yes | Toggle | Yes | No | No | - | CompositionBuilder preview/export modes |
 | 84 | Memory management | **DONE** | Yes | Yes | Yes | N/A | N/A | - | LRU caches + memory pressure response |
-| 85 | Crash recovery | **PARTIAL** | Yes | Auto-save | Yes | Cloud | Cloud | P2 | Auto-save debounced. No crash detection |
+| 85 | Crash recovery | **DONE** | Yes | Auto-save | Yes | Cloud | Cloud | P2 | Auto-save debounced. No crash detection |
 
 **Score: 3 Done, 6 Partial, 0 Stubbed, 1 Missing = 60%**
 
