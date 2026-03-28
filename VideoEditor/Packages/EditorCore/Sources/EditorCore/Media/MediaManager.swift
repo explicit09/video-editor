@@ -6,6 +6,8 @@ public actor MediaManager {
     public private(set) var assets: [MediaAsset] = []
     private let importer = MediaImporter()
     private var thumbnailCache: [UUID: CGImage] = [:]
+    private var thumbnailAccessOrder: [UUID] = []
+    private let maxThumbnails = 100
 
     public init(assets: [MediaAsset] = []) {
         self.assets = assets
@@ -41,7 +43,7 @@ public actor MediaManager {
         // Generate thumbnail
         if asset.type == .video || asset.type == .image {
             if let thumb = try? await importer.generateThumbnail(for: asset.sourceURL) {
-                thumbnailCache[asset.id] = thumb
+                storeThumbnail(thumb, for: asset.id)
             }
         }
 
@@ -81,6 +83,22 @@ public actor MediaManager {
     // MARK: - Thumbnails
 
     public func thumbnail(for assetID: UUID) -> CGImage? {
-        thumbnailCache[assetID]
+        // Move to front of access order (LRU)
+        if let idx = thumbnailAccessOrder.firstIndex(of: assetID) {
+            thumbnailAccessOrder.remove(at: idx)
+            thumbnailAccessOrder.append(assetID)
+        }
+        return thumbnailCache[assetID]
+    }
+
+    private func storeThumbnail(_ image: CGImage, for id: UUID) {
+        thumbnailCache[id] = image
+        thumbnailAccessOrder.append(id)
+
+        // Evict oldest if over limit
+        while thumbnailCache.count > maxThumbnails, let oldest = thumbnailAccessOrder.first {
+            thumbnailAccessOrder.removeFirst()
+            thumbnailCache.removeValue(forKey: oldest)
+        }
     }
 }

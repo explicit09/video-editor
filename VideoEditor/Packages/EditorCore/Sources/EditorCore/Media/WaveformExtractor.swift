@@ -45,12 +45,18 @@ public struct WaveformExtractor: Sendable {
         guard reader.startReading() else { return nil }
 
         // Process in streaming fashion — don't load all samples into memory.
-        // Divide the duration into sampleCount buckets and track peak per bucket.
+        // Get actual sample rate from the audio track format
+        let sampleRate: Double
+        if let formatDesc = try? await audioTrack.load(.formatDescriptions).first,
+           let asbd = CMAudioFormatDescriptionGetStreamBasicDescription(formatDesc) {
+            sampleRate = asbd.pointee.mSampleRate
+        } else {
+            sampleRate = 48000 // Safe fallback for video production
+        }
+
         var peaks = [Float](repeating: 0, count: sampleCount)
         let bucketDuration = duration / Double(sampleCount)
         var currentSampleIndex: Int64 = 0
-        // Assume 44100 Hz mono after conversion (reader normalizes)
-        let sampleRate: Double = 44100
 
         while let sampleBuffer = output.copyNextSampleBuffer() {
             guard let blockBuffer = CMSampleBufferGetDataBuffer(sampleBuffer) else { continue }

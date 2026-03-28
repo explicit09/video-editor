@@ -99,6 +99,10 @@ public final class ExportEngine {
     }
 
     public func cancel() {
+        // Clean up partial output file
+        if let outputURL = exportSession?.outputURL {
+            try? FileManager.default.removeItem(at: outputURL)
+        }
         exportSession?.cancelExport()
         stopProgressPolling()
         state = .idle
