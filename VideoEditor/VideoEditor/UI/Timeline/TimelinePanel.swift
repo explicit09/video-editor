@@ -9,7 +9,6 @@ struct TimelinePanel: View {
 
         VStack(spacing: 0) {
             timelineToolbar(viewState: viewState, timeline: timeline)
-            Divider()
             GeometryReader { geo in
                 let totalWidth = max(viewState.durationToWidth(timeline.duration + 10), geo.size.width)
 
@@ -18,8 +17,6 @@ struct TimelinePanel: View {
                         VStack(spacing: 0) {
                             TimelineRuler(viewState: viewState, totalWidth: totalWidth)
                                 .frame(height: 28)
-
-                            Divider()
 
                             if timeline.tracks.isEmpty {
                                 emptyTimeline(width: totalWidth, height: geo.size.height - 30)
@@ -49,7 +46,7 @@ struct TimelinePanel: View {
                 )
             }
         }
-        .background(Color(nsColor: .controlBackgroundColor))
+        .background(CinematicTheme.surfaceContainer)
         .focusable()
         .onKeyPress(.space) {
             appState.playbackEngine.togglePlayPause()
@@ -77,71 +74,117 @@ struct TimelinePanel: View {
 
     private func timelineToolbar(viewState: TimelineViewState, timeline: Timeline) -> some View {
         HStack(spacing: 12) {
+            // Add Track
             Button(action: {
                 let count = timeline.tracks.count
                 let track = Track(name: "Video \(count + 1)", type: .video)
                 try? appState.perform(.addTrack(track: track))
             }) {
-                Label("Add Track", systemImage: "plus")
+                HStack(spacing: 4) {
+                    Image(systemName: "plus")
+                    Text("Add Track")
+                        .font(.cinLabel)
+                }
+                .foregroundStyle(CinematicTheme.onSurfaceVariant)
             }
-            .buttonStyle(.borderless)
+            .buttonStyle(.plain)
 
             Spacer()
 
             // Undo/Redo
-            Button(action: { try? appState.undo() }) {
-                Image(systemName: "arrow.uturn.backward")
-            }
-            .buttonStyle(.borderless)
-            .disabled(!appState.commandHistory.canUndo)
+            HStack(spacing: 8) {
+                Button(action: { try? appState.undo() }) {
+                    Image(systemName: "arrow.uturn.backward")
+                        .foregroundStyle(appState.commandHistory.canUndo ? CinematicTheme.onSurface : CinematicTheme.onSurfaceVariant.opacity(0.3))
+                }
+                .buttonStyle(.plain)
+                .disabled(!appState.commandHistory.canUndo)
 
-            Button(action: { try? appState.redo() }) {
-                Image(systemName: "arrow.uturn.forward")
+                Button(action: { try? appState.redo() }) {
+                    Image(systemName: "arrow.uturn.forward")
+                        .foregroundStyle(appState.commandHistory.canRedo ? CinematicTheme.onSurface : CinematicTheme.onSurfaceVariant.opacity(0.3))
+                }
+                .buttonStyle(.plain)
+                .disabled(!appState.commandHistory.canRedo)
             }
-            .buttonStyle(.borderless)
-            .disabled(!appState.commandHistory.canRedo)
+
+            Spacer()
+
+            // Magnet/snap toggle
+            HStack(spacing: 4) {
+                Image(systemName: "magnet")
+                    .font(.system(size: 11))
+                Text("MAGNET: ON")
+                    .font(.cinLabel)
+                    .tracking(0.5)
+            }
+            .foregroundStyle(CinematicTheme.primary)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
+            .background(CinematicTheme.primaryContainer.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+
+            Spacer()
+
+            // AI Sync indicator
+            HStack(spacing: 4) {
+                Image(systemName: "sparkles")
+                    .font(.system(size: 10))
+                Text("AI SYNC ACTIVE")
+                    .font(.cinLabel)
+                    .tracking(0.5)
+            }
+            .foregroundStyle(CinematicTheme.primary.opacity(0.6))
 
             Spacer()
 
             // Zoom controls
-            Button(action: { viewState.zoomOut() }) {
-                Image(systemName: "minus.magnifyingglass")
-            }
-            .buttonStyle(.borderless)
+            HStack(spacing: 8) {
+                Button(action: { viewState.zoomOut() }) {
+                    Image(systemName: "minus")
+                        .font(.system(size: 10))
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                }
+                .buttonStyle(.plain)
 
-            // Fit to window
-            Button(action: {
-                viewState.zoomToFit(duration: timeline.duration)
-            }) {
-                Image(systemName: "arrow.left.and.right")
-            }
-            .buttonStyle(.borderless)
-            .help("Fit timeline to window")
-            .disabled(timeline.duration == 0)
+                Button(action: { viewState.zoomToFit(duration: timeline.duration) }) {
+                    Image(systemName: "arrow.left.and.right")
+                        .font(.system(size: 10))
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                }
+                .buttonStyle(.plain)
+                .disabled(timeline.duration == 0)
 
-            Text("\(Int(viewState.zoom))px/s")
-                .font(.caption)
-                .monospacedDigit()
-                .foregroundStyle(.secondary)
-                .frame(width: 55)
+                Text("\(Int(viewState.zoom))px/s")
+                    .font(.cinLabelRegular)
+                    .monospacedDigit()
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+                    .frame(width: 50)
 
-            Button(action: { viewState.zoomIn() }) {
-                Image(systemName: "plus.magnifyingglass")
+                Button(action: { viewState.zoomIn() }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 10))
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.borderless)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(CinematicTheme.surfaceContainerHigh)
     }
 
     // MARK: - Empty State
 
     private func emptyTimeline(width: Double, height: Double) -> some View {
-        VStack {
+        VStack(spacing: 8) {
             Spacer()
+            Image(systemName: "film.stack")
+                .font(.system(size: 28))
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.3))
             Text("Add a track to begin editing")
-                .foregroundStyle(.secondary)
-                .font(.subheadline)
+                .font(.cinBody)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
             Spacer()
         }
         .frame(width: width, height: height)
@@ -150,7 +193,7 @@ struct TimelinePanel: View {
     // MARK: - Track Stack
 
     private func trackStack(timeline: Timeline, viewState: TimelineViewState, width: Double) -> some View {
-        VStack(spacing: 1) {
+        VStack(spacing: CinematicSpacing.clipGap) {
             ForEach(timeline.tracks) { track in
                 TimelineTrackView(
                     track: track,

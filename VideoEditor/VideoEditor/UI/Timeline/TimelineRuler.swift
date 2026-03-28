@@ -21,13 +21,13 @@ struct TimelineRuler: View {
                     p.move(to: CGPoint(x: x, y: size.height))
                     p.addLine(to: CGPoint(x: x, y: size.height - tickHeight))
                 }
-                context.stroke(path, with: .color(.secondary.opacity(0.5)), lineWidth: 0.5)
+                context.stroke(path, with: .color(Color(hex: 0xC7C4D7).opacity(0.3)), lineWidth: 0.5)
 
                 // Label on major ticks
                 if isMajor {
                     let label = formatTimecode(time)
                     context.draw(
-                        Text(label).font(.system(size: 9)).foregroundStyle(.secondary),
+                        Text(label).font(.cinLabel).foregroundStyle(Color(hex: 0xC7C4D7).opacity(0.5)),
                         at: CGPoint(x: x + 2, y: 8),
                         anchor: .leading
                     )
@@ -36,7 +36,7 @@ struct TimelineRuler: View {
                 time += step
             }
         }
-        .background(Color(nsColor: .windowBackgroundColor))
+        .background(CinematicTheme.surfaceContainerHigh)
     }
 
     /// Choose ruler tick spacing based on zoom level.

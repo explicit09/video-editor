@@ -30,36 +30,51 @@ struct TimelineClipView: View {
     }
 
     private var clipBody: some View {
-        RoundedRectangle(cornerRadius: 4)
+        RoundedRectangle(cornerRadius: CinematicRadius.lg)
             .fill(clipColor)
+            .overlay(alignment: .top) {
+                // Top accent bar (2px) — per design system
+                Rectangle()
+                    .fill(clipAccentColor)
+                    .frame(height: 2)
+            }
             .overlay(
-                RoundedRectangle(cornerRadius: 4)
-                    .strokeBorder(isSelected ? Color.white : Color.clear, lineWidth: 1.5)
+                RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                    .strokeBorder(
+                        isSelected ? CinematicTheme.primary : CinematicTheme.outlineVariant.opacity(0.15),
+                        lineWidth: isSelected ? 1.5 : 0.5
+                    )
             )
             .overlay(clipLabel, alignment: .leading)
-            .shadow(color: isDragging ? .black.opacity(0.3) : .clear, radius: 4)
+            .shadow(color: isDragging ? CinematicTheme.primaryContainer.opacity(0.2) : .clear, radius: 6)
+            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
     }
 
     // MARK: - Label
 
     private var clipLabel: some View {
         Text(clip.metadata.label ?? "Clip")
-            .font(.caption2)
-            .foregroundStyle(.white)
+            .font(.cinLabelRegular)
+            .foregroundStyle(CinematicTheme.onSurface.opacity(0.9))
             .lineLimit(1)
             .padding(.horizontal, 6)
+            .padding(.top, 6)
     }
 
-    // MARK: - Color
+    // MARK: - Colors (muted pro-colorist aesthetic)
 
     private var clipColor: Color {
-        let base: Color = switch trackType {
-        case .video: .blue
-        case .audio: .green
-        case .text: .orange
-        case .effect: .purple
+        let base = clipAccentColor
+        return base.opacity(isDragging ? 0.25 : 0.15)
+    }
+
+    private var clipAccentColor: Color {
+        switch trackType {
+        case .video: CinematicTheme.tertiary
+        case .audio: Color(hex: 0x53E16F)
+        case .text: CinematicTheme.primary
+        case .effect: CinematicTheme.primaryFixedDim
         }
-        return base.opacity(isDragging ? 0.8 : 0.6)
     }
 
     // MARK: - Gestures

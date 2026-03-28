@@ -14,7 +14,7 @@ struct PlayheadView: View {
                 path.move(to: CGPoint(x: x, y: 0))
                 path.addLine(to: CGPoint(x: x, y: geo.size.height))
             }
-            .stroke(Color.red, lineWidth: 1)
+            .stroke(CinematicTheme.error, lineWidth: 1)
 
             // Playhead handle (top triangle)
             Path { path in
@@ -23,7 +23,7 @@ struct PlayheadView: View {
                 path.addLine(to: CGPoint(x: x, y: 10))
                 path.closeSubpath()
             }
-            .fill(Color.red)
+            .fill(CinematicTheme.error)
 
             // Scrub area (ruler height)
             Color.clear

@@ -15,7 +15,7 @@ struct MarkersOverlay: View {
                     path.move(to: CGPoint(x: x, y: 0))
                     path.addLine(to: CGPoint(x: x, y: geo.size.height))
                 }
-                .stroke(Color.orange, lineWidth: 1)
+                .stroke(CinematicTheme.primary, lineWidth: 1)
 
                 // Marker diamond
                 Path { path in
@@ -25,7 +25,7 @@ struct MarkersOverlay: View {
                     path.addLine(to: CGPoint(x: x - 5, y: 7))
                     path.closeSubpath()
                 }
-                .fill(Color.orange)
+                .fill(CinematicTheme.primary)
 
                 // Label
                 if !marker.label.isEmpty {
