@@ -23,6 +23,12 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
     }
 
     public func startRequest(_ request: AVAsynchronousVideoCompositionRequest) {
+        // Handle transition instructions (two sources)
+        if let transInstruction = request.videoCompositionInstruction as? TransitionInstruction {
+            handleTransition(request, instruction: transInstruction)
+            return
+        }
+
         guard let instruction = request.videoCompositionInstruction as? EffectInstruction else {
             request.finish(with: NSError(domain: "EffectCompositor", code: -1))
             return
@@ -85,6 +91,73 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
 
     public func cancelAllPendingVideoCompositionRequests() {
         // No-op: synchronous processing
+    }
+
+    // MARK: - Transition Handling
+
+    private func handleTransition(_ request: AVAsynchronousVideoCompositionRequest, instruction: TransitionInstruction) {
+        let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+
+        // Calculate transition progress (0 = start, 1 = end)
+        let elapsed = CMTimeSubtract(request.compositionTime, instruction.timeRange.start)
+        let progress = CGFloat(elapsed.seconds / instruction.timeRange.duration.seconds)
+
+        // Get source frames
+        let fromImage: CIImage
+        if let fromBuffer = request.sourceFrame(byTrackID: instruction.fromTrackID) {
+            fromImage = CIImage(cvPixelBuffer: fromBuffer)
+        } else {
+            fromImage = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
+        }
+
+        let toImage: CIImage
+        if let toBuffer = request.sourceFrame(byTrackID: instruction.toTrackID) {
+            toImage = CIImage(cvPixelBuffer: toBuffer)
+        } else {
+            toImage = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
+        }
+
+        // Blend based on transition type
+        let result: CIImage
+        switch instruction.transitionType {
+        case .crossDissolve:
+            result = fromImage.applyingFilter("CIDissolveTransition", parameters: [
+                "inputTargetImage": toImage,
+                "inputTime": progress,
+            ])
+        case .fadeToBlack:
+            let black = CIImage(color: .black).cropped(to: fromImage.extent)
+            result = fromImage.applyingFilter("CIDissolveTransition", parameters: [
+                "inputTargetImage": black,
+                "inputTime": progress,
+            ])
+        case .fadeFromBlack:
+            let black = CIImage(color: .black).cropped(to: toImage.extent)
+            result = black.applyingFilter("CIDissolveTransition", parameters: [
+                "inputTargetImage": toImage,
+                "inputTime": progress,
+            ])
+        case .wipeLeft:
+            let wipeX = renderSize.width * (1 - progress)
+            let fromCropped = fromImage.cropped(to: CGRect(x: 0, y: 0, width: wipeX, height: renderSize.height))
+            let toCropped = toImage.cropped(to: CGRect(x: wipeX, y: 0, width: renderSize.width - wipeX, height: renderSize.height))
+            result = fromCropped.composited(over: toCropped)
+        case .wipeRight:
+            let wipeX = renderSize.width * progress
+            let toCropped = toImage.cropped(to: CGRect(x: 0, y: 0, width: wipeX, height: renderSize.height))
+            let fromCropped = fromImage.cropped(to: CGRect(x: wipeX, y: 0, width: renderSize.width - wipeX, height: renderSize.height))
+            result = toCropped.composited(over: fromCropped)
+        case .none:
+            result = toImage
+        }
+
+        guard let outputBuffer = renderContext?.newPixelBuffer() else {
+            request.finish(with: NSError(domain: "EffectCompositor", code: -4))
+            return
+        }
+
+        ciContext.render(result, to: outputBuffer, bounds: CGRect(origin: .zero, size: renderSize), colorSpace: CGColorSpaceCreateDeviceRGB())
+        request.finish(withComposedVideoFrame: outputBuffer)
     }
 
     // MARK: - Effect Application
@@ -157,6 +230,35 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         self.effects = effects
         self.opacity = opacity
         self.transform = transform
+        super.init()
+    }
+}
+
+// MARK: - TransitionInstruction
+
+/// Carries transition data for blending two clips during overlap.
+public final class TransitionInstruction: NSObject, AVVideoCompositionInstructionProtocol, @unchecked Sendable {
+    public let timeRange: CMTimeRange
+    public let enablePostProcessing = false
+    public let containsTweening = true
+    public let requiredSourceTrackIDs: [NSValue]?
+    public let passthroughTrackID: CMPersistentTrackID = kCMPersistentTrackID_Invalid
+
+    public let fromTrackID: CMPersistentTrackID
+    public let toTrackID: CMPersistentTrackID
+    public let transitionType: TransitionType
+
+    public init(
+        timeRange: CMTimeRange,
+        fromTrackID: CMPersistentTrackID,
+        toTrackID: CMPersistentTrackID,
+        transitionType: TransitionType
+    ) {
+        self.timeRange = timeRange
+        self.fromTrackID = fromTrackID
+        self.toTrackID = toTrackID
+        self.transitionType = transitionType
+        self.requiredSourceTrackIDs = [NSNumber(value: fromTrackID), NSNumber(value: toTrackID)]
         super.init()
     }
 }
