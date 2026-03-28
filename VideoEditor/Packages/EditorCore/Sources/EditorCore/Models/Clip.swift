@@ -31,8 +31,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.timelineRange = timelineRange
         self.sourceRange = sourceRange
         self.transform = transform
-        self.opacity = opacity
-        self.volume = volume
+        self.opacity = min(max(opacity, 0), 1)
+        self.volume = max(volume, 0)
         self.effects = effects
         self.keyframes = keyframes
         self.metadata = metadata
@@ -48,14 +48,17 @@ public struct TimeRange: Codable, Sendable, Equatable {
     public var duration: TimeInterval { end - start }
 
     public init(start: TimeInterval, end: TimeInterval) {
-        self.start = start
-        self.end = end
+        self.start = max(start, 0)
+        self.end = max(end, self.start)
     }
 
     public init(start: TimeInterval, duration: TimeInterval) {
-        self.start = start
-        self.end = start + duration
+        self.start = max(start, 0)
+        self.end = self.start + max(duration, 0)
     }
+
+    /// An empty range at time zero.
+    public static let empty = TimeRange(start: 0, end: 0)
 
     public func contains(_ time: TimeInterval) -> Bool {
         time >= start && time < end

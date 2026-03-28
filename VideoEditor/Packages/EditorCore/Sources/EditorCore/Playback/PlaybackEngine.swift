@@ -38,16 +38,17 @@ public final class PlaybackEngine {
                 let sourceDuration = CMTime(seconds: clip.sourceRange.duration, preferredTimescale: 600)
                 let sourceRange = CMTimeRange(start: sourceStart, duration: sourceDuration)
 
-                // Insert video track
-                if track.type != .audio {
+                // Insert video only for visual tracks.
+                if track.type != .audio, !track.isMuted {
                     if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
                        let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
                     }
                 }
 
-                // Insert audio track
-                if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
+                // Audio is authored explicitly on audio tracks.
+                if track.type == .audio, !track.isMuted,
+                   let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
                    let compTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
                     try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
                 }

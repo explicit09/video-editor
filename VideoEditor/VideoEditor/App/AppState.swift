@@ -171,6 +171,28 @@ final class AppState {
         try? perform(.addTrack(track: track))
     }
 
+    func updateTrack(id: UUID, _ transform: (inout Track) -> Void) {
+        var timeline = context.timelineState.timeline
+        guard let index = timeline.tracks.firstIndex(where: { $0.id == id }) else { return }
+        transform(&timeline.tracks[index])
+        context.timelineState.timeline = timeline
+        rebuildComposition()
+        scheduleSave()
+    }
+
+    func updateClip(id: UUID, _ transform: (inout Clip) -> Void) {
+        var timeline = context.timelineState.timeline
+
+        for trackIndex in timeline.tracks.indices {
+            guard let clipIndex = timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == id }) else { continue }
+            transform(&timeline.tracks[trackIndex].clips[clipIndex])
+            context.timelineState.timeline = timeline
+            rebuildComposition()
+            scheduleSave()
+            return
+        }
+    }
+
     private func resolveTrackID(for type: TrackType, preferredTrackID: UUID?) -> UUID {
         if let preferredTrackID,
            let preferredTrack = timeline.tracks.first(where: { $0.id == preferredTrackID }),

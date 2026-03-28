@@ -25,6 +25,7 @@ enum CinematicTheme {
     static let surfaceContainerLowest = Color(hex: 0x0E0E0E)
     /// Hover states
     static let surfaceBright = Color(hex: 0x393939)
+    static let surfaceGlass = Color(hex: 0x171A22)
 
     // MARK: - Primary (AI Accent — Electric Indigo)
 
@@ -48,6 +49,7 @@ enum CinematicTheme {
     static let tertiary = Color(hex: 0xAAC7FF)
     static let tertiaryContainer = Color(hex: 0x006DD6)
     static let tertiaryFixedDim = Color(hex: 0xAAC7FF)
+    static let aqua = Color(hex: 0x7DE7FF)
 
     // MARK: - Error / Alert
 
@@ -85,6 +87,10 @@ enum CinematicTheme {
 
     /// AI glow shadow
     static let aiGlow = primaryContainer.opacity(0.3)
+    static let panelStroke = outlineVariant.opacity(0.28)
+    static let panelShadow = Color.black.opacity(0.28)
+    static let success = Color(hex: 0x53E16F)
+    static let warning = Color(hex: 0xF5CC64)
 }
 
 // MARK: - Typography
@@ -115,29 +121,55 @@ extension Font {
 // MARK: - Corner Radius
 
 enum CinematicRadius {
-    /// Inputs, small elements (0.125rem → 2pt)
-    static let sm: CGFloat = 2
-    /// Buttons (0.375rem → 6pt)
-    static let md: CGFloat = 6
-    /// Cards, clips (0.25rem → 4pt)
-    static let lg: CGFloat = 4
-    /// Panels, large containers (0.5rem → 8pt)
-    static let xl: CGFloat = 8
-    /// Pills, command bar (0.75rem → 12pt)
-    static let full: CGFloat = 12
+    static let xs: CGFloat = 4
+    static let sm: CGFloat = 6
+    static let md: CGFloat = 10
+    static let lg: CGFloat = 14
+    static let xl: CGFloat = 18
+    static let full: CGFloat = 999
 }
 
 // MARK: - Spacing
 
 enum CinematicSpacing {
-    /// Micro gap between clips (0.1rem → 1.6pt)
-    static let clipGap: CGFloat = 1.6
-    /// Tight density padding (0.5rem → 8pt)
+    static let xxs: CGFloat = 4
+    static let xs: CGFloat = 8
+    static let sm: CGFloat = 12
+    static let md: CGFloat = 16
+    static let lg: CGFloat = 20
+    static let xl: CGFloat = 28
+    static let xxl: CGFloat = 36
+    static let clipGap: CGFloat = 2
     static let standard: CGFloat = 8
-    /// Section spacing (0.3rem → 4.8pt)
-    static let sectionGap: CGFloat = 4.8
-    /// Panel padding
+    static let sectionGap: CGFloat = 12
     static let panelPadding: CGFloat = 16
+}
+
+enum CinematicMetrics {
+    static let topBarHeight: CGFloat = 52
+    static let panelHeaderHeight: CGFloat = 50
+    static let controlHeight: CGFloat = 30
+    static let fieldHeight: CGFloat = 34
+    static let compactSidebarWidth: CGFloat = 280
+    static let expandedSidebarWidth: CGFloat = 336
+    static let compactRightRailWidth: CGFloat = 300
+    static let expandedRightRailWidth: CGFloat = 360
+}
+
+enum CinematicPanelTone {
+    case base
+    case elevated
+    case recessed
+    case floating
+
+    var fill: Color {
+        switch self {
+        case .base: CinematicTheme.surfaceContainerLow
+        case .elevated: CinematicTheme.surfaceContainer
+        case .recessed: CinematicTheme.surfaceContainerLowest
+        case .floating: CinematicTheme.surfaceGlass
+        }
+    }
 }
 
 // MARK: - Color Hex Extension
@@ -161,7 +193,7 @@ struct GlassPanel: ViewModifier {
         content
             .background(.ultraThinMaterial)
             .background(tint.opacity(0.6))
-            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.full))
+            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
     }
 }
 
@@ -186,5 +218,279 @@ struct AIGlow: ViewModifier {
 extension View {
     func aiGlow(radius: CGFloat = 15) -> some View {
         modifier(AIGlow(radius: radius))
+    }
+}
+
+struct CinematicPanelSurface: ViewModifier {
+    let tone: CinematicPanelTone
+    var strokeOpacity: Double = 1
+    var shadow: Bool = false
+
+    func body(content: Content) -> some View {
+        content
+            .background(tone.fill)
+            .overlay(
+                RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                    .strokeBorder(CinematicTheme.panelStroke.opacity(strokeOpacity), lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+            .shadow(color: shadow ? CinematicTheme.panelShadow : .clear, radius: 16, y: 10)
+    }
+}
+
+extension View {
+    func panelSurface(_ tone: CinematicPanelTone = .base, strokeOpacity: Double = 1, shadow: Bool = false) -> some View {
+        modifier(CinematicPanelSurface(tone: tone, strokeOpacity: strokeOpacity, shadow: shadow))
+    }
+}
+
+struct CinematicPanelHeader<LeadingAccessory: View, TrailingAccessory: View>: View {
+    let eyebrow: String?
+    let title: String
+    let subtitle: String?
+    @ViewBuilder var leadingAccessory: LeadingAccessory
+    @ViewBuilder var trailingAccessory: TrailingAccessory
+
+    init(
+        eyebrow: String? = nil,
+        title: String,
+        subtitle: String? = nil,
+        @ViewBuilder leadingAccessory: () -> LeadingAccessory = { EmptyView() },
+        @ViewBuilder trailingAccessory: () -> TrailingAccessory = { EmptyView() }
+    ) {
+        self.eyebrow = eyebrow
+        self.title = title
+        self.subtitle = subtitle
+        self.leadingAccessory = leadingAccessory()
+        self.trailingAccessory = trailingAccessory()
+    }
+
+    var body: some View {
+        HStack(spacing: CinematicSpacing.sm) {
+            leadingAccessory
+
+            VStack(alignment: .leading, spacing: 2) {
+                if let eyebrow {
+                    Text(eyebrow)
+                        .font(.cinLabel)
+                        .tracking(1.4)
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
+                }
+
+                Text(title)
+                    .font(.cinTitle)
+                    .foregroundStyle(CinematicTheme.onSurface)
+
+                if let subtitle {
+                    Text(subtitle)
+                        .font(.cinLabelRegular)
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.68))
+                        .lineLimit(1)
+                }
+            }
+
+            Spacer(minLength: 0)
+            trailingAccessory
+        }
+        .frame(height: CinematicMetrics.panelHeaderHeight)
+        .padding(.horizontal, CinematicSpacing.md)
+    }
+}
+
+struct CinematicToolbarButton: View {
+    let icon: String
+    var label: String? = nil
+    var isActive = false
+    var isDestructive = false
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .font(.system(size: 12, weight: .semibold))
+                if let label {
+                    Text(label)
+                        .font(.cinLabelRegular)
+                }
+            }
+            .foregroundStyle(foreground)
+            .padding(.horizontal, label == nil ? 8 : 10)
+            .frame(height: CinematicMetrics.controlHeight)
+            .background(background)
+            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var foreground: Color {
+        if isDestructive {
+            return CinematicTheme.error
+        }
+        return isActive ? CinematicTheme.onPrimaryContainer : CinematicTheme.onSurfaceVariant
+    }
+
+    private var background: some ShapeStyle {
+        if isDestructive {
+            return AnyShapeStyle(CinematicTheme.errorContainer.opacity(0.2))
+        }
+        if isActive {
+            return AnyShapeStyle(
+                LinearGradient(
+                    colors: [CinematicTheme.primaryContainer, CinematicTheme.tertiaryContainer.opacity(0.78)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+        }
+        return AnyShapeStyle(CinematicTheme.surfaceContainerHighest.opacity(0.72))
+    }
+}
+
+struct CinematicStatusPill: View {
+    let text: String
+    var icon: String? = nil
+    var tone: Color = CinematicTheme.primary
+
+    var body: some View {
+        HStack(spacing: 6) {
+            if let icon {
+                Image(systemName: icon)
+                    .font(.system(size: 10, weight: .semibold))
+            }
+            Text(text)
+                .font(.cinLabel)
+                .tracking(1)
+        }
+        .foregroundStyle(tone)
+        .padding(.horizontal, 10)
+        .frame(height: 24)
+        .background(tone.opacity(0.12))
+        .clipShape(Capsule())
+    }
+}
+
+struct CinematicCard<Content: View>: View {
+    let tone: CinematicPanelTone
+    @ViewBuilder var content: Content
+
+    init(tone: CinematicPanelTone = .elevated, @ViewBuilder content: () -> Content) {
+        self.tone = tone
+        self.content = content()
+    }
+
+    var body: some View {
+        content
+            .padding(CinematicSpacing.md)
+            .panelSurface(tone, strokeOpacity: 0.8)
+    }
+}
+
+struct CinematicEmptyStateBlock<Accessory: View>: View {
+    let icon: String
+    let title: String
+    let detail: String
+    @ViewBuilder var accessory: Accessory
+
+    init(icon: String, title: String, detail: String, @ViewBuilder accessory: () -> Accessory = { EmptyView() }) {
+        self.icon = icon
+        self.title = title
+        self.detail = detail
+        self.accessory = accessory()
+    }
+
+    var body: some View {
+        VStack(spacing: CinematicSpacing.md) {
+            Image(systemName: icon)
+                .font(.system(size: 28, weight: .medium))
+                .foregroundStyle(CinematicTheme.aqua.opacity(0.72))
+                .frame(width: 52, height: 52)
+                .background(CinematicTheme.surfaceContainerHighest.opacity(0.6))
+                .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+
+            VStack(spacing: 6) {
+                Text(title)
+                    .font(.cinHeadlineSmall)
+                    .foregroundStyle(CinematicTheme.onSurface)
+                Text(detail)
+                    .font(.cinBody)
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
+                    .multilineTextAlignment(.center)
+            }
+
+            accessory
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(CinematicSpacing.xl)
+    }
+}
+
+struct CinematicInspectorFieldRow<Value: View>: View {
+    let label: String
+    @ViewBuilder var value: Value
+
+    init(label: String, @ViewBuilder value: () -> Value) {
+        self.label = label
+        self.value = value()
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(label.uppercased())
+                .font(.cinLabel)
+                .tracking(1.2)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.64))
+            value
+        }
+    }
+}
+
+struct CinematicSegmentedTabBar<Item: Hashable>: View {
+    let items: [Item]
+    @Binding var selection: Item
+    var label: (Item) -> String
+    var icon: ((Item) -> String?)? = nil
+
+    var body: some View {
+        HStack(spacing: 6) {
+            ForEach(items, id: \.self) { item in
+                let isSelected = selection == item
+                Button {
+                    selection = item
+                } label: {
+                    HStack(spacing: 6) {
+                        if let iconName = icon?(item) {
+                            Image(systemName: iconName)
+                                .font(.system(size: 11, weight: .semibold))
+                        }
+                        Text(label(item))
+                            .font(.cinLabelRegular)
+                    }
+                    .foregroundStyle(isSelected ? CinematicTheme.onPrimaryContainer : CinematicTheme.onSurfaceVariant)
+                    .padding(.horizontal, 12)
+                    .frame(height: 30)
+                    .background(
+                        isSelected
+                            ? AnyShapeStyle(
+                                LinearGradient(
+                                    colors: [CinematicTheme.primaryContainer, CinematicTheme.tertiaryContainer.opacity(0.72)],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            : AnyShapeStyle(CinematicTheme.surfaceContainerHighest.opacity(0.68))
+                    )
+                    .clipShape(Capsule())
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(4)
+        .background(CinematicTheme.surfaceContainerLowest.opacity(0.9))
+        .clipShape(Capsule())
+        .overlay(
+            Capsule()
+                .strokeBorder(CinematicTheme.panelStroke.opacity(0.8), lineWidth: 1)
+        )
     }
 }

@@ -43,10 +43,10 @@ public struct ProjectSettings: Codable, Sendable {
         sampleRate: Int = 48000,
         backgroundColorHex: String = "#000000"
     ) {
-        self.width = width
-        self.height = height
-        self.frameRate = frameRate
-        self.sampleRate = sampleRate
+        self.width = max(width, 1)
+        self.height = max(height, 1)
+        self.frameRate = max(frameRate, 1)
+        self.sampleRate = max(sampleRate, 8000)
         self.backgroundColorHex = backgroundColorHex
     }
 
