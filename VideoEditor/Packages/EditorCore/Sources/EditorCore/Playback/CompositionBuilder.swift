@@ -63,6 +63,28 @@ public struct CompositionBuilder {
         )
 
         // Process all tracks
+        // Reuse composition audio tracks to avoid silent-padding issues.
+        // Key: timeline track ID → shared composition audio track.
+        // Video tracks' extracted audio shares with their paired audio track.
+        var audioTrackCompTracks: [UUID: AVMutableCompositionTrack] = [:]
+
+        // Map video track IDs to their paired audio track IDs for audio routing
+        let videoToAudioTrackID: [UUID: UUID] = {
+            var map: [UUID: UUID] = [:]
+            let videoTracks = timeline.tracks.filter { $0.type != .audio }
+            let audioTracks = timeline.tracks.filter { $0.type == .audio }
+            for vTrack in videoTracks {
+                // Find paired audio track: audio track with clips sharing linkGroupIDs
+                let vLinkGroups = Set(vTrack.clips.compactMap(\.linkGroupID))
+                if let aTrack = audioTracks.first(where: { track in
+                    track.clips.contains { clip in clip.linkGroupID != nil && vLinkGroups.contains(clip.linkGroupID!) }
+                }) {
+                    map[vTrack.id] = aTrack.id
+                }
+            }
+            return map
+        }()
+
         for track in timeline.tracks {
             guard !track.isMuted else { continue }
             if anySoloed && !track.isSoloed { continue }
@@ -125,8 +147,18 @@ public struct CompositionBuilder {
                     let hasLinkedAudio = clip.linkGroupID != nil && audioTrackLinkGroups.contains(clip.linkGroupID!)
 
                     if !hasLinkedAudio {
-                        if let audioSourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
-                           let audioCompTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
+                        if let audioSourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first {
+                            // Route to paired audio track's composition track, or create a shared one
+                            let routeKey = videoToAudioTrackID[track.id] ?? track.id
+                            let audioCompTrack: AVMutableCompositionTrack
+                            if let existing = audioTrackCompTracks[routeKey] {
+                                audioCompTrack = existing
+                            } else if let newTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
+                                audioTrackCompTracks[routeKey] = newTrack
+                                audioCompTrack = newTrack
+                            } else {
+                                continue
+                            }
 
                             try? audioCompTrack.insertTimeRange(sourceRange, of: audioSourceTrack, at: insertTime)
 
@@ -135,7 +167,6 @@ public struct CompositionBuilder {
                                 audioCompTrack.scaleTimeRange(insertedRange, toDuration: effectiveDuration)
                             }
 
-                            // Volume for this clip
                             let effectiveVolume = Float(clip.volume * track.volume)
                             if effectiveVolume != 1.0 {
                                 let params = AVMutableAudioMixInputParameters(track: audioCompTrack)
@@ -148,8 +179,17 @@ public struct CompositionBuilder {
 
                 // === AUDIO ===
                 if track.type == .audio {
-                    if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
-                       let compTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
+                    if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first {
+                        // Reuse one composition track per timeline audio track
+                        let compTrack: AVMutableCompositionTrack
+                        if let existing = audioTrackCompTracks[track.id] {
+                            compTrack = existing
+                        } else if let newTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
+                            audioTrackCompTracks[track.id] = newTrack
+                            compTrack = newTrack
+                        } else {
+                            continue
+                        }
 
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
 
