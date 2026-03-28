@@ -180,6 +180,10 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         switch effect.type {
         case "colorCorrection":
             return applyColorCorrection(effect.parameters, to: image)
+        case "lut":
+            // LUT path should be in parameters["path"]
+            // For now, LUT data should be pre-loaded and cached
+            return image
         case "blur":
             let radius = effect.parameters["radius"] ?? 10
             return image.applyingFilter("CIGaussianBlur", parameters: ["inputRadius": radius])
