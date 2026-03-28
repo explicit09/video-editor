@@ -60,13 +60,27 @@ final class AIChatController {
                 level: contextLevel
             )
 
-            // Build initial conversation
-            var conversation: [AIMessage] = [
-                AIMessage(
-                    role: "user",
-                    content: "Current editor state:\n```json\n\(context.toJSON())\n```\n\nUser request: \(message)"
-                )
-            ]
+            // Build conversation with recent history for continuity
+            var conversation: [AIMessage] = []
+
+            // Include last few exchanges as summary (not raw tool results)
+            let recentMessages = messages.suffix(6) // Last 3 exchanges (user + assistant pairs)
+            for msg in recentMessages {
+                let role = msg.role == .user ? "user" : "assistant"
+                // Summarize tool results instead of re-sending raw data
+                var content = msg.content
+                if !msg.toolResults.isEmpty {
+                    let toolSummary = msg.toolResults.map { "\($0.toolName): \($0.success ? "ok" : "failed")" }.joined(separator: ", ")
+                    content += " [Tools: \(toolSummary)]"
+                }
+                conversation.append(AIMessage(role: role, content: content))
+            }
+
+            // Add current request with fresh editor state
+            conversation.append(AIMessage(
+                role: "user",
+                content: "Current editor state:\n\(context.toJSON())\n\nUser request: \(message)"
+            ))
 
             // Multi-turn loop: send → get response → if tools, execute and send results back → repeat
             var allToolResults: [ChatMessage.ToolResult] = []
