@@ -347,6 +347,103 @@ public struct SetClipTransitionCommand: Command {
     }
 }
 
+/// Set clip blend mode.
+public struct SetClipBlendModeCommand: Command {
+    public let name = "Set Blend Mode"
+    public let clipID: UUID
+    public let newBlendMode: BlendMode
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousBlendMode: BlendMode?
+
+    public init(clipID: UUID, blendMode: BlendMode) {
+        self.clipID = clipID
+        self.newBlendMode = blendMode
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            previousBlendMode = clip.blendMode
+            clip.blendMode = newBlendMode
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let prev = previousBlendMode else { return }
+        try modifyClip(id: clipID, context: context) { $0.blendMode = prev }
+    }
+}
+
+/// Link or unlink a set of clips (shared linkGroupID).
+public struct LinkClipsCommand: Command {
+    public let name = "Link Clips"
+    public let clipIDs: [UUID]
+    public let newLinkGroupID: UUID?
+    public var affectedClipIDs: [UUID] { clipIDs }
+    private var previousLinkGroupIDs: [UUID: UUID?] = [:]
+
+    public init(clipIDs: [UUID], linkGroupID: UUID?) {
+        self.clipIDs = clipIDs
+        self.newLinkGroupID = linkGroupID
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        for clipID in clipIDs {
+            for ti in context.timelineState.timeline.tracks.indices {
+                if let ci = context.timelineState.timeline.tracks[ti].clips.firstIndex(where: { $0.id == clipID }) {
+                    previousLinkGroupIDs[clipID] = context.timelineState.timeline.tracks[ti].clips[ci].linkGroupID
+                    context.timelineState.timeline.tracks[ti].clips[ci].linkGroupID = newLinkGroupID
+                }
+            }
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        for (clipID, prevGroup) in previousLinkGroupIDs {
+            for ti in context.timelineState.timeline.tracks.indices {
+                if let ci = context.timelineState.timeline.tracks[ti].clips.firstIndex(where: { $0.id == clipID }) {
+                    context.timelineState.timeline.tracks[ti].clips[ci].linkGroupID = prevGroup
+                }
+            }
+        }
+    }
+}
+
+/// Remove an effect from a clip by effect ID.
+public struct RemoveClipEffectCommand: Command {
+    public let name = "Remove Effect"
+    public let clipID: UUID
+    public let effectID: UUID
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var removedEffect: EffectInstance?
+    private var removedIndex: Int?
+
+    public init(clipID: UUID, effectID: UUID) {
+        self.clipID = clipID
+        self.effectID = effectID
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        let location = try editableClipLocation(for: clipID, context: context)
+        let effects = context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].effects
+        if let idx = effects.firstIndex(where: { $0.id == effectID }) {
+            removedEffect = effects[idx]
+            removedIndex = idx
+            context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].effects.remove(at: idx)
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let effect = removedEffect, let idx = removedIndex else { return }
+        for ti in context.timelineState.timeline.tracks.indices {
+            if let ci = context.timelineState.timeline.tracks[ti].clips.firstIndex(where: { $0.id == clipID }) {
+                let safeIdx = min(idx, context.timelineState.timeline.tracks[ti].clips[ci].effects.count)
+                context.timelineState.timeline.tracks[ti].clips[ci].effects.insert(effect, at: safeIdx)
+                return
+            }
+        }
+    }
+}
+
 // MARK: - Helpers
 
 @MainActor

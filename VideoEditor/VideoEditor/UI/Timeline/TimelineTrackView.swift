@@ -30,6 +30,10 @@ struct TimelineTrackView: View {
     var onClipSplit: ((UUID, TimeInterval) -> Void)?
     var onClipDelete: ((UUID) -> Void)?
     var onClipDuplicate: ((UUID) -> Void)?
+    var onClipLink: ((UUID) -> Void)?
+    var onClipUnlink: ((UUID) -> Void)?
+    var isCollapsed: Bool = false
+    var onToggleCollapse: (() -> Void)?
 
     @State private var isDropTargeted = false
     @State private var dropX: Double?
@@ -125,7 +129,9 @@ struct TimelineTrackView: View {
                     },
                     onSplit: { at in onClipSplit?(clip.id, at) },
                     onDelete: { onClipDelete?(clip.id) },
-                    onDuplicate: { onClipDuplicate?(clip.id) }
+                    onDuplicate: { onClipDuplicate?(clip.id) },
+                    onClipLink: { id in onClipLink?(id) },
+                    onClipUnlink: { id in onClipUnlink?(id) }
                 )
             }
         }
@@ -144,8 +150,15 @@ struct TimelineTrackView: View {
     }
 
     private var trackLabel: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: isCollapsed ? 4 : 8) {
             HStack(spacing: 8) {
+                Button(action: { onToggleCollapse?() }) {
+                    Image(systemName: isCollapsed ? "chevron.right" : "chevron.down")
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+                }
+                .buttonStyle(.plain)
+
                 Image(systemName: trackIcon)
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(trackAccentColor)
@@ -166,12 +179,15 @@ struct TimelineTrackView: View {
                     .clipShape(Capsule())
             }
 
+            if !isCollapsed {
             TextField("Track Name", text: $draftName)
                 .textFieldStyle(.plain)
                 .font(.cinTitleSmall)
                 .foregroundStyle(CinematicTheme.onSurface)
                 .onSubmit(commitTrackName)
+            }
 
+            if !isCollapsed {
             HStack(spacing: 6) {
                 trackControlButton(
                     icon: muteIcon,
@@ -211,9 +227,10 @@ struct TimelineTrackView: View {
                     )
                 }
             }
+            } // end if !isCollapsed (controls)
         }
         .padding(.horizontal, 12)
-        .padding(.vertical, 10)
+        .padding(.vertical, isCollapsed ? 4 : 10)
         .frame(width: 182, height: trackHeight, alignment: .leading)
         .background(trackHeaderBackground)
         .overlay(alignment: .trailing) {
@@ -343,6 +360,8 @@ private struct TimelineClipView: View {
     var onSplit: ((TimeInterval) -> Void)?
     var onDelete: (() -> Void)?
     var onDuplicate: (() -> Void)?
+    var onClipLink: ((UUID) -> Void)?
+    var onClipUnlink: ((UUID) -> Void)?
 
     @State private var dragOffset: Double = 0
     @State private var isDragging = false
@@ -350,6 +369,7 @@ private struct TimelineClipView: View {
     @State private var trimStartOffset: Double = 0
     @State private var trimEndOffset: Double = 0
     @State private var isTrimming = false
+    @State private var bladeHoverX: Double? = nil
 
     private var clipX: Double {
         viewState.durationToWidth(clip.timelineRange.start) + dragOffset + trimStartOffset
@@ -385,6 +405,14 @@ private struct TimelineClipView: View {
             Button("Duplicate") { onDuplicate?() }
                 .disabled(!isEditable)
             Divider()
+            if clip.linkGroupID != nil {
+                Button("Unlink A/V") { onClipUnlink?(clip.id) }
+                    .disabled(!isEditable)
+            } else {
+                Button("Link Selected Clips") { onClipLink?(clip.id) }
+                    .disabled(!isEditable)
+            }
+            Divider()
             Button("Delete", role: .destructive) { onDelete?() }
                 .disabled(!isEditable)
         }
@@ -406,33 +434,59 @@ private struct TimelineClipView: View {
         )
         .shadow(color: shadowColor, radius: isDragging ? 12 : 8, y: isDragging ? 6 : 2)
         .overlay(alignment: .topTrailing) {
-            if !isEditable {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 9, weight: .bold))
-                    .foregroundStyle(CinematicTheme.onSurface.opacity(0.86))
-                    .padding(6)
-                    .background(CinematicTheme.surfaceContainerHighest.opacity(0.9))
-                    .clipShape(Circle())
-                    .padding(6)
+            HStack(spacing: 4) {
+                if clip.linkGroupID != nil {
+                    Image(systemName: "link")
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundStyle(CinematicTheme.primary.opacity(0.9))
+                        .padding(4)
+                        .background(CinematicTheme.surfaceContainerHighest.opacity(0.85))
+                        .clipShape(Circle())
+                }
+                if !isEditable {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundStyle(CinematicTheme.onSurface.opacity(0.86))
+                        .padding(6)
+                        .background(CinematicTheme.surfaceContainerHighest.opacity(0.9))
+                        .clipShape(Circle())
+                }
             }
+            .padding(6)
         }
         .overlay(alignment: .leading) {
-            if isEditable && tool == .trim {
+            if isEditable && (tool == .trim || (tool == .selection && (isSelected || isHovered))) {
                 trimHandle(isStart: true)
             }
         }
         .overlay(alignment: .trailing) {
-            if isEditable && tool == .trim {
+            if isEditable && (tool == .trim || (tool == .selection && (isSelected || isHovered))) {
                 trimHandle(isStart: false)
             }
         }
-        .onHover { hovering in
-            isHovered = hovering
-            guard tool == .blade, isEditable else { return }
-            if hovering {
-                NSCursor.crosshair.push()
-            } else {
-                NSCursor.pop()
+        .overlay(alignment: .leading) {
+            if tool == .blade && isHovered, let bladeX = bladeHoverX {
+                Rectangle()
+                    .fill(CinematicTheme.error)
+                    .frame(width: 2)
+                    .offset(x: bladeX - 1)
+                    .allowsHitTesting(false)
+            }
+        }
+        .onContinuousHover { phase in
+            switch phase {
+            case .active(let location):
+                isHovered = true
+                if tool == .blade && isEditable {
+                    bladeHoverX = location.x
+                    NSCursor.crosshair.push()
+                }
+            case .ended:
+                isHovered = false
+                bladeHoverX = nil
+                if tool == .blade {
+                    NSCursor.pop()
+                }
             }
         }
     }

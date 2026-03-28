@@ -8,7 +8,9 @@ struct TimelinePanel: View {
     @State private var thumbnails: [UUID: CGImage] = [:]
     @State private var waveforms: [UUID: [Float]] = [:]
     @State private var trackHeights: [UUID: Double] = [:]
+    @State private var collapsedTrackIDs: Set<UUID> = []
     @State private var pinchBaseZoom: Double?
+    @State private var dragReorderTrackID: UUID?
     private let defaultTrackHeight: Double = 76
     private let expandedTrackHeight: Double = 104
 
@@ -316,6 +318,15 @@ struct TimelinePanel: View {
                     },
                     onAssetDrop: { assetID, dropTime in
                         guard let asset = appState.assets.first(where: { $0.id == assetID }) else { return }
+                        // Validate track type compatibility
+                        let isCompatible: Bool
+                        switch (asset.type, track.type) {
+                        case (.video, .video), (.video, .effect), (.audio, .audio):
+                            isCompatible = true
+                        default:
+                            isCompatible = false
+                        }
+                        guard isCompatible else { return }
                         Task { @MainActor in
                             await appState.addAssetToTimeline(
                                 asset,
@@ -335,6 +346,28 @@ struct TimelinePanel: View {
                     },
                     onClipDuplicate: { clipID in
                         try? appState.perform(.duplicateClip(clipID: clipID))
+                    },
+                    onClipLink: { clipID in
+                        let selected = Array(viewState.selectedClipIDs)
+                        let toLink = selected.isEmpty ? [clipID] : selected
+                        guard toLink.count >= 2 else { return }
+                        try? appState.perform(.linkClips(clipIDs: toLink, linkGroupID: UUID()))
+                    },
+                    onClipUnlink: { clipID in
+                        // Unlink this clip and all siblings
+                        if let clip = appState.timeline.tracks.flatMap(\.clips).first(where: { $0.id == clipID }),
+                           let group = clip.linkGroupID {
+                            let siblings = appState.timeline.tracks.flatMap(\.clips).filter { $0.linkGroupID == group }.map(\.id)
+                            try? appState.perform(.linkClips(clipIDs: siblings, linkGroupID: nil))
+                        }
+                    },
+                    isCollapsed: collapsedTrackIDs.contains(track.id),
+                    onToggleCollapse: {
+                        if collapsedTrackIDs.contains(track.id) {
+                            collapsedTrackIDs.remove(track.id)
+                        } else {
+                            collapsedTrackIDs.insert(track.id)
+                        }
                     }
                 )
             }
@@ -377,7 +410,8 @@ struct TimelinePanel: View {
     }
 
     private func trackHeight(for trackID: UUID) -> Double {
-        trackHeights[trackID] ?? defaultTrackHeight
+        if collapsedTrackIDs.contains(trackID) { return 28 }
+        return trackHeights[trackID] ?? defaultTrackHeight
     }
 
     private func cycleTrackHeight(for trackID: UUID) {

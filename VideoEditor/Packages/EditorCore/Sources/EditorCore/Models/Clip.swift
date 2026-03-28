@@ -19,6 +19,8 @@ public struct Clip: Codable, Identifiable, Sendable {
     public var transitionIn: ClipTransition
     /// Links video+audio clip pairs. Edits to one propagate to all clips with the same linkGroupID.
     public var linkGroupID: UUID?
+    /// Compositing blend mode for this clip.
+    public var blendMode: BlendMode
 
     public init(
         id: UUID = UUID(),
@@ -33,7 +35,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         metadata: ClipMetadata = ClipMetadata(),
         speed: Double = 1.0,
         transitionIn: ClipTransition = .none,
-        linkGroupID: UUID? = nil
+        linkGroupID: UUID? = nil,
+        blendMode: BlendMode = .normal
     ) {
         self.id = id
         self.assetID = assetID
@@ -48,6 +51,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.speed = max(speed, 0.1) // minimum 0.1x
         self.transitionIn = transitionIn
         self.linkGroupID = linkGroupID
+        self.blendMode = blendMode
     }
 }
 
@@ -187,7 +191,7 @@ public struct TranscriptWord: Codable, Sendable {
 
 // MARK: - Effect & Keyframe stubs
 
-public struct EffectInstance: Codable, Sendable {
+public struct EffectInstance: Codable, Sendable, Identifiable {
     public let id: UUID
     public var type: String
     public var parameters: [String: Double]

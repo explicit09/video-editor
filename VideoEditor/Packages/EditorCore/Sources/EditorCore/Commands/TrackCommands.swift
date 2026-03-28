@@ -34,6 +34,39 @@ public struct AddTrackCommand: Command {
     }
 }
 
+// MARK: - ReorderTrackCommand
+
+public struct ReorderTrackCommand: Command {
+    public let name = "Reorder Track"
+    public let trackID: UUID
+    public let newIndex: Int
+    public var affectedTrackIDs: [UUID] { [trackID] }
+    private var previousIndex: Int?
+
+    public init(trackID: UUID, newIndex: Int) {
+        self.trackID = trackID
+        self.newIndex = newIndex
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        guard let currentIndex = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == trackID }) else {
+            throw CommandError.trackNotFound(trackID)
+        }
+        previousIndex = currentIndex
+        let track = context.timelineState.timeline.tracks.remove(at: currentIndex)
+        let safeIndex = min(max(newIndex, 0), context.timelineState.timeline.tracks.count)
+        context.timelineState.timeline.tracks.insert(track, at: safeIndex)
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let previousIndex else { return }
+        guard let currentIndex = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == trackID }) else { return }
+        let track = context.timelineState.timeline.tracks.remove(at: currentIndex)
+        let safeIndex = min(previousIndex, context.timelineState.timeline.tracks.count)
+        context.timelineState.timeline.tracks.insert(track, at: safeIndex)
+    }
+}
+
 // MARK: - RemoveTrackCommand
 
 public struct RemoveTrackCommand: Command {

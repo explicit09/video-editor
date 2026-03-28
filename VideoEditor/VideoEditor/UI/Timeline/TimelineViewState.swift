@@ -13,6 +13,22 @@ final class TimelineViewState {
     var snapEnabled: Bool = true
     var rippleEnabled: Bool = false
     var linkedSelectionEnabled: Bool = true
+    var lastSelectedClipID: UUID?
+    var editMode: EditMode = .overwrite
+
+    enum EditMode: String, CaseIterable {
+        case insert = "Insert"
+        case overwrite = "Overwrite"
+        case replace = "Replace"
+
+        var icon: String {
+            switch self {
+            case .insert: "arrow.right.to.line"
+            case .overwrite: "square.on.square"
+            case .replace: "arrow.left.arrow.right"
+            }
+        }
+    }
     var visibleWidth: Double = 800
     let snapThresholdPixels: Double = 8
 
@@ -82,6 +98,28 @@ final class TimelineViewState {
         } else {
             selectedClipIDs = [clipID]
         }
+        lastSelectedClipID = clipID
+    }
+
+    /// Select all clips on a track between the anchor and target clip (by timeline position).
+    func rangeSelect(to targetClipID: UUID, in trackClips: [Clip]) {
+        guard let anchorID = lastSelectedClipID else {
+            selectedClipIDs = [targetClipID]
+            lastSelectedClipID = targetClipID
+            return
+        }
+        guard let anchorClip = trackClips.first(where: { $0.id == anchorID }),
+              let targetClip = trackClips.first(where: { $0.id == targetClipID }) else {
+            selectedClipIDs.insert(targetClipID)
+            return
+        }
+        let minStart = min(anchorClip.timelineRange.start, targetClip.timelineRange.start)
+        let maxEnd = max(anchorClip.timelineRange.end, targetClip.timelineRange.end)
+        let inRange = trackClips.filter { $0.timelineRange.start >= minStart && $0.timelineRange.end <= maxEnd }
+        for clip in inRange {
+            selectedClipIDs.insert(clip.id)
+        }
+        lastSelectedClipID = targetClipID
     }
 
     func clearSelection() {

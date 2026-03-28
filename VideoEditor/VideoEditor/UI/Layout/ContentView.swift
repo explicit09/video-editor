@@ -178,8 +178,12 @@ struct ContentView: View {
         if !selectedClips.isEmpty {
             let intents = selectedClips.map { EditorIntent.splitClip(clipID: $0.id, at: playhead) }
             try? appState.perform(intents.count == 1 ? intents[0] : .batch(intents))
-        } else if let clip = allClips.first(where: { $0.timelineRange.contains(playhead) }) {
-            try? appState.perform(.splitClip(clipID: clip.id, at: playhead))
+        } else {
+            // Batch blade: split ALL clips spanning the playhead
+            let spanning = allClips.filter { $0.timelineRange.contains(playhead) }
+            guard !spanning.isEmpty else { return }
+            let intents = spanning.map { EditorIntent.splitClip(clipID: $0.id, at: playhead) }
+            try? appState.perform(intents.count == 1 ? intents[0] : .batch(intents))
         }
     }
 
@@ -502,17 +506,62 @@ struct ContentView: View {
 
             Spacer()
 
-            HStack {
+            HStack(spacing: 8) {
                 CinematicSegmentedTabBar(
                     items: EditorTool.allCases,
                     selection: $editorTool,
                     label: { $0.rawValue },
                     icon: { $0.icon }
                 )
+
+                Rectangle()
+                    .fill(CinematicTheme.outlineVariant.opacity(0.3))
+                    .frame(width: 1, height: 20)
+
+                editModePicker
             }
-            .frame(maxWidth: 320)
+            .frame(maxWidth: 480)
 
             Spacer()
+
+            Menu {
+                ForEach([0.5, 1.0, 1.5, 2.0], id: \.self) { rate in
+                    Button {
+                        appState.playbackEngine.playbackRate = Float(rate)
+                        if appState.playbackEngine.isPlaying {
+                            appState.playbackEngine.player.rate = Float(rate)
+                        }
+                    } label: {
+                        let label = rate == 1.0 ? "1x" : "\(rate == 0.5 ? "0.5" : rate == 1.5 ? "1.5" : "2")x"
+                        if Float(rate) == appState.playbackEngine.playbackRate {
+                            Label(label, systemImage: "checkmark")
+                        } else {
+                            Text(label)
+                        }
+                    }
+                }
+            } label: {
+                HStack(spacing: 4) {
+                    Image(systemName: "gauge.with.needle")
+                        .font(.system(size: 12, weight: .semibold))
+                    Text(speedLabel(for: appState.playbackEngine.playbackRate))
+                        .font(.cinLabel)
+                }
+                .foregroundStyle(CinematicTheme.onSurface)
+                .padding(.horizontal, 10)
+                .frame(height: CinematicMetrics.controlHeight)
+                .background(CinematicTheme.surfaceContainerHighest)
+                .clipShape(Capsule())
+            }
+            .menuStyle(.button)
+
+            CinematicToolbarButton(
+                icon: appState.playbackEngine.loopEnabled ? "repeat" : "repeat",
+                isActive: appState.playbackEngine.loopEnabled
+            ) {
+                appState.playbackEngine.loopEnabled.toggle()
+            }
+            .help(appState.playbackEngine.loopEnabled ? "Disable loop" : "Enable loop")
 
             Text(TimeFormatter.timecode(appState.playbackEngine.duration))
                 .font(.cinTimecode)
@@ -522,6 +571,34 @@ struct ContentView: View {
         .padding(.horizontal, CinematicSpacing.md)
         .frame(height: 54)
         .panelSurface(.elevated, strokeOpacity: 0.84)
+    }
+
+    @ViewBuilder
+    private var editModePicker: some View {
+        @Bindable var viewState = appState.timelineViewState
+        Menu {
+            ForEach(TimelineViewState.EditMode.allCases, id: \.self) { mode in
+                Button {
+                    appState.timelineViewState.editMode = mode
+                } label: {
+                    Label(mode.rawValue, systemImage: mode.icon)
+                }
+            }
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: appState.timelineViewState.editMode.icon)
+                    .font(.system(size: 10, weight: .semibold))
+                Text(appState.timelineViewState.editMode.rawValue.prefix(3).uppercased())
+                    .font(.cinLabel)
+            }
+            .foregroundStyle(CinematicTheme.onSurfaceVariant)
+            .padding(.horizontal, 8)
+            .frame(height: CinematicMetrics.controlHeight)
+            .background(CinematicTheme.surfaceContainerHighest)
+            .clipShape(Capsule())
+        }
+        .menuStyle(.button)
+        .help("Edit mode: \(appState.timelineViewState.editMode.rawValue)")
     }
 
     private var commandDock: some View {
@@ -755,6 +832,16 @@ struct ContentView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 6)
+    }
+
+    private func speedLabel(for rate: Float) -> String {
+        switch rate {
+        case 0.5: return "0.5x"
+        case 1.0: return "1x"
+        case 1.5: return "1.5x"
+        case 2.0: return "2x"
+        default: return String(format: "%.1fx", rate)
+        }
     }
 
     private func sendCommandBarMessage() {

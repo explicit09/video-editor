@@ -210,11 +210,19 @@ final class AppState {
         let clipIDs = linkedSelectionIDs(for: clipID)
 
         if extend {
-            let isEntireGroupSelected = clipIDs.allSatisfy { timelineViewState.selectedClipIDs.contains($0) }
-            if isEntireGroupSelected {
-                clipIDs.forEach { timelineViewState.selectedClipIDs.remove($0) }
+            // Range selection: if there's an anchor, select all clips between anchor and target
+            if let anchorID = timelineViewState.lastSelectedClipID,
+               let anchorTrackID = trackID(for: anchorID),
+               anchorTrackID == selectedTrackID,
+               let track = timeline.tracks.first(where: { $0.id == selectedTrackID }) {
+                timelineViewState.rangeSelect(to: clipID, in: track.clips)
             } else {
-                clipIDs.forEach { timelineViewState.selectedClipIDs.insert($0) }
+                let isEntireGroupSelected = clipIDs.allSatisfy { timelineViewState.selectedClipIDs.contains($0) }
+                if isEntireGroupSelected {
+                    clipIDs.forEach { timelineViewState.selectedClipIDs.remove($0) }
+                } else {
+                    clipIDs.forEach { timelineViewState.selectedClipIDs.insert($0) }
+                }
             }
 
             let selectedTrackIDs = Set(timelineViewState.selectedClipIDs.compactMap { self.trackID(for: $0) })
@@ -224,6 +232,7 @@ final class AppState {
             let selectedTrackIDs = Set(clipIDs.compactMap { self.trackID(for: $0) })
             timelineViewState.selectedTrackID = selectedTrackIDs.count == 1 ? selectedTrackIDs.first : selectedTrackID
         }
+        timelineViewState.lastSelectedClipID = clipID
     }
 
     func moveSelection(primaryClipID: UUID, newStart: TimeInterval, targetTrackID: UUID) {

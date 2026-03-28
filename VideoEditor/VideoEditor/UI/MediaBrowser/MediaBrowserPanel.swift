@@ -120,9 +120,15 @@ struct MediaBrowserPanel: View {
         ScrollView {
             LazyVStack(spacing: 10) {
                 ForEach(appState.assets) { asset in
-                    AssetThumbnailView(asset: asset, thumbnail: thumbnails[asset.id]) {
-                        addToTimeline(asset)
-                    }
+                    AssetThumbnailView(
+                        asset: asset,
+                        thumbnail: thumbnails[asset.id],
+                        onAddToTimeline: { addToTimeline(asset) },
+                        onTranscribe: {
+                            Task { await appState.media.transcribeAssets([asset.id]) }
+                        },
+                        hasTranscript: asset.analysis?.transcript != nil
+                    )
                     .task {
                         // Load thumbnail if not cached
                         if thumbnails[asset.id] == nil {
@@ -193,6 +199,8 @@ struct AssetThumbnailView: View {
     let asset: MediaAsset
     let thumbnail: CGImage?
     var onAddToTimeline: (() -> Void)?
+    var onTranscribe: (() -> Void)?
+    var hasTranscript: Bool = false
 
     var body: some View {
         HStack(spacing: 10) {
@@ -261,6 +269,15 @@ struct AssetThumbnailView: View {
         .onTapGesture(count: 1) { }
         .help("Double-click to add to timeline")
         .draggable(TimelineAssetDragPayload(assetID: asset.id))
+        .contextMenu {
+            Button("Add to Timeline") { onAddToTimeline?() }
+            Divider()
+            if hasTranscript {
+                Label("Transcribed", systemImage: "checkmark.circle.fill")
+            } else {
+                Button("Transcribe") { onTranscribe?() }
+            }
+        }
     }
 
     private var iconName: String {

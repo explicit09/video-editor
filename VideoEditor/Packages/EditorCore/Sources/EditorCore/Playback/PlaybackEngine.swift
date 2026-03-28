@@ -8,10 +8,13 @@ public final class PlaybackEngine {
     public private(set) var isPlaying = false
     public private(set) var currentTime: TimeInterval = 0
     public private(set) var duration: TimeInterval = 0
+    public var loopEnabled: Bool = false
+    public var playbackRate: Float = 1.0
 
     private var composition: AVMutableComposition?
     private var timeObserver: Any?
     private var buildTask: Task<Void, Never>?
+    private var loopObserver: NSObjectProtocol?
 
     public init() {
         self.player = AVPlayer()
@@ -22,6 +25,9 @@ public final class PlaybackEngine {
         MainActor.assumeIsolated {
             if let timeObserver {
                 player.removeTimeObserver(timeObserver)
+            }
+            if let loopObserver {
+                NotificationCenter.default.removeObserver(loopObserver)
             }
         }
     }
@@ -72,7 +78,7 @@ public final class PlaybackEngine {
         currentTime = restoredTime
 
         if shouldResumePlayback, result.duration > 0 {
-            player.play()
+            player.rate = playbackRate
             isPlaying = true
         } else {
             player.pause()
@@ -84,8 +90,9 @@ public final class PlaybackEngine {
 
     public func play() {
         guard player.currentItem != nil else { return }
-        player.play()
+        player.rate = playbackRate
         isPlaying = true
+        setupLoopObserver()
     }
 
     public func pause() {
@@ -102,6 +109,25 @@ public final class PlaybackEngine {
         let cmTime = CMTime(seconds: clampedTime, preferredTimescale: 600)
         player.seek(to: cmTime, toleranceBefore: .zero, toleranceAfter: .zero)
         currentTime = clampedTime
+    }
+
+    // MARK: - Loop observer
+
+    private func setupLoopObserver() {
+        if let loopObserver {
+            NotificationCenter.default.removeObserver(loopObserver)
+        }
+        loopObserver = NotificationCenter.default.addObserver(
+            forName: .AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor in
+                guard let self, self.loopEnabled else { return }
+                self.seek(to: 0)
+                self.player.rate = self.playbackRate
+            }
+        }
     }
 
     // MARK: - Time observer

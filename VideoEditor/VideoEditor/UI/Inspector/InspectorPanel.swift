@@ -452,6 +452,108 @@ struct InspectorPanel: View {
                 }
             }
 
+            // Transform controls
+            CinematicCard {
+                VStack(alignment: .leading, spacing: CinematicSpacing.md) {
+                    Text("Transform")
+                        .font(.cinTitleSmall)
+                        .foregroundStyle(CinematicTheme.onSurface)
+
+                    let transform = resolvedClip(clip.id)?.transform ?? clip.transform
+
+                    transformSlider(label: "Position X", value: transform.positionX, range: -1000...1000) { val in
+                        var t = transform; t.positionX = val
+                        try? appState.perform(.setClipTransform(clipID: clip.id, transform: t))
+                    }
+                    transformSlider(label: "Position Y", value: transform.positionY, range: -1000...1000) { val in
+                        var t = transform; t.positionY = val
+                        try? appState.perform(.setClipTransform(clipID: clip.id, transform: t))
+                    }
+                    transformSlider(label: "Scale X", value: transform.scaleX, range: 0.1...4.0) { val in
+                        var t = transform; t.scaleX = val
+                        try? appState.perform(.setClipTransform(clipID: clip.id, transform: t))
+                    }
+                    transformSlider(label: "Scale Y", value: transform.scaleY, range: 0.1...4.0) { val in
+                        var t = transform; t.scaleY = val
+                        try? appState.perform(.setClipTransform(clipID: clip.id, transform: t))
+                    }
+                    transformSlider(label: "Rotation", value: transform.rotation, range: -360...360) { val in
+                        var t = transform; t.rotation = val
+                        try? appState.perform(.setClipTransform(clipID: clip.id, transform: t))
+                    }
+
+                    Button("Reset Transform") {
+                        try? appState.perform(.setClipTransform(clipID: clip.id, transform: .identity))
+                    }
+                    .font(.cinLabelRegular)
+                    .foregroundStyle(CinematicTheme.primary)
+                    .buttonStyle(.plain)
+                }
+            }
+
+            // Effects
+            CinematicCard {
+                VStack(alignment: .leading, spacing: CinematicSpacing.md) {
+                    HStack {
+                        Text("Effects")
+                            .font(.cinTitleSmall)
+                            .foregroundStyle(CinematicTheme.onSurface)
+                        Spacer()
+                        effectsAddMenu(clipID: clip.id)
+                    }
+
+                    let currentClip = resolvedClip(clip.id) ?? clip
+                    if currentClip.effects.isEmpty {
+                        Text("No effects applied")
+                            .font(.cinLabelRegular)
+                            .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+                    } else {
+                        ForEach(currentClip.effects) { effect in
+                            effectRow(effect: effect, clipID: clip.id)
+                        }
+                    }
+                }
+            }
+
+            // Speed & Blend Mode
+            CinematicCard {
+                VStack(alignment: .leading, spacing: CinematicSpacing.md) {
+                    Text("Playback")
+                        .font(.cinTitleSmall)
+                        .foregroundStyle(CinematicTheme.onSurface)
+
+                    CinematicInspectorFieldRow(label: "Speed") {
+                        HStack(spacing: 8) {
+                            Image(systemName: "gauge.with.needle")
+                                .font(.system(size: 11))
+                                .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                            Slider(value: Binding(
+                                get: { resolvedClip(clip.id)?.speed ?? clip.speed },
+                                set: { try? appState.perform(.setClipSpeed(clipID: clip.id, speed: $0)) }
+                            ), in: 0.1...4.0)
+                            .tint(CinematicTheme.tertiary)
+                            Text("\(String(format: "%.1f", resolvedClip(clip.id)?.speed ?? clip.speed))x")
+                                .font(.cinLabelRegular)
+                                .monospacedDigit()
+                                .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                                .frame(width: 36, alignment: .trailing)
+                        }
+                    }
+
+                    CinematicInspectorFieldRow(label: "Blend") {
+                        Picker("", selection: Binding(
+                            get: { resolvedClip(clip.id)?.blendMode ?? clip.blendMode },
+                            set: { try? appState.perform(.setClipBlendMode(clipID: clip.id, blendMode: $0)) }
+                        )) {
+                            ForEach(BlendMode.allCases, id: \.self) { mode in
+                                Text(mode.rawValue.localizedCapitalized).tag(mode)
+                            }
+                        }
+                        .labelsHidden()
+                    }
+                }
+            }
+
             if let asset {
                 CinematicCard {
                     VStack(alignment: .leading, spacing: CinematicSpacing.sm) {
@@ -468,6 +570,104 @@ struct InspectorPanel: View {
                     }
                 }
             }
+        }
+    }
+
+    private func transformSlider(label: String, value: Double, range: ClosedRange<Double>, onChange: @escaping (Double) -> Void) -> some View {
+        CinematicInspectorFieldRow(label: label) {
+            HStack(spacing: 6) {
+                Slider(value: Binding(get: { value }, set: { onChange($0) }), in: range)
+                    .tint(CinematicTheme.aqua)
+                Text(String(format: "%.1f", value))
+                    .font(.cinLabelRegular)
+                    .monospacedDigit()
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                    .frame(width: 40, alignment: .trailing)
+            }
+        }
+    }
+
+    private func effectsAddMenu(clipID: UUID) -> some View {
+        Menu {
+            Button("Color Correction") {
+                let effect = EffectInstance(type: "colorCorrection", parameters: ["brightness": 0, "contrast": 1, "saturation": 1])
+                try? appState.perform(.setClipEffect(clipID: clipID, effect: effect))
+            }
+            Button("Blur") {
+                let effect = EffectInstance(type: "blur", parameters: ["radius": 5])
+                try? appState.perform(.setClipEffect(clipID: clipID, effect: effect))
+            }
+            Button("Sharpen") {
+                let effect = EffectInstance(type: "sharpen", parameters: ["sharpness": 0.5])
+                try? appState.perform(.setClipEffect(clipID: clipID, effect: effect))
+            }
+        } label: {
+            Image(systemName: "plus.circle")
+                .font(.system(size: 14))
+                .foregroundStyle(CinematicTheme.primary)
+        }
+        .menuStyle(.button)
+        .buttonStyle(.plain)
+    }
+
+    private func effectRow(effect: EffectInstance, clipID: UUID) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Image(systemName: "sparkle")
+                    .font(.system(size: 10))
+                    .foregroundStyle(CinematicTheme.tertiary)
+                Text(effect.type.localizedCapitalized)
+                    .font(.cinLabelRegular)
+                    .foregroundStyle(CinematicTheme.onSurface)
+                Spacer()
+                Button {
+                    try? appState.perform(.removeClipEffect(clipID: clipID, effectID: effect.id))
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 12))
+                        .foregroundStyle(CinematicTheme.error.opacity(0.7))
+                }
+                .buttonStyle(.plain)
+            }
+
+            // Show parameter sliders
+            ForEach(effect.parameters.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                HStack(spacing: 6) {
+                    Text(key)
+                        .font(.cinLabelRegular)
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.7))
+                        .frame(width: 70, alignment: .trailing)
+                    Slider(value: Binding(
+                        get: { value },
+                        set: { newVal in
+                            var updatedEffect = effect
+                            updatedEffect.parameters[key] = newVal
+                            try? appState.perform(.setClipEffect(clipID: clipID, effect: updatedEffect))
+                        }
+                    ), in: parameterRange(for: key))
+                    .tint(CinematicTheme.tertiary)
+                    Text(String(format: "%.2f", value))
+                        .font(.cinLabelRegular)
+                        .monospacedDigit()
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                        .frame(width: 40, alignment: .trailing)
+                }
+            }
+        }
+        .padding(8)
+        .background(CinematicTheme.surfaceContainerLowest)
+        .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+    }
+
+    private func parameterRange(for key: String) -> ClosedRange<Double> {
+        switch key {
+        case "brightness": -1.0...1.0
+        case "contrast": 0.0...4.0
+        case "saturation": 0.0...4.0
+        case "temperature": 2000...10000
+        case "radius": 0.0...100.0
+        case "sharpness": 0.0...2.0
+        default: 0.0...1.0
         }
     }
 
