@@ -79,6 +79,22 @@ struct ContentView: View {
         .onKeyPress(.rightArrow) { stepFrame(forward: true); return .handled }
         .onKeyPress("=") { appState.timelineViewState.zoomIn(); return .handled }
         .onKeyPress("-") { appState.timelineViewState.zoomOut(); return .handled }
+        // Split at playhead
+        .onKeyPress("s") { splitAtPlayhead(); return .handled }
+        // Add marker at playhead
+        .onKeyPress("m") { addMarkerAtPlayhead(); return .handled }
+        // Select all clips (Cmd+A)
+        .onKeyPress("a") {
+            guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
+            selectAllClips(); return .handled
+        }
+        // Duplicate selected clips (Cmd+D)
+        .onKeyPress("d") {
+            guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
+            duplicateSelectedClips(); return .handled
+        }
+        // Toggle snap
+        .onKeyPress("n") { appState.timelineViewState.snapEnabled.toggle(); return .handled }
     }
 
     private var appBackground: some View {
@@ -119,6 +135,30 @@ struct ContentView: View {
             : max(appState.playbackEngine.currentTime - frameDuration, 0)
         appState.playbackEngine.seek(to: newTime)
         appState.timelineViewState.playheadPosition = newTime
+    }
+
+    private func splitAtPlayhead() {
+        let playhead = appState.timelineViewState.playheadPosition
+        let allClips = appState.timeline.tracks.flatMap(\.clips)
+        if let clip = allClips.first(where: { $0.timelineRange.contains(playhead) }) {
+            try? appState.perform(.splitClip(clipID: clip.id, at: playhead))
+        }
+    }
+
+    private func addMarkerAtPlayhead() {
+        let playhead = appState.timelineViewState.playheadPosition
+        try? appState.perform(.setMarker(at: playhead, label: ""))
+    }
+
+    private func selectAllClips() {
+        let allIDs = Set(appState.timeline.tracks.flatMap(\.clips).map(\.id))
+        appState.timelineViewState.selectedClipIDs = allIDs
+    }
+
+    private func duplicateSelectedClips() {
+        for clipID in appState.timelineViewState.selectedClipIDs {
+            try? appState.perform(.duplicateClip(clipID: clipID))
+        }
     }
 
     private func topBar(layoutMode: EditorLayoutMode) -> some View {
