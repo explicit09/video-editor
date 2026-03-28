@@ -1,6 +1,7 @@
 import Foundation
 import AVFoundation
 import CoreImage
+import Vision
 
 /// Video stabilization using motion analysis and warp correction.
 /// Analyzes camera motion between frames and applies compensating transforms.
@@ -84,12 +85,22 @@ public struct VideoStabilizer: Sendable {
         return StabilizationResult(transforms: transforms, cropFactor: cropFactor)
     }
 
-    /// Simplified motion estimation between two frames.
-    /// Uses center-region brightness comparison as a proxy for optical flow.
+    /// Estimate motion between frames using Vision translational registration.
     private func estimateMotion(from prev: CIImage, to current: CIImage) -> (dx: Double, dy: Double) {
-        // This is a simplified approach. A full implementation would use
-        // VNTranslationalImageRegistrationRequest or optical flow.
-        // For now, return small random-ish stabilization to demonstrate the pipeline.
-        return (dx: 0, dy: 0) // Placeholder — real implementation needed
+        guard let prevCG = CIContext().createCGImage(prev, from: prev.extent),
+              let curCG = CIContext().createCGImage(current, from: current.extent) else {
+            return (dx: 0, dy: 0)
+        }
+
+        let request = VNTranslationalImageRegistrationRequest(targetedCGImage: curCG)
+        let handler = VNImageRequestHandler(cgImage: prevCG, options: [:])
+        try? handler.perform([request])
+
+        guard let result = request.results?.first as? VNImageTranslationAlignmentObservation else {
+            return (dx: 0, dy: 0)
+        }
+
+        let transform = result.alignmentTransform
+        return (dx: Double(transform.tx), dy: Double(transform.ty))
     }
 }
