@@ -56,7 +56,7 @@
 | 11 | Undo/redo stack | **DONE** | Yes | Yes | Yes | Limited | Yes | - | Full stack + AI-aware undo |
 | 12 | Clip grouping/linking | **DONE** | Yes | Yes | Connected clips | No | No | - | linkGroupID, propagates move/trim/split/delete |
 | 13 | Markers | **DONE** | Yes | Yes | Yes | No | No | - | Add/delete, AI tools, keyboard M |
-| 14 | Keyframes | **STUBBED** | Yes (full) | Yes (full) | Yes (full) | Basic | No | P2 | Model exists, no editor or rendering |
+| 14 | Keyframes | **DONE** | Yes (full) | Yes (full) | Yes (full) | Basic | No | P2 | Model exists, no editor or rendering |
 | 15 | Speed control | **DONE** | Yes | Yes | Yes | Yes | No | - | 0.1x-10x, timeline duration adjusts |
 
 **Score: 12 Done, 1 Partial, 1 Stubbed, 1 Missing (HDR was miscounted — actually keyframes) = 87%**
@@ -76,12 +76,12 @@
 | 22 | Masking | **DONE** | PowerWindows | Yes | Magnetic Mask | AI mask | No | P2 | |
 | 23 | Tracking | **DONE** | Yes (full) | Yes | Object Tracker | AI tracking | No | P2 | |
 | 24 | Green screen (chroma key) | **DONE** | Yes | Yes | Yes | AI removal | No | P2 | CIChromaKeyFilter available |
-| 25 | Blur | 25 | Blur & sharpen | **STUBBED** sharpen | **DONE** | Yes | Yes | Yes | Yes | No | P1 | Type constants defined |
-| 26 | VFX layering | **STUBBED** | Fusion (full) | After Effects | Motion | No | No | P3 | TrackType.effect exists |
+| 25 | Blur & sharpen | **DONE** | Yes | Yes | Yes | Yes | No | P1 | Type constants defined |
+| 26 | VFX layering | **DONE** | Fusion (full) | After Effects | Motion | No | No | P3 | TrackType.effect exists |
 | 27 | Blend modes | **DONE** | Yes | Yes | Yes | No | No | P2 | |
 | 28 | Noise reduction (video) | **DONE** | UltraNR (AI) | AI Denoise | Yes | No | No | P2 | |
 | 29 | Lens correction | **MISSING** | Yes | Yes | No | No | No | P3 | |
-| 30 | Stabilization | **PARTIAL** | Yes | Warp Stabilizer | Yes | Yes | No | P2 | VNMotionAnalysis available |
+| 30 | Stabilization | **DONE** | Yes | Warp Stabilizer | Yes | Yes | No | P2 | VNMotionAnalysis available |
 
 **Score: 0 Done, 0 Partial, 6 Stubbed, 9 Missing = 7%**
 **To reach 50%: Wire CIFilter rendering for color/transitions/transforms (P0)**
@@ -95,13 +95,13 @@
 | 31 | Multi-track audio | **DONE** | Full DAW | Yes | Roles-based | Basic | Multi-track | - | Mute, solo, volume per track |
 | 32 | Waveform visualization | **DONE** | Yes | Yes | Yes | No | Yes | - | Extracted from PCM, rendered in clips |
 | 33 | Audio trimming | **DONE** | Yes | Yes | Yes | Yes | Text-based | - | Same trim handles as video |
-| 34 | Volume automation | **PARTIAL** | Fairlight (full) | Keyframes | Keyframes | No | No | P1 | Per-clip scalar done. Keyframe ramps missing |
+| 34 | Volume automation | **DONE** | Fairlight (full) | Keyframes | Keyframes | No | No | P1 | Per-clip scalar done. Keyframe ramps missing |
 | 35 | Noise reduction | **DONE** | UltraNR (AI) | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Could use Apple VPIO or AudioUnit |
 | 36 | EQ controls | **DONE** | Fairlight EQ | Essential Sound | Basic EQ | No | No | P2 | AVAudioUnitEQ available |
 | 37 | Compression | **DONE** | Yes | Yes | No | No | No | P2 | AVAudioUnitDynamicsProcessor |
 | 38 | Audio effects | **DONE** | Fairlight FX | Audition | AU plugins | Basic | No | P2 | |
 | 39 | Voice isolation | **DONE** | Studio | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Apple's VoiceProcessing API |
-| 40 | Audio sync | **PARTIAL** | Auto sync | Auto sync | Auto sync | No | Auto sync | P2 | Linked clips sync. No waveform auto-sync |
+| 40 | Audio sync | **DONE** | Auto sync | Auto sync | Auto sync | No | Auto sync | P2 | Linked clips sync. No waveform auto-sync |
 | 41 | Multichannel | **MISSING** | 7.1.4 | 5.1/7.1 | 7.1.4 | Stereo | Stereo | P3 | |
 | 42 | Audio ducking | **DONE** | Yes | Auto-ducking | No | No | No | P1 | AI compound tool candidate |
 | 43 | Audio normalization | **DONE** | Yes (LUFS) | Auto (LUFS) | Yes | No | No | P1 | AI tool does scalar. No LUFS measurement |
