@@ -55,8 +55,20 @@ public actor TranscriptionService {
         inProgress.insert(asset.id)
         defer { inProgress.remove(asset.id) }
 
+        // Extract audio from video — don't send multi-GB video files to Deepgram
+        let audioExtractor = AudioExtractor()
+        let audioURL: URL
+        if asset.type == .video {
+            audioURL = try await audioExtractor.extractAudio(from: asset.sourceURL)
+        } else {
+            audioURL = asset.sourceURL
+        }
+        defer {
+            if asset.type == .video { audioExtractor.cleanup(tempURL: audioURL) }
+        }
+
         let rawResult = try await provider.transcribe(
-            audioURL: asset.sourceURL,
+            audioURL: audioURL,
             language: nil,
             enableDiarization: true,
             progress: { _ in }
