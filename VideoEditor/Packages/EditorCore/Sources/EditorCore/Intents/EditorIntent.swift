@@ -26,6 +26,7 @@ public enum EditorIntent: Sendable {
     case setClipTransition(clipID: UUID, transition: ClipTransition)
     case setClipSpeed(clipID: UUID, speed: Double)
     case setClipEffect(clipID: UUID, effect: EffectInstance)
+    case rollTrim(leftClipID: UUID, rightClipID: UUID, newBoundary: TimeInterval)
     /// Multiple intents as a single undoable operation.
     case batch([EditorIntent])
 }
@@ -81,6 +82,8 @@ public struct IntentResolver: Sendable {
             return SetClipSpeedCommand(clipID: clipID, speed: speed)
         case .setClipEffect(let clipID, let effect):
             return SetClipEffectCommand(clipID: clipID, effect: effect)
+        case .rollTrim(let leftClipID, let rightClipID, let newBoundary):
+            return RollTrimCommand(leftClipID: leftClipID, rightClipID: rightClipID, newBoundary: newBoundary)
         case .batch(let intents):
             let commands = try intents.map { try resolve($0) }
             return BatchCommand(name: "Batch", commands: commands)

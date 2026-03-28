@@ -240,6 +240,33 @@ struct CommandEdgeCaseTests {
         }
     }
 
+    @MainActor
+    @Test("RollTrim adjusts boundary between adjacent clips")
+    func rollTrim() throws {
+        let left = makeClip(start: 0, end: 10, label: "Left")
+        let right = makeClip(start: 10, end: 20, label: "Right")
+        let context = EditingContext(
+            timelineState: TimelineState(
+                timeline: Timeline(tracks: [Track(name: "V1", type: .video, clips: [left, right])])
+            )
+        )
+
+        // Move boundary from 10 to 12 (left gets longer, right gets shorter)
+        var cmd = RollTrimCommand(leftClipID: left.id, rightClipID: right.id, newBoundary: 12)
+        try cmd.execute(context: context)
+
+        let clips = context.timelineState.timeline.tracks[0].clips
+        #expect(clips[0].timelineRange.end == 12) // left extended
+        #expect(clips[1].timelineRange.start == 12) // right shortened
+        #expect(clips[0].timelineRange.start == 0) // left start unchanged
+        #expect(clips[1].timelineRange.end == 20) // right end unchanged
+
+        // Undo restores original boundary
+        try cmd.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].timelineRange.end == 10)
+        #expect(context.timelineState.timeline.tracks[0].clips[1].timelineRange.start == 10)
+    }
+
     private func makeClip(start: TimeInterval, end: TimeInterval, label: String) -> Clip {
         Clip(
             assetID: UUID(),
