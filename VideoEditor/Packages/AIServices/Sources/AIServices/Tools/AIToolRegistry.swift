@@ -22,6 +22,12 @@ public struct AIToolRegistry: Sendable {
         removeSection,
         rippleDelete,
         normalizeAudio,
+        removeTrack,
+        lockTrack,
+        setTrackVolume,
+        renameClip,
+        setClipTransition,
+        deleteMarker,
         getTranscript,
         transcribeAsset,
         searchTranscript,
@@ -176,6 +182,61 @@ public struct AIToolRegistry: Sendable {
         parameters: .object([
             "clip_id": .init(type: "string", description: "UUID of the clip to duplicate"),
         ], required: ["clip_id"])
+    )
+
+    // MARK: - Track management tools
+
+    public static let removeTrack = AIToolDefinition(
+        name: "remove_track",
+        description: "Remove an empty track from the timeline. Fails if the track contains clips — delete all clips first.",
+        parameters: .object([
+            "track_id": .init(type: "string", description: "UUID of the track to remove"),
+        ], required: ["track_id"])
+    )
+
+    public static let lockTrack = AIToolDefinition(
+        name: "lock_track",
+        description: "Lock or unlock a track. Locked tracks cannot be edited (no move, trim, split, delete on their clips).",
+        parameters: .object([
+            "track_id": .init(type: "string", description: "UUID of the track"),
+            "locked": .init(type: "boolean", description: "true to lock, false to unlock"),
+        ], required: ["track_id", "locked"])
+    )
+
+    public static let setTrackVolume = AIToolDefinition(
+        name: "set_track_volume",
+        description: "Set the volume level of an entire track. Affects all clips on the track during playback/export. Use for background music levels.",
+        parameters: .object([
+            "track_id": .init(type: "string", description: "UUID of the track"),
+            "volume": .init(type: "number", description: "Volume level (0.0 to 2.0, default 1.0)"),
+        ], required: ["track_id", "volume"])
+    )
+
+    public static let renameClip = AIToolDefinition(
+        name: "rename_clip",
+        description: "Change a clip's display label for organization.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "label": .init(type: "string", description: "New label text"),
+        ], required: ["clip_id", "label"])
+    )
+
+    public static let setClipTransition = AIToolDefinition(
+        name: "set_clip_transition",
+        description: "Set a transition effect on a clip's entry. Types: crossDissolve, fadeToBlack, fadeFromBlack, wipeLeft, wipeRight, none.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "type": .init(type: "string", description: "Transition type"),
+            "duration": .init(type: "number", description: "Transition duration in seconds (default 0.5)"),
+        ], required: ["clip_id", "type"])
+    )
+
+    public static let deleteMarker = AIToolDefinition(
+        name: "delete_marker",
+        description: "Remove a marker from the timeline.",
+        parameters: .object([
+            "marker_id": .init(type: "string", description: "UUID of the marker to delete"),
+        ], required: ["marker_id"])
     )
 
     // MARK: - Compound tools (replace multi-step atomic sequences)
@@ -377,6 +438,48 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing clip_id")
             }
             return [.duplicateClip(clipID: clipID)]
+
+        case "remove_track":
+            guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
+                throw AIToolError.invalidArgument("Missing track_id")
+            }
+            return [.removeTrack(trackID: trackID)]
+
+        case "lock_track":
+            guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
+                throw AIToolError.invalidArgument("Missing track_id")
+            }
+            let locked = (arguments["locked"] as? Bool) ?? true
+            return [.lockTrack(trackID: trackID, locked: locked)]
+
+        case "set_track_volume":
+            guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
+                throw AIToolError.invalidArgument("Missing track_id")
+            }
+            let volume = (arguments["volume"] as? Double) ?? 1.0
+            return [.setTrackVolume(trackID: trackID, volume: volume)]
+
+        case "rename_clip":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let label = (arguments["label"] as? String) ?? ""
+            return [.renameClip(clipID: clipID, label: label)]
+
+        case "set_clip_transition":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let typeStr = (arguments["type"] as? String) ?? "none"
+            let transitionType = TransitionType(rawValue: typeStr) ?? .none
+            let duration = (arguments["duration"] as? Double) ?? 0.5
+            return [.setClipTransition(clipID: clipID, transition: ClipTransition(type: transitionType, duration: duration))]
+
+        case "delete_marker":
+            guard let markerIDStr = arguments["marker_id"] as? String, let markerID = UUID(uuidString: markerIDStr) else {
+                throw AIToolError.invalidArgument("Missing marker_id")
+            }
+            return [.deleteMarker(markerID: markerID)]
 
         default:
             throw AIToolError.unknownTool(toolName)
