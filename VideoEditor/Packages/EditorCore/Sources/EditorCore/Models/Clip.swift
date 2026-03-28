@@ -13,6 +13,8 @@ public struct Clip: Codable, Identifiable, Sendable {
     public var effects: [EffectInstance]
     public var keyframes: KeyframeStore
     public var metadata: ClipMetadata
+    /// Links video+audio clip pairs. Edits to one propagate to all clips with the same linkGroupID.
+    public var linkGroupID: UUID?
 
     public init(
         id: UUID = UUID(),
@@ -24,7 +26,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         volume: Double = 1.0,
         effects: [EffectInstance] = [],
         keyframes: KeyframeStore = KeyframeStore(),
-        metadata: ClipMetadata = ClipMetadata()
+        metadata: ClipMetadata = ClipMetadata(),
+        linkGroupID: UUID? = nil
     ) {
         self.id = id
         self.assetID = assetID
@@ -36,6 +39,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.effects = effects
         self.keyframes = keyframes
         self.metadata = metadata
+        self.linkGroupID = linkGroupID
     }
 }
 

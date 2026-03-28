@@ -117,11 +117,13 @@ final class AppState {
             }
 
             let clipStart = startTime ?? trackEnd(for: videoTrackID)
+            let linkID = UUID() // Shared link group for video+audio pair
             let videoClip = Clip(
                 assetID: asset.id,
                 timelineRange: TimeRange(start: clipStart, duration: duration),
                 sourceRange: TimeRange(start: 0, duration: duration),
-                metadata: ClipMetadata(label: asset.name)
+                metadata: ClipMetadata(label: asset.name),
+                linkGroupID: hasAudio ? linkID : nil
             )
             try? perform(.insertClip(clip: videoClip, trackID: videoTrackID), source: source)
 
@@ -130,7 +132,8 @@ final class AppState {
                     assetID: asset.id,
                     timelineRange: TimeRange(start: clipStart, duration: duration),
                     sourceRange: TimeRange(start: 0, duration: duration),
-                    metadata: ClipMetadata(label: "\(asset.name) ♪")
+                    metadata: ClipMetadata(label: "\(asset.name) ♪"),
+                    linkGroupID: linkID
                 )
                 try? perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: source)
             }
@@ -291,10 +294,69 @@ final class AppState {
     // MARK: - Intent pipeline (ONLY write path)
 
     func perform(_ intent: EditorIntent, source: ActionSource = .user) throws {
-        var command = try intentResolver.resolve(intent)
+        // Expand linked clips: if the intent targets a clip with a linkGroupID,
+        // create the same intent for all siblings and execute as a batch.
+        let expandedIntent = expandLinkedIntent(intent)
+        var command = try intentResolver.resolve(expandedIntent)
         try commandHistory.execute(&command, context: context, source: source)
         rebuildComposition()
         scheduleSave()
+    }
+
+    /// If an intent targets a clip with linked siblings, expand to a batch.
+    private func expandLinkedIntent(_ intent: EditorIntent) -> EditorIntent {
+        let allClips = timeline.tracks.flatMap(\.clips)
+
+        switch intent {
+        case .moveClip(let clipID, let newStart, let trackID):
+            guard let clip = allClips.first(where: { $0.id == clipID }),
+                  let linkGroup = clip.linkGroupID else { return intent }
+            let siblings = allClips.filter { $0.linkGroupID == linkGroup && $0.id != clipID }
+            guard !siblings.isEmpty else { return intent }
+            // Move all linked clips by the same delta
+            let delta = newStart - clip.timelineRange.start
+            var intents: [EditorIntent] = [intent]
+            for sibling in siblings {
+                let sibTrack = timeline.tracks.first(where: { $0.clips.contains { $0.id == sibling.id } })
+                intents.append(.moveClip(clipID: sibling.id, newStart: sibling.timelineRange.start + delta, trackID: sibTrack?.id ?? trackID))
+            }
+            return intents.count == 1 ? intent : .batch(intents)
+
+        case .trimClip(let clipID, let newSourceRange):
+            guard let clip = allClips.first(where: { $0.id == clipID }),
+                  let linkGroup = clip.linkGroupID else { return intent }
+            let siblings = allClips.filter { $0.linkGroupID == linkGroup && $0.id != clipID }
+            guard !siblings.isEmpty else { return intent }
+            var intents: [EditorIntent] = [intent]
+            for sibling in siblings {
+                intents.append(.trimClip(clipID: sibling.id, newSourceRange: newSourceRange))
+            }
+            return .batch(intents)
+
+        case .deleteClips(let clipIDs):
+            var expanded = Set(clipIDs)
+            for id in clipIDs {
+                guard let clip = allClips.first(where: { $0.id == id }),
+                      let linkGroup = clip.linkGroupID else { continue }
+                let siblings = allClips.filter { $0.linkGroupID == linkGroup }
+                siblings.forEach { expanded.insert($0.id) }
+            }
+            return .deleteClips(clipIDs: Array(expanded))
+
+        case .splitClip(let clipID, let at):
+            guard let clip = allClips.first(where: { $0.id == clipID }),
+                  let linkGroup = clip.linkGroupID else { return intent }
+            let siblings = allClips.filter { $0.linkGroupID == linkGroup && $0.id != clipID }
+            guard !siblings.isEmpty else { return intent }
+            var intents: [EditorIntent] = [intent]
+            for sibling in siblings {
+                intents.append(.splitClip(clipID: sibling.id, at: at))
+            }
+            return .batch(intents)
+
+        default:
+            return intent
+        }
     }
 
     func undo() throws {
