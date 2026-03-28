@@ -106,7 +106,7 @@ public actor TranscriptionService {
 
     /// Check if a transcript exists for this asset (memory or disk).
     public func hasTranscript(for asset: MediaAsset, bundleURL: URL) -> Bool {
-        if asset.analysis?.transcript != nil { return true }
+        if let transcript = asset.analysis?.transcript, !transcript.isEmpty { return true }
         return FileManager.default.fileExists(atPath: transcriptPath(for: asset.id, bundleURL: bundleURL))
     }
 

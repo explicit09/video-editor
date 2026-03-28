@@ -112,6 +112,45 @@ struct TranscriptSearchTests {
         #expect(results.isEmpty)
     }
 
+    @Test("Phrase search matches consecutive words only")
+    func phraseSearch() {
+        let asset = makeAsset(words: [
+            TranscriptWord(word: "the", lemma: "the", start: 0, end: 0.2),
+            TranscriptWord(word: "pricing", lemma: "price", start: 0.3, end: 0.6),
+            TranscriptWord(word: "model", lemma: "model", start: 0.7, end: 1.0),
+            TranscriptWord(word: "is", lemma: "be", start: 1.1, end: 1.2),
+            TranscriptWord(word: "great", lemma: "great", start: 1.3, end: 1.6),
+            TranscriptWord(word: "the", lemma: "the", start: 2.0, end: 2.2),
+            TranscriptWord(word: "model", lemma: "model", start: 2.3, end: 2.6),
+            TranscriptWord(word: "pricing", lemma: "price", start: 2.7, end: 3.0),
+        ])
+
+        let engine = TranscriptSearchEngine()
+
+        // "pricing model" should match at 0.3s (consecutive) but NOT at 2.3s (reversed order)
+        let results = engine.searchAsset(query: "pricing model", asset: asset)
+        #expect(results.count == 1)
+        if let first = results.first {
+            #expect(first.matchTime == 0.3)
+            #expect(first.matchWord == "pricing model")
+        }
+    }
+
+    @Test("Phrase search does not match non-consecutive words")
+    func phraseSearchNonConsecutive() {
+        let asset = makeAsset(words: [
+            TranscriptWord(word: "pricing", lemma: "price", start: 0, end: 0.3),
+            TranscriptWord(word: "is", lemma: "be", start: 0.4, end: 0.5),
+            TranscriptWord(word: "the", lemma: "the", start: 0.6, end: 0.7),
+            TranscriptWord(word: "model", lemma: "model", start: 0.8, end: 1.0),
+        ])
+
+        let engine = TranscriptSearchEngine()
+        // "pricing model" should NOT match — "is the" breaks the phrase
+        let results = engine.searchAsset(query: "pricing model", asset: asset)
+        #expect(results.isEmpty)
+    }
+
     @Test("Skips assets without transcripts")
     func skipsUntranscribed() {
         let asset = MediaAsset(

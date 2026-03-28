@@ -2,15 +2,14 @@ import Foundation
 import EditorCore
 
 /// Searches transcript data across all assets using lemma-based matching.
-/// Lemmas are computed at transcription time via NLTagger.
-/// "price" matches "pricing" because both lemmatize to "price".
+/// Supports single-word and phrase search.
 public struct TranscriptSearchEngine: Sendable {
 
     private let lemmatizer = Lemmatizer()
 
     public init() {}
 
-    /// Search all assets' transcripts for a query string.
+    /// Search all assets' transcripts. Searches ALL assets before ranking.
     public func search(
         query: String,
         assets: [MediaAsset],
@@ -20,25 +19,21 @@ public struct TranscriptSearchEngine: Sendable {
         let queryLemmas = lemmatizeQuery(query)
         guard !queryLemmas.isEmpty else { return [] }
 
-        var results: [SearchResult] = []
+        var allResults: [SearchResult] = []
 
         for asset in assets {
             guard let words = asset.analysis?.transcript, !words.isEmpty else { continue }
 
-            let matches = searchWords(
-                queryLemmas: queryLemmas,
-                words: words,
-                assetID: asset.id,
-                assetName: asset.name,
-                contextWords: contextWords
-            )
-            results.append(contentsOf: matches)
+            let matches = queryLemmas.count > 1
+                ? searchPhrase(queryLemmas: queryLemmas, words: words, assetID: asset.id, assetName: asset.name, contextWords: contextWords)
+                : searchSingleWord(queryLemma: queryLemmas[0], words: words, assetID: asset.id, assetName: asset.name, contextWords: contextWords)
 
-            if results.count >= maxResults { break }
+            allResults.append(contentsOf: matches)
         }
 
-        results.sort { $0.relevance > $1.relevance }
-        return Array(results.prefix(maxResults))
+        // Global ranking AFTER searching all assets
+        allResults.sort { $0.relevance > $1.relevance }
+        return Array(allResults.prefix(maxResults))
     }
 
     /// Search within a single asset's transcript.
@@ -51,19 +46,15 @@ public struct TranscriptSearchEngine: Sendable {
         guard !queryLemmas.isEmpty,
               let words = asset.analysis?.transcript, !words.isEmpty else { return [] }
 
-        return searchWords(
-            queryLemmas: queryLemmas,
-            words: words,
-            assetID: asset.id,
-            assetName: asset.name,
-            contextWords: contextWords
-        )
+        return queryLemmas.count > 1
+            ? searchPhrase(queryLemmas: queryLemmas, words: words, assetID: asset.id, assetName: asset.name, contextWords: contextWords)
+            : searchSingleWord(queryLemma: queryLemmas[0], words: words, assetID: asset.id, assetName: asset.name, contextWords: contextWords)
     }
 
-    // MARK: - Core search
+    // MARK: - Single word search
 
-    private func searchWords(
-        queryLemmas: [String],
+    private func searchSingleWord(
+        queryLemma: String,
         words: [TranscriptWord],
         assetID: UUID,
         assetName: String,
@@ -73,44 +64,91 @@ public struct TranscriptSearchEngine: Sendable {
 
         for (i, word) in words.enumerated() {
             let wordLemma = (word.lemma ?? word.word).lowercased()
+            guard wordLemma == queryLemma else { continue }
 
-            // Match against query lemmas (all lowercased)
-            var matchScore: Double = 0
-            for queryLemma in queryLemmas {
-                if wordLemma == queryLemma {
-                    matchScore += 1.0
-                }
-            }
-
-            guard matchScore > 0 else { continue }
-
-            // Build context window
-            let contextStart = max(0, i - contextWords)
-            let contextEnd = min(words.count, i + contextWords + 1)
-            let contextSlice = words[contextStart..<contextEnd]
-            let contextText = contextSlice.map(\.word).joined(separator: " ")
-
-            let startTime = contextSlice.first?.start ?? word.start
-            let endTime = contextSlice.last?.end ?? word.end
-
+            let context = buildContext(words: words, centerIndex: i, contextWords: contextWords)
             results.append(SearchResult(
                 assetID: assetID,
                 assetName: assetName,
                 matchTime: word.start,
                 matchWord: word.word,
-                contextText: contextText,
-                contextStartTime: startTime,
-                contextEndTime: endTime,
-                relevance: matchScore / Double(queryLemmas.count)
+                contextText: context.text,
+                contextStartTime: context.startTime,
+                contextEndTime: context.endTime,
+                relevance: 1.0
             ))
         }
-
         return results
+    }
+
+    // MARK: - Phrase search
+
+    /// Matches consecutive transcript words against the full query phrase.
+    /// "pricing model" matches only when "pricing" and "model" appear consecutively.
+    private func searchPhrase(
+        queryLemmas: [String],
+        words: [TranscriptWord],
+        assetID: UUID,
+        assetName: String,
+        contextWords: Int
+    ) -> [SearchResult] {
+        var results: [SearchResult] = []
+        let phraseLen = queryLemmas.count
+
+        guard words.count >= phraseLen else { return results }
+
+        for i in 0...(words.count - phraseLen) {
+            var matched = true
+            for j in 0..<phraseLen {
+                let wordLemma = (words[i + j].lemma ?? words[i + j].word).lowercased()
+                if wordLemma != queryLemmas[j] {
+                    matched = false
+                    break
+                }
+            }
+
+            guard matched else { continue }
+
+            let phraseStart = words[i].start
+            let phraseEnd = words[i + phraseLen - 1].end
+            let matchedWords = words[i..<(i + phraseLen)].map(\.word).joined(separator: " ")
+
+            let context = buildContext(words: words, centerIndex: i, contextWords: contextWords)
+            results.append(SearchResult(
+                assetID: assetID,
+                assetName: assetName,
+                matchTime: phraseStart,
+                matchWord: matchedWords,
+                contextText: context.text,
+                contextStartTime: context.startTime,
+                contextEndTime: context.endTime,
+                relevance: 1.0
+            ))
+        }
+        return results
+    }
+
+    // MARK: - Context window
+
+    private struct ContextWindow {
+        let text: String
+        let startTime: TimeInterval
+        let endTime: TimeInterval
+    }
+
+    private func buildContext(words: [TranscriptWord], centerIndex: Int, contextWords: Int) -> ContextWindow {
+        let start = max(0, centerIndex - contextWords)
+        let end = min(words.count, centerIndex + contextWords + 1)
+        let slice = words[start..<end]
+        return ContextWindow(
+            text: slice.map(\.word).joined(separator: " "),
+            startTime: slice.first?.start ?? 0,
+            endTime: slice.last?.end ?? 0
+        )
     }
 
     // MARK: - Query lemmatization
 
-    /// Lemmatize the search query terms.
     private func lemmatizeQuery(_ query: String) -> [String] {
         query.lowercased()
             .split(separator: " ")

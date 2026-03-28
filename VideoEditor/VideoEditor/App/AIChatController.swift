@@ -147,7 +147,7 @@ final class AIChatController {
             }
             if toolCall.name == "search_transcript" {
                 processingStatus = "Searching transcripts..."
-                let result = handleSearchTranscript(args: args, appState: appState)
+                let result = await handleSearchTranscript(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
             if toolCall.name == "remove_silence" {
@@ -224,20 +224,34 @@ final class AIChatController {
         }
     }
 
-    private func handleSearchTranscript(args: [String: Any], appState: AppState) -> String {
+    private func handleSearchTranscript(args: [String: Any], appState: AppState) async -> String {
         guard let query = args["query"] as? String, !query.isEmpty else {
             return "Missing search query."
         }
         let maxResults = (args["max_results"] as? Int) ?? 10
         let searchEngine = TranscriptSearchEngine()
 
+        // Enrich assets with disk-persisted transcripts if not in memory
+        var searchableAssets = appState.assets
+        for i in searchableAssets.indices {
+            if searchableAssets[i].analysis?.transcript == nil || searchableAssets[i].analysis!.transcript!.isEmpty {
+                if let diskResult = await appState.media.transcriptionService.loadTranscript(
+                    for: searchableAssets[i].id, bundleURL: appState.projectBundleURL
+                ) {
+                    var analysis = searchableAssets[i].analysis ?? MediaAnalysis()
+                    analysis.transcript = diskResult.words
+                    searchableAssets[i].analysis = analysis
+                }
+            }
+        }
+
         let results: [SearchResult]
         if let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) {
-            if let asset = appState.assets.first(where: { $0.id == assetID }) {
+            if let asset = searchableAssets.first(where: { $0.id == assetID }) {
                 results = searchEngine.searchAsset(query: query, asset: asset)
             } else { return "Asset not found." }
         } else {
-            results = searchEngine.search(query: query, assets: appState.assets, maxResults: maxResults)
+            results = searchEngine.search(query: query, assets: searchableAssets, maxResults: maxResults)
         }
 
         guard !results.isEmpty else {
@@ -245,7 +259,7 @@ final class AIChatController {
         }
 
         var output = "Found \(results.count) match(es) for '\(query)':\n\n"
-        for (i, result) in results.prefix(maxResults).enumerated() {
+        for (i, result) in results.enumerated() {
             output += "\(i + 1). [\(result.assetName)] at \(result.formattedTime) — \"...\(result.contextText)...\"\n"
             output += "   Asset ID: \(result.assetID.uuidString), Time: \(String(format: "%.1f", result.matchTime))s\n\n"
         }

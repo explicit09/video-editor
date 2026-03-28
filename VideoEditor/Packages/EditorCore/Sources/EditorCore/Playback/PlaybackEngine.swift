@@ -84,9 +84,10 @@ public final class PlaybackEngine {
     }
 
     public func seek(to time: TimeInterval) {
-        let cmTime = CMTime(seconds: max(0, time), preferredTimescale: 600)
+        let clampedTime = max(0, time)
+        let cmTime = CMTime(seconds: clampedTime, preferredTimescale: 600)
         player.seek(to: cmTime, toleranceBefore: .zero, toleranceAfter: .zero)
-        currentTime = time
+        currentTime = clampedTime
     }
 
     // MARK: - Time observer
