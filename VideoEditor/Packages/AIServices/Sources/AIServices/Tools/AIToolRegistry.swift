@@ -19,6 +19,7 @@ public struct AIToolRegistry: Sendable {
         setClipSpeed,
         muteTrack,
         duplicateClip,
+        setClipEffect,
         removeSection,
         rippleDelete,
         normalizeAudio,
@@ -182,6 +183,21 @@ public struct AIToolRegistry: Sendable {
         parameters: .object([
             "clip_id": .init(type: "string", description: "UUID of the clip to duplicate"),
         ], required: ["clip_id"])
+    )
+
+    public static let setClipEffect = AIToolDefinition(
+        name: "set_clip_effect",
+        description: "Apply a visual effect to a clip. Supported types: colorCorrection (brightness/contrast/saturation/temperature), blur (radius), sharpen (sharpness).",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "effect_type": .init(type: "string", description: "Effect type: colorCorrection, blur, or sharpen"),
+            "brightness": .init(type: "number", description: "Brightness adjustment (-1 to 1, default 0). Only for colorCorrection."),
+            "contrast": .init(type: "number", description: "Contrast (0 to 4, default 1). Only for colorCorrection."),
+            "saturation": .init(type: "number", description: "Saturation (0 to 3, default 1). Only for colorCorrection."),
+            "temperature": .init(type: "number", description: "Color temperature in Kelvin (2000-10000, default 6500). Only for colorCorrection."),
+            "radius": .init(type: "number", description: "Blur radius (0-100, default 10). Only for blur."),
+            "sharpness": .init(type: "number", description: "Sharpness (0-2, default 0.4). Only for sharpen."),
+        ], required: ["clip_id", "effect_type"])
     )
 
     // MARK: - Track management tools
@@ -438,6 +454,29 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing clip_id")
             }
             return [.duplicateClip(clipID: clipID)]
+
+        case "set_clip_effect":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let effectType = (arguments["effect_type"] as? String) ?? "colorCorrection"
+            let effect: EffectInstance
+            switch effectType {
+            case "colorCorrection":
+                effect = .colorCorrection(
+                    brightness: (arguments["brightness"] as? Double) ?? 0,
+                    contrast: (arguments["contrast"] as? Double) ?? 1,
+                    saturation: (arguments["saturation"] as? Double) ?? 1,
+                    temperature: (arguments["temperature"] as? Double) ?? 6500
+                )
+            case "blur":
+                effect = EffectInstance(type: "blur", parameters: ["radius": (arguments["radius"] as? Double) ?? 10])
+            case "sharpen":
+                effect = EffectInstance(type: "sharpen", parameters: ["sharpness": (arguments["sharpness"] as? Double) ?? 0.4])
+            default:
+                throw AIToolError.invalidArgument("Unknown effect type: \(effectType)")
+            }
+            return [.setClipEffect(clipID: clipID, effect: effect)]
 
         case "remove_track":
             guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
