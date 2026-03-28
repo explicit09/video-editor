@@ -46,35 +46,68 @@ public final class CommandHistory {
     public private(set) var canUndo = false
     public private(set) var canRedo = false
 
-    private var undoStack: [any Command] = []
-    private var redoStack: [any Command] = []
+    private struct StackEntry {
+        var command: any Command
+        var source: ActionSource
+    }
+
+    private var undoStack: [StackEntry] = []
+    private var redoStack: [StackEntry] = []
 
     public init() {}
 
     public func execute(_ command: inout some Command, context: EditingContext, source: ActionSource = .user) throws {
         try command.execute(context: context)
         let recorded = command
-        undoStack.append(recorded)
+        undoStack.append(StackEntry(command: recorded, source: source))
         redoStack.removeAll()
         logCommand(recorded, source: source, context: context)
         updateState()
     }
 
     public func undo(context: EditingContext) throws {
-        guard var command = undoStack.popLast() else { return }
-        try command.undo(context: context)
-        let recorded = command
-        redoStack.append(recorded)
-        logCommand(recorded, source: .undo, context: context)
+        guard var entry = undoStack.popLast() else { return }
+        try entry.command.undo(context: context)
+        redoStack.append(entry)
+        logCommand(entry.command, source: .undo, context: context)
+        updateState()
+    }
+
+    /// Undo only the most recent AI action, skipping user actions.
+    public func undoLastAIAction(context: EditingContext) throws {
+        // Find the last AI entry
+        guard let idx = undoStack.lastIndex(where: { $0.source == .ai }) else { return }
+
+        // Undo all entries from idx to end (in reverse)
+        var toRedo: [StackEntry] = []
+        while undoStack.count > idx {
+            guard var entry = undoStack.popLast() else { break }
+            if entry.source == .ai && toRedo.isEmpty {
+                // This is the AI action — undo it
+                try entry.command.undo(context: context)
+                redoStack.append(entry)
+                logCommand(entry.command, source: .undo, context: context)
+            } else {
+                // User action after the AI action — undo and re-apply later
+                try entry.command.undo(context: context)
+                toRedo.append(entry)
+            }
+        }
+
+        // Re-apply user actions that were undone
+        for var entry in toRedo.reversed() {
+            try entry.command.execute(context: context)
+            undoStack.append(entry)
+        }
+
         updateState()
     }
 
     public func redo(context: EditingContext) throws {
-        guard var command = redoStack.popLast() else { return }
-        try command.execute(context: context)
-        let recorded = command
-        undoStack.append(recorded)
-        logCommand(recorded, source: .redo, context: context)
+        guard var entry = redoStack.popLast() else { return }
+        try entry.command.execute(context: context)
+        undoStack.append(entry)
+        logCommand(entry.command, source: .redo, context: context)
         updateState()
     }
 
