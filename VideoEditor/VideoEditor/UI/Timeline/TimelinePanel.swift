@@ -50,6 +50,9 @@ struct TimelinePanel: View {
             }
         }
         .background(CinematicTheme.surfaceContainer)
+        .task(id: appState.timeline.tracks.flatMap(\.clips).map(\.id)) {
+            await loadWaveformsForAllClips()
+        }
         .focusable()
         .onKeyPress(.space) {
             appState.playbackEngine.togglePlayPause()
@@ -63,6 +66,33 @@ struct TimelinePanel: View {
             guard !appState.timelineViewState.selectedClipIDs.isEmpty else { return .ignored }
             deleteSelectedClips()
             return .handled
+        }
+    }
+
+    private func loadWaveformsForAllClips() async {
+        for track in appState.timeline.tracks {
+            for clip in track.clips {
+                let assetID = clip.assetID
+                // Skip if already loaded
+                guard waveforms[assetID] == nil else { continue }
+                guard let asset = appState.assets.first(where: { $0.id == assetID }) else { continue }
+
+                // Load thumbnail
+                if thumbnails[assetID] == nil {
+                    let thumb = await appState.media.thumbnail(for: assetID)
+                    if let thumb { thumbnails[assetID] = thumb }
+                }
+
+                // Load waveform — from analysis or extract
+                if let profile = asset.analysis?.loudnessProfile, !profile.isEmpty {
+                    waveforms[assetID] = profile
+                } else {
+                    let extractor = WaveformExtractor()
+                    if let profile = await extractor.extract(from: asset.sourceURL) {
+                        waveforms[assetID] = profile
+                    }
+                }
+            }
         }
     }
 
@@ -218,35 +248,6 @@ struct TimelinePanel: View {
                         try? appState.perform(.trimClip(clipID: clipID, newSourceRange: TimeRange(start: newSourceStart, end: newSourceEnd)))
                     }
                 )
-                .task {
-                    for clip in track.clips {
-                        // Load thumbnails
-                        if thumbnails[clip.assetID] == nil {
-                            let thumb = await appState.media.thumbnail(for: clip.assetID)
-                            if let thumb { thumbnails[clip.assetID] = thumb }
-                        }
-                        // Load waveforms — from analysis data or extract on demand
-                        if waveforms[clip.assetID] == nil {
-                            if let asset = appState.assets.first(where: { $0.id == clip.assetID }) {
-                                if let profile = asset.analysis?.loudnessProfile {
-                                    waveforms[clip.assetID] = profile
-                                } else {
-                                    // Extract on demand for assets imported before waveform support
-                                    let extractor = WaveformExtractor()
-                                    if let profile = await extractor.extract(from: asset.sourceURL) {
-                                        waveforms[clip.assetID] = profile
-                                        // Persist for next time
-                                        await appState.media.mediaManager.updateAsset(id: asset.id) { a in
-                                            var analysis = a.analysis ?? MediaAnalysis()
-                                            analysis.loudnessProfile = profile
-                                            a.analysis = analysis
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
             Spacer()
         }

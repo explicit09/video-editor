@@ -3,7 +3,6 @@ import AppKit
 import EditorCore
 
 struct TimelineClipView: View {
-    @Environment(AppState.self) private var appState
     let clip: Clip
     let viewState: TimelineViewState
     let isSelected: Bool
@@ -21,8 +20,6 @@ struct TimelineClipView: View {
     @State private var trimStartOffset: Double = 0
     @State private var trimEndOffset: Double = 0
     @State private var isTrimming = false
-    @State private var loadedWaveform: [Float]?
-
     private var clipX: Double {
         viewState.durationToWidth(clip.timelineRange.start) + dragOffset
     }
@@ -31,29 +28,12 @@ struct TimelineClipView: View {
         max(viewState.durationToWidth(clip.timelineRange.duration), 8)
     }
 
-    private var activeWaveform: [Float]? {
-        loadedWaveform ?? waveform
-    }
-
     var body: some View {
         clipBody
             .frame(width: clipWidth, height: trackHeight - 8)
             .position(x: clipX + clipWidth / 2, y: trackHeight / 2)
             .gesture(dragGesture)
             .simultaneousGesture(tapGesture)
-            .task(id: clip.assetID) {
-                if trackType == .audio, activeWaveform == nil {
-                    guard let asset = appState.assets.first(where: { $0.id == clip.assetID }) else { return }
-                    if let profile = asset.analysis?.loudnessProfile, !profile.isEmpty {
-                        loadedWaveform = profile
-                        return
-                    }
-                    let extractor = WaveformExtractor()
-                    if let profile = await extractor.extract(from: asset.sourceURL) {
-                        loadedWaveform = profile
-                    }
-                }
-            }
     }
 
     private var clipBody: some View {
@@ -65,7 +45,7 @@ struct TimelineClipView: View {
 
             // Clip content
             ZStack {
-                if let waveform = activeWaveform, trackType == .audio, !waveform.isEmpty {
+                if let waveform, trackType == .audio, !waveform.isEmpty {
                     // Audio: show waveform
                     Rectangle().fill(clipColor)
                     WaveformView(amplitudes: waveform, color: clipAccentColor)
