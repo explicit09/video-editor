@@ -5,15 +5,28 @@ import Foundation
 public struct AddTrackCommand: Command {
     public let name = "Add Track"
     public let track: Track
+    public let insertionIndex: Int?
     public var affectedTrackIDs: [UUID] { [track.id] }
-    public var metadata: [String: String] { ["trackType": track.type.rawValue, "trackName": track.name] }
+    public var metadata: [String: String] {
+        var values = ["trackType": track.type.rawValue, "trackName": track.name]
+        if let insertionIndex {
+            values["trackIndex"] = String(insertionIndex)
+        }
+        return values
+    }
 
-    public init(track: Track) {
+    public init(track: Track, insertionIndex: Int? = nil) {
         self.track = track
+        self.insertionIndex = insertionIndex
     }
 
     public mutating func execute(context: EditingContext) throws {
-        context.timelineState.timeline.tracks.append(track)
+        if let insertionIndex {
+            let safeIndex = min(max(insertionIndex, 0), context.timelineState.timeline.tracks.count)
+            context.timelineState.timeline.tracks.insert(track, at: safeIndex)
+        } else {
+            context.timelineState.timeline.tracks.append(track)
+        }
     }
 
     public func undo(context: EditingContext) throws {

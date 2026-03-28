@@ -407,6 +407,51 @@ struct InspectorPanel: View {
                 }
             }
 
+            // Volume & Opacity controls
+            CinematicCard {
+                VStack(alignment: .leading, spacing: CinematicSpacing.md) {
+                    Text("Properties")
+                        .font(.cinTitleSmall)
+                        .foregroundStyle(CinematicTheme.onSurface)
+
+                    CinematicInspectorFieldRow(label: "Volume") {
+                        HStack(spacing: 8) {
+                            Image(systemName: "speaker.wave.2")
+                                .font(.system(size: 11))
+                                .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                            Slider(value: Binding(
+                                get: { resolvedClip(clip.id)?.volume ?? clip.volume },
+                                set: { try? appState.perform(.setClipVolume(clipID: clip.id, volume: $0)) }
+                            ), in: 0...2)
+                            .tint(CinematicTheme.primary)
+                            Text("\(Int((resolvedClip(clip.id)?.volume ?? clip.volume) * 100))%")
+                                .font(.cinLabelRegular)
+                                .monospacedDigit()
+                                .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                                .frame(width: 36, alignment: .trailing)
+                        }
+                    }
+
+                    CinematicInspectorFieldRow(label: "Opacity") {
+                        HStack(spacing: 8) {
+                            Image(systemName: "circle.lefthalf.filled")
+                                .font(.system(size: 11))
+                                .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                            Slider(value: Binding(
+                                get: { resolvedClip(clip.id)?.opacity ?? clip.opacity },
+                                set: { try? appState.perform(.setClipOpacity(clipID: clip.id, opacity: $0)) }
+                            ), in: 0...1)
+                            .tint(CinematicTheme.tertiary)
+                            Text("\(Int((resolvedClip(clip.id)?.opacity ?? clip.opacity) * 100))%")
+                                .font(.cinLabelRegular)
+                                .monospacedDigit()
+                                .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                                .frame(width: 36, alignment: .trailing)
+                        }
+                    }
+                }
+            }
+
             if let asset {
                 CinematicCard {
                     VStack(alignment: .leading, spacing: CinematicSpacing.sm) {

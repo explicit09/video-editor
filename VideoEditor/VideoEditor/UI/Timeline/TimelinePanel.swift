@@ -270,6 +270,15 @@ struct TimelinePanel: View {
                     },
                     onClipTrim: { clipID, newSourceStart, newSourceEnd in
                         try? appState.perform(.trimClip(clipID: clipID, newSourceRange: TimeRange(start: newSourceStart, end: newSourceEnd)))
+                    },
+                    onClipSplit: { clipID, at in
+                        try? appState.perform(.splitClip(clipID: clipID, at: at))
+                    },
+                    onClipDelete: { clipID in
+                        try? appState.perform(.deleteClips(clipIDs: [clipID]))
+                    },
+                    onClipDuplicate: { clipID in
+                        try? appState.perform(.duplicateClip(clipID: clipID))
                     }
                 )
             }

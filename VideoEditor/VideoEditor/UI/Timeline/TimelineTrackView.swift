@@ -23,6 +23,9 @@ struct TimelineTrackView: View {
     let onClipDrag: (UUID, TimeInterval, Double) -> Void
     let onAssetDrop: (UUID, TimeInterval) -> Void
     var onClipTrim: ((UUID, TimeInterval, TimeInterval) -> Void)?
+    var onClipSplit: ((UUID, TimeInterval) -> Void)?
+    var onClipDelete: ((UUID) -> Void)?
+    var onClipDuplicate: ((UUID) -> Void)?
 
     @State private var isDropTargeted = false
     @State private var dropX: Double?
@@ -94,7 +97,10 @@ struct TimelineTrackView: View {
                     },
                     onTrimEnd: { newSourceEnd in
                         onClipTrim?(clip.id, clip.sourceRange.start, newSourceEnd)
-                    }
+                    },
+                    onSplit: { at in onClipSplit?(clip.id, at) },
+                    onDelete: { onClipDelete?(clip.id) },
+                    onDuplicate: { onClipDuplicate?(clip.id) }
                 )
             }
         }

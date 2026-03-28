@@ -14,6 +14,9 @@ struct TimelineClipView: View {
     let onDrag: (TimeInterval, Double) -> Void
     var onTrimStart: ((TimeInterval) -> Void)?
     var onTrimEnd: ((TimeInterval) -> Void)?
+    var onSplit: ((TimeInterval) -> Void)?
+    var onDelete: (() -> Void)?
+    var onDuplicate: (() -> Void)?
 
     @State private var dragOffset: Double = 0
     @State private var isDragging = false
@@ -35,6 +38,12 @@ struct TimelineClipView: View {
             .position(x: clipX + clipWidth / 2, y: trackHeight / 2)
             .gesture(dragGesture)
             .simultaneousGesture(tapGesture)
+            .contextMenu {
+                Button("Split at Playhead") { onSplit?(clip.timelineRange.start + clip.timelineRange.duration / 2) }
+                Button("Duplicate") { onDuplicate?() }
+                Divider()
+                Button("Delete", role: .destructive) { onDelete?() }
+            }
     }
 
     private var clipBody: some View {
