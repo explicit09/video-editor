@@ -45,11 +45,8 @@ public struct AIContextBuilder: Sendable {
                 name: asset.name,
                 type: asset.type.rawValue,
                 duration: asset.duration,
-                hasProxy: asset.proxyURL != nil,
                 hasTranscript: asset.analysis?.transcript != nil,
                 silenceRangeCount: asset.analysis?.silenceRanges?.count ?? 0,
-                shotBoundaryCount: asset.analysis?.shotBoundaries?.count ?? 0,
-                hasFaceData: false, // Visual analysis stored on disk, not on asset model
                 hasAnalysis: asset.analysis != nil
             )
         }
@@ -87,17 +84,11 @@ public struct AIContextBuilder: Sendable {
             assetName: assetName,
             startTime: clip.timelineRange.start,
             endTime: clip.timelineRange.end,
-            duration: clip.timelineRange.duration,
-            sourceStart: clip.sourceRange.start,
-            sourceEnd: clip.sourceRange.end,
             isSelected: isSelected,
             label: clip.metadata.label,
             transcript: includeTranscript ? clip.metadata.transcriptSegment?.text : nil,
-            sceneType: clip.metadata.sceneType,
-            tags: clip.metadata.tags,
             opacity: clip.opacity,
-            volume: clip.volume,
-            effectCount: clip.effects.count
+            volume: clip.volume
         )
     }
 }
@@ -142,17 +133,11 @@ public struct AIContext: Codable, Sendable {
         public let assetName: String?
         public let startTime: TimeInterval
         public let endTime: TimeInterval
-        public let duration: TimeInterval
-        public let sourceStart: TimeInterval
-        public let sourceEnd: TimeInterval
         public let isSelected: Bool
         public let label: String?
         public let transcript: String?
-        public let sceneType: String?
-        public let tags: [String]
         public let opacity: Double
         public let volume: Double
-        public let effectCount: Int
     }
 
     public struct AssetSummary: Codable, Sendable {
@@ -160,11 +145,8 @@ public struct AIContext: Codable, Sendable {
         public let name: String
         public let type: String
         public let duration: TimeInterval
-        public let hasProxy: Bool
         public let hasTranscript: Bool
         public let silenceRangeCount: Int
-        public let shotBoundaryCount: Int
-        public let hasFaceData: Bool
         public let hasAnalysis: Bool
     }
 

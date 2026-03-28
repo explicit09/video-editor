@@ -50,12 +50,14 @@ final class AIChatController {
 
         do {
             let recentActions = await appState.context.actionLog.recentActions(count: 10)
+            let contextLevel = classifyContextLevel(message)
             let context = contextBuilder.buildContext(
                 timeline: appState.timeline,
                 assets: appState.assets,
                 playheadPosition: appState.timelineViewState.playheadPosition,
                 selectedClipIDs: appState.timelineViewState.selectedClipIDs,
-                recentActions: recentActions
+                recentActions: recentActions,
+                level: contextLevel
             )
 
             // Build initial conversation
@@ -187,6 +189,32 @@ final class AIChatController {
         } catch {
             return .init(toolName: toolCall.name, success: false, message: error.localizedDescription)
         }
+    }
+
+    // MARK: - Intent classification
+
+    /// Classify the user's message to determine how much context to send.
+    private func classifyContextLevel(_ message: String) -> AIContextBuilder.ContextLevel {
+        let lower = message.lowercased()
+
+        // Content-aware keywords → full context (includes transcripts, analysis)
+        let contentKeywords = ["transcript", "says", "said", "mention", "word", "silence",
+                               "filler", "um", "uh", "spoken", "talking", "search",
+                               "find where", "what do i say", "what did i"]
+        if contentKeywords.contains(where: { lower.contains($0) }) {
+            return .full
+        }
+
+        // Structural/simple keywords → minimal context (just track/clip IDs)
+        let minimalKeywords = ["add track", "new track", "how many", "what tracks",
+                               "undo", "redo", "save", "export", "hello", "hi",
+                               "thanks", "help"]
+        if minimalKeywords.contains(where: { lower.contains($0) }) {
+            return .minimal
+        }
+
+        // Everything else → standard
+        return .standard
     }
 
     // MARK: - Content tool handlers

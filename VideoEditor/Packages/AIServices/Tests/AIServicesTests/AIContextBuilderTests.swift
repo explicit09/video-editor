@@ -60,13 +60,11 @@ struct AIContextBuilderTests {
         #expect(context.assets?[0].name == "Interview.mov")
         #expect(context.assets?[0].hasTranscript == true)
         #expect(context.assets?[0].silenceRangeCount == 1)
-        #expect(context.assets?[0].shotBoundaryCount == 1)
 
         #expect(context.timeline.tracks[0].clips?.count == 1)
         #expect(context.timeline.tracks[0].clips?[0].assetName == "Interview.mov")
         #expect(context.timeline.tracks[0].clips?[0].transcript == "Hello there")
         #expect(context.timeline.tracks[0].clips?[0].isSelected == true)
-        #expect(context.timeline.tracks[0].clips?[0].effectCount == 1)
 
         #expect(context.recentActions?.count == 1)
         #expect(context.recentActions?[0].commandName == "Split Clip")
