@@ -69,7 +69,13 @@ final class AppState {
         loadProject()
 
         let dbPath = bundleURL.appendingPathComponent("metadata.sqlite").path
-        Task { try? await context.actionLog.open(at: dbPath) }
+        Task {
+            do {
+                try await context.actionLog.open(at: dbPath)
+            } catch {
+                print("[AppState] ActionLog failed to open: \(error.localizedDescription). Using in-memory fallback.")
+            }
+        }
 
         startPlayheadSync()
     }
@@ -349,7 +355,12 @@ final class AppState {
                             asset.analysis = analysis
                         }
                     }
-                    await media.mediaManager.add(asset)
+                    // Validate source file exists
+                    if FileManager.default.fileExists(atPath: asset.sourceURL.path) {
+                        await media.mediaManager.add(asset)
+                    } else {
+                        print("[AppState] Missing media file: \(asset.sourceURL.lastPathComponent)")
+                    }
                 }
                 await media.refreshAssets()
                 await removeAudiolessVideoClips(using: loadedAssets)

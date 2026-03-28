@@ -31,8 +31,7 @@ public actor ProjectStore {
 
     // MARK: - Save (reads timeline from authoritative source)
 
-    @MainActor
-    public func save(to url: URL, timeline: Timeline) async throws {
+    public func save(to url: URL, timeline: Timeline) throws {
         let fm = FileManager.default
         for subdir in ["media", "proxies", "cache", "analysis"] {
             let dir = url.appendingPathComponent(subdir)
@@ -44,7 +43,7 @@ public actor ProjectStore {
             try fm.createDirectory(at: url, withIntermediateDirectories: true)
         }
 
-        let meta = await self.metadata
+        let meta = self.metadata
 
         // manifest.json
         let manifest = ProjectManifest(
