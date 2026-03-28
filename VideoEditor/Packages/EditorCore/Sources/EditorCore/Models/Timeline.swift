@@ -25,6 +25,7 @@ public struct Track: Codable, Identifiable, Sendable {
     public var clips: [Clip]
     public var isMuted: Bool
     public var isLocked: Bool
+    public var isSoloed: Bool
     public var volume: Double
     public var opacity: Double
 
@@ -35,6 +36,7 @@ public struct Track: Codable, Identifiable, Sendable {
         clips: [Clip] = [],
         isMuted: Bool = false,
         isLocked: Bool = false,
+        isSoloed: Bool = false,
         volume: Double = 1.0,
         opacity: Double = 1.0
     ) {
@@ -44,6 +46,7 @@ public struct Track: Codable, Identifiable, Sendable {
         self.clips = clips
         self.isMuted = isMuted
         self.isLocked = isLocked
+        self.isSoloed = isSoloed
         self.volume = volume
         self.opacity = opacity
     }

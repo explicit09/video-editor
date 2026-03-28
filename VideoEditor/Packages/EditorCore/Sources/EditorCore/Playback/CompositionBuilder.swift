@@ -32,8 +32,12 @@ public struct CompositionBuilder {
         var hasOpacityChanges = false
         var renderSize: CGSize = CGSize(width: 1920, height: 1080)
 
+        let anySoloed = timeline.tracks.contains { $0.isSoloed }
+
         for track in timeline.tracks {
+            // Skip muted tracks. If any track is soloed, skip non-soloed tracks.
             guard !track.isMuted else { continue }
+            if anySoloed && !track.isSoloed { continue }
 
             for clip in track.clips {
                 guard let mediaAsset = assets.first(where: { $0.id == clip.assetID }) else { continue }
