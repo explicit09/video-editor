@@ -5,7 +5,9 @@ struct TimelinePanel: View {
     @Environment(AppState.self) private var appState
     @State private var thumbnails: [UUID: CGImage] = [:]
     @State private var waveforms: [UUID: [Float]] = [:]
-    private let trackHeight: Double = 60
+    @State private var trackHeights: [UUID: Double] = [:]
+    private let defaultTrackHeight: Double = 76
+    private let expandedTrackHeight: Double = 104
 
     /// Re-run media loading when the timeline changes, when assets become available,
     /// or when background analysis writes a waveform profile onto an existing asset.
@@ -124,106 +126,74 @@ struct TimelinePanel: View {
     // MARK: - Toolbar
 
     private func timelineToolbar(viewState: TimelineViewState, timeline: Timeline) -> some View {
-        HStack(spacing: 12) {
-            // Add Track
+        HStack(spacing: CinematicSpacing.sm) {
             Menu {
                 Button("Video Track") { appState.addTrack(of: .video) }
                 Button("Audio Track") { appState.addTrack(of: .audio) }
                 Button("Text Track") { appState.addTrack(of: .text) }
                 Button("Effect Track") { appState.addTrack(of: .effect) }
             } label: {
-                HStack(spacing: 4) {
+                HStack(spacing: 6) {
                     Image(systemName: "plus")
                     Text("Add Track")
                         .font(.cinLabel)
                 }
-                .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                .foregroundStyle(CinematicTheme.onSurface)
+                .padding(.horizontal, 12)
+                .frame(height: CinematicMetrics.controlHeight)
+                .background(CinematicTheme.surfaceContainerHighest)
+                .clipShape(Capsule())
             }
             .menuStyle(.button)
 
-            Spacer()
-
-            // Undo/Redo
-            HStack(spacing: 8) {
-                Button(action: { try? appState.undo() }) {
-                    Image(systemName: "arrow.uturn.backward")
-                        .foregroundStyle(appState.commandHistory.canUndo ? CinematicTheme.onSurface : CinematicTheme.onSurfaceVariant.opacity(0.3))
-                }
-                .buttonStyle(.plain)
-                .disabled(!appState.commandHistory.canUndo)
-
-                Button(action: { try? appState.redo() }) {
-                    Image(systemName: "arrow.uturn.forward")
-                        .foregroundStyle(appState.commandHistory.canRedo ? CinematicTheme.onSurface : CinematicTheme.onSurfaceVariant.opacity(0.3))
-                }
-                .buttonStyle(.plain)
-                .disabled(!appState.commandHistory.canRedo)
+            HStack(spacing: 6) {
+                CinematicToolbarButton(icon: "arrow.uturn.backward", action: { try? appState.undo() })
+                    .disabled(!appState.commandHistory.canUndo)
+                CinematicToolbarButton(icon: "arrow.uturn.forward", action: { try? appState.redo() })
+                    .disabled(!appState.commandHistory.canRedo)
             }
 
-            Spacer()
+            Spacer(minLength: 12)
 
-            // Magnet/snap toggle
-            HStack(spacing: 4) {
-                Image(systemName: "magnet")
-                    .font(.system(size: 11))
-                Text("MAGNET: ON")
-                    .font(.cinLabel)
-                    .tracking(0.5)
+            Button {
+                viewState.snapEnabled.toggle()
+            } label: {
+                CinematicStatusPill(
+                    text: viewState.snapEnabled ? "SNAP ON" : "SNAP OFF",
+                    icon: "magnet",
+                    tone: viewState.snapEnabled ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant
+                )
             }
-            .foregroundStyle(CinematicTheme.primary)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 3)
-            .background(CinematicTheme.primaryContainer.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+            .buttonStyle(.plain)
 
-            Spacer()
+            CinematicStatusPill(
+                text: "\(timeline.tracks.count) lanes",
+                icon: "square.stack.3d.down.right",
+                tone: CinematicTheme.aqua
+            )
 
-            // AI Sync indicator
-            HStack(spacing: 4) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 10))
-                Text("AI SYNC ACTIVE")
-                    .font(.cinLabel)
-                    .tracking(0.5)
-            }
-            .foregroundStyle(CinematicTheme.primary.opacity(0.6))
+            CinematicStatusPill(
+                text: "\(Int(viewState.zoom)) px/s",
+                icon: "timeline.selection",
+                tone: CinematicTheme.tertiary
+            )
 
-            Spacer()
-
-            // Zoom controls
-            HStack(spacing: 8) {
-                Button(action: { viewState.zoomOut() }) {
-                    Image(systemName: "minus")
-                        .font(.system(size: 10))
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
-                }
-                .buttonStyle(.plain)
-
-                Button(action: { viewState.zoomToFit(duration: timeline.duration) }) {
-                    Image(systemName: "arrow.left.and.right")
-                        .font(.system(size: 10))
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
-                }
-                .buttonStyle(.plain)
-                .disabled(timeline.duration == 0)
-
-                Text("\(Int(viewState.zoom))px/s")
-                    .font(.cinLabelRegular)
-                    .monospacedDigit()
-                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
-                    .frame(width: 50)
-
-                Button(action: { viewState.zoomIn() }) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 10))
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
-                }
-                .buttonStyle(.plain)
+            HStack(spacing: 6) {
+                CinematicToolbarButton(icon: "minus", action: { viewState.zoomOut() })
+                CinematicToolbarButton(icon: "arrow.left.and.right", action: { viewState.zoomToFit(duration: timeline.duration) })
+                    .disabled(timeline.duration == 0)
+                CinematicToolbarButton(icon: "plus", action: { viewState.zoomIn() })
             }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-        .background(CinematicTheme.surfaceContainerHigh)
+        .padding(.vertical, 10)
+        .background(
+            LinearGradient(
+                colors: [CinematicTheme.surfaceContainerHigh, CinematicTheme.surfaceContainerHighest.opacity(0.84)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
     }
 
     // MARK: - Empty State
@@ -249,6 +219,7 @@ struct TimelinePanel: View {
             ForEach(Array(timeline.tracks.enumerated()), id: \.element.id) { index, track in
                 TimelineTrackView(
                     track: track,
+                    trackHeight: trackHeight(for: track.id),
                     viewState: viewState,
                     selectedClipIDs: viewState.selectedClipIDs,
                     isSelectedTrack: viewState.selectedTrackID == track.id,
@@ -256,6 +227,24 @@ struct TimelinePanel: View {
                     thumbnails: thumbnails,
                     waveforms: waveforms,
                     onTrackTap: { viewState.selectedTrackID = track.id },
+                    onRenameTrack: { newName in
+                        appState.updateTrack(id: track.id) { $0.name = newName }
+                    },
+                    onToggleMute: {
+                        appState.updateTrack(id: track.id) { $0.isMuted.toggle() }
+                    },
+                    onToggleLock: {
+                        appState.updateTrack(id: track.id) { $0.isLocked.toggle() }
+                    },
+                    onAddLane: {
+                        appState.addTrack(of: track.type)
+                    },
+                    onCycleHeight: {
+                        cycleTrackHeight(for: track.id)
+                    },
+                    onRemoveTrack: track.clips.isEmpty ? {
+                        try? appState.perform(.removeTrack(trackID: track.id))
+                    } : nil,
                     onClipTap: { clipID, extend in
                         viewState.selectedTrackID = track.id
                         viewState.toggleSelection(clipID, extend: extend)
@@ -294,10 +283,53 @@ struct TimelinePanel: View {
         trackType: TrackType,
         in timeline: Timeline
     ) -> UUID {
-        let rowStride = trackHeight + CinematicSpacing.clipGap
-        let rowDelta = Int((verticalOffset / rowStride).rounded())
-        let candidateIndex = min(max(currentIndex + rowDelta, 0), timeline.tracks.count - 1)
-        let candidateTrack = timeline.tracks[candidateIndex]
-        return candidateTrack.type == trackType ? candidateTrack.id : timeline.tracks[currentIndex].id
+        guard !timeline.tracks.isEmpty else { return UUID() }
+        let baseCenter = trackCenterY(at: currentIndex, in: timeline)
+        let proposedCenter = baseCenter + verticalOffset
+
+        var cursor: Double = 0
+        let fallback = timeline.tracks[currentIndex]
+
+        for track in timeline.tracks {
+            let height = trackHeight(for: track.id)
+            let upperBound = cursor + height
+            if proposedCenter <= upperBound {
+                return track.type == trackType ? track.id : fallback.id
+            }
+            cursor = upperBound + CinematicSpacing.clipGap
+        }
+
+        let lastTrack = timeline.tracks.last ?? fallback
+        return lastTrack.type == trackType ? lastTrack.id : fallback.id
+    }
+
+    private func trackHeight(for trackID: UUID) -> Double {
+        trackHeights[trackID] ?? defaultTrackHeight
+    }
+
+    private func cycleTrackHeight(for trackID: UUID) {
+        let current = trackHeights[trackID] ?? defaultTrackHeight
+        let next: Double
+        switch current {
+        case ..<75:
+            next = expandedTrackHeight
+        case ..<100:
+            next = 60
+        default:
+            next = defaultTrackHeight
+        }
+        trackHeights[trackID] = next
+    }
+
+    private func trackCenterY(at index: Int, in timeline: Timeline) -> Double {
+        var cursor: Double = 0
+        for priorIndex in timeline.tracks.indices {
+            let height = trackHeight(for: timeline.tracks[priorIndex].id)
+            if priorIndex == index {
+                return cursor + (height / 2)
+            }
+            cursor += height + CinematicSpacing.clipGap
+        }
+        return cursor
     }
 }

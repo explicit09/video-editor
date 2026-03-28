@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreTransferable
 import EditorCore
 import UniformTypeIdentifiers
 
@@ -20,19 +21,37 @@ struct MediaWorkspacePanel: View {
     }
 
     var body: some View {
-        HStack(spacing: 0) {
-            // Smart Bins sidebar
-            smartBins
-                .frame(width: 180)
+        VStack(spacing: 0) {
+            CinematicPanelHeader(
+                eyebrow: "MEDIA WORKSPACE",
+                title: "Library Browser",
+                subtitle: "Organize sources, review metadata, and send assets to the timeline",
+                trailingAccessory: {
+                    HStack(spacing: 8) {
+                        CinematicStatusPill(
+                            text: "\(filteredAssets.count) visible",
+                            icon: "rectangle.grid.2x2",
+                            tone: CinematicTheme.aqua
+                        )
+                        CinematicToolbarButton(icon: "plus", label: "Import", isActive: true) {
+                            isImporting = true
+                        }
+                    }
+                }
+            )
+            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
-            // Media grid
-            mediaGrid
+            HStack(spacing: 0) {
+                smartBins
+                    .frame(width: 220)
 
-            // Inspector (when asset selected)
-            if let assetID = selectedAssetID,
-               let asset = appState.assets.first(where: { $0.id == assetID }) {
-                assetInspector(asset)
-                    .frame(width: 240)
+                mediaGrid
+
+                if let assetID = selectedAssetID,
+                   let asset = appState.assets.first(where: { $0.id == assetID }) {
+                    assetInspector(asset)
+                        .frame(width: 280)
+                }
             }
         }
         .background(CinematicTheme.surface)
@@ -50,22 +69,23 @@ struct MediaWorkspacePanel: View {
     private var smartBins: some View {
         let bins = SmartBinClassifier.classify(appState.assets)
         return VStack(alignment: .leading, spacing: 0) {
-            HStack {
+            HStack(spacing: 8) {
                 Text("SMART BINS")
                     .font(.cinLabel)
                     .tracking(1.5)
                     .foregroundStyle(CinematicTheme.onSurface)
                 Spacer()
-                // Show all
                 Button(action: { selectedBinID = nil }) {
-                    Text("All")
-                        .font(.cinLabelRegular)
-                        .foregroundStyle(selectedBinID == nil ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant.opacity(0.5))
+                    CinematicStatusPill(
+                        text: "All",
+                        icon: "line.3.horizontal.decrease.circle",
+                        tone: selectedBinID == nil ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant
+                    )
                 }
                 .buttonStyle(.plain)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
 
             ScrollView {
                 VStack(spacing: 2) {
@@ -78,22 +98,13 @@ struct MediaWorkspacePanel: View {
 
             Spacer()
 
-            // Import button
-            Button(action: { isImporting = true }) {
-                HStack(spacing: 6) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 14))
-                    Text("Import Media")
-                        .font(.cinTitleSmall)
+            HStack {
+                CinematicToolbarButton(icon: "plus.circle.fill", label: "Import Media", isActive: true) {
+                    isImporting = true
                 }
-                .foregroundStyle(CinematicTheme.onPrimaryContainer)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .background(CinematicTheme.primaryContainer)
-                .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+                Spacer()
             }
-            .buttonStyle(.plain)
-            .padding(12)
+            .padding(CinematicSpacing.md)
         }
         .background(CinematicTheme.surfaceContainerLow)
     }
@@ -118,8 +129,8 @@ struct MediaWorkspacePanel: View {
                     .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.sm))
             }
             .padding(.horizontal, 8)
-            .padding(.vertical, 6)
-            .background(isSelected ? CinematicTheme.primaryContainer.opacity(0.1) : Color.clear)
+            .padding(.vertical, 8)
+            .background(isSelected ? CinematicTheme.primaryContainer.opacity(0.14) : Color.clear)
             .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
         }
         .buttonStyle(.plain)
@@ -129,26 +140,27 @@ struct MediaWorkspacePanel: View {
 
     private var mediaGrid: some View {
         VStack(spacing: 0) {
-            // Toolbar
             HStack(spacing: 12) {
-                // Sort
                 Menu {
                     ForEach(SortOrder.allCases, id: \.self) { order in
                         Button(order.rawValue) { sortOrder = order }
                     }
                 } label: {
                     HStack(spacing: 4) {
-                        Text("Sort by: \(sortOrder.rawValue)")
+                        Text("Sort: \(sortOrder.rawValue)")
                             .font(.cinLabelRegular)
                         Image(systemName: "chevron.down")
                             .font(.system(size: 8))
                     }
-                    .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                    .foregroundStyle(CinematicTheme.onSurface)
+                    .padding(.horizontal, 10)
+                    .frame(height: CinematicMetrics.controlHeight)
+                    .background(CinematicTheme.surfaceContainerHighest)
+                    .clipShape(Capsule())
                 }
 
                 Spacer()
 
-                // Search
                 HStack(spacing: 6) {
                     Image(systemName: "magnifyingglass")
                         .font(.system(size: 11))
@@ -159,16 +171,15 @@ struct MediaWorkspacePanel: View {
                         .foregroundStyle(CinematicTheme.onSurface)
                 }
                 .padding(.horizontal, 8)
-                .padding(.vertical, 4)
+                .padding(.vertical, 6)
                 .background(CinematicTheme.surfaceContainerLowest)
                 .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
-                .frame(width: 180)
+                .frame(width: 220)
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 8)
+            .padding(.vertical, 12)
             .background(CinematicTheme.surfaceContainer)
 
-            // Grid
             if filteredAssets.isEmpty {
                 emptyGrid
             } else {
@@ -187,15 +198,11 @@ struct MediaWorkspacePanel: View {
     private var emptyGrid: some View {
         VStack(spacing: 12) {
             Spacer()
-            Image(systemName: "arrow.down.doc")
-                .font(.system(size: 36))
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.3))
-            Text("Drag and drop media files here")
-                .font(.cinBody)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
-            Text("ProRes, H.264, H.265, and RAW supported up to 8K")
-                .font(.cinLabelRegular)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.3))
+            CinematicEmptyStateBlock(
+                icon: "rectangle.stack.badge.plus",
+                title: "No assets match this view",
+                detail: "Adjust the smart bin or search query, or import more media into the project."
+            )
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -250,7 +257,13 @@ struct MediaWorkspacePanel: View {
             }
             .padding(8)
         }
-        .background(CinematicTheme.surfaceContainerHigh)
+        .background(
+            LinearGradient(
+                colors: [CinematicTheme.surfaceContainerHigh, CinematicTheme.surfaceContainerLowest],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
         .overlay(
             RoundedRectangle(cornerRadius: CinematicRadius.lg)
@@ -271,23 +284,16 @@ struct MediaWorkspacePanel: View {
 
     private func assetInspector(_ asset: MediaAsset) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text("INSPECTOR")
-                    .font(.cinLabel)
-                    .tracking(1.5)
-                    .foregroundStyle(CinematicTheme.onSurface)
-                Spacer()
-                Button(action: { selectedAssetID = nil }) {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 10))
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+            CinematicPanelHeader(
+                eyebrow: "INSPECTOR",
+                title: asset.name,
+                subtitle: "Source metadata and AI analysis",
+                trailingAccessory: {
+                    CinematicToolbarButton(icon: "xmark", action: { selectedAssetID = nil })
                 }
-                .buttonStyle(.plain)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
+            )
+            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
-            // Preview thumbnail
             if let cgImage = thumbnails[asset.id] {
                 Image(decorative: cgImage, scale: 1.0)
                     .resizable()
@@ -299,7 +305,6 @@ struct MediaWorkspacePanel: View {
 
             Spacer().frame(height: 16)
 
-            // Metadata
             VStack(alignment: .leading, spacing: 12) {
                 metadataRow("FILENAME", asset.name)
                 if let w = asset.width, let h = asset.height {
@@ -339,11 +344,7 @@ struct MediaWorkspacePanel: View {
     }
 
     private func metadataRow(_ label: String, _ value: String) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(label)
-                .font(.cinLabel)
-                .tracking(1)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+        CinematicInspectorFieldRow(label: label) {
             Text(value)
                 .font(.cinBody)
                 .foregroundStyle(CinematicTheme.onSurface)

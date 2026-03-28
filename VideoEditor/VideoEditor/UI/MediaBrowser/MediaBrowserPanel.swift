@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreTransferable
 import EditorCore
 import UniformTypeIdentifiers
 
@@ -39,27 +40,46 @@ struct MediaBrowserPanel: View {
     // MARK: - Header
 
     private var header: some View {
-        HStack {
-            Text("PROJECT BIN")
-                .font(.cinLabel)
-                .tracking(1.5)
-                .foregroundStyle(CinematicTheme.onSurface)
-            Spacer()
-            Button(action: { isImporting = true }) {
-                Image(systemName: "plus")
-                    .foregroundStyle(CinematicTheme.onSurfaceVariant)
-            }
-            .buttonStyle(.plain)
-            .fileImporter(
-                isPresented: $isImporting,
-                allowedContentTypes: Self.allowedTypes,
-                allowsMultipleSelection: true
-            ) { result in
-                Task { await handleImport(result) }
+        VStack(spacing: 0) {
+            CinematicPanelHeader(
+                eyebrow: "LIBRARY",
+                title: "Project Bin",
+                subtitle: "Import media and drag it into exact timeline lanes",
+                trailingAccessory: {
+                    HStack(spacing: 8) {
+                        CinematicStatusPill(
+                            text: "\(appState.assets.count) assets",
+                            icon: "shippingbox",
+                            tone: CinematicTheme.aqua
+                        )
+                        CinematicToolbarButton(icon: "plus", label: "Import", isActive: true) {
+                            isImporting = true
+                        }
+                    }
+                }
+            )
+            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
+
+            if let importError {
+                HStack {
+                    CinematicStatusPill(
+                        text: importError,
+                        icon: "exclamationmark.triangle.fill",
+                        tone: CinematicTheme.error
+                    )
+                    Spacer()
+                }
+                .padding(.horizontal, CinematicSpacing.md)
+                .padding(.bottom, CinematicSpacing.sm)
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .fileImporter(
+            isPresented: $isImporting,
+            allowedContentTypes: Self.allowedTypes,
+            allowsMultipleSelection: true
+        ) { result in
+            Task { await handleImport(result) }
+        }
     }
 
     // MARK: - Empty State
@@ -67,26 +87,14 @@ struct MediaBrowserPanel: View {
     private var emptyState: some View {
         VStack(spacing: 12) {
             Spacer()
-            Image(systemName: "film")
-                .font(.system(size: 32))
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.4))
-            Text("Import media to get started")
-                .font(.cinBody)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
-            Button(action: { isImporting = true }) {
-                Text("Import Media")
-                    .font(.cinTitleSmall)
-                    .foregroundStyle(CinematicTheme.onPrimaryContainer)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 8)
-                    .background(CinematicTheme.primaryContainer)
-                    .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
-            }
-            .buttonStyle(.plain)
-            if let error = importError {
-                Text(error)
-                    .font(.cinLabelRegular)
-                    .foregroundStyle(CinematicTheme.error)
+            CinematicEmptyStateBlock(
+                icon: "film.stack",
+                title: "Import media to start building the edit",
+                detail: "Double-click to append an asset or drag it onto a specific video or audio lane."
+            ) {
+                CinematicToolbarButton(icon: "plus", label: "Import Media", isActive: true) {
+                    isImporting = true
+                }
             }
             Spacer()
         }
@@ -97,7 +105,7 @@ struct MediaBrowserPanel: View {
 
     private var assetList: some View {
         ScrollView {
-            VStack(spacing: 8) {
+            LazyVStack(spacing: 10) {
                 ForEach(appState.assets) { asset in
                     AssetThumbnailView(asset: asset, thumbnail: thumbnails[asset.id]) {
                         addToTimeline(asset)
@@ -111,7 +119,7 @@ struct MediaBrowserPanel: View {
                     }
                 }
             }
-            .padding(12)
+            .padding(CinematicSpacing.md)
         }
     }
 
@@ -161,7 +169,6 @@ struct AssetThumbnailView: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            // Thumbnail
             Group {
                 if let cgImage = thumbnail {
                     Image(decorative: cgImage, scale: 1.0)
@@ -176,14 +183,13 @@ struct AssetThumbnailView: View {
                         }
                 }
             }
-            .frame(width: 80, height: 50)
+            .frame(width: 88, height: 56)
             .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
             .overlay(
                 RoundedRectangle(cornerRadius: CinematicRadius.lg)
                     .strokeBorder(CinematicTheme.outlineVariant.opacity(0.1), lineWidth: 1)
             )
 
-            // Info
             VStack(alignment: .leading, spacing: 2) {
                 Text(asset.name)
                     .font(.cinTitleSmall)
@@ -205,13 +211,23 @@ struct AssetThumbnailView: View {
             }
 
             Spacer()
+
+            Image(systemName: "arrow.right")
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.38))
         }
-        .padding(6)
-        .background(CinematicTheme.surfaceContainerLowest)
+        .padding(8)
+        .background(
+            LinearGradient(
+                colors: [CinematicTheme.surfaceContainerLowest, CinematicTheme.surfaceContainerHigh.opacity(0.76)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
         .overlay(
             RoundedRectangle(cornerRadius: CinematicRadius.lg)
-                .strokeBorder(CinematicTheme.outlineVariant.opacity(0.1), lineWidth: 1)
+                .strokeBorder(CinematicTheme.outlineVariant.opacity(0.14), lineWidth: 1)
         )
         .contentShape(Rectangle())
         .onTapGesture(count: 2) { onAddToTimeline?() }

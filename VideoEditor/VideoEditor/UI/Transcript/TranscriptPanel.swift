@@ -65,21 +65,23 @@ struct TranscriptPanel: View {
     // MARK: - Header
 
     private var header: some View {
-        VStack(spacing: 8) {
-            HStack {
-                HStack(spacing: 6) {
-                    Image(systemName: "text.alignleft")
-                        .font(.system(size: 12))
-                        .foregroundStyle(CinematicTheme.primary)
-                    Text("TRANSCRIPT")
-                        .font(.cinLabel)
-                        .tracking(1.5)
-                        .foregroundStyle(CinematicTheme.onSurface)
+        VStack(spacing: 0) {
+            CinematicPanelHeader(
+                eyebrow: "TRANSCRIPT",
+                title: "Dialogue View",
+                subtitle: "Search transcript segments and jump directly to moments in the edit",
+                trailingAccessory: {
+                    if let activeClip {
+                        CinematicStatusPill(
+                            text: activeClip.metadata.label ?? "Active Clip",
+                            icon: "waveform.and.mic",
+                            tone: CinematicTheme.primary
+                        )
+                    }
                 }
-                Spacer()
-            }
+            )
+            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
-            // Search bar
             HStack(spacing: 6) {
                 Image(systemName: "magnifyingglass")
                     .font(.system(size: 11))
@@ -89,13 +91,13 @@ struct TranscriptPanel: View {
                     .font(.cinBody)
                     .foregroundStyle(CinematicTheme.onSurface)
             }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
             .background(CinematicTheme.surfaceContainerLowest)
             .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+            .padding(.horizontal, 16)
+            .padding(.bottom, 12)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
         .background(CinematicTheme.surfaceContainer)
     }
 
@@ -132,30 +134,34 @@ struct TranscriptPanel: View {
 
     private func transcriptSegment(_ segment: TranscriptSegmentGroup, isActive: Bool, matches: Bool) -> some View {
         HStack(alignment: .top, spacing: 12) {
-            // Timestamp
             Text(TimeFormatter.duration(segment.startTime))
                 .font(.cinLabel)
                 .foregroundStyle(isActive ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant.opacity(0.4))
                 .frame(width: 45, alignment: .trailing)
 
-            // Text content
             VStack(alignment: .leading, spacing: 4) {
                 Text(highlightedText(segment.text, query: searchQuery, isActive: isActive))
                     .font(.cinBody)
                     .lineSpacing(4)
             }
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
         .background(
             isActive
-                ? CinematicTheme.primaryContainer.opacity(0.08)
+                ? CinematicTheme.primaryContainer.opacity(0.12)
                 : (matches && !searchQuery.isEmpty ? CinematicTheme.primary.opacity(0.05) : Color.clear)
         )
         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+        .overlay(
+            RoundedRectangle(cornerRadius: CinematicRadius.md)
+                .strokeBorder(
+                    isActive ? CinematicTheme.primary.opacity(0.24) : CinematicTheme.outlineVariant.opacity(matches ? 0.18 : 0.08),
+                    lineWidth: isActive ? 1 : 0.5
+                )
+        )
         .contentShape(Rectangle())
         .onTapGesture {
-            // Seek to segment start
             appState.playbackEngine.seek(to: segment.startTime)
             appState.timelineViewState.playheadPosition = segment.startTime
         }
@@ -166,15 +172,13 @@ struct TranscriptPanel: View {
     private var emptyState: some View {
         VStack(spacing: 12) {
             Spacer()
-            Image(systemName: "text.alignleft")
-                .font(.system(size: 28))
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.3))
-            Text("No transcript available")
-                .font(.cinBody)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
-            Text("Ask AI to transcribe your video")
-                .font(.cinLabelRegular)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.3))
+            CinematicEmptyStateBlock(
+                icon: "text.alignleft",
+                title: "No transcript available",
+                detail: "Select a clip with transcript data, or run transcription on a source to make spoken content searchable."
+            ) {
+                CinematicStatusPill(text: "Use AI to transcribe", icon: "sparkles", tone: CinematicTheme.primary)
+            }
             Spacer()
         }
         .frame(maxWidth: .infinity)
@@ -206,7 +210,6 @@ struct TranscriptPanel: View {
 
         guard !query.isEmpty else { return attributed }
 
-        // Find and highlight all occurrences of the query
         var searchStart = text.startIndex
         let lowered = text.lowercased()
         let queryLowered = query.lowercased()

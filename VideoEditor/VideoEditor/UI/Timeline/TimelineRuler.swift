@@ -14,21 +14,24 @@ struct TimelineRuler: View {
             while time <= totalSeconds {
                 let x = viewState.durationToWidth(time)
                 let isMajor = isMajorTick(time, step: step)
+                let isZero = time == 0
 
-                // Tick mark
-                let tickHeight: Double = isMajor ? 12 : 6
+                let tickHeight: Double = isMajor ? 16 : 8
                 let path = Path { p in
                     p.move(to: CGPoint(x: x, y: size.height))
                     p.addLine(to: CGPoint(x: x, y: size.height - tickHeight))
                 }
-                context.stroke(path, with: .color(Color(hex: 0xC7C4D7).opacity(0.3)), lineWidth: 0.5)
+                context.stroke(
+                    path,
+                    with: .color(isZero ? CinematicTheme.primary.opacity(0.7) : CinematicTheme.onSurfaceVariant.opacity(isMajor ? 0.44 : 0.22)),
+                    lineWidth: isMajor ? 1 : 0.5
+                )
 
-                // Label on major ticks
                 if isMajor {
                     let label = TimeFormatter.rulerTimecode(time)
                     context.draw(
-                        Text(label).font(.cinLabel).foregroundStyle(Color(hex: 0xC7C4D7).opacity(0.5)),
-                        at: CGPoint(x: x + 2, y: 8),
+                        Text(label).font(.cinLabel).foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72)),
+                        at: CGPoint(x: x + 4, y: 8),
                         anchor: .leading
                     )
                 }
@@ -36,7 +39,21 @@ struct TimelineRuler: View {
                 time += step
             }
         }
-        .background(CinematicTheme.surfaceContainerHigh)
+        .background(
+            LinearGradient(
+                colors: [
+                    CinematicTheme.surfaceContainerHighest,
+                    CinematicTheme.surfaceContainerHigh,
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .fill(CinematicTheme.outlineVariant.opacity(0.24))
+                .frame(height: 1)
+        }
     }
 
     /// Choose ruler tick spacing based on zoom level.

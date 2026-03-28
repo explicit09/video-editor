@@ -171,7 +171,9 @@ final class AIChatController {
                let assetID = UUID(uuidString: assetIDStr),
                let asset = appState.assets.first(where: { $0.id == assetID }),
                asset.type == .video {
-                await appState.addAssetToTimeline(asset, source: .ai)
+                let startTime = args["start_time"] as? Double
+                let preferredTrack = (args["track_id"] as? String).flatMap { UUID(uuidString: $0) }
+                await appState.addAssetToTimeline(asset, source: .ai, preferredTrackID: preferredTrack, startTime: startTime)
             } else {
                 let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
                 for intent in intents {
@@ -386,10 +388,17 @@ final class AIChatController {
             return "Done"
 
         case "insert_clip":
-            let trackID = args["track_id"] as? String ?? ""
-            if let track = timeline.tracks.first(where: { $0.id.uuidString == trackID }),
-               let clip = track.clips.last {
-                return "Inserted clip '\(clip.metadata.label ?? "Clip")' (ID: \(clip.id.uuidString)) on track '\(track.name)' at \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s."
+            // Report all clips added (video + linked audio for video assets)
+            let assetIDStr = args["asset_id"] as? String ?? ""
+            let recentClips = timeline.tracks.flatMap { track in
+                track.clips.compactMap { clip -> String? in
+                    guard clip.assetID.uuidString == assetIDStr else { return nil }
+                    let trackName = track.name
+                    return "'\(clip.metadata.label ?? "Clip")' (ID: \(clip.id.uuidString)) on \(trackName) at \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s"
+                }
+            }
+            if !recentClips.isEmpty {
+                return "Inserted: \(recentClips.joined(separator: "; ")). Total clips: \(timeline.tracks.flatMap(\.clips).count)."
             }
             return "Done"
 

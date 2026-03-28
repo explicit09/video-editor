@@ -17,6 +17,7 @@ struct TimelineClipView: View {
 
     @State private var dragOffset: Double = 0
     @State private var isDragging = false
+    @State private var isHovered = false
     @State private var trimStartOffset: Double = 0
     @State private var trimEndOffset: Double = 0
     @State private var isTrimming = false
@@ -38,55 +39,67 @@ struct TimelineClipView: View {
 
     private var clipBody: some View {
         VStack(spacing: 0) {
-            // Top accent bar (2px)
             Rectangle()
                 .fill(clipAccentColor)
-                .frame(height: 2)
+                .frame(height: 3)
 
-            // Clip content
             ZStack {
+                RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                    .fill(clipBackground)
+
                 if let waveform, trackType == .audio, !waveform.isEmpty {
-                    // Audio: show waveform
-                    Rectangle().fill(clipColor)
                     WaveformView(amplitudes: waveform, color: clipAccentColor)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.horizontal, 3)
-                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 10)
                 } else if let cgImage = thumbnail, trackType == .video {
-                    // Video: show thumbnail
                     Image(decorative: cgImage, scale: 1.0)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .opacity(0.4)
+                        .overlay {
+                            LinearGradient(
+                                colors: [
+                                    Color.black.opacity(0.05),
+                                    Color.black.opacity(0.38),
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        }
+                        .opacity(0.72)
                 } else {
-                    Rectangle().fill(clipColor)
+                    Rectangle()
+                        .fill(clipBackground)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay(clipLabel, alignment: .topLeading)
+            .overlay(alignment: .bottomLeading) {
+                clipFooter
+            }
         }
         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
         .overlay(
             RoundedRectangle(cornerRadius: CinematicRadius.lg)
                 .strokeBorder(
-                    isSelected ? CinematicTheme.primary : CinematicTheme.outlineVariant.opacity(0.15),
-                    lineWidth: isSelected ? 1.5 : 0.5
+                    outlineColor,
+                    lineWidth: outlineWidth
                 )
         )
-        .shadow(color: isDragging ? CinematicTheme.primaryContainer.opacity(0.2) : .clear, radius: 6)
-        // Trim handles
+        .shadow(color: shadowColor, radius: isDragging ? 12 : 8, y: isDragging ? 6 : 2)
         .overlay(alignment: .leading) {
             trimHandle(isStart: true)
         }
         .overlay(alignment: .trailing) {
             trimHandle(isStart: false)
         }
+        .onHover { isHovered = $0 }
     }
 
     private func trimHandle(isStart: Bool) -> some View {
-        Rectangle()
-            .fill(isSelected || isTrimming ? CinematicTheme.primary.opacity(0.6) : Color.clear)
-            .frame(width: 4)
+        RoundedRectangle(cornerRadius: CinematicRadius.full)
+            .fill(isSelected || isTrimming || isHovered ? CinematicTheme.onSurface.opacity(0.85) : Color.clear)
+            .frame(width: 5)
             .contentShape(Rectangle().inset(by: -4))
             .onHover { hovering in
                 if hovering { NSCursor.resizeLeftRight.push() }
@@ -120,17 +133,51 @@ struct TimelineClipView: View {
     private var clipLabel: some View {
         Text(clip.metadata.label ?? "Clip")
             .font(.cinLabelRegular)
-            .foregroundStyle(CinematicTheme.onSurface.opacity(0.9))
+            .foregroundStyle(CinematicTheme.onSurface)
             .lineLimit(1)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 5)
+            .background(.black.opacity(trackType == .video ? 0.42 : 0.18))
+            .clipShape(Capsule())
             .padding(.horizontal, 6)
-            .padding(.top, 4)
+            .padding(.top, 6)
     }
 
-    // MARK: - Colors (muted pro-colorist aesthetic)
+    private var clipFooter: some View {
+        HStack(spacing: 6) {
+            Image(systemName: footerIcon)
+                .font(.system(size: 9, weight: .bold))
+            Text(TimeFormatter.duration(max(clip.timelineRange.duration, 0.1)))
+                .font(.cinLabelRegular)
+                .monospacedDigit()
+        }
+        .foregroundStyle(CinematicTheme.onSurface.opacity(0.82))
+        .padding(.horizontal, 8)
+        .padding(.bottom, 6)
+    }
 
-    private var clipColor: Color {
-        let base = clipAccentColor
-        return base.opacity(isDragging ? 0.25 : 0.15)
+    private var footerIcon: String {
+        switch trackType {
+        case .video: "film"
+        case .audio: "waveform"
+        case .text: "textformat"
+        case .effect: "sparkles"
+        }
+    }
+
+    private var clipBackground: LinearGradient {
+        let leading = clipAccentColor.opacity(trackType == .audio ? 0.22 : 0.18)
+        let trailing = CinematicTheme.surfaceContainerLowest
+
+        return LinearGradient(
+            colors: [
+                leading,
+                trailing,
+                clipAccentColor.opacity(isSelected ? 0.12 : 0.06),
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
 
     private var clipAccentColor: Color {
@@ -140,6 +187,27 @@ struct TimelineClipView: View {
         case .text: CinematicTheme.primary
         case .effect: CinematicTheme.primaryFixedDim
         }
+    }
+
+    private var outlineColor: Color {
+        if isSelected {
+            return CinematicTheme.primary
+        }
+        if isHovered || isDragging {
+            return clipAccentColor.opacity(0.85)
+        }
+        return CinematicTheme.outlineVariant.opacity(0.24)
+    }
+
+    private var outlineWidth: Double {
+        isSelected ? 1.6 : (isHovered ? 1.0 : 0.6)
+    }
+
+    private var shadowColor: Color {
+        if isSelected || isDragging {
+            return clipAccentColor.opacity(0.24)
+        }
+        return .clear
     }
 
     // MARK: - Gestures
