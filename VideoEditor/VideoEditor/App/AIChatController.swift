@@ -291,6 +291,9 @@ final class AIChatController {
     private func handleRemoveSilence(args: [String: Any], appState: AppState) throws -> String {
         let timeline = appState.timeline
 
+        // Parse optional threshold/duration filters
+        let minDuration = (args["min_duration"] as? Double) ?? 0.5
+
         let targetClips: [Clip]
         if let clipIDStrs = args["clip_ids"] as? [String], !clipIDStrs.isEmpty {
             let clipIDs = Set(clipIDStrs.compactMap { UUID(uuidString: $0) })
@@ -312,33 +315,49 @@ final class AIChatController {
             let clipSourceEnd = clip.sourceRange.end
             let timelineOffset = clip.timelineRange.start - clipSourceStart
 
+            // Map silence ranges to timeline time and filter by min duration
             var silenceInClip: [TimeRange] = []
             for silence in silenceRanges {
                 let overlapStart = max(silence.start, clipSourceStart)
                 let overlapEnd = min(silence.end, clipSourceEnd)
-                guard overlapStart < overlapEnd else { continue }
+                let duration = overlapEnd - overlapStart
+                guard duration >= minDuration else { continue }
                 silenceInClip.append(TimeRange(start: overlapStart + timelineOffset, end: overlapEnd + timelineOffset))
             }
 
             guard !silenceInClip.isEmpty else { continue }
 
+            // Process silence ranges from end to start so earlier splits don't shift later positions
             let sorted = silenceInClip.sorted { $0.start > $1.start }
-            var currentClipID = clip.id
 
             for silence in sorted {
-                if silence.end < clip.timelineRange.end {
-                    try? appState.perform(.splitClip(clipID: currentClipID, at: silence.end), source: .ai)
-                }
-                if silence.start > clip.timelineRange.start {
-                    try? appState.perform(.splitClip(clipID: currentClipID, at: silence.start), source: .ai)
+                // Find the clip that currently contains this silence range
+                let allClips = appState.timeline.tracks.flatMap(\.clips)
+                guard let containingClip = allClips.first(where: {
+                    $0.assetID == clip.assetID &&
+                    $0.timelineRange.start <= silence.start + 0.01 &&
+                    $0.timelineRange.end >= silence.end - 0.01
+                }) else { continue }
+
+                let containingID = containingClip.id
+
+                // Split at silence end (if not at clip end)
+                if silence.end < containingClip.timelineRange.end - 0.01 {
+                    try? appState.perform(.splitClip(clipID: containingID, at: silence.end), source: .ai)
                 }
 
-                let updatedTimeline = appState.timeline
-                for track in updatedTimeline.tracks {
-                    for c in track.clips {
-                        if abs(c.timelineRange.start - silence.start) < 0.01 && abs(c.timelineRange.end - silence.end) < 0.01 {
-                            clipsToDelete.append(c.id)
-                        }
+                // Split at silence start (if not at clip start)
+                // After the end split, the original clipID still refers to the head piece
+                if silence.start > containingClip.timelineRange.start + 0.01 {
+                    try? appState.perform(.splitClip(clipID: containingID, at: silence.start), source: .ai)
+                }
+
+                // Find the silent segment by matching time range
+                let postSplitClips = appState.timeline.tracks.flatMap(\.clips)
+                for c in postSplitClips {
+                    if abs(c.timelineRange.start - silence.start) < 0.02 &&
+                       abs(c.timelineRange.end - silence.end) < 0.02 {
+                        clipsToDelete.append(c.id)
                     }
                 }
                 totalRemoved += 1
@@ -350,7 +369,7 @@ final class AIChatController {
         }
 
         if totalRemoved == 0 {
-            return "No silence ranges found. Silence detection runs automatically on import."
+            return "No silence ranges found (min duration: \(String(format: "%.1f", minDuration))s)."
         }
         return "Removed \(totalRemoved) silent segment(s), deleted \(clipsToDelete.count) clip(s)."
     }

@@ -21,7 +21,7 @@ struct PreviewPanel: View {
                     HStack(spacing: 8) {
                         CinematicStatusPill(
                             text: TimeFormatter.timecode(currentTime),
-                            icon: "playhead",
+                            icon: "clock",
                             tone: CinematicTheme.aqua
                         )
                         CinematicStatusPill(

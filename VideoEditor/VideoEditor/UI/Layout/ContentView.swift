@@ -599,6 +599,20 @@ struct ContentView: View {
         width < 1560 ? .compact : .expanded
     }
 
+    private func summaryMetric(value: String, label: String) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(value)
+                .font(.cinHeadlineSmall)
+                .foregroundStyle(CinematicTheme.onSurface)
+            Text(label.uppercased())
+                .font(.cinLabel)
+                .tracking(1.2)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 6)
+    }
+
     private func sendCommandBarMessage() {
         let text = commandBarText.trimmingCharacters(in: .whitespaces)
         guard !text.isEmpty else { return }
