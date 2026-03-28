@@ -20,25 +20,46 @@ struct TranscriptPanel: View {
         .background(CinematicTheme.surfaceContainerLow)
     }
 
-    // MARK: - Active transcript
+    // MARK: - Active transcript + offset
 
-    /// Find the transcript for the first asset on the timeline (or selected clip's asset).
-    private var activeTranscript: [TranscriptWord]? {
-        // Prefer selected clip's asset
+    /// The time offset to convert source media time → timeline time.
+    /// Source time + offset = timeline time.
+    private var transcriptTimeOffset: TimeInterval {
+        if let clip = activeClip {
+            // Clip sits at timelineRange.start, referencing sourceRange.start
+            // So source time T maps to timeline time: T - sourceRange.start + timelineRange.start
+            return clip.timelineRange.start - clip.sourceRange.start
+        }
+        return 0
+    }
+
+    /// The clip whose asset provides the active transcript.
+    private var activeClip: Clip? {
         if let selectedID = appState.timelineViewState.selectedClipIDs.first,
            let clip = appState.timeline.tracks.flatMap(\.clips).first(where: { $0.id == selectedID }),
            let asset = appState.assets.first(where: { $0.id == clip.assetID }),
            let words = asset.analysis?.transcript, !words.isEmpty {
-            return words
+            return clip
         }
 
-        // Fallback: first asset with a transcript
-        for asset in appState.assets {
-            if let words = asset.analysis?.transcript, !words.isEmpty {
-                return words
+        // Fallback: first clip on timeline with a transcript
+        for clip in appState.timeline.tracks.flatMap(\.clips) {
+            if let asset = appState.assets.first(where: { $0.id == clip.assetID }),
+               let words = asset.analysis?.transcript, !words.isEmpty {
+                return clip
             }
         }
         return nil
+    }
+
+    /// Find the transcript for the active clip's asset.
+    private var activeTranscript: [TranscriptWord]? {
+        guard let clip = activeClip,
+              let asset = appState.assets.first(where: { $0.id == clip.assetID }),
+              let words = asset.analysis?.transcript, !words.isEmpty else {
+            return nil
+        }
+        return words
     }
 
     // MARK: - Header
@@ -81,7 +102,8 @@ struct TranscriptPanel: View {
     // MARK: - Transcript content
 
     private func transcriptContent(_ words: [TranscriptWord]) -> some View {
-        let segments = groupIntoSegments(words)
+        let offset = transcriptTimeOffset
+        let segments = groupIntoSegments(words, timeOffset: offset)
         let playhead = appState.playbackEngine.currentTime
 
         return ScrollViewReader { proxy in
@@ -172,8 +194,8 @@ struct TranscriptPanel: View {
 
     // MARK: - Helpers
 
-    /// Group words into ~10-word segments for readable paragraphs.
-    private func groupIntoSegments(_ words: [TranscriptWord]) -> [TranscriptSegmentGroup] {
+    /// Group words into ~12-word segments. Times are adjusted by offset to match timeline.
+    private func groupIntoSegments(_ words: [TranscriptWord], timeOffset: TimeInterval = 0) -> [TranscriptSegmentGroup] {
         var segments: [TranscriptSegmentGroup] = []
         let chunkSize = 12
 
@@ -181,8 +203,8 @@ struct TranscriptPanel: View {
             let end = min(start + chunkSize, words.count)
             let chunk = Array(words[start..<end])
             let text = chunk.map(\.word).joined(separator: " ")
-            let startTime = chunk.first?.start ?? 0
-            let endTime = chunk.last?.end ?? 0
+            let startTime = (chunk.first?.start ?? 0) + timeOffset
+            let endTime = (chunk.last?.end ?? 0) + timeOffset
             segments.append(TranscriptSegmentGroup(text: text, startTime: startTime, endTime: endTime))
         }
 
