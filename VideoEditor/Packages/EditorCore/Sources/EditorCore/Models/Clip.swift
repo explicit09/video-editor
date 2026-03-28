@@ -13,6 +13,8 @@ public struct Clip: Codable, Identifiable, Sendable {
     public var effects: [EffectInstance]
     public var keyframes: KeyframeStore
     public var metadata: ClipMetadata
+    /// Transition applied when entering this clip (from the previous clip or black).
+    public var transitionIn: ClipTransition
     /// Links video+audio clip pairs. Edits to one propagate to all clips with the same linkGroupID.
     public var linkGroupID: UUID?
 
@@ -27,6 +29,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         effects: [EffectInstance] = [],
         keyframes: KeyframeStore = KeyframeStore(),
         metadata: ClipMetadata = ClipMetadata(),
+        transitionIn: ClipTransition = .none,
         linkGroupID: UUID? = nil
     ) {
         self.id = id
@@ -39,6 +42,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.effects = effects
         self.keyframes = keyframes
         self.metadata = metadata
+        self.transitionIn = transitionIn
         self.linkGroupID = linkGroupID
     }
 }
@@ -103,6 +107,29 @@ public struct Transform2D: Codable, Sendable, Equatable {
     }
 
     public static let identity = Transform2D()
+}
+
+// MARK: - ClipTransition
+
+public struct ClipTransition: Codable, Sendable, Equatable {
+    public var type: TransitionType
+    public var duration: TimeInterval
+
+    public init(type: TransitionType = .none, duration: TimeInterval = 0.5) {
+        self.type = type
+        self.duration = max(duration, 0)
+    }
+
+    public static let none = ClipTransition(type: .none, duration: 0)
+}
+
+public enum TransitionType: String, Codable, Sendable, CaseIterable {
+    case none
+    case crossDissolve
+    case fadeToBlack
+    case fadeFromBlack
+    case wipeLeft
+    case wipeRight
 }
 
 // MARK: - ClipMetadata (AI-enrichable)

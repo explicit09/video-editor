@@ -227,6 +227,36 @@ public struct DuplicateClipCommand: Command {
     }
 }
 
+/// Set clip transition.
+public struct SetClipTransitionCommand: Command {
+    public let name = "Set Transition"
+    public let clipID: UUID
+    public let newTransition: ClipTransition
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousTransition: ClipTransition?
+
+    public init(clipID: UUID, transition: ClipTransition) {
+        self.clipID = clipID
+        self.newTransition = transition
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        let location = try editableClipLocation(for: clipID, context: context)
+        previousTransition = context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].transitionIn
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].transitionIn = newTransition
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let prev = previousTransition else { return }
+        for trackIndex in context.timelineState.timeline.tracks.indices {
+            if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
+                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].transitionIn = prev
+                return
+            }
+        }
+    }
+}
+
 // MARK: - Helpers
 
 @MainActor

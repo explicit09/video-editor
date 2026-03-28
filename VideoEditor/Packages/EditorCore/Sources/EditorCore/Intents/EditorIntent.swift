@@ -23,6 +23,7 @@ public enum EditorIntent: Sendable {
     case setTrackVolume(trackID: UUID, volume: Double)
     case renameClip(clipID: UUID, label: String)
     case duplicateClip(clipID: UUID)
+    case setClipTransition(clipID: UUID, transition: ClipTransition)
     /// Multiple intents as a single undoable operation.
     case batch([EditorIntent])
 }
@@ -72,6 +73,8 @@ public struct IntentResolver: Sendable {
             return RenameClipCommand(clipID: clipID, label: label)
         case .duplicateClip(let clipID):
             return DuplicateClipCommand(clipID: clipID)
+        case .setClipTransition(let clipID, let transition):
+            return SetClipTransitionCommand(clipID: clipID, transition: transition)
         case .batch(let intents):
             let commands = try intents.map { try resolve($0) }
             return BatchCommand(name: "Batch", commands: commands)
