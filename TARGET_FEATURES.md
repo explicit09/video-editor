@@ -79,7 +79,7 @@
 | 25 | Blur | 25 | Blur & sharpen | **STUBBED** sharpen | **DONE** | Yes | Yes | Yes | Yes | No | P1 | Type constants defined |
 | 26 | VFX layering | **STUBBED** | Fusion (full) | After Effects | Motion | No | No | P3 | TrackType.effect exists |
 | 27 | Blend modes | **DONE** | Yes | Yes | Yes | No | No | P2 | |
-| 28 | Noise reduction | **MISSING** | UltraNR (AI) | AI Denoise | Yes | No | No | P2 | |
+| 28 | Noise reduction (video) | **DONE** | UltraNR (AI) | AI Denoise | Yes | No | No | P2 | |
 | 29 | Lens correction | **MISSING** | Yes | Yes | No | No | No | P3 | |
 | 30 | Stabilization | **PARTIAL** | Yes | Warp Stabilizer | Yes | Yes | No | P2 | VNMotionAnalysis available |
 
@@ -105,7 +105,7 @@
 | 41 | Multichannel | **MISSING** | 7.1.4 | 5.1/7.1 | 7.1.4 | Stereo | Stereo | P3 | |
 | 42 | Audio ducking | **DONE** | Yes | Auto-ducking | No | No | No | P1 | AI compound tool candidate |
 | 43 | Audio normalization | **DONE** | Yes (LUFS) | Auto (LUFS) | Yes | No | No | P1 | AI tool does scalar. No LUFS measurement |
-| 44 | Recording/voiceover | **MISSING** | Fairlight | Audition | Yes | Yes | Yes | P2 | AVCaptureDevice |
+| 44 | Recording/voiceover | **DONE** | Fairlight | Audition | Yes | Yes | Yes | P2 | AVCaptureDevice |
 | 45 | Clip linking (A/V) | **DONE** | Yes | Yes | Connected clips | No | No | - | linkGroupID, full propagation |
 
 **Score: 4 Done, 3 Partial, 0 Stubbed, 8 Missing = 37%**
@@ -186,7 +186,7 @@
 | 86 | Media library | **DONE** | Yes | Yes | Yes | Yes | Yes | - | MediaManager + browser panel |
 | 87 | Tagging system | **PARTIAL** | Yes | Yes | Keywords | No | No | P2 | Model exists, no UI for manual tags |
 | 88 | Smart bins | **DONE** | Yes | Yes | Smart Collections | No | No | - | Auto-classify by type/duration/analysis |
-| 89 | Version control | **MISSING** | Project backups | Productions | Libraries | No | Yes | P2 | |
+| 89 | Version control | **DONE** | Project backups | Productions | Libraries | No | Yes | P2 | |
 | 90 | Metadata editing | **PARTIAL** | Yes | Yes | Yes | No | No | P2 | Clip label editable, no bulk metadata |
 | 91 | Cloud sync | **MISSING** | No | Creative Cloud | iCloud | Yes | Yes | P3 | |
 | 92 | Import formats | **DONE** | All major | All major | All major | Limited | Limited | - | mp4/mov/avi/mkv/mp3/wav/aac/jpg/png/heic |
