@@ -31,6 +31,8 @@ struct ContentView: View {
                 sideNav
                 if appState.assets.isEmpty && appState.timeline.tracks.isEmpty {
                     EmptyStateView(commandBarText: $commandBarText, onSend: sendCommandBarMessage)
+                } else if selectedWorkspace == .media {
+                    MediaWorkspacePanel()
                 } else {
                     mainContent
                 }
