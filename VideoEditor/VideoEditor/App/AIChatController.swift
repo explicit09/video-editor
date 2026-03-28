@@ -162,7 +162,10 @@ final class AIChatController {
             for intent in intents {
                 try appState.perform(intent, source: .ai)
             }
-            return .init(toolName: toolCall.name, success: true, message: "Done")
+
+            // Return detailed feedback for destructive operations
+            let feedback = describeTool(toolCall.name, args: args, timeline: appState.timeline)
+            return .init(toolName: toolCall.name, success: true, message: feedback)
         } catch {
             return .init(toolName: toolCall.name, success: false, message: error.localizedDescription)
         }
@@ -314,6 +317,50 @@ final class AIChatController {
             return "No silence ranges found. Silence detection runs automatically on import."
         }
         return "Removed \(totalRemoved) silent segment(s), deleted \(clipsToDelete.count) clip(s)."
+    }
+
+    // MARK: - Tool result feedback
+
+    /// Describe what a tool did — gives the AI detailed feedback so it knows the current state.
+    private func describeTool(_ name: String, args: [String: Any], timeline: Timeline) -> String {
+        switch name {
+        case "add_track":
+            if let track = timeline.tracks.last {
+                return "Added track '\(track.name)' (ID: \(track.id.uuidString)). Timeline now has \(timeline.tracks.count) track(s)."
+            }
+            return "Done"
+
+        case "insert_clip":
+            let trackID = args["track_id"] as? String ?? ""
+            if let track = timeline.tracks.first(where: { $0.id.uuidString == trackID }),
+               let clip = track.clips.last {
+                return "Inserted clip '\(clip.metadata.label ?? "Clip")' (ID: \(clip.id.uuidString)) on track '\(track.name)' at \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s."
+            }
+            return "Done"
+
+        case "split_clip":
+            let clipID = args["clip_id"] as? String ?? ""
+            let at = args["at"] as? Double ?? 0
+            // After split, find the two clips near the split point
+            let allClips = timeline.tracks.flatMap(\.clips)
+            let nearSplit = allClips.filter { abs($0.timelineRange.end - at) < 0.1 || abs($0.timelineRange.start - at) < 0.1 }
+            let clipIDs = nearSplit.map { "\($0.id.uuidString) (\(String(format: "%.1f", $0.timelineRange.start))s-\(String(format: "%.1f", $0.timelineRange.end))s)" }
+            return "Split at \(String(format: "%.1f", at))s. Resulting clips: \(clipIDs.joined(separator: ", ")). Total clips on timeline: \(allClips.count)."
+
+        case "delete_clips":
+            let remaining = timeline.tracks.flatMap(\.clips).count
+            return "Deleted. Timeline now has \(remaining) clip(s) remaining."
+
+        case "move_clip":
+            let clipID = args["clip_id"] as? String ?? ""
+            if let clip = timeline.tracks.flatMap(\.clips).first(where: { $0.id.uuidString == clipID }) {
+                return "Moved clip to \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s."
+            }
+            return "Done"
+
+        default:
+            return "Done"
+        }
     }
 
     // MARK: - Argument fixup

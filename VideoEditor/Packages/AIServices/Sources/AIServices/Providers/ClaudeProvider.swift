@@ -17,7 +17,9 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         self.apiKey = apiKey
         self.model = model
         self.baseURL = baseURL
-        self.session = URLSession(configuration: .default)
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 120  // 2 minutes for tool-use responses
+        self.session = URLSession(configuration: config)
     }
 
     /// Convenience: load API key from environment.
@@ -90,7 +92,12 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         ]
         if let jsonTools { body["tools"] = jsonTools }
 
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        let bodyData = try JSONSerialization.data(withJSONObject: body)
+        request.httpBody = bodyData
+
+        // Debug: log request size
+        let sizeKB = bodyData.count / 1024
+        print("[Claude] Request size: \(sizeKB)KB, messages: \(jsonMessages.count)")
 
         let (data, response) = try await session.data(for: request)
 
@@ -99,8 +106,9 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         }
 
         guard httpResponse.statusCode == 200 else {
-            let body = String(data: data, encoding: .utf8) ?? ""
-            throw ClaudeError.apiError(status: httpResponse.statusCode, body: body)
+            let errorBody = String(data: data, encoding: .utf8) ?? ""
+            print("[Claude] Error \(httpResponse.statusCode): \(errorBody.prefix(500))")
+            throw ClaudeError.apiError(status: httpResponse.statusCode, body: errorBody)
         }
 
         let claudeResponse = try JSONDecoder().decode(ClaudeResponse.self, from: data)
@@ -128,6 +136,14 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         - Times are in seconds.
         - Use real asset durations from the context, not arbitrary values.
         - Place new clips at the end of existing content on a track unless told otherwise.
+
+        Split + Delete workflow:
+        - After split_clip, read the tool result carefully — it tells you the IDs and \
+        time ranges of both resulting clips.
+        - Use those exact IDs when calling delete_clips. Never guess clip IDs after a split.
+        - When removing a section: split at the section END first, then split at the \
+        section START, then delete only the middle clip (the section to remove).
+        - The delete_clips tool result tells you how many clips remain. Verify this is correct.
         """
     }
 
