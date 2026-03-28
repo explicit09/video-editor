@@ -20,19 +20,32 @@ struct MediaBrowserPanel: View {
         }
         .background(CinematicTheme.surfaceContainerLow)
         .onDrop(of: [.movie, .video, .audio, .fileURL], isTargeted: nil) { providers in
-            handleDrop(providers)
+            Task { await handleDrop(providers) }
             return true
         }
     }
 
-    private func handleDrop(_ providers: [NSItemProvider]) {
-        for provider in providers {
-            provider.loadItem(forTypeIdentifier: "public.file-url", options: nil) { data, _ in
-                guard let data = data as? Data,
-                      let url = URL(dataRepresentation: data, relativeTo: nil) else { return }
-                Task { @MainActor in
-                    _ = try? await appState.importMedia(from: url)
+    private func handleDrop(_ providers: [NSItemProvider]) async {
+        importError = nil
+
+        for provider in providers where provider.hasItemConformingToTypeIdentifier(UTType.fileURL.identifier) {
+            let url = await loadDroppedFileURL(from: provider)
+            guard let url else { continue }
+            let didAccess = url.startAccessingSecurityScopedResource()
+            defer {
+                if didAccess {
+                    url.stopAccessingSecurityScopedResource()
                 }
+            }
+
+            do {
+                let asset = try await appState.importMedia(from: url)
+                let thumb = await appState.media.thumbnail(for: asset.id)
+                if let thumb {
+                    thumbnails[asset.id] = thumb
+                }
+            } catch {
+                importError = error.localizedDescription
             }
         }
     }
@@ -142,6 +155,20 @@ struct MediaBrowserPanel: View {
             }
         case .failure(let error):
             importError = error.localizedDescription
+        }
+    }
+
+    private func loadDroppedFileURL(from provider: NSItemProvider) async -> URL? {
+        await withCheckedContinuation { continuation in
+            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { item, _ in
+                if let data = item as? Data {
+                    continuation.resume(returning: URL(dataRepresentation: data, relativeTo: nil))
+                } else if let url = item as? URL {
+                    continuation.resume(returning: url)
+                } else {
+                    continuation.resume(returning: nil)
+                }
+            }
         }
     }
 

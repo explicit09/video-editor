@@ -12,6 +12,7 @@ struct MediaWorkspacePanel: View {
     @State private var selectedBinID: String?
     @State private var sortOrder: SortOrder = .dateAdded
     @State private var isImporting = false
+    @State private var importError: String?
     @State private var thumbnails: [UUID: CGImage] = [:]
 
     enum SortOrder: String, CaseIterable {
@@ -41,6 +42,19 @@ struct MediaWorkspacePanel: View {
             )
             .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
+            if let importError {
+                HStack {
+                    CinematicStatusPill(
+                        text: importError,
+                        icon: "exclamationmark.triangle.fill",
+                        tone: CinematicTheme.error
+                    )
+                    Spacer()
+                }
+                .padding(.horizontal, CinematicSpacing.md)
+                .padding(.bottom, CinematicSpacing.sm)
+            }
+
             HStack(spacing: 0) {
                 smartBins
                     .frame(width: 220)
@@ -61,6 +75,10 @@ struct MediaWorkspacePanel: View {
             allowsMultipleSelection: true
         ) { result in
             Task { await handleImport(result) }
+        }
+        .onDrop(of: [.movie, .video, .audio, .fileURL], isTargeted: nil) { providers in
+            Task { await handleDrop(providers) }
+            return true
         }
     }
 
@@ -397,14 +415,61 @@ struct MediaWorkspacePanel: View {
     }
 
     private func handleImport(_ result: Result<[URL], Error>) async {
+        importError = nil
         switch result {
         case .success(let urls):
             for url in urls {
                 guard url.startAccessingSecurityScopedResource() else { continue }
                 defer { url.stopAccessingSecurityScopedResource() }
-                _ = try? await appState.importMedia(from: url)
+                do {
+                    let asset = try await appState.importMedia(from: url)
+                    let thumb = await appState.media.thumbnail(for: asset.id)
+                    if let thumb { thumbnails[asset.id] = thumb }
+                } catch {
+                    importError = error.localizedDescription
+                }
             }
-        case .failure: break
+        case .failure(let error):
+            importError = error.localizedDescription
+        }
+    }
+
+    private func handleDrop(_ providers: [NSItemProvider]) async {
+        importError = nil
+
+        for provider in providers where provider.hasItemConformingToTypeIdentifier(UTType.fileURL.identifier) {
+            let url = await loadDroppedFileURL(from: provider)
+            guard let url else { continue }
+            let didAccess = url.startAccessingSecurityScopedResource()
+            defer {
+                if didAccess {
+                    url.stopAccessingSecurityScopedResource()
+                }
+            }
+
+            do {
+                let asset = try await appState.importMedia(from: url)
+                let thumb = await appState.media.thumbnail(for: asset.id)
+                if let thumb {
+                    thumbnails[asset.id] = thumb
+                }
+            } catch {
+                importError = error.localizedDescription
+            }
+        }
+    }
+
+    private func loadDroppedFileURL(from provider: NSItemProvider) async -> URL? {
+        await withCheckedContinuation { continuation in
+            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { item, _ in
+                if let data = item as? Data {
+                    continuation.resume(returning: URL(dataRepresentation: data, relativeTo: nil))
+                } else if let url = item as? URL {
+                    continuation.resume(returning: url)
+                } else {
+                    continuation.resume(returning: nil)
+                }
+            }
         }
     }
 

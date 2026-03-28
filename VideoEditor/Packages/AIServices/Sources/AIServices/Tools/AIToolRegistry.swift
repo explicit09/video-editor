@@ -14,6 +14,11 @@ public struct AIToolRegistry: Sendable {
         trimClip,
         setMarker,
         removeSilence,
+        setClipVolume,
+        setClipOpacity,
+        setClipSpeed,
+        muteTrack,
+        duplicateClip,
         getTranscript,
         transcribeAsset,
         searchTranscript,
@@ -124,6 +129,50 @@ public struct AIToolRegistry: Sendable {
             "threshold_db": .init(type: "number", description: "Silence threshold in dB (default: -40)"),
             "min_duration": .init(type: "number", description: "Minimum silence duration in seconds to remove (default: 0.5)"),
         ], required: [])
+    )
+
+    public static let setClipVolume = AIToolDefinition(
+        name: "set_clip_volume",
+        description: "Set the audio volume of a clip. 1.0 = normal, 0.0 = silent, 2.0 = double volume",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip to adjust"),
+            "volume": .init(type: "number", description: "Volume level (0.0 to 2.0, default 1.0)"),
+        ], required: ["clip_id", "volume"])
+    )
+
+    public static let setClipOpacity = AIToolDefinition(
+        name: "set_clip_opacity",
+        description: "Set the visual opacity of a clip. 1.0 = fully visible, 0.0 = transparent",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip to adjust"),
+            "opacity": .init(type: "number", description: "Opacity level (0.0 to 1.0)"),
+        ], required: ["clip_id", "opacity"])
+    )
+
+    public static let setClipSpeed = AIToolDefinition(
+        name: "set_clip_speed",
+        description: "Set the playback speed of a clip. Changes clip duration proportionally.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip to adjust"),
+            "speed": .init(type: "number", description: "Speed multiplier (0.25 = quarter speed, 1.0 = normal, 2.0 = double speed)"),
+        ], required: ["clip_id", "speed"])
+    )
+
+    public static let muteTrack = AIToolDefinition(
+        name: "mute_track",
+        description: "Mute or unmute a track",
+        parameters: .object([
+            "track_id": .init(type: "string", description: "UUID of the track"),
+            "muted": .init(type: "boolean", description: "true to mute, false to unmute"),
+        ], required: ["track_id", "muted"])
+    )
+
+    public static let duplicateClip = AIToolDefinition(
+        name: "duplicate_clip",
+        description: "Duplicate a clip, placing the copy immediately after the original on the same track",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip to duplicate"),
+        ], required: ["clip_id"])
     )
 }
 
@@ -260,7 +309,42 @@ public struct AIToolResolver: Sendable {
             return [.setMarker(at: time, label: label)]
 
         case "remove_silence":
-            throw AIToolError.notYetImplemented("remove_silence is not yet implemented. Silence detection data is available on assets — use get_transcript and manual split/delete for now.")
+            // Handled in AIChatController directly (needs access to AppState)
+            throw AIToolError.notYetImplemented("remove_silence is handled by the chat controller")
+
+        case "set_clip_volume":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let volume = (arguments["volume"] as? Double) ?? 1.0
+            return [.setClipVolume(clipID: clipID, volume: volume)]
+
+        case "set_clip_opacity":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let opacity = (arguments["opacity"] as? Double) ?? 1.0
+            return [.setClipOpacity(clipID: clipID, opacity: opacity)]
+
+        case "set_clip_speed":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let speed = (arguments["speed"] as? Double) ?? 1.0
+            return [.setClipSpeed(clipID: clipID, speed: speed)]
+
+        case "mute_track":
+            guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
+                throw AIToolError.invalidArgument("Missing track_id")
+            }
+            let muted = (arguments["muted"] as? Bool) ?? true
+            return [.muteTrack(trackID: trackID, muted: muted)]
+
+        case "duplicate_clip":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            return [.duplicateClip(clipID: clipID)]
 
         default:
             throw AIToolError.unknownTool(toolName)
