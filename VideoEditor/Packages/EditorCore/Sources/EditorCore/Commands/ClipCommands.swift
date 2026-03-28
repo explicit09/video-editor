@@ -123,9 +123,9 @@ public struct MoveClipCommand: Command {
         restoredClip.timelineRange = previousRange
 
         guard let destinationTrackIndex = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == previousTrackID }) else {
-            let insertAt = min(currentClipIndex, context.timelineState.timeline.tracks[currentTrackIndex].clips.count)
-            context.timelineState.timeline.tracks[currentTrackIndex].clips.insert(restoredClip, at: insertAt)
-            return
+            // Don't silently put clip on wrong track — put it back where we found it and throw
+            context.timelineState.timeline.tracks[currentTrackIndex].clips.insert(restoredClip, at: min(currentClipIndex, context.timelineState.timeline.tracks[currentTrackIndex].clips.count))
+            throw CommandError.trackNotFound(previousTrackID)
         }
 
         let insertAt = min(previousClipIndex, context.timelineState.timeline.tracks[destinationTrackIndex].clips.count)
@@ -150,6 +150,7 @@ public struct TrimClipCommand: Command {
     public let newSourceRange: TimeRange
     public var affectedClipIDs: [UUID] { [clipID] }
     private var previousSourceRange: TimeRange?
+    private var previousTimelineRange: TimeRange?
 
     public init(clipID: UUID, newSourceRange: TimeRange) {
         self.clipID = clipID
@@ -159,8 +160,22 @@ public struct TrimClipCommand: Command {
     public mutating func execute(context: EditingContext) throws {
         for trackIndex in context.timelineState.timeline.tracks.indices {
             if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
-                previousSourceRange = context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].sourceRange
+                let clip = context.timelineState.timeline.tracks[trackIndex].clips[clipIndex]
+                previousSourceRange = clip.sourceRange
+                previousTimelineRange = clip.timelineRange
+
+                // Calculate how the timeline range should change:
+                // Head trim: source start moved forward → timeline start moves forward by same amount
+                // Tail trim: source end moved → timeline end moves to keep duration matching
+                let headDelta = newSourceRange.start - clip.sourceRange.start
+                let newTimelineStart = clip.timelineRange.start + headDelta
+                let newTimelineDuration = newSourceRange.duration
+
                 context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].sourceRange = newSourceRange
+                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].timelineRange = TimeRange(
+                    start: newTimelineStart,
+                    duration: newTimelineDuration
+                )
                 return
             }
         }
@@ -168,10 +183,11 @@ public struct TrimClipCommand: Command {
     }
 
     public func undo(context: EditingContext) throws {
-        guard let previousSourceRange else { return }
+        guard let previousSourceRange, let previousTimelineRange else { return }
         for trackIndex in context.timelineState.timeline.tracks.indices {
             if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
                 context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].sourceRange = previousSourceRange
+                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].timelineRange = previousTimelineRange
                 return
             }
         }

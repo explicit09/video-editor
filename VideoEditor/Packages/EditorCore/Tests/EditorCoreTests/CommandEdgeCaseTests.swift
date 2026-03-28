@@ -133,6 +133,87 @@ struct CommandEdgeCaseTests {
         #expect(context.timelineState.timeline.tracks[0].clips.map(\.id) == [firstClip.id, middleClip.id, lastClip.id])
     }
 
+    @MainActor
+    @Test("TrimClip updates both sourceRange and timelineRange")
+    func trimClipUpdatesBothRanges() throws {
+        // Clip at timeline 5-15, source 0-10
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 5, end: 15),
+            sourceRange: TimeRange(start: 0, end: 10)
+        )
+        let context = EditingContext(
+            timelineState: TimelineState(
+                timeline: Timeline(tracks: [Track(name: "V1", type: .video, clips: [clip])])
+            )
+        )
+
+        // Tail trim: shorten source to 0-7 (remove last 3 seconds)
+        var cmd = TrimClipCommand(clipID: clip.id, newSourceRange: TimeRange(start: 0, end: 7))
+        try cmd.execute(context: context)
+
+        let trimmed = context.timelineState.timeline.tracks[0].clips[0]
+        #expect(trimmed.sourceRange == TimeRange(start: 0, end: 7))
+        #expect(trimmed.timelineRange.start == 5) // start unchanged
+        #expect(trimmed.timelineRange.duration == 7) // duration matches source
+        #expect(trimmed.timelineRange.end == 12) // end moved inward
+
+        // Undo restores both ranges
+        try cmd.undo(context: context)
+        let restored = context.timelineState.timeline.tracks[0].clips[0]
+        #expect(restored.sourceRange == TimeRange(start: 0, end: 10))
+        #expect(restored.timelineRange == TimeRange(start: 5, end: 15))
+    }
+
+    @MainActor
+    @Test("TrimClip head trim shifts timeline start forward")
+    func trimClipHeadTrim() throws {
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 0, end: 10),
+            sourceRange: TimeRange(start: 0, end: 10)
+        )
+        let context = EditingContext(
+            timelineState: TimelineState(
+                timeline: Timeline(tracks: [Track(name: "V1", type: .video, clips: [clip])])
+            )
+        )
+
+        // Head trim: start source at 3 instead of 0
+        var cmd = TrimClipCommand(clipID: clip.id, newSourceRange: TimeRange(start: 3, end: 10))
+        try cmd.execute(context: context)
+
+        let trimmed = context.timelineState.timeline.tracks[0].clips[0]
+        #expect(trimmed.sourceRange == TimeRange(start: 3, end: 10))
+        #expect(trimmed.timelineRange.start == 3) // shifted forward by 3
+        #expect(trimmed.timelineRange.duration == 7)
+    }
+
+    @MainActor
+    @Test("BatchCommand undo reverses all sub-commands")
+    func batchCommandUndo() throws {
+        let clip1 = makeClip(start: 0, end: 5, label: "One")
+        let clip2 = makeClip(start: 5, end: 10, label: "Two")
+        let context = EditingContext(
+            timelineState: TimelineState(
+                timeline: Timeline(tracks: [Track(name: "V1", type: .video, clips: [clip1, clip2])])
+            )
+        )
+
+        // Batch: delete clip1 then move clip2
+        var batch = BatchCommand(name: "Batch", commands: [
+            DeleteClipsCommand(clipIDs: [clip1.id]),
+        ])
+        try batch.execute(context: context)
+
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 1)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].id == clip2.id)
+
+        // Undo should restore clip1
+        try batch.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips.count == 2)
+    }
+
     private func makeClip(start: TimeInterval, end: TimeInterval, label: String) -> Clip {
         Clip(
             assetID: UUID(),
