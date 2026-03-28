@@ -29,8 +29,8 @@ public actor TranscriptionService {
             )
         }
 
-        // Check persisted on disk
-        return loadTranscript(for: asset.id, bundleURL: bundleURL)
+        // Check persisted on disk (by asset ID or source URL)
+        return loadTranscript(for: asset.id, bundleURL: bundleURL, sourceURL: asset.sourceURL)
     }
 
     /// Transcribe an asset. Only runs if no transcript exists (or force = true).
@@ -98,23 +98,36 @@ public actor TranscriptionService {
             asset.analysis = analysis
         }
 
-        // Persist to disk — tied to asset ID
+        // Persist to disk — by asset ID and also by source file hash for cross-ID lookup
         persistTranscript(result, assetID: asset.id, bundleURL: bundleURL)
+        persistTranscriptBySource(result, sourceURL: asset.sourceURL, bundleURL: bundleURL)
 
         return result
     }
 
-    /// Check if a transcript exists for this asset (memory or disk).
+    /// Check if a transcript exists for this asset (memory, disk by ID, or disk by source).
     public func hasTranscript(for asset: MediaAsset, bundleURL: URL) -> Bool {
         if let transcript = asset.analysis?.transcript, !transcript.isEmpty { return true }
-        return FileManager.default.fileExists(atPath: transcriptPath(for: asset.id, bundleURL: bundleURL))
+        if FileManager.default.fileExists(atPath: transcriptPath(for: asset.id, bundleURL: bundleURL)) { return true }
+        if FileManager.default.fileExists(atPath: transcriptPathBySource(asset.sourceURL, bundleURL: bundleURL)) { return true }
+        return false
     }
 
-    /// Load a persisted transcript from disk.
-    public func loadTranscript(for assetID: UUID, bundleURL: URL) -> TranscriptionResult? {
+    /// Load a persisted transcript from disk — checks by asset ID first, then by source URL.
+    public func loadTranscript(for assetID: UUID, bundleURL: URL, sourceURL: URL? = nil) -> TranscriptionResult? {
+        // Try by asset ID first
         let path = transcriptPath(for: assetID, bundleURL: bundleURL)
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else { return nil }
-        return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
+        if let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+            return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
+        }
+        // Try by source URL
+        if let sourceURL {
+            let sourcePath = transcriptPathBySource(sourceURL, bundleURL: bundleURL)
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: sourcePath)) {
+                return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
+            }
+        }
+        return nil
     }
 
     /// Check if transcription is currently running for an asset.
@@ -135,5 +148,28 @@ public actor TranscriptionService {
         if let data = try? JSONEncoder().encode(result) {
             try? data.write(to: url)
         }
+    }
+
+    /// Persist transcript keyed by source file name — survives re-imports with new asset IDs.
+    private func persistTranscriptBySource(_ result: TranscriptionResult, sourceURL: URL, bundleURL: URL) {
+        let dir = bundleURL.appendingPathComponent("analysis/transcripts")
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let key = sourceHashKey(sourceURL)
+        let url = dir.appendingPathComponent("src_\(key).json")
+        if let data = try? JSONEncoder().encode(result) {
+            try? data.write(to: url)
+        }
+    }
+
+    private func transcriptPathBySource(_ sourceURL: URL, bundleURL: URL) -> String {
+        let key = sourceHashKey(sourceURL)
+        return bundleURL.appendingPathComponent("analysis/transcripts/src_\(key).json").path
+    }
+
+    /// Stable key from source file name + size (avoids full path dependency).
+    private func sourceHashKey(_ sourceURL: URL) -> String {
+        let name = sourceURL.lastPathComponent
+        let size = (try? FileManager.default.attributesOfItem(atPath: sourceURL.path)[.size] as? Int64) ?? 0
+        return "\(name)_\(size)".replacingOccurrences(of: " ", with: "_")
     }
 }

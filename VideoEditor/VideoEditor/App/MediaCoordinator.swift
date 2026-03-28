@@ -86,6 +86,7 @@ final class MediaCoordinator {
 
     func refreshAssets() async {
         assets = await mediaManager.allAssets()
+        onAssetsChanged?()
     }
 
     func thumbnail(for assetID: UUID) async -> CGImage? {

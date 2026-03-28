@@ -124,11 +124,22 @@ final class AppState {
                 context.timelineState.timeline = loadedTimeline
             }
 
-            // Load assets
+            // Load assets and merge persisted transcripts
             let assetsURL = projectBundleURL.appendingPathComponent("assets.json")
             if let data = try? Data(contentsOf: assetsURL),
                let loadedAssets = try? JSONDecoder().decode([MediaAsset].self, from: data) {
-                for asset in loadedAssets {
+                for var asset in loadedAssets {
+                    // Restore transcript from disk if not in assets.json
+                    if asset.analysis?.transcript == nil || asset.analysis!.transcript!.isEmpty {
+                        if let diskResult = await media.transcriptionService.loadTranscript(
+                            for: asset.id, bundleURL: projectBundleURL, sourceURL: asset.sourceURL
+                        ) {
+                            var analysis = asset.analysis ?? MediaAnalysis()
+                            analysis.transcript = diskResult.words
+                            analysis.speakerSegments = diskResult.speakers
+                            asset.analysis = analysis
+                        }
+                    }
                     await media.mediaManager.add(asset)
                 }
                 await media.refreshAssets()
