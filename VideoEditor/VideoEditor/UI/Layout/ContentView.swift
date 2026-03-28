@@ -614,6 +614,61 @@ struct ContentView: View {
                         .disabled(trackCount == 0)
                     }
                 }
+
+                // Export progress (shown during export)
+                switch appState.exportEngine.state {
+                case .exporting(let progress):
+                    CinematicCard(tone: .elevated) {
+                        VStack(alignment: .leading, spacing: CinematicSpacing.sm) {
+                            HStack {
+                                Text("Exporting...")
+                                    .font(.cinTitleSmall)
+                                    .foregroundStyle(CinematicTheme.onSurface)
+                                Spacer()
+                                Text("\(Int(progress * 100))%")
+                                    .font(.cinTimecode)
+                                    .foregroundStyle(CinematicTheme.primary)
+                            }
+                            ProgressView(value: Double(progress))
+                                .tint(CinematicTheme.primary)
+                            Button("Cancel Export") {
+                                appState.exportEngine.cancel()
+                            }
+                            .buttonStyle(.plain)
+                            .font(.cinLabelRegular)
+                            .foregroundStyle(CinematicTheme.error)
+                        }
+                    }
+                case .completed(let url):
+                    CinematicCard(tone: .elevated) {
+                        HStack {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(CinematicTheme.success)
+                            Text("Export complete")
+                                .font(.cinTitleSmall)
+                                .foregroundStyle(CinematicTheme.success)
+                            Spacer()
+                            Button("Reveal in Finder") {
+                                NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
+                            }
+                            .buttonStyle(.plain)
+                            .font(.cinLabelRegular)
+                            .foregroundStyle(CinematicTheme.primary)
+                        }
+                    }
+                case .failed(let msg):
+                    CinematicCard(tone: .elevated) {
+                        HStack {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(CinematicTheme.error)
+                            Text(msg)
+                                .font(.cinBody)
+                                .foregroundStyle(CinematicTheme.error)
+                        }
+                    }
+                case .idle:
+                    EmptyView()
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 
