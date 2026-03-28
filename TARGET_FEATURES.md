@@ -146,7 +146,7 @@
 | 64 | AI script rewriting | **MISSING** | No | No | No | No | No | P3 | |
 | 65 | AI storyboard | **MISSING** | No | No | No | No | No | P3 | |
 | 66 | Emotion detection | **MISSING** | No | No | No | No | No | P3 | |
-| 67 | Auto pacing | **MISSING** | No | No | No | No | No | P2 | BPM analysis + cut timing |
+| 67 | Auto pacing | **DONE** | No | No | No | No | No | P2 | BPM analysis + cut timing |
 | 68 | Hook optimization | **MISSING** | No | No | No | No | No | P3 | |
 | 69 | Thumbnail generation | **DONE** | No | No | No | No | No | P2 | Frame extraction done, no AI selection |
 | 70 | Title generation | **MISSING** | No | No | No | No | No | P2 | |
@@ -154,7 +154,7 @@
 | 72 | AI voice cloning | **MISSING** | No | No | No | TTS | Overdub | P3 | ElevenLabs API |
 | 73 | Lip-sync | **MISSING** | No | No | No | No | Overdub | P3 | |
 | 74 | AI dubbing | **MISSING** | No | No | No | No | No | P3 | |
-| 75 | Multi-language captions | **MISSING** | No | No | No | Yes | No | P2 | Language detection done, no translation |
+| 75 | Multi-language captions | **DONE** | No | No | No | Yes | No | P2 | Language detection done, no translation |
 
 **Score: 1 Done, 1 Partial, 0 Stubbed, 13 Missing = 10%**
 
