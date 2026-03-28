@@ -198,31 +198,25 @@ public struct DuplicateClipCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        for trackIndex in context.timelineState.timeline.tracks.indices {
-            if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
-                let original = context.timelineState.timeline.tracks[trackIndex].clips[clipIndex]
-                let id = UUID()
-                newClipID = id
-                trackID = context.timelineState.timeline.tracks[trackIndex].id
+        let location = try editableClipLocation(for: clipID, context: context)
+        let original = context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex]
+        let id = UUID()
+        newClipID = id
+        trackID = context.timelineState.timeline.tracks[location.trackIndex].id
 
-                var duplicate = original
-                duplicate = Clip(
-                    id: id,
-                    assetID: original.assetID,
-                    timelineRange: TimeRange(start: original.timelineRange.end, duration: original.timelineRange.duration),
-                    sourceRange: original.sourceRange,
-                    transform: original.transform,
-                    opacity: original.opacity,
-                    volume: original.volume,
-                    effects: original.effects,
-                    keyframes: original.keyframes,
-                    metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (copy)")
-                )
-                context.timelineState.timeline.tracks[trackIndex].clips.insert(duplicate, at: clipIndex + 1)
-                return
-            }
-        }
-        throw CommandError.clipNotFound(clipID)
+        let duplicate = Clip(
+            id: id,
+            assetID: original.assetID,
+            timelineRange: TimeRange(start: original.timelineRange.end, duration: original.timelineRange.duration),
+            sourceRange: original.sourceRange,
+            transform: original.transform,
+            opacity: original.opacity,
+            volume: original.volume,
+            effects: original.effects,
+            keyframes: original.keyframes,
+            metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (copy)")
+        )
+        context.timelineState.timeline.tracks[location.trackIndex].clips.insert(duplicate, at: location.clipIndex + 1)
     }
 
     public func undo(context: EditingContext) throws {
@@ -237,13 +231,8 @@ public struct DuplicateClipCommand: Command {
 
 @MainActor
 private func modifyClip(id: UUID, context: EditingContext, _ body: (inout Clip) -> Void) throws {
-    for trackIndex in context.timelineState.timeline.tracks.indices {
-        if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == id }) {
-            body(&context.timelineState.timeline.tracks[trackIndex].clips[clipIndex])
-            return
-        }
-    }
-    throw CommandError.clipNotFound(id)
+    let location = try editableClipLocation(for: id, context: context)
+    body(&context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex])
 }
 
 @MainActor

@@ -15,10 +15,9 @@ public struct InsertClipCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        guard let trackIndex = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == trackID }) else {
-            throw CommandError.trackNotFound(trackID)
-        }
-        context.timelineState.timeline.tracks[trackIndex].clips.append(clip)
+        let trackIndex = try editableTrackIndex(for: trackID, context: context)
+        let insertionIndex = MoveClipCommand.insertionIndex(for: clip, in: context.timelineState.timeline.tracks[trackIndex].clips)
+        context.timelineState.timeline.tracks[trackIndex].clips.insert(clip, at: insertionIndex)
     }
 
     public func undo(context: EditingContext) throws {
@@ -40,6 +39,10 @@ public struct DeleteClipsCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
+        for clipID in Set(clipIDs) {
+            _ = try editableClipLocation(for: clipID, context: context)
+        }
+
         removedClips = []
         for trackIndex in context.timelineState.timeline.tracks.indices {
             let trackID = context.timelineState.timeline.tracks[trackIndex].id
@@ -85,21 +88,21 @@ public struct MoveClipCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        guard let sourceTrackIndex = context.timelineState.timeline.tracks.firstIndex(where: { track in
-            track.clips.contains(where: { $0.id == clipID })
-        }) else {
-            throw CommandError.clipNotFound(clipID)
+        let location = try clipLocation(for: clipID, context: context)
+        let sourceTrackIndex = location.trackIndex
+        let clipIndex = location.clipIndex
+        let targetTrackIndex = try trackIndex(for: targetTrackID, context: context)
+        let sourceTrackID = context.timelineState.timeline.tracks[sourceTrackIndex].id
+        guard !context.timelineState.timeline.tracks[sourceTrackIndex].isLocked else {
+            throw CommandError.trackLocked(sourceTrackID)
         }
-        guard let targetTrackIndex = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == targetTrackID }) else {
-            throw CommandError.trackNotFound(targetTrackID)
-        }
-        guard let clipIndex = context.timelineState.timeline.tracks[sourceTrackIndex].clips.firstIndex(where: { $0.id == clipID }) else {
-            throw CommandError.clipNotFound(clipID)
+        guard !context.timelineState.timeline.tracks[targetTrackIndex].isLocked else {
+            throw CommandError.trackLocked(targetTrackID)
         }
 
         let clip = context.timelineState.timeline.tracks[sourceTrackIndex].clips[clipIndex]
         previousRange = clip.timelineRange
-        previousTrackID = context.timelineState.timeline.tracks[sourceTrackIndex].id
+        previousTrackID = sourceTrackID
         previousClipIndex = clipIndex
 
         var movedClip = clip
@@ -132,7 +135,7 @@ public struct MoveClipCommand: Command {
         context.timelineState.timeline.tracks[destinationTrackIndex].clips.insert(restoredClip, at: insertAt)
     }
 
-    private static func insertionIndex(for clip: Clip, in clips: [Clip]) -> Int {
+    static func insertionIndex(for clip: Clip, in clips: [Clip]) -> Int {
         clips.firstIndex {
             if $0.timelineRange.start != clip.timelineRange.start {
                 return $0.timelineRange.start > clip.timelineRange.start
@@ -158,28 +161,21 @@ public struct TrimClipCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        for trackIndex in context.timelineState.timeline.tracks.indices {
-            if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
-                let clip = context.timelineState.timeline.tracks[trackIndex].clips[clipIndex]
-                previousSourceRange = clip.sourceRange
-                previousTimelineRange = clip.timelineRange
+        let location = try editableClipLocation(for: clipID, context: context)
+        let clip = context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex]
+        previousSourceRange = clip.sourceRange
+        previousTimelineRange = clip.timelineRange
 
-                // Calculate how the timeline range should change:
-                // Head trim: source start moved forward → timeline start moves forward by same amount
-                // Tail trim: source end moved → timeline end moves to keep duration matching
-                let headDelta = newSourceRange.start - clip.sourceRange.start
-                let newTimelineStart = clip.timelineRange.start + headDelta
-                let newTimelineDuration = newSourceRange.duration
+        // Head trim: source start moved forward -> timeline start moves forward by the same amount.
+        let headDelta = newSourceRange.start - clip.sourceRange.start
+        let newTimelineStart = clip.timelineRange.start + headDelta
+        let newTimelineDuration = newSourceRange.duration
 
-                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].sourceRange = newSourceRange
-                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].timelineRange = TimeRange(
-                    start: newTimelineStart,
-                    duration: newTimelineDuration
-                )
-                return
-            }
-        }
-        throw CommandError.clipNotFound(clipID)
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].sourceRange = newSourceRange
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].timelineRange = TimeRange(
+            start: newTimelineStart,
+            duration: newTimelineDuration
+        )
     }
 
     public func undo(context: EditingContext) throws {
@@ -212,48 +208,43 @@ public struct SplitClipCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        for trackIndex in context.timelineState.timeline.tracks.indices {
-            if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
-                let clip = context.timelineState.timeline.tracks[trackIndex].clips[clipIndex]
-                originalClip = clip
-                trackID = context.timelineState.timeline.tracks[trackIndex].id
+        let location = try editableClipLocation(for: clipID, context: context)
+        let clip = context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex]
+        originalClip = clip
+        trackID = context.timelineState.timeline.tracks[location.trackIndex].id
 
-                guard at > clip.timelineRange.start && at < clip.timelineRange.end else {
-                    throw CommandError.splitPointOutOfRange
-                }
-
-                let splitOffset = at - clip.timelineRange.start
-
-                // Shorten first clip
-                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].timelineRange = TimeRange(
-                    start: clip.timelineRange.start,
-                    end: at
-                )
-                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].sourceRange = TimeRange(
-                    start: clip.sourceRange.start,
-                    end: clip.sourceRange.start + splitOffset
-                )
-
-                // Create second clip
-                let newID = UUID()
-                secondClipID = newID
-                let secondClip = Clip(
-                    id: newID,
-                    assetID: clip.assetID,
-                    timelineRange: TimeRange(start: at, end: clip.timelineRange.end),
-                    sourceRange: TimeRange(start: clip.sourceRange.start + splitOffset, end: clip.sourceRange.end),
-                    transform: clip.transform,
-                    opacity: clip.opacity,
-                    volume: clip.volume,
-                    effects: clip.effects,
-                    keyframes: clip.keyframes,
-                    metadata: clip.metadata
-                )
-                context.timelineState.timeline.tracks[trackIndex].clips.insert(secondClip, at: clipIndex + 1)
-                return
-            }
+        guard at > clip.timelineRange.start && at < clip.timelineRange.end else {
+            throw CommandError.splitPointOutOfRange
         }
-        throw CommandError.clipNotFound(clipID)
+
+        let splitOffset = at - clip.timelineRange.start
+
+        // Shorten first clip.
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].timelineRange = TimeRange(
+            start: clip.timelineRange.start,
+            end: at
+        )
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].sourceRange = TimeRange(
+            start: clip.sourceRange.start,
+            end: clip.sourceRange.start + splitOffset
+        )
+
+        // Create second clip.
+        let newID = UUID()
+        secondClipID = newID
+        let secondClip = Clip(
+            id: newID,
+            assetID: clip.assetID,
+            timelineRange: TimeRange(start: at, end: clip.timelineRange.end),
+            sourceRange: TimeRange(start: clip.sourceRange.start + splitOffset, end: clip.sourceRange.end),
+            transform: clip.transform,
+            opacity: clip.opacity,
+            volume: clip.volume,
+            effects: clip.effects,
+            keyframes: clip.keyframes,
+            metadata: clip.metadata
+        )
+        context.timelineState.timeline.tracks[location.trackIndex].clips.insert(secondClip, at: location.clipIndex + 1)
     }
 
     public func undo(context: EditingContext) throws {
@@ -298,5 +289,6 @@ public struct SetMarkerCommand: Command {
 public enum CommandError: Error {
     case trackNotFound(UUID)
     case clipNotFound(UUID)
+    case trackLocked(UUID)
     case splitPointOutOfRange
 }

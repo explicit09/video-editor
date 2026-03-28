@@ -48,9 +48,7 @@ public struct RemoveTrackCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        guard let index = context.timelineState.timeline.tracks.firstIndex(where: { $0.id == trackID }) else {
-            throw CommandError.trackNotFound(trackID)
-        }
+        let index = try editableTrackIndex(for: trackID, context: context)
         removedTrack = context.timelineState.timeline.tracks[index]
         removedIndex = index
         context.timelineState.timeline.tracks.remove(at: index)

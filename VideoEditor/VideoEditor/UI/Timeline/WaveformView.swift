@@ -1,59 +1,96 @@
 import SwiftUI
 
 /// Renders an audio waveform from amplitude data.
-/// Draws a mirrored bar visualization — peaks up and down from center.
+/// Draws a mirrored continuous waveform instead of a bar graph.
 struct WaveformView: View {
     let amplitudes: [Float]
     var color: Color = Color(hex: 0x53E16F)
 
     var body: some View {
-        GeometryReader { geo in
+        GeometryReader { _ in
             Canvas { context, size in
-                let sampled = sampledAmplitudes(maxBars: max(Int(size.width / 2), 24))
+                let sampled = sampledAmplitudes(maxSamples: max(Int(size.width / 3), 40))
                 let count = sampled.count
-                guard count > 0 else { return }
+                guard count > 1 else { return }
 
-                let barWidth = size.width / CGFloat(count)
+                let stepX = size.width / CGFloat(max(count - 1, 1))
                 let midY = size.height / 2
+                let verticalScale = midY * 0.86
 
-                for (i, amp) in sampled.enumerated() {
-                    let normalizedAmp = max(CGFloat(amp), 0.06)
-                    let barHeight = normalizedAmp * midY * 0.92
-                    let x = CGFloat(i) * barWidth
-
-                    let rect = CGRect(
-                        x: x,
-                        y: midY - barHeight,
-                        width: max(barWidth - 0.6, 0.6),
-                        height: barHeight * 2
-                    )
-
-                    context.fill(
-                        Path(roundedRect: rect, cornerRadius: barWidth > 2 ? 1 : 0),
-                        with: .linearGradient(
-                            Gradient(colors: [
-                                color.opacity(Double(0.35 + amp * 0.4)),
-                                color.opacity(Double(0.8 + amp * 0.15)),
-                                color.opacity(Double(0.35 + amp * 0.4)),
-                            ]),
-                            startPoint: CGPoint(x: rect.midX, y: rect.minY),
-                            endPoint: CGPoint(x: rect.midX, y: rect.maxY)
-                        )
-                    )
+                let points: [CGPoint] = sampled.enumerated().map { index, amplitude in
+                    let normalized = max(CGFloat(amplitude), 0.02)
+                    return CGPoint(x: CGFloat(index) * stepX, y: normalized * verticalScale)
                 }
+
+                var fillPath = Path()
+                fillPath.move(to: CGPoint(x: 0, y: midY))
+
+                for point in points {
+                    fillPath.addLine(to: CGPoint(x: point.x, y: midY - point.y))
+                }
+
+                for point in points.reversed() {
+                    fillPath.addLine(to: CGPoint(x: point.x, y: midY + point.y))
+                }
+
+                fillPath.closeSubpath()
+
+                context.fill(
+                    fillPath,
+                    with: .linearGradient(
+                        Gradient(colors: [
+                            color.opacity(0.10),
+                            color.opacity(0.42),
+                            color.opacity(0.10),
+                        ]),
+                        startPoint: CGPoint(x: size.width / 2, y: 0),
+                        endPoint: CGPoint(x: size.width / 2, y: size.height)
+                    )
+                )
+
+                var topStroke = Path()
+                topStroke.move(to: CGPoint(x: 0, y: midY - points[0].y))
+                for point in points.dropFirst() {
+                    topStroke.addLine(to: CGPoint(x: point.x, y: midY - point.y))
+                }
+
+                var bottomStroke = Path()
+                bottomStroke.move(to: CGPoint(x: 0, y: midY + points[0].y))
+                for point in points.dropFirst() {
+                    bottomStroke.addLine(to: CGPoint(x: point.x, y: midY + point.y))
+                }
+
+                context.stroke(topStroke, with: .color(color.opacity(0.82)), lineWidth: 1.2)
+                context.stroke(bottomStroke, with: .color(color.opacity(0.48)), lineWidth: 0.9)
+
+                let centerLine = Path(CGRect(x: 0, y: midY, width: size.width, height: 0.5))
+                context.stroke(centerLine, with: .color(color.opacity(0.18)), lineWidth: 0.5)
             }
         }
     }
 
-    private func sampledAmplitudes(maxBars: Int) -> [Float] {
-        guard amplitudes.count > maxBars, maxBars > 0 else { return amplitudes }
+    private func sampledAmplitudes(maxSamples: Int) -> [Float] {
+        guard maxSamples > 0 else { return amplitudes }
 
-        let bucketSize = Double(amplitudes.count) / Double(maxBars)
-        return (0..<maxBars).map { bucket in
-            let start = Int(Double(bucket) * bucketSize)
-            let end = min(Int(Double(bucket + 1) * bucketSize), amplitudes.count)
-            let slice = amplitudes[start..<max(start + 1, end)]
-            return slice.max() ?? 0
+        let reduced: [Float]
+        if amplitudes.count > maxSamples {
+            let bucketSize = Double(amplitudes.count) / Double(maxSamples)
+            reduced = (0..<maxSamples).map { bucket in
+                let start = Int(Double(bucket) * bucketSize)
+                let end = min(Int(Double(bucket + 1) * bucketSize), amplitudes.count)
+                let slice = amplitudes[start..<max(start + 1, end)]
+                return slice.max() ?? 0
+            }
+        } else {
+            reduced = amplitudes
+        }
+
+        guard reduced.count > 2 else { return reduced }
+
+        return reduced.enumerated().map { index, amplitude in
+            let previous = reduced[max(index - 1, 0)]
+            let next = reduced[min(index + 1, reduced.count - 1)]
+            return (previous + amplitude + next) / 3
         }
     }
 }

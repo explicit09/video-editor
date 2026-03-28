@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import EditorCore
 
 /// Observable UI state for the timeline panel.
 @MainActor @Observable
@@ -15,20 +16,35 @@ final class TimelineViewState {
 
     // MARK: - Zoom
 
-    static let zoomRange: ClosedRange<Double> = 0.01...1000
+    static let zoomRange: ClosedRange<Double> = 0.05...2400
+    static let zoomPresets: [Double] = [12.5, 25, 50, 100, 200, 400, 800, 1600]
+    static let detailZoom: Double = 400
+
+    func setZoom(_ value: Double) {
+        zoom = min(max(value, Self.zoomRange.lowerBound), Self.zoomRange.upperBound)
+    }
 
     func zoomIn() {
-        zoom = min(zoom * 1.3, Self.zoomRange.upperBound)
+        setZoom(nextZoom(from: zoom, direction: .in))
     }
 
     func zoomOut() {
-        zoom = max(zoom / 1.3, Self.zoomRange.lowerBound)
+        setZoom(nextZoom(from: zoom, direction: .out))
     }
 
     /// Zoom to fit the entire timeline in the current visible width.
     func zoomToFit(duration: TimeInterval) {
-        guard duration > 0, visibleWidth > 0 else { return }
-        zoom = max((visibleWidth - 20) / duration, Self.zoomRange.lowerBound)
+        zoomToRange(TimeRange(start: 0, duration: max(duration, 0.1)))
+    }
+
+    func zoomToRange(_ range: TimeRange) {
+        guard range.duration > 0, visibleWidth > 0 else { return }
+        let usableWidth = max(visibleWidth - 120, 120)
+        setZoom(usableWidth / range.duration)
+    }
+
+    func zoomToDetail() {
+        setZoom(Self.detailZoom)
     }
 
     // MARK: - Conversions
@@ -57,5 +73,25 @@ final class TimelineViewState {
 
     func clearSelection() {
         selectedClipIDs.removeAll()
+    }
+
+    private enum ZoomDirection {
+        case `in`
+        case out
+    }
+
+    private func nextZoom(from current: Double, direction: ZoomDirection) -> Double {
+        switch direction {
+        case .in:
+            if let preset = Self.zoomPresets.first(where: { $0 > current * 1.05 }) {
+                return preset
+            }
+            return min(current * 1.5, Self.zoomRange.upperBound)
+        case .out:
+            if let preset = Self.zoomPresets.last(where: { $0 < current / 1.05 }) {
+                return preset
+            }
+            return max(current / 1.5, Self.zoomRange.lowerBound)
+        }
     }
 }

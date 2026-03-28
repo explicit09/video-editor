@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 import EditorCore
 
@@ -126,12 +127,14 @@ struct TimelinePanel: View {
     // MARK: - Toolbar
 
     private func timelineToolbar(viewState: TimelineViewState, timeline: Timeline) -> some View {
-        HStack(spacing: CinematicSpacing.sm) {
+        let selectedRange = selectedTimelineRange(in: timeline)
+
+        return HStack(spacing: CinematicSpacing.sm) {
             Menu {
-                Button("Video Track") { appState.addTrack(of: .video) }
-                Button("Audio Track") { appState.addTrack(of: .audio) }
-                Button("Text Track") { appState.addTrack(of: .text) }
-                Button("Effect Track") { appState.addTrack(of: .effect) }
+                Button("Video Track") { appState.addTrack(of: .video, positionedAfter: viewState.selectedTrackID) }
+                Button("Audio Track") { appState.addTrack(of: .audio, positionedAfter: viewState.selectedTrackID) }
+                Button("Text Track") { appState.addTrack(of: .text, positionedAfter: viewState.selectedTrackID) }
+                Button("Effect Track") { appState.addTrack(of: .effect, positionedAfter: viewState.selectedTrackID) }
             } label: {
                 HStack(spacing: 6) {
                     Image(systemName: "plus")
@@ -173,16 +176,32 @@ struct TimelinePanel: View {
             )
 
             CinematicStatusPill(
-                text: "\(Int(viewState.zoom)) px/s",
+                text: zoomLabel(for: viewState.zoom),
                 icon: "timeline.selection",
                 tone: CinematicTheme.tertiary
             )
 
-            HStack(spacing: 6) {
-                CinematicToolbarButton(icon: "minus", action: { viewState.zoomOut() })
-                CinematicToolbarButton(icon: "arrow.left.and.right", action: { viewState.zoomToFit(duration: timeline.duration) })
+            Menu {
+                Button("Zoom In") { viewState.zoomIn() }
+                Button("Zoom Out") { viewState.zoomOut() }
+                Divider()
+                Button("Full Extent") { viewState.zoomToFit(duration: timeline.duration) }
                     .disabled(timeline.duration == 0)
-                CinematicToolbarButton(icon: "plus", action: { viewState.zoomIn() })
+                Button("Detail Zoom") { viewState.zoomToDetail() }
+                if let selectedRange {
+                    Button("Fit Selection") { viewState.zoomToRange(selectedRange) }
+                }
+                Divider()
+                ForEach(TimelineViewState.zoomPresets, id: \.self) { preset in
+                    Button(zoomLabel(for: preset)) { viewState.setZoom(preset) }
+                }
+            } label: {
+                HStack(spacing: 6) {
+                    CinematicToolbarButton(icon: "minus", action: { viewState.zoomOut() })
+                    CinematicToolbarButton(icon: "arrow.left.and.right", action: { viewState.zoomToFit(duration: timeline.duration) })
+                        .disabled(timeline.duration == 0)
+                    CinematicToolbarButton(icon: "plus", action: { viewState.zoomIn() })
+                }
             }
         }
         .padding(.horizontal, 16)
@@ -237,7 +256,7 @@ struct TimelinePanel: View {
                         appState.updateTrack(id: track.id) { $0.isLocked.toggle() }
                     },
                     onAddLane: {
-                        appState.addTrack(of: track.type)
+                        appState.addTrack(of: track.type, positionedAfter: track.id)
                     },
                     onCycleHeight: {
                         cycleTrackHeight(for: track.id)
@@ -340,5 +359,26 @@ struct TimelinePanel: View {
             cursor += height + CinematicSpacing.clipGap
         }
         return cursor
+    }
+
+    private func selectedTimelineRange(in timeline: Timeline) -> TimeRange? {
+        let selectedClips = timeline.tracks
+            .flatMap(\.clips)
+            .filter { appState.timelineViewState.selectedClipIDs.contains($0.id) }
+
+        guard let start = selectedClips.map(\.timelineRange.start).min(),
+              let end = selectedClips.map(\.timelineRange.end).max(),
+              end > start else {
+            return nil
+        }
+
+        return TimeRange(start: start, end: end)
+    }
+
+    private func zoomLabel(for zoom: Double) -> String {
+        if zoom < 10 {
+            return String(format: "%.1f px/s", zoom)
+        }
+        return "\(Int(zoom.rounded())) px/s"
     }
 }

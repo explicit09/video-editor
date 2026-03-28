@@ -95,6 +95,16 @@ struct ContentView: View {
         }
         // Toggle snap
         .onKeyPress("n") { appState.timelineViewState.snapEnabled.toggle(); return .handled }
+        // Copy (Cmd+C)
+        .onKeyPress("c") {
+            guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
+            appState.copySelectedClips(); return .handled
+        }
+        // Paste (Cmd+V)
+        .onKeyPress("v") {
+            guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
+            appState.pasteClips(); return .handled
+        }
     }
 
     private var appBackground: some View {

@@ -321,7 +321,7 @@ struct InspectorPanel: View {
 
                     HStack(spacing: 8) {
                         CinematicToolbarButton(icon: "plus", label: "Add \(track.type.rawValue.capitalized)") {
-                            appState.addTrack(of: track.type)
+                            appState.addTrack(of: track.type, positionedAfter: track.id)
                         }
 
                         if track.clips.isEmpty {

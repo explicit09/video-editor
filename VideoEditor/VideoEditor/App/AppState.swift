@@ -20,6 +20,9 @@ final class AppState {
     var timeline: Timeline { context.timelineState.timeline }
     var assets: [MediaAsset] { media.assets }
 
+    // Clipboard
+    private(set) var clipboardClips: [(clip: Clip, trackType: TrackType)] = []
+
     /// Project bundle directory.
     let projectBundleURL: URL
 
@@ -80,6 +83,45 @@ final class AppState {
         startPlayheadSync()
     }
 
+    // MARK: - Clipboard
+
+    func copySelectedClips() {
+        let selectedIDs = timelineViewState.selectedClipIDs
+        guard !selectedIDs.isEmpty else { return }
+
+        clipboardClips = []
+        for track in timeline.tracks {
+            for clip in track.clips where selectedIDs.contains(clip.id) {
+                clipboardClips.append((clip: clip, trackType: track.type))
+            }
+        }
+    }
+
+    func pasteClips() {
+        guard !clipboardClips.isEmpty else { return }
+        let playhead = timelineViewState.playheadPosition
+
+        // Find the earliest clip start to compute relative offsets
+        let earliestStart = clipboardClips.map(\.clip.timelineRange.start).min() ?? 0
+
+        for (original, trackType) in clipboardClips {
+            let trackID = resolveTrackID(for: trackType, preferredTrackID: nil)
+            let offset = original.timelineRange.start - earliestStart
+            let pasteStart = playhead + offset
+
+            let newClip = Clip(
+                assetID: original.assetID,
+                timelineRange: TimeRange(start: pasteStart, duration: original.timelineRange.duration),
+                sourceRange: original.sourceRange,
+                transform: original.transform,
+                opacity: original.opacity,
+                volume: original.volume,
+                metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (paste)")
+            )
+            try? perform(.insertClip(clip: newClip, trackID: trackID))
+        }
+    }
+
     // MARK: - Add to timeline (creates linked audio track only when media actually has audio)
 
     func addAssetToTimeline(
@@ -89,7 +131,8 @@ final class AppState {
         startTime: TimeInterval? = nil
     ) async {
         let duration = max(asset.duration, 1)
-        let requestedTrack = preferredTrackID.flatMap { id in
+        let requestedTrackID = preferredTrackID ?? timelineViewState.selectedTrackID
+        let requestedTrack = requestedTrackID.flatMap { id in
             timeline.tracks.first(where: { $0.id == id })
         }
 
@@ -132,7 +175,7 @@ final class AppState {
                     assetID: asset.id,
                     timelineRange: TimeRange(start: clipStart, duration: duration),
                     sourceRange: TimeRange(start: 0, duration: duration),
-                    metadata: ClipMetadata(label: "\(asset.name) ♪"),
+                    metadata: ClipMetadata(label: asset.name),
                     linkGroupID: linkID
                 )
                 try? perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: source)
@@ -175,9 +218,11 @@ final class AppState {
         }
     }
 
-    func addTrack(of type: TrackType) {
-        let track = Track(name: nextTrackName(for: type), type: type)
-        try? perform(.addTrack(track: track))
+    func addTrack(of type: TrackType, positionedAfter afterTrackID: UUID? = nil) {
+        let insertionIndex = afterTrackID.flatMap { id in
+            timeline.tracks.firstIndex(where: { $0.id == id }).map { $0 + 1 }
+        }
+        _ = createTrack(of: type, insertionIndex: insertionIndex)
     }
 
     func updateTrack(id: UUID, _ transform: (inout Track) -> Void) {
@@ -202,6 +247,21 @@ final class AppState {
         }
     }
 
+    @discardableResult
+    private func createTrack(
+        of type: TrackType,
+        insertionIndex: Int? = nil,
+        name: String? = nil,
+        source: ActionSource = .user
+    ) -> UUID {
+        let track = Track(name: name ?? nextTrackName(for: type), type: type)
+        var command = AddTrackCommand(track: track, insertionIndex: insertionIndex)
+        try? commandHistory.execute(&command, context: context, source: source)
+        rebuildComposition()
+        scheduleSave()
+        return track.id
+    }
+
     private func resolveTrackID(for type: TrackType, preferredTrackID: UUID?) -> UUID {
         if let preferredTrackID,
            let preferredTrack = timeline.tracks.first(where: { $0.id == preferredTrackID }),
@@ -213,23 +273,43 @@ final class AppState {
             return existing.id
         }
 
-        let track = Track(name: nextTrackName(for: type), type: type)
-        try? perform(.addTrack(track: track))
-        return track.id
+        return createTrack(of: type)
     }
 
     private func pairedTrackID(for sourceTrackID: UUID, sourceType: TrackType, targetType: TrackType) -> UUID {
-        let sourceTracks = timeline.tracks.filter { $0.type == sourceType }
-        guard let sourceIndex = sourceTracks.firstIndex(where: { $0.id == sourceTrackID }) else {
+        guard let sourceTrackIndex = timeline.tracks.firstIndex(where: { $0.id == sourceTrackID }) else {
             return resolveTrackID(for: targetType, preferredTrackID: nil)
         }
 
-        while timeline.tracks.filter({ $0.type == targetType }).count <= sourceIndex {
-            let track = Track(name: nextTrackName(for: targetType), type: targetType)
-            try? perform(.addTrack(track: track))
+        let preferredOffsets: [Int]
+        switch (sourceType, targetType) {
+        case (.video, .audio):
+            preferredOffsets = [1, -1]
+        case (.audio, .video):
+            preferredOffsets = [-1, 1]
+        default:
+            preferredOffsets = [1, -1]
         }
 
-        return timeline.tracks.filter { $0.type == targetType }[sourceIndex].id
+        for offset in preferredOffsets {
+            let candidateIndex = sourceTrackIndex + offset
+            guard timeline.tracks.indices.contains(candidateIndex) else { continue }
+            let candidateTrack = timeline.tracks[candidateIndex]
+            if candidateTrack.type == targetType {
+                return candidateTrack.id
+            }
+        }
+
+        let sourceOrdinal = timeline.tracks
+            .filter { $0.type == sourceType }
+            .firstIndex(where: { $0.id == sourceTrackID }) ?? 0
+        let targetTracks = timeline.tracks.filter { $0.type == targetType }
+        if targetTracks.indices.contains(sourceOrdinal) {
+            return targetTracks[sourceOrdinal].id
+        }
+
+        let insertionIndex = targetType == .audio ? sourceTrackIndex + 1 : sourceTrackIndex
+        return createTrack(of: targetType, insertionIndex: insertionIndex)
     }
 
     private func nextTrackName(for type: TrackType) -> String {
