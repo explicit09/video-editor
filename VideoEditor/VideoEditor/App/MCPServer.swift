@@ -104,11 +104,38 @@ final class MCPServer {
             ])
 
         case "tools/list":
-            let tools = AIToolRegistry.allTools.map { tool -> [String: Any] in
+            var tools = AIToolRegistry.allTools.map { tool -> [String: Any] in
                 let schemaData = try? JSONEncoder().encode(tool.parameters)
                 let schema = schemaData.flatMap { try? JSONSerialization.jsonObject(with: $0) } ?? [:]
                 return ["name": tool.name, "description": tool.description, "inputSchema": schema]
             }
+            // MCP-only tools
+            tools.append(contentsOf: [
+                [
+                    "name": "import_media",
+                    "description": "Import a video/audio file from disk into the project. Returns the asset_id for use with add_to_timeline.",
+                    "inputSchema": ["type": "object", "properties": ["file_path": ["type": "string", "description": "Absolute path to the media file"]], "required": ["file_path"]],
+                ],
+                [
+                    "name": "add_to_timeline",
+                    "description": "Add an imported asset to the timeline. Creates video + linked audio tracks automatically for video assets.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the imported asset"],
+                        "start_time": ["type": "number", "description": "Optional start position in seconds"],
+                        "track_id": ["type": "string", "description": "Optional target track UUID"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
+                    "name": "clear_project",
+                    "description": "Remove all tracks and clips from the timeline. Does not delete imported assets.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "get_state",
+                    "description": "Get a human-readable summary of the current editor state: tracks, clips, assets, playhead position.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+            ])
             return successResponse(id: id, result: ["tools": tools])
 
         case "tools/call":
@@ -144,29 +171,108 @@ final class MCPServer {
     // MARK: - Tool Execution
 
     private func executeToolCall(name: String, arguments: [String: Any], appState: AppState) async -> String {
-        let toolResolver = AIToolResolver()
+        // MCP-only tools (not in AIToolRegistry)
+        if name == "import_media" {
+            return await handleImportMedia(arguments, appState: appState)
+        }
+        if name == "add_to_timeline" {
+            return await handleAddToTimeline(arguments, appState: appState)
+        }
+        if name == "clear_project" {
+            return handleClearProject(appState: appState)
+        }
+        if name == "get_state" {
+            return handleGetState(appState: appState)
+        }
 
         if name == "get_transcript" || name == "transcribe_asset" || name == "search_transcript" {
             return "Content tools require AI chat context. Use the AI assistant in the app."
         }
 
-        // Compound tools handled by AIChatController — redirect
         if ["remove_silence", "remove_section", "ripple_delete", "normalize_audio"].contains(name) {
-            return "Compound tool '\(name)' should be called through the AI chat. Send the command as a message to the AI assistant."
+            return "Compound tool '\(name)' should be called through the AI chat."
         }
 
+        let toolResolver = AIToolResolver()
         do {
             let intents = try toolResolver.resolve(toolName: name, arguments: arguments, assets: appState.assets)
             for intent in intents {
                 try appState.perform(intent, source: .ai)
             }
-
-            let clipCount = appState.timeline.tracks.flatMap(\.clips).count
-            let trackCount = appState.timeline.tracks.count
-            return "Done. Timeline: \(trackCount) tracks, \(clipCount) clips, \(String(format: "%.1f", appState.timeline.duration))s."
+            return stateSnapshot(appState)
         } catch {
             return "Error: \(error.localizedDescription)"
         }
+    }
+
+    // MARK: - MCP-Only Tools
+
+    private func handleImportMedia(_ args: [String: Any], appState: AppState) async -> String {
+        guard let path = args["file_path"] as? String else {
+            return "Error: Missing file_path parameter"
+        }
+        let url = URL(fileURLWithPath: path)
+        guard FileManager.default.fileExists(atPath: path) else {
+            return "Error: File not found: \(path)"
+        }
+
+        do {
+            let asset = try await appState.importMedia(from: url)
+            return "Imported '\(asset.name)' (ID: \(asset.id.uuidString), type: \(asset.type.rawValue), duration: \(String(format: "%.1f", asset.duration))s). Use add_to_timeline with this asset_id to place it on the timeline."
+        } catch {
+            return "Error importing: \(error.localizedDescription)"
+        }
+    }
+
+    private func handleAddToTimeline(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr) else {
+            return "Error: Missing or invalid asset_id"
+        }
+        guard let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Asset not found. Available assets: " + appState.assets.map { "\($0.name) (ID: \($0.id.uuidString))" }.joined(separator: ", ")
+        }
+
+        let startTime = args["start_time"] as? Double
+        let trackIDStr = args["track_id"] as? String
+        let trackID = trackIDStr.flatMap { UUID(uuidString: $0) }
+
+        await appState.addAssetToTimeline(asset, source: .ai, preferredTrackID: trackID, startTime: startTime)
+        return "Added '\(asset.name)' to timeline. " + stateSnapshot(appState)
+    }
+
+    private func handleClearProject(appState: AppState) -> String {
+        // Remove all tracks and clips
+        let trackIDs = appState.timeline.tracks.map(\.id)
+        for trackID in trackIDs {
+            try? appState.perform(.removeTrack(trackID: trackID), source: .ai)
+        }
+        return "Project cleared. " + stateSnapshot(appState)
+    }
+
+    private func handleGetState(appState: AppState) -> String {
+        let tracks = appState.timeline.tracks.map { track -> String in
+            let clips = track.clips.map { clip -> String in
+                "\(clip.metadata.label ?? "Clip") [\(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s]"
+            }
+            let clipStr = clips.isEmpty ? "empty" : clips.joined(separator: ", ")
+            return "  \(track.name) (\(track.type.rawValue)): \(clipStr)"
+        }
+        let assetList = appState.assets.map { "\($0.name) (ID: \($0.id.uuidString), \(String(format: "%.1f", $0.duration))s)" }
+
+        var result = "=== Editor State ===\n"
+        result += "Tracks (\(appState.timeline.tracks.count)):\n"
+        result += tracks.isEmpty ? "  (none)\n" : tracks.joined(separator: "\n") + "\n"
+        result += "\nAssets (\(appState.assets.count)):\n"
+        result += assetList.isEmpty ? "  (none)\n" : assetList.map { "  \($0)" }.joined(separator: "\n") + "\n"
+        result += "\nPlayhead: \(String(format: "%.1f", appState.timelineViewState.playheadPosition))s"
+        result += "\nDuration: \(String(format: "%.1f", appState.timeline.duration))s"
+        return result
+    }
+
+    private func stateSnapshot(_ appState: AppState) -> String {
+        let clipCount = appState.timeline.tracks.flatMap(\.clips).count
+        return "Timeline: \(appState.timeline.tracks.count) tracks, \(clipCount) clips, \(String(format: "%.1f", appState.timeline.duration))s."
     }
 
     // MARK: - Resource Reading
