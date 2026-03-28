@@ -60,7 +60,7 @@ struct TimelineTrackView: View {
                 .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
                 .lineLimit(1)
         }
-        .frame(width: 100, height: trackHeight)
+        .frame(width: 120, height: trackHeight)
         .background(CinematicTheme.surfaceContainerLow)
     }
 

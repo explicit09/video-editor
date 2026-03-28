@@ -30,24 +30,26 @@ struct TimelineClipView: View {
     }
 
     private var clipBody: some View {
-        RoundedRectangle(cornerRadius: CinematicRadius.lg)
-            .fill(clipColor)
-            .overlay(alignment: .top) {
-                // Top accent bar (2px) — per design system
-                Rectangle()
-                    .fill(clipAccentColor)
-                    .frame(height: 2)
-            }
-            .overlay(
-                RoundedRectangle(cornerRadius: CinematicRadius.lg)
-                    .strokeBorder(
-                        isSelected ? CinematicTheme.primary : CinematicTheme.outlineVariant.opacity(0.15),
-                        lineWidth: isSelected ? 1.5 : 0.5
-                    )
-            )
-            .overlay(clipLabel, alignment: .leading)
-            .shadow(color: isDragging ? CinematicTheme.primaryContainer.opacity(0.2) : .clear, radius: 6)
-            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+        VStack(spacing: 0) {
+            // Top accent bar (2px)
+            Rectangle()
+                .fill(clipAccentColor)
+                .frame(height: 2)
+
+            // Clip content
+            Rectangle()
+                .fill(clipColor)
+                .overlay(clipLabel, alignment: .topLeading)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+        .overlay(
+            RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                .strokeBorder(
+                    isSelected ? CinematicTheme.primary : CinematicTheme.outlineVariant.opacity(0.15),
+                    lineWidth: isSelected ? 1.5 : 0.5
+                )
+        )
+        .shadow(color: isDragging ? CinematicTheme.primaryContainer.opacity(0.2) : .clear, radius: 6)
     }
 
     // MARK: - Label
@@ -58,7 +60,7 @@ struct TimelineClipView: View {
             .foregroundStyle(CinematicTheme.onSurface.opacity(0.9))
             .lineLimit(1)
             .padding(.horizontal, 6)
-            .padding(.top, 6)
+            .padding(.top, 4)
     }
 
     // MARK: - Colors (muted pro-colorist aesthetic)

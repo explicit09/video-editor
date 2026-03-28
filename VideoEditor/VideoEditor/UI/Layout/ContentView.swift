@@ -133,20 +133,29 @@ struct ContentView: View {
 
     private var mainContent: some View {
         VStack(spacing: 0) {
-            // Top workspace: Media Browser + Preview
+            // Top workspace: Media Browser + Preview + Inspector
             HStack(spacing: 0) {
                 MediaBrowserPanel()
-                    .frame(width: 280)
+                    .frame(width: 260)
 
-                // Preview with floating AI command bar
-                ZStack(alignment: .bottom) {
-                    PreviewPanel()
+                // Preview with floating AI command bar above transport
+                VStack(spacing: 0) {
+                    ZStack(alignment: .bottom) {
+                        AVPlayerView(player: appState.playbackEngine.player)
+                            .background(CinematicTheme.surfaceContainerLowest)
 
-                    // Floating AI Command Bar
-                    aiCommandBar
-                        .padding(.bottom, 12)
-                        .padding(.horizontal, 40)
+                        // Floating AI Command Bar
+                        aiCommandBar
+                            .padding(.bottom, 16)
+                            .padding(.horizontal, 40)
+                    }
+
+                    // Transport controls below preview
+                    transportBar
                 }
+
+                InspectorPanel()
+                    .frame(width: 280)
             }
             .frame(minHeight: 300)
 
@@ -154,6 +163,63 @@ struct ContentView: View {
             TimelinePanel()
                 .frame(minHeight: 150, idealHeight: 250)
         }
+    }
+
+    // MARK: - Transport Bar
+
+    private var transportBar: some View {
+        HStack(spacing: 16) {
+            Text(formatTimecode(appState.playbackEngine.currentTime))
+                .font(.cinTimecode)
+                .foregroundStyle(CinematicTheme.onSurface.opacity(0.7))
+                .frame(width: 100, alignment: .leading)
+
+            Spacer()
+
+            HStack(spacing: 20) {
+                Button(action: { appState.playbackEngine.seek(to: 0) }) {
+                    Image(systemName: "backward.end.fill")
+                        .font(.system(size: 14))
+                }
+
+                Button(action: { appState.playbackEngine.togglePlayPause() }) {
+                    Image(systemName: appState.playbackEngine.isPlaying ? "pause.fill" : "play.fill")
+                        .font(.system(size: 18))
+                        .frame(width: 36, height: 36)
+                        .background(CinematicTheme.primaryContainer)
+                        .clipShape(Circle())
+                        .foregroundStyle(CinematicTheme.onPrimaryContainer)
+                }
+
+                Button(action: {
+                    appState.playbackEngine.seek(to: appState.playbackEngine.duration)
+                }) {
+                    Image(systemName: "forward.end.fill")
+                        .font(.system(size: 14))
+                }
+            }
+            .foregroundStyle(CinematicTheme.onSurface.opacity(0.8))
+            .buttonStyle(.plain)
+
+            Spacer()
+
+            Text(formatTimecode(appState.playbackEngine.duration))
+                .font(.cinTimecode)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+                .frame(width: 100, alignment: .trailing)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(CinematicTheme.surface)
+    }
+
+    private func formatTimecode(_ time: TimeInterval) -> String {
+        let t = max(0, time)
+        let hrs = Int(t) / 3600
+        let mins = (Int(t) % 3600) / 60
+        let secs = Int(t) % 60
+        let frames = Int((t - Double(Int(t))) * 30)
+        return String(format: "%02d:%02d:%02d:%02d", hrs, mins, secs, frames)
     }
 
     // MARK: - Floating AI Command Bar

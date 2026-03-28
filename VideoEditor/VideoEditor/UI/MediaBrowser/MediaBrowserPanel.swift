@@ -86,6 +86,13 @@ struct MediaBrowserPanel: View {
                     AssetThumbnailView(asset: asset, thumbnail: thumbnails[asset.id]) {
                         addToTimeline(asset)
                     }
+                    .task {
+                        // Load thumbnail if not cached
+                        if thumbnails[asset.id] == nil {
+                            let thumb = await appState.media.thumbnail(for: asset.id)
+                            if let thumb { thumbnails[asset.id] = thumb }
+                        }
+                    }
                 }
             }
             .padding(12)
