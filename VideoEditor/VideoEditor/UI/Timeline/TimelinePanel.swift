@@ -4,6 +4,7 @@ import EditorCore
 struct TimelinePanel: View {
     @Environment(AppState.self) private var appState
     @State private var thumbnails: [UUID: CGImage] = [:]
+    @State private var waveforms: [UUID: [Float]] = [:]
 
     var body: some View {
         let viewState = appState.timelineViewState
@@ -204,6 +205,7 @@ struct TimelinePanel: View {
                     isSelectedTrack: viewState.selectedTrackID == track.id,
                     totalWidth: width,
                     thumbnails: thumbnails,
+                    waveforms: waveforms,
                     onTrackTap: { viewState.selectedTrackID = track.id },
                     onClipTap: { clipID, extend in
                         viewState.selectedTrackID = track.id
@@ -217,11 +219,17 @@ struct TimelinePanel: View {
                     }
                 )
                 .task {
-                    // Load thumbnails for clips on this track
                     for clip in track.clips {
+                        // Load thumbnails
                         if thumbnails[clip.assetID] == nil {
                             let thumb = await appState.media.thumbnail(for: clip.assetID)
                             if let thumb { thumbnails[clip.assetID] = thumb }
+                        }
+                        // Load waveforms from analysis data
+                        if waveforms[clip.assetID] == nil,
+                           let asset = appState.assets.first(where: { $0.id == clip.assetID }),
+                           let profile = asset.analysis?.loudnessProfile {
+                            waveforms[clip.assetID] = profile
                         }
                     }
                 }

@@ -8,6 +8,7 @@ struct TimelineTrackView: View {
     let isSelectedTrack: Bool
     let totalWidth: Double
     let thumbnails: [UUID: CGImage]
+    let waveforms: [UUID: [Float]]
     let onTrackTap: () -> Void
     let onClipTap: (UUID, Bool) -> Void
     let onClipDrag: (UUID, TimeInterval) -> Void
@@ -39,6 +40,7 @@ struct TimelineTrackView: View {
                         trackType: track.type,
                         trackHeight: trackHeight,
                         thumbnail: thumbnails[clip.assetID],
+                        waveform: waveforms[clip.assetID],
                         onTap: { extend in onClipTap(clip.id, extend) },
                         onDrag: { newStart in onClipDrag(clip.id, newStart) },
                         onTrimStart: { newSourceStart in

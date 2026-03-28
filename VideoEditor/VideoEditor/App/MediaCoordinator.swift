@@ -70,6 +70,16 @@ final class MediaCoordinator {
                 }
             )
 
+            // Extract waveform for audio visualization
+            let waveformExtractor = WaveformExtractor()
+            if let waveform = await waveformExtractor.extract(from: importedAsset.sourceURL) {
+                await mediaManager.updateAsset(id: importedAsset.id) { asset in
+                    var analysis = asset.analysis ?? MediaAnalysis()
+                    analysis.loudnessProfile = waveform
+                    asset.analysis = analysis
+                }
+            }
+
             await MainActor.run {
                 Task {
                     self.assets = await self.mediaManager.allAssets()

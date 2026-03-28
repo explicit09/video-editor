@@ -8,6 +8,7 @@ struct MediaWorkspacePanel: View {
     @Environment(AppState.self) private var appState
     @State private var searchQuery = ""
     @State private var selectedAssetID: UUID?
+    @State private var selectedBinID: String?
     @State private var sortOrder: SortOrder = .dateAdded
     @State private var isImporting = false
     @State private var thumbnails: [UUID: CGImage] = [:]
@@ -47,30 +48,33 @@ struct MediaWorkspacePanel: View {
     // MARK: - Smart Bins
 
     private var smartBins: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        let bins = SmartBinClassifier.classify(appState.assets)
+        return VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text("SMART BINS")
                     .font(.cinLabel)
                     .tracking(1.5)
                     .foregroundStyle(CinematicTheme.onSurface)
                 Spacer()
-                Button(action: {}) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 11))
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+                // Show all
+                Button(action: { selectedBinID = nil }) {
+                    Text("All")
+                        .font(.cinLabelRegular)
+                        .foregroundStyle(selectedBinID == nil ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant.opacity(0.5))
                 }
                 .buttonStyle(.plain)
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)
 
-            VStack(spacing: 2) {
-                smartBinRow(icon: "film", label: "All Clips", count: appState.assets.filter { $0.type == .video }.count)
-                smartBinRow(icon: "waveform", label: "Audio", count: appState.assets.filter { $0.type == .audio }.count)
-                smartBinRow(icon: "photo", label: "Images", count: appState.assets.filter { $0.type == .image }.count)
-                smartBinRow(icon: "text.alignleft", label: "Transcribed", count: appState.assets.filter { $0.analysis?.transcript != nil }.count)
+            ScrollView {
+                VStack(spacing: 2) {
+                    ForEach(bins) { bin in
+                        smartBinRow(bin: bin, isSelected: selectedBinID == bin.id)
+                    }
+                }
+                .padding(.horizontal, 8)
             }
-            .padding(.horizontal, 8)
 
             Spacer()
 
@@ -94,27 +98,31 @@ struct MediaWorkspacePanel: View {
         .background(CinematicTheme.surfaceContainerLow)
     }
 
-    private func smartBinRow(icon: String, label: String, count: Int) -> some View {
-        HStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.system(size: 12))
-                .foregroundStyle(CinematicTheme.primary.opacity(0.7))
-                .frame(width: 20)
-            Text(label)
-                .font(.cinBody)
-                .foregroundStyle(CinematicTheme.onSurface)
-            Spacer()
-            Text("\(count)")
-                .font(.cinLabelRegular)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.4))
-                .padding(.horizontal, 6)
-                .padding(.vertical, 2)
-                .background(CinematicTheme.surfaceContainerHighest)
-                .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.sm))
+    private func smartBinRow(bin: SmartBinClassifier.SmartBin, isSelected: Bool) -> some View {
+        Button(action: { selectedBinID = isSelected ? nil : bin.id }) {
+            HStack(spacing: 8) {
+                Image(systemName: bin.icon)
+                    .font(.system(size: 12))
+                    .foregroundStyle(isSelected ? CinematicTheme.primary : CinematicTheme.primary.opacity(0.5))
+                    .frame(width: 20)
+                Text(bin.label)
+                    .font(.cinBody)
+                    .foregroundStyle(isSelected ? CinematicTheme.onSurface : CinematicTheme.onSurfaceVariant)
+                Spacer()
+                Text("\(bin.count)")
+                    .font(.cinLabelRegular)
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.4))
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(CinematicTheme.surfaceContainerHighest)
+                    .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.sm))
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
+            .background(isSelected ? CinematicTheme.primaryContainer.opacity(0.1) : Color.clear)
+            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
-        .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+        .buttonStyle(.plain)
     }
 
     // MARK: - Media Grid
@@ -356,11 +364,24 @@ struct MediaWorkspacePanel: View {
 
     private var filteredAssets: [MediaAsset] {
         var assets = appState.assets
+
+        // Filter by selected bin
+        if let binID = selectedBinID {
+            let bins = SmartBinClassifier.classify(appState.assets)
+            if let bin = bins.first(where: { $0.id == binID }) {
+                let binIDs = Set(bin.assetIDs)
+                assets = assets.filter { binIDs.contains($0.id) }
+            }
+        }
+
+        // Filter by search
         if !searchQuery.isEmpty {
             assets = assets.filter { $0.name.localizedCaseInsensitiveContains(searchQuery) }
         }
+
+        // Sort
         switch sortOrder {
-        case .dateAdded: break // already in import order
+        case .dateAdded: break
         case .name: assets.sort { $0.name < $1.name }
         case .duration: assets.sort { $0.duration > $1.duration }
         }

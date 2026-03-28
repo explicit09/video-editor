@@ -9,6 +9,7 @@ struct TimelineClipView: View {
     let trackType: TrackType
     let trackHeight: Double
     let thumbnail: CGImage?
+    let waveform: [Float]?
     let onTap: (Bool) -> Void
     let onDrag: (TimeInterval) -> Void
     var onTrimStart: ((TimeInterval) -> Void)?
@@ -43,9 +44,15 @@ struct TimelineClipView: View {
                 .fill(clipAccentColor)
                 .frame(height: 2)
 
-            // Clip content — thumbnail if available, color fill otherwise
+            // Clip content
             ZStack {
-                if let cgImage = thumbnail, trackType == .video {
+                if let waveform, trackType == .audio, !waveform.isEmpty {
+                    // Audio: show waveform
+                    Rectangle().fill(clipColor)
+                    WaveformView(amplitudes: waveform, color: clipAccentColor)
+                        .padding(.vertical, 4)
+                } else if let cgImage = thumbnail, trackType == .video {
+                    // Video: show thumbnail
                     Image(decorative: cgImage, scale: 1.0)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
