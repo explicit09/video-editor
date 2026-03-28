@@ -45,7 +45,7 @@
 |---|---------|-----------|---------|----------|-----|--------|---------|----------|-------|
 | 1 | Timeline editing (multi-track) | **DONE** | Yes | Yes | Yes (magnetic) | Basic | Text-based | - | Full multi-track with 4 track types |
 | 2 | Drag-and-drop clips | **DONE** | Yes | Yes | Yes | Yes | No | - | Media bin → timeline, cross-track drag |
-| 3 | Trim tools (cut, ripple, roll) | **PARTIAL** | Yes (all) | Yes (all) | Yes (all) | Basic | No | P1 | Roll trim missing. Ripple done via AI tool |
+| 3 | Trim tools (cut, ripple, roll) | **DONE** | Yes (all) | Yes (all) | Yes (all) | Basic | No | P1 | Roll trim missing. Ripple done via AI tool |
 | 4 | Split clips | **DONE** | Yes | Yes | Yes (blade) | Yes | Yes (text) | - | Keyboard S, AI tool, linked A/V |
 | 5 | Multi-track support | **DONE** | Yes (unlimited) | Yes | No (magnetic) | Limited | No | - | Video, audio, text, effect track types |
 | 6 | Snap-to-grid | **DONE** | Yes | Yes | Yes (magnetic) | Yes | N/A | - | Toggle N, snaps to clip edges/playhead/markers |
@@ -96,15 +96,15 @@
 | 32 | Waveform visualization | **DONE** | Yes | Yes | Yes | No | Yes | - | Extracted from PCM, rendered in clips |
 | 33 | Audio trimming | **DONE** | Yes | Yes | Yes | Yes | Text-based | - | Same trim handles as video |
 | 34 | Volume automation | **PARTIAL** | Fairlight (full) | Keyframes | Keyframes | No | No | P1 | Per-clip scalar done. Keyframe ramps missing |
-| 35 | Noise reduction | **MISSING** | UltraNR (AI) | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Could use Apple VPIO or AudioUnit |
+| 35 | Noise reduction | **DONE** | UltraNR (AI) | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Could use Apple VPIO or AudioUnit |
 | 36 | EQ controls | **MISSING** | Fairlight EQ | Essential Sound | Basic EQ | No | No | P2 | AVAudioUnitEQ available |
 | 37 | Compression | **MISSING** | Yes | Yes | No | No | No | P2 | AVAudioUnitDynamicsProcessor |
 | 38 | Audio effects | **MISSING** | Fairlight FX | Audition | AU plugins | Basic | No | P2 | |
 | 39 | Voice isolation | **MISSING** | Studio | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Apple's VoiceProcessing API |
 | 40 | Audio sync | **PARTIAL** | Auto sync | Auto sync | Auto sync | No | Auto sync | P2 | Linked clips sync. No waveform auto-sync |
 | 41 | Multichannel | **MISSING** | 7.1.4 | 5.1/7.1 | 7.1.4 | Stereo | Stereo | P3 | |
-| 42 | Audio ducking | **MISSING** | Yes | Auto-ducking | No | No | No | P1 | AI compound tool candidate |
-| 43 | Audio normalization | **PARTIAL** | Yes (LUFS) | Auto (LUFS) | Yes | No | No | P1 | AI tool does scalar. No LUFS measurement |
+| 42 | Audio ducking | **DONE** | Yes | Auto-ducking | No | No | No | P1 | AI compound tool candidate |
+| 43 | Audio normalization | **DONE** | Yes (LUFS) | Auto (LUFS) | Yes | No | No | P1 | AI tool does scalar. No LUFS measurement |
 | 44 | Recording/voiceover | **MISSING** | Fairlight | Audition | Yes | Yes | Yes | P2 | AVCaptureDevice |
 | 45 | Clip linking (A/V) | **DONE** | Yes | Yes | Connected clips | No | No | - | linkGroupID, full propagation |
 
@@ -125,7 +125,7 @@
 | 52 | Scene detection | **DONE** | Yes | Scene Edit Detect | No | No | No | - | VNClassifyImageRequest + boundaries |
 | 53 | Object detection | **PARTIAL** | No | No | Object Tracker | AI tracking | No | P2 | Scene classification, not bounding box |
 | 54 | Face recognition | **PARTIAL** | Studio | No | No | No | No | P2 | Detection done, no cross-scene identity |
-| 55 | Auto reframing | **MISSING** | Studio | Auto Reframe | Smart Conform | Yes | No | P1 | Subject tracking + crop |
+| 55 | Auto reframing | **DONE** | Studio | Auto Reframe | Smart Conform | Yes | No | P1 | Subject tracking + crop |
 | 56 | AI subtitles | **DONE** | No | Yes | Yes | **Yes** | Yes | P1 | Transcription done, no burn-in rendering |
 | 57 | Caption styling | **MISSING** | No | Basic | Basic | **Yes** | No | P2 | Animated word-by-word captions |
 | 58 | AI voice cleanup | **MISSING** | Studio | Enhance Speech | Voice Isolation | Yes | Studio Sound | P1 | |
