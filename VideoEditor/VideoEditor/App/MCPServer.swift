@@ -133,6 +133,11 @@ final class MCPServer {
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
                 [
+                    "name": "verify_playback",
+                    "description": "Verify that the timeline composition produces correct output. Exports short segments and checks for video, audio, sync issues.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
                     "name": "save_snapshot",
                     "description": "Save a named version snapshot of the current timeline. Can be restored later.",
                     "inputSchema": ["type": "object", "properties": ["name": ["type": "string", "description": "Snapshot name"]], "required": ["name"]],
@@ -237,6 +242,9 @@ final class MCPServer {
             } catch {
                 return "Error: \(error.localizedDescription)"
             }
+        }
+        if name == "verify_playback" {
+            return await handleVerifyPlayback(arguments, appState: appState)
         }
         if name == "test_feature" {
             return await handleTestFeature(arguments, appState: appState)
@@ -346,6 +354,64 @@ final class MCPServer {
         result += "\nPlayhead: \(String(format: "%.1f", appState.timelineViewState.playheadPosition))s"
         result += "\nDuration: \(String(format: "%.1f", appState.timeline.duration))s"
         return result
+    }
+
+    // MARK: - Playback Verification
+
+    private func handleVerifyPlayback(_ args: [String: Any], appState: AppState) async -> String {
+        let builder = CompositionBuilder()
+        let result = await builder.build(from: appState.timeline, assets: appState.assets, urlMode: .preview)
+
+        let verifier = CompositionVerifier()
+        let tempDir = FileManager.default.temporaryDirectory
+        var report: [String] = ["=== PLAYBACK VERIFICATION ==="]
+
+        // Verify at multiple points across the timeline
+        let duration = result.duration
+        let checkPoints: [(name: String, start: Double, length: Double)] = [
+            ("Start (0-5s)", 0, 5),
+            ("Hook 1 mid (15s)", 15, 5),
+            ("Hook 2 mid (45s)", min(45, duration - 5), 5),
+            ("Main content start (75s)", min(75, duration - 5), 5),
+            ("Main content mid", duration / 2, 5),
+        ].filter { $0.start + $0.length <= duration }
+
+        for point in checkPoints {
+            let timeRange = CMTimeRange(
+                start: CMTime(seconds: point.start, preferredTimescale: 600),
+                duration: CMTime(seconds: point.length, preferredTimescale: 600)
+            )
+            let outputURL = tempDir.appendingPathComponent("verify_\(point.name.replacingOccurrences(of: " ", with: "_")).mp4")
+
+            let v = await verifier.verify(
+                composition: result.composition,
+                audioMix: result.audioMix,
+                videoComposition: result.videoComposition,
+                timeRange: timeRange,
+                outputURL: outputURL
+            )
+
+            let status = v.passed ? "PASS" : "FAIL"
+            report.append("\n[\(status)] \(point.name):")
+            report.append("  Video: \(v.hasVideo ? "YES" : "NO"), Frame valid: \(v.videoFrameValid)")
+            report.append("  Audio: \(v.hasAudio ? "YES" : "NO"), Level: \(String(format: "%.4f", v.audioLevel))")
+            report.append("  Duration: \(String(format: "%.1f", v.exportedDuration))s")
+            if !v.issues.isEmpty {
+                report.append("  Issues: \(v.issues.joined(separator: "; "))")
+            }
+        }
+
+        // Also report composition structure
+        report.append("\n=== COMPOSITION STRUCTURE ===")
+        let videoTracks = result.composition.tracks(withMediaType: .video)
+        let audioTracks = result.composition.tracks(withMediaType: .audio)
+        report.append("Video tracks in composition: \(videoTracks.count)")
+        report.append("Audio tracks in composition: \(audioTracks.count)")
+        report.append("Duration: \(String(format: "%.1f", result.duration))s")
+        report.append("Has audio mix: \(result.audioMix != nil)")
+        report.append("Has video composition: \(result.videoComposition != nil)")
+
+        return report.joined(separator: "\n")
     }
 
     // MARK: - Content Tool Handlers
