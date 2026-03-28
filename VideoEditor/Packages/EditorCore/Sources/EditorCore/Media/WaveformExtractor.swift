@@ -1,6 +1,5 @@
 import Foundation
 import AVFoundation
-import Accelerate
 
 /// Extracts a downsampled waveform (amplitude envelope) from an audio or video file.
 /// The result is an array of normalized peak amplitudes (0.0–1.0), suitable for rendering.
@@ -16,11 +15,20 @@ public struct WaveformExtractor: Sendable {
     public func extract(from url: URL, sampleCount: Int = 200) async -> [Float]? {
         let asset = AVURLAsset(url: url)
 
+        // Load audio track
         guard let audioTrack = try? await asset.loadTracks(withMediaType: .audio).first else {
             return nil
         }
 
-        // Configure reader for raw PCM samples
+        // Get duration to calculate samples per bucket
+        let duration: Double
+        if let d = try? await asset.load(.duration).seconds, d > 0 {
+            duration = d
+        } else {
+            return nil
+        }
+
+        // Configure reader for raw PCM
         let outputSettings: [String: Any] = [
             AVFormatIDKey: kAudioFormatLinearPCM,
             AVLinearPCMBitDepthKey: 16,
@@ -36,48 +44,41 @@ public struct WaveformExtractor: Sendable {
 
         guard reader.startReading() else { return nil }
 
-        // Read all samples into a buffer
-        var allSamples: [Int16] = []
-        allSamples.reserveCapacity(44100 * 60) // Pre-allocate for ~1 minute
+        // Process in streaming fashion — don't load all samples into memory.
+        // Divide the duration into sampleCount buckets and track peak per bucket.
+        var peaks = [Float](repeating: 0, count: sampleCount)
+        let bucketDuration = duration / Double(sampleCount)
+        var currentSampleIndex: Int64 = 0
+        // Assume 44100 Hz mono after conversion (reader normalizes)
+        let sampleRate: Double = 44100
 
         while let sampleBuffer = output.copyNextSampleBuffer() {
             guard let blockBuffer = CMSampleBufferGetDataBuffer(sampleBuffer) else { continue }
 
             let length = CMBlockBufferGetDataLength(blockBuffer)
-            let sampleCount = length / MemoryLayout<Int16>.size
+            let numSamples = length / MemoryLayout<Int16>.size
 
-            var data = [Int16](repeating: 0, count: sampleCount)
+            // Read samples
+            var data = [Int16](repeating: 0, count: numSamples)
             CMBlockBufferCopyDataBytes(blockBuffer, atOffset: 0, dataLength: length, destination: &data)
 
-            allSamples.append(contentsOf: data)
-        }
+            for sample in data {
+                let timeInSeconds = Double(currentSampleIndex) / sampleRate
+                let bucketIndex = min(Int(timeInSeconds / bucketDuration), sampleCount - 1)
 
-        guard !allSamples.isEmpty else { return nil }
+                let amplitude = Float(abs(sample)) / Float(Int16.max)
+                if amplitude > peaks[bucketIndex] {
+                    peaks[bucketIndex] = amplitude
+                }
 
-        // Downsample to target count by taking peak amplitude of each chunk
-        return downsample(allSamples, to: sampleCount)
-    }
-
-    /// Downsample raw Int16 samples to N peak amplitude values (0.0–1.0).
-    private func downsample(_ samples: [Int16], to targetCount: Int) -> [Float] {
-        let chunkSize = max(1, samples.count / targetCount)
-        var result = [Float](repeating: 0, count: targetCount)
-
-        for i in 0..<targetCount {
-            let start = i * chunkSize
-            let end = min(start + chunkSize, samples.count)
-            guard start < end else { continue }
-
-            // Find peak absolute value in this chunk
-            var peak: Int16 = 0
-            for j in start..<end {
-                let abs = samples[j] < 0 ? -samples[j] : samples[j]
-                if abs > peak { peak = abs }
+                currentSampleIndex += 1
             }
-
-            result[i] = Float(peak) / Float(Int16.max)
         }
 
-        return result
+        // Check if we got any data
+        let maxPeak = peaks.max() ?? 0
+        guard maxPeak > 0 else { return nil }
+
+        return peaks
     }
 }
