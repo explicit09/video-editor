@@ -593,8 +593,8 @@ public struct AIToolResolver: Sendable {
             return [.setMarker(at: time, label: label)]
 
         case "remove_silence":
-            // Handled in AIChatController directly (needs access to AppState)
-            throw AIToolError.notYetImplemented("remove_silence is handled by the chat controller")
+            // Handled upstream in AIChatController (needs AppState)
+            return []
 
         case "set_clip_volume":
             guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
@@ -674,12 +674,13 @@ public struct AIToolResolver: Sendable {
             }
             return [.rollTrim(leftClipID: leftID, rightClipID: rightID, newBoundary: boundary)]
 
-        // Analysis tools — handled in AIChatController (need AppState)
+        // Analysis tools — handled upstream in AIChatController/MCPServer (need AppState)
+        // Return empty intents — the caller handles these before reaching the resolver.
         case "auto_reframe", "detect_beats", "score_thumbnails", "suggest_broll",
              "apply_person_mask", "track_object", "voice_cleanup", "denoise_audio",
              "denoise_video", "stabilize_video", "set_caption_style", "apply_lut",
              "measure_loudness", "auto_duck", "chroma_key":
-            throw AIToolError.notYetImplemented("\(toolName) is handled by the chat controller")
+            return []
 
         case "remove_track":
             guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
