@@ -66,7 +66,8 @@ public struct WaveformExtractor: Sendable {
                 let timeInSeconds = Double(currentSampleIndex) / sampleRate
                 let bucketIndex = min(Int(timeInSeconds / bucketDuration), sampleCount - 1)
 
-                let amplitude = Float(abs(sample)) / Float(Int16.max)
+                // Use Int32 to avoid overflow on Int16.min (-32768)
+                let amplitude = Float(abs(Int32(sample))) / Float(Int16.max)
                 if amplitude > peaks[bucketIndex] {
                     peaks[bucketIndex] = amplitude
                 }
