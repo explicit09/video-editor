@@ -4,18 +4,21 @@ import EditorCore
 struct ContentView: View {
     @Environment(AppState.self) private var appState
     @State private var selectedWorkspace: Workspace = .edit
+    @State private var commandBarText = ""
 
     enum Workspace: String, CaseIterable {
         case edit = "Edit"
-        case color = "Color"
-        case audio = "Audio"
+        case transcript = "Script"
+        case media = "Media"
+        case ai = "AI"
         case deliver = "Deliver"
 
         var icon: String {
             switch self {
             case .edit: "film"
-            case .color: "paintpalette"
-            case .audio: "waveform"
+            case .transcript: "text.alignleft"
+            case .media: "photo.on.rectangle"
+            case .ai: "sparkles"
             case .deliver: "square.and.arrow.up"
             }
         }
@@ -135,7 +138,8 @@ struct ContentView: View {
         VStack(spacing: 0) {
             // Top workspace: Media Browser + Preview + Inspector
             HStack(spacing: 0) {
-                MediaBrowserPanel()
+                // Left panel — switches based on workspace
+                leftPanel
                     .frame(width: 260)
 
                 // Preview with floating AI command bar above transport
@@ -162,6 +166,18 @@ struct ContentView: View {
             // Timeline
             TimelinePanel()
                 .frame(minHeight: 150, idealHeight: 250)
+        }
+    }
+
+    // MARK: - Left Panel (workspace-dependent)
+
+    @ViewBuilder
+    private var leftPanel: some View {
+        switch selectedWorkspace {
+        case .transcript:
+            TranscriptPanel()
+        default:
+            MediaBrowserPanel()
         }
     }
 
@@ -224,23 +240,46 @@ struct ContentView: View {
 
     // MARK: - Floating AI Command Bar
 
+    private func sendCommandBarMessage() {
+        let text = commandBarText.trimmingCharacters(in: .whitespaces)
+        guard !text.isEmpty else { return }
+        commandBarText = ""
+        Task {
+            await appState.aiChat.send(message: text, appState: appState)
+        }
+    }
+
     private var aiCommandBar: some View {
         HStack(spacing: 12) {
             Image(systemName: "sparkles")
-                .foregroundStyle(CinematicTheme.primary)
+                .foregroundStyle(appState.aiChat.isProcessing ? CinematicTheme.primary : CinematicTheme.primary.opacity(0.6))
                 .font(.system(size: 14))
+                .symbolEffect(.pulse, isActive: appState.aiChat.isProcessing)
 
-            TextField("Ask AI to edit, color grade, or find clips...", text: .constant(""))
+            TextField("Ask AI to edit, color grade, or find clips...", text: $commandBarText)
                 .textFieldStyle(.plain)
                 .font(.cinBody)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                .foregroundStyle(CinematicTheme.onSurface)
+                .onSubmit { sendCommandBarMessage() }
+                .disabled(appState.aiChat.isProcessing)
 
-            Button(action: {}) {
-                Image(systemName: "arrow.up.circle.fill")
-                    .font(.system(size: 24))
-                    .foregroundStyle(CinematicTheme.primaryContainer)
+            if appState.aiChat.isProcessing {
+                ProgressView()
+                    .scaleEffect(0.5)
+                    .tint(CinematicTheme.primary)
+            } else {
+                Button(action: sendCommandBarMessage) {
+                    Image(systemName: "arrow.up.circle.fill")
+                        .font(.system(size: 24))
+                        .foregroundStyle(
+                            commandBarText.trimmingCharacters(in: .whitespaces).isEmpty
+                                ? CinematicTheme.onSurfaceVariant.opacity(0.3)
+                                : CinematicTheme.primaryContainer
+                        )
+                }
+                .buttonStyle(.plain)
+                .disabled(commandBarText.trimmingCharacters(in: .whitespaces).isEmpty)
             }
-            .buttonStyle(.plain)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
