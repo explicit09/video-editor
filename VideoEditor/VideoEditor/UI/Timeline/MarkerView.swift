@@ -30,8 +30,8 @@ struct MarkersOverlay: View {
                 // Label
                 if !marker.label.isEmpty {
                     Text(marker.label)
-                        .font(.system(size: 9))
-                        .foregroundStyle(.orange)
+                        .font(.cinLabel)
+                        .foregroundStyle(CinematicTheme.primary)
                         .offset(x: x + 7, y: 1)
                 }
             }

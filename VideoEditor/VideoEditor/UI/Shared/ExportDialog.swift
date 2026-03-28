@@ -102,7 +102,7 @@ struct ExportDialog: View {
                     Text("DURATION")
                         .font(.cinLabel)
                         .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
-                    Text(formatDuration(appState.playbackEngine.duration))
+                    Text(TimeFormatter.durationHMS(appState.playbackEngine.duration))
                         .font(.cinTimecode)
                         .foregroundStyle(CinematicTheme.onSurface)
                 }
@@ -233,11 +233,4 @@ struct ExportDialog: View {
         }
     }
 
-    private func formatDuration(_ time: TimeInterval) -> String {
-        let t = max(0, time)
-        let hrs = Int(t) / 3600
-        let mins = (Int(t) % 3600) / 60
-        let secs = Int(t) % 60
-        return String(format: "%02d:%02d:%02d", hrs, mins, secs)
-    }
 }

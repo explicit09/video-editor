@@ -133,28 +133,16 @@ struct TranscriptPanel: View {
     private func transcriptSegment(_ segment: TranscriptSegmentGroup, isActive: Bool, matches: Bool) -> some View {
         HStack(alignment: .top, spacing: 12) {
             // Timestamp
-            Text(formatTime(segment.startTime))
+            Text(TimeFormatter.duration(segment.startTime))
                 .font(.cinLabel)
                 .foregroundStyle(isActive ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant.opacity(0.4))
                 .frame(width: 45, alignment: .trailing)
 
             // Text content
             VStack(alignment: .leading, spacing: 4) {
-                Text(segment.text)
+                Text(highlightedText(segment.text, query: searchQuery, isActive: isActive))
                     .font(.cinBody)
-                    .foregroundStyle(isActive ? CinematicTheme.onSurface : CinematicTheme.onSurfaceVariant.opacity(0.7))
                     .lineSpacing(4)
-
-                // Highlight matching text
-                if matches && !searchQuery.isEmpty {
-                    HStack(spacing: 4) {
-                        Image(systemName: "sparkles")
-                            .font(.system(size: 9))
-                        Text("Match found")
-                            .font(.cinLabelRegular)
-                    }
-                    .foregroundStyle(CinematicTheme.primary.opacity(0.7))
-                }
             }
         }
         .padding(.horizontal, 8)
@@ -211,16 +199,35 @@ struct TranscriptPanel: View {
         return segments
     }
 
+    private func highlightedText(_ text: String, query: String, isActive: Bool) -> AttributedString {
+        let baseColor = isActive ? CinematicTheme.onSurface : CinematicTheme.onSurfaceVariant.opacity(0.7)
+        var attributed = AttributedString(text)
+        attributed.foregroundColor = baseColor
+
+        guard !query.isEmpty else { return attributed }
+
+        // Find and highlight all occurrences of the query
+        var searchStart = text.startIndex
+        let lowered = text.lowercased()
+        let queryLowered = query.lowercased()
+
+        while let range = lowered.range(of: queryLowered, range: searchStart..<lowered.endIndex) {
+            // Convert String range to AttributedString range
+            if let attrRange = Range<AttributedString.Index>(range, in: attributed) {
+                attributed[attrRange].foregroundColor = CinematicTheme.primary
+                attributed[attrRange].font = .cinTitleSmall
+            }
+            searchStart = range.upperBound
+        }
+
+        return attributed
+    }
+
     private func matchesSearch(_ segment: TranscriptSegmentGroup) -> Bool {
         guard !searchQuery.isEmpty else { return false }
         return segment.text.localizedCaseInsensitiveContains(searchQuery)
     }
 
-    private func formatTime(_ time: TimeInterval) -> String {
-        let mins = Int(time) / 60
-        let secs = Int(time) % 60
-        return String(format: "%d:%02d", mins, secs)
-    }
 }
 
 // MARK: - Segment grouping

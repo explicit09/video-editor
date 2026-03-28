@@ -225,7 +225,7 @@ struct MediaWorkspacePanel: View {
 
                 // Duration badge
                 if asset.duration > 0 {
-                    Text(formatDuration(asset.duration))
+                    Text(TimeFormatter.duration(asset.duration))
                         .font(.cinLabel)
                         .foregroundStyle(.white)
                         .padding(.horizontal, 6)
@@ -256,8 +256,9 @@ struct MediaWorkspacePanel: View {
             RoundedRectangle(cornerRadius: CinematicRadius.lg)
                 .strokeBorder(isSelected ? CinematicTheme.primary : CinematicTheme.outlineVariant.opacity(0.1), lineWidth: isSelected ? 1.5 : 0.5)
         )
-        .onTapGesture { selectedAssetID = asset.id }
         .onTapGesture(count: 2) { addToTimeline(asset) }
+        .onTapGesture(count: 1) { selectedAssetID = asset.id }
+        .draggable(TimelineAssetDragPayload(assetID: asset.id))
         .task {
             if thumbnails[asset.id] == nil {
                 let thumb = await appState.media.thumbnail(for: asset.id)
@@ -308,7 +309,7 @@ struct MediaWorkspacePanel: View {
                     metadataRow("CODEC", codec)
                 }
                 if asset.duration > 0 {
-                    metadataRow("DURATION", formatDuration(asset.duration))
+                    metadataRow("DURATION", TimeFormatter.duration(asset.duration))
                 }
                 if asset.fileSize > 0 {
                     metadataRow("SIZE", formatFileSize(asset.fileSize))
@@ -389,7 +390,9 @@ struct MediaWorkspacePanel: View {
     }
 
     private func addToTimeline(_ asset: MediaAsset) {
-        appState.addAssetToTimeline(asset)
+        Task { @MainActor in
+            await appState.addAssetToTimeline(asset)
+        }
     }
 
     private func handleImport(_ result: Result<[URL], Error>) async {
@@ -404,11 +407,6 @@ struct MediaWorkspacePanel: View {
         }
     }
 
-    private func formatDuration(_ time: TimeInterval) -> String {
-        let mins = Int(time) / 60
-        let secs = Int(time) % 60
-        return String(format: "%d:%02d", mins, secs)
-    }
 
     private func formatFileSize(_ bytes: Int64) -> String {
         let gb = Double(bytes) / 1_073_741_824

@@ -5,6 +5,7 @@ struct ContentView: View {
     @Environment(AppState.self) private var appState
     @State private var selectedWorkspace: Workspace = .edit
     @State private var commandBarText = ""
+    @State private var showSettings = false
 
     enum Workspace: String, CaseIterable {
         case edit = "Edit"
@@ -33,6 +34,8 @@ struct ContentView: View {
                     EmptyStateView(commandBarText: $commandBarText, onSend: sendCommandBarMessage)
                 } else if selectedWorkspace == .media {
                     MediaWorkspacePanel()
+                } else if selectedWorkspace == .deliver {
+                    deliverWorkspace
                 } else {
                     mainContent
                 }
@@ -48,8 +51,6 @@ struct ContentView: View {
         // Frame stepping: arrows
         .onKeyPress(.leftArrow) { stepFrame(forward: false); return .handled }
         .onKeyPress(.rightArrow) { stepFrame(forward: true); return .handled }
-        // Undo/Redo: Cmd+Z / Shift+Cmd+Z
-        .keyboardShortcut("z", modifiers: .command)
         // Zoom: +/-
         .onKeyPress("=") { appState.timelineViewState.zoomIn(); return .handled }
         .onKeyPress("-") { appState.timelineViewState.zoomOut(); return .handled }
@@ -103,13 +104,20 @@ struct ContentView: View {
                     .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
             }
 
+            // Export (always accessible)
+            ExportButton()
+                .padding(.trailing, 8)
+
             // Settings
-            Button(action: {}) {
+            Button(action: { showSettings = true }) {
                 Image(systemName: "gearshape")
                     .foregroundStyle(CinematicTheme.primary)
             }
             .buttonStyle(.plain)
             .padding(.trailing, 12)
+            .sheet(isPresented: $showSettings) {
+                SettingsSheet(isPresented: $showSettings)
+            }
         }
         .frame(height: 40)
         .background(CinematicTheme.surface)
@@ -128,8 +136,8 @@ struct ContentView: View {
 
             Spacer()
 
-            // AI bolt button
-            Button(action: {}) {
+            // AI bolt button — switch to AI workspace
+            Button(action: { selectedWorkspace = .ai }) {
                 Image(systemName: "bolt.fill")
                     .font(.system(size: 16))
                     .foregroundStyle(CinematicTheme.onPrimaryContainer)
@@ -232,7 +240,7 @@ struct ContentView: View {
 
     private var transportBar: some View {
         HStack(spacing: 16) {
-            Text(formatTimecode(appState.playbackEngine.currentTime))
+            Text(TimeFormatter.timecode(appState.playbackEngine.currentTime))
                 .font(.cinTimecode)
                 .foregroundStyle(CinematicTheme.onSurface.opacity(0.7))
                 .frame(width: 100, alignment: .leading)
@@ -266,7 +274,7 @@ struct ContentView: View {
 
             Spacer()
 
-            Text(formatTimecode(appState.playbackEngine.duration))
+            Text(TimeFormatter.timecode(appState.playbackEngine.duration))
                 .font(.cinTimecode)
                 .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
                 .frame(width: 100, alignment: .trailing)
@@ -276,16 +284,52 @@ struct ContentView: View {
         .background(CinematicTheme.surface)
     }
 
-    private func formatTimecode(_ time: TimeInterval) -> String {
-        let t = max(0, time)
-        let hrs = Int(t) / 3600
-        let mins = (Int(t) % 3600) / 60
-        let secs = Int(t) % 60
-        let frames = Int((t - Double(Int(t))) * 30)
-        return String(format: "%02d:%02d:%02d:%02d", hrs, mins, secs, frames)
-    }
 
     // MARK: - Floating AI Command Bar
+
+    // MARK: - Deliver Workspace
+
+    @State private var showExportDialog = false
+
+    private var deliverWorkspace: some View {
+        VStack {
+            Spacer()
+            Image(systemName: "square.and.arrow.up")
+                .font(.system(size: 48))
+                .foregroundStyle(CinematicTheme.primary.opacity(0.4))
+            Text("Ready to deliver")
+                .font(.cinHeadline)
+                .foregroundStyle(CinematicTheme.onSurface)
+                .padding(.top, 12)
+            Text("\(appState.timeline.tracks.count) tracks • \(appState.timeline.tracks.flatMap(\.clips).count) clips")
+                .font(.cinBody)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+                .padding(.top, 4)
+
+            Button(action: { showExportDialog = true }) {
+                HStack(spacing: 6) {
+                    Image(systemName: "film")
+                    Text("Export Project")
+                        .font(.cinTitle)
+                }
+                .foregroundStyle(CinematicTheme.onPrimaryContainer)
+                .padding(.horizontal, 24)
+                .padding(.vertical, 12)
+                .background(CinematicTheme.primaryContainer)
+                .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+            }
+            .buttonStyle(.plain)
+            .padding(.top, 20)
+            .disabled(appState.timeline.tracks.isEmpty)
+            .sheet(isPresented: $showExportDialog) {
+                ExportDialog(isPresented: $showExportDialog)
+            }
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(CinematicTheme.surface)
+    }
 
     // MARK: - AI Orchestrator Overlay (Screen 3)
 
@@ -369,5 +413,132 @@ struct ContentView: View {
             RoundedRectangle(cornerRadius: CinematicRadius.full)
                 .strokeBorder(CinematicTheme.outlineVariant.opacity(0.2), lineWidth: 1)
         )
+    }
+}
+
+/// Settings sheet for configuring API keys.
+private struct SettingsSheet: View {
+    @Binding var isPresented: Bool
+    @State private var anthropicKey: String = ""
+    @State private var deepgramKey: String = ""
+    @State private var saved = false
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("Settings")
+                    .font(.cinHeadline)
+                    .foregroundStyle(CinematicTheme.onSurface)
+                Spacer()
+                Button(action: { isPresented = false }) {
+                    Image(systemName: "xmark")
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(20)
+
+            VStack(alignment: .leading, spacing: 16) {
+                Text("API KEYS")
+                    .font(.cinLabel)
+                    .tracking(1.5)
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+
+                apiKeyField(
+                    label: "Anthropic API Key",
+                    placeholder: "sk-ant-...",
+                    value: $anthropicKey,
+                    description: "Powers the AI assistant. Get one at console.anthropic.com"
+                )
+
+                apiKeyField(
+                    label: "Deepgram API Key",
+                    placeholder: "Enter key...",
+                    value: $deepgramKey,
+                    description: "Powers transcription. Get one at deepgram.com"
+                )
+            }
+            .padding(.horizontal, 20)
+
+            Spacer()
+
+            HStack {
+                if saved {
+                    HStack(spacing: 4) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(Color(hex: 0x53E16F))
+                        Text("Saved - restart app to apply")
+                            .font(.cinLabelRegular)
+                            .foregroundStyle(Color(hex: 0x53E16F))
+                    }
+                }
+                Spacer()
+                Button(action: saveKeys) {
+                    Text("Save")
+                        .font(.cinTitleSmall)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(CinematicTheme.onPrimaryContainer)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 8)
+                        .background(CinematicTheme.primaryContainer)
+                        .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(20)
+        }
+        .frame(width: 480, height: 360)
+        .background(CinematicTheme.surfaceContainer)
+        .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.xl))
+        .onAppear { loadKeys() }
+    }
+
+    private func apiKeyField(label: String, placeholder: String, value: Binding<String>, description: String) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label)
+                .font(.cinTitleSmall)
+                .foregroundStyle(CinematicTheme.onSurface)
+            SecureField(placeholder, text: value)
+                .textFieldStyle(.plain)
+                .font(.cinBody)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 8)
+                .background(CinematicTheme.surfaceContainerLowest)
+                .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+            Text(description)
+                .font(.cinLabelRegular)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.4))
+        }
+    }
+
+    private func loadKeys() {
+        let envURL = envFileURL()
+        guard let contents = try? String(contentsOf: envURL, encoding: .utf8) else { return }
+        for line in contents.components(separatedBy: .newlines) {
+            let trimmed = line.trimmingCharacters(in: .whitespaces)
+            guard let eq = trimmed.firstIndex(of: "=") else { continue }
+            let key = String(trimmed[..<eq])
+            let val = String(trimmed[trimmed.index(after: eq)...])
+            if key == "ANTHROPIC_API_KEY" { anthropicKey = val }
+            if key == "DEEPGRAM_API_KEY" { deepgramKey = val }
+        }
+    }
+
+    private func saveKeys() {
+        var lines: [String] = []
+        if !anthropicKey.isEmpty { lines.append("ANTHROPIC_API_KEY=\(anthropicKey)") }
+        if !deepgramKey.isEmpty { lines.append("DEEPGRAM_API_KEY=\(deepgramKey)") }
+        let content = lines.joined(separator: "\n") + "\n"
+
+        let url = envFileURL()
+        let dir = url.deletingLastPathComponent()
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        try? content.write(to: url, atomically: true, encoding: .utf8)
+        saved = true
+    }
+
+    private func envFileURL() -> URL {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupport.appendingPathComponent("VideoEditor/.env")
     }
 }

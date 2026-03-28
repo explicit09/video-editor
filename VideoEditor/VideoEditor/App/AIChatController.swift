@@ -171,7 +171,7 @@ final class AIChatController {
                let assetID = UUID(uuidString: assetIDStr),
                let asset = appState.assets.first(where: { $0.id == assetID }),
                asset.type == .video {
-                appState.addAssetToTimeline(asset, source: .ai)
+                await appState.addAssetToTimeline(asset, source: .ai)
             } else {
                 let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
                 for intent in intents {

@@ -25,7 +25,7 @@ struct TimelineRuler: View {
 
                 // Label on major ticks
                 if isMajor {
-                    let label = formatTimecode(time)
+                    let label = TimeFormatter.rulerTimecode(time)
                     context.draw(
                         Text(label).font(.cinLabel).foregroundStyle(Color(hex: 0xC7C4D7).opacity(0.5)),
                         at: CGPoint(x: x + 2, y: 8),
@@ -55,13 +55,4 @@ struct TimelineRuler: View {
         return time.truncatingRemainder(dividingBy: step * 5) < 0.001
     }
 
-    private func formatTimecode(_ time: TimeInterval) -> String {
-        let mins = Int(time) / 60
-        let secs = Int(time) % 60
-        let frames = Int((time - Double(Int(time))) * 30)
-        if mins > 0 {
-            return String(format: "%d:%02d:%02d", mins, secs, frames)
-        }
-        return String(format: "%d:%02d", secs, frames)
-    }
 }

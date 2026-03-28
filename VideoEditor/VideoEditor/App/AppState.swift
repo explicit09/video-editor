@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 import EditorCore
 import AIServices
 
@@ -73,39 +74,91 @@ final class AppState {
         startPlayheadSync()
     }
 
-    // MARK: - Add to timeline (creates linked audio track for video assets)
+    // MARK: - Add to timeline (creates linked audio track only when media actually has audio)
 
-    func addAssetToTimeline(_ asset: MediaAsset, source: ActionSource = .user) {
+    func addAssetToTimeline(
+        _ asset: MediaAsset,
+        source: ActionSource = .user,
+        preferredTrackID: UUID? = nil,
+        startTime: TimeInterval? = nil
+    ) async {
         let duration = max(asset.duration, 1)
+        let requestedTrack = preferredTrackID.flatMap { id in
+            timeline.tracks.first(where: { $0.id == id })
+        }
 
-        if asset.type == .video {
-            // Video track
-            let videoTrackID = findOrCreateTrack(type: .video, name: "Video")
-            let videoEnd = timeline.tracks.first(where: { $0.id == videoTrackID })?.clips.map(\.timelineRange.end).max() ?? 0
+        switch asset.type {
+        case .video:
+            let hasAudio = await assetHasAudio(asset)
+            let videoTrackID: UUID
+            let audioTrackID: UUID?
+
+            if let requestedTrack {
+                switch requestedTrack.type {
+                case .video:
+                    videoTrackID = resolveTrackID(for: .video, preferredTrackID: requestedTrack.id)
+                    audioTrackID = hasAudio ? pairedTrackID(for: requestedTrack.id, sourceType: .video, targetType: .audio) : nil
+                case .audio:
+                    videoTrackID = pairedTrackID(for: requestedTrack.id, sourceType: .audio, targetType: .video)
+                    audioTrackID = hasAudio ? requestedTrack.id : nil
+                default:
+                    videoTrackID = resolveTrackID(for: .video, preferredTrackID: nil)
+                    audioTrackID = hasAudio ? pairedTrackID(for: videoTrackID, sourceType: .video, targetType: .audio) : nil
+                }
+            } else {
+                videoTrackID = resolveTrackID(for: .video, preferredTrackID: timelineViewState.selectedTrackID)
+                audioTrackID = hasAudio ? pairedTrackID(for: videoTrackID, sourceType: .video, targetType: .audio) : nil
+            }
+
+            let clipStart = startTime ?? trackEnd(for: videoTrackID)
             let videoClip = Clip(
                 assetID: asset.id,
-                timelineRange: TimeRange(start: videoEnd, duration: duration),
+                timelineRange: TimeRange(start: clipStart, duration: duration),
                 sourceRange: TimeRange(start: 0, duration: duration),
                 metadata: ClipMetadata(label: asset.name)
             )
             try? perform(.insertClip(clip: videoClip, trackID: videoTrackID), source: source)
 
-            // Linked audio track (same asset, same position)
-            let audioTrackID = findOrCreateTrack(type: .audio, name: "Audio")
-            let audioClip = Clip(
-                assetID: asset.id,
-                timelineRange: TimeRange(start: videoEnd, duration: duration),
-                sourceRange: TimeRange(start: 0, duration: duration),
-                metadata: ClipMetadata(label: "\(asset.name) ♪")
-            )
-            try? perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: source)
-        } else {
-            // Audio-only asset
-            let trackID = findOrCreateTrack(type: .audio, name: "Audio")
-            let trackEnd = timeline.tracks.first(where: { $0.id == trackID })?.clips.map(\.timelineRange.end).max() ?? 0
+            if let audioTrackID {
+                let audioClip = Clip(
+                    assetID: asset.id,
+                    timelineRange: TimeRange(start: clipStart, duration: duration),
+                    sourceRange: TimeRange(start: 0, duration: duration),
+                    metadata: ClipMetadata(label: "\(asset.name) ♪")
+                )
+                try? perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: source)
+            }
+
+        case .audio:
+            let trackID: UUID
+            if let requestedTrack {
+                switch requestedTrack.type {
+                case .audio:
+                    trackID = requestedTrack.id
+                case .video:
+                    trackID = pairedTrackID(for: requestedTrack.id, sourceType: .video, targetType: .audio)
+                default:
+                    trackID = resolveTrackID(for: .audio, preferredTrackID: nil)
+                }
+            } else {
+                trackID = resolveTrackID(for: .audio, preferredTrackID: timelineViewState.selectedTrackID)
+            }
+
+            let clipStart = startTime ?? trackEnd(for: trackID)
             let clip = Clip(
                 assetID: asset.id,
-                timelineRange: TimeRange(start: trackEnd, duration: duration),
+                timelineRange: TimeRange(start: clipStart, duration: duration),
+                sourceRange: TimeRange(start: 0, duration: duration),
+                metadata: ClipMetadata(label: asset.name)
+            )
+            try? perform(.insertClip(clip: clip, trackID: trackID), source: source)
+
+        case .image:
+            let trackID = resolveTrackID(for: .video, preferredTrackID: requestedTrack?.type == .video ? requestedTrack?.id : nil)
+            let clipStart = startTime ?? trackEnd(for: trackID)
+            let clip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: clipStart, duration: duration),
                 sourceRange: TimeRange(start: 0, duration: duration),
                 metadata: ClipMetadata(label: asset.name)
             )
@@ -113,13 +166,98 @@ final class AppState {
         }
     }
 
-    private func findOrCreateTrack(type: TrackType, name: String) -> UUID {
+    func addTrack(of type: TrackType) {
+        let track = Track(name: nextTrackName(for: type), type: type)
+        try? perform(.addTrack(track: track))
+    }
+
+    private func resolveTrackID(for type: TrackType, preferredTrackID: UUID?) -> UUID {
+        if let preferredTrackID,
+           let preferredTrack = timeline.tracks.first(where: { $0.id == preferredTrackID }),
+           preferredTrack.type == type {
+            return preferredTrackID
+        }
+
         if let existing = timeline.tracks.last(where: { $0.type == type }) {
             return existing.id
         }
-        let track = Track(name: name, type: type)
+
+        let track = Track(name: nextTrackName(for: type), type: type)
         try? perform(.addTrack(track: track))
         return track.id
+    }
+
+    private func pairedTrackID(for sourceTrackID: UUID, sourceType: TrackType, targetType: TrackType) -> UUID {
+        let sourceTracks = timeline.tracks.filter { $0.type == sourceType }
+        guard let sourceIndex = sourceTracks.firstIndex(where: { $0.id == sourceTrackID }) else {
+            return resolveTrackID(for: targetType, preferredTrackID: nil)
+        }
+
+        while timeline.tracks.filter({ $0.type == targetType }).count <= sourceIndex {
+            let track = Track(name: nextTrackName(for: targetType), type: targetType)
+            try? perform(.addTrack(track: track))
+        }
+
+        return timeline.tracks.filter { $0.type == targetType }[sourceIndex].id
+    }
+
+    private func nextTrackName(for type: TrackType) -> String {
+        let count = timeline.tracks.filter { $0.type == type }.count + 1
+        let baseName: String = switch type {
+        case .video: "Video"
+        case .audio: "Audio"
+        case .text: "Text"
+        case .effect: "Effect"
+        }
+        return count == 1 ? baseName : "\(baseName) \(count)"
+    }
+
+    private func trackEnd(for trackID: UUID) -> TimeInterval {
+        timeline.tracks.first(where: { $0.id == trackID })?.clips.map(\.timelineRange.end).max() ?? 0
+    }
+
+    private func assetHasAudio(_ asset: MediaAsset) async -> Bool {
+        switch asset.type {
+        case .audio:
+            return true
+        case .image:
+            return false
+        case .video:
+            let avAsset = AVURLAsset(url: asset.sourceURL)
+            guard let tracks = try? await avAsset.loadTracks(withMediaType: .audio) else {
+                return false
+            }
+            return !tracks.isEmpty
+        }
+    }
+
+    private func removeAudiolessVideoClips(using assets: [MediaAsset]) async {
+        let assetsByID = Dictionary(uniqueKeysWithValues: assets.map { ($0.id, $0) })
+        var assetsWithNoAudio = Set<UUID>()
+
+        for asset in assets where asset.type == .video {
+            if await !assetHasAudio(asset) {
+                assetsWithNoAudio.insert(asset.id)
+            }
+        }
+
+        guard !assetsWithNoAudio.isEmpty else { return }
+
+        var timeline = context.timelineState.timeline
+        var removedAny = false
+
+        for index in timeline.tracks.indices where timeline.tracks[index].type == .audio {
+            let originalCount = timeline.tracks[index].clips.count
+            timeline.tracks[index].clips.removeAll { clip in
+                guard let asset = assetsByID[clip.assetID] else { return false }
+                return asset.type == .video && assetsWithNoAudio.contains(asset.id)
+            }
+            removedAny = removedAny || timeline.tracks[index].clips.count != originalCount
+        }
+
+        guard removedAny else { return }
+        context.timelineState.timeline = timeline
+        scheduleSave()
     }
 
     // MARK: - Intent pipeline (ONLY write path)
@@ -192,6 +330,7 @@ final class AppState {
                     await media.mediaManager.add(asset)
                 }
                 await media.refreshAssets()
+                await removeAudiolessVideoClips(using: loadedAssets)
             }
 
             rebuildComposition()

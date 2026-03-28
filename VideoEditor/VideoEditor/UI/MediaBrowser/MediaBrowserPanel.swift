@@ -140,7 +140,9 @@ struct MediaBrowserPanel: View {
     // MARK: - Add to timeline
 
     private func addToTimeline(_ asset: MediaAsset) {
-        appState.addAssetToTimeline(asset)
+        Task { @MainActor in
+            await appState.addAssetToTimeline(asset)
+        }
     }
 
     private static let allowedTypes: [UTType] = [
@@ -215,6 +217,7 @@ struct AssetThumbnailView: View {
         .onTapGesture(count: 2) { onAddToTimeline?() }
         .onTapGesture(count: 1) { }
         .help("Double-click to add to timeline")
+        .draggable(TimelineAssetDragPayload(assetID: asset.id))
     }
 
     private var iconName: String {
@@ -227,8 +230,6 @@ struct AssetThumbnailView: View {
 
     private var formattedDuration: String {
         guard asset.duration > 0 else { return "" }
-        let mins = Int(asset.duration) / 60
-        let secs = Int(asset.duration) % 60
-        return String(format: "%d:%02d", mins, secs)
+        return TimeFormatter.duration(asset.duration)
     }
 }

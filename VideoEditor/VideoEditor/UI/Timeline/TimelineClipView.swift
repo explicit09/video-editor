@@ -11,7 +11,7 @@ struct TimelineClipView: View {
     let thumbnail: CGImage?
     let waveform: [Float]?
     let onTap: (Bool) -> Void
-    let onDrag: (TimeInterval) -> Void
+    let onDrag: (TimeInterval, Double) -> Void
     var onTrimStart: ((TimeInterval) -> Void)?
     var onTrimEnd: ((TimeInterval) -> Void)?
 
@@ -21,11 +21,11 @@ struct TimelineClipView: View {
     @State private var trimEndOffset: Double = 0
     @State private var isTrimming = false
     private var clipX: Double {
-        viewState.durationToWidth(clip.timelineRange.start) + dragOffset
+        viewState.durationToWidth(clip.timelineRange.start) + dragOffset + trimStartOffset
     }
 
     private var clipWidth: Double {
-        max(viewState.durationToWidth(clip.timelineRange.duration), 8)
+        max(viewState.durationToWidth(clip.timelineRange.duration) - trimStartOffset + trimEndOffset, 8)
     }
 
     var body: some View {
@@ -49,6 +49,8 @@ struct TimelineClipView: View {
                     // Audio: show waveform
                     Rectangle().fill(clipColor)
                     WaveformView(amplitudes: waveform, color: clipAccentColor)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.horizontal, 3)
                         .padding(.vertical, 4)
                 } else if let cgImage = thumbnail, trackType == .video {
                     // Video: show thumbnail
@@ -60,6 +62,7 @@ struct TimelineClipView: View {
                     Rectangle().fill(clipColor)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay(clipLabel, alignment: .topLeading)
         }
         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
@@ -159,7 +162,7 @@ struct TimelineClipView: View {
                 let timeDelta = value.translation.width / viewState.zoom
                 let newStart = max(0, clip.timelineRange.start + timeDelta)
                 dragOffset = 0
-                onDrag(newStart)
+                onDrag(newStart, value.translation.height)
             }
     }
 }

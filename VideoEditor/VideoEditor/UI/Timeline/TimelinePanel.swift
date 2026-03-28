@@ -5,6 +5,24 @@ struct TimelinePanel: View {
     @Environment(AppState.self) private var appState
     @State private var thumbnails: [UUID: CGImage] = [:]
     @State private var waveforms: [UUID: [Float]] = [:]
+    private let trackHeight: Double = 60
+
+    /// Re-run media loading when the timeline changes, when assets become available,
+    /// or when background analysis writes a waveform profile onto an existing asset.
+    private var mediaLoadKey: [String] {
+        let assetsByID = Dictionary(uniqueKeysWithValues: appState.assets.map { ($0.id, $0) })
+
+        return appState.timeline.tracks
+            .flatMap(\.clips)
+            .map { clip in
+                guard let asset = assetsByID[clip.assetID] else {
+                    return "\(clip.assetID.uuidString):missing"
+                }
+
+                let waveformCount = asset.analysis?.loudnessProfile?.count ?? 0
+                return "\(clip.assetID.uuidString):present:\(waveformCount)"
+            }
+    }
 
     var body: some View {
         let viewState = appState.timelineViewState
@@ -50,7 +68,7 @@ struct TimelinePanel: View {
             }
         }
         .background(CinematicTheme.surfaceContainer)
-        .task(id: appState.timeline.tracks.flatMap(\.clips).count) {
+        .task(id: mediaLoadKey) {
             await loadWaveformsForAllClips()
         }
         .focusable()
@@ -108,11 +126,12 @@ struct TimelinePanel: View {
     private func timelineToolbar(viewState: TimelineViewState, timeline: Timeline) -> some View {
         HStack(spacing: 12) {
             // Add Track
-            Button(action: {
-                let count = timeline.tracks.count
-                let track = Track(name: "Video \(count + 1)", type: .video)
-                try? appState.perform(.addTrack(track: track))
-            }) {
+            Menu {
+                Button("Video Track") { appState.addTrack(of: .video) }
+                Button("Audio Track") { appState.addTrack(of: .audio) }
+                Button("Text Track") { appState.addTrack(of: .text) }
+                Button("Effect Track") { appState.addTrack(of: .effect) }
+            } label: {
                 HStack(spacing: 4) {
                     Image(systemName: "plus")
                     Text("Add Track")
@@ -120,7 +139,7 @@ struct TimelinePanel: View {
                 }
                 .foregroundStyle(CinematicTheme.onSurfaceVariant)
             }
-            .buttonStyle(.plain)
+            .menuStyle(.button)
 
             Spacer()
 
@@ -227,7 +246,7 @@ struct TimelinePanel: View {
 
     private func trackStack(timeline: Timeline, viewState: TimelineViewState, width: Double) -> some View {
         VStack(spacing: CinematicSpacing.clipGap) {
-            ForEach(timeline.tracks) { track in
+            ForEach(Array(timeline.tracks.enumerated()), id: \.element.id) { index, track in
                 TimelineTrackView(
                     track: track,
                     viewState: viewState,
@@ -241,8 +260,24 @@ struct TimelinePanel: View {
                         viewState.selectedTrackID = track.id
                         viewState.toggleSelection(clipID, extend: extend)
                     },
-                    onClipDrag: { clipID, newStart in
-                        try? appState.perform(.moveClip(clipID: clipID, newStart: newStart, trackID: track.id))
+                    onClipDrag: { clipID, newStart, verticalOffset in
+                        let targetTrackID = targetTrackID(
+                            from: index,
+                            verticalOffset: verticalOffset,
+                            trackType: track.type,
+                            in: timeline
+                        )
+                        try? appState.perform(.moveClip(clipID: clipID, newStart: newStart, trackID: targetTrackID))
+                    },
+                    onAssetDrop: { assetID, dropTime in
+                        guard let asset = appState.assets.first(where: { $0.id == assetID }) else { return }
+                        Task { @MainActor in
+                            await appState.addAssetToTimeline(
+                                asset,
+                                preferredTrackID: track.id,
+                                startTime: dropTime
+                            )
+                        }
                     },
                     onClipTrim: { clipID, newSourceStart, newSourceEnd in
                         try? appState.perform(.trimClip(clipID: clipID, newSourceRange: TimeRange(start: newSourceStart, end: newSourceEnd)))
@@ -251,5 +286,18 @@ struct TimelinePanel: View {
             }
             Spacer()
         }
+    }
+
+    private func targetTrackID(
+        from currentIndex: Int,
+        verticalOffset: Double,
+        trackType: TrackType,
+        in timeline: Timeline
+    ) -> UUID {
+        let rowStride = trackHeight + CinematicSpacing.clipGap
+        let rowDelta = Int((verticalOffset / rowStride).rounded())
+        let candidateIndex = min(max(currentIndex + rowDelta, 0), timeline.tracks.count - 1)
+        let candidateTrack = timeline.tracks[candidateIndex]
+        return candidateTrack.type == trackType ? candidateTrack.id : timeline.tracks[currentIndex].id
     }
 }
