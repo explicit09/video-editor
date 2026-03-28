@@ -78,6 +78,18 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             image = image.transformed(by: affine)
         }
 
+        // Render subtitles if present
+        if !instruction.subtitles.isEmpty {
+            let time = request.compositionTime.seconds
+            let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+            image = SubtitleRenderer.render(
+                subtitles: instruction.subtitles,
+                at: time,
+                onto: image,
+                renderSize: renderSize
+            )
+        }
+
         // Render to output buffer
         guard let outputBuffer = renderContext?.newPixelBuffer() else {
             request.finish(with: NSError(domain: "EffectCompositor", code: -3))
@@ -217,19 +229,22 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
     public let effects: [EffectInstance]
     public let opacity: Float
     public let transform: Transform2D
+    public let subtitles: [SubtitleRenderer.SubtitleEntry]
 
     public init(
         timeRange: CMTimeRange,
         sourceTrackID: CMPersistentTrackID,
         effects: [EffectInstance],
         opacity: Float = 1.0,
-        transform: Transform2D = .identity
+        transform: Transform2D = .identity,
+        subtitles: [SubtitleRenderer.SubtitleEntry] = []
     ) {
         self.timeRange = timeRange
         self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
         self.effects = effects
         self.opacity = opacity
         self.transform = transform
+        self.subtitles = subtitles
         super.init()
     }
 }
