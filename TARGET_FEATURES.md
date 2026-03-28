@@ -75,13 +75,13 @@
 | 21 | Motion effects (transform) | **DONE** | Yes | Yes | Yes | Yes | No | **P0** | Transform2D on every clip, not rendered |
 | 22 | Masking | **MISSING** | PowerWindows | Yes | Magnetic Mask | AI mask | No | P2 | |
 | 23 | Tracking | **MISSING** | Yes (full) | Yes | Object Tracker | AI tracking | No | P2 | |
-| 24 | Green screen (chroma key) | **MISSING** | Yes | Yes | Yes | AI removal | No | P2 | CIChromaKeyFilter available |
+| 24 | Green screen (chroma key) | **DONE** | Yes | Yes | Yes | AI removal | No | P2 | CIChromaKeyFilter available |
 | 25 | Blur | 25 | Blur & sharpen | **STUBBED** sharpen | **DONE** | Yes | Yes | Yes | Yes | No | P1 | Type constants defined |
 | 26 | VFX layering | **STUBBED** | Fusion (full) | After Effects | Motion | No | No | P3 | TrackType.effect exists |
-| 27 | Blend modes | **MISSING** | Yes | Yes | Yes | No | No | P2 | |
+| 27 | Blend modes | **DONE** | Yes | Yes | Yes | No | No | P2 | |
 | 28 | Noise reduction | **MISSING** | UltraNR (AI) | AI Denoise | Yes | No | No | P2 | |
 | 29 | Lens correction | **MISSING** | Yes | Yes | No | No | No | P3 | |
-| 30 | Stabilization | **MISSING** | Yes | Warp Stabilizer | Yes | Yes | No | P2 | VNMotionAnalysis available |
+| 30 | Stabilization | **PARTIAL** | Yes | Warp Stabilizer | Yes | Yes | No | P2 | VNMotionAnalysis available |
 
 **Score: 0 Done, 0 Partial, 6 Stubbed, 9 Missing = 7%**
 **To reach 50%: Wire CIFilter rendering for color/transitions/transforms (P0)**
@@ -97,9 +97,9 @@
 | 33 | Audio trimming | **DONE** | Yes | Yes | Yes | Yes | Text-based | - | Same trim handles as video |
 | 34 | Volume automation | **PARTIAL** | Fairlight (full) | Keyframes | Keyframes | No | No | P1 | Per-clip scalar done. Keyframe ramps missing |
 | 35 | Noise reduction | **DONE** | UltraNR (AI) | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Could use Apple VPIO or AudioUnit |
-| 36 | EQ controls | **MISSING** | Fairlight EQ | Essential Sound | Basic EQ | No | No | P2 | AVAudioUnitEQ available |
-| 37 | Compression | **MISSING** | Yes | Yes | No | No | No | P2 | AVAudioUnitDynamicsProcessor |
-| 38 | Audio effects | **MISSING** | Fairlight FX | Audition | AU plugins | Basic | No | P2 | |
+| 36 | EQ controls | **DONE** | Fairlight EQ | Essential Sound | Basic EQ | No | No | P2 | AVAudioUnitEQ available |
+| 37 | Compression | **DONE** | Yes | Yes | No | No | No | P2 | AVAudioUnitDynamicsProcessor |
+| 38 | Audio effects | **DONE** | Fairlight FX | Audition | AU plugins | Basic | No | P2 | |
 | 39 | Voice isolation | **MISSING** | Studio | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Apple's VoiceProcessing API |
 | 40 | Audio sync | **PARTIAL** | Auto sync | Auto sync | Auto sync | No | Auto sync | P2 | Linked clips sync. No waveform auto-sync |
 | 41 | Multichannel | **MISSING** | 7.1.4 | 5.1/7.1 | 7.1.4 | Stereo | Stereo | P3 | |
@@ -192,7 +192,7 @@
 | 92 | Import formats | **DONE** | All major | All major | All major | Limited | Limited | - | mp4/mov/avi/mkv/mp3/wav/aac/jpg/png/heic |
 | 93 | Export presets | **DONE** | Yes | Media Encoder | Compressor | Limited | Limited | - | YouTube 4K/1080p, TikTok, ProRes |
 | 94 | Batch export | **MISSING** | Yes | Media Encoder | Compressor | No | No | P2 | |
-| 95 | Project templates | **MISSING** | Yes | Yes | Yes | **Yes** | Yes | P2 | |
+| 95 | Project templates | **DONE** | Yes | Yes | Yes | **Yes** | Yes | P2 | |
 
 **Score: 4 Done, 2 Partial, 0 Stubbed, 4 Missing = 50%**
 
