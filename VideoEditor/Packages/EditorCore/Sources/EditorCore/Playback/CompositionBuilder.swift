@@ -1,5 +1,6 @@
 import Foundation
 import AVFoundation
+import CoreImage
 
 /// Builds AVComposition + AVAudioMix from Timeline.
 /// Shared between PlaybackEngine (proxy URLs) and ExportEngine (source URLs).
@@ -29,7 +30,9 @@ public struct CompositionBuilder {
         var maxDuration: CMTime = .zero
         var audioParams: [AVMutableAudioMixInputParameters] = []
         var videoInstructions: [AVMutableVideoCompositionLayerInstruction] = []
+        var effectInstructions: [EffectInstruction] = []
         var hasOpacityChanges = false
+        var hasEffects = false
         var renderSize: CGSize = CGSize(width: 1920, height: 1080)
 
         let anySoloed = timeline.tracks.contains { $0.isSoloed }
@@ -72,9 +75,28 @@ public struct CompositionBuilder {
                             if naturalSize.width > renderSize.width { renderSize = naturalSize }
                         }
 
-                        // Apply opacity if not 1.0
+                        // Check if this clip needs effects processing
                         let effectiveOpacity = clip.opacity * track.opacity
-                        if effectiveOpacity < 1.0 {
+                        let activeEffects = clip.effects.filter(\.isEnabled)
+                        let needsTransform = clip.transform != .identity
+                        let needsEffects = !activeEffects.isEmpty || effectiveOpacity < 1.0 || needsTransform
+
+                        if needsEffects {
+                            // Create per-clip effect instruction for custom compositor
+                            let clipDuration = effectiveSpeed != 1.0
+                                ? CMTime(seconds: sourceDuration.seconds / effectiveSpeed, preferredTimescale: 600)
+                                : sourceDuration
+                            let effectInstruction = EffectInstruction(
+                                timeRange: CMTimeRange(start: insertTime, duration: clipDuration),
+                                sourceTrackID: compTrack.trackID,
+                                effects: activeEffects,
+                                opacity: Float(effectiveOpacity),
+                                transform: clip.transform
+                            )
+                            effectInstructions.append(effectInstruction)
+                            hasEffects = true
+                        } else if effectiveOpacity < 1.0 {
+                            // Fallback: simple opacity via layer instruction
                             let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: compTrack)
                             layerInstruction.setOpacity(Float(effectiveOpacity), at: insertTime)
                             videoInstructions.append(layerInstruction)
@@ -120,9 +142,18 @@ public struct CompositionBuilder {
             audioMix = mix
         }
 
-        // Build video composition if any opacity changes
+        // Build video composition
         var videoComposition: AVVideoComposition?
-        if hasOpacityChanges, !videoInstructions.isEmpty {
+        if hasEffects, !effectInstructions.isEmpty {
+            // Use custom compositor for effects (CIFilter pipeline)
+            let vidComp = AVMutableVideoComposition()
+            vidComp.customVideoCompositorClass = EffectCompositor.self
+            vidComp.instructions = effectInstructions
+            vidComp.frameDuration = CMTime(value: 1, timescale: 30)
+            vidComp.renderSize = renderSize
+            videoComposition = vidComp
+        } else if hasOpacityChanges, !videoInstructions.isEmpty {
+            // Simple opacity-only path (no custom compositor needed)
             let mainInstruction = AVMutableVideoCompositionInstruction()
             mainInstruction.timeRange = CMTimeRange(start: .zero, duration: maxDuration)
             mainInstruction.layerInstructions = videoInstructions

@@ -1,0 +1,162 @@
+import Foundation
+import AVFoundation
+import CoreImage
+
+/// Custom AVVideoCompositing that applies CIFilter effects per-frame.
+/// Used by CompositionBuilder when clips have effects, transforms, or opacity.
+public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Sendable {
+
+    // Required properties
+    public var sourcePixelBufferAttributes: [String: any Sendable]? {
+        [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
+    }
+
+    public var requiredPixelBufferAttributesForRenderContext: [String: any Sendable] {
+        [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
+    }
+
+    private let ciContext = CIContext(options: [.workingColorSpace: CGColorSpaceCreateDeviceRGB()])
+    private var renderContext: AVVideoCompositionRenderContext?
+
+    public func renderContextChanged(_ newRenderContext: AVVideoCompositionRenderContext) {
+        renderContext = newRenderContext
+    }
+
+    public func startRequest(_ request: AVAsynchronousVideoCompositionRequest) {
+        guard let instruction = request.videoCompositionInstruction as? EffectInstruction else {
+            request.finish(with: NSError(domain: "EffectCompositor", code: -1))
+            return
+        }
+
+        // Get the source frame
+        guard let trackID = instruction.requiredSourceTrackIDs?.first as? CMPersistentTrackID,
+              let sourceBuffer = request.sourceFrame(byTrackID: trackID) else {
+            // No source — return empty frame
+            if let outputBuffer = renderContext?.newPixelBuffer() {
+                request.finish(withComposedVideoFrame: outputBuffer)
+            } else {
+                request.finish(with: NSError(domain: "EffectCompositor", code: -2))
+            }
+            return
+        }
+
+        var image = CIImage(cvPixelBuffer: sourceBuffer)
+
+        // Apply effects in order
+        for effect in instruction.effects {
+            image = applyEffect(effect, to: image)
+        }
+
+        // Apply opacity
+        if instruction.opacity < 1.0 {
+            image = image.applyingFilter("CIColorMatrix", parameters: [
+                "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(instruction.opacity)),
+            ])
+        }
+
+        // Apply transform
+        if instruction.transform != .identity {
+            let t = instruction.transform
+            var affine = CGAffineTransform.identity
+            // Move to anchor point, apply transform, move back
+            let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+            let anchorX = renderSize.width * CGFloat(t.anchorX)
+            let anchorY = renderSize.height * CGFloat(t.anchorY)
+
+            affine = affine.translatedBy(x: anchorX, y: anchorY)
+            affine = affine.rotated(by: CGFloat(t.rotation) * .pi / 180)
+            affine = affine.scaledBy(x: CGFloat(t.scaleX), y: CGFloat(t.scaleY))
+            affine = affine.translatedBy(x: -anchorX, y: -anchorY)
+            affine = affine.translatedBy(x: CGFloat(t.positionX), y: CGFloat(t.positionY))
+
+            image = image.transformed(by: affine)
+        }
+
+        // Render to output buffer
+        guard let outputBuffer = renderContext?.newPixelBuffer() else {
+            request.finish(with: NSError(domain: "EffectCompositor", code: -3))
+            return
+        }
+
+        let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+        ciContext.render(image, to: outputBuffer, bounds: CGRect(origin: .zero, size: renderSize), colorSpace: CGColorSpaceCreateDeviceRGB())
+        request.finish(withComposedVideoFrame: outputBuffer)
+    }
+
+    public func cancelAllPendingVideoCompositionRequests() {
+        // No-op: synchronous processing
+    }
+
+    // MARK: - Effect Application
+
+    private func applyEffect(_ effect: EffectInstance, to image: CIImage) -> CIImage {
+        guard effect.isEnabled else { return image }
+
+        switch effect.type {
+        case "colorCorrection":
+            return applyColorCorrection(effect.parameters, to: image)
+        case "blur":
+            let radius = effect.parameters["radius"] ?? 10
+            return image.applyingFilter("CIGaussianBlur", parameters: ["inputRadius": radius])
+        case "sharpen":
+            let sharpness = effect.parameters["sharpness"] ?? 0.4
+            return image.applyingFilter("CISharpenLuminance", parameters: ["inputSharpness": sharpness])
+        default:
+            return image
+        }
+    }
+
+    private func applyColorCorrection(_ params: [String: Double], to image: CIImage) -> CIImage {
+        var result = image
+
+        let brightness = params["brightness"] ?? 0
+        let contrast = params["contrast"] ?? 1
+        let saturation = params["saturation"] ?? 1
+
+        result = result.applyingFilter("CIColorControls", parameters: [
+            "inputBrightness": brightness,
+            "inputContrast": contrast,
+            "inputSaturation": saturation,
+        ])
+
+        // Temperature (approximate via CITemperatureAndTint)
+        if let temperature = params["temperature"], temperature != 6500 {
+            let neutral = CIVector(x: CGFloat(temperature), y: 0)
+            result = result.applyingFilter("CITemperatureAndTint", parameters: [
+                "inputNeutral": neutral,
+            ])
+        }
+
+        return result
+    }
+}
+
+// MARK: - EffectInstruction
+
+/// Custom instruction that carries per-clip effect data to the compositor.
+public final class EffectInstruction: NSObject, AVVideoCompositionInstructionProtocol, @unchecked Sendable {
+    public let timeRange: CMTimeRange
+    public let enablePostProcessing = false
+    public let containsTweening = false
+    public let requiredSourceTrackIDs: [NSValue]?
+    public let passthroughTrackID: CMPersistentTrackID = kCMPersistentTrackID_Invalid
+
+    public let effects: [EffectInstance]
+    public let opacity: Float
+    public let transform: Transform2D
+
+    public init(
+        timeRange: CMTimeRange,
+        sourceTrackID: CMPersistentTrackID,
+        effects: [EffectInstance],
+        opacity: Float = 1.0,
+        transform: Transform2D = .identity
+    ) {
+        self.timeRange = timeRange
+        self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
+        self.effects = effects
+        self.opacity = opacity
+        self.transform = transform
+        super.init()
+    }
+}
