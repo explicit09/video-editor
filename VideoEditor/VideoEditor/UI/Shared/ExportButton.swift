@@ -23,7 +23,7 @@ struct ExportButton: View {
                     .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
                 }
                 .buttonStyle(.plain)
-                .disabled(appState.timeline.tracks.isEmpty)
+                .disabled(!appState.canExportCurrentTimeline)
 
             case .exporting(let progress):
                 HStack(spacing: 8) {

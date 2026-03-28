@@ -19,6 +19,8 @@ final class AppState {
     // Reactive access
     var timeline: Timeline { context.timelineState.timeline }
     var assets: [MediaAsset] { media.assets }
+    var clipCount: Int { timeline.tracks.reduce(into: 0) { $0 += $1.clips.count } }
+    var canExportCurrentTimeline: Bool { clipCount > 0 && timeline.duration > 0 }
 
     // Clipboard
     private(set) var clipboardClips: [(clip: Clip, trackType: TrackType)] = []
@@ -169,6 +171,7 @@ final class AppState {
                 linkGroupID: hasAudio ? linkID : nil
             )
             try? perform(.insertClip(clip: videoClip, trackID: videoTrackID), source: source)
+            timelineViewState.selectClip(videoClip.id, in: videoTrackID)
 
             if let audioTrackID {
                 let audioClip = Clip(
@@ -204,6 +207,7 @@ final class AppState {
                 metadata: ClipMetadata(label: asset.name)
             )
             try? perform(.insertClip(clip: clip, trackID: trackID), source: source)
+            timelineViewState.selectClip(clip.id, in: trackID)
 
         case .image:
             let trackID = resolveTrackID(for: .video, preferredTrackID: requestedTrack?.type == .video ? requestedTrack?.id : nil)
@@ -215,6 +219,107 @@ final class AppState {
                 metadata: ClipMetadata(label: asset.name)
             )
             try? perform(.insertClip(clip: clip, trackID: trackID), source: source)
+            timelineViewState.selectClip(clip.id, in: trackID)
+        }
+    }
+
+    func insertAssetSegment(
+        _ asset: MediaAsset,
+        sourceRange requestedSourceRange: TimeRange,
+        source: ActionSource = .user,
+        preferredTrackID: UUID? = nil,
+        startTime: TimeInterval? = nil,
+        label: String? = nil
+    ) async {
+        let sourceRange = clampedSourceRange(for: asset, proposed: requestedSourceRange)
+        let duration = max(sourceRange.duration, 1)
+        let requestedTrackID = preferredTrackID ?? timelineViewState.selectedTrackID
+        let requestedTrack = requestedTrackID.flatMap { id in
+            timeline.tracks.first(where: { $0.id == id })
+        }
+
+        switch asset.type {
+        case .video:
+            let hasAudio = await assetHasAudio(asset)
+            let videoTrackID: UUID
+            let audioTrackID: UUID?
+
+            if let requestedTrack {
+                switch requestedTrack.type {
+                case .video:
+                    videoTrackID = resolveTrackID(for: .video, preferredTrackID: requestedTrack.id)
+                    audioTrackID = hasAudio ? pairedTrackID(for: requestedTrack.id, sourceType: .video, targetType: .audio) : nil
+                case .audio:
+                    videoTrackID = pairedTrackID(for: requestedTrack.id, sourceType: .audio, targetType: .video)
+                    audioTrackID = hasAudio ? requestedTrack.id : nil
+                default:
+                    videoTrackID = resolveTrackID(for: .video, preferredTrackID: nil)
+                    audioTrackID = hasAudio ? pairedTrackID(for: videoTrackID, sourceType: .video, targetType: .audio) : nil
+                }
+            } else {
+                videoTrackID = resolveTrackID(for: .video, preferredTrackID: timelineViewState.selectedTrackID)
+                audioTrackID = hasAudio ? pairedTrackID(for: videoTrackID, sourceType: .video, targetType: .audio) : nil
+            }
+
+            let clipStart = startTime ?? trackEnd(for: videoTrackID)
+            let linkID = UUID()
+            let videoClip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: clipStart, duration: duration),
+                sourceRange: sourceRange,
+                metadata: ClipMetadata(label: label ?? asset.name),
+                linkGroupID: hasAudio ? linkID : nil
+            )
+            try? perform(.insertClip(clip: videoClip, trackID: videoTrackID), source: source)
+            timelineViewState.selectClip(videoClip.id, in: videoTrackID)
+
+            if let audioTrackID {
+                let audioClip = Clip(
+                    assetID: asset.id,
+                    timelineRange: TimeRange(start: clipStart, duration: duration),
+                    sourceRange: sourceRange,
+                    metadata: ClipMetadata(label: label ?? asset.name),
+                    linkGroupID: linkID
+                )
+                try? perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: source)
+            }
+
+        case .audio:
+            let trackID: UUID
+            if let requestedTrack {
+                switch requestedTrack.type {
+                case .audio:
+                    trackID = requestedTrack.id
+                case .video:
+                    trackID = pairedTrackID(for: requestedTrack.id, sourceType: .video, targetType: .audio)
+                default:
+                    trackID = resolveTrackID(for: .audio, preferredTrackID: nil)
+                }
+            } else {
+                trackID = resolveTrackID(for: .audio, preferredTrackID: timelineViewState.selectedTrackID)
+            }
+
+            let clipStart = startTime ?? trackEnd(for: trackID)
+            let clip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: clipStart, duration: duration),
+                sourceRange: sourceRange,
+                metadata: ClipMetadata(label: label ?? asset.name)
+            )
+            try? perform(.insertClip(clip: clip, trackID: trackID), source: source)
+            timelineViewState.selectClip(clip.id, in: trackID)
+
+        case .image:
+            let trackID = resolveTrackID(for: .video, preferredTrackID: requestedTrack?.type == .video ? requestedTrack?.id : nil)
+            let clipStart = startTime ?? trackEnd(for: trackID)
+            let clip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: clipStart, duration: duration),
+                sourceRange: sourceRange,
+                metadata: ClipMetadata(label: label ?? asset.name)
+            )
+            try? perform(.insertClip(clip: clip, trackID: trackID), source: source)
+            timelineViewState.selectClip(clip.id, in: trackID)
         }
     }
 
@@ -328,6 +433,18 @@ final class AppState {
         timeline.tracks.first(where: { $0.id == trackID })?.clips.map(\.timelineRange.end).max() ?? 0
     }
 
+    private func clampedSourceRange(for asset: MediaAsset, proposed: TimeRange) -> TimeRange {
+        guard asset.duration > 0 else {
+            return TimeRange(start: max(proposed.start, 0), duration: max(proposed.duration, 1))
+        }
+
+        let maxStart = max(asset.duration - 0.1, 0)
+        let start = min(max(proposed.start, 0), maxStart)
+        let remaining = max(asset.duration - start, 0.1)
+        let duration = min(max(proposed.duration, 0.1), remaining)
+        return TimeRange(start: start, duration: duration)
+    }
+
     private func assetHasAudio(_ asset: MediaAsset) async -> Bool {
         switch asset.type {
         case .audio:
@@ -384,6 +501,7 @@ final class AppState {
             rippleCloseGaps(for: intent)
         }
 
+        normalizeSelection()
         rebuildComposition()
         scheduleSave()
     }
@@ -470,12 +588,14 @@ final class AppState {
 
     func undo() throws {
         try commandHistory.undo(context: context)
+        normalizeSelection()
         rebuildComposition()
         scheduleSave()
     }
 
     func redo() throws {
         try commandHistory.redo(context: context)
+        normalizeSelection()
         rebuildComposition()
         scheduleSave()
     }
@@ -537,6 +657,8 @@ final class AppState {
                 await removeAudiolessVideoClips(using: loadedAssets)
             }
 
+            timelineViewState.clearSelection()
+            normalizeSelection()
             rebuildComposition()
         }
     }
@@ -556,6 +678,125 @@ final class AppState {
 
     func seekFromPlayhead() {
         playbackEngine.seek(to: timelineViewState.playheadPosition)
+    }
+
+    func trackID(for clipID: UUID) -> UUID? {
+        timeline.tracks.first(where: { track in
+            track.clips.contains(where: { $0.id == clipID })
+        })?.id
+    }
+
+    func focusTimeline(at time: TimeInterval, clipID: UUID? = nil, trackID: UUID? = nil) {
+        let maxTime = max(timeline.duration, playbackEngine.duration)
+        let clampedTime = min(max(time, 0), maxTime)
+        playbackEngine.seek(to: clampedTime)
+        timelineViewState.playheadPosition = clampedTime
+
+        if let clipID, let trackID {
+            timelineViewState.selectClip(clipID, in: trackID)
+        } else if let trackID {
+            timelineViewState.selectTrack(trackID)
+        }
+    }
+
+    func timelineLocation(forAssetID assetID: UUID, sourceTime: TimeInterval) -> (clipID: UUID, trackID: UUID, timelineTime: TimeInterval)? {
+        let playhead = timelineViewState.playheadPosition
+        let selectedIDs = timelineViewState.selectedClipIDs
+
+        struct Candidate {
+            let clipID: UUID
+            let trackID: UUID
+            let timelineTime: TimeInterval
+            let priority: Int
+            let distance: TimeInterval
+            let trackIndex: Int
+        }
+
+        var bestCandidate: Candidate?
+
+        for (trackIndex, track) in timeline.tracks.enumerated() {
+            for clip in track.clips where clip.assetID == assetID && clip.sourceRange.contains(sourceTime) {
+                let mappedTime = clip.timelineRange.start + (sourceTime - clip.sourceRange.start)
+                let candidate = Candidate(
+                    clipID: clip.id,
+                    trackID: track.id,
+                    timelineTime: min(max(mappedTime, clip.timelineRange.start), clip.timelineRange.end),
+                    priority: selectedIDs.contains(clip.id) ? 0 : (clip.timelineRange.contains(playhead) ? 1 : 2),
+                    distance: abs(mappedTime - playhead),
+                    trackIndex: trackIndex
+                )
+
+                if let currentBest = bestCandidate {
+                    if candidate.priority < currentBest.priority
+                        || (candidate.priority == currentBest.priority && candidate.distance < currentBest.distance)
+                        || (candidate.priority == currentBest.priority && candidate.distance == currentBest.distance && candidate.trackIndex < currentBest.trackIndex) {
+                        bestCandidate = candidate
+                    }
+                } else {
+                    bestCandidate = candidate
+                }
+            }
+        }
+
+        guard let bestCandidate else { return nil }
+        return (bestCandidate.clipID, bestCandidate.trackID, bestCandidate.timelineTime)
+    }
+
+    func createSearchSequence(from results: [SearchResult], named query: String, source: ActionSource = .ai) async {
+        guard !results.isEmpty else { return }
+
+        let insertionIndex = timelineViewState.selectedTrackID.flatMap { id in
+            timeline.tracks.firstIndex(where: { $0.id == id }).map { $0 + 1 }
+        }
+        let trackName = query.isEmpty ? "Search Sequence" : "\(query) sequence"
+        let videoTrackID = createTrack(of: .video, insertionIndex: insertionIndex, name: trackName, source: source)
+        var position: TimeInterval = 0
+
+        for result in results {
+            guard let asset = assets.first(where: { $0.id == result.assetID }) else { continue }
+            let segmentStart = max(0, result.contextStartTime)
+            let segmentDuration = max(result.contextEndTime - result.contextStartTime, 1)
+            await insertAssetSegment(
+                asset,
+                sourceRange: TimeRange(start: segmentStart, duration: segmentDuration),
+                source: source,
+                preferredTrackID: videoTrackID,
+                startTime: position,
+                label: "\(result.assetName) • \(result.formattedTime)"
+            )
+            position += segmentDuration
+        }
+
+        focusTimeline(at: 0, trackID: videoTrackID)
+    }
+
+    private func normalizeSelection() {
+        let validTrackIDs = Set(timeline.tracks.map(\.id))
+        var clipToTrack: [UUID: UUID] = [:]
+        for track in timeline.tracks {
+            for clip in track.clips {
+                clipToTrack[clip.id] = track.id
+            }
+        }
+
+        let validClipIDs = Set(timelineViewState.selectedClipIDs.filter { clipToTrack[$0] != nil })
+        if validClipIDs != timelineViewState.selectedClipIDs {
+            timelineViewState.selectedClipIDs = validClipIDs
+        }
+
+        guard !validClipIDs.isEmpty else {
+            if let selectedTrackID = timelineViewState.selectedTrackID, !validTrackIDs.contains(selectedTrackID) {
+                timelineViewState.selectedTrackID = nil
+            }
+            return
+        }
+
+        let selectedTrackIDs = Set(validClipIDs.compactMap { clipToTrack[$0] })
+        if selectedTrackIDs.count == 1 {
+            timelineViewState.selectedTrackID = selectedTrackIDs.first
+        } else if let selectedTrackID = timelineViewState.selectedTrackID, !selectedTrackIDs.contains(selectedTrackID) {
+            timelineViewState.selectedTrackID = nil
+        }
     }
 
     // MARK: - API key loading

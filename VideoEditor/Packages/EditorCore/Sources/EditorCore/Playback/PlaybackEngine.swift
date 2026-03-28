@@ -31,10 +31,24 @@ public final class PlaybackEngine {
     public func buildComposition(from timeline: Timeline, assets: [MediaAsset]) {
         // Cancel any in-flight build to prevent race conditions
         buildTask?.cancel()
-        buildTask = Task { await buildCompositionAsync(from: timeline, assets: assets) }
+        let resumeTime = currentTime
+        let shouldResumePlayback = isPlaying
+        buildTask = Task {
+            await buildCompositionAsync(
+                from: timeline,
+                assets: assets,
+                resumeTime: resumeTime,
+                shouldResumePlayback: shouldResumePlayback
+            )
+        }
     }
 
-    private func buildCompositionAsync(from timeline: Timeline, assets: [MediaAsset]) async {
+    private func buildCompositionAsync(
+        from timeline: Timeline,
+        assets: [MediaAsset],
+        resumeTime: TimeInterval,
+        shouldResumePlayback: Bool
+    ) async {
         let builder = CompositionBuilder()
         let result = await builder.build(from: timeline, assets: assets, urlMode: .preview)
 
@@ -51,6 +65,19 @@ public final class PlaybackEngine {
             playerItem.videoComposition = videoComp
         }
         player.replaceCurrentItem(with: playerItem)
+
+        let restoredTime = min(max(resumeTime, 0), result.duration)
+        let restoredCMTime = CMTime(seconds: restoredTime, preferredTimescale: 600)
+        await player.seek(to: restoredCMTime, toleranceBefore: .zero, toleranceAfter: .zero)
+        currentTime = restoredTime
+
+        if shouldResumePlayback, result.duration > 0 {
+            player.play()
+            isPlaying = true
+        } else {
+            player.pause()
+            isPlaying = false
+        }
     }
 
     // MARK: - Transport controls

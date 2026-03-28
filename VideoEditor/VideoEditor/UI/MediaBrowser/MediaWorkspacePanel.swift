@@ -80,6 +80,11 @@ struct MediaWorkspacePanel: View {
             Task { await handleDrop(providers) }
             return true
         }
+        .onChange(of: filteredAssets.map(\.id)) { _, visibleIDs in
+            if let selectedAssetID, !visibleIDs.contains(selectedAssetID) {
+                self.selectedAssetID = nil
+            }
+        }
     }
 
     // MARK: - Smart Bins
@@ -425,6 +430,7 @@ struct MediaWorkspacePanel: View {
                     let asset = try await appState.importMedia(from: url)
                     let thumb = await appState.media.thumbnail(for: asset.id)
                     if let thumb { thumbnails[asset.id] = thumb }
+                    selectedAssetID = asset.id
                 } catch {
                     importError = error.localizedDescription
                 }
@@ -453,6 +459,7 @@ struct MediaWorkspacePanel: View {
                 if let thumb {
                     thumbnails[asset.id] = thumb
                 }
+                selectedAssetID = asset.id
             } catch {
                 importError = error.localizedDescription
             }

@@ -42,42 +42,46 @@ struct SearchResultsView: View {
         .background(CinematicTheme.surfaceContainerLow)
     }
 
-    /// Create a new track with clips at each search result timestamp.
     private func createSequenceFromResults() {
-        let track = Track(name: "\(query) sequence", type: .video)
-        try? appState.perform(.addTrack(track: track))
-
-        var position: TimeInterval = 0
-        let clipDuration: TimeInterval = 5 // 5 seconds around each match
-
-        for result in results {
-            let sourceStart = max(0, result.matchTime - 1) // 1s before match
-            let clip = Clip(
-                assetID: result.assetID,
-                timelineRange: TimeRange(start: position, duration: clipDuration),
-                sourceRange: TimeRange(start: sourceStart, duration: clipDuration),
-                metadata: ClipMetadata(label: "\(result.formattedTime) — \(query)")
-            )
-            try? appState.perform(.insertClip(clip: clip, trackID: track.id))
-            position += clipDuration
+        Task { @MainActor in
+            await appState.createSearchSequence(from: results, named: query)
         }
     }
 
+    private func timelinePlacement(for result: SearchResult) -> (clipID: UUID, trackID: UUID, timelineTime: TimeInterval)? {
+        appState.timelineLocation(forAssetID: result.assetID, sourceTime: result.matchTime)
+    }
+
     private func searchResultRow(_ result: SearchResult) -> some View {
-        Button(action: {
-            appState.playbackEngine.seek(to: result.matchTime)
-            appState.timelineViewState.playheadPosition = result.matchTime
+        let placement = timelinePlacement(for: result)
+
+        return Button(action: {
+            guard let placement else { return }
+            appState.focusTimeline(at: placement.timelineTime, clipID: placement.clipID, trackID: placement.trackID)
         }) {
             HStack(alignment: .top, spacing: 10) {
-                Text(result.formattedTime)
-                    .font(.cinTimecode)
-                    .foregroundStyle(CinematicTheme.primary)
-                    .frame(width: 50, alignment: .leading)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(result.formattedTime)
+                        .font(.cinTimecode)
+                        .foregroundStyle(placement == nil ? CinematicTheme.onSurfaceVariant.opacity(0.45) : CinematicTheme.primary)
+
+                    CinematicStatusPill(
+                        text: placement == nil ? "Source Only" : "On Timeline",
+                        icon: placement == nil ? "tray" : "timeline.selection",
+                        tone: placement == nil ? CinematicTheme.warning : CinematicTheme.success
+                    )
+                }
+                .frame(width: 88, alignment: .leading)
 
                 VStack(alignment: .leading, spacing: 2) {
+                    Text(result.assetName)
+                        .font(.cinLabel)
+                        .tracking(0.8)
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+
                     Text("\"\(result.contextText)\"")
                         .font(.cinBody)
-                        .foregroundStyle(CinematicTheme.onSurface.opacity(0.86))
+                        .foregroundStyle(CinematicTheme.onSurface.opacity(placement == nil ? 0.54 : 0.86))
                         .lineLimit(3)
                         .italic()
                 }
@@ -100,6 +104,7 @@ struct SearchResultsView: View {
             )
         }
         .buttonStyle(.plain)
+        .disabled(placement == nil)
     }
 
     private var aiSuggestion: some View {

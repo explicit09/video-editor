@@ -58,6 +58,12 @@ struct ExportDialog: View {
     }
 
     var body: some View {
+        let isExporting: Bool = {
+            if case .exporting = appState.exportEngine.state { return true }
+            return false
+        }()
+        let canExport = appState.canExportCurrentTimeline && !isExporting
+
         VStack(spacing: 0) {
             // Header
             HStack {
@@ -94,6 +100,19 @@ struct ExportDialog: View {
             .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
             .padding(.horizontal, 20)
 
+            if !appState.canExportCurrentTimeline {
+                HStack(spacing: 8) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(CinematicTheme.warning)
+                    Text("Add at least one clip to the timeline before exporting.")
+                        .font(.cinLabelRegular)
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 20)
+                .padding(.top, 12)
+            }
+
             Spacer().frame(height: 16)
 
             // Project info
@@ -102,7 +121,7 @@ struct ExportDialog: View {
                     Text("DURATION")
                         .font(.cinLabel)
                         .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
-                    Text(TimeFormatter.durationHMS(appState.playbackEngine.duration))
+                    Text(TimeFormatter.durationHMS(appState.timeline.duration))
                         .font(.cinTimecode)
                         .foregroundStyle(CinematicTheme.onSurface)
                 }
@@ -111,6 +130,14 @@ struct ExportDialog: View {
                         .font(.cinLabel)
                         .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
                     Text("\(appState.timeline.tracks.count)")
+                        .font(.cinTimecode)
+                        .foregroundStyle(CinematicTheme.onSurface)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("CLIPS")
+                        .font(.cinLabel)
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+                    Text("\(appState.clipCount)")
                         .font(.cinTimecode)
                         .foregroundStyle(CinematicTheme.onSurface)
                 }
@@ -163,6 +190,8 @@ struct ExportDialog: View {
                     .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
                 }
                 .buttonStyle(.plain)
+                .disabled(!canExport)
+                .opacity(canExport ? 1 : 0.45)
             }
             .padding(20)
         }
@@ -213,6 +242,7 @@ struct ExportDialog: View {
     }
 
     private func startExport() {
+        guard appState.canExportCurrentTimeline else { return }
         isPresented = false
         let preset = selectedPreset
         let panel = NSSavePanel()

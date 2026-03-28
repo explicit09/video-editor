@@ -26,10 +26,20 @@ public final class ExportEngine {
         preset: String = AVAssetExportPresetHighestQuality,
         fileType: AVFileType = .mp4
     ) async {
+        guard timeline.tracks.contains(where: { !$0.clips.isEmpty }), timeline.duration > 0 else {
+            state = .failed("Nothing to export")
+            return
+        }
+
         state = .exporting(progress: 0)
 
         let builder = CompositionBuilder()
         let result = await builder.build(from: timeline, assets: assets, urlMode: .export)
+
+        guard result.duration > 0 else {
+            state = .failed("Nothing to export")
+            return
+        }
 
         guard let session = AVAssetExportSession(asset: result.composition, presetName: preset) else {
             state = .failed("Could not create export session")

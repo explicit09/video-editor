@@ -113,7 +113,7 @@ public struct AIContext: Codable, Sendable {
 
     public func toJSON() -> String {
         let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        encoder.outputFormatting = [.sortedKeys] // Compact JSON — no pretty printing to save tokens
         guard let data = try? encoder.encode(self),
               let json = String(data: data, encoding: .utf8) else { return "{}" }
         return json

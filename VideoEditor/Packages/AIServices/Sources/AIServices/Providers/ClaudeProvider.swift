@@ -11,7 +11,7 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
 
     public init(
         apiKey: String,
-        model: String = "claude-sonnet-4-20250514",
+        model: String = "claude-sonnet-4-6",
         baseURL: URL = URL(string: "https://api.anthropic.com")!
     ) {
         self.apiKey = apiKey
@@ -23,7 +23,7 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
     }
 
     /// Convenience: load API key from environment.
-    public static func fromEnvironment(model: String = "claude-sonnet-4-20250514") -> ClaudeProvider? {
+    public static func fromEnvironment(model: String = "claude-sonnet-4-6") -> ClaudeProvider? {
         guard let key = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] else { return nil }
         return ClaudeProvider(apiKey: key, model: model)
     }
@@ -70,25 +70,39 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
             jsonMessages.append(["role": "user", "content": pendingToolResults])
         }
 
-        // Build tools array
+        // Build tools array with prompt caching on the last tool
         var jsonTools: [[String: Any]]?
         if !tools.isEmpty {
-            jsonTools = tools.map { tool -> [String: Any] in
+            jsonTools = tools.enumerated().map { (index, tool) -> [String: Any] in
                 let schemaData = try? JSONEncoder().encode(tool.parameters)
                 let schema = schemaData.flatMap { try? JSONSerialization.jsonObject(with: $0) } ?? [:]
-                return [
+                var toolDict: [String: Any] = [
                     "name": tool.name,
                     "description": tool.description,
                     "input_schema": schema,
                 ]
+                // Cache the entire tools block via the last tool
+                if index == tools.count - 1 {
+                    toolDict["cache_control"] = ["type": "ephemeral"]
+                }
+                return toolDict
             }
         }
+
+        // System prompt as cacheable content block
+        let systemContent: [[String: Any]] = [
+            [
+                "type": "text",
+                "text": systemPrompt,
+                "cache_control": ["type": "ephemeral"],
+            ]
+        ]
 
         var body: [String: Any] = [
             "model": model,
             "max_tokens": 4096,
             "messages": jsonMessages,
-            "system": systemPrompt,
+            "system": systemContent,
         ]
         if let jsonTools { body["tools"] = jsonTools }
 

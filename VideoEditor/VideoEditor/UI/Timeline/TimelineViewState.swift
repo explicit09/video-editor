@@ -65,6 +65,11 @@ final class TimelineViewState {
         selectedClipIDs.removeAll()
     }
 
+    func selectClip(_ clipID: UUID, in trackID: UUID) {
+        selectedTrackID = trackID
+        selectedClipIDs = [clipID]
+    }
+
     func toggleSelection(_ clipID: UUID, in trackID: UUID, extend: Bool) {
         selectedTrackID = trackID
         if extend {

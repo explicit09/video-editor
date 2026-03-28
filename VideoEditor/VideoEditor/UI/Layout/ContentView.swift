@@ -565,7 +565,8 @@ struct ContentView: View {
 
     private func deliverWorkspace(layoutMode: EditorLayoutMode) -> some View {
         let trackCount = appState.timeline.tracks.count
-        let clipCount = appState.timeline.tracks.flatMap(\.clips).count
+        let clipCount = appState.clipCount
+        let canExport = appState.canExportCurrentTimeline
 
         return HStack(spacing: CinematicSpacing.md) {
             VStack(spacing: CinematicSpacing.md) {
@@ -582,9 +583,9 @@ struct ContentView: View {
                             }
                             Spacer()
                             CinematicStatusPill(
-                                text: trackCount == 0 ? "Not Ready" : "Ready",
-                                icon: trackCount == 0 ? "exclamationmark.triangle.fill" : "checkmark.circle.fill",
-                                tone: trackCount == 0 ? CinematicTheme.warning : CinematicTheme.success
+                                text: canExport ? "Ready" : "Needs Clips",
+                                icon: canExport ? "checkmark.circle.fill" : "exclamationmark.triangle.fill",
+                                tone: canExport ? CinematicTheme.success : CinematicTheme.warning
                             )
                         }
 
@@ -611,7 +612,7 @@ struct ContentView: View {
                         CinematicToolbarButton(icon: "square.and.arrow.up", label: "Open Export Dialog", isActive: true) {
                             showExportDialog = true
                         }
-                        .disabled(trackCount == 0)
+                        .disabled(!canExport)
                     }
                 }
 
