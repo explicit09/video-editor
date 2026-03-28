@@ -27,6 +27,7 @@ final class AppState {
 
     /// Project bundle directory.
     let projectBundleURL: URL
+    private var mcpServer: MCPServer?
 
     private var playbackSyncTimer: Timer?
     private var saveDebounceTask: Task<Void, Never>?
@@ -83,6 +84,11 @@ final class AppState {
         }
 
         startPlayheadSync()
+
+        // Start MCP server for external tool access (Claude Code, etc.)
+        let server = MCPServer(appState: self)
+        self.mcpServer = server
+        server.start()
     }
 
     // MARK: - Clipboard
