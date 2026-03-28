@@ -52,12 +52,20 @@ public struct CompositionBuilder {
                 let sourceStart = CMTime(seconds: clip.sourceRange.start, preferredTimescale: 600)
                 let sourceDuration = CMTime(seconds: max(clip.sourceRange.duration, 0), preferredTimescale: 600)
                 let sourceRange = CMTimeRange(start: sourceStart, duration: sourceDuration)
+                let effectiveSpeed = clip.speed
 
                 // Video track
                 if track.type != .audio {
                     if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
                        let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
+
+                        // Apply speed change via time scaling
+                        if effectiveSpeed != 1.0 {
+                            let insertedRange = CMTimeRange(start: insertTime, duration: sourceDuration)
+                            let scaledDuration = CMTime(seconds: sourceDuration.seconds / effectiveSpeed, preferredTimescale: 600)
+                            compTrack.scaleTimeRange(insertedRange, toDuration: scaledDuration)
+                        }
 
                         // Track natural size for render
                         if let naturalSize = try? await sourceTrack.load(.naturalSize), naturalSize.width > 0 {
@@ -80,6 +88,12 @@ public struct CompositionBuilder {
                     if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
                        let compTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
+
+                        if effectiveSpeed != 1.0 {
+                            let insertedRange = CMTimeRange(start: insertTime, duration: sourceDuration)
+                            let scaledDuration = CMTime(seconds: sourceDuration.seconds / effectiveSpeed, preferredTimescale: 600)
+                            compTrack.scaleTimeRange(insertedRange, toDuration: scaledDuration)
+                        }
 
                         // Apply volume: clip.volume * track.volume
                         let effectiveVolume = Float(clip.volume * track.volume)

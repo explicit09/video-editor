@@ -16,8 +16,15 @@ public struct InsertClipCommand: Command {
 
     public mutating func execute(context: EditingContext) throws {
         let trackIndex = try editableTrackIndex(for: trackID, context: context)
-        let insertionIndex = MoveClipCommand.insertionIndex(for: clip, in: context.timelineState.timeline.tracks[trackIndex].clips)
-        context.timelineState.timeline.tracks[trackIndex].clips.insert(clip, at: insertionIndex)
+        var insertedClip = clip
+        let adjustedStart = collisionAdjustedStart(
+            proposedStart: clip.timelineRange.start,
+            duration: clip.timelineRange.duration,
+            in: context.timelineState.timeline.tracks[trackIndex].clips
+        )
+        insertedClip.timelineRange = TimeRange(start: adjustedStart, duration: clip.timelineRange.duration)
+        let insertionIndex = MoveClipCommand.insertionIndex(for: insertedClip, in: context.timelineState.timeline.tracks[trackIndex].clips)
+        context.timelineState.timeline.tracks[trackIndex].clips.insert(insertedClip, at: insertionIndex)
     }
 
     public func undo(context: EditingContext) throws {
@@ -106,7 +113,13 @@ public struct MoveClipCommand: Command {
         previousClipIndex = clipIndex
 
         var movedClip = clip
-        movedClip.timelineRange = TimeRange(start: newStart, duration: clip.timelineRange.duration)
+        let adjustedStart = collisionAdjustedStart(
+            proposedStart: newStart,
+            duration: clip.timelineRange.duration,
+            in: context.timelineState.timeline.tracks[targetTrackIndex].clips,
+            excluding: clipID
+        )
+        movedClip.timelineRange = TimeRange(start: adjustedStart, duration: clip.timelineRange.duration)
 
         context.timelineState.timeline.tracks[sourceTrackIndex].clips.remove(at: clipIndex)
 
@@ -169,9 +182,23 @@ public struct TrimClipCommand: Command {
         // Head trim: source start moved forward -> timeline start moves forward by the same amount.
         let headDelta = newSourceRange.start - clip.sourceRange.start
         let newTimelineStart = clip.timelineRange.start + headDelta
-        let newTimelineDuration = newSourceRange.duration
+        var adjustedSourceRange = newSourceRange
+        var newTimelineDuration = adjustedSourceRange.duration
 
-        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].sourceRange = newSourceRange
+        if let nextClip = context.timelineState.timeline.tracks[location.trackIndex].clips
+            .enumerated()
+            .filter({ $0.offset != location.clipIndex })
+            .map(\.element)
+            .sorted(by: { $0.timelineRange.start < $1.timelineRange.start })
+            .first(where: { $0.timelineRange.start >= clip.timelineRange.end }) {
+            let maxDuration = max(nextClip.timelineRange.start - newTimelineStart, 0.1)
+            if newTimelineDuration > maxDuration {
+                newTimelineDuration = maxDuration
+                adjustedSourceRange = TimeRange(start: adjustedSourceRange.start, duration: maxDuration)
+            }
+        }
+
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].sourceRange = adjustedSourceRange
         context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].timelineRange = TimeRange(
             start: newTimelineStart,
             duration: newTimelineDuration

@@ -203,11 +203,16 @@ public struct DuplicateClipCommand: Command {
         let id = UUID()
         newClipID = id
         trackID = context.timelineState.timeline.tracks[location.trackIndex].id
+        let adjustedStart = collisionAdjustedStart(
+            proposedStart: original.timelineRange.end,
+            duration: original.timelineRange.duration,
+            in: context.timelineState.timeline.tracks[location.trackIndex].clips
+        )
 
         let duplicate = Clip(
             id: id,
             assetID: original.assetID,
-            timelineRange: TimeRange(start: original.timelineRange.end, duration: original.timelineRange.duration),
+            timelineRange: TimeRange(start: adjustedStart, duration: original.timelineRange.duration),
             sourceRange: original.sourceRange,
             transform: original.transform,
             opacity: original.opacity,
@@ -223,6 +228,47 @@ public struct DuplicateClipCommand: Command {
         guard let newClipID else { return }
         for trackIndex in context.timelineState.timeline.tracks.indices {
             context.timelineState.timeline.tracks[trackIndex].clips.removeAll { $0.id == newClipID }
+        }
+    }
+}
+
+/// Set clip playback speed.
+public struct SetClipSpeedCommand: Command {
+    public let name = "Set Clip Speed"
+    public let clipID: UUID
+    public let newSpeed: Double
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousSpeed: Double?
+    private var previousTimelineRange: TimeRange?
+
+    public init(clipID: UUID, speed: Double) {
+        self.clipID = clipID
+        self.newSpeed = max(speed, 0.1)
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        let location = try editableClipLocation(for: clipID, context: context)
+        let clip = context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex]
+        previousSpeed = clip.speed
+        previousTimelineRange = clip.timelineRange
+
+        // Changing speed changes the effective duration on the timeline
+        let newDuration = clip.sourceRange.duration / newSpeed
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].speed = newSpeed
+        context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex].timelineRange = TimeRange(
+            start: clip.timelineRange.start,
+            duration: newDuration
+        )
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let prev = previousSpeed, let prevRange = previousTimelineRange else { return }
+        for trackIndex in context.timelineState.timeline.tracks.indices {
+            if let clipIndex = context.timelineState.timeline.tracks[trackIndex].clips.firstIndex(where: { $0.id == clipID }) {
+                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].speed = prev
+                context.timelineState.timeline.tracks[trackIndex].clips[clipIndex].timelineRange = prevRange
+                return
+            }
         }
     }
 }

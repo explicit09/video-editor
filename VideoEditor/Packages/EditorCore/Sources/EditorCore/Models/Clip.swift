@@ -13,6 +13,8 @@ public struct Clip: Codable, Identifiable, Sendable {
     public var effects: [EffectInstance]
     public var keyframes: KeyframeStore
     public var metadata: ClipMetadata
+    /// Playback speed multiplier. 1.0 = normal, 0.5 = half speed, 2.0 = double speed.
+    public var speed: Double
     /// Transition applied when entering this clip (from the previous clip or black).
     public var transitionIn: ClipTransition
     /// Links video+audio clip pairs. Edits to one propagate to all clips with the same linkGroupID.
@@ -29,6 +31,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         effects: [EffectInstance] = [],
         keyframes: KeyframeStore = KeyframeStore(),
         metadata: ClipMetadata = ClipMetadata(),
+        speed: Double = 1.0,
         transitionIn: ClipTransition = .none,
         linkGroupID: UUID? = nil
     ) {
@@ -42,6 +45,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.effects = effects
         self.keyframes = keyframes
         self.metadata = metadata
+        self.speed = max(speed, 0.1) // minimum 0.1x
         self.transitionIn = transitionIn
         self.linkGroupID = linkGroupID
     }

@@ -36,3 +36,33 @@ func editableClipLocation(for clipID: UUID, context: EditingContext) throws -> (
     }
     return location
 }
+
+@MainActor
+func collisionAdjustedStart(
+    proposedStart: TimeInterval,
+    duration: TimeInterval,
+    in clips: [Clip],
+    excluding excludedClipID: UUID? = nil
+) -> TimeInterval {
+    let sortedClips = clips
+        .filter { $0.id != excludedClipID }
+        .sorted { lhs, rhs in
+            if lhs.timelineRange.start != rhs.timelineRange.start {
+                return lhs.timelineRange.start < rhs.timelineRange.start
+            }
+            return lhs.timelineRange.end < rhs.timelineRange.end
+        }
+
+    var adjustedStart = max(0, proposedStart)
+    for other in sortedClips {
+        let adjustedEnd = adjustedStart + duration
+        if adjustedEnd <= other.timelineRange.start {
+            break
+        }
+        if adjustedStart >= other.timelineRange.end {
+            continue
+        }
+        adjustedStart = other.timelineRange.end
+    }
+    return adjustedStart
+}
