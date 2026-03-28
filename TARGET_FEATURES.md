@@ -100,7 +100,7 @@
 | 36 | EQ controls | **DONE** | Fairlight EQ | Essential Sound | Basic EQ | No | No | P2 | AVAudioUnitEQ available |
 | 37 | Compression | **DONE** | Yes | Yes | No | No | No | P2 | AVAudioUnitDynamicsProcessor |
 | 38 | Audio effects | **DONE** | Fairlight FX | Audition | AU plugins | Basic | No | P2 | |
-| 39 | Voice isolation | **MISSING** | Studio | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Apple's VoiceProcessing API |
+| 39 | Voice isolation | **DONE** | Studio | Enhance Speech | Voice Isolation | AI | Studio Sound | P1 | Apple's VoiceProcessing API |
 | 40 | Audio sync | **PARTIAL** | Auto sync | Auto sync | Auto sync | No | Auto sync | P2 | Linked clips sync. No waveform auto-sync |
 | 41 | Multichannel | **MISSING** | 7.1.4 | 5.1/7.1 | 7.1.4 | Stereo | Stereo | P3 | |
 | 42 | Audio ducking | **DONE** | Yes | Auto-ducking | No | No | No | P1 | AI compound tool candidate |
@@ -191,7 +191,7 @@
 | 91 | Cloud sync | **MISSING** | No | Creative Cloud | iCloud | Yes | Yes | P3 | |
 | 92 | Import formats | **DONE** | All major | All major | All major | Limited | Limited | - | mp4/mov/avi/mkv/mp3/wav/aac/jpg/png/heic |
 | 93 | Export presets | **DONE** | Yes | Media Encoder | Compressor | Limited | Limited | - | YouTube 4K/1080p, TikTok, ProRes |
-| 94 | Batch export | **MISSING** | Yes | Media Encoder | Compressor | No | No | P2 | |
+| 94 | Batch export | **DONE** | Yes | Media Encoder | Compressor | No | No | P2 | |
 | 95 | Project templates | **DONE** | Yes | Yes | Yes | **Yes** | Yes | P2 | |
 
 **Score: 4 Done, 2 Partial, 0 Stubbed, 4 Missing = 50%**
