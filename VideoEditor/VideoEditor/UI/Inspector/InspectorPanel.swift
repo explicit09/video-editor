@@ -9,7 +9,15 @@ struct InspectorPanel: View {
     var body: some View {
         VStack(spacing: 0) {
             header
-            messageList
+
+            // Show search results view when available, chat otherwise
+            if let query = appState.aiChat.lastSearchQuery,
+               let results = appState.aiChat.lastSearchResults, !results.isEmpty {
+                SearchResultsView(query: query, results: results)
+            } else {
+                messageList
+            }
+
             inputBar
         }
         .background(CinematicTheme.surfaceContainerLow)

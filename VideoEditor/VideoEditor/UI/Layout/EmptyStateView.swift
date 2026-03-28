@@ -105,8 +105,8 @@ struct EmptyStateView: View {
 
     private func suggestionPill(_ text: String) -> some View {
         Button(action: {
-            // Strip quotes for the command bar
             commandBarText = String(text.dropFirst().dropLast())
+            onSend()
         }) {
             Text(text)
                 .font(.cinLabelRegular)

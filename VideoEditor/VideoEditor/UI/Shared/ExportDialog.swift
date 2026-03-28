@@ -1,5 +1,6 @@
 import SwiftUI
 import EditorCore
+import AVFoundation
 
 /// Export dialog — Stitch Screen 6: AI-recommended presets.
 struct ExportDialog: View {
@@ -32,7 +33,28 @@ struct ExportDialog: View {
             }
         }
 
-        var recommended: Bool { self == .youtube4k }
+        var avPreset: String {
+            switch self {
+            case .youtube4k: AVAssetExportPreset3840x2160
+            case .youtube1080: AVAssetExportPreset1920x1080
+            case .tiktok: AVAssetExportPreset1920x1080
+            case .prores: AVAssetExportPresetAppleProRes4444LPCM
+            }
+        }
+
+        var fileType: AVFileType {
+            switch self {
+            case .youtube4k, .youtube1080, .tiktok: .mp4
+            case .prores: .mov
+            }
+        }
+
+        var fileExtension: String {
+            switch self {
+            case .youtube4k, .youtube1080, .tiktok: "mp4"
+            case .prores: "mov"
+            }
+        }
     }
 
     var body: some View {
@@ -192,9 +214,10 @@ struct ExportDialog: View {
 
     private func startExport() {
         isPresented = false
+        let preset = selectedPreset
         let panel = NSSavePanel()
-        panel.allowedContentTypes = [.mpeg4Movie]
-        panel.nameFieldStringValue = "export.mp4"
+        panel.allowedContentTypes = preset.fileType == .mov ? [.quickTimeMovie] : [.mpeg4Movie]
+        panel.nameFieldStringValue = "export.\(preset.fileExtension)"
         panel.canCreateDirectories = true
 
         guard panel.runModal() == .OK, let url = panel.url else { return }
@@ -203,7 +226,9 @@ struct ExportDialog: View {
             await appState.exportEngine.export(
                 timeline: appState.timeline,
                 assets: appState.assets,
-                to: url
+                to: url,
+                preset: preset.avPreset,
+                fileType: preset.fileType
             )
         }
     }

@@ -18,6 +18,22 @@ struct MediaBrowserPanel: View {
             }
         }
         .background(CinematicTheme.surfaceContainerLow)
+        .onDrop(of: [.movie, .video, .audio, .fileURL], isTargeted: nil) { providers in
+            handleDrop(providers)
+            return true
+        }
+    }
+
+    private func handleDrop(_ providers: [NSItemProvider]) {
+        for provider in providers {
+            provider.loadItem(forTypeIdentifier: "public.file-url", options: nil) { data, _ in
+                guard let data = data as? Data,
+                      let url = URL(dataRepresentation: data, relativeTo: nil) else { return }
+                Task { @MainActor in
+                    _ = try? await appState.importMedia(from: url)
+                }
+            }
+        }
     }
 
     // MARK: - Header

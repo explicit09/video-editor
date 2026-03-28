@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import EditorCore
 
 struct TimelineClipView: View {
@@ -7,11 +8,17 @@ struct TimelineClipView: View {
     let isSelected: Bool
     let trackType: TrackType
     let trackHeight: Double
+    let thumbnail: CGImage?
     let onTap: (Bool) -> Void
     let onDrag: (TimeInterval) -> Void
+    var onTrimStart: ((TimeInterval) -> Void)?
+    var onTrimEnd: ((TimeInterval) -> Void)?
 
     @State private var dragOffset: Double = 0
     @State private var isDragging = false
+    @State private var trimStartOffset: Double = 0
+    @State private var trimEndOffset: Double = 0
+    @State private var isTrimming = false
 
     private var clipX: Double {
         viewState.durationToWidth(clip.timelineRange.start) + dragOffset
@@ -36,10 +43,18 @@ struct TimelineClipView: View {
                 .fill(clipAccentColor)
                 .frame(height: 2)
 
-            // Clip content
-            Rectangle()
-                .fill(clipColor)
-                .overlay(clipLabel, alignment: .topLeading)
+            // Clip content — thumbnail if available, color fill otherwise
+            ZStack {
+                if let cgImage = thumbnail, trackType == .video {
+                    Image(decorative: cgImage, scale: 1.0)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .opacity(0.4)
+                } else {
+                    Rectangle().fill(clipColor)
+                }
+            }
+            .overlay(clipLabel, alignment: .topLeading)
         }
         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
         .overlay(
@@ -50,6 +65,45 @@ struct TimelineClipView: View {
                 )
         )
         .shadow(color: isDragging ? CinematicTheme.primaryContainer.opacity(0.2) : .clear, radius: 6)
+        // Trim handles
+        .overlay(alignment: .leading) {
+            trimHandle(isStart: true)
+        }
+        .overlay(alignment: .trailing) {
+            trimHandle(isStart: false)
+        }
+    }
+
+    private func trimHandle(isStart: Bool) -> some View {
+        Rectangle()
+            .fill(isSelected || isTrimming ? CinematicTheme.primary.opacity(0.6) : Color.clear)
+            .frame(width: 4)
+            .contentShape(Rectangle().inset(by: -4))
+            .onHover { hovering in
+                if hovering { NSCursor.resizeLeftRight.push() }
+                else { NSCursor.pop() }
+            }
+            .gesture(
+                DragGesture(minimumDistance: 1)
+                    .onChanged { value in
+                        isTrimming = true
+                        if isStart { trimStartOffset = value.translation.width }
+                        else { trimEndOffset = value.translation.width }
+                    }
+                    .onEnded { value in
+                        isTrimming = false
+                        let timeDelta = value.translation.width / viewState.zoom
+                        if isStart {
+                            trimStartOffset = 0
+                            let newStart = max(0, clip.sourceRange.start + timeDelta)
+                            onTrimStart?(newStart)
+                        } else {
+                            trimEndOffset = 0
+                            let newEnd = max(clip.sourceRange.start + 0.1, clip.sourceRange.end + timeDelta)
+                            onTrimEnd?(newEnd)
+                        }
+                    }
+            )
     }
 
     // MARK: - Label

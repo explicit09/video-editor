@@ -7,9 +7,11 @@ struct TimelineTrackView: View {
     let selectedClipIDs: Set<UUID>
     let isSelectedTrack: Bool
     let totalWidth: Double
+    let thumbnails: [UUID: CGImage]
     let onTrackTap: () -> Void
     let onClipTap: (UUID, Bool) -> Void
     let onClipDrag: (UUID, TimeInterval) -> Void
+    var onClipTrim: ((UUID, TimeInterval, TimeInterval) -> Void)?
 
     private let trackHeight: Double = 60
 
@@ -36,8 +38,15 @@ struct TimelineTrackView: View {
                         isSelected: selectedClipIDs.contains(clip.id),
                         trackType: track.type,
                         trackHeight: trackHeight,
+                        thumbnail: thumbnails[clip.assetID],
                         onTap: { extend in onClipTap(clip.id, extend) },
-                        onDrag: { newStart in onClipDrag(clip.id, newStart) }
+                        onDrag: { newStart in onClipDrag(clip.id, newStart) },
+                        onTrimStart: { newSourceStart in
+                            onClipTrim?(clip.id, newSourceStart, clip.sourceRange.end)
+                        },
+                        onTrimEnd: { newSourceEnd in
+                            onClipTrim?(clip.id, clip.sourceRange.start, newSourceEnd)
+                        }
                     )
                 }
             }

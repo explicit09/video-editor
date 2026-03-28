@@ -65,6 +65,27 @@ struct SearchResultsView: View {
         .background(CinematicTheme.surfaceContainerLow)
     }
 
+    /// Create a new track with clips at each search result timestamp.
+    private func createSequenceFromResults() {
+        let track = Track(name: "\(query) sequence", type: .video)
+        try? appState.perform(.addTrack(track: track))
+
+        var position: TimeInterval = 0
+        let clipDuration: TimeInterval = 5 // 5 seconds around each match
+
+        for result in results {
+            let sourceStart = max(0, result.matchTime - 1) // 1s before match
+            let clip = Clip(
+                assetID: result.assetID,
+                timelineRange: TimeRange(start: position, duration: clipDuration),
+                sourceRange: TimeRange(start: sourceStart, duration: clipDuration),
+                metadata: ClipMetadata(label: "\(result.formattedTime) — \(query)")
+            )
+            try? appState.perform(.insertClip(clip: clip, trackID: track.id))
+            position += clipDuration
+        }
+    }
+
     private func searchResultRow(_ result: SearchResult) -> some View {
         Button(action: {
             // Seek to match time
@@ -115,7 +136,7 @@ struct SearchResultsView: View {
                 .font(.cinLabelRegular)
                 .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.7))
 
-            Button(action: {}) {
+            Button(action: createSequenceFromResults) {
                 Text("Create Sequence")
                     .font(.cinTitleSmall)
                     .foregroundStyle(CinematicTheme.onPrimaryContainer)

@@ -9,6 +9,8 @@ final class AIChatController {
     private(set) var messages: [ChatMessage] = []
     private(set) var isProcessing = false
     private(set) var processingStatus: String?
+    private(set) var lastSearchQuery: String?
+    private(set) var lastSearchResults: [SearchResult]?
 
     private let contextBuilder = AIContextBuilder()
     private let toolResolver = AIToolResolver()
@@ -41,6 +43,10 @@ final class AIChatController {
 
         messages.append(ChatMessage(role: .user, content: message, toolResults: []))
         isProcessing = true
+
+        // Clear previous search results when starting new request
+        lastSearchQuery = nil
+        lastSearchResults = nil
 
         do {
             let recentActions = await appState.context.actionLog.recentActions(count: 10)
@@ -255,8 +261,14 @@ final class AIChatController {
         }
 
         guard !results.isEmpty else {
+            lastSearchQuery = nil
+            lastSearchResults = nil
             return "No matches found for '\(query)'. Make sure assets are transcribed first."
         }
+
+        // Store for visual display in SearchResultsView
+        lastSearchQuery = query
+        lastSearchResults = results
 
         var output = "Found \(results.count) match(es) for '\(query)':\n\n"
         for (i, result) in results.enumerated() {

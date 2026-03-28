@@ -40,6 +40,42 @@ struct ContentView: View {
         }
         .background(CinematicTheme.surface)
         .frame(minWidth: 1200, minHeight: 700)
+        .focusable()
+        // Transport: J/K/L
+        .onKeyPress("j") { stepBackward(); return .handled }
+        .onKeyPress("k") { appState.playbackEngine.togglePlayPause(); return .handled }
+        .onKeyPress("l") { stepForward(); return .handled }
+        // Frame stepping: arrows
+        .onKeyPress(.leftArrow) { stepFrame(forward: false); return .handled }
+        .onKeyPress(.rightArrow) { stepFrame(forward: true); return .handled }
+        // Undo/Redo: Cmd+Z / Shift+Cmd+Z
+        .keyboardShortcut("z", modifiers: .command)
+        // Zoom: +/-
+        .onKeyPress("=") { appState.timelineViewState.zoomIn(); return .handled }
+        .onKeyPress("-") { appState.timelineViewState.zoomOut(); return .handled }
+    }
+
+    // MARK: - Keyboard actions
+
+    private func stepForward() {
+        let newTime = min(appState.playbackEngine.currentTime + 5, appState.playbackEngine.duration)
+        appState.playbackEngine.seek(to: newTime)
+        appState.timelineViewState.playheadPosition = newTime
+    }
+
+    private func stepBackward() {
+        let newTime = max(appState.playbackEngine.currentTime - 5, 0)
+        appState.playbackEngine.seek(to: newTime)
+        appState.timelineViewState.playheadPosition = newTime
+    }
+
+    private func stepFrame(forward: Bool) {
+        let frameDuration = 1.0 / 30.0
+        let newTime = forward
+            ? min(appState.playbackEngine.currentTime + frameDuration, appState.playbackEngine.duration)
+            : max(appState.playbackEngine.currentTime - frameDuration, 0)
+        appState.playbackEngine.seek(to: newTime)
+        appState.timelineViewState.playheadPosition = newTime
     }
 
     // MARK: - Top Bar

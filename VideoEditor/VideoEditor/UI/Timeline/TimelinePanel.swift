@@ -3,6 +3,8 @@ import EditorCore
 
 struct TimelinePanel: View {
     @Environment(AppState.self) private var appState
+    @State private var thumbnails: [UUID: CGImage] = [:]
+
     var body: some View {
         let viewState = appState.timelineViewState
         let timeline = appState.timeline
@@ -201,6 +203,7 @@ struct TimelinePanel: View {
                     selectedClipIDs: viewState.selectedClipIDs,
                     isSelectedTrack: viewState.selectedTrackID == track.id,
                     totalWidth: width,
+                    thumbnails: thumbnails,
                     onTrackTap: { viewState.selectedTrackID = track.id },
                     onClipTap: { clipID, extend in
                         viewState.selectedTrackID = track.id
@@ -208,8 +211,20 @@ struct TimelinePanel: View {
                     },
                     onClipDrag: { clipID, newStart in
                         try? appState.perform(.moveClip(clipID: clipID, newStart: newStart, trackID: track.id))
+                    },
+                    onClipTrim: { clipID, newSourceStart, newSourceEnd in
+                        try? appState.perform(.trimClip(clipID: clipID, newSourceRange: TimeRange(start: newSourceStart, end: newSourceEnd)))
                     }
                 )
+                .task {
+                    // Load thumbnails for clips on this track
+                    for clip in track.clips {
+                        if thumbnails[clip.assetID] == nil {
+                            let thumb = await appState.media.thumbnail(for: clip.assetID)
+                            if let thumb { thumbnails[clip.assetID] = thumb }
+                        }
+                    }
+                }
             }
             Spacer()
         }
