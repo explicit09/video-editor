@@ -29,7 +29,11 @@ struct ContentView: View {
             topBar
             HStack(spacing: 0) {
                 sideNav
-                mainContent
+                if appState.assets.isEmpty && appState.timeline.tracks.isEmpty {
+                    EmptyStateView(commandBarText: $commandBarText, onSend: sendCommandBarMessage)
+                } else {
+                    mainContent
+                }
             }
         }
         .background(CinematicTheme.surface)
@@ -148,6 +152,11 @@ struct ContentView: View {
                         AVPlayerView(player: appState.playbackEngine.player)
                             .background(CinematicTheme.surfaceContainerLowest)
 
+                        // AI Orchestrator overlay (Screen 3)
+                        if appState.aiChat.isProcessing {
+                            aiOrchestratorOverlay
+                        }
+
                         // Floating AI Command Bar
                         aiCommandBar
                             .padding(.bottom, 16)
@@ -239,6 +248,40 @@ struct ContentView: View {
     }
 
     // MARK: - Floating AI Command Bar
+
+    // MARK: - AI Orchestrator Overlay (Screen 3)
+
+    private var aiOrchestratorOverlay: some View {
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
+                Image(systemName: "sparkles")
+                    .font(.system(size: 16))
+                    .foregroundStyle(CinematicTheme.primary)
+                    .symbolEffect(.pulse)
+
+                Text("AI Orchestrator Active")
+                    .font(.cinTitleSmall)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(CinematicTheme.onSurface)
+            }
+
+            if let status = appState.aiChat.processingStatus {
+                Text(status)
+                    .font(.cinLabelRegular)
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.7))
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+        .glassPanel()
+        .overlay(
+            RoundedRectangle(cornerRadius: CinematicRadius.full)
+                .strokeBorder(CinematicTheme.primaryContainer.opacity(0.3), lineWidth: 1)
+        )
+        .aiGlow(radius: 20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .padding(.bottom, 80) // Above the command bar
+    }
 
     private func sendCommandBarMessage() {
         let text = commandBarText.trimmingCharacters(in: .whitespaces)
