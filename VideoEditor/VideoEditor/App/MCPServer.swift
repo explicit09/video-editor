@@ -386,7 +386,7 @@ final class MCPServer {
                 return "\(clip.metadata.label ?? "Clip") [id=\(clipIDStr), \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s] (\(linkStr)\(speedStr))"
             }
             let clipStr = clips.isEmpty ? "empty" : clips.joined(separator: ", ")
-            return "  \(track.name) (\(track.type.rawValue), id=\(track.id.uuidString.prefix(8))): \(clipStr)"
+            return "  \(track.name) (\(track.type.rawValue), id=\(track.id.uuidString)): \(clipStr)"
         }
         let assetList = appState.assets.map { "\($0.name) (ID: \($0.id.uuidString), \(String(format: "%.1f", $0.duration))s)" }
 
