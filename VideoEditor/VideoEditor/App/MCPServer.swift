@@ -133,6 +133,21 @@ final class MCPServer {
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
                 [
+                    "name": "save_snapshot",
+                    "description": "Save a named version snapshot of the current timeline. Can be restored later.",
+                    "inputSchema": ["type": "object", "properties": ["name": ["type": "string", "description": "Snapshot name"]], "required": ["name"]],
+                ],
+                [
+                    "name": "list_snapshots",
+                    "description": "List all saved version snapshots.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "restore_snapshot",
+                    "description": "Restore a previous version snapshot by ID.",
+                    "inputSchema": ["type": "object", "properties": ["snapshot_id": ["type": "string", "description": "UUID of the snapshot"]], "required": ["snapshot_id"]],
+                ],
+                [
                     "name": "test_feature",
                     "description": "Test a backend feature by name. Returns PASS/FAIL/SKIP.",
                     "inputSchema": ["type": "object", "properties": ["feature": ["type": "string", "description": "Feature to test"]], "required": ["feature"]],
@@ -192,6 +207,37 @@ final class MCPServer {
             return handleGetState(appState: appState)
         }
 
+        if name == "save_snapshot" {
+            let snapName = (arguments["name"] as? String) ?? "Snapshot"
+            let vc = VersionControl(projectBundleURL: appState.projectBundleURL)
+            do {
+                try await vc.saveSnapshot(name: snapName, timeline: appState.timeline)
+                return "Saved snapshot '\(snapName)'."
+            } catch {
+                return "Error: \(error.localizedDescription)"
+            }
+        }
+        if name == "list_snapshots" {
+            let vc = VersionControl(projectBundleURL: appState.projectBundleURL)
+            await vc.loadFromDisk()
+            let snaps = await vc.listSnapshots()
+            if snaps.isEmpty { return "No snapshots saved." }
+            return snaps.map { "\($0.name) (ID: \($0.id.uuidString), \($0.timestamp))" }.joined(separator: "\n")
+        }
+        if name == "restore_snapshot" {
+            guard let idStr = arguments["snapshot_id"] as? String, let id = UUID(uuidString: idStr) else {
+                return "Error: Missing snapshot_id"
+            }
+            let vc = VersionControl(projectBundleURL: appState.projectBundleURL)
+            await vc.loadFromDisk()
+            do {
+                let timeline = try await vc.restoreSnapshot(id: id)
+                appState.context.timelineState.timeline = timeline
+                return "Restored snapshot. " + stateSnapshot(appState)
+            } catch {
+                return "Error: \(error.localizedDescription)"
+            }
+        }
         if name == "test_feature" {
             return await handleTestFeature(arguments, appState: appState)
         }
@@ -205,8 +251,15 @@ final class MCPServer {
             return await handleAnalysisTool(name: name, args: arguments, appState: appState)
         }
 
-        if name == "get_transcript" || name == "transcribe_asset" || name == "search_transcript" {
-            return "Content tools require AI chat context. Use the AI assistant in the app."
+        // Content tools — now work via MCP
+        if name == "get_transcript" {
+            return await handleGetTranscript(arguments, appState: appState)
+        }
+        if name == "transcribe_asset" {
+            return await handleTranscribeAsset(arguments, appState: appState)
+        }
+        if name == "search_transcript" {
+            return await handleSearchTranscript(arguments, appState: appState)
         }
 
         if ["remove_silence", "remove_section", "ripple_delete", "normalize_audio"].contains(name) {
@@ -293,6 +346,85 @@ final class MCPServer {
         result += "\nPlayhead: \(String(format: "%.1f", appState.timelineViewState.playheadPosition))s"
         result += "\nDuration: \(String(format: "%.1f", appState.timeline.duration))s"
         return result
+    }
+
+    // MARK: - Content Tool Handlers
+
+    private func handleGetTranscript(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) else {
+            return "Error: Missing asset_id"
+        }
+        guard let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Asset not found. Assets: " + appState.assets.map { "\($0.name) (\($0.id.uuidString))" }.joined(separator: ", ")
+        }
+
+        await appState.media.ensureTranscriptionConfigured()
+
+        if let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) {
+            return "Transcript (\(result.words.count) words, \(String(format: "%.1f", result.duration))s):\n\(result.text)"
+        }
+        return "No transcript. Use transcribe_asset first."
+    }
+
+    private func handleTranscribeAsset(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) else {
+            return "Error: Missing asset_id"
+        }
+        guard let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Asset not found"
+        }
+
+        await appState.media.ensureTranscriptionConfigured()
+
+        if await appState.media.transcriptionService.hasTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) {
+            return "Already transcribed. Use get_transcript to read."
+        }
+
+        do {
+            let result = try await appState.media.transcriptionService.transcribe(
+                asset: asset,
+                mediaManager: appState.media.mediaManager,
+                bundleURL: appState.projectBundleURL
+            )
+            if let result {
+                await appState.media.refreshAssets()
+                return "Transcribed: \(result.words.count) words, \(String(format: "%.1f", result.duration))s."
+            }
+            return "Error: Transcription not configured. Add DEEPGRAM_API_KEY to .env."
+        } catch {
+            return "Error: \(error.localizedDescription)"
+        }
+    }
+
+    private func handleSearchTranscript(_ args: [String: Any], appState: AppState) async -> String {
+        guard let query = args["query"] as? String, !query.isEmpty else {
+            return "Error: Missing query"
+        }
+
+        let searchEngine = TranscriptSearchEngine()
+        var searchAssets = appState.assets
+        for i in searchAssets.indices {
+            if searchAssets[i].analysis?.transcript == nil {
+                if let result = await appState.media.transcriptionService.loadTranscript(
+                    for: searchAssets[i].id, bundleURL: appState.projectBundleURL
+                ) {
+                    var analysis = searchAssets[i].analysis ?? MediaAnalysis()
+                    analysis.transcript = result.words
+                    searchAssets[i].analysis = analysis
+                }
+            }
+        }
+
+        let results = searchEngine.search(query: query, assets: searchAssets, maxResults: 10)
+        if results.isEmpty { return "No matches for '\(query)'." }
+
+        return "\(results.count) matches for '\(query)':\n" + results.enumerated().map { (i, r) in
+            "\(i+1). [\(r.assetName)] \(r.formattedTime) — \"\(r.contextText)\""
+        }.joined(separator: "\n")
     }
 
     // MARK: - Analysis Tool Handlers
