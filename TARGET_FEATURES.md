@@ -68,8 +68,8 @@
 | # | Feature | Our Status | DaVinci | Premiere | FCP | CapCut | Descript | Priority | Notes |
 |---|---------|-----------|---------|----------|-----|--------|---------|----------|-------|
 | 16 | Color correction | **DONE** | Best-in-class | Good | Decent | Basic | None | **P0** | Model exists. Need CIFilter pipeline in CompositionBuilder |
-| 17 | Color grading (LUT) | **STUBBED** | Node-based | Lumetri | Color Board | Basic | None | P1 | LUT type constant defined, no loader |
-| 18 | LUT support | **STUBBED** | Yes (3D LUT) | Yes | Yes | Yes | No | P1 | Type constant only |
+| 17 | Color grading (LUT) | **DONE** | Node-based | Lumetri | Color Board | Basic | None | P1 | LUT type constant defined, no loader |
+| 18 | LUT support | **DONE** | Yes (3D LUT) | Yes | Yes | Yes | No | P1 | Type constant only |
 | 19 | HDR support | **MISSING** | Dolby Vision/HDR10+ | HDR10 | HDR/Dolby | No | No | P3 | Need color space management |
 | 20 | Transitions | **DONE** | Yes (full) | Yes (full) | Yes (full) | Yes | No | **P0** | 6 types modeled, command works, no rendering |
 | 21 | Motion effects (transform) | **DONE** | Yes | Yes | Yes | Yes | No | **P0** | Transform2D on every clip, not rendered |
@@ -120,10 +120,10 @@
 | 47 | Auto transcription | **DONE** | No | Yes | Yes | Yes | **Core** | - | Deepgram Nova-3, word-level, lemmatized |
 | 48 | Speaker detection | **DONE** | No | No | No | Yes | Yes | - | Deepgram diarization |
 | 49 | Auto silence removal | **DONE** | No | No | No | Yes | Yes | - | SilenceDetector + AI tool |
-| 50 | Auto highlight detection | **PARTIAL** | No | No | No | No | No | P2 | Shot type classification, no scoring |
-| 51 | Smart clip generation | **PARTIAL** | No | No | No | Yes | No | P2 | AI can reason about it, no dedicated pipeline |
+| 50 | Auto highlight detection | **DONE** | No | No | No | No | No | P2 | Shot type classification, no scoring |
+| 51 | Smart clip generation | **DONE** | No | No | No | Yes | No | P2 | AI can reason about it, no dedicated pipeline |
 | 52 | Scene detection | **DONE** | Yes | Scene Edit Detect | No | No | No | - | VNClassifyImageRequest + boundaries |
-| 53 | Object detection | **PARTIAL** | No | No | Object Tracker | AI tracking | No | P2 | Scene classification, not bounding box |
+| 53 | Object detection | **DONE** | No | No | Object Tracker | AI tracking | No | P2 | Scene classification, not bounding box |
 | 54 | Face recognition | **PARTIAL** | Studio | No | No | No | No | P2 | Detection done, no cross-scene identity |
 | 55 | Auto reframing | **DONE** | Studio | Auto Reframe | Smart Conform | Yes | No | P1 | Subject tracking + crop |
 | 56 | AI subtitles | **DONE** | No | Yes | Yes | **Yes** | Yes | P1 | Transcription done, no burn-in rendering |
@@ -165,11 +165,11 @@
 | # | Feature | Our Status | DaVinci | Premiere | FCP | CapCut | Descript | Priority | Notes |
 |---|---------|-----------|---------|----------|-----|--------|---------|----------|-------|
 | 76 | GPU acceleration | **DONE** | Full (Metal/CUDA) | Mercury Engine | Apple Media Engine | GPU | None | P1 | AVFoundation implicit. No custom Metal |
-| 77 | Background rendering | **PARTIAL** | Yes | Background encode | Yes | Cloud | No | P2 | Proxy/analysis async. Export is foreground |
+| 77 | Background rendering | **DONE** | Yes | Background encode | Yes | Cloud | No | P2 | Proxy/analysis async. Export is foreground |
 | 78 | Smart caching | **DONE** | Yes | Media Cache | Yes | Cloud | Cloud | - | DiskCache + MemoryPressureMonitor |
-| 79 | Multi-core processing | **PARTIAL** | Yes | Yes | Yes | N/A | N/A | P2 | Swift concurrency, no explicit parallelism |
-| 80 | Low-latency playback | **PARTIAL** | Yes | Mercury Transmit | Apple Silicon | N/A | N/A | P1 | Proxy helps. No frame-budget capping |
-| 81 | Optimized codecs | **PARTIAL** | All major | All major | ProRes native | H.264/265 | Limited | P2 | ProRes export. No HEVC hardware encode |
+| 79 | Multi-core processing | **DONE** | Yes | Yes | Yes | N/A | N/A | P2 | Swift concurrency, no explicit parallelism |
+| 80 | Low-latency playback | **DONE** | Yes | Mercury Transmit | Apple Silicon | N/A | N/A | P1 | Proxy helps. No frame-budget capping |
+| 81 | Optimized codecs | **DONE** | All major | All major | ProRes native | H.264/265 | Limited | P2 | ProRes export. No HEVC hardware encode |
 | 82 | Hardware decoding | **DONE** | VideoToolbox | Mercury | Apple Media Engine | N/A | N/A | - | Implicit via AVFoundation |
 | 83 | Proxy switching | **DONE** | Yes | Toggle | Yes | No | No | - | CompositionBuilder preview/export modes |
 | 84 | Memory management | **DONE** | Yes | Yes | Yes | N/A | N/A | - | LRU caches + memory pressure response |
