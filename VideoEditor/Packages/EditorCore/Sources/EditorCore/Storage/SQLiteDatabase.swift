@@ -20,8 +20,29 @@ public final class SQLiteDatabase: @unchecked Sendable {
         sqlite3_exec(db, "PRAGMA journal_mode=WAL", nil, nil, nil)
     }
 
+    private var isClosed = false
+
     deinit {
+        if !isClosed { sqlite3_close(db) }
+    }
+
+    /// Explicitly close the database connection.
+    public func close() {
+        guard !isClosed else { return }
+        isClosed = true
         sqlite3_close(db)
+    }
+
+    /// Execute a block inside a BEGIN/COMMIT transaction. Rolls back on error.
+    public func transaction(_ body: () throws -> Void) throws {
+        try run("BEGIN TRANSACTION")
+        do {
+            try body()
+            try run("COMMIT")
+        } catch {
+            try? run("ROLLBACK")
+            throw error
+        }
     }
 
     /// Run a statement that doesn't return rows.
