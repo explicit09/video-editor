@@ -45,6 +45,9 @@ public final class ExportEngine {
         if let audioMix = result.audioMix {
             session.audioMix = audioMix
         }
+        if let videoComp = result.videoComposition {
+            session.videoComposition = videoComp
+        }
 
         self.exportSession = session
 

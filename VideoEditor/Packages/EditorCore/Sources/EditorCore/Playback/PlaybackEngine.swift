@@ -47,6 +47,9 @@ public final class PlaybackEngine {
         if let audioMix = result.audioMix {
             playerItem.audioMix = audioMix
         }
+        if let videoComp = result.videoComposition {
+            playerItem.videoComposition = videoComp
+        }
         player.replaceCurrentItem(with: playerItem)
     }
 

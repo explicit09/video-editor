@@ -13,6 +13,7 @@ public struct CompositionBuilder {
     public struct Result {
         public let composition: AVMutableComposition
         public let audioMix: AVAudioMix?
+        public let videoComposition: AVVideoComposition?
         public let duration: TimeInterval
     }
 
@@ -27,6 +28,9 @@ public struct CompositionBuilder {
         let comp = AVMutableComposition()
         var maxDuration: CMTime = .zero
         var audioParams: [AVMutableAudioMixInputParameters] = []
+        var videoInstructions: [AVMutableVideoCompositionLayerInstruction] = []
+        var hasOpacityChanges = false
+        var renderSize: CGSize = CGSize(width: 1920, height: 1080)
 
         for track in timeline.tracks {
             guard !track.isMuted else { continue }
@@ -50,6 +54,20 @@ public struct CompositionBuilder {
                     if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
                        let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
+
+                        // Track natural size for render
+                        if let naturalSize = try? await sourceTrack.load(.naturalSize), naturalSize.width > 0 {
+                            if naturalSize.width > renderSize.width { renderSize = naturalSize }
+                        }
+
+                        // Apply opacity if not 1.0
+                        let effectiveOpacity = clip.opacity * track.opacity
+                        if effectiveOpacity < 1.0 {
+                            let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: compTrack)
+                            layerInstruction.setOpacity(Float(effectiveOpacity), at: insertTime)
+                            videoInstructions.append(layerInstruction)
+                            hasOpacityChanges = true
+                        }
                     }
                 }
 
@@ -84,9 +102,24 @@ public struct CompositionBuilder {
             audioMix = mix
         }
 
+        // Build video composition if any opacity changes
+        var videoComposition: AVVideoComposition?
+        if hasOpacityChanges, !videoInstructions.isEmpty {
+            let mainInstruction = AVMutableVideoCompositionInstruction()
+            mainInstruction.timeRange = CMTimeRange(start: .zero, duration: maxDuration)
+            mainInstruction.layerInstructions = videoInstructions
+
+            let vidComp = AVMutableVideoComposition()
+            vidComp.instructions = [mainInstruction]
+            vidComp.frameDuration = CMTime(value: 1, timescale: 30)
+            vidComp.renderSize = renderSize
+            videoComposition = vidComp
+        }
+
         return Result(
             composition: comp,
             audioMix: audioMix,
+            videoComposition: videoComposition,
             duration: maxDuration.seconds
         )
     }

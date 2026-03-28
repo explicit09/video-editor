@@ -7,6 +7,7 @@ struct TimelinePanel: View {
     @State private var thumbnails: [UUID: CGImage] = [:]
     @State private var waveforms: [UUID: [Float]] = [:]
     @State private var trackHeights: [UUID: Double] = [:]
+    @State private var pinchBaseZoom: Double?
     private let defaultTrackHeight: Double = 76
     private let expandedTrackHeight: Double = 104
 
@@ -64,7 +65,13 @@ struct TimelinePanel: View {
                 .gesture(
                     MagnifyGesture()
                         .onChanged { value in
-                            viewState.setZoom(viewState.zoom * value.magnification)
+                            if pinchBaseZoom == nil {
+                                pinchBaseZoom = viewState.zoom
+                            }
+                            viewState.setZoom((pinchBaseZoom ?? viewState.zoom) * value.magnification)
+                        }
+                        .onEnded { _ in
+                            pinchBaseZoom = nil
                         }
                 )
             }
