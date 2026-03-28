@@ -64,8 +64,7 @@ struct TimelinePanel: View {
                 .gesture(
                     MagnifyGesture()
                         .onChanged { value in
-                            let newZoom = viewState.zoom * value.magnification
-                            viewState.zoom = min(max(newZoom, TimelineViewState.zoomRange.lowerBound), TimelineViewState.zoomRange.upperBound)
+                            viewState.setZoom(viewState.zoom * value.magnification)
                         }
                 )
             }
@@ -250,10 +249,10 @@ struct TimelinePanel: View {
                         appState.updateTrack(id: track.id) { $0.name = newName }
                     },
                     onToggleMute: {
-                        appState.updateTrack(id: track.id) { $0.isMuted.toggle() }
+                        try? appState.perform(.muteTrack(trackID: track.id, muted: !track.isMuted))
                     },
                     onToggleLock: {
-                        appState.updateTrack(id: track.id) { $0.isLocked.toggle() }
+                        try? appState.perform(.lockTrack(trackID: track.id, locked: !track.isLocked))
                     },
                     onAddLane: {
                         appState.addTrack(of: track.type, positionedAfter: track.id)

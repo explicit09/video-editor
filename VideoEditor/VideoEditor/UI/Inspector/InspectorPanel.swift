@@ -281,7 +281,7 @@ struct InspectorPanel: View {
                             label: track.isMuted ? "Muted" : "Active",
                             isOn: !track.isMuted
                         ) {
-                            appState.updateTrack(id: track.id) { $0.isMuted.toggle() }
+                            try? appState.perform(.muteTrack(trackID: track.id, muted: !track.isMuted))
                         }
 
                         trackTogglePill(
@@ -289,7 +289,7 @@ struct InspectorPanel: View {
                             label: track.isLocked ? "Locked" : "Unlocked",
                             isOn: track.isLocked
                         ) {
-                            appState.updateTrack(id: track.id) { $0.isLocked.toggle() }
+                            try? appState.perform(.lockTrack(trackID: track.id, locked: !track.isLocked))
                         }
                     }
 

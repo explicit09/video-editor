@@ -95,6 +95,8 @@ struct ContentView: View {
         }
         // Toggle snap
         .onKeyPress("n") { appState.timelineViewState.snapEnabled.toggle(); return .handled }
+        // Toggle ripple
+        .onKeyPress("r") { appState.timelineViewState.rippleEnabled.toggle(); return .handled }
         // Copy (Cmd+C)
         .onKeyPress("c") {
             guard NSEvent.modifierFlags.contains(.command) else { return .ignored }

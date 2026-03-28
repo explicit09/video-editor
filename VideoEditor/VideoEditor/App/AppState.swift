@@ -265,11 +265,12 @@ final class AppState {
     private func resolveTrackID(for type: TrackType, preferredTrackID: UUID?) -> UUID {
         if let preferredTrackID,
            let preferredTrack = timeline.tracks.first(where: { $0.id == preferredTrackID }),
-           preferredTrack.type == type {
+           preferredTrack.type == type,
+           !preferredTrack.isLocked {
             return preferredTrackID
         }
 
-        if let existing = timeline.tracks.last(where: { $0.type == type }) {
+        if let existing = timeline.tracks.last(where: { $0.type == type && !$0.isLocked }) {
             return existing.id
         }
 
@@ -295,7 +296,7 @@ final class AppState {
             let candidateIndex = sourceTrackIndex + offset
             guard timeline.tracks.indices.contains(candidateIndex) else { continue }
             let candidateTrack = timeline.tracks[candidateIndex]
-            if candidateTrack.type == targetType {
+            if candidateTrack.type == targetType, !candidateTrack.isLocked {
                 return candidateTrack.id
             }
         }
@@ -303,7 +304,7 @@ final class AppState {
         let sourceOrdinal = timeline.tracks
             .filter { $0.type == sourceType }
             .firstIndex(where: { $0.id == sourceTrackID }) ?? 0
-        let targetTracks = timeline.tracks.filter { $0.type == targetType }
+        let targetTracks = timeline.tracks.filter { $0.type == targetType && !$0.isLocked }
         if targetTracks.indices.contains(sourceOrdinal) {
             return targetTracks[sourceOrdinal].id
         }
@@ -374,13 +375,41 @@ final class AppState {
     // MARK: - Intent pipeline (ONLY write path)
 
     func perform(_ intent: EditorIntent, source: ActionSource = .user) throws {
-        // Expand linked clips: if the intent targets a clip with a linkGroupID,
-        // create the same intent for all siblings and execute as a batch.
         let expandedIntent = expandLinkedIntent(intent)
         var command = try intentResolver.resolve(expandedIntent)
         try commandHistory.execute(&command, context: context, source: source)
+
+        // Ripple: close gaps after delete/trim if enabled
+        if timelineViewState.rippleEnabled {
+            rippleCloseGaps(for: intent)
+        }
+
         rebuildComposition()
         scheduleSave()
+    }
+
+    /// After a delete or trim, shift subsequent clips left to close gaps.
+    private func rippleCloseGaps(for intent: EditorIntent) {
+        switch intent {
+        case .deleteClips, .trimClip:
+            for trackIndex in context.timelineState.timeline.tracks.indices {
+                var clips = context.timelineState.timeline.tracks[trackIndex].clips
+                clips.sort { $0.timelineRange.start < $1.timelineRange.start }
+
+                var cursor: TimeInterval = 0
+                for i in clips.indices {
+                    if clips[i].timelineRange.start > cursor {
+                        // Gap detected — shift this clip left
+                        let duration = clips[i].timelineRange.duration
+                        clips[i].timelineRange = TimeRange(start: cursor, duration: duration)
+                    }
+                    cursor = clips[i].timelineRange.end
+                }
+                context.timelineState.timeline.tracks[trackIndex].clips = clips
+            }
+        default:
+            break
+        }
     }
 
     /// If an intent targets a clip with linked siblings, expand to a batch.
