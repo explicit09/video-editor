@@ -124,6 +124,161 @@ final class AppState {
         }
     }
 
+    func duplicateSelection(source: ActionSource = .user) {
+        let selectedClips = timeline.tracks
+            .enumerated()
+            .flatMap { trackIndex, track in
+                track.clips.compactMap { clip -> (trackIndex: Int, trackID: UUID, clip: Clip)? in
+                    guard timelineViewState.selectedClipIDs.contains(clip.id) else { return nil }
+                    return (trackIndex, track.id, clip)
+                }
+            }
+            .sorted { lhs, rhs in
+                if lhs.trackIndex != rhs.trackIndex {
+                    return lhs.trackIndex < rhs.trackIndex
+                }
+                if lhs.clip.timelineRange.start != rhs.clip.timelineRange.start {
+                    return lhs.clip.timelineRange.start < rhs.clip.timelineRange.start
+                }
+                return lhs.clip.timelineRange.end < rhs.clip.timelineRange.end
+            }
+
+        guard !selectedClips.isEmpty else { return }
+
+        if selectedClips.count == 1, let onlyClip = selectedClips.first {
+            try? perform(.duplicateClip(clipID: onlyClip.clip.id), source: source)
+            return
+        }
+
+        var duplicatedIDs = Set<UUID>()
+        var duplicatedClips: [UUID] = []
+        var linkGroupMap: [UUID: UUID] = [:]
+        let intents: [EditorIntent] = selectedClips.compactMap { entry in
+            guard duplicatedIDs.insert(entry.clip.id).inserted else { return nil }
+
+            let duplicateLinkGroupID = entry.clip.linkGroupID.map { originalID in
+                linkGroupMap[originalID] ?? {
+                    let newID = UUID()
+                    linkGroupMap[originalID] = newID
+                    return newID
+                }()
+            }
+
+            let duplicate = Clip(
+                assetID: entry.clip.assetID,
+                timelineRange: TimeRange(
+                    start: entry.clip.timelineRange.end,
+                    duration: entry.clip.timelineRange.duration
+                ),
+                sourceRange: entry.clip.sourceRange,
+                transform: entry.clip.transform,
+                opacity: entry.clip.opacity,
+                volume: entry.clip.volume,
+                effects: entry.clip.effects,
+                keyframes: entry.clip.keyframes,
+                metadata: ClipMetadata(
+                    label: (entry.clip.metadata.label ?? "Clip") + " (copy)",
+                    tags: entry.clip.metadata.tags,
+                    transcriptSegment: entry.clip.metadata.transcriptSegment,
+                    sceneType: entry.clip.metadata.sceneType
+                ),
+                speed: entry.clip.speed,
+                transitionIn: entry.clip.transitionIn,
+                linkGroupID: duplicateLinkGroupID
+            )
+            duplicatedClips.append(duplicate.id)
+            return .insertClip(clip: duplicate, trackID: entry.trackID)
+        }
+
+        guard !intents.isEmpty else { return }
+        try? perform(intents.count == 1 ? intents[0] : .batch(intents), source: source)
+
+        if let firstTrackID = intents.compactMap({ intentTrackID(for: $0) }).first {
+            timelineViewState.selectedClipIDs = Set(duplicatedClips)
+            timelineViewState.selectedTrackID = firstTrackID
+        }
+    }
+
+    func toggleClipSelection(_ clipID: UUID, extend: Bool) {
+        guard let selectedTrackID = trackID(for: clipID) else { return }
+        let clipIDs = linkedSelectionIDs(for: clipID)
+
+        if extend {
+            let isEntireGroupSelected = clipIDs.allSatisfy { timelineViewState.selectedClipIDs.contains($0) }
+            if isEntireGroupSelected {
+                clipIDs.forEach { timelineViewState.selectedClipIDs.remove($0) }
+            } else {
+                clipIDs.forEach { timelineViewState.selectedClipIDs.insert($0) }
+            }
+
+            let selectedTrackIDs = Set(timelineViewState.selectedClipIDs.compactMap { self.trackID(for: $0) })
+            timelineViewState.selectedTrackID = selectedTrackIDs.count == 1 ? selectedTrackIDs.first : selectedTrackID
+        } else {
+            timelineViewState.selectedClipIDs = Set(clipIDs)
+            let selectedTrackIDs = Set(clipIDs.compactMap { self.trackID(for: $0) })
+            timelineViewState.selectedTrackID = selectedTrackIDs.count == 1 ? selectedTrackIDs.first : selectedTrackID
+        }
+    }
+
+    func moveSelection(primaryClipID: UUID, newStart: TimeInterval, targetTrackID: UUID) {
+        guard timelineViewState.selectedClipIDs.contains(primaryClipID),
+              timelineViewState.selectedClipIDs.count > 1,
+              let primaryClip = clip(for: primaryClipID),
+              let primaryTrack = track(for: primaryClipID) else {
+            try? perform(.moveClip(clipID: primaryClipID, newStart: newStart, trackID: targetTrackID))
+            return
+        }
+
+        let selectedClips = timeline.tracks
+            .flatMap(\.clips)
+            .filter { timelineViewState.selectedClipIDs.contains($0.id) }
+        guard !selectedClips.isEmpty else { return }
+
+        let delta = newStart - primaryClip.timelineRange.start
+        let orderedClips = selectedClips.sorted { lhs, rhs in
+            if delta >= 0 {
+                if lhs.timelineRange.start != rhs.timelineRange.start {
+                    return lhs.timelineRange.start > rhs.timelineRange.start
+                }
+                return lhs.timelineRange.end > rhs.timelineRange.end
+            }
+            if lhs.timelineRange.start != rhs.timelineRange.start {
+                return lhs.timelineRange.start < rhs.timelineRange.start
+            }
+            return lhs.timelineRange.end < rhs.timelineRange.end
+        }
+
+        let intents: [EditorIntent] = orderedClips.compactMap { clip in
+            guard let originalTrackID = trackID(for: clip.id) else { return nil }
+            let clipTrackType = track(for: clip.id)?.type
+            let destinationTrackID: UUID
+
+            if clip.id == primaryClipID {
+                destinationTrackID = targetTrackID
+            } else if clip.linkGroupID != nil,
+                      clip.linkGroupID == primaryClip.linkGroupID,
+                      let clipTrackType,
+                      clipTrackType != primaryTrack.type {
+                destinationTrackID = pairedTrackID(
+                    for: targetTrackID,
+                    sourceType: primaryTrack.type,
+                    targetType: clipTrackType
+                )
+            } else {
+                destinationTrackID = originalTrackID
+            }
+
+            return .moveClip(
+                clipID: clip.id,
+                newStart: max(0, clip.timelineRange.start + delta),
+                trackID: destinationTrackID
+            )
+        }
+
+        guard !intents.isEmpty else { return }
+        try? perform(intents.count == 1 ? intents[0] : .batch(intents))
+    }
+
     // MARK: - Add to timeline (creates linked audio track only when media actually has audio)
 
     func addAssetToTimeline(
@@ -697,6 +852,38 @@ final class AppState {
 
     func seekFromPlayhead() {
         playbackEngine.seek(to: timelineViewState.playheadPosition)
+    }
+
+    private func clip(for clipID: UUID) -> Clip? {
+        timeline.tracks.flatMap(\.clips).first(where: { $0.id == clipID })
+    }
+
+    private func intentTrackID(for intent: EditorIntent) -> UUID? {
+        if case let .insertClip(_, trackID) = intent {
+            return trackID
+        }
+        return nil
+    }
+
+    private func track(for clipID: UUID) -> Track? {
+        timeline.tracks.first(where: { track in
+            track.clips.contains(where: { $0.id == clipID })
+        })
+    }
+
+    private func linkedSelectionIDs(for clipID: UUID) -> [UUID] {
+        guard timelineViewState.linkedSelectionEnabled,
+              let clip = clip(for: clipID),
+              let linkGroupID = clip.linkGroupID else {
+            return [clipID]
+        }
+
+        let linkedIDs = timeline.tracks
+            .flatMap(\.clips)
+            .filter { $0.linkGroupID == linkGroupID }
+            .map(\.id)
+
+        return linkedIDs.isEmpty ? [clipID] : linkedIDs
     }
 
     func trackID(for clipID: UUID) -> UUID? {

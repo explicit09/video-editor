@@ -3,6 +3,7 @@ import SwiftUI
 import EditorCore
 
 struct TimelinePanel: View {
+    let tool: EditorTool
     @Environment(AppState.self) private var appState
     @State private var thumbnails: [UUID: CGImage] = [:]
     @State private var waveforms: [UUID: [Float]] = [:]
@@ -183,6 +184,17 @@ struct TimelinePanel: View {
             }
             .buttonStyle(.plain)
 
+            Button {
+                viewState.linkedSelectionEnabled.toggle()
+            } label: {
+                CinematicStatusPill(
+                    text: viewState.linkedSelectionEnabled ? "LINKED ON" : "LINKED OFF",
+                    icon: "link",
+                    tone: viewState.linkedSelectionEnabled ? CinematicTheme.success : CinematicTheme.onSurfaceVariant
+                )
+            }
+            .buttonStyle(.plain)
+
             CinematicStatusPill(
                 text: "\(timeline.tracks.count) lanes",
                 icon: "square.stack.3d.down.right",
@@ -252,6 +264,8 @@ struct TimelinePanel: View {
             ForEach(Array(timeline.tracks.enumerated()), id: \.element.id) { index, track in
                 TimelineTrackView(
                     track: track,
+                    tool: tool,
+                    playheadTime: viewState.playheadPosition,
                     trackHeight: trackHeight(for: track.id),
                     viewState: viewState,
                     selectedClipIDs: viewState.selectedClipIDs,
@@ -259,6 +273,9 @@ struct TimelinePanel: View {
                     totalWidth: width,
                     thumbnails: thumbnails,
                     waveforms: waveforms,
+                    snapTime: { proposedTime, excludedClipIDs in
+                        snappedTime(for: proposedTime, excluding: excludedClipIDs)
+                    },
                     onTrackTap: { viewState.selectTrack(track.id) },
                     onRenameTrack: { newName in
                         appState.updateTrack(id: track.id) { $0.name = newName }
@@ -279,7 +296,7 @@ struct TimelinePanel: View {
                         try? appState.perform(.removeTrack(trackID: track.id))
                     } : nil,
                     onClipTap: { clipID, extend in
-                        viewState.toggleSelection(clipID, in: track.id, extend: extend)
+                        appState.toggleClipSelection(clipID, extend: extend)
                     },
                     onClipDrag: { clipID, newStart, verticalOffset in
                         let targetTrackID = targetTrackID(
@@ -288,7 +305,14 @@ struct TimelinePanel: View {
                             trackType: track.type,
                             in: timeline
                         )
-                        try? appState.perform(.moveClip(clipID: clipID, newStart: newStart, trackID: targetTrackID))
+                        let excludedClipIDs = viewState.selectedClipIDs.contains(clipID)
+                            ? viewState.selectedClipIDs
+                            : [clipID]
+                        let snappedStart = snappedTime(
+                            for: newStart,
+                            excluding: excludedClipIDs
+                        )
+                        appState.moveSelection(primaryClipID: clipID, newStart: snappedStart, targetTrackID: targetTrackID)
                     },
                     onAssetDrop: { assetID, dropTime in
                         guard let asset = appState.assets.first(where: { $0.id == assetID }) else { return }
@@ -296,7 +320,7 @@ struct TimelinePanel: View {
                             await appState.addAssetToTimeline(
                                 asset,
                                 preferredTrackID: track.id,
-                                startTime: dropTime
+                                startTime: snappedTime(for: dropTime)
                             )
                         }
                     },
@@ -401,5 +425,19 @@ struct TimelinePanel: View {
             return String(format: "%.1f px/s", zoom)
         }
         return "\(Int(zoom.rounded())) px/s"
+    }
+
+    private func snappedTime(for proposedTime: TimeInterval, excluding clipIDs: Set<UUID> = []) -> TimeInterval {
+        let clampedTime = max(0, proposedTime)
+        let viewState = appState.timelineViewState
+        guard viewState.snapEnabled else { return clampedTime }
+
+        let snapThreshold = viewState.snapThresholdPixels / max(viewState.zoom, 0.001)
+        let points = SnapUtils.snapPoints(
+            from: appState.timeline,
+            playhead: viewState.playheadPosition,
+            excludeClipIDs: clipIDs
+        )
+        return SnapUtils.snap(time: clampedTime, to: points, threshold: snapThreshold) ?? clampedTime
     }
 }

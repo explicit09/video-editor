@@ -12,6 +12,7 @@ final class TimelineViewState {
     var isPlaying: Bool = false
     var snapEnabled: Bool = true
     var rippleEnabled: Bool = false
+    var linkedSelectionEnabled: Bool = true
     var visibleWidth: Double = 800
     let snapThresholdPixels: Double = 8
 

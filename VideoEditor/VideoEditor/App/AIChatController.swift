@@ -14,6 +14,7 @@ final class AIChatController {
 
     private let contextBuilder = AIContextBuilder()
     private let toolResolver = AIToolResolver()
+    private let intentRouter = IntentRouter()
     private var provider: (any AIProvider)?
 
     struct ChatMessage: Identifiable {
@@ -82,16 +83,26 @@ final class AIChatController {
                 content: "Current editor state:\n\(context.toJSON())\n\nUser request: \(message)"
             ))
 
+            // Route: classify intent → pick model + tools
+            let routing = intentRouter.route(message)
+            let selectedTools = routing.toolSubset.isEmpty
+                ? [] // No tools for questions
+                : AIToolRegistry.allTools.filter { routing.toolSubset.contains($0.name) }
+            var currentModel: String? = routing.tier.rawValue
+
             // Multi-turn loop: send → get response → if tools, execute and send results back → repeat
             var allToolResults: [ChatMessage.ToolResult] = []
             var finalText = ""
-            let maxTurns = 10 // Safety limit
+            let maxTurns = 10
 
             for turn in 0..<maxTurns {
-                processingStatus = turn == 0 ? "Thinking..." : "AI planning next step..."
+                processingStatus = turn == 0
+                    ? (routing.tier == .fast ? "Executing..." : "Thinking...")
+                    : "AI planning next step..."
                 let response = try await provider.complete(
                     messages: conversation,
-                    tools: AIToolRegistry.allTools
+                    tools: selectedTools,
+                    modelOverride: currentModel
                 )
 
                 if !response.content.isEmpty {
@@ -110,9 +121,11 @@ final class AIChatController {
                 ))
 
                 // Execute each tool call and send results back
+                var hadFailure = false
                 for toolCall in response.toolCalls {
                     let result = await executeTool(toolCall: toolCall, appState: appState)
                     allToolResults.append(result)
+                    if !result.success { hadFailure = true }
 
                     conversation.append(AIMessage(
                         role: "user",
@@ -120,6 +133,11 @@ final class AIChatController {
                         toolResultID: toolCall.id,
                         isToolResult: true
                     ))
+                }
+
+                // Escalate to Sonnet on failure if we were using Haiku
+                if hadFailure && currentModel == IntentRouter.ModelTier.fast.rawValue {
+                    currentModel = IntentRouter.ModelTier.standard.rawValue
                 }
 
                 if response.stopReason != "tool_use" { break }

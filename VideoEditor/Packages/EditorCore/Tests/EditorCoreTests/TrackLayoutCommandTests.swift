@@ -86,6 +86,28 @@ struct TrackLayoutCommandTests {
         #expect(trimmed.sourceRange == TimeRange(start: 0, end: 6))
     }
 
+    @MainActor
+    @Test("TrimClip head extension clamps to the previous clip boundary")
+    func trimClipClampsToPreviousClip() throws {
+        let previous = makeClip(start: 0, end: 4, label: "Previous")
+        let target = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 5, end: 10),
+            sourceRange: TimeRange(start: 2, end: 7)
+        )
+        let track = Track(name: "V1", type: .video, clips: [previous, target])
+        let context = EditingContext(
+            timelineState: TimelineState(timeline: Timeline(tracks: [track]))
+        )
+
+        var command = TrimClipCommand(clipID: target.id, newSourceRange: TimeRange(start: 0, end: 7))
+        try command.execute(context: context)
+
+        let trimmed = context.timelineState.timeline.tracks[0].clips[1]
+        #expect(trimmed.timelineRange == TimeRange(start: 4, end: 10))
+        #expect(trimmed.sourceRange == TimeRange(start: 1, end: 7))
+    }
+
     private func makeClip(start: TimeInterval, end: TimeInterval, label: String) -> Clip {
         Clip(
             assetID: UUID(),

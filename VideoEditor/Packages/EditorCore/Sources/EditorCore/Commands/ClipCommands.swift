@@ -178,12 +178,25 @@ public struct TrimClipCommand: Command {
         let clip = context.timelineState.timeline.tracks[location.trackIndex].clips[location.clipIndex]
         previousSourceRange = clip.sourceRange
         previousTimelineRange = clip.timelineRange
+        let minDuration = 0.1
 
         // Head trim: source start moved forward -> timeline start moves forward by the same amount.
         let headDelta = newSourceRange.start - clip.sourceRange.start
-        let newTimelineStart = clip.timelineRange.start + headDelta
-        var adjustedSourceRange = newSourceRange
-        var newTimelineDuration = adjustedSourceRange.duration
+        let proposedTimelineStart = clip.timelineRange.start + headDelta
+        let priorClipEnd = context.timelineState.timeline.tracks[location.trackIndex].clips
+            .enumerated()
+            .filter { $0.offset != location.clipIndex }
+            .map(\.element)
+            .filter { $0.timelineRange.end <= clip.timelineRange.start }
+            .map(\.timelineRange.end)
+            .max() ?? 0
+        let newTimelineStart = max(proposedTimelineStart, priorClipEnd)
+
+        let effectiveHeadDelta = newTimelineStart - clip.timelineRange.start
+        let adjustedSourceStart = max(0, clip.sourceRange.start + effectiveHeadDelta)
+        let adjustedSourceEnd = max(newSourceRange.end, adjustedSourceStart + minDuration)
+        var adjustedSourceRange = TimeRange(start: adjustedSourceStart, end: adjustedSourceEnd)
+        var newTimelineDuration = max(adjustedSourceRange.duration, minDuration)
 
         if let nextClip = context.timelineState.timeline.tracks[location.trackIndex].clips
             .enumerated()
@@ -191,7 +204,7 @@ public struct TrimClipCommand: Command {
             .map(\.element)
             .sorted(by: { $0.timelineRange.start < $1.timelineRange.start })
             .first(where: { $0.timelineRange.start >= clip.timelineRange.end }) {
-            let maxDuration = max(nextClip.timelineRange.start - newTimelineStart, 0.1)
+            let maxDuration = max(nextClip.timelineRange.start - newTimelineStart, minDuration)
             if newTimelineDuration > maxDuration {
                 newTimelineDuration = maxDuration
                 adjustedSourceRange = TimeRange(start: adjustedSourceRange.start, duration: maxDuration)

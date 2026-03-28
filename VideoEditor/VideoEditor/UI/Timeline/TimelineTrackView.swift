@@ -6,6 +6,8 @@ import EditorCore
 
 struct TimelineTrackView: View {
     let track: Track
+    let tool: EditorTool
+    let playheadTime: TimeInterval
     let trackHeight: Double
     let viewState: TimelineViewState
     let selectedClipIDs: Set<UUID>
@@ -13,6 +15,7 @@ struct TimelineTrackView: View {
     let totalWidth: Double
     let thumbnails: [UUID: CGImage]
     let waveforms: [UUID: [Float]]
+    let snapTime: (TimeInterval, Set<UUID>) -> TimeInterval
     let onTrackTap: () -> Void
     let onRenameTrack: (String) -> Void
     let onToggleMute: () -> Void
@@ -102,6 +105,8 @@ struct TimelineTrackView: View {
             ForEach(track.clips) { clip in
                 TimelineClipView(
                     clip: clip,
+                    tool: tool,
+                    playheadTime: playheadTime,
                     viewState: viewState,
                     isSelected: selectedClipIDs.contains(clip.id),
                     trackType: track.type,
@@ -109,6 +114,7 @@ struct TimelineTrackView: View {
                     isEditable: isEditable,
                     thumbnail: thumbnails[clip.assetID],
                     waveform: waveforms[clip.assetID],
+                    snapTime: snapTime,
                     onTap: { extend in onClipTap(clip.id, extend) },
                     onDrag: { newStart, verticalOffset in onClipDrag(clip.id, newStart, verticalOffset) },
                     onTrimStart: { newSourceStart in
@@ -320,6 +326,8 @@ struct TimelineTrackView: View {
 
 private struct TimelineClipView: View {
     let clip: Clip
+    let tool: EditorTool
+    let playheadTime: TimeInterval
     let viewState: TimelineViewState
     let isSelected: Bool
     let trackType: TrackType
@@ -327,6 +335,7 @@ private struct TimelineClipView: View {
     let isEditable: Bool
     let thumbnail: CGImage?
     let waveform: [Float]?
+    let snapTime: (TimeInterval, Set<UUID>) -> TimeInterval
     let onTap: (Bool) -> Void
     let onDrag: (TimeInterval, Double) -> Void
     var onTrimStart: ((TimeInterval) -> Void)?
@@ -350,21 +359,35 @@ private struct TimelineClipView: View {
         max(viewState.durationToWidth(clip.timelineRange.duration) - trimStartOffset + trimEndOffset, 8)
     }
 
-    var body: some View {
+    private var positionedClip: some View {
         clipBody
             .frame(width: clipWidth, height: trackHeight - 8)
             .position(x: clipX + clipWidth / 2, y: trackHeight / 2)
-            .gesture(dragGesture)
-            .simultaneousGesture(tapGesture)
-            .contextMenu {
-                Button("Split at Playhead") { onSplit?(clip.timelineRange.start + clip.timelineRange.duration / 2) }
-                    .disabled(!isEditable)
-                Button("Duplicate") { onDuplicate?() }
-                    .disabled(!isEditable)
-                Divider()
-                Button("Delete", role: .destructive) { onDelete?() }
-                    .disabled(!isEditable)
+    }
+
+    var body: some View {
+        Group {
+            if tool == .blade {
+                positionedClip
+                    .gesture(bladeGesture)
+            } else if tool == .selection {
+                positionedClip
+                    .gesture(dragGesture)
+                    .simultaneousGesture(tapGesture)
+            } else {
+                positionedClip
+                    .simultaneousGesture(tapGesture)
             }
+        }
+        .contextMenu {
+            Button("Split at Playhead") { onSplit?(playheadTime) }
+                .disabled(!isEditable || !clip.timelineRange.contains(playheadTime))
+            Button("Duplicate") { onDuplicate?() }
+                .disabled(!isEditable)
+            Divider()
+            Button("Delete", role: .destructive) { onDelete?() }
+                .disabled(!isEditable)
+        }
     }
 
     private var clipBody: some View {
@@ -376,6 +399,7 @@ private struct TimelineClipView: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+        .contentShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
         .overlay(
             RoundedRectangle(cornerRadius: CinematicRadius.lg)
                 .strokeBorder(outlineColor, lineWidth: outlineWidth)
@@ -393,16 +417,24 @@ private struct TimelineClipView: View {
             }
         }
         .overlay(alignment: .leading) {
-            if isEditable {
+            if isEditable && tool == .trim {
                 trimHandle(isStart: true)
             }
         }
         .overlay(alignment: .trailing) {
-            if isEditable {
+            if isEditable && tool == .trim {
                 trimHandle(isStart: false)
             }
         }
-        .onHover { isHovered = $0 }
+        .onHover { hovering in
+            isHovered = hovering
+            guard tool == .blade, isEditable else { return }
+            if hovering {
+                NSCursor.crosshair.push()
+            } else {
+                NSCursor.pop()
+            }
+        }
     }
 
     private var visualClipBody: some View {
@@ -507,11 +539,17 @@ private struct TimelineClipView: View {
                         let timeDelta = value.translation.width / viewState.zoom
                         if isStart {
                             trimStartOffset = 0
-                            let newStart = max(0, clip.sourceRange.start + timeDelta)
+                            let proposedTimelineStart = clip.timelineRange.start + timeDelta
+                            let snappedTimelineStart = snapTime(proposedTimelineStart, [clip.id])
+                            let adjustedDelta = snappedTimelineStart - clip.timelineRange.start
+                            let newStart = max(0, clip.sourceRange.start + adjustedDelta)
                             onTrimStart?(newStart)
                         } else {
                             trimEndOffset = 0
-                            let newEnd = max(clip.sourceRange.start + 0.1, clip.sourceRange.end + timeDelta)
+                            let proposedTimelineEnd = clip.timelineRange.end + timeDelta
+                            let snappedTimelineEnd = snapTime(proposedTimelineEnd, [clip.id])
+                            let adjustedDelta = snappedTimelineEnd - clip.timelineRange.end
+                            let newEnd = max(clip.sourceRange.start + 0.1, clip.sourceRange.end + adjustedDelta)
                             onTrimEnd?(newEnd)
                         }
                     }
@@ -618,6 +656,22 @@ private struct TimelineClipView: View {
         TapGesture()
             .onEnded {
                 onTap(NSEvent.modifierFlags.contains(.shift))
+            }
+    }
+
+    private var bladeGesture: some Gesture {
+        SpatialTapGesture()
+            .onEnded { value in
+                guard isEditable else { return }
+                let clampedX = min(max(value.location.x, 0), clipWidth)
+                let relative = clipWidth > 0 ? clampedX / clipWidth : 0
+                let splitTime = clip.timelineRange.start + (clip.timelineRange.duration * relative)
+                let snappedSplitTime = snapTime(splitTime, [clip.id])
+                let clampedSplitTime = min(
+                    max(snappedSplitTime, clip.timelineRange.start + 0.001),
+                    clip.timelineRange.end - 0.001
+                )
+                onSplit?(clampedSplitTime)
             }
     }
 

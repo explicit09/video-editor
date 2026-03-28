@@ -6,6 +6,14 @@ import EditorCore
 public protocol AIProvider: Sendable {
     var name: String { get }
     func complete(messages: [AIMessage], tools: [AIToolDefinition]) async throws -> AIResponse
+    func complete(messages: [AIMessage], tools: [AIToolDefinition], modelOverride: String?) async throws -> AIResponse
+}
+
+// Default: modelOverride delegates to the standard complete
+public extension AIProvider {
+    func complete(messages: [AIMessage], tools: [AIToolDefinition], modelOverride: String?) async throws -> AIResponse {
+        try await complete(messages: messages, tools: tools)
+    }
 }
 
 // MARK: - AITool (tools resolve to EditorIntents)

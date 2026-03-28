@@ -31,6 +31,11 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
     // MARK: - AIProvider
 
     public func complete(messages: [AIMessage], tools: [AIToolDefinition]) async throws -> AIResponse {
+        try await complete(messages: messages, tools: tools, modelOverride: nil)
+    }
+
+    public func complete(messages: [AIMessage], tools: [AIToolDefinition], modelOverride: String?) async throws -> AIResponse {
+        let effectiveModel = modelOverride ?? model
         let url = baseURL.appendingPathComponent("/v1/messages")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -99,7 +104,7 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         ]
 
         var body: [String: Any] = [
-            "model": model,
+            "model": effectiveModel,
             "max_tokens": 4096,
             "messages": jsonMessages,
             "system": systemContent,

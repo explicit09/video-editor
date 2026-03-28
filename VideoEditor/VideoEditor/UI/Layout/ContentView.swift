@@ -20,6 +20,20 @@ enum EditorLayoutMode: Hashable {
     case expanded
 }
 
+enum EditorTool: String, CaseIterable, Hashable {
+    case selection = "Select"
+    case blade = "Blade"
+    case trim = "Trim"
+
+    var icon: String {
+        switch self {
+        case .selection: "cursorarrow"
+        case .blade: "scissors"
+        case .trim: "arrow.left.and.right.righttriangle.left.righttriangle.right"
+        }
+    }
+}
+
 struct ContentView: View {
     @Environment(AppState.self) private var appState
     @State private var selectedWorkspace: Workspace = .edit
@@ -30,6 +44,7 @@ struct ContentView: View {
     @State private var rightRailTab: RightRailTab = .inspector
     @State private var isLeftPanelVisible = true
     @State private var isRightRailVisible = true
+    @State private var editorTool: EditorTool = .selection
 
     enum Workspace: String, CaseIterable {
         case edit = "Edit"
@@ -107,6 +122,10 @@ struct ContentView: View {
             guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
             appState.pasteClips(); return .handled
         }
+        .onKeyPress("1") { editorTool = .selection; return .handled }
+        .onKeyPress("2") { editorTool = .blade; return .handled }
+        .onKeyPress("3") { editorTool = .trim; return .handled }
+        .onKeyPress(.escape) { editorTool = .selection; return .handled }
     }
 
     private var appBackground: some View {
@@ -152,7 +171,14 @@ struct ContentView: View {
     private func splitAtPlayhead() {
         let playhead = appState.timelineViewState.playheadPosition
         let allClips = appState.timeline.tracks.flatMap(\.clips)
-        if let clip = allClips.first(where: { $0.timelineRange.contains(playhead) }) {
+        let selectedClips = allClips.filter {
+            appState.timelineViewState.selectedClipIDs.contains($0.id) && $0.timelineRange.contains(playhead)
+        }
+
+        if !selectedClips.isEmpty {
+            let intents = selectedClips.map { EditorIntent.splitClip(clipID: $0.id, at: playhead) }
+            try? appState.perform(intents.count == 1 ? intents[0] : .batch(intents))
+        } else if let clip = allClips.first(where: { $0.timelineRange.contains(playhead) }) {
             try? appState.perform(.splitClip(clipID: clip.id, at: playhead))
         }
     }
@@ -168,9 +194,7 @@ struct ContentView: View {
     }
 
     private func duplicateSelectedClips() {
-        for clipID in appState.timelineViewState.selectedClipIDs {
-            try? appState.perform(.duplicateClip(clipID: clipID))
-        }
+        appState.duplicateSelection()
     }
 
     private func topBar(layoutMode: EditorLayoutMode) -> some View {
@@ -362,7 +386,7 @@ struct ContentView: View {
                 transportBar
                 commandDock
 
-                TimelinePanel()
+                TimelinePanel(tool: editorTool)
                     .frame(minHeight: layoutMode == .compact ? 260 : 320)
                     .panelSurface(.elevated, strokeOpacity: 0.86)
             }
@@ -475,6 +499,18 @@ struct ContentView: View {
                     appState.timelineViewState.playheadPosition = appState.playbackEngine.duration
                 }
             }
+
+            Spacer()
+
+            HStack {
+                CinematicSegmentedTabBar(
+                    items: EditorTool.allCases,
+                    selection: $editorTool,
+                    label: { $0.rawValue },
+                    icon: { $0.icon }
+                )
+            }
+            .frame(maxWidth: 320)
 
             Spacer()
 
