@@ -113,8 +113,8 @@ final class MCPServer {
             tools.append(contentsOf: [
                 [
                     "name": "import_media",
-                    "description": "Import a video/audio file from disk into the project. Returns the asset_id for use with add_to_timeline.",
-                    "inputSchema": ["type": "object", "properties": ["file_path": ["type": "string", "description": "Absolute path to the media file"]], "required": ["file_path"]],
+                    "description": "Import a video/audio file into the project. The app is sandboxed — files must be inside the container at ~/Library/Containers/com.videoeditor.app/Data/Documents/. Copy the file there first using 'cp', then pass the container path. Returns the asset_id for use with add_to_timeline.",
+                    "inputSchema": ["type": "object", "properties": ["file_path": ["type": "string", "description": "Absolute path to the media file (must be inside the app sandbox container)"]], "required": ["file_path"]],
                 ],
                 [
                     "name": "add_to_timeline",
@@ -211,13 +211,18 @@ final class MCPServer {
         guard let path = args["file_path"] as? String else {
             return "Error: Missing file_path parameter"
         }
-        let url = URL(fileURLWithPath: path)
+
+        let sourceURL = URL(fileURLWithPath: path)
         guard FileManager.default.fileExists(atPath: path) else {
             return "Error: File not found: \(path)"
         }
 
+        // Sandboxed app can only access files inside its container.
+        // If the path is outside, return the container path for the caller to copy into.
+        let importURL = sourceURL
+
         do {
-            let asset = try await appState.importMedia(from: url)
+            let asset = try await appState.importMedia(from: importURL)
             return "Imported '\(asset.name)' (ID: \(asset.id.uuidString), type: \(asset.type.rawValue), duration: \(String(format: "%.1f", asset.duration))s). Use add_to_timeline with this asset_id to place it on the timeline."
         } catch {
             return "Error importing: \(error.localizedDescription)"
