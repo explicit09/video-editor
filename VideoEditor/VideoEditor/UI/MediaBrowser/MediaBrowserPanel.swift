@@ -11,27 +11,29 @@ struct MediaBrowserPanel: View {
     var body: some View {
         VStack(spacing: 0) {
             header
-            Divider()
             if appState.assets.isEmpty {
                 emptyState
             } else {
-                assetGrid
+                assetList
             }
         }
-        .background(Color(nsColor: .controlBackgroundColor))
+        .background(CinematicTheme.surfaceContainerLow)
     }
 
     // MARK: - Header
 
     private var header: some View {
         HStack {
-            Text("Media")
-                .font(.headline)
+            Text("PROJECT BIN")
+                .font(.cinLabel)
+                .tracking(1.5)
+                .foregroundStyle(CinematicTheme.onSurface)
             Spacer()
             Button(action: { isImporting = true }) {
                 Image(systemName: "plus")
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant)
             }
-            .buttonStyle(.borderless)
+            .buttonStyle(.plain)
             .fileImporter(
                 isPresented: $isImporting,
                 allowedContentTypes: Self.allowedTypes,
@@ -40,45 +42,53 @@ struct MediaBrowserPanel: View {
                 Task { await handleImport(result) }
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
     }
 
     // MARK: - Empty State
 
     private var emptyState: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 12) {
             Spacer()
             Image(systemName: "film")
                 .font(.system(size: 32))
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.4))
             Text("Import media to get started")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-            Button("Import Files") { isImporting = true }
-                .buttonStyle(.bordered)
+                .font(.cinBody)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+            Button(action: { isImporting = true }) {
+                Text("Import Media")
+                    .font(.cinTitleSmall)
+                    .foregroundStyle(CinematicTheme.onPrimaryContainer)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 8)
+                    .background(CinematicTheme.primaryContainer)
+                    .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+            }
+            .buttonStyle(.plain)
             if let error = importError {
                 Text(error)
-                    .font(.caption)
-                    .foregroundStyle(.red)
+                    .font(.cinLabelRegular)
+                    .foregroundStyle(CinematicTheme.error)
             }
             Spacer()
         }
         .frame(maxWidth: .infinity)
     }
 
-    // MARK: - Asset Grid
+    // MARK: - Asset List (vertical clips with thumbnails)
 
-    private var assetGrid: some View {
+    private var assetList: some View {
         ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 8)], spacing: 8) {
+            VStack(spacing: 8) {
                 ForEach(appState.assets) { asset in
                     AssetThumbnailView(asset: asset, thumbnail: thumbnails[asset.id]) {
                         addToTimeline(asset)
                     }
                 }
             }
-            .padding(8)
+            .padding(12)
         }
     }
 
@@ -104,14 +114,13 @@ struct MediaBrowserPanel: View {
         }
     }
 
-    // MARK: - Add to timeline (through Intent → Command pipeline)
+    // MARK: - Add to timeline
 
     private func addToTimeline(_ asset: MediaAsset) {
         let timeline = appState.timeline
         let trackType: TrackType = asset.type == .audio ? .audio : .video
         let viewState = appState.timelineViewState
 
-        // Prefer selected track if compatible, otherwise first matching, otherwise create new
         var trackID: UUID
         if let selectedID = viewState.selectedTrackID,
            let selected = timeline.tracks.first(where: { $0.id == selectedID && $0.type == trackType }) {
@@ -124,7 +133,6 @@ struct MediaBrowserPanel: View {
             try? appState.perform(.addTrack(track: newTrack))
         }
 
-        // Place clip at end of track
         let trackEnd = appState.timeline.tracks
             .first(where: { $0.id == trackID })?
             .clips.map(\.timelineRange.end).max() ?? 0
@@ -137,8 +145,6 @@ struct MediaBrowserPanel: View {
         )
         try? appState.perform(.insertClip(clip: clip, trackID: trackID))
     }
-
-    // MARK: - Allowed types
 
     private static let allowedTypes: [UTType] = [
         .movie, .video, .quickTimeMovie, .mpeg4Movie, .avi,
@@ -155,37 +161,62 @@ struct AssetThumbnailView: View {
     var onAddToTimeline: (() -> Void)?
 
     var body: some View {
-        VStack(spacing: 4) {
-            if let cgImage = thumbnail {
-                Image(decorative: cgImage, scale: 1.0)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 60)
-                    .clipped()
-                    .cornerRadius(4)
-            } else {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color(nsColor: .separatorColor))
-                    .frame(height: 60)
-                    .overlay {
-                        Image(systemName: iconName)
-                            .foregroundStyle(.secondary)
+        HStack(spacing: 10) {
+            // Thumbnail
+            Group {
+                if let cgImage = thumbnail {
+                    Image(decorative: cgImage, scale: 1.0)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    Rectangle()
+                        .fill(CinematicTheme.surfaceContainerLowest)
+                        .overlay {
+                            Image(systemName: iconName)
+                                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.4))
+                        }
+                }
+            }
+            .frame(width: 80, height: 50)
+            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+            .overlay(
+                RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                    .strokeBorder(CinematicTheme.outlineVariant.opacity(0.1), lineWidth: 1)
+            )
+
+            // Info
+            VStack(alignment: .leading, spacing: 2) {
+                Text(asset.name)
+                    .font(.cinTitleSmall)
+                    .foregroundStyle(CinematicTheme.onSurface)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+
+                HStack(spacing: 6) {
+                    Text(formattedDuration)
+                        .font(.cinLabelRegular)
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+
+                    if let codec = asset.codec {
+                        Text(codec)
+                            .font(.cinLabelRegular)
+                            .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.4))
                     }
+                }
             }
 
-            Text(asset.name)
-                .font(.caption2)
-                .lineLimit(1)
-                .truncationMode(.middle)
-
-            Text(formattedDuration)
-                .font(.caption2)
-                .foregroundStyle(.tertiary)
+            Spacer()
         }
-        .frame(maxWidth: .infinity)
+        .padding(6)
+        .background(CinematicTheme.surfaceContainerLowest)
+        .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+        .overlay(
+            RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                .strokeBorder(CinematicTheme.outlineVariant.opacity(0.1), lineWidth: 1)
+        )
         .contentShape(Rectangle())
         .onTapGesture(count: 2) { onAddToTimeline?() }
-        .onTapGesture(count: 1) { /* prevents swallowing double-tap on macOS */ }
+        .onTapGesture(count: 1) { }
         .help("Double-click to add to timeline")
     }
 

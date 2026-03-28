@@ -9,14 +9,12 @@ struct PreviewPanel: View {
         VStack(spacing: 0) {
             // Video view
             AVPlayerView(player: appState.playbackEngine.player)
-                .background(.black)
-
-            Divider()
+                .background(CinematicTheme.surfaceContainerLowest)
 
             // Transport controls
             transportBar
         }
-        .background(.black)
+        .background(CinematicTheme.surfaceContainerLowest)
     }
 
     // MARK: - Transport bar
@@ -25,49 +23,58 @@ struct PreviewPanel: View {
         HStack(spacing: 16) {
             // Timecode
             Text(formatTimecode(appState.playbackEngine.currentTime))
-                .font(.system(.caption, design: .monospaced))
-                .foregroundStyle(.white.opacity(0.7))
-                .frame(width: 80, alignment: .leading)
+                .font(.cinTimecode)
+                .foregroundStyle(CinematicTheme.onSurface.opacity(0.7))
+                .frame(width: 90, alignment: .leading)
 
             Spacer()
 
             // Transport buttons
-            Button(action: { appState.playbackEngine.seek(to: 0) }) {
-                Image(systemName: "backward.end.fill")
-            }
+            HStack(spacing: 20) {
+                Button(action: { appState.playbackEngine.seek(to: 0) }) {
+                    Image(systemName: "backward.end.fill")
+                        .font(.system(size: 14))
+                }
 
-            Button(action: { appState.playbackEngine.togglePlayPause() }) {
-                Image(systemName: appState.playbackEngine.isPlaying ? "pause.fill" : "play.fill")
-                    .frame(width: 20)
-            }
+                Button(action: { appState.playbackEngine.togglePlayPause() }) {
+                    Image(systemName: appState.playbackEngine.isPlaying ? "pause.fill" : "play.fill")
+                        .font(.system(size: 18))
+                        .frame(width: 36, height: 36)
+                        .background(CinematicTheme.primaryContainer)
+                        .clipShape(Circle())
+                        .foregroundStyle(CinematicTheme.onPrimaryContainer)
+                }
 
-            Button(action: {
-                appState.playbackEngine.seek(to: appState.playbackEngine.duration)
-            }) {
-                Image(systemName: "forward.end.fill")
+                Button(action: {
+                    appState.playbackEngine.seek(to: appState.playbackEngine.duration)
+                }) {
+                    Image(systemName: "forward.end.fill")
+                        .font(.system(size: 14))
+                }
             }
+            .foregroundStyle(CinematicTheme.onSurface.opacity(0.8))
 
             Spacer()
 
             // Duration
             Text(formatTimecode(appState.playbackEngine.duration))
-                .font(.system(.caption, design: .monospaced))
-                .foregroundStyle(.white.opacity(0.5))
-                .frame(width: 80, alignment: .trailing)
+                .font(.cinTimecode)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+                .frame(width: 90, alignment: .trailing)
         }
-        .buttonStyle(.borderless)
-        .foregroundStyle(.white.opacity(0.8))
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(Color(white: 0.12))
+        .buttonStyle(.plain)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(CinematicTheme.surface)
     }
 
     private func formatTimecode(_ time: TimeInterval) -> String {
         let t = max(0, time)
-        let mins = Int(t) / 60
+        let hrs = Int(t) / 3600
+        let mins = (Int(t) % 3600) / 60
         let secs = Int(t) % 60
         let frames = Int((t - Double(Int(t))) * 30)
-        return String(format: "%02d:%02d:%02d", mins, secs, frames)
+        return String(format: "%02d:%02d:%02d:%02d", hrs, mins, secs, frames)
     }
 }
 
