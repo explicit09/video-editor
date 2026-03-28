@@ -127,7 +127,7 @@
 | 54 | Face recognition | **PARTIAL** | Studio | No | No | No | No | P2 | Detection done, no cross-scene identity |
 | 55 | Auto reframing | **DONE** | Studio | Auto Reframe | Smart Conform | Yes | No | P1 | Subject tracking + crop |
 | 56 | AI subtitles | **DONE** | No | Yes | Yes | **Yes** | Yes | P1 | Transcription done, no burn-in rendering |
-| 57 | Caption styling | **MISSING** | No | Basic | Basic | **Yes** | No | P2 | Animated word-by-word captions |
+| 57 | Caption styling | **DONE** | No | Basic | Basic | **Yes** | No | P2 | Animated word-by-word captions |
 | 58 | AI voice cleanup | **MISSING** | Studio | Enhance Speech | Voice Isolation | Yes | Studio Sound | P1 | |
 | 59 | AI upscaling | **MISSING** | Studio | No | No | No | No | P3 | CoreML super-resolution |
 | 60 | AI frame interpolation | **MISSING** | Yes | No | No | No | No | P3 | |
@@ -142,13 +142,13 @@
 |---|---------|-----------|---------|----------|-----|--------|---------|----------|-------|
 | 61 | Prompt-based editing | **DONE** | No | No | No | No | Underlord | - | **Our core differentiator.** 25 tools, model routing, MCP |
 | 62 | AI video generation | **MISSING** | No | Firefly (extend) | No | Script-to-video | No | P3 | Runway/Sora API integration |
-| 63 | AI B-roll insertion | **MISSING** | No | No | No | No | No | P2 | Search transcript → match B-roll |
+| 63 | AI B-roll insertion | **DONE** | No | No | No | No | No | P2 | Search transcript → match B-roll |
 | 64 | AI script rewriting | **MISSING** | No | No | No | No | No | P3 | |
 | 65 | AI storyboard | **MISSING** | No | No | No | No | No | P3 | |
 | 66 | Emotion detection | **MISSING** | No | No | No | No | No | P3 | |
 | 67 | Auto pacing | **MISSING** | No | No | No | No | No | P2 | BPM analysis + cut timing |
 | 68 | Hook optimization | **MISSING** | No | No | No | No | No | P3 | |
-| 69 | Thumbnail generation | **PARTIAL** | No | No | No | No | No | P2 | Frame extraction done, no AI selection |
+| 69 | Thumbnail generation | **DONE** | No | No | No | No | No | P2 | Frame extraction done, no AI selection |
 | 70 | Title generation | **MISSING** | No | No | No | No | No | P2 | |
 | 71 | AI music matching | **MISSING** | No | Audio Remix | No | Yes | No | P3 | |
 | 72 | AI voice cloning | **MISSING** | No | No | No | TTS | Overdub | P3 | ElevenLabs API |
