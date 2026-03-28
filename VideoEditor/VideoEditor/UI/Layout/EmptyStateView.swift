@@ -12,22 +12,20 @@ struct EmptyStateView: View {
         VStack(spacing: 0) {
             Spacer()
 
-            // Hero text
             VStack(spacing: 12) {
-                Text("today?")
+                Text("Start the first edit")
                     .font(.cinDisplayLarge)
                     .foregroundStyle(CinematicTheme.onSurface)
 
-                Text("Start a new sequence, import your footage, or let the AI orchestrate your first rough cut.")
+                Text("Import footage, drag media into exact lanes, or ask the AI copilot to assemble the first rough cut.")
                     .font(.cinBody)
-                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.68))
                     .multilineTextAlignment(.center)
-                    .frame(maxWidth: 400)
+                    .frame(maxWidth: 480)
             }
 
             Spacer().frame(height: 40)
 
-            // AI Command Bar (large version)
             HStack(spacing: 12) {
                 Image(systemName: "sparkles")
                     .foregroundStyle(CinematicTheme.primary)
@@ -54,17 +52,15 @@ struct EmptyStateView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
-            .background(CinematicTheme.surfaceContainerHighest)
-            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.full))
+            .glassPanel(tint: CinematicTheme.surfaceGlass)
             .overlay(
                 RoundedRectangle(cornerRadius: CinematicRadius.full)
-                    .strokeBorder(CinematicTheme.outlineVariant.opacity(0.2), lineWidth: 1)
+                    .strokeBorder(CinematicTheme.outlineVariant.opacity(0.24), lineWidth: 1)
             )
             .frame(maxWidth: 600)
 
             Spacer().frame(height: 20)
 
-            // Suggestion pills
             HStack(spacing: 10) {
                 suggestionPill("\"Create a 30-second travel vlog from my clips\"")
                 suggestionPill("\"Make a cinematic trailer from this interview\"")
@@ -77,7 +73,6 @@ struct EmptyStateView: View {
 
             Spacer().frame(height: 40)
 
-            // Quick action cards
             HStack(spacing: 16) {
                 actionCard(icon: "film", label: "Import Video", color: CinematicTheme.tertiary) {
                     isImporting = true
@@ -127,14 +122,20 @@ struct EmptyStateView: View {
                     .foregroundStyle(color.opacity(0.7))
                 Text(label)
                     .font(.cinLabelRegular)
-                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.68))
             }
             .frame(width: 100, height: 80)
-            .background(CinematicTheme.surfaceContainerHigh)
+            .background(
+                LinearGradient(
+                    colors: [CinematicTheme.surfaceContainerHigh, CinematicTheme.surfaceContainerLowest],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
             .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.xl))
             .overlay(
                 RoundedRectangle(cornerRadius: CinematicRadius.xl)
-                    .strokeBorder(CinematicTheme.outlineVariant.opacity(0.1), lineWidth: 1)
+                    .strokeBorder(CinematicTheme.outlineVariant.opacity(0.14), lineWidth: 1)
             )
         }
         .buttonStyle(.plain)

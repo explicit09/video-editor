@@ -11,16 +11,27 @@ public final class PlaybackEngine {
 
     private var composition: AVMutableComposition?
     private var timeObserver: Any?
+    private var buildTask: Task<Void, Never>?
 
     public init() {
         self.player = AVPlayer()
         setupTimeObserver()
     }
 
+    deinit {
+        MainActor.assumeIsolated {
+            if let timeObserver {
+                player.removeTimeObserver(timeObserver)
+            }
+        }
+    }
+
     // MARK: - Build composition from timeline
 
     public func buildComposition(from timeline: Timeline, assets: [MediaAsset]) {
-        Task { await buildCompositionAsync(from: timeline, assets: assets) }
+        // Cancel any in-flight build to prevent race conditions
+        buildTask?.cancel()
+        buildTask = Task { await buildCompositionAsync(from: timeline, assets: assets) }
     }
 
     private func buildCompositionAsync(from timeline: Timeline, assets: [MediaAsset]) async {
@@ -59,6 +70,9 @@ public final class PlaybackEngine {
                 }
             }
         }
+
+        // Don't apply if this task was cancelled (a newer build superseded us)
+        guard !Task.isCancelled else { return }
 
         self.composition = comp
         self.duration = maxDuration.seconds

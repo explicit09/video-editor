@@ -11,42 +11,20 @@ struct SearchResultsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Header
-            HStack(spacing: 6) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 12))
-                    .foregroundStyle(CinematicTheme.primary)
-                Text("AI Insights")
-                    .font(.cinLabel)
-                    .tracking(1)
-                    .foregroundStyle(CinematicTheme.onSurface)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(CinematicTheme.surfaceContainer)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            CinematicPanelHeader(
+                eyebrow: "AI SEARCH",
+                title: "Search Results",
+                subtitle: "\"\(query)\"",
+                trailingAccessory: {
+                    CinematicStatusPill(
+                        text: "\(results.count) matches",
+                        icon: "sparkles.rectangle.stack",
+                        tone: CinematicTheme.primary
+                    )
+                }
+            )
+            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
-            // Search query
-            HStack(spacing: 6) {
-                Image(systemName: "magnifyingglass")
-                    .font(.system(size: 11))
-                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
-                Text(query)
-                    .font(.cinBody)
-                    .foregroundStyle(CinematicTheme.onSurface)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-
-            // Results count
-            Text("\(results.count) MATCHES FOUND")
-                .font(.cinLabel)
-                .tracking(1)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
-                .padding(.horizontal, 16)
-                .padding(.bottom, 8)
-
-            // Results list
             ScrollView {
                 VStack(spacing: 8) {
                     ForEach(results) { result in
@@ -54,10 +32,9 @@ struct SearchResultsView: View {
                     }
                 }
                 .padding(.horizontal, 12)
-                .padding(.bottom, 12)
+                .padding(.vertical, 12)
             }
 
-            // AI suggestion
             if results.count > 1 {
                 aiSuggestion
             }
@@ -88,33 +65,38 @@ struct SearchResultsView: View {
 
     private func searchResultRow(_ result: SearchResult) -> some View {
         Button(action: {
-            // Seek to match time
             appState.playbackEngine.seek(to: result.matchTime)
             appState.timelineViewState.playheadPosition = result.matchTime
         }) {
             HStack(alignment: .top, spacing: 10) {
-                // Timestamp
                 Text(result.formattedTime)
                     .font(.cinTimecode)
                     .foregroundStyle(CinematicTheme.primary)
                     .frame(width: 50, alignment: .leading)
 
-                // Context text
                 VStack(alignment: .leading, spacing: 2) {
                     Text("\"\(result.contextText)\"")
-                        .font(.cinLabelRegular)
-                        .foregroundStyle(CinematicTheme.onSurface.opacity(0.8))
+                        .font(.cinBody)
+                        .foregroundStyle(CinematicTheme.onSurface.opacity(0.86))
                         .lineLimit(3)
                         .italic()
                 }
+
+                Spacer(minLength: 0)
             }
             .padding(10)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(CinematicTheme.surfaceContainerLowest)
+            .background(
+                LinearGradient(
+                    colors: [CinematicTheme.surfaceContainerLowest, CinematicTheme.surfaceContainerHigh.opacity(0.7)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
             .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
             .overlay(
                 RoundedRectangle(cornerRadius: CinematicRadius.md)
-                    .strokeBorder(CinematicTheme.outlineVariant.opacity(0.1), lineWidth: 0.5)
+                    .strokeBorder(CinematicTheme.outlineVariant.opacity(0.14), lineWidth: 0.5)
             )
         }
         .buttonStyle(.plain)
