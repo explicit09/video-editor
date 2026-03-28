@@ -106,7 +106,15 @@ public struct BatchCommand: Command {
 
     public mutating func execute(context: EditingContext) throws {
         for i in commands.indices {
-            try commands[i].execute(context: context)
+            do {
+                try commands[i].execute(context: context)
+            } catch {
+                // Rollback: undo commands 0..<i in reverse
+                for j in (0..<i).reversed() {
+                    try? commands[j].undo(context: context)
+                }
+                throw error
+            }
         }
     }
 

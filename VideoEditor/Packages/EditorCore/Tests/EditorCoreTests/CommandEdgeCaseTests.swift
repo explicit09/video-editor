@@ -214,6 +214,32 @@ struct CommandEdgeCaseTests {
         #expect(context.timelineState.timeline.tracks[0].clips.count == 2)
     }
 
+    @MainActor
+    @Test("BatchCommand rollback on partial failure")
+    func batchRollback() throws {
+        let clip = makeClip(start: 0, end: 10, label: "Original")
+        let context = EditingContext(
+            timelineState: TimelineState(
+                timeline: Timeline(tracks: [Track(name: "V1", type: .video, clips: [clip])])
+            )
+        )
+
+        // Batch: delete clip (succeeds) + split non-existent clip (fails)
+        var batch = BatchCommand(name: "Batch", commands: [
+            DeleteClipsCommand(clipIDs: [clip.id]),
+            SplitClipCommand(clipID: UUID(), at: 5), // will fail — clip doesn't exist
+        ])
+
+        do {
+            try batch.execute(context: context)
+            Issue.record("Expected batch to fail")
+        } catch {
+            // After rollback, clip should be restored
+            #expect(context.timelineState.timeline.tracks[0].clips.count == 1)
+            #expect(context.timelineState.timeline.tracks[0].clips[0].id == clip.id)
+        }
+    }
+
     private func makeClip(start: TimeInterval, end: TimeInterval, label: String) -> Clip {
         Clip(
             assetID: UUID(),
