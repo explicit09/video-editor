@@ -50,7 +50,7 @@ struct TimelinePanel: View {
             }
         }
         .background(CinematicTheme.surfaceContainer)
-        .task(id: appState.timeline.tracks.flatMap(\.clips).map(\.id)) {
+        .task(id: appState.timeline.tracks.flatMap(\.clips).count) {
             await loadWaveformsForAllClips()
         }
         .focusable()
