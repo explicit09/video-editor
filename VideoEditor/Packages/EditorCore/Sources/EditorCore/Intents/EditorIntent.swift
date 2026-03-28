@@ -14,6 +14,15 @@ public enum EditorIntent: Sendable {
     case splitClip(clipID: UUID, at: TimeInterval)
     case setMarker(at: TimeInterval, label: String)
     case deleteMarker(markerID: UUID)
+    // Property commands
+    case setClipVolume(clipID: UUID, volume: Double)
+    case setClipOpacity(clipID: UUID, opacity: Double)
+    case setClipTransform(clipID: UUID, transform: Transform2D)
+    case muteTrack(trackID: UUID, muted: Bool)
+    case lockTrack(trackID: UUID, locked: Bool)
+    case setTrackVolume(trackID: UUID, volume: Double)
+    case renameClip(clipID: UUID, label: String)
+    case duplicateClip(clipID: UUID)
 }
 
 // MARK: - IntentResolver
@@ -45,6 +54,22 @@ public struct IntentResolver: Sendable {
             return SetMarkerCommand(at: at, label: label)
         case .deleteMarker(let markerID):
             return DeleteMarkerCommand(markerID: markerID)
+        case .setClipVolume(let clipID, let volume):
+            return SetClipVolumeCommand(clipID: clipID, volume: volume)
+        case .setClipOpacity(let clipID, let opacity):
+            return SetClipOpacityCommand(clipID: clipID, opacity: opacity)
+        case .setClipTransform(let clipID, let transform):
+            return SetClipTransformCommand(clipID: clipID, transform: transform)
+        case .muteTrack(let trackID, let muted):
+            return MuteTrackCommand(trackID: trackID, muted: muted)
+        case .lockTrack(let trackID, let locked):
+            return LockTrackCommand(trackID: trackID, locked: locked)
+        case .setTrackVolume(let trackID, let volume):
+            return SetTrackVolumeCommand(trackID: trackID, volume: volume)
+        case .renameClip(let clipID, let label):
+            return RenameClipCommand(clipID: clipID, label: label)
+        case .duplicateClip(let clipID):
+            return DuplicateClipCommand(clipID: clipID)
         }
     }
 }
