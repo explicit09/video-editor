@@ -28,40 +28,10 @@ public final class ExportEngine {
     ) async {
         state = .exporting(progress: 0)
 
-        // Build composition (same logic as playback)
-        let comp = AVMutableComposition()
-        var maxDuration: CMTime = .zero
+        let builder = CompositionBuilder()
+        let result = await builder.build(from: timeline, assets: assets, urlMode: .export)
 
-        for track in timeline.tracks {
-            for clip in track.clips {
-                guard let mediaAsset = assets.first(where: { $0.id == clip.assetID }) else { continue }
-                let avAsset = AVURLAsset(url: mediaAsset.sourceURL)
-
-                let insertTime = CMTime(seconds: clip.timelineRange.start, preferredTimescale: 600)
-                let sourceStart = CMTime(seconds: clip.sourceRange.start, preferredTimescale: 600)
-                let sourceDuration = CMTime(seconds: clip.sourceRange.duration, preferredTimescale: 600)
-                let sourceRange = CMTimeRange(start: sourceStart, duration: sourceDuration)
-
-                if track.type != .audio {
-                    if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
-                       let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
-                        try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
-                    }
-                }
-
-                if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
-                   let compTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
-                    try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
-                }
-
-                let clipEnd = CMTimeAdd(insertTime, sourceDuration)
-                if CMTimeCompare(clipEnd, maxDuration) > 0 {
-                    maxDuration = clipEnd
-                }
-            }
-        }
-
-        guard let session = AVAssetExportSession(asset: comp, presetName: preset) else {
+        guard let session = AVAssetExportSession(asset: result.composition, presetName: preset) else {
             state = .failed("Could not create export session")
             return
         }
@@ -71,7 +41,10 @@ public final class ExportEngine {
 
         session.outputURL = outputURL
         session.outputFileType = fileType
-        session.timeRange = CMTimeRange(start: .zero, duration: maxDuration)
+        session.timeRange = CMTimeRange(start: .zero, duration: CMTime(seconds: result.duration, preferredTimescale: 600))
+        if let audioMix = result.audioMix {
+            session.audioMix = audioMix
+        }
 
         self.exportSession = session
 

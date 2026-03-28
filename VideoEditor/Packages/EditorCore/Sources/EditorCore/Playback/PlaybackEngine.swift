@@ -35,49 +35,18 @@ public final class PlaybackEngine {
     }
 
     private func buildCompositionAsync(from timeline: Timeline, assets: [MediaAsset]) async {
-        let comp = AVMutableComposition()
-        var maxDuration: CMTime = .zero
+        let builder = CompositionBuilder()
+        let result = await builder.build(from: timeline, assets: assets, urlMode: .preview)
 
-        for track in timeline.tracks {
-            for clip in track.clips {
-                guard let mediaAsset = assets.first(where: { $0.id == clip.assetID }) else { continue }
-                let mediaURL = mediaAsset.proxyURL ?? mediaAsset.sourceURL
-                let avAsset = AVURLAsset(url: mediaURL)
-
-                let insertTime = CMTime(seconds: clip.timelineRange.start, preferredTimescale: 600)
-                let sourceStart = CMTime(seconds: clip.sourceRange.start, preferredTimescale: 600)
-                let sourceDuration = CMTime(seconds: clip.sourceRange.duration, preferredTimescale: 600)
-                let sourceRange = CMTimeRange(start: sourceStart, duration: sourceDuration)
-
-                // Insert video only for visual tracks.
-                if track.type != .audio, !track.isMuted {
-                    if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
-                       let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
-                        try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
-                    }
-                }
-
-                // Audio is authored explicitly on audio tracks.
-                if track.type == .audio, !track.isMuted,
-                   let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
-                   let compTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
-                    try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
-                }
-
-                let clipEnd = CMTimeAdd(insertTime, sourceDuration)
-                if CMTimeCompare(clipEnd, maxDuration) > 0 {
-                    maxDuration = clipEnd
-                }
-            }
-        }
-
-        // Don't apply if this task was cancelled (a newer build superseded us)
         guard !Task.isCancelled else { return }
 
-        self.composition = comp
-        self.duration = maxDuration.seconds
+        self.composition = result.composition
+        self.duration = result.duration
 
-        let playerItem = AVPlayerItem(asset: comp)
+        let playerItem = AVPlayerItem(asset: result.composition)
+        if let audioMix = result.audioMix {
+            playerItem.audioMix = audioMix
+        }
         player.replaceCurrentItem(with: playerItem)
     }
 
