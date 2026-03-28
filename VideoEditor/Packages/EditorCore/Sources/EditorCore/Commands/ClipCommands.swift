@@ -281,8 +281,11 @@ public struct SetMarkerCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        context.timelineState.timeline.markers.append(marker)
-        context.timelineState.timeline.markers.sort { $0.time < $1.time }
+        // Idempotent: don't add duplicate on redo
+        if !context.timelineState.timeline.markers.contains(where: { $0.id == marker.id }) {
+            context.timelineState.timeline.markers.append(marker)
+            context.timelineState.timeline.markers.sort { $0.time < $1.time }
+        }
     }
 
     public func undo(context: EditingContext) throws {
