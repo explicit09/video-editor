@@ -162,6 +162,11 @@ final class MCPServer {
                     "description": "Get a human-readable summary of the current editor state: tracks, clips, assets, playhead position.",
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
+                [
+                    "name": "fix_av_links",
+                    "description": "Auto-link video+audio clip pairs that share the same assetID and timelineRange but have no linkGroupID. Fixes clips that lost their A/V link.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
             ])
             return successResponse(id: id, result: ["tools": tools])
 
@@ -210,6 +215,9 @@ final class MCPServer {
         }
         if name == "get_state" {
             return handleGetState(appState: appState)
+        }
+        if name == "fix_av_links" {
+            return handleFixAVLinks(appState: appState)
         }
 
         if name == "save_snapshot" {
@@ -336,13 +344,49 @@ final class MCPServer {
         return "Project cleared. " + stateSnapshot(appState)
     }
 
+    private func handleFixAVLinks(appState: AppState) -> String {
+        var linked = 0
+        let videoTracks = appState.timeline.tracks.filter { $0.type == .video }
+        let audioTracks = appState.timeline.tracks.filter { $0.type == .audio }
+
+        for vTrack in videoTracks {
+            for (vi, vClip) in vTrack.clips.enumerated() where vClip.linkGroupID == nil {
+                // Find matching audio clip: same assetID and overlapping timelineRange
+                for aTrack in audioTracks {
+                    for (ai, aClip) in aTrack.clips.enumerated() where aClip.linkGroupID == nil {
+                        if aClip.assetID == vClip.assetID,
+                           abs(aClip.timelineRange.start - vClip.timelineRange.start) < 0.1,
+                           abs(aClip.timelineRange.end - vClip.timelineRange.end) < 0.1 {
+                            let linkID = UUID()
+                            // Mutate directly on timeline state
+                            if let vti = appState.timeline.tracks.firstIndex(where: { $0.id == vTrack.id }),
+                               let ati = appState.timeline.tracks.firstIndex(where: { $0.id == aTrack.id }) {
+                                appState.context.timelineState.timeline.tracks[vti].clips[vi].linkGroupID = linkID
+                                appState.context.timelineState.timeline.tracks[ati].clips[ai].linkGroupID = linkID
+                                linked += 1
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if linked == 0 {
+            return "No unlinked A/V pairs found. " + stateSnapshot(appState)
+        }
+        return "Linked \(linked) A/V pair(s). " + handleGetState(appState: appState)
+    }
+
     private func handleGetState(appState: AppState) -> String {
         let tracks = appState.timeline.tracks.map { track -> String in
             let clips = track.clips.map { clip -> String in
-                "\(clip.metadata.label ?? "Clip") [\(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s]"
+                let linkStr = clip.linkGroupID.map { "link=\($0.uuidString.prefix(8))" } ?? "unlinked"
+                let speedStr = clip.speed != 1.0 ? " @\(String(format: "%.2f", clip.speed))x" : ""
+                let clipIDStr = clip.id.uuidString
+                return "\(clip.metadata.label ?? "Clip") [id=\(clipIDStr), \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s] (\(linkStr)\(speedStr))"
             }
             let clipStr = clips.isEmpty ? "empty" : clips.joined(separator: ", ")
-            return "  \(track.name) (\(track.type.rawValue)): \(clipStr)"
+            return "  \(track.name) (\(track.type.rawValue), id=\(track.id.uuidString.prefix(8))): \(clipStr)"
         }
         let assetList = appState.assets.map { "\($0.name) (ID: \($0.id.uuidString), \(String(format: "%.1f", $0.duration))s)" }
 

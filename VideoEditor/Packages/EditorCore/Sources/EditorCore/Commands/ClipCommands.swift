@@ -282,7 +282,10 @@ public struct SplitClipCommand: Command {
             volume: clip.volume,
             effects: clip.effects,
             keyframes: clip.keyframes,
-            metadata: clip.metadata
+            metadata: clip.metadata,
+            speed: clip.speed,
+            transitionIn: clip.transitionIn,
+            linkGroupID: clip.linkGroupID
         )
         context.timelineState.timeline.tracks[location.trackIndex].clips.insert(secondClip, at: location.clipIndex + 1)
     }

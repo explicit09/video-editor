@@ -219,7 +219,9 @@ public struct DuplicateClipCommand: Command {
             volume: original.volume,
             effects: original.effects,
             keyframes: original.keyframes,
-            metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (copy)")
+            metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (copy)"),
+            speed: original.speed,
+            transitionIn: original.transitionIn
         )
         let insertionIndex = MoveClipCommand.insertionIndex(
             for: duplicate,

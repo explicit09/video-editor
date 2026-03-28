@@ -613,11 +613,22 @@ final class AppState {
         case .image:
             return false
         case .video:
-            let avAsset = AVURLAsset(url: asset.sourceURL)
-            guard let tracks = try? await avAsset.loadTracks(withMediaType: .audio) else {
+            let url = asset.sourceURL
+            let exists = FileManager.default.fileExists(atPath: url.path)
+            print("[assetHasAudio] Checking \(url.lastPathComponent), exists=\(exists)")
+            guard exists else {
+                print("[assetHasAudio] File does not exist at \(url.path)")
                 return false
             }
-            return !tracks.isEmpty
+            let avAsset = AVURLAsset(url: url)
+            do {
+                let tracks = try await avAsset.loadTracks(withMediaType: .audio)
+                print("[assetHasAudio] Found \(tracks.count) audio tracks")
+                return !tracks.isEmpty
+            } catch {
+                print("[assetHasAudio] Error loading audio tracks: \(error)")
+                return false
+            }
         }
     }
 
@@ -656,6 +667,10 @@ final class AppState {
         let expandedIntent = expandLinkedIntent(intent)
         var command = try intentResolver.resolve(expandedIntent)
         try commandHistory.execute(&command, context: context, source: source)
+
+        // After linked split: re-link second halves with a new linkGroupID
+        // so each half-pair is independently movable (DaVinci-style).
+        relinkAfterSplit(expandedIntent)
 
         // Ripple: close gaps after delete/trim if enabled
         if timelineViewState.rippleEnabled {
@@ -763,6 +778,40 @@ final class AppState {
 
         default:
             return intent
+        }
+    }
+
+    /// After a linked split batch, the second halves all share the original linkGroupID.
+    /// Re-assign them a NEW shared linkGroupID so each pair is independently movable.
+    private func relinkAfterSplit(_ intent: EditorIntent) {
+        guard case .batch(let intents) = intent,
+              intents.count > 1,
+              intents.allSatisfy({ if case .splitClip = $0 { return true } else { return false } })
+        else { return }
+
+        // Collect the clip IDs that were split
+        let splitClipIDs = intents.compactMap { intent -> UUID? in
+            if case .splitClip(let clipID, _) = intent { return clipID }
+            return nil
+        }
+
+        // Find the second halves: clips that share a linkGroupID with a split clip
+        // but have a DIFFERENT id (they're the newly created second halves)
+        let allClips = timeline.tracks.flatMap(\.clips)
+        let splitClips = allClips.filter { splitClipIDs.contains($0.id) }
+        guard let linkGroup = splitClips.first?.linkGroupID else { return }
+
+        // Second halves: clips with same linkGroupID but NOT in the split list
+        let secondHalves = allClips.filter { $0.linkGroupID == linkGroup && !splitClipIDs.contains($0.id) }
+        guard secondHalves.count > 1 else { return }
+
+        let newLinkGroup = UUID()
+        for clip in secondHalves {
+            for (ti, track) in context.timelineState.timeline.tracks.enumerated() {
+                if let ci = track.clips.firstIndex(where: { $0.id == clip.id }) {
+                    context.timelineState.timeline.tracks[ti].clips[ci].linkGroupID = newLinkGroup
+                }
+            }
         }
     }
 
