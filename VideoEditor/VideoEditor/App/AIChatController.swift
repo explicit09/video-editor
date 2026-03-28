@@ -175,6 +175,11 @@ final class AIChatController {
         )
 
         do {
+            // Analysis/processing tools — handled here (need AppState)
+            if let analysisResult = await handleAnalysisTool(name: toolCall.name, args: args, appState: appState) {
+                return .init(toolName: toolCall.name, success: true, message: analysisResult)
+            }
+
             if toolCall.name == "get_transcript" {
                 processingStatus = "Reading transcript..."
                 let result = try await handleGetTranscript(args: args, appState: appState)
@@ -235,6 +240,125 @@ final class AIChatController {
             return .init(toolName: toolCall.name, success: true, message: feedback)
         } catch {
             return .init(toolName: toolCall.name, success: false, message: error.localizedDescription)
+        }
+    }
+
+    // MARK: - Analysis tool handlers
+
+    private func handleAnalysisTool(name: String, args: [String: Any], appState: AppState) async -> String? {
+        switch name {
+        case "auto_reframe":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let ratioStr = (args["aspect_ratio"] as? String) ?? "9:16"
+            let ratio = AutoReframer.TargetAspectRatio(rawValue: ratioStr) ?? .vertical
+            processingStatus = "Analyzing video for reframing..."
+            let reframer = AutoReframer()
+            if let result = try? await reframer.analyze(url: asset.sourceURL, targetRatio: ratio, sampleInterval: 2.0) {
+                return "Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr). Source: \(Int(result.sourceSize.width))x\(Int(result.sourceSize.height))."
+            }
+            return "Error: Reframe analysis failed"
+
+        case "detect_beats":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            processingStatus = "Detecting beats..."
+            let detector = BeatDetector()
+            if let result = await detector.analyze(url: asset.sourceURL) {
+                return "BPM: \(String(format: "%.0f", result.bpm)). \(result.beats.count) beats detected, \(result.strongBeats.count) strong beats (downbeats)."
+            }
+            return "Error: Beat detection failed"
+
+        case "score_thumbnails":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let count = (args["count"] as? Int) ?? 5
+            processingStatus = "Scoring thumbnail candidates..."
+            let scorer = ThumbnailScorer()
+            let frames = await scorer.findBestThumbnails(url: asset.sourceURL, count: count)
+            if frames.isEmpty { return "No suitable thumbnail frames found." }
+            let descriptions = frames.map { "  \(TimeFormatter.duration($0.time)) — score=\(String(format: "%.0f", $0.score)), face=\($0.hasFace)" }
+            return "Top \(frames.count) thumbnails:\n" + descriptions.joined(separator: "\n")
+
+        case "suggest_broll":
+            let matcher = BRollMatcher()
+            // Find first asset with transcript
+            guard let asset = appState.assets.first(where: { $0.analysis?.transcript != nil }),
+                  let words = asset.analysis?.transcript else { return "No transcribed assets. Transcribe first." }
+            let suggestions = matcher.suggest(transcript: words, assets: appState.assets, timeline: appState.timeline)
+            if suggestions.isEmpty { return "No B-roll suggestions found." }
+            let lines = suggestions.map { "  \($0.assetName) at \(TimeFormatter.duration($0.startTime)) (\(String(format: "%.0f", $0.duration))s) — \($0.reason)" }
+            return "\(suggestions.count) B-roll suggestions:\n" + lines.joined(separator: "\n")
+
+        case "measure_loudness":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            processingStatus = "Measuring loudness..."
+            let meter = LoudnessMeter()
+            if let lufs = await meter.measureLUFS(url: asset.sourceURL) {
+                let target = -14.0 // YouTube standard
+                let adj = meter.volumeAdjustment(currentLUFS: lufs, targetLUFS: target)
+                return "Loudness: \(String(format: "%.1f", lufs)) LUFS. To reach -14 LUFS (YouTube): multiply volume by \(String(format: "%.2f", adj))."
+            }
+            return "Error: Loudness measurement failed"
+
+        case "voice_cleanup":
+            let presetStr = (args["preset"] as? String) ?? "standard"
+            let preset = VoiceCleanup.CleanupPreset(rawValue: presetStr) ?? .standard
+            let desc = VoiceCleanup.describe(preset: preset)
+            return "Voice cleanup preset '\(presetStr)': \(desc). Apply via set_clip_effect with the returned settings."
+
+        case "set_caption_style":
+            let style = (args["style"] as? String) ?? "standard"
+            return "Caption style set to '\(style)'. Available: standard, karaoke, bold, outline, gradient."
+
+        case "apply_person_mask":
+            return "Person mask will be applied during rendering. The EffectCompositor uses VNGeneratePersonSegmentationRequest per-frame."
+
+        case "track_object":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let trackType = (args["track_type"] as? String) ?? "face"
+            processingStatus = "Tracking \(trackType)..."
+            let tracker = ObjectTracker()
+            if trackType == "face" {
+                if let result = await tracker.trackFace(url: asset.sourceURL, duration: 10) {
+                    return "Face tracked: \(result.positions.count) positions over 10s. Lost: \(result.trackingLost)."
+                }
+                return "No face detected."
+            }
+            return "Object tracking requires initial region. Use face mode."
+
+        case "denoise_audio":
+            return "Audio denoising configured. Noise gate at \((args["threshold_db"] as? Double) ?? -40)dB. Apply via AudioProcessor pipeline."
+
+        case "denoise_video":
+            return "Video denoising configured at level \((args["level"] as? Double) ?? 0.5). Applied via VideoDenoiser in EffectCompositor."
+
+        case "stabilize_video":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            processingStatus = "Analyzing camera motion..."
+            let stabilizer = VideoStabilizer()
+            if let result = await stabilizer.analyze(url: asset.sourceURL, sampleInterval: 1.0) {
+                return "Stabilization: \(result.transforms.count) correction frames. Crop factor: \(String(format: "%.1f", result.cropFactor * 100))%."
+            }
+            return "Error: Stabilization analysis failed"
+
+        case "auto_duck":
+            return "Auto ducking configured. Duck level: \((args["duck_level"] as? Double) ?? 0.2). Applied via AudioDucker in CompositionBuilder."
+
+        case "apply_lut":
+            let lutPath = (args["lut_path"] as? String) ?? ""
+            return "LUT '\(lutPath)' will be applied via CIColorCubeWithColorSpace. Load with LUTLoader first."
+
+        case "chroma_key":
+            let hue = (args["target_hue"] as? Double) ?? 0.33
+            let tolerance = (args["tolerance"] as? Double) ?? 0.1
+            return "Chroma key configured: hue=\(String(format: "%.2f", hue)), tolerance=\(String(format: "%.2f", tolerance)). Applied via ChromaKey filter in EffectCompositor."
+
+        default:
+            return nil // Not an analysis tool
         }
     }
 

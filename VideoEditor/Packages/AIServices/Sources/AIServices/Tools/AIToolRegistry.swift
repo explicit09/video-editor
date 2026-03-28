@@ -29,6 +29,23 @@ public struct AIToolRegistry: Sendable {
         renameClip,
         setClipTransition,
         deleteMarker,
+        setClipTransform,
+        rollTrim,
+        autoReframe,
+        detectBeats,
+        scoreThumbnails,
+        suggestBroll,
+        applyPersonMask,
+        trackObject,
+        voiceCleanup,
+        denoiseAudio,
+        denoiseVideo,
+        stabilizeVideo,
+        setCaptionStyle,
+        applyLUT,
+        measureLoudness,
+        autoDuck,
+        chromaKey,
         getTranscript,
         transcribeAsset,
         searchTranscript,
@@ -255,6 +272,164 @@ public struct AIToolRegistry: Sendable {
         ], required: ["marker_id"])
     )
 
+    // MARK: - Transform + Roll Trim
+
+    public static let setClipTransform = AIToolDefinition(
+        name: "set_clip_transform",
+        description: "Set a clip's 2D transform: position, scale, rotation. Use for Ken Burns, picture-in-picture, or repositioning.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "position_x": .init(type: "number", description: "X position offset (default 0)"),
+            "position_y": .init(type: "number", description: "Y position offset (default 0)"),
+            "scale_x": .init(type: "number", description: "Horizontal scale (1.0 = 100%, default 1)"),
+            "scale_y": .init(type: "number", description: "Vertical scale (1.0 = 100%, default 1)"),
+            "rotation": .init(type: "number", description: "Rotation in degrees (default 0)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let rollTrim = AIToolDefinition(
+        name: "roll_trim",
+        description: "Adjust the boundary between two adjacent clips. Extends one while shortening the other — total duration unchanged.",
+        parameters: .object([
+            "left_clip_id": .init(type: "string", description: "UUID of the left (outgoing) clip"),
+            "right_clip_id": .init(type: "string", description: "UUID of the right (incoming) clip"),
+            "new_boundary": .init(type: "number", description: "New boundary time in seconds"),
+        ], required: ["left_clip_id", "right_clip_id", "new_boundary"])
+    )
+
+    // MARK: - Analysis tools (read-only, return data)
+
+    public static let autoReframe = AIToolDefinition(
+        name: "auto_reframe",
+        description: "Analyze video and generate crop regions for a target aspect ratio. Tracks faces to keep subjects centered.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset to analyze"),
+            "aspect_ratio": .init(type: "string", description: "Target: 9:16 (vertical), 1:1 (square), 4:5 (portrait), 16:9, 21:9"),
+        ], required: ["asset_id", "aspect_ratio"])
+    )
+
+    public static let detectBeats = AIToolDefinition(
+        name: "detect_beats",
+        description: "Analyze audio BPM and beat timestamps. Use for syncing cuts to music.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the audio/video asset"),
+        ], required: ["asset_id"])
+    )
+
+    public static let scoreThumbnails = AIToolDefinition(
+        name: "score_thumbnails",
+        description: "Find the best thumbnail frames in a video. Scores by face presence, brightness, and sharpness.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the video asset"),
+            "count": .init(type: "number", description: "Number of top candidates to return (default 5)"),
+        ], required: ["asset_id"])
+    )
+
+    public static let suggestBroll = AIToolDefinition(
+        name: "suggest_broll",
+        description: "Suggest B-roll clips from the media library that match transcript topics.",
+        parameters: .object([:], required: [])
+    )
+
+    public static let applyPersonMask = AIToolDefinition(
+        name: "apply_person_mask",
+        description: "Apply AI person segmentation to isolate subjects from background. Uses Vision framework.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the video clip"),
+            "action": .init(type: "string", description: "isolate (transparent bg), replace_color, or replace_image"),
+        ], required: ["clip_id"])
+    )
+
+    public static let trackObject = AIToolDefinition(
+        name: "track_object",
+        description: "Track an object or face across video frames. Returns per-frame bounding box positions.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the video asset"),
+            "track_type": .init(type: "string", description: "face (auto-detect) or region"),
+            "start_time": .init(type: "number", description: "Time to start tracking (default 0)"),
+        ], required: ["asset_id"])
+    )
+
+    public static let voiceCleanup = AIToolDefinition(
+        name: "voice_cleanup",
+        description: "One-click voice enhancement: noise reduction + EQ + compression. Presets: standard, podcast, interview, presentation, music.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip (optional — applies to all if omitted)"),
+            "preset": .init(type: "string", description: "Cleanup preset (default: standard)"),
+        ], required: [])
+    )
+
+    public static let denoiseAudio = AIToolDefinition(
+        name: "denoise_audio",
+        description: "Remove background noise from audio using a noise gate.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "threshold_db": .init(type: "number", description: "Noise floor in dB (default -40)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let denoiseVideo = AIToolDefinition(
+        name: "denoise_video",
+        description: "Reduce digital noise/grain from video footage using CINoiseReduction.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the video clip"),
+            "level": .init(type: "number", description: "Noise reduction level 0-1 (default 0.5)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let stabilizeVideo = AIToolDefinition(
+        name: "stabilize_video",
+        description: "Remove camera shake from video using motion analysis.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the video asset"),
+            "smoothing": .init(type: "number", description: "Smoothing factor 0-1 (default 0.8, higher = smoother)"),
+        ], required: ["asset_id"])
+    )
+
+    public static let setCaptionStyle = AIToolDefinition(
+        name: "set_caption_style",
+        description: "Set the caption/subtitle style. Styles: standard (pill), karaoke (word highlight), bold, outline, gradient.",
+        parameters: .object([
+            "style": .init(type: "string", description: "Caption style name"),
+        ], required: ["style"])
+    )
+
+    public static let applyLUT = AIToolDefinition(
+        name: "apply_lut",
+        description: "Apply a .cube LUT file to a clip for color grading.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "lut_path": .init(type: "string", description: "Path to the .cube LUT file"),
+        ], required: ["clip_id", "lut_path"])
+    )
+
+    public static let measureLoudness = AIToolDefinition(
+        name: "measure_loudness",
+        description: "Measure the integrated loudness (LUFS) of an audio/video asset. Use to check levels before normalization.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset"),
+        ], required: ["asset_id"])
+    )
+
+    public static let autoDuck = AIToolDefinition(
+        name: "auto_duck",
+        description: "Automatically duck music volume during speech. Analyzes transcript to find speech regions and lowers music.",
+        parameters: .object([
+            "music_track_id": .init(type: "string", description: "UUID of the music track"),
+            "duck_level": .init(type: "number", description: "Volume during speech 0-1 (default 0.2)"),
+        ], required: ["music_track_id"])
+    )
+
+    public static let chromaKey = AIToolDefinition(
+        name: "chroma_key",
+        description: "Remove green screen background from a clip. Apply chroma key based on target color.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the video clip"),
+            "target_hue": .init(type: "number", description: "Hue to remove 0-1 (green=0.33, blue=0.66, default 0.33)"),
+            "tolerance": .init(type: "number", description: "How much hue variation to include (default 0.1)"),
+        ], required: ["clip_id"])
+    )
+
     // MARK: - Compound tools (replace multi-step atomic sequences)
 
     public static let removeSection = AIToolDefinition(
@@ -477,6 +652,34 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Unknown effect type: \(effectType)")
             }
             return [.setClipEffect(clipID: clipID, effect: effect)]
+
+        case "set_clip_transform":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let transform = Transform2D(
+                positionX: (arguments["position_x"] as? Double) ?? 0,
+                positionY: (arguments["position_y"] as? Double) ?? 0,
+                scaleX: (arguments["scale_x"] as? Double) ?? 1,
+                scaleY: (arguments["scale_y"] as? Double) ?? 1,
+                rotation: (arguments["rotation"] as? Double) ?? 0
+            )
+            return [.setClipTransform(clipID: clipID, transform: transform)]
+
+        case "roll_trim":
+            guard let leftStr = arguments["left_clip_id"] as? String, let leftID = UUID(uuidString: leftStr),
+                  let rightStr = arguments["right_clip_id"] as? String, let rightID = UUID(uuidString: rightStr),
+                  let boundary = arguments["new_boundary"] as? Double else {
+                throw AIToolError.invalidArgument("Missing left_clip_id, right_clip_id, or new_boundary")
+            }
+            return [.rollTrim(leftClipID: leftID, rightClipID: rightID, newBoundary: boundary)]
+
+        // Analysis tools — handled in AIChatController (need AppState)
+        case "auto_reframe", "detect_beats", "score_thumbnails", "suggest_broll",
+             "apply_person_mask", "track_object", "voice_cleanup", "denoise_audio",
+             "denoise_video", "stabilize_video", "set_caption_style", "apply_lut",
+             "measure_loudness", "auto_duck", "chroma_key":
+            throw AIToolError.notYetImplemented("\(toolName) is handled by the chat controller")
 
         case "remove_track":
             guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {

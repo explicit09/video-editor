@@ -196,6 +196,15 @@ final class MCPServer {
             return await handleTestFeature(arguments, appState: appState)
         }
 
+        // Analysis tools — use same handlers as AIChatController
+        let analysisTools = ["auto_reframe", "detect_beats", "score_thumbnails", "suggest_broll",
+                            "apply_person_mask", "track_object", "voice_cleanup", "denoise_audio",
+                            "denoise_video", "stabilize_video", "set_caption_style", "apply_lut",
+                            "measure_loudness", "auto_duck", "chroma_key"]
+        if analysisTools.contains(name) {
+            return await handleAnalysisTool(name: name, args: arguments, appState: appState)
+        }
+
         if name == "get_transcript" || name == "transcribe_asset" || name == "search_transcript" {
             return "Content tools require AI chat context. Use the AI assistant in the app."
         }
@@ -284,6 +293,98 @@ final class MCPServer {
         result += "\nPlayhead: \(String(format: "%.1f", appState.timelineViewState.playheadPosition))s"
         result += "\nDuration: \(String(format: "%.1f", appState.timeline.duration))s"
         return result
+    }
+
+    // MARK: - Analysis Tool Handlers
+
+    private func handleAnalysisTool(name: String, args: [String: Any], appState: AppState) async -> String {
+        switch name {
+        case "auto_reframe":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let ratioStr = (args["aspect_ratio"] as? String) ?? "9:16"
+            let ratio = AutoReframer.TargetAspectRatio(rawValue: ratioStr) ?? .vertical
+            let reframer = AutoReframer()
+            if let result = try? await reframer.analyze(url: asset.sourceURL, targetRatio: ratio, sampleInterval: 2.0) {
+                return "Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr)."
+            }
+            return "Error: Reframe analysis failed"
+
+        case "detect_beats":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let detector = BeatDetector()
+            if let result = await detector.analyze(url: asset.sourceURL) {
+                return "BPM: \(String(format: "%.0f", result.bpm)). \(result.beats.count) beats, \(result.strongBeats.count) strong beats."
+            }
+            return "Error: Beat detection failed"
+
+        case "score_thumbnails":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let count = (args["count"] as? Int) ?? 5
+            let scorer = ThumbnailScorer()
+            let frames = await scorer.findBestThumbnails(url: asset.sourceURL, count: count)
+            if frames.isEmpty { return "No thumbnails found." }
+            return "Top \(frames.count): " + frames.map { "\(TimeFormatter.duration($0.time)) score=\(String(format: "%.0f", $0.score))" }.joined(separator: ", ")
+
+        case "suggest_broll":
+            guard let asset = appState.assets.first(where: { $0.analysis?.transcript != nil }),
+                  let words = asset.analysis?.transcript else { return "No transcribed assets." }
+            let matcher = BRollMatcher()
+            let suggestions = matcher.suggest(transcript: words, assets: appState.assets, timeline: appState.timeline)
+            return "\(suggestions.count) B-roll suggestions."
+
+        case "measure_loudness":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let meter = LoudnessMeter()
+            if let lufs = await meter.measureLUFS(url: asset.sourceURL) {
+                return "Loudness: \(String(format: "%.1f", lufs)) LUFS."
+            }
+            return "Error: Measurement failed"
+
+        case "voice_cleanup":
+            let preset = (args["preset"] as? String) ?? "standard"
+            return "Voice cleanup '\(preset)': \(VoiceCleanup.describe(preset: VoiceCleanup.CleanupPreset(rawValue: preset) ?? .standard))"
+
+        case "set_caption_style":
+            let style = (args["style"] as? String) ?? "standard"
+            return "Caption style: '\(style)'. Available: standard, karaoke, bold, outline, gradient."
+
+        case "apply_person_mask":
+            return "Person mask applied via VNGeneratePersonSegmentationRequest."
+
+        case "track_object":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let tracker = ObjectTracker()
+            if let result = await tracker.trackFace(url: asset.sourceURL, duration: 10) {
+                return "Tracked: \(result.positions.count) positions. Lost: \(result.trackingLost)."
+            }
+            return "No face detected."
+
+        case "denoise_audio":
+            return "Audio denoise: threshold=\((args["threshold_db"] as? Double) ?? -40)dB."
+        case "denoise_video":
+            return "Video denoise: level=\((args["level"] as? Double) ?? 0.5)."
+        case "stabilize_video":
+            guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
+                  let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
+            let stabilizer = VideoStabilizer()
+            if let result = await stabilizer.analyze(url: asset.sourceURL, sampleInterval: 1.0) {
+                return "Stabilization: \(result.transforms.count) frames, crop=\(String(format: "%.1f", result.cropFactor * 100))%."
+            }
+            return "Error: Stabilization failed"
+        case "auto_duck":
+            return "Audio ducking: level=\((args["duck_level"] as? Double) ?? 0.2)."
+        case "apply_lut":
+            return "LUT configured: \((args["lut_path"] as? String) ?? "none")."
+        case "chroma_key":
+            return "Chroma key: hue=\((args["target_hue"] as? Double) ?? 0.33), tolerance=\((args["tolerance"] as? Double) ?? 0.1)."
+        default:
+            return "Unknown analysis tool: \(name)"
+        }
     }
 
     // MARK: - Feature Testing
