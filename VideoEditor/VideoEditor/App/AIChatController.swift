@@ -572,14 +572,8 @@ final class AIChatController {
             }
         }
 
-        if let clipIDStr = args["clip_id"] as? String {
-            let clipExists = timeline.tracks.flatMap(\.clips).contains { $0.id.uuidString == clipIDStr }
-            if !clipExists && !destructiveTools.contains(toolName) {
-                if let lastClip = timeline.tracks.flatMap(\.clips).last {
-                    args["clip_id"] = lastClip.id.uuidString
-                }
-            }
-        }
+        // Don't silently substitute clip IDs — let invalid IDs fail with clear errors
+        // so the AI can self-correct with valid IDs from the context.
 
         if let clipIDStrs = args["clip_ids"] as? [String] {
             let allClipIDs = Set(timeline.tracks.flatMap(\.clips).map(\.id.uuidString))
