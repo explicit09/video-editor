@@ -39,34 +39,38 @@ public actor TranscriptionService {
         asset: MediaAsset,
         mediaManager: MediaManager,
         bundleURL: URL,
-        force: Bool = false
+        force: Bool = false,
+        onStatus: (@Sendable (String) -> Void)? = nil
     ) async throws -> TranscriptionResult? {
-        // Don't re-transcribe unless forced
         if !force {
             if let existing = getTranscript(for: asset, bundleURL: bundleURL) {
                 return existing
             }
         }
 
-        // Don't duplicate in-flight work
         guard !inProgress.contains(asset.id) else { return nil }
         guard let provider else { return nil }
 
         inProgress.insert(asset.id)
         defer { inProgress.remove(asset.id) }
 
-        // Extract audio from video — don't send multi-GB video files to Deepgram
+        // Step 1: Extract audio from video
         let audioExtractor = AudioExtractor()
         let audioURL: URL
         if asset.type == .video {
+            onStatus?("Extracting audio from video...")
             audioURL = try await audioExtractor.extractAudio(from: asset.sourceURL)
+            onStatus?("Audio extracted. Uploading to Deepgram...")
         } else {
+            onStatus?("Uploading audio to Deepgram...")
             audioURL = asset.sourceURL
         }
         defer {
             if asset.type == .video { audioExtractor.cleanup(tempURL: audioURL) }
         }
 
+        // Step 2: Transcribe
+        onStatus?("Transcribing with Deepgram Nova-3...")
         let rawResult = try await provider.transcribe(
             audioURL: audioURL,
             language: nil,
@@ -74,7 +78,8 @@ public actor TranscriptionService {
             progress: { _ in }
         )
 
-        // Lemmatize words using full sentence context
+        // Step 3: Lemmatize for search
+        onStatus?("Processing \(rawResult.words.count) words...")
         let lemmatizer = Lemmatizer()
         let lemmatizedWords = lemmatizer.lemmatizeTranscript(rawResult.words)
         let result = TranscriptionResult(

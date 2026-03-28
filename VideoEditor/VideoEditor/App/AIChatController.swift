@@ -65,7 +65,8 @@ final class AIChatController {
             var finalText = ""
             let maxTurns = 10 // Safety limit
 
-            for _ in 0..<maxTurns {
+            for turn in 0..<maxTurns {
+                processingStatus = turn == 0 ? "Thinking..." : "AI planning next step..."
                 let response = try await provider.complete(
                     messages: conversation,
                     tools: AIToolRegistry.allTools
@@ -102,12 +103,14 @@ final class AIChatController {
                 if response.stopReason != "tool_use" { break }
             }
 
+            processingStatus = nil
             let responseContent = finalText.isEmpty && !allToolResults.isEmpty
                 ? "Executed \(allToolResults.count) editing operation(s)."
                 : finalText
             messages.append(ChatMessage(role: .assistant, content: responseContent, toolResults: allToolResults))
 
         } catch {
+            processingStatus = nil
             messages.append(ChatMessage(role: .system, content: "Error: \(error.localizedDescription)", toolResults: []))
         }
 
@@ -121,6 +124,9 @@ final class AIChatController {
     // MARK: - Tool execution
 
     private func executeTool(toolCall: AIToolCall, appState: AppState) async -> ChatMessage.ToolResult {
+        // Show what tool is running
+        processingStatus = "Running \(toolCall.name)..."
+
         let args = fixupArguments(
             toolName: toolCall.name,
             arguments: toolCall.parsedArguments(),
@@ -129,25 +135,29 @@ final class AIChatController {
         )
 
         do {
-            // Content tools — return data, don't modify timeline
             if toolCall.name == "get_transcript" {
+                processingStatus = "Reading transcript..."
                 let result = try await handleGetTranscript(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
             if toolCall.name == "transcribe_asset" {
+                // Status updates happen inside handleTranscribeAsset
                 let result = try await handleTranscribeAsset(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
             if toolCall.name == "search_transcript" {
+                processingStatus = "Searching transcripts..."
                 let result = handleSearchTranscript(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
             if toolCall.name == "remove_silence" {
+                processingStatus = "Removing silent segments..."
                 let result = try handleRemoveSilence(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
 
-            // Editing tools — resolve to intents and execute
+            // Editing tools
+            processingStatus = "Executing \(toolCall.name)..."
             let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
             for intent in intents {
                 try appState.perform(intent, source: .ai)
@@ -190,13 +200,15 @@ final class AIChatController {
             return "Already transcribed. Use get_transcript to read the content."
         }
 
-        // Show status while transcribing
-        processingStatus = "Transcribing \(asset.name) via Deepgram..."
+        processingStatus = "Extracting audio from \(asset.name)..."
 
         let result = try await appState.media.transcriptionService.transcribe(
             asset: asset,
             mediaManager: appState.media.mediaManager,
-            bundleURL: appState.projectBundleURL
+            bundleURL: appState.projectBundleURL,
+            onStatus: { [weak self] status in
+                Task { @MainActor in self?.processingStatus = status }
+            }
         )
 
         processingStatus = nil
