@@ -401,15 +401,50 @@ final class MCPServer {
             }
         }
 
-        // Also report composition structure
+        // Report composition structure
         report.append("\n=== COMPOSITION STRUCTURE ===")
         let videoTracks = result.composition.tracks(withMediaType: .video)
         let audioTracks = result.composition.tracks(withMediaType: .audio)
-        report.append("Video tracks in composition: \(videoTracks.count)")
-        report.append("Audio tracks in composition: \(audioTracks.count)")
-        report.append("Duration: \(String(format: "%.1f", result.duration))s")
+        report.append("Video comp tracks: \(videoTracks.count)")
+        report.append("Audio comp tracks: \(audioTracks.count)")
+        report.append("Composition duration: \(String(format: "%.1f", result.composition.duration.seconds))s")
+        report.append("Reported duration: \(String(format: "%.1f", result.duration))s")
         report.append("Has audio mix: \(result.audioMix != nil)")
         report.append("Has video composition: \(result.videoComposition != nil)")
+
+        // Report each composition track's segment info
+        for (i, vt) in videoTracks.enumerated() {
+            var segInfo: [String] = []
+            for seg in vt.segments {
+                let ts = seg.timeMapping.target.start.seconds
+                let te = seg.timeMapping.target.end.seconds
+                let ss = seg.timeMapping.source.start.seconds
+                segInfo.append("\(String(format: "%.1f", ts))s-\(String(format: "%.1f", te))s (src:\(String(format: "%.0f", ss))s)")
+            }
+            report.append("  VidTrack \(i) (ID:\(vt.trackID)): \(segInfo.joined(separator: ", "))")
+        }
+        for (i, at) in audioTracks.enumerated() {
+            var segInfo: [String] = []
+            for seg in at.segments {
+                let ts = seg.timeMapping.target.start.seconds
+                let te = seg.timeMapping.target.end.seconds
+                segInfo.append("\(String(format: "%.1f", ts))s-\(String(format: "%.1f", te))s")
+            }
+            report.append("  AudTrack \(i) (ID:\(at.trackID)): \(segInfo.joined(separator: ", "))")
+        }
+
+        // Report video composition instructions
+        if let vc = result.videoComposition as? AVMutableVideoComposition {
+            report.append("\n=== VIDEO COMPOSITION INSTRUCTIONS ===")
+            for (i, instr) in vc.instructions.enumerated() {
+                if let mi = instr as? AVMutableVideoCompositionInstruction {
+                    let start = mi.timeRange.start.seconds
+                    let end = mi.timeRange.end.seconds
+                    let layers = mi.layerInstructions.count
+                    report.append("  [\(i)] \(String(format: "%.1f", start))s-\(String(format: "%.1f", end))s layers=\(layers)")
+                }
+            }
+        }
 
         return report.joined(separator: "\n")
     }

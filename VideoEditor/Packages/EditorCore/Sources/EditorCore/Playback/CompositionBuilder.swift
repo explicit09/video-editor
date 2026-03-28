@@ -2,8 +2,16 @@ import Foundation
 import AVFoundation
 import CoreImage
 
-/// Builds AVComposition + AVAudioMix from Timeline.
+/// Builds AVComposition + AVVideoComposition + AVAudioMix from Timeline.
 /// Shared between PlaybackEngine (proxy URLs) and ExportEngine (source URLs).
+///
+/// Architecture:
+/// - Each video clip gets its own AVMutableCompositionTrack (required because
+///   insertTimeRange shifts existing content, making shared tracks unreliable)
+/// - An AVVideoComposition with per-clip instructions tells AVFoundation which
+///   composition track to render at each point in time
+/// - Audio is extracted from ALL tracks (video assets have audio too), with
+///   linked A/V pairs handled to prevent double-audio
 public struct CompositionBuilder {
 
     public enum MediaURLMode {
@@ -20,7 +28,18 @@ public struct CompositionBuilder {
 
     public init() {}
 
-    /// Build composition from timeline.
+    // MARK: - Internal tracking
+
+    /// Records a video clip's composition track + effective time range for building instructions.
+    private struct VideoClipEntry {
+        let compositionTrack: AVMutableCompositionTrack
+        let effectiveTimeRange: CMTimeRange  // After speed adjustment
+        let clip: Clip
+        let track: Track
+    }
+
+    // MARK: - Build
+
     public func build(
         from timeline: Timeline,
         assets: [MediaAsset],
@@ -29,21 +48,28 @@ public struct CompositionBuilder {
         let comp = AVMutableComposition()
         var maxDuration: CMTime = .zero
         var audioParams: [AVMutableAudioMixInputParameters] = []
-        var videoInstructions: [AVMutableVideoCompositionLayerInstruction] = []
-        var effectInstructions: [EffectInstruction] = []
-        var hasOpacityChanges = false
-        var hasEffects = false
-        var renderSize: CGSize = CGSize(width: 1920, height: 1080)
+        var videoEntries: [VideoClipEntry] = []
+        var renderSize: CGSize = .zero  // Will be set from first source track
 
         let anySoloed = timeline.tracks.contains { $0.isSoloed }
 
+        // Collect all linkGroupIDs that have a clip on an audio track.
+        // These video clips should NOT extract their own audio (the audio track handles it).
+        let audioTrackLinkGroups: Set<UUID> = Set(
+            timeline.tracks
+                .filter { $0.type == .audio }
+                .flatMap(\.clips)
+                .compactMap(\.linkGroupID)
+        )
+
+        // Process all tracks
         for track in timeline.tracks {
-            // Skip muted tracks. If any track is soloed, skip non-soloed tracks.
             guard !track.isMuted else { continue }
             if anySoloed && !track.isSoloed { continue }
 
             for clip in track.clips {
                 guard let mediaAsset = assets.first(where: { $0.id == clip.assetID }) else { continue }
+
                 let mediaURL: URL
                 switch urlMode {
                 case .preview: mediaURL = mediaAsset.proxyURL ?? mediaAsset.sourceURL
@@ -55,69 +81,83 @@ public struct CompositionBuilder {
                 let sourceStart = CMTime(seconds: clip.sourceRange.start, preferredTimescale: 600)
                 let sourceDuration = CMTime(seconds: max(clip.sourceRange.duration, 0), preferredTimescale: 600)
                 let sourceRange = CMTimeRange(start: sourceStart, duration: sourceDuration)
-                let effectiveSpeed = clip.speed
 
-                // Video track
+                // Calculate speed-adjusted duration
+                let effectiveDuration: CMTime
+                if clip.speed != 1.0 {
+                    effectiveDuration = CMTime(seconds: sourceDuration.seconds / clip.speed, preferredTimescale: 600)
+                } else {
+                    effectiveDuration = sourceDuration
+                }
+
+                // === VIDEO ===
                 if track.type != .audio {
                     if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
                        let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
+
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
 
-                        // Apply speed change via time scaling
-                        if effectiveSpeed != 1.0 {
+                        // Apply speed
+                        if clip.speed != 1.0 {
                             let insertedRange = CMTimeRange(start: insertTime, duration: sourceDuration)
-                            let scaledDuration = CMTime(seconds: sourceDuration.seconds / effectiveSpeed, preferredTimescale: 600)
-                            compTrack.scaleTimeRange(insertedRange, toDuration: scaledDuration)
+                            compTrack.scaleTimeRange(insertedRange, toDuration: effectiveDuration)
                         }
 
-                        // Track natural size for render
-                        if let naturalSize = try? await sourceTrack.load(.naturalSize), naturalSize.width > 0 {
-                            if naturalSize.width > renderSize.width { renderSize = naturalSize }
+                        // Set render size from first source track (not a default)
+                        if let size = try? await sourceTrack.load(.naturalSize), size.width > 0 {
+                            if renderSize == .zero {
+                                renderSize = size
+                            } else if size.width > renderSize.width {
+                                renderSize = size
+                            }
                         }
 
-                        // Check if this clip needs effects processing
-                        let effectiveOpacity = clip.opacity * track.opacity
-                        let activeEffects = clip.effects.filter(\.isEnabled)
-                        let needsTransform = clip.transform != .identity
-                        let needsEffects = !activeEffects.isEmpty || effectiveOpacity < 1.0 || needsTransform
+                        // Record for video composition instructions
+                        videoEntries.append(VideoClipEntry(
+                            compositionTrack: compTrack,
+                            effectiveTimeRange: CMTimeRange(start: insertTime, duration: effectiveDuration),
+                            clip: clip,
+                            track: track
+                        ))
+                    }
 
-                        if needsEffects {
-                            // Create per-clip effect instruction for custom compositor
-                            let clipDuration = effectiveSpeed != 1.0
-                                ? CMTime(seconds: sourceDuration.seconds / effectiveSpeed, preferredTimescale: 600)
-                                : sourceDuration
-                            let effectInstruction = EffectInstruction(
-                                timeRange: CMTimeRange(start: insertTime, duration: clipDuration),
-                                sourceTrackID: compTrack.trackID,
-                                effects: activeEffects,
-                                opacity: Float(effectiveOpacity),
-                                transform: clip.transform
-                            )
-                            effectInstructions.append(effectInstruction)
-                            hasEffects = true
-                        } else if effectiveOpacity < 1.0 {
-                            // Fallback: simple opacity via layer instruction
-                            let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: compTrack)
-                            layerInstruction.setOpacity(Float(effectiveOpacity), at: insertTime)
-                            videoInstructions.append(layerInstruction)
-                            hasOpacityChanges = true
+                    // Extract audio from video-type tracks IF no linked audio track handles it
+                    let hasLinkedAudio = clip.linkGroupID != nil && audioTrackLinkGroups.contains(clip.linkGroupID!)
+
+                    if !hasLinkedAudio {
+                        if let audioSourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
+                           let audioCompTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
+
+                            try? audioCompTrack.insertTimeRange(sourceRange, of: audioSourceTrack, at: insertTime)
+
+                            if clip.speed != 1.0 {
+                                let insertedRange = CMTimeRange(start: insertTime, duration: sourceDuration)
+                                audioCompTrack.scaleTimeRange(insertedRange, toDuration: effectiveDuration)
+                            }
+
+                            // Volume for this clip
+                            let effectiveVolume = Float(clip.volume * track.volume)
+                            if effectiveVolume != 1.0 {
+                                let params = AVMutableAudioMixInputParameters(track: audioCompTrack)
+                                params.setVolume(effectiveVolume, at: .zero)
+                                audioParams.append(params)
+                            }
                         }
                     }
                 }
 
-                // Audio track
+                // === AUDIO ===
                 if track.type == .audio {
                     if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first,
                        let compTrack = comp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
+
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
 
-                        if effectiveSpeed != 1.0 {
+                        if clip.speed != 1.0 {
                             let insertedRange = CMTimeRange(start: insertTime, duration: sourceDuration)
-                            let scaledDuration = CMTime(seconds: sourceDuration.seconds / effectiveSpeed, preferredTimescale: 600)
-                            compTrack.scaleTimeRange(insertedRange, toDuration: scaledDuration)
+                            compTrack.scaleTimeRange(insertedRange, toDuration: effectiveDuration)
                         }
 
-                        // Apply volume: clip.volume * track.volume
                         let effectiveVolume = Float(clip.volume * track.volume)
                         if effectiveVolume != 1.0 {
                             let params = AVMutableAudioMixInputParameters(track: compTrack)
@@ -127,14 +167,15 @@ public struct CompositionBuilder {
                     }
                 }
 
-                let clipEnd = CMTimeAdd(insertTime, sourceDuration)
+                // Update max duration (speed-adjusted)
+                let clipEnd = CMTimeAdd(insertTime, effectiveDuration)
                 if CMTimeCompare(clipEnd, maxDuration) > 0 {
                     maxDuration = clipEnd
                 }
             }
         }
 
-        // Build audio mix if any volume adjustments
+        // === BUILD AUDIO MIX ===
         var audioMix: AVAudioMix?
         if !audioParams.isEmpty {
             let mix = AVMutableAudioMix()
@@ -142,26 +183,92 @@ public struct CompositionBuilder {
             audioMix = mix
         }
 
-        // Build video composition
+        // === BUILD VIDEO COMPOSITION ===
+        // ALWAYS create when there are video clips. Without this, only the first
+        // composition video track renders — all others are invisible.
+        //
+        // CRITICAL RULES (AVFoundation requirements):
+        // 1. Instructions must cover 0 to composition.duration with NO gaps
+        // 2. No overlapping instruction timeRanges
+        // 3. layerInstruction trackIDs must exist in composition
+        // 4. Use composition.duration (not manually tracked maxDuration) as the authority
         var videoComposition: AVVideoComposition?
-        if hasEffects, !effectInstructions.isEmpty {
-            // Use custom compositor for effects (CIFilter pipeline)
-            let vidComp = AVMutableVideoComposition()
-            vidComp.customVideoCompositorClass = EffectCompositor.self
-            vidComp.instructions = effectInstructions
-            vidComp.frameDuration = CMTime(value: 1, timescale: 30)
-            vidComp.renderSize = renderSize
-            videoComposition = vidComp
-        } else if hasOpacityChanges, !videoInstructions.isEmpty {
-            // Simple opacity-only path (no custom compositor needed)
-            let mainInstruction = AVMutableVideoCompositionInstruction()
-            mainInstruction.timeRange = CMTimeRange(start: .zero, duration: maxDuration)
-            mainInstruction.layerInstructions = videoInstructions
+        if !videoEntries.isEmpty {
+            // Use composition.duration as the authoritative total duration.
+            // After insertTimeRange + scaleTimeRange, comp.duration reflects reality.
+            let totalDuration = comp.duration
+
+            let sorted = videoEntries.sorted {
+                CMTimeCompare($0.effectiveTimeRange.start, $1.effectiveTimeRange.start) < 0
+            }
+
+            var instructions: [AVMutableVideoCompositionInstruction] = []
+            var cursor: CMTime = .zero
+
+            for entry in sorted {
+                let entryStart = entry.effectiveTimeRange.start
+                let entryEnd = entry.effectiveTimeRange.end
+
+                // Clamp to avoid going past totalDuration
+                let clampedEnd = CMTimeMinimum(entryEnd, totalDuration)
+
+                // Gap before this clip → black frame
+                if CMTimeCompare(cursor, entryStart) < 0 {
+                    let gapInstruction = AVMutableVideoCompositionInstruction()
+                    gapInstruction.timeRange = CMTimeRange(start: cursor, end: entryStart)
+                    gapInstruction.layerInstructions = []
+                    gapInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
+                    instructions.append(gapInstruction)
+                }
+
+                // Skip if entry start is past totalDuration
+                guard CMTimeCompare(entryStart, totalDuration) < 0 else { break }
+
+                // Instruction for this clip
+                let instruction = AVMutableVideoCompositionInstruction()
+                instruction.timeRange = CMTimeRange(start: entryStart, end: clampedEnd)
+
+                let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: entry.compositionTrack)
+
+                let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
+                if effectiveOpacity < 1.0 {
+                    layerInstruction.setOpacity(effectiveOpacity, at: entryStart)
+                }
+
+                instruction.layerInstructions = [layerInstruction]
+                instructions.append(instruction)
+
+                cursor = clampedEnd
+            }
+
+            // Trailing gap to fill remainder of composition
+            if CMTimeCompare(cursor, totalDuration) < 0 {
+                let trailInstruction = AVMutableVideoCompositionInstruction()
+                trailInstruction.timeRange = CMTimeRange(start: cursor, end: totalDuration)
+                trailInstruction.layerInstructions = []
+                trailInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
+                instructions.append(trailInstruction)
+            }
+
+            // Debug: validate instructions
+            var prevEnd: CMTime = .zero
+            for (i, instr) in instructions.enumerated() {
+                let instrRange = (instr as! AVMutableVideoCompositionInstruction).timeRange
+                if CMTimeCompare(instrRange.start, prevEnd) != 0 {
+                    print("[CompositionBuilder] WARNING: gap/overlap at instruction \(i): prev end=\(prevEnd.seconds)s, this start=\(instrRange.start.seconds)s")
+                }
+                prevEnd = instrRange.end
+                let layers = (instr as! AVMutableVideoCompositionInstruction).layerInstructions.count
+                print("[CompositionBuilder] Instruction \(i): \(String(format: "%.1f", instrRange.start.seconds))s-\(String(format: "%.1f", instrRange.end.seconds))s, layers=\(layers)")
+            }
+            if CMTimeCompare(prevEnd, totalDuration) != 0 {
+                print("[CompositionBuilder] WARNING: instructions end at \(prevEnd.seconds)s but composition is \(totalDuration.seconds)s")
+            }
 
             let vidComp = AVMutableVideoComposition()
-            vidComp.instructions = [mainInstruction]
+            vidComp.instructions = instructions
             vidComp.frameDuration = CMTime(value: 1, timescale: 30)
-            vidComp.renderSize = renderSize
+            vidComp.renderSize = renderSize == .zero ? CGSize(width: 1920, height: 1080) : renderSize
             videoComposition = vidComp
         }
 
@@ -169,7 +276,7 @@ public struct CompositionBuilder {
             composition: comp,
             audioMix: audioMix,
             videoComposition: videoComposition,
-            duration: maxDuration.seconds
+            duration: comp.duration.seconds  // Use composition's authoritative duration
         )
     }
 }
