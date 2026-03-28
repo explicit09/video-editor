@@ -74,8 +74,9 @@ public struct SilenceDetector: Sendable {
                 let window = samples[i..<windowEnd]
 
                 // Calculate peak amplitude in window
-                let peak = window.reduce(Int16(0)) { max(abs($0), abs($1)) }
-                let isSilent = peak < thresholdInt16
+                // Use Int32 to avoid overflow on Int16.min (-32768)
+                let peak = window.reduce(Int32(0)) { max(abs(Int32($0)), abs(Int32($1))) }
+                let isSilent = peak < Int32(thresholdInt16)
 
                 let windowTime = Double(sampleIndex + i) / sampleRate
 

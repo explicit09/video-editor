@@ -124,6 +124,8 @@ final class MediaCoordinator {
 
     /// Transcribe specific assets (only if not already transcribed).
     func transcribeAssets(_ assetIDs: [UUID]) async {
+        await ensureTranscriptionConfigured()
+
         for id in assetIDs {
             guard let asset = await mediaManager.asset(id: id) else { continue }
             _ = try? await transcriptionService.transcribe(
@@ -132,7 +134,8 @@ final class MediaCoordinator {
                 bundleURL: bundleURL
             )
         }
-        assets = await mediaManager.allAssets()
+
+        await refreshAssets()
     }
 
     // MARK: - Memory pressure
