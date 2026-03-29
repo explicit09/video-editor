@@ -120,6 +120,7 @@ struct MediaBrowserPanel: View {
         ScrollView {
             LazyVStack(spacing: 10) {
                 ForEach(appState.assets) { asset in
+                    let usedIDs = Set(appState.timeline.tracks.flatMap(\.clips).map(\.assetID))
                     AssetThumbnailView(
                         asset: asset,
                         thumbnail: thumbnails[asset.id],
@@ -127,7 +128,14 @@ struct MediaBrowserPanel: View {
                         onTranscribe: {
                             Task { await appState.media.transcribeAssets([asset.id]) }
                         },
-                        hasTranscript: asset.analysis?.transcript != nil
+                        onDelete: {
+                            Task { @MainActor in
+                                await appState.media.mediaManager.remove(id: asset.id)
+                                await appState.media.refreshAssets()
+                            }
+                        },
+                        hasTranscript: asset.analysis?.transcript != nil,
+                        isInUse: usedIDs.contains(asset.id)
                     )
                     .task {
                         // Load thumbnail if not cached
@@ -200,7 +208,9 @@ struct AssetThumbnailView: View {
     let thumbnail: CGImage?
     var onAddToTimeline: (() -> Void)?
     var onTranscribe: (() -> Void)?
+    var onDelete: (() -> Void)?
     var hasTranscript: Bool = false
+    var isInUse: Bool = false
 
     var body: some View {
         HStack(spacing: 10) {
@@ -277,6 +287,9 @@ struct AssetThumbnailView: View {
             } else {
                 Button("Transcribe") { onTranscribe?() }
             }
+            Divider()
+            Button("Delete Asset", role: .destructive) { onDelete?() }
+                .disabled(isInUse)
         }
     }
 

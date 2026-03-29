@@ -220,6 +220,20 @@ final class AIChatController {
                 let result = await handleSearchTranscript(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
+            if toolCall.name == "delete_asset" {
+                guard let assetIDStr = args["asset_id"] as? String,
+                      let assetID = UUID(uuidString: assetIDStr) else {
+                    return .init(toolName: toolCall.name, success: false, message: "Invalid asset_id")
+                }
+                let usedIDs = Set(appState.timeline.tracks.flatMap(\.clips).map(\.assetID))
+                guard !usedIDs.contains(assetID) else {
+                    return .init(toolName: toolCall.name, success: false, message: "Asset in use on timeline")
+                }
+                let name = appState.assets.first(where: { $0.id == assetID })?.name ?? "unknown"
+                await appState.media.mediaManager.remove(id: assetID)
+                await appState.media.refreshAssets()
+                return .init(toolName: toolCall.name, success: true, message: "Deleted '\(name)'")
+            }
             if toolCall.name == "remove_silence" {
                 processingStatus = "Removing silent segments..."
                 let result = try handleRemoveSilence(args: args, appState: appState)

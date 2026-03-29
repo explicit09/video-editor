@@ -49,6 +49,7 @@ public struct AIToolRegistry: Sendable {
         getTranscript,
         transcribeAsset,
         searchTranscript,
+        deleteAsset,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -77,6 +78,14 @@ public struct AIToolRegistry: Sendable {
             "asset_id": .init(type: "string", description: "Optional: search only this asset (omit to search all)"),
             "max_results": .init(type: "number", description: "Maximum results to return (default 10)"),
         ], required: ["query"])
+    )
+
+    public static let deleteAsset = AIToolDefinition(
+        name: "delete_asset",
+        description: "Remove an imported asset from the media library. Cannot delete assets that are currently used by clips on the timeline. Use to clean up unused or duplicate imports.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset to delete"),
+        ], required: ["asset_id"])
     )
 
     // MARK: - Tool definitions (matching Claude/OpenAI function-calling schema)
