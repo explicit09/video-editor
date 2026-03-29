@@ -1,5 +1,6 @@
 import Foundation
 import AVFoundation
+import AppKit
 import CoreImage
 import EditorCore
 import AIServices
@@ -203,6 +204,18 @@ final class MCPServer {
                         "duration": ["type": "number", "description": "Duration of each B-roll insert in seconds (default: 3)"],
                     ], "required": []],
                 ],
+                [
+                    "name": "delete_asset",
+                    "description": "Remove an imported asset from the media library. Cannot delete assets that are currently used by clips on the timeline.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset to delete"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
+                    "name": "take_screenshot",
+                    "description": "Capture a screenshot of the editor window. Returns the file path to the PNG image. Use this to visually verify the editor state — check alignment, layout, clip positions, and overall appearance.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
             ])
             return successResponse(id: id, result: ["tools": tools])
 
@@ -248,6 +261,12 @@ final class MCPServer {
         }
         if name == "clear_project" {
             return handleClearProject(appState: appState)
+        }
+        if name == "delete_asset" {
+            return handleDeleteAsset(arguments, appState: appState)
+        }
+        if name == "take_screenshot" {
+            return await handleTakeScreenshot(appState: appState)
         }
         if name == "generate_title" {
             return await handleGenerateTitle(arguments, appState: appState)
@@ -390,6 +409,62 @@ final class MCPServer {
             try? appState.perform(.removeTrack(trackID: trackID), source: .ai)
         }
         return "Project cleared. " + stateSnapshot(appState)
+    }
+
+    private func handleDeleteAsset(_ args: [String: Any], appState: AppState) -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr) else {
+            return "Error: invalid asset_id"
+        }
+
+        // Check if asset is used by any clip on the timeline
+        let usedAssetIDs = Set(appState.timeline.tracks.flatMap(\.clips).map(\.assetID))
+        if usedAssetIDs.contains(assetID) {
+            return "Error: asset is in use on the timeline. Remove clips using this asset first."
+        }
+
+        guard let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: asset not found"
+        }
+
+        let name = asset.name
+        Task { @MainActor in
+            await appState.media.mediaManager.remove(id: assetID)
+            await appState.media.refreshAssets()
+        }
+        return "Deleted asset '\(name)'. " + stateSnapshot(appState)
+    }
+
+    private func handleTakeScreenshot(appState: AppState) async -> String {
+        let outputPath = FileManager.default.temporaryDirectory
+            .appendingPathComponent("editor-screenshot-\(UUID().uuidString.prefix(8)).png")
+
+        // Capture the main window using CGWindowListCreateImage
+        guard let window = NSApplication.shared.mainWindow else {
+            return "Error: no main window available"
+        }
+
+        let windowID = CGWindowID(window.windowNumber)
+        guard let image = CGWindowListCreateImage(
+            .null,
+            .optionIncludingWindow,
+            windowID,
+            [.boundsIgnoreFraming, .bestResolution]
+        ) else {
+            return "Error: screenshot capture failed"
+        }
+
+        let bitmapRep = NSBitmapImageRep(cgImage: image)
+        guard let pngData = bitmapRep.representation(using: .png, properties: [:]) else {
+            return "Error: PNG conversion failed"
+        }
+
+        do {
+            try pngData.write(to: outputPath)
+            return "Screenshot saved to: \(outputPath.path)\nSize: \(image.width)x\(image.height)"
+        } catch {
+            return "Error saving screenshot: \(error.localizedDescription)"
+        }
     }
 
     private func handleGenerateTitle(_ args: [String: Any], appState: AppState) async -> String {

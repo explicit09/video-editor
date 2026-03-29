@@ -45,15 +45,19 @@ struct TimelinePanel: View {
                         Rectangle()
                             .fill(Color.clear)
                             .contentShape(Rectangle())
-                            .frame(width: totalWidth, height: geo.size.height)
+                            .frame(width: totalWidth + 182, height: geo.size.height)
                             .onTapGesture {
                                 viewState.clearSelection()
                             }
 
+                        let trackLabelWidth: Double = 182
+
                         VStack(spacing: 0) {
-                            TimelineRuler(viewState: viewState, totalWidth: totalWidth)
-                                .frame(height: 28)
-                                .padding(.leading, 182) // Align with clip area (after track label)
+                            HStack(spacing: 0) {
+                                Color.clear.frame(width: trackLabelWidth, height: 28)
+                                TimelineRuler(viewState: viewState, totalWidth: totalWidth)
+                                    .frame(height: 28)
+                            }
 
                             if timeline.tracks.isEmpty {
                                 emptyTimeline(width: totalWidth, height: geo.size.height - 30)
@@ -61,17 +65,17 @@ struct TimelinePanel: View {
                                 trackStack(timeline: timeline, viewState: viewState, width: totalWidth)
                             }
                         }
-                        .frame(width: totalWidth)
+                        .frame(width: totalWidth + trackLabelWidth)
 
                         MarkersOverlay(markers: timeline.markers, viewState: viewState)
                             .frame(width: totalWidth, height: geo.size.height)
-                            .padding(.leading, 182)
+                            .offset(x: trackLabelWidth)
 
                         PlayheadView(viewState: viewState) {
                             appState.seekFromPlayhead()
                         }
-                        .padding(.leading, 182)
                         .frame(width: totalWidth, height: geo.size.height)
+                        .offset(x: trackLabelWidth)
                     }
                 }
                 .onAppear { viewState.visibleWidth = geo.size.width }
