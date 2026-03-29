@@ -134,8 +134,8 @@ final class MCPServer {
                 ],
                 [
                     "name": "verify_playback",
-                    "description": "Verify that the timeline composition produces correct output. Exports short segments and checks for video, audio, sync issues.",
-                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                    "description": "Content-verify the timeline composition. Checks that the RIGHT audio/video from the RIGHT source plays at every clip boundary. Mode: 'quick' (2 checks per clip, ~2s) or 'thorough' (all boundaries + silence scan, ~5-10s).",
+                    "inputSchema": ["type": "object", "properties": ["mode": ["type": "string", "description": "Verification mode: 'quick' (default) or 'thorough'"]], "required": []],
                 ],
                 [
                     "name": "save_snapshot",
@@ -403,94 +403,30 @@ final class MCPServer {
     // MARK: - Playback Verification
 
     private func handleVerifyPlayback(_ args: [String: Any], appState: AppState) async -> String {
+        let modeStr = args["mode"] as? String ?? "quick"
+        let mode: ContentVerifier.Mode = modeStr == "thorough" ? .thorough : .quick
+
         let builder = CompositionBuilder()
         let result = await builder.build(from: appState.timeline, assets: appState.assets, urlMode: .preview)
 
-        let verifier = CompositionVerifier()
-        let tempDir = FileManager.default.temporaryDirectory
-        var report: [String] = ["=== PLAYBACK VERIFICATION ==="]
+        let verifier = ContentVerifier()
+        let report = await verifier.verify(
+            composition: result.composition,
+            timeline: appState.timeline,
+            assets: appState.assets,
+            videoComposition: result.videoComposition,
+            mode: mode
+        )
 
-        // Verify at multiple points across the timeline
-        let duration = result.duration
-        let checkPoints: [(name: String, start: Double, length: Double)] = [
-            ("Start (0-5s)", 0, 5),
-            ("Hook 1 mid (15s)", 15, 5),
-            ("Hook 2 mid (45s)", min(45, duration - 5), 5),
-            ("Main content start (75s)", min(75, duration - 5), 5),
-            ("Main content mid", duration / 2, 5),
-        ].filter { $0.start + $0.length <= duration }
-
-        for point in checkPoints {
-            let timeRange = CMTimeRange(
-                start: CMTime(seconds: point.start, preferredTimescale: 600),
-                duration: CMTime(seconds: point.length, preferredTimescale: 600)
-            )
-            let outputURL = tempDir.appendingPathComponent("verify_\(point.name.replacingOccurrences(of: " ", with: "_")).mp4")
-
-            let v = await verifier.verify(
-                composition: result.composition,
-                audioMix: result.audioMix,
-                videoComposition: result.videoComposition,
-                timeRange: timeRange,
-                outputURL: outputURL
-            )
-
-            let status = v.passed ? "PASS" : "FAIL"
-            report.append("\n[\(status)] \(point.name):")
-            report.append("  Video: \(v.hasVideo ? "YES" : "NO"), Frame valid: \(v.videoFrameValid)")
-            report.append("  Audio: \(v.hasAudio ? "YES" : "NO"), Level: \(String(format: "%.4f", v.audioLevel))")
-            report.append("  Duration: \(String(format: "%.1f", v.exportedDuration))s")
-            if !v.issues.isEmpty {
-                report.append("  Issues: \(v.issues.joined(separator: "; "))")
-            }
-        }
-
-        // Report composition structure
-        report.append("\n=== COMPOSITION STRUCTURE ===")
+        // Append composition structure info
+        var output = report.summary
+        output += "\n\n=== COMPOSITION STRUCTURE ==="
         let videoTracks = result.composition.tracks(withMediaType: .video)
         let audioTracks = result.composition.tracks(withMediaType: .audio)
-        report.append("Video comp tracks: \(videoTracks.count)")
-        report.append("Audio comp tracks: \(audioTracks.count)")
-        report.append("Composition duration: \(String(format: "%.1f", result.composition.duration.seconds))s")
-        report.append("Reported duration: \(String(format: "%.1f", result.duration))s")
-        report.append("Has audio mix: \(result.audioMix != nil)")
-        report.append("Has video composition: \(result.videoComposition != nil)")
+        output += "\nVideo tracks: \(videoTracks.count), Audio tracks: \(audioTracks.count)"
+        output += "\nComposition duration: \(String(format: "%.1f", result.composition.duration.seconds))s"
 
-        // Report each composition track's segment info
-        for (i, vt) in videoTracks.enumerated() {
-            var segInfo: [String] = []
-            for seg in vt.segments {
-                let ts = seg.timeMapping.target.start.seconds
-                let te = seg.timeMapping.target.end.seconds
-                let ss = seg.timeMapping.source.start.seconds
-                segInfo.append("\(String(format: "%.1f", ts))s-\(String(format: "%.1f", te))s (src:\(String(format: "%.0f", ss))s)")
-            }
-            report.append("  VidTrack \(i) (ID:\(vt.trackID)): \(segInfo.joined(separator: ", "))")
-        }
-        for (i, at) in audioTracks.enumerated() {
-            var segInfo: [String] = []
-            for seg in at.segments {
-                let ts = seg.timeMapping.target.start.seconds
-                let te = seg.timeMapping.target.end.seconds
-                segInfo.append("\(String(format: "%.1f", ts))s-\(String(format: "%.1f", te))s")
-            }
-            report.append("  AudTrack \(i) (ID:\(at.trackID)): \(segInfo.joined(separator: ", "))")
-        }
-
-        // Report video composition instructions
-        if let vc = result.videoComposition as? AVMutableVideoComposition {
-            report.append("\n=== VIDEO COMPOSITION INSTRUCTIONS ===")
-            for (i, instr) in vc.instructions.enumerated() {
-                if let mi = instr as? AVMutableVideoCompositionInstruction {
-                    let start = mi.timeRange.start.seconds
-                    let end = mi.timeRange.end.seconds
-                    let layers = mi.layerInstructions.count
-                    report.append("  [\(i)] \(String(format: "%.1f", start))s-\(String(format: "%.1f", end))s layers=\(layers)")
-                }
-            }
-        }
-
-        return report.joined(separator: "\n")
+        return output
     }
 
     // MARK: - Content Tool Handlers
