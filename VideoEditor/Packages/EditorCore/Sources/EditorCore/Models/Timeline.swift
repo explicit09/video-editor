@@ -28,6 +28,7 @@ public struct Track: Codable, Identifiable, Sendable {
     public var isSoloed: Bool
     public var volume: Double
     public var opacity: Double
+    public var audioEffectChain: AudioEffectChain?
 
     public init(
         id: UUID = UUID(),
@@ -38,7 +39,8 @@ public struct Track: Codable, Identifiable, Sendable {
         isLocked: Bool = false,
         isSoloed: Bool = false,
         volume: Double = 1.0,
-        opacity: Double = 1.0
+        opacity: Double = 1.0,
+        audioEffectChain: AudioEffectChain? = nil
     ) {
         self.id = id
         self.name = name
@@ -49,6 +51,7 @@ public struct Track: Codable, Identifiable, Sendable {
         self.isSoloed = isSoloed
         self.volume = volume
         self.opacity = opacity
+        self.audioEffectChain = audioEffectChain
     }
 }
 

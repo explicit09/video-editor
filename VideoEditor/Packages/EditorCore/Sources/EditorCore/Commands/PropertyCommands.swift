@@ -80,6 +80,57 @@ public struct SetClipTransformCommand: Command {
     }
 }
 
+/// Change a clip's normalized crop rect.
+public struct SetClipCropCommand: Command {
+    public let name = "Set Clip Crop"
+    public let clipID: UUID
+    public let newCropRect: CropRect
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousCropRect: CropRect?
+
+    public init(clipID: UUID, cropRect: CropRect) {
+        self.clipID = clipID
+        self.newCropRect = cropRect.clamped
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            previousCropRect = clip.cropRect
+            clip.cropRect = newCropRect
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let previousCropRect else { return }
+        try modifyClip(id: clipID, context: context) { $0.cropRect = previousCropRect }
+    }
+}
+
+/// Set track audio effect chain (EQ, compression, noise gate).
+public struct SetTrackAudioEffectsCommand: Command {
+    public let name = "Set Track Audio Effects"
+    public let trackID: UUID
+    public let newEffectChain: AudioEffectChain?
+    public var affectedTrackIDs: [UUID] { [trackID] }
+    private var previousEffectChain: AudioEffectChain?
+
+    public init(trackID: UUID, effectChain: AudioEffectChain?) {
+        self.trackID = trackID
+        self.newEffectChain = effectChain
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyTrack(id: trackID, context: context) { track in
+            previousEffectChain = track.audioEffectChain
+            track.audioEffectChain = newEffectChain
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        try modifyTrack(id: trackID, context: context) { $0.audioEffectChain = previousEffectChain }
+    }
+}
+
 // MARK: - Track Property Commands
 
 /// Toggle track mute state.
@@ -215,13 +266,16 @@ public struct DuplicateClipCommand: Command {
             timelineRange: TimeRange(start: adjustedStart, duration: original.timelineRange.duration),
             sourceRange: original.sourceRange,
             transform: original.transform,
+            cropRect: original.cropRect,
             opacity: original.opacity,
             volume: original.volume,
             effects: original.effects,
             keyframes: original.keyframes,
             metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (copy)"),
             speed: original.speed,
-            transitionIn: original.transitionIn
+            transitionIn: original.transitionIn,
+            linkGroupID: original.linkGroupID,
+            blendMode: original.blendMode
         )
         let insertionIndex = MoveClipCommand.insertionIndex(
             for: duplicate,

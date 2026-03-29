@@ -168,6 +168,17 @@ final class MCPServer {
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
                 [
+                    "name": "set_track_audio_effects",
+                    "description": "Apply audio effects (EQ, compression, noise gate) to a track. Presets: 'podcast' (voice clarity EQ + voice compression + noise gate), 'music' (gentle compression), 'none' (remove all effects). Applied during export.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "track_id": ["type": "string", "description": "UUID of the audio track"],
+                        "preset": ["type": "string", "description": "Preset name: 'podcast', 'music', 'none', or 'custom'"],
+                        "eq_preset": ["type": "string", "description": "EQ preset: 'voice_clarity', 'flat' (only for custom)"],
+                        "compressor_preset": ["type": "string", "description": "Compressor preset: 'voice', 'music', 'limiter' (only for custom)"],
+                        "noise_gate_db": ["type": "number", "description": "Noise gate threshold in dB (e.g. -40)"],
+                    ], "required": ["track_id", "preset"]],
+                ],
+                [
                     "name": "analyze_audio_energy",
                     "description": "Analyze speech energy, silence ratio, and engagement score for a time range. Returns per-second energy readings and a segment summary with speech%, silence%, energy variance, and an engagement score (0-100). Use this to find the most energetic/engaging segments BEFORE relying on transcript alone.",
                     "inputSchema": ["type": "object", "properties": [
@@ -222,6 +233,9 @@ final class MCPServer {
         }
         if name == "clear_project" {
             return handleClearProject(appState: appState)
+        }
+        if name == "set_track_audio_effects" {
+            return handleSetTrackAudioEffects(arguments, appState: appState)
         }
         if name == "analyze_audio_energy" {
             return await handleAnalyzeAudioEnergy(arguments, appState: appState)
@@ -355,6 +369,61 @@ final class MCPServer {
             try? appState.perform(.removeTrack(trackID: trackID), source: .ai)
         }
         return "Project cleared. " + stateSnapshot(appState)
+    }
+
+    private func handleSetTrackAudioEffects(_ args: [String: Any], appState: AppState) -> String {
+        guard let trackIDStr = args["track_id"] as? String,
+              let trackID = UUID(uuidString: trackIDStr) else {
+            return "Error: invalid track_id"
+        }
+        guard appState.timeline.tracks.contains(where: { $0.id == trackID }) else {
+            return "Error: track not found"
+        }
+
+        let preset = args["preset"] as? String ?? "none"
+        let effectChain: AudioEffectChain?
+
+        switch preset {
+        case "podcast":
+            effectChain = .podcastVoice
+        case "music":
+            effectChain = AudioEffectChain(compressor: .music)
+        case "none":
+            effectChain = nil
+        case "custom":
+            var chain = AudioEffectChain()
+            if let eqPreset = args["eq_preset"] as? String {
+                switch eqPreset {
+                case "voice_clarity": chain.eq = .voiceClarity
+                default: chain.eq = .tenBand
+                }
+            }
+            if let compPreset = args["compressor_preset"] as? String {
+                switch compPreset {
+                case "voice": chain.compressor = .voice
+                case "music": chain.compressor = .music
+                case "limiter": chain.compressor = .limiter
+                default: break
+                }
+            }
+            if let noiseGate = args["noise_gate_db"] as? Double {
+                chain.noiseGateThreshold = noiseGate
+            }
+            effectChain = chain
+        default:
+            return "Error: unknown preset '\(preset)'. Use: podcast, music, none, custom"
+        }
+
+        try? appState.perform(.setTrackAudioEffects(trackID: trackID, effectChain: effectChain))
+
+        if let chain = effectChain {
+            var desc: [String] = []
+            if let eq = chain.eq { desc.append("EQ (\(eq.bands.count) bands)") }
+            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.threshold)dB, ratio: \(comp.ratio):1)") }
+            if let gate = chain.noiseGateThreshold { desc.append("Noise gate (\(gate)dB)") }
+            return "Applied audio effects to track: \(desc.joined(separator: ", ")). Effects render during export."
+        }
+        return "Removed audio effects from track."
     }
 
     private func handleAnalyzeAudioEnergy(_ args: [String: Any], appState: AppState) async -> String {

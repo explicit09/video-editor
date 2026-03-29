@@ -32,6 +32,7 @@ public enum EditorIntent: Sendable {
     case linkClips(clipIDs: [UUID], linkGroupID: UUID?)
     case removeClipEffect(clipID: UUID, effectID: UUID)
     case setClipBlendMode(clipID: UUID, blendMode: BlendMode)
+    case setTrackAudioEffects(trackID: UUID, effectChain: AudioEffectChain?)
     /// Multiple intents as a single undoable operation.
     case batch([EditorIntent])
 }
@@ -99,6 +100,8 @@ public struct IntentResolver: Sendable {
             return RemoveClipEffectCommand(clipID: clipID, effectID: effectID)
         case .setClipBlendMode(let clipID, let blendMode):
             return SetClipBlendModeCommand(clipID: clipID, blendMode: blendMode)
+        case .setTrackAudioEffects(let trackID, let effectChain):
+            return SetTrackAudioEffectsCommand(trackID: trackID, effectChain: effectChain)
         case .batch(let intents):
             let commands = try intents.map { try resolve($0) }
             return BatchCommand(name: "Batch", commands: commands)
