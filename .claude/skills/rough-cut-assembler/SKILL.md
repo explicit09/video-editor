@@ -1,9 +1,10 @@
 ---
 name: rough-cut-assembler
-description: Assemble raw footage into a rough cut. Identifies individual takes, selects the best take per scene, removes dead air at the start/end of takes, and assembles clips in order.
+description: Assemble raw footage into a rough cut. Uses audio energy to find active takes vs dead air, selects best takes, removes dead air, assembles in order. Verifies assembly quality.
 model: standard
 context-level: full
 tools:
+  - analyze_audio_energy
   - get_transcript
   - transcribe_asset
   - search_transcript
@@ -21,106 +22,73 @@ keywords: rough cut, assembly, takes, raw footage, first cut, assemble, organize
 
 # Rough Cut Assembler
 
-You are a professional assistant editor. Your job is to take raw footage and create a clean first assembly — identifying takes, selecting the best one, removing dead air, and ordering clips for the editor to refine.
+You take raw footage and create a clean first assembly.
 
-## Workflow
+## Step 0: Audio energy map — find the real content
 
-### Step 1: Analyze the raw footage
+Raw footage is mostly dead air. Find where actual content lives:
 
-1. `transcribe_asset` — word-level transcript reveals take boundaries
-2. `get_transcript` — read the full content
-3. `measure_loudness` — identify active vs dead segments
-4. Map the recording: where does real content start? Where are the breaks?
+1. `analyze_audio_energy` with `segments: 30-40`
+2. Active zones (score > 40, speech > 50%) = actual takes
+3. Dead zones (score < 25, speech < 15%) = between takes, camera rolling
+4. This map replaces guessing at take boundaries
 
-### Step 2: Identify individual takes
+## Step 1: Identify takes
 
-Takes are separated by these markers in the transcript:
+Using audio energy data + transcript:
 
-**Silence gaps > 3 seconds:** Long silence between speech = camera kept rolling between takes.
+1. `transcribe_asset` if needed
+2. Takes start where speech begins after a dead zone
+3. Takes end where speech stops before a dead zone
+4. Search for director cues: "action", "cut", "take", "again", "from the top", "sorry"
+5. `split_clip` at each take boundary
+6. `rename_clip` each: "Take N: [first words]"
+7. `set_marker` at each take start
 
-**Repeated content:** Search for sentences that appear twice — the speaker did a re-take. Use `search_transcript` for key phrases from the first occurrence to find duplicates.
+## Step 2: Select best take per scene
 
-**Director/self-cues:** Search transcript for: "action", "cut", "take", "one more time", "let's go again", "reset", "from the top", "sorry let me start over"
+When the same content appears multiple times (re-takes):
 
-**For each identified take:**
-1. `split_clip` at the take boundaries
-2. `rename_clip` with "Take N: [first few words]"
-3. `set_marker` at each take start
+**Score each take:**
+- Audio energy (40%): higher engagement score = better delivery
+- Completeness (30%): full thought without stumbles (search for repeated words, "I mean", restarts)
+- Recency (20%): later takes usually better
+- Audio quality (10%): consistent volume, no background noise
 
-### Step 3: Select the best take
+Use `analyze_audio_energy` on each take individually to get precise scores.
 
-When the same content appears in multiple takes, select the best one:
-
-**Technical quality (40%):**
-- Clean audio — no stumbles, coughs, or background noise interruptions
-- Complete delivery — the speaker finishes the full thought without trailing off
-- Consistent volume — no sudden drops or spikes
-
-**Performance quality (40%):**
-- Fluency — smooth delivery without filler words or restarts
-- No repeated words ("the the", "I I" = stumble)
-- No false starts ("I think— no, what I mean is—")
-- Energy matches the content (excited topic = energetic delivery)
-
-**Recency (20%):**
-- Later takes are usually better (speaker improves with practice)
-- Give a small preference to the latest take when scores are close
-
-**Process:**
-1. For each group of duplicate takes, pick the highest-scoring one
-2. `delete_clips` the rejected takes
-3. `rename_clip` the selected take to remove "Take N:" prefix
-
-### Step 4: Remove dead air
+## Step 3: Remove dead air
 
 For each selected take:
+1. `trim_clip` to start 0.3s before first spoken word
+2. End 0.5s after last spoken word
+3. Internal silence > 2s: `split_clip` + `delete_clips`, keep 0.4s of pause
 
-1. **Trim the head:** `trim_clip` to start 0.3s before the first spoken word (use transcript timestamps). Remove any pre-speech silence, throat clearing, or "ready" cues.
+## Step 4: Assemble
 
-2. **Trim the tail:** `trim_clip` to end 0.5s after the last spoken word. Remove trailing silence, "okay that was good", or post-take chatter.
+1. Order by script/topic/chronology
+2. `move_clip` each take sequentially, no gaps (butt cuts)
+3. `measure_loudness` per clip — flag any differing > 6 LUFS with `set_marker`
 
-3. **Internal dead air:** If there's silence > 2 seconds within a take (speaker pausing to think), `split_clip` at the silence boundaries and `delete_clips` the gap. Keep 0.4s of pause for natural rhythm.
+## Step 5: Mandatory verification
 
-### Step 5: Assemble in order
+1. `verify_playback` mode "quick":
+   - Audio present at all checkpoints
+   - No dead air > 1s at boundaries
 
-1. Determine the intended order:
-   - If content follows a script/outline: order by topic/section
-   - If chronological: order by recording timestamp
-   - If no clear order: group by topic similarity
+2. `analyze_audio_energy` on the assembly:
+   - Speech ratio should be > 70% (dead air removed)
+   - Overall score should be higher than the raw footage average
 
-2. `move_clip` each selected take to its position on the timeline, sequential with no gaps
+3. `get_state`:
+   - All clips named with take numbers
+   - No gaps
+   - Markers at each section start
 
-3. Leave 0s gaps between clips (butt cuts) — the rough cut should flow continuously
-
-### Step 6: Audio consistency
-
-- `measure_loudness` on each clip
-- If any clip differs by > 6 LUFS from the median, adjust with `set_clip_volume`
-- Flag extreme differences for the editor's attention with `set_marker` labeled "AUDIO: level mismatch"
-
-### Step 7: Verify
-
-`verify_playback` with mode "thorough":
-- Timeline plays continuously with no gaps
-- Audio present at all checkpoints
-- No dead air > 1 second at clip boundaries
-- Total duration is reasonable (rough cuts are typically 10-20% longer than final)
-
-## Quality indicators
-
-A good rough cut:
-- Every intended topic/scene is represented
-- No duplicate takes remain
-- No dead air at clip boundaries
-- Consistent audio levels across all clips
-- Clear markers at each section for the editor to navigate
-- Total duration within 120% of expected final length
-
-## Anti-patterns
+## What NOT to do
 
 - Never delete a take without confirming a better version exists
-- Never trim into spoken content (always leave 0.3s padding)
-- Never reorder clips without understanding the intended narrative
-- Never assemble without checking for duplicate/repeated content
-- Never leave technical cues ("action", "cut") in the final assembly
-- Never lose track of which take was selected — rename clips clearly
+- Never trim into spoken content
+- Never skip audio energy analysis — it's the fastest way to find takes in raw footage
+- Never assemble without checking for duplicate content
+- Never report done without verify_playback

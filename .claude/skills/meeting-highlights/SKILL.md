@@ -1,9 +1,10 @@
 ---
 name: meeting-highlights
-description: Create executive summaries from meeting recordings. Identifies decisions, action items, and key discussions. Removes small talk, technical difficulties, and dead air. Produces a 5-minute highlight from a 1-hour meeting.
+description: Create executive summaries from meeting recordings. Uses audio energy to skip dead zones, identifies decisions and action items from transcript, removes small talk and technical issues. Verifies output quality.
 model: standard
 context-level: full
 tools:
+  - analyze_audio_energy
   - get_transcript
   - transcribe_asset
   - search_transcript
@@ -14,6 +15,8 @@ tools:
   - set_marker
   - rename_clip
   - measure_loudness
+  - set_clip_speed
+  - set_clip_transition
   - verify_playback
   - get_state
 keywords: meeting, highlights, summary, executive summary, action items, decisions, minutes, key moments, recap, meeting notes, important parts
@@ -21,107 +24,88 @@ keywords: meeting, highlights, summary, executive summary, action items, decisio
 
 # Meeting Highlights Editor
 
-You are an executive assistant specializing in distilling meeting recordings into concise, actionable summaries. You preserve decisions and action items while removing everything that wastes the viewer's time.
+You create concise, actionable summaries from meeting recordings. Every second in the output earns its place.
 
-## Workflow
+## Step 0: Audio energy scan — find where real discussion happens
 
-### Step 1: Transcribe and map the meeting
+Meetings are mostly dead air, setup, and filler. Find the real content first:
+
+1. `analyze_audio_energy` with `segments: 20-30`
+2. Dead zones (score < 30): likely "can you hear me?", waiting for people, screen share fumbles
+3. Hot zones (score > 55): active discussion, debates, decisions being made
+4. This map tells you where to focus. Don't waste time cleaning dead zones — cut them entirely.
+
+## Step 1: Transcribe and classify
 
 1. `transcribe_asset` if needed
-2. `get_transcript` — read the full transcript
-3. Identify the meeting structure by scanning for topic transitions
+2. `get_transcript`
+3. Search for key patterns using `search_transcript`:
 
-### Step 2: Classify every segment
+**Decisions (KEEP — HIGH):**
+"decided", "agreed", "going with", "approved", "consensus", "final answer", "let's go with"
 
-Walk through the transcript and classify each segment:
+**Action items (KEEP — HIGH):**
+"I will", "action item", "next step", "by Friday", "deadline", "follow up", "responsible"
 
-**KEEP (High Priority) — Decisions:**
-Search for: "we decided", "agreed", "going with", "the decision is", "approved", "rejected", "consensus", "let's go with", "final answer", "we'll do"
-- Mark each with `set_marker` labeled "DECISION: [summary]"
+**Risks/blockers (KEEP — MEDIUM):**
+"concern", "risk", "blocker", "worried", "issue", "problem", "delayed"
 
-**KEEP (High Priority) — Action Items:**
-Search for: "I will", "you should", "let's", "by [date]", "action item", "next step", "follow up", "deadline", "responsible for", "owner", "take away", "to-do"
-- Mark each with `set_marker` labeled "ACTION: [who] [what]"
+**Cut entirely:**
+"can you hear me", "you're on mute", "let me share", "one second", "how's everyone", "good morning"
 
-**KEEP (Medium Priority) — Key Discussions:**
-- Segments where 3+ people contribute within 60 seconds (active debate)
-- A single speaker talking for >30 seconds uninterrupted (presenting/explaining)
-- Any segment containing disagreement, risk, or blocker language
+## Step 2: Build the summary
 
-**CUT — Small Talk:**
-- Everything before the first substantive topic (greetings, weather, weekend talk)
-- "Can you hear me?", "you're on mute", "let me share my screen"
-- "How's everyone doing?", "good morning", "thanks for joining"
+Target: 5-minute summary from a 1-hour meeting (12:1 compression).
 
-**CUT — Transitions/Logistics:**
-- "Let's move on", "next topic", "who wants to go next"
-- Screen sharing fumbles, "can you see my screen?"
-- "Let me find that document", "one second"
+Budget:
+- Decisions: 40% (120s)
+- Action items: 30% (90s)
+- Key discussions: 20% (60s)
+- Opening context: 10% (30s)
 
-**CUT — Repetition:**
-- Someone restating what was just said without adding new information
-- Circular discussions that don't reach resolution
+Cross-reference: only keep segments that are BOTH high-energy (audio score > 45) AND contain decisions/actions (transcript search).
 
-### Step 3: Calculate time budget
+## Step 3: Edit
 
-For a target 5-minute summary from a 60-minute meeting:
+1. `split_clip` at each segment boundary
+2. `rename_clip` with classification: "DECISION: pricing", "ACTION: John deploys Friday"
+3. `delete_clips` all cut-classified segments
+4. `trim_clip` each kept segment to sentence boundaries (0.3s padding)
+5. Remove internal silence > 1.5s within kept segments
+6. `set_marker` at each decision and action item
+7. `set_clip_transition` with `crossDissolve` (0.3s) between segments from different meeting sections
+8. Slight speed up if speakers are slow: `set_clip_speed` 1.05-1.1x
 
-| Category | Budget | Purpose |
-|----------|--------|---------|
-| Decisions | 40% (120s) | The question + final decision statement |
-| Action items | 30% (90s) | Who + what + when |
-| Key discussions | 20% (60s) | Top 2-3 most substantive exchanges |
-| Opening context | 10% (30s) | What the meeting is about |
+## Step 4: Mandatory verification
 
-Scale proportionally for different meeting/target lengths.
+1. `verify_playback` mode "quick":
+   - Audio at all checkpoints
+   - Duration within 10% of target (4:30-5:30 for 5-min target)
 
-### Step 4: Execute the edit
+2. `analyze_audio_energy` on the output:
+   - Speech ratio should be > 80% (tight content, no dead air)
+   - Engagement score should be > 60
 
-1. `split_clip` at every segment boundary identified in Step 2
-2. `rename_clip` each segment with its classification: "DECISION: pricing model", "CUT: small talk", "ACTION: John deploy by Friday"
-3. `delete_clips` all CUT-classified segments
-4. For remaining segments, `trim_clip` to start at the first substantive word and end at the last. Pad 0.3s on each side.
-5. Remove internal silence > 1.5 seconds within kept segments (meetings have longer natural pauses)
-6. If total exceeds target: sort by priority, remove lowest-priority segments until within budget
+3. `get_state`:
+   - Every decision/action item has a marker
+   - Clips are named with classifications
+   - Speed shows on both V+A tracks
+   - No gaps between segments
 
-### Step 5: Order and transitions
+**Never tell the user the summary is ready without verification.**
 
-- Keep chronological order (meetings have context that builds)
-- `set_clip_transition` with `crossDissolve` (0.3s) between segments from different parts of the meeting
-- No transition between consecutive segments (hard cut feels natural)
-- Add `set_marker` at each decision/action item for easy navigation in the final output
+## Available transitions (only these exist)
 
-### Step 6: Audio cleanup
+- `none` — hard cut (between consecutive segments)
+- `crossDissolve` — soft blend (between segments from different meeting sections)
+- `fadeToBlack` / `fadeFromBlack` — opening/closing
+- `wipeLeft` / `wipeRight` — visible transition
 
-- `measure_loudness` — meetings often have inconsistent levels
-- Normalize to -16 LUFS (professional consumption, headphones/speakers)
-- If one speaker is significantly louder/quieter, adjust their clips individually with `set_clip_volume`
+## What NOT to do
 
-### Step 7: Verify
-
-Run `verify_playback`:
-- Total duration within 10% of target
-- Every decision and action item marker is present
-- Audio at all checkpoints (NCC > 0.7)
-- No segment starts or ends mid-sentence
-
-## Key search patterns
-
-Use `search_transcript` with these queries to find important moments:
-
-```
-Decisions: "decided", "agree", "go with", "approved", "final"
-Actions: "will do", "action", "next step", "by Friday", "deadline"
-Risks: "concern", "risk", "blocker", "worried", "issue", "problem"
-Questions: "does anyone", "what do you think", "any questions"
-Summaries: "to summarize", "in summary", "the key point", "takeaway"
-```
-
-## Anti-patterns
-
-- Never include "can you hear me?" or technical difficulty segments
-- Never cut a decision without including enough context to understand it
+- Never include "can you hear me?" segments
+- Never cut a decision without enough context
 - Never leave action items without identifying who owns them
-- Never create a summary longer than 20% of the original meeting
-- Never remove a question that leads to an important discussion
-- Never end the summary abruptly — include a natural conclusion or the final "next steps" segment
+- Never create a summary longer than 20% of the original
+- Never skip audio energy scan — meetings have massive dead zones that waste editing time
+- Never report done without verify_playback
