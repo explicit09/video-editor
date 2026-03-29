@@ -99,15 +99,16 @@ public struct CompositionBuilder {
                 }
                 let avAsset = AVURLAsset(url: mediaURL)
 
-                let insertTime = CMTime(seconds: clip.timelineRange.start, preferredTimescale: 600)
-                let sourceStart = CMTime(seconds: clip.sourceRange.start, preferredTimescale: 600)
-                let sourceDuration = CMTime(seconds: max(clip.sourceRange.duration, 0), preferredTimescale: 600)
+                let ts: CMTimeScale = 600
+                let insertTime = CMTime(seconds: clip.timelineRange.start, preferredTimescale: ts)
+                let sourceStart = CMTime(seconds: clip.sourceRange.start, preferredTimescale: ts)
+                let sourceDuration = CMTime(seconds: max(clip.sourceRange.duration, 0), preferredTimescale: ts)
                 let sourceRange = CMTimeRange(start: sourceStart, duration: sourceDuration)
 
                 // Calculate speed-adjusted duration
                 let effectiveDuration: CMTime
                 if clip.speed != 1.0 {
-                    effectiveDuration = CMTime(seconds: sourceDuration.seconds / clip.speed, preferredTimescale: 600)
+                    effectiveDuration = CMTime(seconds: sourceDuration.seconds / clip.speed, preferredTimescale: ts)
                 } else {
                     effectiveDuration = sourceDuration
                 }
@@ -242,17 +243,19 @@ public struct CompositionBuilder {
                 CMTimeCompare($0.effectiveTimeRange.start, $1.effectiveTimeRange.start) < 0
             }
 
-            // Determine if any clip needs the custom compositor (effects, transforms, non-default opacity)
+            // Determine if any clip needs the custom compositor
             let needsCustomCompositor = sorted.contains { entry in
                 !entry.clip.effects.isEmpty ||
                 entry.clip.transform != .identity ||
                 !entry.clip.cropRect.isFullFrame ||
                 entry.clip.blendMode != .normal ||
+                entry.clip.transitionIn.type != .none ||
                 entry.clip.opacity * entry.track.opacity < 1.0
             }
 
             var instructions: [any AVVideoCompositionInstructionProtocol] = []
             var cursor: CMTime = .zero
+            var previousEntry: VideoClipEntry? = nil
 
             for entry in sorted {
                 let entryStart = entry.effectiveTimeRange.start
@@ -261,10 +264,15 @@ public struct CompositionBuilder {
                 // Clamp to avoid going past totalDuration
                 let clampedEnd = CMTimeMinimum(entryEnd, totalDuration)
 
-                // Gap before this clip → black frame
-                if CMTimeCompare(cursor, entryStart) < 0 {
+                // Check for transition on this clip
+                let hasTransition = entry.clip.transitionIn.type != .none && previousEntry != nil
+                let transitionDuration = hasTransition
+                    ? CMTime(seconds: min(entry.clip.transitionIn.duration, 1.0), preferredTimescale: 600)
+                    : .zero
+
+                // Gap before this clip → black frame (only if no transition fills it)
+                if CMTimeCompare(cursor, entryStart) < 0 && !hasTransition {
                     if needsCustomCompositor {
-                        // EffectInstruction with no source = black frame
                         let gap = EffectInstruction(
                             timeRange: CMTimeRange(start: cursor, end: entryStart),
                             sourceTrackID: kCMPersistentTrackID_Invalid,
@@ -283,7 +291,40 @@ public struct CompositionBuilder {
                 // Skip if entry start is past totalDuration
                 guard CMTimeCompare(entryStart, totalDuration) < 0 else { break }
 
-                if needsCustomCompositor {
+                // Insert TransitionInstruction if this clip has a transition and there's a previous clip
+                if hasTransition, let prevEntry = previousEntry {
+                    let transStart = entryStart
+                    let transEnd = CMTimeAdd(entryStart, transitionDuration)
+
+                    // Shorten the previous clip's instruction to end where transition starts
+                    // (already handled by cursor — previous instruction ended at entryStart)
+
+                    // Create transition instruction
+                    let transType: TransitionType = entry.clip.transitionIn.type
+                    let transInstruction = TransitionInstruction(
+                        timeRange: CMTimeRange(start: transStart, end: transEnd),
+                        fromTrackID: prevEntry.compositionTrack.trackID,
+                        toTrackID: entry.compositionTrack.trackID,
+                        transitionType: transType
+                    )
+                    instructions.append(transInstruction)
+
+                    // Main clip instruction starts after the transition
+                    let mainStart = transEnd
+                    if CMTimeCompare(mainStart, clampedEnd) < 0 {
+                        let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
+                        let instruction = EffectInstruction(
+                            timeRange: CMTimeRange(start: mainStart, end: clampedEnd),
+                            sourceTrackID: entry.compositionTrack.trackID,
+                            effects: entry.clip.effects,
+                            opacity: effectiveOpacity,
+                            transform: entry.clip.transform,
+                            cropRect: entry.clip.cropRect,
+                            blendMode: entry.clip.blendMode
+                        )
+                        instructions.append(instruction)
+                    }
+                } else if needsCustomCompositor {
                     // Use EffectInstruction — carries effects, transform, opacity to EffectCompositor
                     let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
                     let instruction = EffectInstruction(
@@ -305,6 +346,7 @@ public struct CompositionBuilder {
                     instructions.append(instruction)
                 }
 
+                previousEntry = entry
                 cursor = clampedEnd
             }
 
