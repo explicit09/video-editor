@@ -34,7 +34,7 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         try await complete(messages: messages, tools: tools, modelOverride: nil)
     }
 
-    public func complete(messages: [AIMessage], tools: [AIToolDefinition], modelOverride: String?) async throws -> AIResponse {
+    public func complete(messages: [AIMessage], tools: [AIToolDefinition], modelOverride: String?, additionalSystemPrompt: String? = nil) async throws -> AIResponse {
         let effectiveModel = modelOverride ?? model
         let url = baseURL.appendingPathComponent("/v1/messages")
         var request = URLRequest(url: url)
@@ -95,10 +95,14 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         }
 
         // System prompt as cacheable content block
+        var fullSystemPrompt = systemPrompt
+        if let skillPrompt = additionalSystemPrompt, !skillPrompt.isEmpty {
+            fullSystemPrompt += "\n\n<skill>\n\(skillPrompt)\n</skill>"
+        }
         let systemContent: [[String: Any]] = [
             [
                 "type": "text",
-                "text": systemPrompt,
+                "text": fullSystemPrompt,
                 "cache_control": ["type": "ephemeral"],
             ]
         ]

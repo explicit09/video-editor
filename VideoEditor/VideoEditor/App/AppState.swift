@@ -58,6 +58,18 @@ final class AppState {
         if let claudeKey = keys["ANTHROPIC_API_KEY"] {
             aiChat.configure(provider: ClaudeProvider(apiKey: claudeKey))
         }
+
+        // Load editing skills from .claude/skills/ in the repo
+        let repoRoot = projectBundleURL
+            .deletingLastPathComponent() // AppSupport/VideoEditor
+            .deletingLastPathComponent() // AppSupport
+        let skillsDirs = [
+            repoRoot.appendingPathComponent(".claude/skills"),
+            Bundle.main.resourceURL?.appendingPathComponent("skills"),
+        ].compactMap { $0 }
+        for dir in skillsDirs where FileManager.default.fileExists(atPath: dir.path) {
+            aiChat.loadSkills(from: dir)
+        }
         if let dgKey = keys["DEEPGRAM_API_KEY"] {
             media.setTranscriptionProvider(DeepgramProvider(apiKey: dgKey))
         }

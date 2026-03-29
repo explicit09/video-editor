@@ -15,7 +15,9 @@ final class AIChatController {
     private let contextBuilder = AIContextBuilder()
     private let toolResolver = AIToolResolver()
     private let intentRouter = IntentRouter()
+    private let skillRegistry = SkillRegistry()
     private var provider: (any AIProvider)?
+    private(set) var activeSkill: String?
 
     struct ChatMessage: Identifiable {
         let id = UUID()
@@ -34,6 +36,11 @@ final class AIChatController {
 
     func configure(provider: any AIProvider) {
         self.provider = provider
+    }
+
+    /// Load editing skills from the project's .claude/skills/ directory.
+    func loadSkills(from skillsDir: URL) {
+        skillRegistry.loadSkills(from: skillsDir)
     }
 
     func send(message: String, appState: AppState) async {
@@ -85,10 +92,27 @@ final class AIChatController {
 
             // Route: classify intent → pick model + tools
             let routing = intentRouter.route(message)
-            let selectedTools = routing.toolSubset.isEmpty
+            var selectedTools = routing.toolSubset.isEmpty
                 ? [] // No tools for questions
                 : AIToolRegistry.allTools.filter { routing.toolSubset.contains($0.name) }
             var currentModel: String? = routing.tier.rawValue
+
+            // Skill matching: check if user's message activates a skill
+            var skillPrompt: String? = nil
+            if let skill = skillRegistry.match(message) {
+                activeSkill = skill.name
+                skillPrompt = skill.content
+                // Override tools to the skill's recommended set if specified
+                if !skill.tools.isEmpty {
+                    selectedTools = AIToolRegistry.allTools.filter { skill.tools.contains($0.name) }
+                }
+                // Skills always use standard model (complex workflows)
+                if skill.model == "standard" {
+                    currentModel = IntentRouter.ModelTier.standard.rawValue
+                }
+            } else {
+                activeSkill = nil
+            }
 
             // Multi-turn loop: send → get response → if tools, execute and send results back → repeat
             var allToolResults: [ChatMessage.ToolResult] = []
@@ -97,12 +121,13 @@ final class AIChatController {
 
             for turn in 0..<maxTurns {
                 processingStatus = turn == 0
-                    ? (routing.tier == .fast ? "Executing..." : "Thinking...")
+                    ? (activeSkill != nil ? "Running \(activeSkill!)..." : (routing.tier == .fast ? "Executing..." : "Thinking..."))
                     : "AI planning next step..."
                 let response = try await provider.complete(
                     messages: conversation,
                     tools: selectedTools,
-                    modelOverride: currentModel
+                    modelOverride: currentModel,
+                    additionalSystemPrompt: turn == 0 ? skillPrompt : nil  // Only inject skill on first turn
                 )
 
                 if !response.content.isEmpty {
