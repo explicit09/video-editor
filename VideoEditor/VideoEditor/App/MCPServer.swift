@@ -167,6 +167,16 @@ final class MCPServer {
                     "description": "Auto-link video+audio clip pairs that share the same assetID and timelineRange but have no linkGroupID. Fixes clips that lost their A/V link.",
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
+                [
+                    "name": "analyze_audio_energy",
+                    "description": "Analyze speech energy, silence ratio, and engagement score for a time range. Returns per-second energy readings and a segment summary with speech%, silence%, energy variance, and an engagement score (0-100). Use this to find the most energetic/engaging segments BEFORE relying on transcript alone.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset to analyze"],
+                        "start": ["type": "number", "description": "Start time in seconds (optional, defaults to 0)"],
+                        "end": ["type": "number", "description": "End time in seconds (optional, defaults to asset duration)"],
+                        "segments": ["type": "number", "description": "Number of equal segments to score and rank (optional, e.g. 20 to divide into 20 segments)"],
+                    ], "required": ["asset_id"]],
+                ],
             ])
             return successResponse(id: id, result: ["tools": tools])
 
@@ -212,6 +222,9 @@ final class MCPServer {
         }
         if name == "clear_project" {
             return handleClearProject(appState: appState)
+        }
+        if name == "analyze_audio_energy" {
+            return await handleAnalyzeAudioEnergy(arguments, appState: appState)
         }
         if name == "get_state" {
             return handleGetState(appState: appState)
@@ -342,6 +355,59 @@ final class MCPServer {
             try? appState.perform(.removeTrack(trackID: trackID), source: .ai)
         }
         return "Project cleared. " + stateSnapshot(appState)
+    }
+
+    private func handleAnalyzeAudioEnergy(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: invalid asset_id"
+        }
+
+        let analyzer = SpeechEnergyAnalyzer()
+        let assetDuration = asset.duration
+        let start = args["start"] as? Double ?? 0
+        let end = args["end"] as? Double ?? assetDuration
+
+        // If segments requested, divide range and rank them
+        if let segCount = args["segments"] as? Int ?? (args["segments"] as? Double).map({ Int($0) }), segCount > 0 {
+            let segDuration = (end - start) / Double(segCount)
+            let segments = (0..<segCount).map { i in
+                (start: start + Double(i) * segDuration, end: start + Double(i) * segDuration + segDuration)
+            }
+            let ranked = await analyzer.rankSegments(url: asset.sourceURL, segments: segments)
+
+            var lines = ["=== AUDIO ENERGY ANALYSIS ==="]
+            lines.append("Asset: \(asset.name) (\(String(format: "%.0f", assetDuration))s)")
+            lines.append("Range: \(String(format: "%.0f", start))s - \(String(format: "%.0f", end))s (\(segCount) segments)\n")
+            lines.append("Ranked by engagement score:")
+
+            for (i, seg) in ranked.enumerated() {
+                let s = seg.summary
+                let startMin = Int(seg.start) / 60
+                let startSec = Int(seg.start) % 60
+                let endMin = Int(seg.end) / 60
+                let endSec = Int(seg.end) % 60
+                lines.append("  #\(i+1) [\(startMin):\(String(format: "%02d", startSec))-\(endMin):\(String(format: "%02d", endSec))] score=\(s.engagementScore) speech=\(Int(s.speechRatio*100))% silence=\(Int(s.silenceRatio*100))% avgRMS=\(String(format: "%.3f", s.avgRMS)) peak=\(String(format: "%.3f", s.peakRMS)) variance=\(String(format: "%.5f", s.energyVariance))")
+            }
+
+            return lines.joined(separator: "\n")
+        }
+
+        // Single range summary
+        let summary = await analyzer.analyzeRange(url: asset.sourceURL, start: start, end: end)
+        var lines = ["=== AUDIO ENERGY ANALYSIS ==="]
+        lines.append("Asset: \(asset.name)")
+        lines.append("Range: \(String(format: "%.1f", start))s - \(String(format: "%.1f", end))s (\(String(format: "%.1f", end - start))s)")
+        lines.append("")
+        lines.append("Engagement score: \(summary.engagementScore)/100")
+        lines.append("Speech ratio: \(Int(summary.speechRatio * 100))% of time has speech")
+        lines.append("Silence ratio: \(Int(summary.silenceRatio * 100))% of time is silent")
+        lines.append("Avg energy: \(String(format: "%.3f", summary.avgRMS)) RMS (\(String(format: "%.1f", summary.avgDBFS)) dBFS)")
+        lines.append("Peak energy: \(String(format: "%.3f", summary.peakRMS)) RMS")
+        lines.append("Energy variance: \(String(format: "%.5f", summary.energyVariance)) (higher = more dynamic delivery)")
+
+        return lines.joined(separator: "\n")
     }
 
     private func handleFixAVLinks(appState: AppState) -> String {
