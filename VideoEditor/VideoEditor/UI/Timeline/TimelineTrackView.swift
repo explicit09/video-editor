@@ -14,7 +14,7 @@ struct TimelineTrackView: View {
     let isSelectedTrack: Bool
     let totalWidth: Double
     let thumbnails: [UUID: CGImage]
-    let waveforms: [UUID: [Float]]
+    let waveformStates: [UUID: WaveformLoadState]
     let snapTime: (TimeInterval, Set<UUID>) -> TimeInterval
     let onTrackTap: () -> Void
     let onRenameTrack: (String) -> Void
@@ -117,7 +117,7 @@ struct TimelineTrackView: View {
                     trackHeight: trackHeight,
                     isEditable: isEditable,
                     thumbnail: thumbnails[clip.assetID],
-                    waveform: waveforms[clip.assetID],
+                    waveformState: waveformStates[clip.assetID],
                     snapTime: snapTime,
                     onTap: { extend in onClipTap(clip.id, extend) },
                     onDrag: { newStart, verticalOffset in onClipDrag(clip.id, newStart, verticalOffset) },
@@ -351,7 +351,7 @@ private struct TimelineClipView: View {
     let trackHeight: Double
     let isEditable: Bool
     let thumbnail: CGImage?
-    let waveform: [Float]?
+    let waveformState: WaveformLoadState?
     let snapTime: (TimeInterval, Set<UUID>) -> TimeInterval
     let onTap: (Bool) -> Void
     let onDrag: (TimeInterval, Double) -> Void
@@ -406,10 +406,10 @@ private struct TimelineClipView: View {
                 .disabled(!isEditable)
             Divider()
             if clip.linkGroupID != nil {
-                Button("Unlink A/V") { onClipUnlink?(clip.id) }
+                Button("Ungroup Selected Clips") { onClipUnlink?(clip.id) }
                     .disabled(!isEditable)
             } else {
-                Button("Link Selected Clips") { onClipLink?(clip.id) }
+                Button("Group Selected Clips") { onClipLink?(clip.id) }
                     .disabled(!isEditable)
             }
             Divider()
@@ -453,6 +453,25 @@ private struct TimelineClipView: View {
                 }
             }
             .padding(6)
+        }
+        .overlay(alignment: .leading) {
+            // Transition indicator
+            if clip.transitionIn.type != .none {
+                HStack(spacing: 2) {
+                    Image(systemName: transitionIcon)
+                        .font(.system(size: 7, weight: .bold))
+                    Text(transitionLabel)
+                        .font(.system(size: 7, weight: .medium))
+                }
+                .foregroundStyle(.white)
+                .padding(.horizontal, 4)
+                .padding(.vertical, 2)
+                .background(CinematicTheme.primary.opacity(0.75))
+                .clipShape(RoundedRectangle(cornerRadius: 3))
+                .padding(.leading, 4)
+                .padding(.bottom, 4)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+            }
         }
         .overlay(alignment: .leading) {
             if isEditable && (tool == .trim || (tool == .selection && (isSelected || isHovered))) {
@@ -539,16 +558,25 @@ private struct TimelineClipView: View {
                 .padding(.horizontal, 4)
                 .padding(.vertical, 5)
 
-            if let waveform, !waveform.isEmpty {
+            switch waveformState ?? .loading {
+            case .ready(let waveform) where !waveform.isEmpty:
                 WaveformView(amplitudes: waveform, color: audioWaveformColor)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 12)
-            } else {
-                Capsule()
-                    .fill(audioWaveformColor.opacity(0.26))
-                    .frame(height: 2)
-                    .padding(.horizontal, 14)
+            case .loading:
+                VStack(spacing: 8) {
+                    ProgressView()
+                        .controlSize(.small)
+                        .tint(audioWaveformColor)
+                    Text("Loading waveform")
+                        .font(.cinLabelRegular)
+                        .foregroundStyle(audioWaveformColor.opacity(0.72))
+                }
+            case .noAudio:
+                placeholderWaveform(text: "No audio")
+            case .failed, .ready:
+                placeholderWaveform(text: "Waveform unavailable")
             }
         }
         .overlay(clipLabel, alignment: .topLeading)
@@ -676,6 +704,18 @@ private struct TimelineClipView: View {
         Color(hex: 0xB8FFC5)
     }
 
+    private func placeholderWaveform(text: String) -> some View {
+        VStack(spacing: 8) {
+            Capsule()
+                .fill(audioWaveformColor.opacity(0.26))
+                .frame(height: 2)
+                .padding(.horizontal, 14)
+            Text(text)
+                .font(.cinLabelRegular)
+                .foregroundStyle(audioWaveformColor.opacity(0.64))
+        }
+    }
+
     private var clipAccentColor: Color {
         switch trackType {
         case .video: CinematicTheme.tertiary
@@ -711,6 +751,27 @@ private struct TimelineClipView: View {
             .onEnded {
                 onTap(NSEvent.modifierFlags.contains(.shift))
             }
+    }
+
+    private var transitionIcon: String {
+        switch clip.transitionIn.type {
+        case .crossDissolve: "circle.lefthalf.filled"
+        case .fadeToBlack, .fadeFromBlack: "circle.bottomhalf.filled"
+        case .wipeLeft: "arrow.left.to.line"
+        case .wipeRight: "arrow.right.to.line"
+        case .none: "xmark"
+        }
+    }
+
+    private var transitionLabel: String {
+        switch clip.transitionIn.type {
+        case .crossDissolve: "Dissolve"
+        case .fadeToBlack: "Fade→B"
+        case .fadeFromBlack: "Fade←B"
+        case .wipeLeft: "Wipe←"
+        case .wipeRight: "Wipe→"
+        case .none: ""
+        }
     }
 
     private var bladeGesture: some Gesture {
