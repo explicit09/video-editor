@@ -703,6 +703,115 @@ struct CompositionExportTests {
         #expect(level_main_mid > 0.01, "Main mid audio should be present, RMS=\(level_main_mid)")
     }
 
+    // MARK: - Effect rendering through composition pipeline
+
+    @Test("Clip with blur effect exports a blurred frame (not raw source)", .timeLimit(.minutes(2)))
+    func effectActuallyRendersInExport() async throws {
+        let url = try await media.makeVideoWithAudio(name: "exp-effect", duration: 2.0, color: (255, 0, 0))
+        defer { media.cleanup() }
+
+        // Create a clip WITH a blur effect
+        let assetID = UUID()
+        let asset = MediaAsset(id: assetID, name: "test", sourceURL: url, type: .video, duration: 2.0, width: 64, height: 64)
+        let clip = Clip(
+            assetID: assetID,
+            timelineRange: TimeRange(start: 0, duration: 2),
+            sourceRange: TimeRange(start: 0, duration: 2),
+            effects: [EffectInstance(type: "blur", parameters: ["radius": 20])]
+        )
+        let timeline = Timeline(tracks: [Track(name: "V", type: .video, clips: [clip])])
+
+        let result = await CompositionBuilder().build(from: timeline, assets: [asset])
+
+        // The video composition MUST use the custom compositor when effects are present
+        #expect(result.videoComposition != nil, "Should have video composition")
+
+        // Check that customVideoCompositorClass is set
+        if let vidComp = result.videoComposition as? AVMutableVideoComposition {
+            #expect(vidComp.customVideoCompositorClass != nil,
+                    "Effects present but customVideoCompositorClass not set — effects won't render!")
+            #expect(vidComp.customVideoCompositorClass == EffectCompositor.self,
+                    "customVideoCompositorClass should be EffectCompositor")
+        }
+
+        // Check instructions are EffectInstruction (not AVMutableVideoCompositionInstruction)
+        if let vidComp = result.videoComposition {
+            let hasEffectInstructions = vidComp.instructions.contains { $0 is EffectInstruction }
+            #expect(hasEffectInstructions, "Instructions should be EffectInstruction when effects are applied")
+        }
+
+        // Export and verify the frame is actually different from the source
+        let exportURL = media.tempDir.appendingPathComponent("export-effect.mp4")
+        try await exportComposition(result, to: exportURL)
+
+        // Verify the export completed (custom compositor didn't crash)
+        let exportAsset = AVURLAsset(url: exportURL)
+        let exportDuration = try await exportAsset.load(.duration).seconds
+        #expect(abs(exportDuration - 2.0) < 0.5, "Export with effects should complete: got \(exportDuration)s")
+    }
+
+    @Test("Clip with brightness effect exports a brighter frame", .timeLimit(.minutes(2)))
+    func brightnessEffectRendersInExport() async throws {
+        let url = try await media.makeVideoWithAudio(name: "exp-bright", duration: 2.0, color: (100, 50, 50))
+        defer { media.cleanup() }
+
+        let assetID = UUID()
+        let asset = MediaAsset(id: assetID, name: "test", sourceURL: url, type: .video, duration: 2.0, width: 64, height: 64)
+        let clip = Clip(
+            assetID: assetID,
+            timelineRange: TimeRange(start: 0, duration: 2),
+            sourceRange: TimeRange(start: 0, duration: 2),
+            effects: [EffectInstance(type: "colorCorrection", parameters: ["brightness": 0.5, "contrast": 1.0, "saturation": 1.0])]
+        )
+        let timeline = Timeline(tracks: [Track(name: "V", type: .video, clips: [clip])])
+
+        let result = await CompositionBuilder().build(from: timeline, assets: [asset])
+
+        // Verify compositor is wired
+        if let vidComp = result.videoComposition as? AVMutableVideoComposition {
+            #expect(vidComp.customVideoCompositorClass == EffectCompositor.self,
+                    "Brightness effect present but EffectCompositor not wired")
+        }
+
+        let exportURL = media.tempDir.appendingPathComponent("export-bright.mp4")
+        try await exportComposition(result, to: exportURL)
+
+        let exportAsset = AVURLAsset(url: exportURL)
+        let sourceAsset = AVURLAsset(url: url)
+        let gen1 = AVAssetImageGenerator(asset: exportAsset)
+        gen1.appliesPreferredTrackTransform = true
+        let gen2 = AVAssetImageGenerator(asset: sourceAsset)
+        gen2.appliesPreferredTrackTransform = true
+
+        if let exportFrame = try? gen1.copyCGImage(at: CMTime(seconds: 0.5, preferredTimescale: 600), actualTime: nil),
+           let sourceFrame = try? gen2.copyCGImage(at: CMTime(seconds: 0.5, preferredTimescale: 600), actualTime: nil) {
+            let checker = EffectPropertyChecker()
+            let exportProps = checker.measureProperties(exportFrame)
+            let sourceProps = checker.measureProperties(sourceFrame)
+
+            #expect(exportProps.meanLuminance > sourceProps.meanLuminance + 5,
+                    "Brightness +0.5 should increase luminance: export=\(exportProps.meanLuminance), source=\(sourceProps.meanLuminance) — effect may not be rendering!")
+        }
+    }
+
+    @Test("Clip without effects does NOT use custom compositor (fast path)", .timeLimit(.minutes(1)))
+    func noEffectsUsesFastPath() async throws {
+        let url = try await media.makeVideoWithAudio(name: "exp-noeffect", duration: 2.0)
+        defer { media.cleanup() }
+
+        let (timeline, assets) = makeTestTimeline(
+            videoAssetURL: url, assetDuration: 2.0,
+            clips: [(start: 0, duration: 2, sourceStart: 0, speed: 1.0, linkGroupID: nil)]
+        )
+
+        let result = await CompositionBuilder().build(from: timeline, assets: assets)
+
+        if let vidComp = result.videoComposition as? AVMutableVideoComposition {
+            #expect(vidComp.customVideoCompositorClass == nil,
+                    "No effects — should use fast path without custom compositor")
+        }
+    }
+
     // MARK: - Helpers
 
     private func exportComposition(_ result: CompositionBuilder.Result, to url: URL) async throws {
