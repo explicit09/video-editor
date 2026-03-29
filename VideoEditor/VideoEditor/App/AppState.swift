@@ -728,6 +728,7 @@ final class AppState {
         // After linked split: re-link second halves with a new linkGroupID
         // so each half-pair is independently movable (DaVinci-style).
         relinkAfterSplit(expandedIntent)
+        relinkAfterDuplicate(expandedIntent, previousClipIDs: previousClipIDs)
         updateSelectionAfterSplitIfNeeded(expandedIntent, previousClipIDs: previousClipIDs)
 
         // Ripple: close gaps after delete/trim if enabled
@@ -861,6 +862,17 @@ final class AppState {
             }
             return .batch(intents)
 
+        case .duplicateClip(let clipID):
+            guard let clip = allClips.first(where: { $0.id == clipID }),
+                  let linkGroup = clip.linkGroupID else { return intent }
+            let siblings = allClips.filter { $0.linkGroupID == linkGroup && $0.id != clipID }
+            guard !siblings.isEmpty else { return intent }
+            var intents: [EditorIntent] = [intent]
+            for sibling in siblings {
+                intents.append(.duplicateClip(clipID: sibling.id))
+            }
+            return .batch(intents)
+
         default:
             return intent
         }
@@ -892,6 +904,30 @@ final class AppState {
 
         let newLinkGroup = UUID()
         for clip in secondHalves {
+            for (ti, track) in context.timelineState.timeline.tracks.enumerated() {
+                if let ci = track.clips.firstIndex(where: { $0.id == clip.id }) {
+                    context.timelineState.timeline.tracks[ti].clips[ci].linkGroupID = newLinkGroup
+                }
+            }
+        }
+    }
+
+    /// After a linked duplicate batch, the new clips inherit the original's linkGroupID.
+    /// Re-assign them a new shared linkGroupID so the copies form their own independent pair.
+    private func relinkAfterDuplicate(_ intent: EditorIntent, previousClipIDs: Set<UUID>) {
+        guard case .batch(let intents) = intent,
+              intents.count > 1,
+              intents.allSatisfy({ if case .duplicateClip = $0 { return true } else { return false } })
+        else { return }
+
+        // Find the newly created clips (IDs that didn't exist before)
+        let allClips = timeline.tracks.flatMap(\.clips)
+        let newClips = allClips.filter { !previousClipIDs.contains($0.id) }
+        guard newClips.count > 1 else { return }
+
+        // Give all new copies a shared linkGroupID
+        let newLinkGroup = UUID()
+        for clip in newClips {
             for (ti, track) in context.timelineState.timeline.tracks.enumerated() {
                 if let ci = track.clips.firstIndex(where: { $0.id == clip.id }) {
                     context.timelineState.timeline.tracks[ti].clips[ci].linkGroupID = newLinkGroup
