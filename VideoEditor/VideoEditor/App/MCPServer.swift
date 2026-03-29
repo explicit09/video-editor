@@ -212,6 +212,13 @@ final class MCPServer {
                     ], "required": ["asset_id"]],
                 ],
                 [
+                    "name": "set_zoom",
+                    "description": "Set the timeline zoom level. Use 'fit' to zoom to fit all content, or specify pixels per second. Always call set_zoom with 'fit' before take_screenshot to ensure clips are visible.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "level": ["type": "string", "description": "'fit' to auto-fit timeline content, or a number for pixels per second (e.g. '100', '200')"],
+                    ], "required": ["level"]],
+                ],
+                [
                     "name": "take_screenshot",
                     "description": "Capture a screenshot of the editor window. Returns the file path to the PNG image. Use this to visually verify the editor state — check alignment, layout, clip positions, and overall appearance.",
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
@@ -261,6 +268,20 @@ final class MCPServer {
         }
         if name == "clear_project" {
             return handleClearProject(appState: appState)
+        }
+        if name == "set_zoom" {
+            let level = arguments["level"] as? String ?? "fit"
+            if level == "fit" {
+                let duration = appState.timeline.duration
+                if duration > 0 {
+                    appState.timelineViewState.zoomToFit(duration: duration)
+                }
+                return "Zoom set to fit timeline (\(String(format: "%.0f", appState.timelineViewState.zoom)) px/s)"
+            } else if let pxPerSec = Double(level) {
+                appState.timelineViewState.setZoom(pxPerSec)
+                return "Zoom set to \(String(format: "%.0f", pxPerSec)) px/s"
+            }
+            return "Error: use 'fit' or a number"
         }
         if name == "delete_asset" {
             return handleDeleteAsset(arguments, appState: appState)
