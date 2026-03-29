@@ -5,7 +5,24 @@ import CoreImage
 /// Supports standard 3D LUT files in the Adobe .cube format.
 public struct LUTLoader: Sendable {
 
+    /// Cache of loaded LUT filters keyed by file path.
+    private static nonisolated(unsafe) let cache = NSCache<NSString, CIFilter>()
+
     public init() {}
+
+    /// Load and cache a LUT filter from a .cube file. Returns cached if available.
+    public static func cachedFilter(at path: String) -> CIFilter? {
+        let key = path as NSString
+        if let cached = cache.object(forKey: key) {
+            return cached
+        }
+        guard let (size, data) = try? loadCubeFile(at: URL(fileURLWithPath: path)),
+              let filter = createFilter(size: size, data: data) else {
+            return nil
+        }
+        cache.setObject(filter, forKey: key)
+        return filter
+    }
 
     /// Load a .cube file and return the data needed for CIColorCube filter.
     /// Returns (size, data) where size is the cube dimension and data is the flattened RGBA float array.

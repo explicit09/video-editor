@@ -47,6 +47,7 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         }
 
         var image = CIImage(cvPixelBuffer: sourceBuffer)
+        image = Self.applyCropRect(instruction.cropRect, to: image)
 
         // Apply effects in order
         for effect in instruction.effects {
@@ -90,6 +91,19 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             )
         }
 
+        // Apply blend mode (composites against black background for single-clip)
+        if instruction.blendMode != .normal {
+            let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+            let background = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
+            if let blendFilter = CIFilter(name: instruction.blendMode.ciFilterName) {
+                blendFilter.setValue(background, forKey: kCIInputBackgroundImageKey)
+                blendFilter.setValue(image, forKey: kCIInputImageKey)
+                if let blended = blendFilter.outputImage {
+                    image = blended
+                }
+            }
+        }
+
         // Render to output buffer
         guard let outputBuffer = renderContext?.newPixelBuffer() else {
             request.finish(with: NSError(domain: "EffectCompositor", code: -3))
@@ -103,6 +117,33 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
 
     public func cancelAllPendingVideoCompositionRequests() {
         // No-op: synchronous processing
+    }
+
+    static func applyCropRect(_ cropRect: CropRect, to image: CIImage) -> CIImage {
+        let clampedCrop = cropRect.clamped
+        guard !clampedCrop.isFullFrame else { return image }
+
+        let extent = image.extent.integral
+        let cropBounds = CGRect(
+            x: extent.minX + (extent.width * clampedCrop.x),
+            y: extent.minY + (extent.height * clampedCrop.y),
+            width: extent.width * clampedCrop.width,
+            height: extent.height * clampedCrop.height
+        ).intersection(extent)
+
+        guard !cropBounds.isEmpty else { return image }
+
+        let cropped = image.cropped(to: cropBounds)
+        let normalized = cropped.transformed(
+            by: CGAffineTransform(translationX: -cropBounds.minX, y: -cropBounds.minY)
+        )
+        let scaled = normalized.transformed(
+            by: CGAffineTransform(
+                scaleX: extent.width / cropBounds.width,
+                y: extent.height / cropBounds.height
+            )
+        )
+        return scaled.transformed(by: CGAffineTransform(translationX: extent.minX, y: extent.minY))
     }
 
     // MARK: - Transition Handling
@@ -181,9 +222,12 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         case "colorCorrection":
             return applyColorCorrection(effect.parameters, to: image)
         case "lut":
-            // LUT path should be in parameters["path"]
-            // For now, LUT data should be pre-loaded and cached
-            return image
+            guard let lutPath = effect.stringParameters["path"],
+                  let filter = LUTLoader.cachedFilter(at: lutPath) else {
+                return image
+            }
+            filter.setValue(image, forKey: kCIInputImageKey)
+            return filter.outputImage ?? image
         case "blur":
             let radius = effect.parameters["radius"] ?? 10
             return image.applyingFilter("CIGaussianBlur", parameters: ["inputRadius": radius])
@@ -233,6 +277,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
     public let effects: [EffectInstance]
     public let opacity: Float
     public let transform: Transform2D
+    public let cropRect: CropRect
+    public let blendMode: BlendMode
     public let subtitles: [SubtitleRenderer.SubtitleEntry]
 
     public init(
@@ -241,6 +287,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         effects: [EffectInstance],
         opacity: Float = 1.0,
         transform: Transform2D = .identity,
+        cropRect: CropRect = .fullFrame,
+        blendMode: BlendMode = .normal,
         subtitles: [SubtitleRenderer.SubtitleEntry] = []
     ) {
         self.timeRange = timeRange
@@ -248,6 +296,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         self.effects = effects
         self.opacity = opacity
         self.transform = transform
+        self.cropRect = cropRect
+        self.blendMode = blendMode
         self.subtitles = subtitles
         super.init()
     }

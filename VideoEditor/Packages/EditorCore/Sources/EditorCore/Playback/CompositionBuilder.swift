@@ -246,6 +246,8 @@ public struct CompositionBuilder {
             let needsCustomCompositor = sorted.contains { entry in
                 !entry.clip.effects.isEmpty ||
                 entry.clip.transform != .identity ||
+                !entry.clip.cropRect.isFullFrame ||
+                entry.clip.blendMode != .normal ||
                 entry.clip.opacity * entry.track.opacity < 1.0
             }
 
@@ -289,7 +291,9 @@ public struct CompositionBuilder {
                         sourceTrackID: entry.compositionTrack.trackID,
                         effects: entry.clip.effects,
                         opacity: effectiveOpacity,
-                        transform: entry.clip.transform
+                        transform: entry.clip.transform,
+                        cropRect: entry.clip.cropRect,
+                        blendMode: entry.clip.blendMode
                     )
                     instructions.append(instruction)
                 } else {

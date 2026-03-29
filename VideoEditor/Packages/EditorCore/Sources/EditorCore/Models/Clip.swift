@@ -8,6 +8,7 @@ public struct Clip: Codable, Identifiable, Sendable {
     public var timelineRange: TimeRange
     public var sourceRange: TimeRange
     public var transform: Transform2D
+    public var cropRect: CropRect
     public var opacity: Double
     public var volume: Double
     public var effects: [EffectInstance]
@@ -28,6 +29,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         timelineRange: TimeRange,
         sourceRange: TimeRange,
         transform: Transform2D = .identity,
+        cropRect: CropRect = .fullFrame,
         opacity: Double = 1.0,
         volume: Double = 1.0,
         effects: [EffectInstance] = [],
@@ -43,6 +45,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.timelineRange = timelineRange
         self.sourceRange = sourceRange
         self.transform = transform
+        self.cropRect = cropRect.clamped
         self.opacity = min(max(opacity, 0), 1)
         self.volume = max(volume, 0)
         self.effects = effects
@@ -82,6 +85,46 @@ public struct TimeRange: Codable, Sendable, Equatable {
 
     public func overlaps(_ other: TimeRange) -> Bool {
         start < other.end && end > other.start
+    }
+}
+
+// MARK: - CropRect
+
+public struct CropRect: Codable, Sendable, Equatable {
+    public var x: Double
+    public var y: Double
+    public var width: Double
+    public var height: Double
+
+    public init(
+        x: Double = 0,
+        y: Double = 0,
+        width: Double = 1,
+        height: Double = 1
+    ) {
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+    }
+
+    public static let fullFrame = CropRect()
+
+    public var isFullFrame: Bool {
+        clamped == .fullFrame
+    }
+
+    public var clamped: CropRect {
+        let clampedX = min(max(x, 0), 1)
+        let clampedY = min(max(y, 0), 1)
+        let clampedWidth = min(max(width, 0.05), 1 - clampedX)
+        let clampedHeight = min(max(height, 0.05), 1 - clampedY)
+        return CropRect(
+            x: clampedX,
+            y: clampedY,
+            width: clampedWidth,
+            height: clampedHeight
+        )
     }
 }
 
@@ -195,12 +238,14 @@ public struct EffectInstance: Codable, Sendable, Identifiable {
     public let id: UUID
     public var type: String
     public var parameters: [String: Double]
+    public var stringParameters: [String: String]
     public var isEnabled: Bool
 
-    public init(id: UUID = UUID(), type: String, parameters: [String: Double] = [:], isEnabled: Bool = true) {
+    public init(id: UUID = UUID(), type: String, parameters: [String: Double] = [:], stringParameters: [String: String] = [:], isEnabled: Bool = true) {
         self.id = id
         self.type = type
         self.parameters = parameters
+        self.stringParameters = stringParameters
         self.isEnabled = isEnabled
     }
 }
