@@ -18,6 +18,7 @@ public enum EditorIntent: Sendable {
     case setClipVolume(clipID: UUID, volume: Double)
     case setClipOpacity(clipID: UUID, opacity: Double)
     case setClipTransform(clipID: UUID, transform: Transform2D)
+    case setClipCrop(clipID: UUID, cropRect: CropRect)
     case muteTrack(trackID: UUID, muted: Bool)
     case lockTrack(trackID: UUID, locked: Bool)
     case setTrackVolume(trackID: UUID, volume: Double)
@@ -70,6 +71,8 @@ public struct IntentResolver: Sendable {
             return SetClipOpacityCommand(clipID: clipID, opacity: opacity)
         case .setClipTransform(let clipID, let transform):
             return SetClipTransformCommand(clipID: clipID, transform: transform)
+        case .setClipCrop(let clipID, let cropRect):
+            return SetClipCropCommand(clipID: clipID, cropRect: cropRect)
         case .muteTrack(let trackID, let muted):
             return MuteTrackCommand(trackID: trackID, muted: muted)
         case .lockTrack(let trackID, let locked):
@@ -115,7 +118,10 @@ public struct DeleteMarkerCommand: Command {
     }
 
     public mutating func execute(context: EditingContext) throws {
-        removedMarker = context.timelineState.timeline.markers.first { $0.id == markerID }
+        guard let marker = context.timelineState.timeline.markers.first(where: { $0.id == markerID }) else {
+            throw CommandError.clipNotFound(markerID) // reuse existing error type
+        }
+        removedMarker = marker
         context.timelineState.timeline.markers.removeAll { $0.id == markerID }
     }
 

@@ -111,20 +111,35 @@ final class AppState {
 
         // Find the earliest clip start to compute relative offsets
         let earliestStart = clipboardClips.map(\.clip.timelineRange.start).min() ?? 0
+        var linkGroupMap: [UUID: UUID] = [:]
 
         for (original, trackType) in clipboardClips {
             let trackID = resolveTrackID(for: trackType, preferredTrackID: nil)
             let offset = original.timelineRange.start - earliestStart
             let pasteStart = playhead + offset
+            let pastedLinkGroupID = original.linkGroupID.map { originalID in
+                linkGroupMap[originalID] ?? {
+                    let newID = UUID()
+                    linkGroupMap[originalID] = newID
+                    return newID
+                }()
+            }
 
             let newClip = Clip(
                 assetID: original.assetID,
                 timelineRange: TimeRange(start: pasteStart, duration: original.timelineRange.duration),
                 sourceRange: original.sourceRange,
                 transform: original.transform,
+                cropRect: original.cropRect,
                 opacity: original.opacity,
                 volume: original.volume,
-                metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (paste)")
+                effects: original.effects,
+                keyframes: original.keyframes,
+                metadata: ClipMetadata(label: (original.metadata.label ?? "Clip") + " (paste)"),
+                speed: original.speed,
+                transitionIn: original.transitionIn,
+                linkGroupID: pastedLinkGroupID,
+                blendMode: original.blendMode
             )
             try? perform(.insertClip(clip: newClip, trackID: trackID))
         }
@@ -178,6 +193,7 @@ final class AppState {
                 ),
                 sourceRange: entry.clip.sourceRange,
                 transform: entry.clip.transform,
+                cropRect: entry.clip.cropRect,
                 opacity: entry.clip.opacity,
                 volume: entry.clip.volume,
                 effects: entry.clip.effects,
@@ -190,7 +206,8 @@ final class AppState {
                 ),
                 speed: entry.clip.speed,
                 transitionIn: entry.clip.transitionIn,
-                linkGroupID: duplicateLinkGroupID
+                linkGroupID: duplicateLinkGroupID,
+                blendMode: entry.clip.blendMode
             )
             duplicatedClips.append(duplicate.id)
             return .insertClip(clip: duplicate, trackID: entry.trackID)
@@ -674,12 +691,14 @@ final class AppState {
 
     func perform(_ intent: EditorIntent, source: ActionSource = .user) throws {
         let expandedIntent = expandLinkedIntent(intent)
+        let previousClipIDs = Set(timeline.tracks.flatMap(\.clips).map(\.id))
         var command = try intentResolver.resolve(expandedIntent)
         try commandHistory.execute(&command, context: context, source: source)
 
         // After linked split: re-link second halves with a new linkGroupID
         // so each half-pair is independently movable (DaVinci-style).
         relinkAfterSplit(expandedIntent)
+        updateSelectionAfterSplitIfNeeded(expandedIntent, previousClipIDs: previousClipIDs)
 
         // Ripple: close gaps after delete/trim if enabled
         if timelineViewState.rippleEnabled {
@@ -760,7 +779,12 @@ final class AppState {
             guard !siblings.isEmpty else { return intent }
             var intents: [EditorIntent] = [intent]
             for sibling in siblings {
-                intents.append(.trimClip(clipID: sibling.id, newSourceRange: newSourceRange))
+                let siblingRange = ClipTrimResolver.linkedSiblingSourceRange(
+                    primaryOriginalSourceRange: clip.sourceRange,
+                    primaryProposedSourceRange: newSourceRange,
+                    siblingSourceRange: sibling.sourceRange
+                )
+                intents.append(.trimClip(clipID: sibling.id, newSourceRange: siblingRange))
             }
             return .batch(intents)
 
@@ -782,6 +806,28 @@ final class AppState {
             var intents: [EditorIntent] = [intent]
             for sibling in siblings {
                 intents.append(.splitClip(clipID: sibling.id, at: at))
+            }
+            return .batch(intents)
+
+        case .setClipSpeed(let clipID, let speed):
+            guard let clip = allClips.first(where: { $0.id == clipID }),
+                  let linkGroup = clip.linkGroupID else { return intent }
+            let siblings = allClips.filter { $0.linkGroupID == linkGroup && $0.id != clipID }
+            guard !siblings.isEmpty else { return intent }
+            var intents: [EditorIntent] = [intent]
+            for sibling in siblings {
+                intents.append(.setClipSpeed(clipID: sibling.id, speed: speed))
+            }
+            return .batch(intents)
+
+        case .setClipVolume(let clipID, let volume):
+            guard let clip = allClips.first(where: { $0.id == clipID }),
+                  let linkGroup = clip.linkGroupID else { return intent }
+            let siblings = allClips.filter { $0.linkGroupID == linkGroup && $0.id != clipID }
+            guard !siblings.isEmpty else { return intent }
+            var intents: [EditorIntent] = [intent]
+            for sibling in siblings {
+                intents.append(.setClipVolume(clipID: sibling.id, volume: volume))
             }
             return .batch(intents)
 
@@ -822,6 +868,41 @@ final class AppState {
                 }
             }
         }
+    }
+
+    private func updateSelectionAfterSplitIfNeeded(_ intent: EditorIntent, previousClipIDs: Set<UUID>) {
+        let isSplitIntent: Bool
+        switch intent {
+        case .splitClip:
+            isSplitIntent = true
+        case .batch(let intents):
+            isSplitIntent = !intents.isEmpty && intents.allSatisfy {
+                if case .splitClip = $0 { return true }
+                return false
+            }
+        default:
+            isSplitIntent = false
+        }
+
+        guard isSplitIntent else { return }
+
+        let newClips = timeline.tracks
+            .flatMap { track in track.clips.map { (trackID: track.id, clip: $0) } }
+            .filter { !previousClipIDs.contains($0.clip.id) }
+
+        guard !newClips.isEmpty else { return }
+
+        timelineViewState.selectedClipIDs = Set(newClips.map(\.clip.id))
+        let selectedTrackIDs = Set(newClips.map(\.trackID))
+        timelineViewState.selectedTrackID = selectedTrackIDs.count == 1 ? selectedTrackIDs.first : nil
+        timelineViewState.lastSelectedClipID = newClips
+            .sorted {
+                if $0.clip.timelineRange.start != $1.clip.timelineRange.start {
+                    return $0.clip.timelineRange.start < $1.clip.timelineRange.start
+                }
+                return $0.clip.timelineRange.end < $1.clip.timelineRange.end
+            }
+            .first?.clip.id
     }
 
     func undo() throws {
@@ -1041,32 +1122,18 @@ final class AppState {
     }
 
     private func normalizeSelection() {
-        let validTrackIDs = Set(timeline.tracks.map(\.id))
-        var clipToTrack: [UUID: UUID] = [:]
-        for track in timeline.tracks {
-            for clip in track.clips {
-                clipToTrack[clip.id] = track.id
-            }
-        }
+        let normalized = TimelineSelectionNormalizer.normalize(
+            selection: TimelineSelectionSnapshot(
+                selectedClipIDs: timelineViewState.selectedClipIDs,
+                selectedTrackID: timelineViewState.selectedTrackID,
+                lastSelectedClipID: timelineViewState.lastSelectedClipID
+            ),
+            in: timeline
+        )
 
-        let validClipIDs = Set(timelineViewState.selectedClipIDs.filter { clipToTrack[$0] != nil })
-        if validClipIDs != timelineViewState.selectedClipIDs {
-            timelineViewState.selectedClipIDs = validClipIDs
-        }
-
-        guard !validClipIDs.isEmpty else {
-            if let selectedTrackID = timelineViewState.selectedTrackID, !validTrackIDs.contains(selectedTrackID) {
-                timelineViewState.selectedTrackID = nil
-            }
-            return
-        }
-
-        let selectedTrackIDs = Set(validClipIDs.compactMap { clipToTrack[$0] })
-        if selectedTrackIDs.count == 1 {
-            timelineViewState.selectedTrackID = selectedTrackIDs.first
-        } else if let selectedTrackID = timelineViewState.selectedTrackID, !selectedTrackIDs.contains(selectedTrackID) {
-            timelineViewState.selectedTrackID = nil
-        }
+        timelineViewState.selectedClipIDs = normalized.selectedClipIDs
+        timelineViewState.selectedTrackID = normalized.selectedTrackID
+        timelineViewState.lastSelectedClipID = normalized.lastSelectedClipID
     }
 
     // MARK: - API key loading

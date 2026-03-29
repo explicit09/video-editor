@@ -379,20 +379,45 @@ final class MCPServer {
 
     private func handleGetState(appState: AppState) -> String {
         let tracks = appState.timeline.tracks.map { track -> String in
+            let trackFlags = [
+                track.isMuted ? "MUTED" : nil,
+                track.isLocked ? "LOCKED" : nil,
+                track.isSoloed ? "SOLO" : nil,
+                track.volume != 1.0 ? "vol=\(String(format: "%.1f", track.volume))" : nil,
+            ].compactMap { $0 }
+            let flagStr = trackFlags.isEmpty ? "" : " [\(trackFlags.joined(separator: ", "))]"
+
             let clips = track.clips.map { clip -> String in
                 let linkStr = clip.linkGroupID.map { "link=\($0.uuidString.prefix(8))" } ?? "unlinked"
-                let speedStr = clip.speed != 1.0 ? " @\(String(format: "%.2f", clip.speed))x" : ""
+                var props: [String] = [linkStr]
+                if clip.speed != 1.0 { props.append("@\(String(format: "%.2f", clip.speed))x") }
+                if clip.opacity < 1.0 { props.append("opacity=\(String(format: "%.0f", clip.opacity * 100))%") }
+                if clip.volume != 1.0 { props.append("vol=\(String(format: "%.0f", clip.volume * 100))%") }
+                if !clip.effects.isEmpty { props.append("fx=\(clip.effects.map(\.type).joined(separator: "+"))") }
+                if clip.transform != .identity { props.append("transform") }
+                if !clip.cropRect.isFullFrame { props.append("cropped") }
+                if clip.blendMode != .normal { props.append("blend=\(clip.blendMode.rawValue)") }
+                if clip.transitionIn.type != .none { props.append("trans=\(clip.transitionIn.type.rawValue)") }
                 let clipIDStr = clip.id.uuidString
-                return "\(clip.metadata.label ?? "Clip") [id=\(clipIDStr), \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s] (\(linkStr)\(speedStr))"
+                return "\(clip.metadata.label ?? "Clip") [id=\(clipIDStr), \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s] (\(props.joined(separator: ", ")))"
             }
             let clipStr = clips.isEmpty ? "empty" : clips.joined(separator: ", ")
-            return "  \(track.name) (\(track.type.rawValue), id=\(track.id.uuidString)): \(clipStr)"
+            return "  \(track.name) (\(track.type.rawValue), id=\(track.id.uuidString))\(flagStr): \(clipStr)"
         }
         let assetList = appState.assets.map { "\($0.name) (ID: \($0.id.uuidString), \(String(format: "%.1f", $0.duration))s)" }
 
         var result = "=== Editor State ===\n"
         result += "Tracks (\(appState.timeline.tracks.count)):\n"
         result += tracks.isEmpty ? "  (none)\n" : tracks.joined(separator: "\n") + "\n"
+
+        // Markers
+        if !appState.timeline.markers.isEmpty {
+            result += "\nMarkers (\(appState.timeline.markers.count)):\n"
+            for marker in appState.timeline.markers {
+                result += "  \(String(format: "%.1f", marker.time))s: \(marker.label.isEmpty ? "(unlabeled)" : marker.label) [id=\(marker.id.uuidString)]\n"
+            }
+        }
+
         result += "\nAssets (\(appState.assets.count)):\n"
         result += assetList.isEmpty ? "  (none)\n" : assetList.map { "  \($0)" }.joined(separator: "\n") + "\n"
         result += "\nPlayhead: \(String(format: "%.1f", appState.timelineViewState.playheadPosition))s"
