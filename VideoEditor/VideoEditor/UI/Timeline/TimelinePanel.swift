@@ -1,12 +1,12 @@
 import Foundation
 import SwiftUI
+import AppKit
 import EditorCore
 
 struct TimelinePanel: View {
     let tool: EditorTool
     @Environment(AppState.self) private var appState
     @State private var thumbnails: [UUID: CGImage] = [:]
-    @State private var waveforms: [UUID: [Float]] = [:]
     @State private var trackHeights: [UUID: Double] = [:]
     @State private var collapsedTrackIDs: Set<UUID> = []
     @State private var pinchBaseZoom: Double?
@@ -53,6 +53,7 @@ struct TimelinePanel: View {
                         VStack(spacing: 0) {
                             TimelineRuler(viewState: viewState, totalWidth: totalWidth)
                                 .frame(height: 28)
+                                .padding(.leading, 182) // Align with clip area (after track label)
 
                             if timeline.tracks.isEmpty {
                                 emptyTimeline(width: totalWidth, height: geo.size.height - 30)
@@ -64,10 +65,12 @@ struct TimelinePanel: View {
 
                         MarkersOverlay(markers: timeline.markers, viewState: viewState)
                             .frame(width: totalWidth, height: geo.size.height)
+                            .padding(.leading, 182)
 
                         PlayheadView(viewState: viewState) {
                             appState.seekFromPlayhead()
                         }
+                        .padding(.leading, 182)
                         .frame(width: totalWidth, height: geo.size.height)
                     }
                 }
@@ -89,30 +92,49 @@ struct TimelinePanel: View {
         }
         .background(CinematicTheme.surfaceContainer)
         .task(id: mediaLoadKey) {
-            await loadWaveformsForAllClips()
+            await loadVisibleMedia()
+        }
+        .onChange(of: appState.timeline.tracks.map(\.id)) { _, trackIDs in
+            let pruned = TimelineTrackDisplayStatePruner.prune(
+                TimelineTrackDisplayState(trackHeights: trackHeights, collapsedTrackIDs: collapsedTrackIDs),
+                validTrackIDs: Set(trackIDs)
+            )
+            trackHeights = pruned.trackHeights
+            collapsedTrackIDs = pruned.collapsedTrackIDs
         }
         .focusable()
         .onKeyPress(.space) {
+            guard EditorShortcutGuard.shouldHandleGlobalShortcut(isTextInputFocused: textInputIsFocused) else {
+                return .ignored
+            }
             appState.playbackEngine.togglePlayPause()
             return .handled
         }
         .onKeyPress(.delete) {
+            guard EditorShortcutGuard.shouldHandleGlobalShortcut(isTextInputFocused: textInputIsFocused) else {
+                return .ignored
+            }
             deleteSelectedClips()
             return .handled
         }
         .onKeyPress(KeyEquivalent("\u{7F}")) {
+            guard EditorShortcutGuard.shouldHandleGlobalShortcut(isTextInputFocused: textInputIsFocused) else {
+                return .ignored
+            }
             guard !appState.timelineViewState.selectedClipIDs.isEmpty else { return .ignored }
             deleteSelectedClips()
             return .handled
         }
     }
 
-    private func loadWaveformsForAllClips() async {
+    private var textInputIsFocused: Bool {
+        NSApp.keyWindow?.firstResponder is NSTextView
+    }
+
+    private func loadVisibleMedia() async {
         for track in appState.timeline.tracks {
             for clip in track.clips {
                 let assetID = clip.assetID
-                // Skip if already loaded
-                guard waveforms[assetID] == nil else { continue }
                 guard let asset = appState.assets.first(where: { $0.id == assetID }) else { continue }
 
                 // Load thumbnail
@@ -120,16 +142,7 @@ struct TimelinePanel: View {
                     let thumb = await appState.media.thumbnail(for: assetID)
                     if let thumb { thumbnails[assetID] = thumb }
                 }
-
-                // Load waveform — from analysis or extract
-                if let profile = asset.analysis?.loudnessProfile, !profile.isEmpty {
-                    waveforms[assetID] = profile
-                } else {
-                    let extractor = WaveformExtractor()
-                    if let profile = await extractor.extract(from: asset.sourceURL) {
-                        waveforms[assetID] = profile
-                    }
-                }
+                await appState.media.refreshWaveformState(for: asset.id)
             }
         }
     }
@@ -180,7 +193,7 @@ struct TimelinePanel: View {
             } label: {
                 CinematicStatusPill(
                     text: viewState.snapEnabled ? "SNAP ON" : "SNAP OFF",
-                    icon: "magnet",
+                    icon: "scope",
                     tone: viewState.snapEnabled ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant
                 )
             }
@@ -274,7 +287,7 @@ struct TimelinePanel: View {
                     isSelectedTrack: viewState.selectedTrackID == track.id,
                     totalWidth: width,
                     thumbnails: thumbnails,
-                    waveforms: waveforms,
+                    waveformStates: appState.media.waveformStates,
                     snapTime: { proposedTime, excludedClipIDs in
                         snappedTime(for: proposedTime, excluding: excludedClipIDs)
                     },
@@ -381,32 +394,21 @@ struct TimelinePanel: View {
         trackType: TrackType,
         in timeline: Timeline
     ) -> UUID {
-        guard !timeline.tracks.isEmpty else { return UUID() }
-        let baseCenter = trackCenterY(at: currentIndex, in: timeline)
-        let proposedCenter = baseCenter + verticalOffset
-
-        var cursor: Double = 0
-        let fallback = timeline.tracks[currentIndex]
-        let fallbackTrackID = (fallback.type == trackType && !fallback.isLocked) ? fallback.id : nil
-
-        for track in timeline.tracks {
-            let height = trackHeight(for: track.id)
-            let upperBound = cursor + height
-            if proposedCenter <= upperBound {
-                if track.type == trackType, !track.isLocked {
-                    return track.id
-                }
-                if let fallbackTrackID {
-                    return fallbackTrackID
-                }
-            }
-            cursor = upperBound + CinematicSpacing.clipGap
+        let layout = timeline.tracks.map { track in
+            TimelineTrackLayoutEntry(
+                id: track.id,
+                type: track.type,
+                isLocked: track.isLocked,
+                height: trackHeight(for: track.id)
+            )
         }
-
-        if let sameTypeUnlocked = timeline.tracks.last(where: { $0.type == trackType && !$0.isLocked }) {
-            return sameTypeUnlocked.id
-        }
-        return fallback.id
+        return TimelineDropResolver.targetTrackID(
+            currentIndex: currentIndex,
+            verticalOffset: verticalOffset,
+            movingTrackType: trackType,
+            tracks: layout,
+            clipGap: CinematicSpacing.clipGap
+        )
     }
 
     private func trackHeight(for trackID: UUID) -> Double {
@@ -426,18 +428,6 @@ struct TimelinePanel: View {
             next = defaultTrackHeight
         }
         trackHeights[trackID] = next
-    }
-
-    private func trackCenterY(at index: Int, in timeline: Timeline) -> Double {
-        var cursor: Double = 0
-        for priorIndex in timeline.tracks.indices {
-            let height = trackHeight(for: timeline.tracks[priorIndex].id)
-            if priorIndex == index {
-                return cursor + (height / 2)
-            }
-            cursor += height + CinematicSpacing.clipGap
-        }
-        return cursor
     }
 
     private func selectedTimelineRange(in timeline: Timeline) -> TimeRange? {
