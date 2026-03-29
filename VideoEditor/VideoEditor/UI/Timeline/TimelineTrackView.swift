@@ -454,23 +454,26 @@ private struct TimelineClipView: View {
             }
             .padding(6)
         }
-        .overlay(alignment: .leading) {
-            // Transition indicator
+        .overlay(alignment: .topLeading) {
+            // Transition indicator — colored wedge at left edge
             if clip.transitionIn.type != .none {
-                HStack(spacing: 2) {
+                ZStack(alignment: .topLeading) {
+                    // Diagonal wedge
+                    Path { path in
+                        path.move(to: .zero)
+                        path.addLine(to: CGPoint(x: 24, y: 0))
+                        path.addLine(to: CGPoint(x: 0, y: 24))
+                        path.closeSubpath()
+                    }
+                    .fill(CinematicTheme.primary.opacity(0.8))
+
+                    // Small icon
                     Image(systemName: transitionIcon)
-                        .font(.system(size: 7, weight: .bold))
-                    Text(transitionLabel)
-                        .font(.system(size: 7, weight: .medium))
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundStyle(.white)
+                        .offset(x: 3, y: 3)
                 }
-                .foregroundStyle(.white)
-                .padding(.horizontal, 4)
-                .padding(.vertical, 2)
-                .background(CinematicTheme.primary.opacity(0.75))
-                .clipShape(RoundedRectangle(cornerRadius: 3))
-                .padding(.leading, 4)
-                .padding(.bottom, 4)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+                .frame(width: 24, height: 24)
             }
         }
         .overlay(alignment: .leading) {
