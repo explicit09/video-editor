@@ -59,16 +59,34 @@ final class AppState {
             aiChat.configure(provider: ClaudeProvider(apiKey: claudeKey))
         }
 
-        // Load editing skills from .claude/skills/ in the repo
-        let repoRoot = projectBundleURL
-            .deletingLastPathComponent() // AppSupport/VideoEditor
-            .deletingLastPathComponent() // AppSupport
-        let skillsDirs = [
-            repoRoot.appendingPathComponent(".claude/skills"),
+        // Load editing skills from .claude/skills/
+        // Search: repo root (dev), bundle resources (release), working directory
+        let skillSearchPaths: [URL] = [
+            // Walk up from the built binary to find the repo root
+            Bundle.main.bundleURL
+                .deletingLastPathComponent() // Products/Debug
+                .deletingLastPathComponent() // Products
+                .deletingLastPathComponent() // Build
+                .deletingLastPathComponent() // DerivedData/VideoEditor-xxx
+                .deletingLastPathComponent() // DerivedData
+                .deletingLastPathComponent() // Developer/Xcode
+                .deletingLastPathComponent() // Developer
+                .deletingLastPathComponent() // Library
+                .appendingPathComponent("Projects/video-editor/.claude/skills"),
+            // Direct repo path (development)
+            URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Projects/video-editor/.claude/skills"),
+            // Current working directory
+            URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent(".claude/skills"),
+            // Bundle resources (for distribution)
             Bundle.main.resourceURL?.appendingPathComponent("skills"),
         ].compactMap { $0 }
-        for dir in skillsDirs where FileManager.default.fileExists(atPath: dir.path) {
-            aiChat.loadSkills(from: dir)
+
+        for dir in skillSearchPaths {
+            if FileManager.default.fileExists(atPath: dir.path) {
+                aiChat.loadSkills(from: dir)
+                print("[AppState] Loaded skills from: \(dir.path)")
+                break
+            }
         }
         if let dgKey = keys["DEEPGRAM_API_KEY"] {
             media.setTranscriptionProvider(DeepgramProvider(apiKey: dgKey))
