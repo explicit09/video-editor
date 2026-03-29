@@ -242,7 +242,14 @@ public struct CompositionBuilder {
                 CMTimeCompare($0.effectiveTimeRange.start, $1.effectiveTimeRange.start) < 0
             }
 
-            var instructions: [AVMutableVideoCompositionInstruction] = []
+            // Determine if any clip needs the custom compositor (effects, transforms, non-default opacity)
+            let needsCustomCompositor = sorted.contains { entry in
+                !entry.clip.effects.isEmpty ||
+                entry.clip.transform != .identity ||
+                entry.clip.opacity * entry.track.opacity < 1.0
+            }
+
+            var instructions: [any AVVideoCompositionInstructionProtocol] = []
             var cursor: CMTime = .zero
 
             for entry in sorted {
@@ -254,52 +261,76 @@ public struct CompositionBuilder {
 
                 // Gap before this clip → black frame
                 if CMTimeCompare(cursor, entryStart) < 0 {
-                    let gapInstruction = AVMutableVideoCompositionInstruction()
-                    gapInstruction.timeRange = CMTimeRange(start: cursor, end: entryStart)
-                    gapInstruction.layerInstructions = []
-                    gapInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
-                    instructions.append(gapInstruction)
+                    if needsCustomCompositor {
+                        // EffectInstruction with no source = black frame
+                        let gap = EffectInstruction(
+                            timeRange: CMTimeRange(start: cursor, end: entryStart),
+                            sourceTrackID: kCMPersistentTrackID_Invalid,
+                            effects: []
+                        )
+                        instructions.append(gap)
+                    } else {
+                        let gapInstruction = AVMutableVideoCompositionInstruction()
+                        gapInstruction.timeRange = CMTimeRange(start: cursor, end: entryStart)
+                        gapInstruction.layerInstructions = []
+                        gapInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
+                        instructions.append(gapInstruction)
+                    }
                 }
 
                 // Skip if entry start is past totalDuration
                 guard CMTimeCompare(entryStart, totalDuration) < 0 else { break }
 
-                // Instruction for this clip
-                let instruction = AVMutableVideoCompositionInstruction()
-                instruction.timeRange = CMTimeRange(start: entryStart, end: clampedEnd)
-
-                let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: entry.compositionTrack)
-
-                let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
-                if effectiveOpacity < 1.0 {
-                    layerInstruction.setOpacity(effectiveOpacity, at: entryStart)
+                if needsCustomCompositor {
+                    // Use EffectInstruction — carries effects, transform, opacity to EffectCompositor
+                    let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
+                    let instruction = EffectInstruction(
+                        timeRange: CMTimeRange(start: entryStart, end: clampedEnd),
+                        sourceTrackID: entry.compositionTrack.trackID,
+                        effects: entry.clip.effects,
+                        opacity: effectiveOpacity,
+                        transform: entry.clip.transform
+                    )
+                    instructions.append(instruction)
+                } else {
+                    // Standard instruction — no effects, fastest path
+                    let instruction = AVMutableVideoCompositionInstruction()
+                    instruction.timeRange = CMTimeRange(start: entryStart, end: clampedEnd)
+                    let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: entry.compositionTrack)
+                    instruction.layerInstructions = [layerInstruction]
+                    instructions.append(instruction)
                 }
-
-                instruction.layerInstructions = [layerInstruction]
-                instructions.append(instruction)
 
                 cursor = clampedEnd
             }
 
             // Trailing gap to fill remainder of composition
             if CMTimeCompare(cursor, totalDuration) < 0 {
-                let trailInstruction = AVMutableVideoCompositionInstruction()
-                trailInstruction.timeRange = CMTimeRange(start: cursor, end: totalDuration)
-                trailInstruction.layerInstructions = []
-                trailInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
-                instructions.append(trailInstruction)
+                if needsCustomCompositor {
+                    let trail = EffectInstruction(
+                        timeRange: CMTimeRange(start: cursor, end: totalDuration),
+                        sourceTrackID: kCMPersistentTrackID_Invalid,
+                        effects: []
+                    )
+                    instructions.append(trail)
+                } else {
+                    let trailInstruction = AVMutableVideoCompositionInstruction()
+                    trailInstruction.timeRange = CMTimeRange(start: cursor, end: totalDuration)
+                    trailInstruction.layerInstructions = []
+                    trailInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
+                    instructions.append(trailInstruction)
+                }
             }
 
             // Debug: validate instructions
             var prevEnd: CMTime = .zero
             for (i, instr) in instructions.enumerated() {
-                let instrRange = (instr as! AVMutableVideoCompositionInstruction).timeRange
+                let instrRange = instr.timeRange
                 if CMTimeCompare(instrRange.start, prevEnd) != 0 {
                     print("[CompositionBuilder] WARNING: gap/overlap at instruction \(i): prev end=\(prevEnd.seconds)s, this start=\(instrRange.start.seconds)s")
                 }
                 prevEnd = instrRange.end
-                let layers = (instr as! AVMutableVideoCompositionInstruction).layerInstructions.count
-                print("[CompositionBuilder] Instruction \(i): \(String(format: "%.1f", instrRange.start.seconds))s-\(String(format: "%.1f", instrRange.end.seconds))s, layers=\(layers)")
+                print("[CompositionBuilder] Instruction \(i): \(String(format: "%.1f", instrRange.start.seconds))s-\(String(format: "%.1f", instrRange.end.seconds))s")
             }
             if CMTimeCompare(prevEnd, totalDuration) != 0 {
                 print("[CompositionBuilder] WARNING: instructions end at \(prevEnd.seconds)s but composition is \(totalDuration.seconds)s")
@@ -309,6 +340,9 @@ public struct CompositionBuilder {
             vidComp.instructions = instructions
             vidComp.frameDuration = CMTime(value: 1, timescale: 30)
             vidComp.renderSize = renderSize == .zero ? CGSize(width: 1920, height: 1080) : renderSize
+            if needsCustomCompositor {
+                vidComp.customVideoCompositorClass = EffectCompositor.self
+            }
             videoComposition = vidComp
         }
 
