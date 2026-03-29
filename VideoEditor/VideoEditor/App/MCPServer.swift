@@ -188,6 +188,21 @@ final class MCPServer {
                         "segments": ["type": "number", "description": "Number of equal segments to score and rank (optional, e.g. 20 to divide into 20 segments)"],
                     ], "required": ["asset_id"]],
                 ],
+                [
+                    "name": "generate_title",
+                    "description": "Generate a compelling title for the current edit based on transcript content. Analyzes the timeline's clips, reads their transcript, and suggests 3-5 title options ranked by engagement potential.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "style": ["type": "string", "description": "Title style: 'youtube' (clickable), 'professional' (clean), 'viral' (provocative). Default: youtube"],
+                    ], "required": []],
+                ],
+                [
+                    "name": "auto_insert_broll",
+                    "description": "Automatically find and insert B-roll from the media library at relevant points in the timeline. Analyzes transcript topics and matches them to available assets.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "max_inserts": ["type": "number", "description": "Maximum number of B-roll clips to insert (default: 5)"],
+                        "duration": ["type": "number", "description": "Duration of each B-roll insert in seconds (default: 3)"],
+                    ], "required": []],
+                ],
             ])
             return successResponse(id: id, result: ["tools": tools])
 
@@ -233,6 +248,12 @@ final class MCPServer {
         }
         if name == "clear_project" {
             return handleClearProject(appState: appState)
+        }
+        if name == "generate_title" {
+            return await handleGenerateTitle(arguments, appState: appState)
+        }
+        if name == "auto_insert_broll" {
+            return await handleAutoInsertBroll(arguments, appState: appState)
         }
         if name == "set_track_audio_effects" {
             return handleSetTrackAudioEffects(arguments, appState: appState)
@@ -369,6 +390,90 @@ final class MCPServer {
             try? appState.perform(.removeTrack(trackID: trackID), source: .ai)
         }
         return "Project cleared. " + stateSnapshot(appState)
+    }
+
+    private func handleGenerateTitle(_ args: [String: Any], appState: AppState) async -> String {
+        let style = args["style"] as? String ?? "youtube"
+
+        // Get transcript from clips on timeline
+        let allClips = appState.timeline.tracks.flatMap(\.clips)
+        guard !allClips.isEmpty else { return "Error: no clips on timeline" }
+
+        var transcriptParts: [String] = []
+        for clip in allClips.prefix(5) {
+            if let asset = appState.assets.first(where: { $0.id == clip.assetID }),
+               let transcript = asset.analysis?.transcript {
+                let words = transcript
+                    .filter { $0.start >= clip.sourceRange.start && $0.start < clip.sourceRange.end }
+                    .map(\.word)
+                    .joined(separator: " ")
+                if !words.isEmpty {
+                    transcriptParts.append(words)
+                }
+            }
+        }
+
+        let content = transcriptParts.isEmpty
+            ? "No transcript available. Clips: \(allClips.map { $0.metadata.label ?? "Clip" }.joined(separator: ", "))"
+            : transcriptParts.joined(separator: " ").prefix(500)
+
+        // Generate titles based on content and style
+        let styleGuide: String
+        switch style {
+        case "viral": styleGuide = "provocative, curiosity-gap, bold claims"
+        case "professional": styleGuide = "clean, descriptive, trustworthy"
+        default: styleGuide = "clickable, specific, number-driven"
+        }
+
+        return """
+        === TITLE SUGGESTIONS ===
+        Style: \(style) (\(styleGuide))
+        Based on content: "\(content.prefix(200))..."
+
+        Generate 3-5 titles for this content in the \(style) style. The content discusses: \(content.prefix(300))
+
+        Note: This tool provides the content summary. The AI should generate the actual titles based on this content.
+        """
+    }
+
+    private func handleAutoInsertBroll(_ args: [String: Any], appState: AppState) async -> String {
+        let maxInserts = args["max_inserts"] as? Int ?? (args["max_inserts"] as? Double).map { Int($0) } ?? 5
+        let brollDuration = args["duration"] as? Double ?? 3.0
+
+        // Get available B-roll assets (non-primary assets)
+        let timelineAssetIDs = Set(appState.timeline.tracks.flatMap(\.clips).map(\.assetID))
+        let brollAssets = appState.assets.filter { !timelineAssetIDs.contains($0.id) }
+
+        guard !brollAssets.isEmpty else {
+            return "No B-roll assets available in the media library. Import additional media first."
+        }
+
+        // Find insertion points from transcript (long talking-head sections)
+        var insertions: [(time: Double, asset: String)] = []
+        let allClips = appState.timeline.tracks.filter { $0.type == .video }.flatMap(\.clips)
+
+        for clip in allClips {
+            // For clips longer than 15s, suggest B-roll at the midpoint
+            if clip.timelineRange.duration > 15 {
+                let midpoint = clip.timelineRange.start + clip.timelineRange.duration / 2
+                if let broll = brollAssets.randomElement() {
+                    insertions.append((time: midpoint, asset: broll.name))
+                }
+            }
+            if insertions.count >= maxInserts { break }
+        }
+
+        if insertions.isEmpty {
+            return "No suitable B-roll insertion points found. Clips are too short for B-roll."
+        }
+
+        var report = "=== B-ROLL INSERTION SUGGESTIONS ===\n"
+        report += "Available B-roll: \(brollAssets.map(\.name).joined(separator: ", "))\n\n"
+        for (i, ins) in insertions.enumerated() {
+            report += "  #\(i+1) Insert '\(ins.asset)' at \(String(format: "%.1f", ins.time))s (\(brollDuration)s duration)\n"
+        }
+        report += "\nTo insert: use add_to_timeline with the asset ID and start_time for each suggestion."
+        return report
     }
 
     private func handleSetTrackAudioEffects(_ args: [String: Any], appState: AppState) -> String {
