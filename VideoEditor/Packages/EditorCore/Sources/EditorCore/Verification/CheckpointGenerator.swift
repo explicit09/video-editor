@@ -14,6 +14,7 @@ public struct VerificationCheckpoint: Sendable {
     public let assetID: UUID?
     public let expectedSourceTime: TimeInterval?
     public let speed: Double
+    public let effects: [EffectInstance]
     public let label: String
 
     public init(
@@ -23,6 +24,7 @@ public struct VerificationCheckpoint: Sendable {
         assetID: UUID? = nil,
         expectedSourceTime: TimeInterval? = nil,
         speed: Double = 1.0,
+        effects: [EffectInstance] = [],
         label: String = ""
     ) {
         self.exportTime = exportTime
@@ -31,6 +33,7 @@ public struct VerificationCheckpoint: Sendable {
         self.assetID = assetID
         self.expectedSourceTime = expectedSourceTime
         self.speed = speed
+        self.effects = effects
         self.label = label
     }
 }
@@ -115,6 +118,7 @@ public struct CheckpointGenerator: Sendable {
             assetID: clip.assetID,
             expectedSourceTime: expectedSourceTime,
             speed: clip.speed,
+            effects: clip.effects,
             label: label
         )
     }

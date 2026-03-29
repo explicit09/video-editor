@@ -34,6 +34,11 @@ public struct PerceptualHasher: Sendable {
 
     // MARK: - Frame Extraction
 
+    /// Public accessor for ContentVerifier's effect checking.
+    public func extractFramePublic(from asset: AVAsset, at time: TimeInterval, videoComposition: AVVideoComposition? = nil) -> CGImage? {
+        extractFrame(from: asset, at: time, videoComposition: videoComposition)
+    }
+
     private func extractFrame(from asset: AVAsset, at time: TimeInterval, videoComposition: AVVideoComposition? = nil) -> CGImage? {
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true

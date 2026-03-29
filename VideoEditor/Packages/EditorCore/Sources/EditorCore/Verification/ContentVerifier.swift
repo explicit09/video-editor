@@ -17,6 +17,7 @@ public struct ContentVerifier: Sendable {
         public let videoPHashDist: Int?   // Perceptual hash hamming distance (nil if no video)
         public let audioRMS: Float        // Audio level at this point
         public let frameValid: Bool       // Frame is not black
+        public let effectChecks: [EffectPropertyChecker.EffectCheckResult]
         public let passed: Bool
         public let detail: String
 
@@ -51,6 +52,9 @@ public struct ContentVerifier: Sendable {
                 detail += " RMS=\(String(format: "%.4f", r.audioRMS))"
                 if !r.detail.isEmpty { detail += " — \(r.detail)" }
                 lines.append(detail)
+                for ec in r.effectChecks {
+                    lines.append("    \(ec.passed ? "✓" : "✗") \(ec.effectType): \(ec.detail)")
+                }
             }
 
             if !unexpectedSilences.isEmpty {
@@ -122,6 +126,7 @@ public struct ContentVerifier: Sendable {
                     videoPHashDist: nil,
                     audioRMS: rms,
                     frameValid: true,
+                    effectChecks: [],
                     passed: isSilent,
                     detail: isSilent ? "silent as expected" : "audio present in expected gap"
                 ))
@@ -245,6 +250,24 @@ public struct ContentVerifier: Sendable {
             detail += (detail.isEmpty ? "" : "; ") + "video content mismatch (pHash dist=\(dist)>\(pHashPassThreshold))"
         }
 
+        // Effect verification: check that effects actually changed the frame
+        var effectChecks: [EffectPropertyChecker.EffectCheckResult] = []
+        if cp.checkType == .effectApplied, !cp.effects.isEmpty,
+           let assetID = cp.assetID,
+           let asset = assetsByID[assetID],
+           asset.type == .video,
+           let sourceTime = cp.expectedSourceTime {
+            let checker = EffectPropertyChecker()
+            if let compFrame = hasher.extractFramePublic(from: composition, at: cp.exportTime, videoComposition: videoComposition),
+               let srcFrame = hasher.extractFramePublic(from: AVURLAsset(url: asset.sourceURL), at: sourceTime) {
+                effectChecks = checker.check(compositionFrame: compFrame, sourceFrame: srcFrame, effects: cp.effects)
+                for ec in effectChecks where !ec.passed {
+                    passed = false
+                    detail += (detail.isEmpty ? "" : "; ") + "effect \(ec.effectType): \(ec.detail)"
+                }
+            }
+        }
+
         if detail.isEmpty { detail = "OK" }
 
         return CheckResult(
@@ -253,6 +276,7 @@ public struct ContentVerifier: Sendable {
             videoPHashDist: pHashDist,
             audioRMS: rms,
             frameValid: frameValid,
+            effectChecks: effectChecks,
             passed: passed,
             detail: detail
         )
