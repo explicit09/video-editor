@@ -247,6 +247,7 @@ public struct CompositionBuilder {
             }
 
             // Determine if any clip needs the custom compositor
+            print("[CompositionBuilder] shortFormConfig: \(shortFormConfig?.isEnabled ?? false) faceTracks: \(shortFormConfig?.faceTracks.count ?? 0), broadcastOverlay: \(broadcastOverlay?.isEnabled ?? false), needsCustom will be: \(broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true)")
             let needsCustomCompositor = broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true || sorted.contains { entry in
                 !entry.clip.effects.isEmpty ||
                 entry.clip.transform != .identity ||
@@ -342,7 +343,8 @@ public struct CompositionBuilder {
                         transform: entry.clip.transform,
                         cropRect: entry.clip.cropRect,
                         blendMode: entry.clip.blendMode,
-                        broadcastOverlay: broadcastOverlay
+                        broadcastOverlay: broadcastOverlay,
+                        shortFormConfig: shortFormConfig
                     )
                     instructions.append(instruction)
                 } else {
@@ -365,7 +367,8 @@ public struct CompositionBuilder {
                         timeRange: CMTimeRange(start: cursor, end: totalDuration),
                         sourceTrackID: kCMPersistentTrackID_Invalid,
                         effects: [],
-                        broadcastOverlay: broadcastOverlay
+                        broadcastOverlay: broadcastOverlay,
+                        shortFormConfig: shortFormConfig
                     )
                     instructions.append(trail)
                 } else {

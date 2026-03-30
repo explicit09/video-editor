@@ -228,6 +228,15 @@ final class MCPServer {
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
                 [
+                    "name": "extract_segment",
+                    "description": "Extract a segment from an asset and place it at timeline position 0. Creates a clean clip with the specified source range starting at the beginning of the timeline. Use this instead of trim_clip when you want the result to start at 0.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset"],
+                        "source_start": ["type": "number", "description": "Source start time in seconds"],
+                        "source_end": ["type": "number", "description": "Source end time in seconds"],
+                    ], "required": ["asset_id", "source_start", "source_end"]],
+                ],
+                [
                     "name": "analyze_for_shorts",
                     "description": "Analyze a video for short-form clip creation. Runs face tracking to detect all speakers, maps diarization to faces, and determines layout segments (Split vs Fill). Returns a ShortFormConfig ready for create_short. Requires transcript with speaker diarization.",
                     "inputSchema": ["type": "object", "properties": [
@@ -408,6 +417,9 @@ final class MCPServer {
         }
         if name == "analyze_audio_energy" {
             return await handleAnalyzeAudioEnergy(arguments, appState: appState)
+        }
+        if name == "extract_segment" {
+            return handleExtractSegment(arguments, appState: appState)
         }
         if name == "analyze_for_shorts" {
             return await handleAnalyzeForShorts(arguments, appState: appState)
@@ -1329,6 +1341,76 @@ final class MCPServer {
         }
     }
 
+    // MARK: - Extract Segment
+
+    private func handleExtractSegment(_ args: [String: Any], appState: AppState) -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+        guard let sourceStart = args["source_start"] as? Double,
+              let sourceEnd = args["source_end"] as? Double,
+              sourceEnd > sourceStart else {
+            return "Error: Invalid source_start/source_end"
+        }
+
+        let duration = sourceEnd - sourceStart
+
+        // Clear existing timeline
+        for track in appState.timeline.tracks {
+            let clipIDs = track.clips.map(\.id)
+            if !clipIDs.isEmpty {
+                try? appState.perform(.deleteClips(clipIDs: clipIDs), source: .ai)
+            }
+        }
+
+        // Ensure video + audio tracks exist
+        let videoTrackID: UUID
+        let audioTrackID: UUID
+
+        if let vt = appState.timeline.tracks.first(where: { $0.type == .video }) {
+            videoTrackID = vt.id
+        } else {
+            let track = Track(name: "Video", type: .video)
+            try? appState.perform(.addTrack(track: track), source: .ai)
+            videoTrackID = track.id
+        }
+
+        if let at = appState.timeline.tracks.first(where: { $0.type == .audio }) {
+            audioTrackID = at.id
+        } else {
+            let track = Track(name: "Audio", type: .audio)
+            try? appState.perform(.addTrack(track: track), source: .ai)
+            audioTrackID = track.id
+        }
+
+        // Insert video clip at position 0 with specified source range
+        let linkID = UUID()
+        let videoClip = Clip(
+            assetID: assetID,
+            timelineRange: TimeRange(start: 0, duration: duration),
+            sourceRange: TimeRange(start: sourceStart, end: sourceEnd),
+            metadata: ClipMetadata(label: asset.name),
+            linkGroupID: linkID
+        )
+        try? appState.perform(.insertClip(clip: videoClip, trackID: videoTrackID), source: .ai)
+
+        // Insert linked audio clip
+        let audioClip = Clip(
+            assetID: assetID,
+            timelineRange: TimeRange(start: 0, duration: duration),
+            sourceRange: TimeRange(start: sourceStart, end: sourceEnd),
+            metadata: ClipMetadata(label: asset.name),
+            linkGroupID: linkID
+        )
+        try? appState.perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: .ai)
+
+        appState.rebuildComposition()
+
+        return "Extracted \(String(format: "%.1f", duration))s segment (source \(String(format: "%.0f", sourceStart))s-\(String(format: "%.0f", sourceEnd))s) at timeline 0. " + stateSnapshot(appState)
+    }
+
     // MARK: - Short-Form Analysis
 
     /// Cached short-form configs per asset (from analyze_for_shorts)
@@ -1439,7 +1521,7 @@ final class MCPServer {
 
         // Apply the short-form config to the timeline
         appState.context.timelineState.shortFormConfig = config
-        appState.rebuildComposition()
+        appState.rebuildCompositionNow()
 
         return "Short-form layout applied. Output: \(config.outputAspect.size.width)x\(config.outputAspect.size.height). Layout: \(config.layoutSegments.first?.layout ?? .split). Faces tracked: \(config.faceTracks.count)."
     }
