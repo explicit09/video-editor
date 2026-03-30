@@ -1058,7 +1058,7 @@ final class AppState {
     // MARK: - Playback
 
     func rebuildComposition() {
-        playbackEngine.buildComposition(from: timeline, assets: assets)
+        playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay)
     }
 
     func seekFromPlayhead() {

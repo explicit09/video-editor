@@ -224,6 +224,27 @@ final class MCPServer {
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
                 [
+                    "name": "set_overlay_config",
+                    "description": "Set broadcast overlay configuration. Renders professional graphics over the video: episode title card (0-30s), host name bar, scrolling sponsor/topic ticker, chapter cards, and host intro strip (38-92s). Pass enabled=false to disable.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "enabled": ["type": "boolean", "description": "Enable/disable overlay rendering (default: true)"],
+                        "episode_title": ["type": "string", "description": "Episode title (uppercase)"],
+                        "episode_subtitle": ["type": "string", "description": "Episode subtitle"],
+                        "host_a_name": ["type": "string", "description": "Host A name"],
+                        "host_a_title": ["type": "string", "description": "Host A title (e.g. 'CO-HOST · FOUNDER, LEARNX')"],
+                        "host_b_name": ["type": "string", "description": "Host B name"],
+                        "host_b_title": ["type": "string", "description": "Host B title"],
+                        "sponsors": ["type": "array", "description": "Sponsor names for scrolling ticker", "items": ["type": "string"]],
+                        "topics": ["type": "array", "description": "Topics with timestamps", "items": ["type": "object", "properties": ["time_seconds": ["type": "number"], "text": ["type": "string"]]]],
+                        "chapters": ["type": "array", "description": "Chapters with timestamps", "items": ["type": "object", "properties": ["time_seconds": ["type": "number"], "text": ["type": "string"]]]],
+                    ], "required": []],
+                ],
+                [
+                    "name": "get_overlay_config",
+                    "description": "Get the current broadcast overlay configuration.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
                     "name": "get_full_transcript",
                     "description": "Get the complete transcript with timestamps every 30 seconds. Use this to READ the entire transcript and understand the content structure before making any editing decisions. Returns the full text with [MM:SS] time markers so you can identify episodes, topics, transitions, and content layers.",
                     "inputSchema": ["type": "object", "properties": [
@@ -358,6 +379,12 @@ final class MCPServer {
         }
         if name == "analyze_audio_energy" {
             return await handleAnalyzeAudioEnergy(arguments, appState: appState)
+        }
+        if name == "set_overlay_config" {
+            return handleSetOverlayConfig(arguments, appState: appState)
+        }
+        if name == "get_overlay_config" {
+            return handleGetOverlayConfig(appState: appState)
         }
         if name == "get_full_transcript" {
             return await handleGetFullTranscript(arguments, appState: appState)
@@ -1265,6 +1292,80 @@ final class MCPServer {
         default:
             return "{}"
         }
+    }
+
+    // MARK: - Overlay Config
+
+    private func handleSetOverlayConfig(_ args: [String: Any], appState: AppState) -> String {
+        let enabled = args["enabled"] as? Bool ?? true
+
+        var topics: [TimedEntry] = []
+        if let topicArray = args["topics"] as? [[String: Any]] {
+            topics = topicArray.compactMap { t in
+                guard let time = t["time_seconds"] as? Double,
+                      let text = t["text"] as? String else { return nil }
+                return TimedEntry(timeSeconds: time, text: text)
+            }
+        }
+
+        var chapters: [TimedEntry] = []
+        if let chapterArray = args["chapters"] as? [[String: Any]] {
+            chapters = chapterArray.compactMap { c in
+                guard let time = c["time_seconds"] as? Double,
+                      let text = c["text"] as? String else { return nil }
+                return TimedEntry(timeSeconds: time, text: text)
+            }
+        }
+
+        var sponsors: [String] = []
+        if let sponsorArray = args["sponsors"] as? [String] {
+            sponsors = sponsorArray
+        }
+
+        let config = BroadcastOverlayConfig(
+            isEnabled: enabled,
+            episodeTitle: args["episode_title"] as? String ?? "",
+            episodeSubtitle: args["episode_subtitle"] as? String ?? "",
+            hostA: HostInfo(
+                name: args["host_a_name"] as? String ?? "",
+                title: args["host_a_title"] as? String ?? ""
+            ),
+            hostB: HostInfo(
+                name: args["host_b_name"] as? String ?? "",
+                title: args["host_b_title"] as? String ?? ""
+            ),
+            sponsors: sponsors,
+            topics: topics,
+            chapters: chapters
+        )
+
+        try? appState.perform(.setBroadcastOverlay(config: config), source: .ai)
+        appState.rebuildComposition()
+
+        return "Overlay config set. Enabled: \(enabled), title: \(config.episodeTitle), \(topics.count) topics, \(chapters.count) chapters, \(sponsors.count) sponsors."
+    }
+
+    private func handleGetOverlayConfig(appState: AppState) -> String {
+        guard let config = appState.context.timelineState.broadcastOverlay else {
+            return "No overlay configured."
+        }
+
+        var lines = ["=== OVERLAY CONFIG ==="]
+        lines.append("Enabled: \(config.isEnabled)")
+        lines.append("Title: \(config.episodeTitle)")
+        lines.append("Subtitle: \(config.episodeSubtitle)")
+        lines.append("Host A: \(config.hostA.name) — \(config.hostA.title)")
+        lines.append("Host B: \(config.hostB.name) — \(config.hostB.title)")
+        lines.append("Sponsors: \(config.sponsors.joined(separator: ", "))")
+        lines.append("Topics (\(config.topics.count)):")
+        for t in config.topics {
+            lines.append("  [\(Int(t.timeSeconds / 60)):\(String(format: "%02d", Int(t.timeSeconds) % 60))] \(t.text)")
+        }
+        lines.append("Chapters (\(config.chapters.count)):")
+        for c in config.chapters {
+            lines.append("  [\(Int(c.timeSeconds / 60)):\(String(format: "%02d", Int(c.timeSeconds) % 60))] \(c.text)")
+        }
+        return lines.joined(separator: "\n")
     }
 
     // MARK: - Get Full Transcript

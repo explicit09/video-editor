@@ -24,7 +24,8 @@ public final class ExportEngine {
         assets: [MediaAsset],
         to outputURL: URL,
         preset: String = AVAssetExportPresetHighestQuality,
-        fileType: AVFileType = .mp4
+        fileType: AVFileType = .mp4,
+        broadcastOverlay: BroadcastOverlayConfig? = nil
     ) async {
         guard timeline.tracks.contains(where: { !$0.clips.isEmpty }), timeline.duration > 0 else {
             state = .failed("Nothing to export")
@@ -34,7 +35,7 @@ public final class ExportEngine {
         state = .exporting(progress: 0)
 
         let builder = CompositionBuilder()
-        let result = await builder.build(from: timeline, assets: assets, urlMode: .export)
+        let result = await builder.build(from: timeline, assets: assets, urlMode: .export, broadcastOverlay: broadcastOverlay)
 
         guard result.duration > 0 else {
             state = .failed("Nothing to export")
