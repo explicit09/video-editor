@@ -1422,9 +1422,10 @@ final class MCPServer {
                 var refinements: [String] = []
 
                 for (episodeNum, approxTime) in episodeStarts {
-                    // Extract ±2 min window around the approximate start
-                    let windowStart = max(approxTime - 120, 0)
-                    let windowEnd = min(approxTime + 120, asset.duration)
+                    // Extract window: 1 min before to 5 min after the approximate start
+                    // Wider forward window because rehearsals can span several minutes
+                    let windowStart = max(approxTime - 60, 0)
+                    let windowEnd = min(approxTime + 300, asset.duration)
                     let windowWords = words.filter { $0.start >= windowStart && $0.end <= windowEnd }
 
                     guard !windowWords.isEmpty else { continue }
