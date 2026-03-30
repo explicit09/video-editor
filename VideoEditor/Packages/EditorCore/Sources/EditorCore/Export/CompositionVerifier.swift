@@ -140,6 +140,7 @@ public struct CompositionVerifier: Sendable {
         let output = AVAssetReaderTrackOutput(track: track, outputSettings: settings)
         reader.add(output)
         guard reader.startReading() else { return 0 }
+        defer { reader.cancelReading() }
 
         var totalSquared: Double = 0
         var totalSamples: Int = 0

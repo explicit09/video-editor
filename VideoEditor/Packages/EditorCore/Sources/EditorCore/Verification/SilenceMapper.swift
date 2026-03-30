@@ -101,6 +101,7 @@ public struct SilenceMapper: Sendable {
         let output = AVAssetReaderTrackOutput(track: track, outputSettings: settings)
         reader.add(output)
         guard reader.startReading() else { return [] }
+        defer { reader.cancelReading() }
 
         let samplesPerWindow = Int(windowDuration * 16000)
         var profile: [Float] = []

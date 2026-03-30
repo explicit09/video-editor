@@ -45,6 +45,7 @@ public struct AudioSourceClassifier: Sendable {
         guard reader.startReading() else {
             throw ClassifierError.readerFailed(reader.error?.localizedDescription ?? "unknown")
         }
+        defer { reader.cancelReading() }
 
         let samplesPerWindow = Int(windowDuration * sampleRate)
         var windowBuffer: [Float] = []
@@ -126,6 +127,7 @@ public struct AudioSourceClassifier: Sendable {
         let output = AVAssetReaderTrackOutput(track: track, outputSettings: settings)
         reader.add(output)
         guard reader.startReading() else { return [] }
+        defer { reader.cancelReading() }
 
         let windowDuration: TimeInterval = 2.0
         let samplesPerWindow = Int(windowDuration * sampleRate)

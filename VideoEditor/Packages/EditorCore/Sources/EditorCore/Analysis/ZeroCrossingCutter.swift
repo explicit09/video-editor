@@ -43,6 +43,7 @@ public struct ZeroCrossingCutter: Sendable {
         let output = AVAssetReaderTrackOutput(track: track, outputSettings: settings)
         reader.add(output)
         guard reader.startReading() else { return targetTime }
+        defer { reader.cancelReading() }
 
         // Read all samples in the window
         var samples: [Int16] = []

@@ -70,6 +70,7 @@ public struct SpeechEnergyAnalyzer: Sendable {
         let output = AVAssetReaderTrackOutput(track: track, outputSettings: settings)
         reader.add(output)
         guard reader.startReading() else { return [] }
+        defer { reader.cancelReading() }
 
         let sampleRate = 16000
         let samplesPerWindow = Int(windowDuration * Double(sampleRate))
@@ -156,6 +157,7 @@ public struct SpeechEnergyAnalyzer: Sendable {
         guard reader.startReading() else {
             return SegmentSummary(startTime: start, endTime: end, avgRMS: 0, peakRMS: 0, speechRatio: 0, silenceRatio: 1, energyVariance: 0, avgDBFS: -100)
         }
+        defer { reader.cancelReading() }
 
         let sampleRate = 16000
         let samplesPerWindow = Int(windowDuration * Double(sampleRate))

@@ -41,6 +41,7 @@ public struct SilenceDetector: Sendable {
         guard reader.startReading() else {
             throw SilenceDetectorError.readerFailed(reader.error?.localizedDescription ?? "unknown")
         }
+        defer { reader.cancelReading() }
 
         // Convert threshold from dB to linear amplitude
         let thresholdLinear = pow(10.0, thresholdDB / 20.0)

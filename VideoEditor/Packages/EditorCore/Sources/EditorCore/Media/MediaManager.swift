@@ -91,14 +91,21 @@ public actor MediaManager {
         return thumbnailCache[assetID]
     }
 
+    private let maxThumbnailBytes: Int = 50 * 1024 * 1024 // 50MB max
+
     private func storeThumbnail(_ image: CGImage, for id: UUID) {
         thumbnailCache[id] = image
         thumbnailAccessOrder.append(id)
 
-        // Evict oldest if over limit
-        while thumbnailCache.count > maxThumbnails, let oldest = thumbnailAccessOrder.first {
+        // Evict oldest if over count or size limit
+        while thumbnailCache.count > maxThumbnails || estimatedThumbnailBytes() > maxThumbnailBytes,
+              let oldest = thumbnailAccessOrder.first {
             thumbnailAccessOrder.removeFirst()
             thumbnailCache.removeValue(forKey: oldest)
         }
+    }
+
+    private func estimatedThumbnailBytes() -> Int {
+        thumbnailCache.values.reduce(0) { $0 + $1.width * $1.height * 4 }
     }
 }

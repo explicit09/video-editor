@@ -61,6 +61,7 @@ public struct AudioProcessor: Sendable {
         guard reader.startReading(), writer.startWriting() else {
             throw AudioProcessingError.processingFailed("Failed to start reading/writing")
         }
+        defer { reader.cancelReading() }
         writer.startSession(atSourceTime: .zero)
 
         // Process

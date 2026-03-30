@@ -62,12 +62,14 @@ public final class ExportEngine {
 
         self.exportSession = session
 
-        // Poll progress
+        // Poll progress — defer ensures cleanup on any exit path
         startProgressPolling(session: session)
+        defer {
+            stopProgressPolling()
+            exportSession = nil
+        }
 
         await session.export()
-
-        stopProgressPolling()
 
         switch session.status {
         case .completed:

@@ -43,6 +43,7 @@ public struct WaveformExtractor: Sendable {
         reader.add(output)
 
         guard reader.startReading() else { return nil }
+        defer { reader.cancelReading() }
 
         // Process in streaming fashion — don't load all samples into memory.
         // Get actual sample rate from the audio track format

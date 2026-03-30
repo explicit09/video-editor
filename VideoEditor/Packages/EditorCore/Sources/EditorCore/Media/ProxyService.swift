@@ -13,16 +13,24 @@ public actor ProxyService {
 
     private let proxiesDir: URL
     private var activeSessions: [UUID: AVAssetExportSession] = [:]
-    private var stateCallbacks: [(ProxyState) -> Void] = []
+    private var stateCallbacks: [UUID: (ProxyState) -> Void] = [:]
 
     public init(proxiesDir: URL) {
         self.proxiesDir = proxiesDir
         try? FileManager.default.createDirectory(at: proxiesDir, withIntermediateDirectories: true)
     }
 
-    /// Register a callback for state changes (e.g., progress updates).
-    public func onStateChange(_ callback: @escaping @Sendable (ProxyState) -> Void) {
-        stateCallbacks.append(callback)
+    /// Register a callback for state changes. Returns an ID for removal.
+    @discardableResult
+    public func onStateChange(_ callback: @escaping @Sendable (ProxyState) -> Void) -> UUID {
+        let id = UUID()
+        stateCallbacks[id] = callback
+        return id
+    }
+
+    /// Remove a previously registered callback.
+    public func removeStateCallback(_ id: UUID) {
+        stateCallbacks.removeValue(forKey: id)
     }
 
     /// Generate a proxy for the given asset. Returns the proxy URL on success.
@@ -121,7 +129,7 @@ public actor ProxyService {
     }
 
     private func notify(_ state: ProxyState) {
-        for callback in stateCallbacks {
+        for callback in stateCallbacks.values {
             callback(state)
         }
     }

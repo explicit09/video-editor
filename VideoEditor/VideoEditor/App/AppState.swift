@@ -1241,6 +1241,7 @@ final class AppState {
     }
 
     private func startPlayheadSync() {
+        playbackSyncTimer?.invalidate()
         playbackSyncTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 guard let self else { return }
@@ -1251,6 +1252,14 @@ final class AppState {
                     self.timelineViewState.isPlaying = false
                 }
             }
+        }
+    }
+
+    deinit {
+        MainActor.assumeIsolated {
+            playbackSyncTimer?.invalidate()
+            playbackSyncTimer = nil
+            saveDebounceTask?.cancel()
         }
     }
 }

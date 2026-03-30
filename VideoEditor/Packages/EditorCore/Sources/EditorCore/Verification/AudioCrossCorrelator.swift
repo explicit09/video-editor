@@ -72,6 +72,7 @@ public struct AudioCrossCorrelator: Sendable {
         let output = AVAssetReaderTrackOutput(track: track, outputSettings: settings)
         reader.add(output)
         guard reader.startReading() else { return [] }
+        defer { reader.cancelReading() }
 
         var floatSamples: [Float] = []
         let maxSamples = Int(dur * Double(sampleRate))

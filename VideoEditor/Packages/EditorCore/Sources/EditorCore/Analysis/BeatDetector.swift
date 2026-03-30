@@ -37,6 +37,7 @@ public struct BeatDetector: Sendable {
         output.alwaysCopiesSampleData = false
         reader.add(output)
         guard reader.startReading() else { return nil }
+        defer { reader.cancelReading() }
 
         // Read all samples
         var allSamples: [Float] = []

@@ -51,6 +51,7 @@ public struct AudioEffectProcessor: Sendable {
         guard reader.startReading() else {
             throw AudioEffectError.readerFailed(reader.error?.localizedDescription ?? "unknown")
         }
+        defer { reader.cancelReading() }
         writer.startWriting()
         writer.startSession(atSourceTime: .zero)
 

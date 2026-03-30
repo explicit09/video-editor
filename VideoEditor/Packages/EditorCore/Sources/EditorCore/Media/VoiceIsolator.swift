@@ -57,6 +57,7 @@ public struct VoiceIsolator: Sendable {
         output.alwaysCopiesSampleData = false
         reader.add(output)
         guard reader.startReading() else { return nil }
+        defer { reader.cancelReading() }
 
         // Note: SNAudioStreamAnalyzer requires AVAudioBuffer, not CMSampleBuffer.
         // A full implementation would convert CMSampleBuffer → AVAudioPCMBuffer.

@@ -28,6 +28,7 @@ public struct LoudnessMeter: Sendable {
         output.alwaysCopiesSampleData = false
         reader.add(output)
         guard reader.startReading() else { return nil }
+        defer { reader.cancelReading() }
 
         var sumOfSquares: Double = 0
         var totalSamples: Int64 = 0
