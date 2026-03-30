@@ -7,9 +7,11 @@ import Foundation
 public final class TimelineState {
     public var timeline: Timeline
     public var broadcastOverlay: BroadcastOverlayConfig?
+    public var shortFormConfig: ShortFormConfig?
 
-    public init(timeline: Timeline = Timeline(), broadcastOverlay: BroadcastOverlayConfig? = nil) {
+    public init(timeline: Timeline = Timeline(), broadcastOverlay: BroadcastOverlayConfig? = nil, shortFormConfig: ShortFormConfig? = nil) {
         self.timeline = timeline
         self.broadcastOverlay = broadcastOverlay
+        self.shortFormConfig = shortFormConfig
     }
 }

@@ -228,6 +228,23 @@ final class MCPServer {
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
                 [
+                    "name": "analyze_for_shorts",
+                    "description": "Analyze a video for short-form clip creation. Runs face tracking to detect all speakers, maps diarization to faces, and determines layout segments (Split vs Fill). Returns a ShortFormConfig ready for create_short. Requires transcript with speaker diarization.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset to analyze"],
+                        "start": ["type": "number", "description": "Start time in seconds (optional)"],
+                        "end": ["type": "number", "description": "End time in seconds (optional)"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
+                    "name": "create_short",
+                    "description": "Create a vertical short-form clip from the current timeline. Applies face-tracked Split/Fill layout, recomposes to 9:16 (1080x1920). Must run analyze_for_shorts first to get face tracking data. The video on the timeline will be recomposed with speakers stacked vertically.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset (used for face tracking data)"],
+                        "layout": ["type": "string", "description": "Layout: 'split' (default), 'fill_0' (speaker 0 fills), 'fill_1' (speaker 1 fills)"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
                     "name": "set_overlay_config",
                     "description": "Set broadcast overlay configuration. Renders professional graphics over the video: episode title card (0-30s), host name bar, scrolling sponsor/topic ticker, chapter cards, and host intro strip (38-92s). Pass enabled=false to disable.",
                     "inputSchema": ["type": "object", "properties": [
@@ -391,6 +408,12 @@ final class MCPServer {
         }
         if name == "analyze_audio_energy" {
             return await handleAnalyzeAudioEnergy(arguments, appState: appState)
+        }
+        if name == "analyze_for_shorts" {
+            return await handleAnalyzeForShorts(arguments, appState: appState)
+        }
+        if name == "create_short" {
+            return await handleCreateShort(arguments, appState: appState)
         }
         if name == "set_overlay_config" {
             return handleSetOverlayConfig(arguments, appState: appState)
@@ -1304,6 +1327,119 @@ final class MCPServer {
         default:
             return "{}"
         }
+    }
+
+    // MARK: - Short-Form Analysis
+
+    /// Cached short-form configs per asset (from analyze_for_shorts)
+    private var shortFormConfigs: [UUID: ShortFormConfig] = [:]
+
+    private func handleAnalyzeForShorts(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let start = args["start"] as? Double
+        let end = args["end"] as? Double
+
+        // Step 1: Track faces
+        let tracker = MultiFaceTracker()
+        let faceTracks: [FaceTrack]
+        do {
+            if let start, let end {
+                faceTracks = try await tracker.trackRange(url: mediaURL, start: start, end: end)
+            } else {
+                faceTracks = try await tracker.track(url: mediaURL)
+            }
+        } catch {
+            return "Error tracking faces: \(error.localizedDescription)"
+        }
+
+        guard !faceTracks.isEmpty else {
+            return "Error: No faces detected in video"
+        }
+
+        // Step 2: Map speakers to faces
+        var speakerToFace: [Int: Int] = [:]
+        if let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ), let speakers = result.speakers {
+            let mapper = SpeakerFaceMapper()
+            speakerToFace = mapper.map(speakerSegments: speakers, faceTracks: faceTracks)
+        } else {
+            // Default: face 0 = speaker 0, face 1 = speaker 1
+            for i in 0..<faceTracks.count { speakerToFace[i] = i }
+        }
+
+        // Step 3: Decide layouts
+        var layoutSegments: [LayoutSegment] = [LayoutSegment(startTime: 0, layout: .split)]
+        if let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ), let speakers = result.speakers {
+            let decider = LayoutDecider()
+            layoutSegments = decider.decide(speakerSegments: speakers, speakerToFace: speakerToFace)
+        }
+
+        // Build config
+        let config = ShortFormConfig(
+            isEnabled: true,
+            outputAspect: .vertical9x16,
+            faceTracks: faceTracks,
+            speakerToFace: speakerToFace,
+            layoutSegments: layoutSegments
+        )
+
+        // Cache for create_short
+        shortFormConfigs[assetID] = config
+
+        // Report
+        var lines = ["=== SHORT-FORM ANALYSIS ==="]
+        lines.append("Asset: \(asset.name)")
+        lines.append("Faces detected: \(faceTracks.count)")
+        lines.append("Face samples: \(faceTracks.map(\.samples.count))")
+        lines.append("Speaker mapping: \(speakerToFace)")
+        lines.append("Layout segments: \(layoutSegments.count)")
+        for (i, seg) in layoutSegments.enumerated() {
+            let mins = Int(seg.startTime) / 60
+            let secs = Int(seg.startTime) % 60
+            lines.append("  #\(i+1) [\(mins):\(String(format: "%02d", secs))] \(seg.layout)")
+        }
+        lines.append("\nReady for create_short.")
+        return lines.joined(separator: "\n")
+    }
+
+    private func handleCreateShort(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr) else {
+            return "Error: Invalid asset_id"
+        }
+
+        guard var config = shortFormConfigs[assetID] else {
+            return "Error: No short-form analysis found for this asset. Run analyze_for_shorts first."
+        }
+
+        // Override layout if specified
+        if let layoutStr = args["layout"] as? String {
+            switch layoutStr {
+            case "split":
+                config.layoutSegments = [LayoutSegment(startTime: 0, layout: .split)]
+            case "fill_0":
+                config.layoutSegments = [LayoutSegment(startTime: 0, layout: .fill(activeSpeaker: 0))]
+            case "fill_1":
+                config.layoutSegments = [LayoutSegment(startTime: 0, layout: .fill(activeSpeaker: 1))]
+            default:
+                break // Use analyzed layouts
+            }
+        }
+
+        // Apply the short-form config to the timeline
+        appState.context.timelineState.shortFormConfig = config
+        appState.rebuildComposition()
+
+        return "Short-form layout applied. Output: \(config.outputAspect.size.width)x\(config.outputAspect.size.height). Layout: \(config.layoutSegments.first?.layout ?? .split). Faces tracked: \(config.faceTracks.count)."
     }
 
     // MARK: - Overlay Config

@@ -34,7 +34,7 @@ public final class PlaybackEngine {
 
     // MARK: - Build composition from timeline
 
-    public func buildComposition(from timeline: Timeline, assets: [MediaAsset], broadcastOverlay: BroadcastOverlayConfig? = nil) {
+    public func buildComposition(from timeline: Timeline, assets: [MediaAsset], broadcastOverlay: BroadcastOverlayConfig? = nil, shortFormConfig: ShortFormConfig? = nil) {
         // Cancel any in-flight build to prevent race conditions
         buildTask?.cancel()
         let resumeTime = currentTime
@@ -45,7 +45,8 @@ public final class PlaybackEngine {
                 assets: assets,
                 resumeTime: resumeTime,
                 shouldResumePlayback: shouldResumePlayback,
-                broadcastOverlay: broadcastOverlay
+                broadcastOverlay: broadcastOverlay,
+                shortFormConfig: shortFormConfig
             )
         }
     }
@@ -55,10 +56,11 @@ public final class PlaybackEngine {
         assets: [MediaAsset],
         resumeTime: TimeInterval,
         shouldResumePlayback: Bool,
-        broadcastOverlay: BroadcastOverlayConfig? = nil
+        broadcastOverlay: BroadcastOverlayConfig? = nil,
+        shortFormConfig: ShortFormConfig? = nil
     ) async {
         let builder = CompositionBuilder()
-        let result = await builder.build(from: timeline, assets: assets, urlMode: .preview, broadcastOverlay: broadcastOverlay)
+        let result = await builder.build(from: timeline, assets: assets, urlMode: .preview, broadcastOverlay: broadcastOverlay, shortFormConfig: shortFormConfig)
 
         guard !Task.isCancelled else { return }
 

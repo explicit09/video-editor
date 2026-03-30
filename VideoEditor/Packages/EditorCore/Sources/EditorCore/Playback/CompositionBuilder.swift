@@ -44,7 +44,8 @@ public struct CompositionBuilder {
         from timeline: Timeline,
         assets: [MediaAsset],
         urlMode: MediaURLMode = .preview,
-        broadcastOverlay: BroadcastOverlayConfig? = nil
+        broadcastOverlay: BroadcastOverlayConfig? = nil,
+        shortFormConfig: ShortFormConfig? = nil
     ) async -> Result {
         let comp = AVMutableComposition()
         var maxDuration: CMTime = .zero
@@ -246,7 +247,7 @@ public struct CompositionBuilder {
             }
 
             // Determine if any clip needs the custom compositor
-            let needsCustomCompositor = broadcastOverlay?.isEnabled == true || sorted.contains { entry in
+            let needsCustomCompositor = broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true || sorted.contains { entry in
                 !entry.clip.effects.isEmpty ||
                 entry.clip.transform != .identity ||
                 !entry.clip.cropRect.isFullFrame ||
@@ -279,7 +280,8 @@ public struct CompositionBuilder {
                             timeRange: CMTimeRange(start: cursor, end: entryStart),
                             sourceTrackID: kCMPersistentTrackID_Invalid,
                             effects: [],
-                            broadcastOverlay: broadcastOverlay
+                            broadcastOverlay: broadcastOverlay,
+                            shortFormConfig: shortFormConfig
                         )
                         instructions.append(gap)
                     } else {
@@ -324,7 +326,8 @@ public struct CompositionBuilder {
                             transform: entry.clip.transform,
                             cropRect: entry.clip.cropRect,
                             blendMode: entry.clip.blendMode,
-                            broadcastOverlay: broadcastOverlay
+                            broadcastOverlay: broadcastOverlay,
+                            shortFormConfig: shortFormConfig
                         )
                         instructions.append(instruction)
                     }
@@ -391,7 +394,12 @@ public struct CompositionBuilder {
             let vidComp = AVMutableVideoComposition()
             vidComp.instructions = instructions
             vidComp.frameDuration = CMTime(value: 1, timescale: 30)
-            vidComp.renderSize = renderSize == .zero ? CGSize(width: 1920, height: 1080) : renderSize
+            // Use short-form output size if active, otherwise source size
+            if let sfConfig = shortFormConfig, sfConfig.isEnabled {
+                vidComp.renderSize = sfConfig.outputAspect.size
+            } else {
+                vidComp.renderSize = renderSize == .zero ? CGSize(width: 1920, height: 1080) : renderSize
+            }
             if needsCustomCompositor {
                 vidComp.customVideoCompositorClass = EffectCompositor.self
             }

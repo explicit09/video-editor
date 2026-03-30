@@ -1065,14 +1065,14 @@ final class AppState {
         compositionRebuildTask = Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(50))
             guard !Task.isCancelled else { return }
-            playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay)
+            playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig)
         }
     }
 
     /// Force immediate rebuild (for playback start, export, etc.)
     func rebuildCompositionNow() {
         compositionRebuildTask?.cancel()
-        playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay)
+        playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig)
     }
 
     func seekFromPlayhead() {
