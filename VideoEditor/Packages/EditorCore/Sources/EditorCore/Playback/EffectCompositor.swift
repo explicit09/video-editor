@@ -91,6 +91,17 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             )
         }
 
+        // Render broadcast overlay if configured
+        if let overlay = instruction.broadcastOverlay, overlay.isEnabled {
+            let time = request.compositionTime.seconds
+            let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+            if let overlayImage = BroadcastOverlayRenderer.render(
+                config: overlay, at: time, renderSize: renderSize
+            ) {
+                image = overlayImage.composited(over: image)
+            }
+        }
+
         // Apply blend mode (composites against black background for single-clip)
         if instruction.blendMode != .normal {
             let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
@@ -280,6 +291,7 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
     public let cropRect: CropRect
     public let blendMode: BlendMode
     public let subtitles: [SubtitleRenderer.SubtitleEntry]
+    public let broadcastOverlay: BroadcastOverlayConfig?
 
     public init(
         timeRange: CMTimeRange,
@@ -289,7 +301,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         transform: Transform2D = .identity,
         cropRect: CropRect = .fullFrame,
         blendMode: BlendMode = .normal,
-        subtitles: [SubtitleRenderer.SubtitleEntry] = []
+        subtitles: [SubtitleRenderer.SubtitleEntry] = [],
+        broadcastOverlay: BroadcastOverlayConfig? = nil
     ) {
         self.timeRange = timeRange
         self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
@@ -299,6 +312,7 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         self.cropRect = cropRect
         self.blendMode = blendMode
         self.subtitles = subtitles
+        self.broadcastOverlay = broadcastOverlay
         super.init()
     }
 }

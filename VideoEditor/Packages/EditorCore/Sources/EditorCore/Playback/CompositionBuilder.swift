@@ -43,7 +43,8 @@ public struct CompositionBuilder {
     public func build(
         from timeline: Timeline,
         assets: [MediaAsset],
-        urlMode: MediaURLMode = .preview
+        urlMode: MediaURLMode = .preview,
+        broadcastOverlay: BroadcastOverlayConfig? = nil
     ) async -> Result {
         let comp = AVMutableComposition()
         var maxDuration: CMTime = .zero
@@ -245,7 +246,7 @@ public struct CompositionBuilder {
             }
 
             // Determine if any clip needs the custom compositor
-            let needsCustomCompositor = sorted.contains { entry in
+            let needsCustomCompositor = broadcastOverlay?.isEnabled == true || sorted.contains { entry in
                 !entry.clip.effects.isEmpty ||
                 entry.clip.transform != .identity ||
                 !entry.clip.cropRect.isFullFrame ||
@@ -277,7 +278,8 @@ public struct CompositionBuilder {
                         let gap = EffectInstruction(
                             timeRange: CMTimeRange(start: cursor, end: entryStart),
                             sourceTrackID: kCMPersistentTrackID_Invalid,
-                            effects: []
+                            effects: [],
+                            broadcastOverlay: broadcastOverlay
                         )
                         instructions.append(gap)
                     } else {
@@ -321,7 +323,8 @@ public struct CompositionBuilder {
                             opacity: effectiveOpacity,
                             transform: entry.clip.transform,
                             cropRect: entry.clip.cropRect,
-                            blendMode: entry.clip.blendMode
+                            blendMode: entry.clip.blendMode,
+                            broadcastOverlay: broadcastOverlay
                         )
                         instructions.append(instruction)
                     }
@@ -335,7 +338,8 @@ public struct CompositionBuilder {
                         opacity: effectiveOpacity,
                         transform: entry.clip.transform,
                         cropRect: entry.clip.cropRect,
-                        blendMode: entry.clip.blendMode
+                        blendMode: entry.clip.blendMode,
+                        broadcastOverlay: broadcastOverlay
                     )
                     instructions.append(instruction)
                 } else {
@@ -357,7 +361,8 @@ public struct CompositionBuilder {
                     let trail = EffectInstruction(
                         timeRange: CMTimeRange(start: cursor, end: totalDuration),
                         sourceTrackID: kCMPersistentTrackID_Invalid,
-                        effects: []
+                        effects: [],
+                        broadcastOverlay: broadcastOverlay
                     )
                     instructions.append(trail)
                 } else {

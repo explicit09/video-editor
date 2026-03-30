@@ -337,7 +337,7 @@ struct CompositionStructuralTests {
 
     // MARK: - Split clip (two clips from same source, adjacent)
 
-    @Test("Clips on same timeline track share one composition video track")
+    @Test("Split clip produces correct composition structure")
     func splitClipStructure() async throws {
         let url = try await media.makeVideoWithAudio(name: "split", duration: 2.0)
         defer { media.cleanup() }
@@ -353,9 +353,9 @@ struct CompositionStructuralTests {
         let result = await CompositionBuilder().build(from: timeline, assets: assets)
         let comp = result.composition
 
-        // Non-overlapping clips on the same timeline track share 1 composition video track
+        // Each clip gets its own video track (required for video composition instructions)
         let videoTracks = comp.tracks(withMediaType: .video)
-        #expect(videoTracks.count == 1, "Clips on same track should share 1 video comp track, got \(videoTracks.count)")
+        #expect(videoTracks.count == 2, "Each clip gets own video track, got \(videoTracks.count)")
 
         // Composition covers 0-2s
         #expect(abs(comp.duration.seconds - 2.0) < 0.1)
