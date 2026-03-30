@@ -50,6 +50,8 @@ public struct AIToolRegistry: Sendable {
         transcribeAsset,
         searchTranscript,
         deleteAsset,
+        setOverlayConfig,
+        getOverlayConfig,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -86,6 +88,26 @@ public struct AIToolRegistry: Sendable {
         parameters: .object([
             "asset_id": .init(type: "string", description: "UUID of the asset to delete"),
         ], required: ["asset_id"])
+    )
+
+    public static let setOverlayConfig = AIToolDefinition(
+        name: "set_overlay_config",
+        description: "Set broadcast overlay configuration. Renders professional graphics over the video: episode title card (0-30s), host name bar, scrolling sponsor/topic ticker, chapter cards, and host intro strip (38-92s). Pass enabled=false to disable.",
+        parameters: .object([
+            "enabled": .init(type: "boolean", description: "Enable/disable overlay rendering"),
+            "episode_title": .init(type: "string", description: "Episode title (uppercase)"),
+            "episode_subtitle": .init(type: "string", description: "Episode subtitle"),
+            "host_a_name": .init(type: "string", description: "Host A name"),
+            "host_a_title": .init(type: "string", description: "Host A title"),
+            "host_b_name": .init(type: "string", description: "Host B name"),
+            "host_b_title": .init(type: "string", description: "Host B title"),
+        ], required: [])
+    )
+
+    public static let getOverlayConfig = AIToolDefinition(
+        name: "get_overlay_config",
+        description: "Get the current broadcast overlay configuration.",
+        parameters: .object([:], required: [])
     )
 
     // MARK: - Tool definitions (matching Claude/OpenAI function-calling schema)
@@ -732,6 +754,27 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing marker_id")
             }
             return [.deleteMarker(markerID: markerID)]
+
+        case "set_overlay_config":
+            let enabled = arguments["enabled"] as? Bool ?? true
+            let config = BroadcastOverlayConfig(
+                isEnabled: enabled,
+                episodeTitle: arguments["episode_title"] as? String ?? "",
+                episodeSubtitle: arguments["episode_subtitle"] as? String ?? "",
+                hostA: HostInfo(
+                    name: arguments["host_a_name"] as? String ?? "",
+                    title: arguments["host_a_title"] as? String ?? ""
+                ),
+                hostB: HostInfo(
+                    name: arguments["host_b_name"] as? String ?? "",
+                    title: arguments["host_b_title"] as? String ?? ""
+                )
+            )
+            return [.setBroadcastOverlay(config: config)]
+
+        case "get_overlay_config":
+            // Read-only — handled by AIChatController, not via intents
+            return []
 
         default:
             throw AIToolError.unknownTool(toolName)

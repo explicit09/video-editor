@@ -205,6 +205,24 @@ final class AIChatController {
                 return .init(toolName: toolCall.name, success: true, message: analysisResult)
             }
 
+            if toolCall.name == "get_overlay_config" {
+                if let config = appState.context.timelineState.broadcastOverlay {
+                    let result = "Overlay: enabled=\(config.isEnabled), title=\(config.episodeTitle), hosts=\(config.hostA.name)/\(config.hostB.name), \(config.topics.count) topics, \(config.chapters.count) chapters"
+                    return .init(toolName: toolCall.name, success: true, message: result)
+                }
+                return .init(toolName: toolCall.name, success: true, message: "No overlay configured.")
+            }
+
+            if toolCall.name == "set_overlay_config" {
+                // Resolve via AIToolResolver (returns setBroadcastOverlay intent)
+                let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
+                for intent in intents {
+                    try appState.perform(intent, source: .ai)
+                }
+                appState.rebuildComposition()
+                return .init(toolName: toolCall.name, success: true, message: "Overlay config set. Title: \(args["episode_title"] as? String ?? "")")
+            }
+
             if toolCall.name == "get_transcript" {
                 processingStatus = "Reading transcript..."
                 let result = try await handleGetTranscript(args: args, appState: appState)
