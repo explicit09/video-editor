@@ -67,7 +67,18 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         }
 
         var image = CIImage(cvPixelBuffer: sourceBuffer)
-        image = Self.applyCropRect(instruction.cropRect, to: image)
+
+        // Short-form layout recomposition — BEFORE effects
+        // Restructures 16:9 source into 9:16 with speakers stacked
+        if let sfConfig = instruction.shortFormConfig, sfConfig.isEnabled {
+            let renderSize = renderContext?.size ?? CGSize(width: 1080, height: 1920)
+            let time = request.compositionTime.seconds
+            image = ShortFormLayoutRenderer.recompose(
+                source: image, config: sfConfig, at: time, renderSize: renderSize
+            )
+        } else {
+            image = Self.applyCropRect(instruction.cropRect, to: image)
+        }
 
         // Apply effects in order
         for effect in instruction.effects {
@@ -312,6 +323,7 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
     public let blendMode: BlendMode
     public let subtitles: [SubtitleRenderer.SubtitleEntry]
     public let broadcastOverlay: BroadcastOverlayConfig?
+    public let shortFormConfig: ShortFormConfig?
 
     public init(
         timeRange: CMTimeRange,
@@ -322,7 +334,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         cropRect: CropRect = .fullFrame,
         blendMode: BlendMode = .normal,
         subtitles: [SubtitleRenderer.SubtitleEntry] = [],
-        broadcastOverlay: BroadcastOverlayConfig? = nil
+        broadcastOverlay: BroadcastOverlayConfig? = nil,
+        shortFormConfig: ShortFormConfig? = nil
     ) {
         self.timeRange = timeRange
         self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
@@ -333,6 +346,7 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         self.blendMode = blendMode
         self.subtitles = subtitles
         self.broadcastOverlay = broadcastOverlay
+        self.shortFormConfig = shortFormConfig
         super.init()
     }
 }
