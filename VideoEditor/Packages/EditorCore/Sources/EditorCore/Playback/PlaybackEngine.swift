@@ -7,7 +7,7 @@ public final class PlaybackEngine {
     public private(set) var player: AVPlayer
     public private(set) var isPlaying = false
     public private(set) var currentTime: TimeInterval = 0
-    public private(set) var duration: TimeInterval = 0
+    public internal(set) var duration: TimeInterval = 0
     public var loopEnabled: Bool = false
     public var playbackRate: Float = 1.0
 
@@ -71,6 +71,7 @@ public final class PlaybackEngine {
             playerItem.videoComposition = videoComp
         }
         player.replaceCurrentItem(with: playerItem)
+        setupLoopObserver()
 
         let restoredTime = min(max(resumeTime, 0), result.duration)
         let restoredCMTime = CMTime(seconds: restoredTime, preferredTimescale: 600)
@@ -105,7 +106,8 @@ public final class PlaybackEngine {
     }
 
     public func seek(to time: TimeInterval) {
-        let clampedTime = max(0, time)
+        let upperBound = duration > 0 ? duration : max(0, time)
+        let clampedTime = min(max(0, time), upperBound)
         let cmTime = CMTime(seconds: clampedTime, preferredTimescale: 600)
         player.seek(to: cmTime, toleranceBefore: .zero, toleranceAfter: .zero)
         currentTime = clampedTime

@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import EditorCore
 
 enum LeftPanelTab: String, CaseIterable, Hashable {
@@ -87,45 +88,53 @@ struct ContentView: View {
         }
         .frame(minWidth: 1200, minHeight: 760)
         .focusable()
-        .onKeyPress("j") { stepBackward(); return .handled }
-        .onKeyPress("k") { appState.playbackEngine.togglePlayPause(); return .handled }
-        .onKeyPress("l") { stepForward(); return .handled }
-        .onKeyPress(.leftArrow) { stepFrame(forward: false); return .handled }
-        .onKeyPress(.rightArrow) { stepFrame(forward: true); return .handled }
-        .onKeyPress("=") { appState.timelineViewState.zoomIn(); return .handled }
-        .onKeyPress("-") { appState.timelineViewState.zoomOut(); return .handled }
+        .onKeyPress("j") { guard shouldHandleGlobalShortcut else { return .ignored }; stepBackward(); return .handled }
+        .onKeyPress("k") { guard shouldHandleGlobalShortcut else { return .ignored }; appState.playbackEngine.togglePlayPause(); return .handled }
+        .onKeyPress("l") { guard shouldHandleGlobalShortcut else { return .ignored }; stepForward(); return .handled }
+        .onKeyPress(.leftArrow) { guard shouldHandleGlobalShortcut else { return .ignored }; stepFrame(forward: false); return .handled }
+        .onKeyPress(.rightArrow) { guard shouldHandleGlobalShortcut else { return .ignored }; stepFrame(forward: true); return .handled }
+        .onKeyPress("=") { guard shouldHandleGlobalShortcut else { return .ignored }; appState.timelineViewState.zoomIn(); return .handled }
+        .onKeyPress("-") { guard shouldHandleGlobalShortcut else { return .ignored }; appState.timelineViewState.zoomOut(); return .handled }
         // Split at playhead
-        .onKeyPress("s") { splitAtPlayhead(); return .handled }
+        .onKeyPress("s") { guard shouldHandleGlobalShortcut else { return .ignored }; splitAtPlayhead(); return .handled }
         // Add marker at playhead
-        .onKeyPress("m") { addMarkerAtPlayhead(); return .handled }
+        .onKeyPress("m") { guard shouldHandleGlobalShortcut else { return .ignored }; addMarkerAtPlayhead(); return .handled }
         // Select all clips (Cmd+A)
         .onKeyPress("a") {
+            guard shouldHandleGlobalShortcut else { return .ignored }
             guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
             selectAllClips(); return .handled
         }
         // Duplicate selected clips (Cmd+D)
         .onKeyPress("d") {
+            guard shouldHandleGlobalShortcut else { return .ignored }
             guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
             duplicateSelectedClips(); return .handled
         }
         // Toggle snap
-        .onKeyPress("n") { appState.timelineViewState.snapEnabled.toggle(); return .handled }
+        .onKeyPress("n") { guard shouldHandleGlobalShortcut else { return .ignored }; appState.timelineViewState.snapEnabled.toggle(); return .handled }
         // Toggle ripple
-        .onKeyPress("r") { appState.timelineViewState.rippleEnabled.toggle(); return .handled }
+        .onKeyPress("r") { guard shouldHandleGlobalShortcut else { return .ignored }; appState.timelineViewState.rippleEnabled.toggle(); return .handled }
         // Copy (Cmd+C)
         .onKeyPress("c") {
+            guard shouldHandleGlobalShortcut else { return .ignored }
             guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
             appState.copySelectedClips(); return .handled
         }
         // Paste (Cmd+V)
         .onKeyPress("v") {
+            guard shouldHandleGlobalShortcut else { return .ignored }
             guard NSEvent.modifierFlags.contains(.command) else { return .ignored }
             appState.pasteClips(); return .handled
         }
-        .onKeyPress("1") { editorTool = .selection; return .handled }
-        .onKeyPress("2") { editorTool = .blade; return .handled }
-        .onKeyPress("3") { editorTool = .trim; return .handled }
-        .onKeyPress(.escape) { editorTool = .selection; return .handled }
+        .onKeyPress("1") { guard shouldHandleGlobalShortcut else { return .ignored }; editorTool = .selection; return .handled }
+        .onKeyPress("2") { guard shouldHandleGlobalShortcut else { return .ignored }; editorTool = .blade; return .handled }
+        .onKeyPress("3") { guard shouldHandleGlobalShortcut else { return .ignored }; editorTool = .trim; return .handled }
+        .onKeyPress(.escape) { guard shouldHandleGlobalShortcut else { return .ignored }; editorTool = .selection; return .handled }
+    }
+
+    private var shouldHandleGlobalShortcut: Bool {
+        EditorShortcutGuard.shouldHandleGlobalShortcut(isTextInputFocused: NSApp.keyWindow?.firstResponder is NSTextView)
     }
 
     private var appBackground: some View {
@@ -577,18 +586,18 @@ struct ContentView: View {
     private var editModePicker: some View {
         @Bindable var viewState = appState.timelineViewState
         Menu {
-            ForEach(TimelineViewState.EditMode.allCases, id: \.self) { mode in
+            ForEach(TimelineViewState.PlacementMode.allCases, id: \.self) { mode in
                 Button {
-                    appState.timelineViewState.editMode = mode
+                    appState.timelineViewState.placementMode = mode
                 } label: {
                     Label(mode.rawValue, systemImage: mode.icon)
                 }
             }
         } label: {
             HStack(spacing: 4) {
-                Image(systemName: appState.timelineViewState.editMode.icon)
+                Image(systemName: appState.timelineViewState.placementMode.icon)
                     .font(.system(size: 10, weight: .semibold))
-                Text(appState.timelineViewState.editMode.rawValue.prefix(3).uppercased())
+                Text(appState.timelineViewState.placementMode.rawValue.prefix(3).uppercased())
                     .font(.cinLabel)
             }
             .foregroundStyle(CinematicTheme.onSurfaceVariant)
@@ -598,7 +607,7 @@ struct ContentView: View {
             .clipShape(Capsule())
         }
         .menuStyle(.button)
-        .help("Edit mode: \(appState.timelineViewState.editMode.rawValue)")
+        .help("Placement mode: \(appState.timelineViewState.placementMode.rawValue)")
     }
 
     private var commandDock: some View {

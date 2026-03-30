@@ -209,26 +209,28 @@ struct CommandPipelineTests {
     }
 
     @MainActor
-    @Test("All intents resolve without throwing")
-    func allIntentsResolve() throws {
+    @Test("Marker intents add, delete, and undo correctly")
+    func markerIntentsRoundTrip() throws {
+        let context = EditingContext()
         let resolver = IntentResolver()
-        let trackID = UUID()
-        let clipID = UUID()
 
-        let intents: [EditorIntent] = [
-            .addTrack(track: Track(type: .video)),
-            .removeTrack(trackID: trackID),
-            .insertClip(clip: Clip(assetID: UUID(), timelineRange: TimeRange(start: 0, end: 1), sourceRange: TimeRange(start: 0, end: 1)), trackID: trackID),
-            .deleteClips(clipIDs: [clipID]),
-            .moveClip(clipID: clipID, newStart: 5, trackID: trackID),
-            .trimClip(clipID: clipID, newSourceRange: TimeRange(start: 0, end: 3)),
-            .splitClip(clipID: clipID, at: 2),
-            .setMarker(at: 5, label: "Mark"),
-            .deleteMarker(markerID: UUID()),
-        ]
+        var setMarker = try resolver.resolve(.setMarker(at: 5, label: "Beat"))
+        try setMarker.execute(context: context)
 
-        for intent in intents {
-            let _ = try resolver.resolve(intent)
-        }
+        #expect(context.timelineState.timeline.markers.count == 1)
+        #expect(context.timelineState.timeline.markers[0].time == 5)
+        #expect(context.timelineState.timeline.markers[0].label == "Beat")
+
+        let markerID = context.timelineState.timeline.markers[0].id
+        var deleteMarker = try resolver.resolve(.deleteMarker(markerID: markerID))
+        try deleteMarker.execute(context: context)
+        #expect(context.timelineState.timeline.markers.isEmpty)
+
+        try deleteMarker.undo(context: context)
+        #expect(context.timelineState.timeline.markers.count == 1)
+        #expect(context.timelineState.timeline.markers[0].id == markerID)
+
+        try setMarker.undo(context: context)
+        #expect(context.timelineState.timeline.markers.isEmpty)
     }
 }

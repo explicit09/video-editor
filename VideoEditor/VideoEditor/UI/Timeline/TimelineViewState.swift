@@ -14,9 +14,9 @@ final class TimelineViewState {
     var rippleEnabled: Bool = false
     var linkedSelectionEnabled: Bool = true
     var lastSelectedClipID: UUID?
-    var editMode: EditMode = .overwrite
+    var placementMode: PlacementMode = .overwrite
 
-    enum EditMode: String, CaseIterable {
+    enum PlacementMode: String, CaseIterable {
         case insert = "Insert"
         case overwrite = "Overwrite"
         case replace = "Replace"
@@ -80,11 +80,13 @@ final class TimelineViewState {
     func selectTrack(_ trackID: UUID) {
         selectedTrackID = trackID
         selectedClipIDs.removeAll()
+        lastSelectedClipID = nil
     }
 
     func selectClip(_ clipID: UUID, in trackID: UUID) {
         selectedTrackID = trackID
         selectedClipIDs = [clipID]
+        lastSelectedClipID = clipID
     }
 
     func toggleSelection(_ clipID: UUID, in trackID: UUID, extend: Bool) {
@@ -125,6 +127,7 @@ final class TimelineViewState {
     func clearSelection() {
         selectedClipIDs.removeAll()
         selectedTrackID = nil
+        lastSelectedClipID = nil
     }
 
     private enum ZoomDirection {

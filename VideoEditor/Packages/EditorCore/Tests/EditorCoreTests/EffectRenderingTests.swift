@@ -247,4 +247,28 @@ struct EffectRenderingTests {
         let score = ssim.compute(r1, r2)
         #expect(score >= ssimThreshold, "Same blur twice should be >= \(ssimThreshold), got \(score)")
     }
+
+    @Test("Crop rect changes visible content while preserving frame size")
+    func cropRectChangesContent() {
+        let input = makeGradientImage()
+        let source = CIImage(cgImage: input)
+        let cropped = EffectCompositor.applyCropRect(
+            CropRect(x: 0.5, y: 0, width: 0.5, height: 1),
+            to: source
+        )
+
+        let rect = CGRect(x: 0, y: 0, width: input.width, height: input.height)
+        guard let output = ciContext.createCGImage(cropped, from: rect) else {
+            Issue.record("Crop rendering failed")
+            return
+        }
+
+        let inputProps = propChecker.measureProperties(input)
+        let outputProps = propChecker.measureProperties(output)
+
+        #expect(output.width == input.width)
+        #expect(output.height == input.height)
+        #expect(outputProps.meanLuminance > inputProps.meanLuminance + 10,
+                "Cropping to the brighter half should increase luminance: input=\(inputProps.meanLuminance), output=\(outputProps.meanLuminance)")
+    }
 }

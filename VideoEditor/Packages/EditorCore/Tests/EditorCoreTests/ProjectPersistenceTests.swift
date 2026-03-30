@@ -14,6 +14,7 @@ struct ProjectPersistenceTests {
             assetID: UUID(),
             timelineRange: TimeRange(start: 1, end: 5),
             sourceRange: TimeRange(start: 10, end: 14),
+            cropRect: CropRect(x: 0.2, y: 0.1, width: 0.6, height: 0.7),
             metadata: ClipMetadata(label: "Interview")
         )
         let timeline = Timeline(
@@ -56,6 +57,7 @@ struct ProjectPersistenceTests {
         #expect(loadedTimeline.tracks[0].name == "Primary")
         #expect(loadedTimeline.tracks[0].clips.count == 1)
         #expect(loadedTimeline.tracks[0].clips[0].metadata.label == "Interview")
+        #expect(loadedTimeline.tracks[0].clips[0].cropRect == clip.cropRect)
         #expect(loadedTimeline.markers.count == 1)
         #expect(loadedTimeline.markers[0].label == "Beat")
     }

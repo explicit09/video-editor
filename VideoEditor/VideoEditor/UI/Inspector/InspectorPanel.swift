@@ -491,6 +491,78 @@ struct InspectorPanel: View {
                 }
             }
 
+            if track?.type != .audio {
+                CinematicCard {
+                    VStack(alignment: .leading, spacing: CinematicSpacing.md) {
+                        Text("Crop")
+                            .font(.cinTitleSmall)
+                            .foregroundStyle(CinematicTheme.onSurface)
+
+                        let cropRect = resolvedClip(clip.id)?.cropRect ?? clip.cropRect
+
+                        cropSlider(label: "X", value: cropRect.x) { val in
+                            try? appState.perform(
+                                .setClipCrop(
+                                    clipID: clip.id,
+                                    cropRect: CropRect(
+                                        x: val,
+                                        y: cropRect.y,
+                                        width: cropRect.width,
+                                        height: cropRect.height
+                                    )
+                                )
+                            )
+                        }
+                        cropSlider(label: "Y", value: cropRect.y) { val in
+                            try? appState.perform(
+                                .setClipCrop(
+                                    clipID: clip.id,
+                                    cropRect: CropRect(
+                                        x: cropRect.x,
+                                        y: val,
+                                        width: cropRect.width,
+                                        height: cropRect.height
+                                    )
+                                )
+                            )
+                        }
+                        cropSlider(label: "Width", value: cropRect.width) { val in
+                            try? appState.perform(
+                                .setClipCrop(
+                                    clipID: clip.id,
+                                    cropRect: CropRect(
+                                        x: cropRect.x,
+                                        y: cropRect.y,
+                                        width: val,
+                                        height: cropRect.height
+                                    )
+                                )
+                            )
+                        }
+                        cropSlider(label: "Height", value: cropRect.height) { val in
+                            try? appState.perform(
+                                .setClipCrop(
+                                    clipID: clip.id,
+                                    cropRect: CropRect(
+                                        x: cropRect.x,
+                                        y: cropRect.y,
+                                        width: cropRect.width,
+                                        height: val
+                                    )
+                                )
+                            )
+                        }
+
+                        Button("Reset Crop") {
+                            try? appState.perform(.setClipCrop(clipID: clip.id, cropRect: .fullFrame))
+                        }
+                        .font(.cinLabelRegular)
+                        .foregroundStyle(CinematicTheme.primary)
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+
             // Effects
             CinematicCard {
                 VStack(alignment: .leading, spacing: CinematicSpacing.md) {
@@ -579,6 +651,20 @@ struct InspectorPanel: View {
                 Slider(value: Binding(get: { value }, set: { onChange($0) }), in: range)
                     .tint(CinematicTheme.aqua)
                 Text(String(format: "%.1f", value))
+                    .font(.cinLabelRegular)
+                    .monospacedDigit()
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                    .frame(width: 40, alignment: .trailing)
+            }
+        }
+    }
+
+    private func cropSlider(label: String, value: Double, onChange: @escaping (Double) -> Void) -> some View {
+        CinematicInspectorFieldRow(label: label) {
+            HStack(spacing: 6) {
+                Slider(value: Binding(get: { value }, set: { onChange($0) }), in: 0...1)
+                    .tint(CinematicTheme.success)
+                Text(String(format: "%.2f", value))
                     .font(.cinLabelRegular)
                     .monospacedDigit()
                     .foregroundStyle(CinematicTheme.onSurfaceVariant)

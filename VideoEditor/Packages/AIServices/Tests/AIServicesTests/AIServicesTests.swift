@@ -6,13 +6,20 @@ import Foundation
 @Suite("AI Services Tests")
 struct AIServicesTests {
 
-    @Test("AIMessage encodes correctly")
+    @Test("AIMessage round-trips all encoded fields")
     func messageEncoding() throws {
-        let message = AIMessage(role: "user", content: "Hello")
+        let message = AIMessage(
+            role: "user",
+            content: "Hello",
+            toolResultID: "tool-use-123",
+            isToolResult: true
+        )
         let data = try JSONEncoder().encode(message)
         let decoded = try JSONDecoder().decode(AIMessage.self, from: data)
         #expect(decoded.role == "user")
         #expect(decoded.content == "Hello")
+        #expect(decoded.toolResultID == "tool-use-123")
+        #expect(decoded.isToolResult == true)
     }
 
     @Test("CostTier values are correct")

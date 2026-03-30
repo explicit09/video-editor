@@ -17,6 +17,17 @@ struct PlaybackEngineTests {
     }
 
     @MainActor
+    @Test("Seek clamps times beyond duration")
+    func seekClampsPastDuration() {
+        let engine = PlaybackEngine()
+        engine.duration = 3
+
+        engine.seek(to: 9)
+
+        #expect(engine.currentTime == 3)
+    }
+
+    @MainActor
     @Test("Transport controls only start playback when a current item exists")
     func transportControlsRespectCurrentItem() {
         let engine = PlaybackEngine()

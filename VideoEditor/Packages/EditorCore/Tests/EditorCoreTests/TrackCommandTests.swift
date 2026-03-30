@@ -51,4 +51,25 @@ struct TrackCommandTests {
         try history.redo(context: context)
         #expect(context.timelineState.timeline.tracks.map(\.id) == [first.id, inserted.id, second.id])
     }
+
+    @MainActor
+    @Test("ReorderTrack moves a track and undo restores the original order")
+    func reorderTrackMovesAndUndoes() throws {
+        let first = Track(name: "V1", type: .video)
+        let second = Track(name: "A1", type: .audio)
+        let third = Track(name: "V2", type: .video)
+
+        let context = EditingContext(
+            timelineState: TimelineState(
+                timeline: Timeline(tracks: [first, second, third])
+            )
+        )
+
+        var command = ReorderTrackCommand(trackID: first.id, newIndex: 2)
+        try command.execute(context: context)
+        #expect(context.timelineState.timeline.tracks.map(\.id) == [second.id, third.id, first.id])
+
+        try command.undo(context: context)
+        #expect(context.timelineState.timeline.tracks.map(\.id) == [first.id, second.id, third.id])
+    }
 }

@@ -38,6 +38,23 @@ targets:
       - package: EditorCore
       - package: AIServices
 
+  VideoEditorTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: VideoEditorTests
+    settings:
+      base:
+        SWIFT_VERSION: "6.0"
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        GENERATE_INFOPLIST_FILE: "YES"
+    dependencies:
+      - target: VideoEditor
+      - package: EditorCore
+      - package: AIServices
+
 schemes:
   VideoEditor:
     build:
@@ -48,6 +65,7 @@ schemes:
     test:
       config: Debug
       targets:
+        - name: VideoEditorTests
         - package: EditorCore/EditorCoreTests
         - package: AIServices/AIServicesTests
     profile:

@@ -223,6 +223,64 @@ final class MCPServer {
                     "description": "Capture a screenshot of the editor window. Returns the file path to the PNG image. Use this to visually verify the editor state — check alignment, layout, clip positions, and overall appearance.",
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
+                [
+                    "name": "get_full_transcript",
+                    "description": "Get the complete transcript with timestamps every 30 seconds. Use this to READ the entire transcript and understand the content structure before making any editing decisions. Returns the full text with [MM:SS] time markers so you can identify episodes, topics, transitions, and content layers.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset"],
+                        "start": ["type": "number", "description": "Start time in seconds (optional)"],
+                        "end": ["type": "number", "description": "End time in seconds (optional)"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
+                    "name": "analyze_transcript",
+                    "description": "Read the FULL transcript and understand content structure. Produces a content map: labeled sections (pre-show, episode, planning, rehearsal, off-camera) with time ranges, summaries, and key phrases. This is the foundation — run this FIRST before auto_cut or any editing. Transcript-first, tools-second.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset to analyze"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
+                    "name": "detect_episodes",
+                    "description": "Detect episode boundaries in long recordings. Combines intro phrase detection, energy analysis, transcript continuity, and meta-talk detection (production discussion vs content). Returns episode start/end times with confidence scores and evidence. Run on recordings that contain multiple episodes or mixed content.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset to analyze"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
+                    "name": "classify_audio",
+                    "description": "Classify audio segments as live_speech, playback (from speakers), background noise, or silence. Uses spectral analysis (FFT), zero-crossing rate, crest factor, dynamic range, and energy variance to distinguish direct mic input from compressed playback audio. Run this BEFORE auto_cut to understand what content is live vs playback.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset to classify"],
+                        "start": ["type": "number", "description": "Start time in seconds (optional, defaults to 0)"],
+                        "end": ["type": "number", "description": "End time in seconds (optional, defaults to asset duration)"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
+                    "name": "auto_cut",
+                    "description": "Intelligent one-click editing. Analyzes audio + transcript to remove silence, filler words (um, uh, er), re-takes, and optionally speed up weak sections. Three presets: 'gentle' (>2s silence only), 'standard' (>0.8s silence + fillers + re-takes), 'aggressive' (>0.3s + fillers + hedges + speed up weak sections). Requires transcript — call transcribe_asset first. Returns before/after stats.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "clip_id": ["type": "string", "description": "UUID of the clip to process (optional, defaults to first clip on timeline)"],
+                        "preset": ["type": "string", "description": "Preset: 'gentle', 'standard', or 'aggressive' (default: standard)"],
+                        "dry_run": ["type": "boolean", "description": "If true, return the cut plan without executing (default: false)"],
+                    ], "required": []],
+                ],
+                [
+                    "name": "segment_topics",
+                    "description": "Break long content into coherent topic segments. Uses pauses, speaker changes, energy resets, and vocabulary shifts to find natural boundaries. Returns labeled segments with keywords. Useful before scoring or clip extraction.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset to segment"],
+                        "min_duration": ["type": "number", "description": "Minimum segment duration in seconds (default: 15)"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
+                    "name": "score_content",
+                    "description": "Score clips or segments on 5 dimensions: hook strength, retention curve, emotional arc, completeness, audio quality. Each 0-10. Gate-based: clips must score >= threshold on ALL dimensions to pass. Use for viral clip extraction, highlight detection, or quality assessment.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset to score"],
+                        "segments": ["type": "number", "description": "Number of equal segments to divide and score (default: 10)"],
+                        "gate_threshold": ["type": "number", "description": "Minimum score on all dimensions to pass (default: 7)"],
+                    ], "required": ["asset_id"]],
+                ],
             ])
             return successResponse(id: id, result: ["tools": tools])
 
@@ -300,6 +358,27 @@ final class MCPServer {
         }
         if name == "analyze_audio_energy" {
             return await handleAnalyzeAudioEnergy(arguments, appState: appState)
+        }
+        if name == "get_full_transcript" {
+            return await handleGetFullTranscript(arguments, appState: appState)
+        }
+        if name == "analyze_transcript" {
+            return await handleAnalyzeTranscript(arguments, appState: appState)
+        }
+        if name == "detect_episodes" {
+            return await handleDetectEpisodes(arguments, appState: appState)
+        }
+        if name == "classify_audio" {
+            return await handleClassifyAudio(arguments, appState: appState)
+        }
+        if name == "auto_cut" {
+            return await handleAutoCut(arguments, appState: appState)
+        }
+        if name == "score_content" {
+            return await handleScoreContent(arguments, appState: appState)
+        }
+        if name == "segment_topics" {
+            return await handleSegmentTopics(arguments, appState: appState)
         }
         if name == "get_state" {
             return handleGetState(appState: appState)
@@ -1186,6 +1265,846 @@ final class MCPServer {
         default:
             return "{}"
         }
+    }
+
+    // MARK: - Get Full Transcript
+
+    private func handleGetFullTranscript(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        guard let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return "Error: No transcript. Run transcribe_asset first."
+        }
+
+        let startFilter = args["start"] as? Double ?? 0
+        let endFilter = args["end"] as? Double ?? asset.duration
+
+        // Build transcript grouped by sentences/pauses with timestamps
+        let words = result.words.filter { $0.start >= startFilter && $0.end <= endFilter }
+        guard !words.isEmpty else { return "No words in the specified range." }
+
+        var output = ""
+        var sentenceWords: [String] = []
+        var sentenceStart: TimeInterval = words[0].start
+
+        for (i, word) in words.enumerated() {
+            if sentenceWords.isEmpty {
+                sentenceStart = word.start
+            }
+            sentenceWords.append(word.word)
+
+            // Break on sentence-ending punctuation or long pause (>0.8s)
+            let isSentenceEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
+            let hasLongPause = i + 1 < words.count && (words[i + 1].start - word.end) > 0.8
+            let isLast = i == words.count - 1
+
+            if isSentenceEnd || hasLongPause || isLast {
+                let mins = Int(sentenceStart) / 60
+                let secs = Int(sentenceStart) % 60
+                let sentence = sentenceWords.joined(separator: " ")
+                output += "[\(mins):\(String(format: "%02d", secs))] \(sentence)\n"
+                sentenceWords = []
+            }
+        }
+
+        let header = "Transcript: \(asset.name) (\(words.count) words, \(String(format: "%.0f", endFilter - startFilter))s)\n\n"
+        return header + output
+    }
+
+    // MARK: - Analyze Transcript
+
+    private func handleAnalyzeTranscript(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        guard let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return "Error: No transcript. Run transcribe_asset first."
+        }
+
+        // Build timestamped transcript for Claude to read
+        let words = result.words
+        var transcript = ""
+        var sentenceWords: [String] = []
+        var sentenceStart: TimeInterval = words.first?.start ?? 0
+
+        for (i, word) in words.enumerated() {
+            if sentenceWords.isEmpty { sentenceStart = word.start }
+            sentenceWords.append(word.word)
+
+            let isSentenceEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
+            let hasLongPause = i + 1 < words.count && (words[i + 1].start - word.end) > 0.8
+            let isLast = i == words.count - 1
+
+            if isSentenceEnd || hasLongPause || isLast {
+                let mins = Int(sentenceStart) / 60
+                let secs = Int(sentenceStart) % 60
+                transcript += "[\(mins):\(String(format: "%02d", secs))] \(sentenceWords.joined(separator: " "))\n"
+                sentenceWords = []
+            }
+        }
+
+        // Get Claude API key from environment or .env file
+        guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
+            return "Error: ANTHROPIC_API_KEY not configured. Cannot analyze without Claude."
+        }
+
+        // Send to Claude for comprehension
+        let provider = ClaudeProvider(apiKey: apiKey, model: "claude-sonnet-4-6")
+
+        let prompt = """
+        You are analyzing a recording transcript to identify its structure. Read the ENTIRE transcript below carefully, then tell me:
+
+        1. How many REAL episodes are in this recording? A real episode is structured content intended for an audience — it has a topic, develops that topic, and delivers value. Casual conversation between hosts about their own channel/views/setup is NOT an episode even if it has an intro tagline.
+
+        2. For each real episode:
+           - Exact start timestamp [MM:SS]
+           - Exact end timestamp [MM:SS]
+           - Title (from the intro if there is one)
+           - Topic summary (what is the episode actually about?)
+           - Key points discussed
+
+        3. What are the other sections? (pre-show conversation, planning, off-camera, rehearsal/re-takes, wrap-up)
+           - For each non-episode section, give start/end timestamps and a brief description
+
+        Important rules:
+        - An intro tagline ("Welcome to X") does NOT make something an episode. The content after the intro must actually deliver on the promise. If they say "Welcome to Technologer" and then talk about their own YouTube views and mic setup, that's NOT an episode.
+        - Multiple intro attempts close together are rehearsals, not separate episodes.
+        - "Off camera" or discussing what to record next = planning, not episode content.
+        - Look for topic commitment — does the conversation develop a subject for 10+ minutes in a way a viewer would find valuable?
+
+        Format your response as:
+
+        EPISODES: [number]
+
+        EPISODE 1:
+        Start: [MM:SS]
+        End: [MM:SS]
+        Title: [title]
+        Topic: [what it's about]
+        Key points: [bullet list]
+
+        OTHER SECTIONS:
+        [MM:SS]-[MM:SS]: [type] — [description]
+
+        Here is the full transcript:
+
+        \(transcript)
+        """
+
+        do {
+            let response = try await provider.complete(
+                messages: [AIMessage(role: "user", content: prompt)],
+                tools: []
+            )
+            return "=== TRANSCRIPT ANALYSIS (by Claude) ===\n\n" + response.content
+        } catch {
+            return "Error calling Claude: \(error.localizedDescription)"
+        }
+    }
+
+    // MARK: - Detect Episodes
+
+    private func handleDetectEpisodes(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        // Get transcript
+        guard let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return "Error: No transcript. Run transcribe_asset first."
+        }
+
+        // Get energy readings
+        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let analyzer = SpeechEnergyAnalyzer()
+        let readings = await analyzer.analyze(url: mediaURL)
+
+        // Detect
+        let detector = EpisodeBoundaryDetector()
+        let episodes = detector.detect(
+            transcript: result.words,
+            energyReadings: readings,
+            totalDuration: asset.duration
+        )
+
+        // Report
+        var lines = ["=== EPISODE DETECTION ==="]
+        lines.append("Asset: \(asset.name) (\(String(format: "%.0f", asset.duration))s)")
+        lines.append("Episodes found: \(episodes.count)")
+        lines.append("")
+
+        for (i, ep) in episodes.enumerated() {
+            lines.append("Episode \(i + 1):")
+            if let title = ep.title {
+                lines.append("  Title: \(title)")
+            }
+            lines.append("  Start: \(ep.formattedStart) (confidence: \(String(format: "%.0f", ep.startConfidence * 100))%)")
+            lines.append("  End:   \(ep.formattedEnd) (confidence: \(String(format: "%.0f", ep.endConfidence * 100))%)")
+            lines.append("  Duration: \(ep.formattedDuration)")
+
+            if !ep.startEvidence.isEmpty {
+                lines.append("  Start evidence:")
+                for e in ep.startEvidence { lines.append("    - \(e)") }
+            }
+            if !ep.endEvidence.isEmpty {
+                lines.append("  End evidence:")
+                for e in ep.endEvidence { lines.append("    - \(e)") }
+            }
+            lines.append("")
+        }
+
+        if episodes.isEmpty {
+            lines.append("No episodes detected. The recording may be a single continuous piece.")
+        }
+
+        return lines.joined(separator: "\n")
+    }
+
+    // MARK: - Classify Audio
+
+    private func handleClassifyAudio(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let start = args["start"] as? Double
+        let end = args["end"] as? Double
+
+        let classifier = AudioSourceClassifier()
+
+        do {
+            let segments: [ClassifiedSegment]
+            if let start, let end {
+                segments = try await classifier.classifyRange(url: mediaURL, start: start, end: end)
+            } else {
+                segments = try await classifier.classify(url: mediaURL)
+            }
+
+            let runs = AudioSourceClassifier.summarize(segments)
+
+            var lines = ["=== AUDIO SOURCE CLASSIFICATION ==="]
+            lines.append("Asset: \(asset.name) (\(String(format: "%.0f", asset.duration))s)")
+
+            // Summary counts
+            let liveSpeechTime = runs.filter { $0.source == .liveSpeech }.reduce(0.0) { $0 + $1.duration }
+            let playbackTime = runs.filter { $0.source == .playback }.reduce(0.0) { $0 + $1.duration }
+            let backgroundTime = runs.filter { $0.source == .background }.reduce(0.0) { $0 + $1.duration }
+            let silenceTime = runs.filter { $0.source == .silence }.reduce(0.0) { $0 + $1.duration }
+            let total = liveSpeechTime + playbackTime + backgroundTime + silenceTime
+
+            lines.append("")
+            lines.append("Summary:")
+            lines.append("  Live speech: \(String(format: "%.0f", liveSpeechTime))s (\(String(format: "%.0f", liveSpeechTime / max(total, 1) * 100))%)")
+            lines.append("  Playback:    \(String(format: "%.0f", playbackTime))s (\(String(format: "%.0f", playbackTime / max(total, 1) * 100))%)")
+            lines.append("  Background:  \(String(format: "%.0f", backgroundTime))s (\(String(format: "%.0f", backgroundTime / max(total, 1) * 100))%)")
+            lines.append("  Silence:     \(String(format: "%.0f", silenceTime))s (\(String(format: "%.0f", silenceTime / max(total, 1) * 100))%)")
+            lines.append("")
+
+            lines.append("Segments (\(runs.count) runs):")
+            for (i, run) in runs.enumerated() {
+                let startMin = Int(run.start) / 60
+                let startSec = Int(run.start) % 60
+                let endMin = Int(run.end) / 60
+                let endSec = Int(run.end) % 60
+                let dur = String(format: "%.0f", run.duration)
+
+                lines.append("  #\(i+1) [\(startMin):\(String(format: "%02d", startSec))-\(endMin):\(String(format: "%02d", endSec))] \(dur)s — \(run.source.rawValue)")
+            }
+
+            return lines.joined(separator: "\n")
+        } catch {
+            return "Error: \(error.localizedDescription)"
+        }
+    }
+
+    // MARK: - Auto Cut
+
+    private func handleAutoCut(_ args: [String: Any], appState: AppState) async -> String {
+        let presetStr = args["preset"] as? String ?? "standard"
+        let dryRun = args["dry_run"] as? Bool ?? false
+
+        guard let preset = AutoCutPreset(rawValue: presetStr) else {
+            return "Error: Invalid preset '\(presetStr)'. Use: gentle, standard, aggressive"
+        }
+
+        // Find target clip
+        let clip: Clip
+        let track: Track
+        if let clipIDStr = args["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) {
+            guard let (foundClip, foundTrack) = findClip(id: clipID, in: appState.timeline) else {
+                return "Error: Clip not found: \(clipIDStr)"
+            }
+            clip = foundClip
+            track = foundTrack
+        } else {
+            // Default to first clip on timeline
+            guard let firstTrack = appState.timeline.tracks.first(where: { !$0.clips.isEmpty }),
+                  let firstClip = firstTrack.clips.first else {
+                return "Error: No clips on timeline"
+            }
+            clip = firstClip
+            track = firstTrack
+        }
+
+        guard let asset = appState.assets.first(where: { $0.id == clip.assetID }) else {
+            return "Error: Asset not found for clip"
+        }
+
+        // Gather analysis data
+        let silenceDetector = SilenceDetector()
+        let energyAnalyzer = SpeechEnergyAnalyzer()
+        let mediaURL = asset.proxyURL ?? asset.sourceURL
+
+        let silenceRanges: [SilenceRange]
+        do {
+            silenceRanges = try await silenceDetector.detect(
+                url: mediaURL,
+                thresholdDB: -40,
+                minDuration: 0.2
+            )
+        } catch {
+            return "Error detecting silence: \(error.localizedDescription)"
+        }
+
+        let energyReadings = await energyAnalyzer.analyze(url: mediaURL)
+
+        // Get transcript words
+        var transcriptWords: [TranscriptWord] = []
+        if let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) {
+            transcriptWords = result.words
+        }
+
+        if transcriptWords.isEmpty && preset != .gentle {
+            return "Error: No transcript available. Run transcribe_asset first, or use 'gentle' preset (silence-only, no transcript needed)."
+        }
+
+        // Filter analysis to clip's source range
+        let clipSilences = silenceRanges.filter { range in
+            range.start >= clip.sourceRange.start && range.end <= clip.sourceRange.end
+        }
+        let clipWords = transcriptWords.filter { w in
+            w.start >= clip.sourceRange.start && w.end <= clip.sourceRange.end
+        }
+        let clipReadings = energyReadings.filter { r in
+            r.time >= clip.sourceRange.start && r.time < clip.sourceRange.end
+        }
+
+        // Generate plan
+        let engine = AutoCutEngine()
+        let plan = engine.generatePlan(
+            preset: preset,
+            assetDuration: clip.sourceRange.duration,
+            silenceRanges: clipSilences,
+            transcript: clipWords,
+            energyReadings: clipReadings
+        )
+
+        // Build report
+        var lines = ["=== AUTO CUT PLAN ==="]
+        lines.append("Preset: \(preset.rawValue)")
+        lines.append("Clip: \(clip.metadata.label ?? clip.id.uuidString.prefix(8).description)")
+        lines.append("")
+        lines.append("Before: \(String(format: "%.1f", plan.stats.originalDuration))s | After: \(String(format: "%.1f", plan.stats.resultDuration))s | Saved: \(String(format: "%.1f", plan.stats.originalDuration - plan.stats.resultDuration))s (\(String(format: "%.0f", (1 - plan.stats.resultDuration / max(plan.stats.originalDuration, 0.1)) * 100))%)")
+        lines.append("Segments removed: \(plan.stats.segmentsRemoved) | Fillers: \(plan.stats.fillerWordsRemoved) | Re-takes: \(plan.stats.retakesRemoved)")
+        lines.append("Speech ratio: \(Int(plan.stats.speechRatioBefore * 100))% → \(Int(plan.stats.speechRatioAfter * 100))%")
+        lines.append("Engagement: \(plan.stats.engagementBefore) → \(plan.stats.engagementAfter)")
+        lines.append("")
+
+        if !plan.segments.isEmpty {
+            lines.append("Cuts:")
+            for (i, seg) in plan.segments.enumerated() {
+                let start = String(format: "%.1f", seg.sourceRange.start)
+                let end = String(format: "%.1f", seg.sourceRange.end)
+                let dur = String(format: "%.1f", seg.sourceRange.duration)
+                lines.append("  \(i+1). [\(start)s-\(end)s] \(dur)s — \(seg.action.rawValue): \(seg.reason) (conf: \(String(format: "%.0f", seg.confidence * 100))%)")
+            }
+        } else {
+            lines.append("No cuts needed — content is clean.")
+        }
+
+        if dryRun {
+            lines.append("\n[DRY RUN — no changes made. Remove dry_run to execute.]")
+            return lines.joined(separator: "\n")
+        }
+
+        // Execute the plan using the proven split-then-delete pattern
+        // (same as handleRemoveSilence in AIChatController)
+        if plan.segments.isEmpty {
+            return lines.joined(separator: "\n")
+        }
+
+        // Instead of split+delete (which creates N clips = N AVFoundation tracks = black video),
+        // rebuild the timeline with only the "keep" segments as new clips.
+        // This produces far fewer clips and renders correctly.
+
+        let assetID = clip.assetID
+        let clipSourceStart = clip.sourceRange.start
+        let clipSourceEnd = clip.sourceRange.end
+
+        // Build list of keep ranges by inverting the removal list
+        let removals = plan.segments
+            .filter { $0.action != .keep && $0.action != .speedUp }
+            .sorted { $0.sourceRange.start < $1.sourceRange.start }
+
+        var keepRanges: [(source: TimeRange, speed: Double)] = []
+        var cursor = clipSourceStart
+
+        for removal in removals {
+            if removal.sourceRange.start > cursor + 0.01 {
+                keepRanges.append((source: TimeRange(start: cursor, end: removal.sourceRange.start), speed: 1.0))
+            }
+            cursor = removal.sourceRange.end
+        }
+        // Trailing keep
+        if cursor < clipSourceEnd - 0.01 {
+            keepRanges.append((source: TimeRange(start: cursor, end: clipSourceEnd), speed: 1.0))
+        }
+
+        // Apply speed-ups from the plan
+        let speedUps = plan.segments.filter { $0.action == .speedUp }
+        for speedUp in speedUps {
+            for i in 0..<keepRanges.count {
+                if keepRanges[i].source.overlaps(speedUp.sourceRange) {
+                    keepRanges[i].speed = 1.12
+                }
+            }
+        }
+
+        // Find the tracks this clip lives on
+        guard let videoTrackIdx = appState.timeline.tracks.firstIndex(where: { $0.clips.contains(where: { $0.id == clip.id }) }) else {
+            lines.append("\nError: Could not find clip's track")
+            return lines.joined(separator: "\n")
+        }
+
+        // Find paired audio track via linkGroupID
+        let audioTrackIdx: Int? = {
+            guard let linkID = clip.linkGroupID else { return nil }
+            return appState.timeline.tracks.firstIndex(where: { track in
+                track.type == .audio && track.clips.contains(where: { $0.linkGroupID == linkID })
+            })
+        }()
+
+        // Delete original clips
+        var idsToDelete = [clip.id]
+        if let ati = audioTrackIdx {
+            if let audioClip = appState.timeline.tracks[ati].clips.first(where: { $0.linkGroupID == clip.linkGroupID }) {
+                idsToDelete.append(audioClip.id)
+            }
+        }
+        try? appState.perform(.deleteClips(clipIDs: idsToDelete), source: .ai)
+
+        // Insert new clips for each keep range
+        var timelineCursor: TimeInterval = 0
+        var insertedCount = 0
+
+        for keep in keepRanges {
+            let duration = keep.source.duration / keep.speed
+            let linkID = UUID()
+
+            // Video clip
+            let videoClip = Clip(
+                assetID: assetID,
+                timelineRange: TimeRange(start: timelineCursor, duration: duration),
+                sourceRange: keep.source,
+                volume: clip.volume,
+                speed: keep.speed,
+                linkGroupID: linkID
+            )
+            try? appState.perform(.insertClip(clip: videoClip, trackID: appState.timeline.tracks[videoTrackIdx].id), source: .ai)
+
+            // Audio clip on paired track
+            if let ati = audioTrackIdx {
+                let audioClip = Clip(
+                    assetID: assetID,
+                    timelineRange: TimeRange(start: timelineCursor, duration: duration),
+                    sourceRange: keep.source,
+                    volume: clip.volume,
+                    speed: keep.speed,
+                    linkGroupID: linkID
+                )
+                try? appState.perform(.insertClip(clip: audioClip, trackID: appState.timeline.tracks[ati].id), source: .ai)
+            }
+
+            timelineCursor += duration
+            insertedCount += 1
+        }
+
+        lines.append("\nExecuted: removed \(removals.count) segments, created \(insertedCount) keep clips, \(speedUps.count) speed-ups.")
+
+        // === PASS 2: Claude review ===
+        // Read the transcript of what's now on the timeline, send to Claude,
+        // and fix any rehearsals, false starts, or off-topic sections.
+        let reviewResult = await reviewAndFix(appState: appState, asset: asset)
+        if !reviewResult.isEmpty {
+            lines.append("\n--- REVIEW PASS ---")
+            lines.append(reviewResult)
+        }
+
+        lines.append(stateSnapshot(appState))
+        return lines.joined(separator: "\n")
+    }
+
+    /// Pass 2: Read the result transcript, send to Claude for review, fix issues.
+    private func reviewAndFix(appState: AppState, asset: MediaAsset) async -> String {
+        // Build transcript of what's currently on the timeline
+        let clips = appState.timeline.tracks
+            .filter { $0.type == .video || $0.type == .audio }
+            .flatMap(\.clips)
+            .sorted { $0.timelineRange.start < $1.timelineRange.start }
+
+        // Get transcript words that fall within the clips' source ranges
+        guard let transcriptResult = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else { return "" }
+
+        // Build timestamped transcript of just what's on the timeline
+        var timelineTranscript = ""
+        var timelineCursor: TimeInterval = 0
+
+        // Deduplicate: only process video track clips (audio mirrors them)
+        let videoClips = appState.timeline.tracks
+            .filter { $0.type != .audio }
+            .flatMap(\.clips)
+            .sorted { $0.timelineRange.start < $1.timelineRange.start }
+
+        for clip in videoClips {
+            let clipWords = transcriptResult.words.filter {
+                $0.start >= clip.sourceRange.start && $0.end <= clip.sourceRange.end
+            }
+
+            var sentenceWords: [String] = []
+            var sentenceSourceStart: TimeInterval = 0
+
+            for (i, word) in clipWords.enumerated() {
+                if sentenceWords.isEmpty {
+                    sentenceSourceStart = word.start
+                }
+                sentenceWords.append(word.word)
+
+                let isSentenceEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
+                let hasLongPause = i + 1 < clipWords.count && (clipWords[i + 1].start - word.end) > 0.8
+                let isLast = i == clipWords.count - 1
+
+                if isSentenceEnd || hasLongPause || isLast {
+                    // Map source time to timeline time
+                    let timelineTime = clip.timelineRange.start + (sentenceSourceStart - clip.sourceRange.start)
+                    let mins = Int(timelineTime) / 60
+                    let secs = Int(timelineTime) % 60
+                    timelineTranscript += "[\(mins):\(String(format: "%02d", secs))] \(sentenceWords.joined(separator: " "))\n"
+                    sentenceWords = []
+                }
+            }
+        }
+
+        guard !timelineTranscript.isEmpty else { return "" }
+
+        // Get Claude API key
+        guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
+            return "Skipping review: no API key"
+        }
+
+        let provider = ClaudeProvider(apiKey: apiKey, model: "claude-sonnet-4-6")
+
+        let prompt = """
+        You just auto-cut a podcast episode. Below is the transcript of the result (with timeline timestamps).
+
+        Review it and tell me if there are any issues at the START of the video:
+        - Rehearsals or repeated intros (same phrase said multiple times — only the last attempt should remain)
+        - False starts (incomplete sentences before the real beginning)
+        - Off-topic conversation that isn't part of the episode
+
+        If the video starts clean, respond with exactly: CLEAN
+
+        If there are issues, respond with:
+        TRIM_START [MM:SS]
+        REASON: [brief explanation]
+
+        Where [MM:SS] is the timeline timestamp where the real episode content begins (after any rehearsals/false starts). Everything before this timestamp will be removed.
+
+        Only check the start — do NOT flag issues in the middle or end of the episode.
+
+        TRANSCRIPT:
+        \(timelineTranscript)
+        """
+
+        do {
+            let response = try await provider.complete(
+                messages: [AIMessage(role: "user", content: prompt)],
+                tools: []
+            )
+
+            let answer = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+
+            if answer.starts(with: "CLEAN") {
+                return "Review: starts clean, no changes needed."
+            }
+
+            // Parse TRIM_START response
+            if answer.contains("TRIM_START") {
+                // Extract timestamp
+                let lines = answer.components(separatedBy: .newlines)
+                for line in lines {
+                    if line.contains("TRIM_START") {
+                        let parts = line.components(separatedBy: " ")
+                        if let rawTimeStr = parts.last {
+                            let timeStr = rawTimeStr.trimmingCharacters(in: CharacterSet(charactersIn: "[]"))
+                            let timeParts = timeStr.components(separatedBy: ":")
+                            if timeParts.count == 2,
+                               let mins = Int(timeParts[0]),
+                               let secs = Int(timeParts[1]) {
+                                let trimTime = TimeInterval(mins * 60 + secs)
+
+                                // Collect clips to delete (entirely before trim point)
+                                var idsToDelete: [UUID] = []
+                                var clipsToTrim: [(id: UUID, newSourceStart: TimeInterval, sourceEnd: TimeInterval)] = []
+
+                                for track in appState.timeline.tracks {
+                                    for clip in track.clips {
+                                        if clip.timelineRange.end <= trimTime + 0.1 {
+                                            idsToDelete.append(clip.id)
+                                        } else if clip.timelineRange.start < trimTime && clip.timelineRange.end > trimTime {
+                                            let newSourceStart = clip.sourceRange.start + (trimTime - clip.timelineRange.start)
+                                            clipsToTrim.append((id: clip.id, newSourceStart: newSourceStart, sourceEnd: clip.sourceRange.end))
+                                        }
+                                    }
+                                }
+
+                                // Execute deletions
+                                var reviewLog = "Delete \(idsToDelete.count) clips, trim \(clipsToTrim.count). "
+                                if !idsToDelete.isEmpty {
+                                    do {
+                                        try appState.perform(.deleteClips(clipIDs: idsToDelete), source: .ai)
+                                        reviewLog += "Deleted OK. "
+                                    } catch {
+                                        reviewLog += "Delete error: \(error.localizedDescription). "
+                                    }
+                                }
+
+                                // Execute trims
+                                for t in clipsToTrim {
+                                    do {
+                                        try appState.perform(.trimClip(
+                                            clipID: t.id,
+                                            newSourceRange: TimeRange(start: t.newSourceStart, end: t.sourceEnd)
+                                        ), source: .ai)
+                                        reviewLog += "Trimmed OK. "
+                                    } catch {
+                                        reviewLog += "Trim error: \(error.localizedDescription). "
+                                    }
+                                }
+
+                                // Ripple everything to start at 0
+                                for (trackIdx, _) in appState.timeline.tracks.enumerated() {
+                                    let sorted = appState.context.timelineState.timeline.tracks[trackIdx].clips
+                                        .sorted { $0.timelineRange.start < $1.timelineRange.start }
+                                    var cursor: TimeInterval = 0
+                                    for clip in sorted {
+                                        if let idx = appState.context.timelineState.timeline.tracks[trackIdx].clips
+                                            .firstIndex(where: { $0.id == clip.id }) {
+                                            appState.context.timelineState.timeline.tracks[trackIdx].clips[idx]
+                                                .timelineRange = TimeRange(start: cursor, duration: clip.timelineRange.duration)
+                                        }
+                                        cursor += clip.timelineRange.duration
+                                    }
+                                }
+
+                                let reason = lines.first(where: { $0.contains("REASON:") }) ?? ""
+                                return "Review: trimmed start to \(timeStr). \(reviewLog)\(reason)"
+                            }
+                        }
+                    }
+                }
+            }
+
+            return "Review: \(answer)"
+        } catch {
+            return "Review skipped: \(error.localizedDescription)"
+        }
+    }
+
+    private func findClip(id: UUID, in timeline: Timeline) -> (Clip, Track)? {
+        for track in timeline.tracks {
+            if let clip = track.clips.first(where: { $0.id == id }) {
+                return (clip, track)
+            }
+        }
+        return nil
+    }
+
+    // MARK: - Score Content
+
+    private func handleScoreContent(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        let segCount = args["segments"] as? Int ?? (args["segments"] as? Double).map({ Int($0) }) ?? 10
+        let gateThreshold = args["gate_threshold"] as? Double ?? 7.0
+        let mediaURL = asset.proxyURL ?? asset.sourceURL
+
+        // Get energy readings
+        let analyzer = SpeechEnergyAnalyzer()
+        let readings = await analyzer.analyze(url: mediaURL)
+
+        // Get transcript
+        var transcriptWords: [TranscriptWord] = []
+        if let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) {
+            transcriptWords = result.words
+        }
+
+        // Divide into segments
+        let duration = asset.duration
+        let segDuration = duration / Double(segCount)
+        let segments = (0..<segCount).map { i in
+            TimeRange(start: Double(i) * segDuration, end: Double(i + 1) * segDuration)
+        }
+
+        // Score
+        let scorer = ContentScorer()
+        let ranked = scorer.rankSegments(
+            segments: segments,
+            energyReadings: readings,
+            transcript: transcriptWords
+        )
+
+        // Build report
+        var lines = ["=== CONTENT SCORING ==="]
+        lines.append("Asset: \(asset.name) (\(String(format: "%.0f", duration))s)")
+        lines.append("Segments: \(segCount) | Gate threshold: \(String(format: "%.1f", gateThreshold))")
+        lines.append("")
+
+        let passed = ranked.filter { $0.score.passesGate(threshold: gateThreshold) }
+        let rejected = ranked.filter { $0.score.autoReject() }
+        lines.append("PASSED gate: \(passed.count) | REJECTED: \(rejected.count) | Review: \(ranked.count - passed.count - rejected.count)")
+        lines.append("")
+
+        lines.append("Ranked segments (best first):")
+        for (i, entry) in ranked.enumerated() {
+            let s = entry.score
+            let startMin = Int(entry.segment.start) / 60
+            let startSec = Int(entry.segment.start) % 60
+            let endMin = Int(entry.segment.end) / 60
+            let endSec = Int(entry.segment.end) % 60
+            let status = s.passesGate(threshold: gateThreshold) ? "PASS" : (s.autoReject() ? "REJECT" : "REVIEW")
+
+            lines.append("  #\(i+1) [\(startMin):\(String(format: "%02d", startSec))-\(endMin):\(String(format: "%02d", endSec))] \(status) overall=\(String(format: "%.1f", s.overall)) avg=\(String(format: "%.1f", s.average))")
+            lines.append("       hook=\(String(format: "%.1f", s.hookStrength)) retention=\(String(format: "%.1f", s.retentionCurve)) arc=\(String(format: "%.1f", s.emotionalArc)) complete=\(String(format: "%.1f", s.completeness)) audio=\(String(format: "%.1f", s.audioQuality))")
+        }
+
+        return lines.joined(separator: "\n")
+    }
+
+    // MARK: - Topic Segmentation
+
+    private func handleSegmentTopics(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        let minDuration = args["min_duration"] as? Double ?? 15.0
+        let mediaURL = asset.proxyURL ?? asset.sourceURL
+
+        // Get transcript
+        guard let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return "Error: No transcript available. Run transcribe_asset first."
+        }
+
+        // Get silence ranges
+        let silenceDetector = SilenceDetector()
+        let silenceRanges = (try? await silenceDetector.detect(url: mediaURL, minDuration: 0.5)) ?? []
+
+        // Get energy readings
+        let energyAnalyzer = SpeechEnergyAnalyzer()
+        let energyReadings = await energyAnalyzer.analyze(url: mediaURL)
+
+        // Segment
+        let segmenter = TopicSegmenter()
+        let segments = segmenter.segment(
+            transcript: result.words,
+            silenceRanges: silenceRanges,
+            speakerSegments: result.speakers,
+            energyReadings: energyReadings,
+            minSegmentDuration: minDuration
+        )
+
+        // Build report
+        var lines = ["=== TOPIC SEGMENTATION ==="]
+        lines.append("Asset: \(asset.name) (\(String(format: "%.0f", asset.duration))s)")
+        lines.append("Segments found: \(segments.count)")
+        lines.append("")
+
+        for (i, seg) in segments.enumerated() {
+            let startMin = Int(seg.range.start) / 60
+            let startSec = Int(seg.range.start) % 60
+            let endMin = Int(seg.range.end) / 60
+            let endSec = Int(seg.range.end) % 60
+            let dur = String(format: "%.0f", seg.range.duration)
+
+            lines.append("  #\(i+1) [\(startMin):\(String(format: "%02d", startSec))-\(endMin):\(String(format: "%02d", endSec))] \(dur)s — \(seg.boundaryType.rawValue)")
+            lines.append("       Topic: \(seg.label)")
+            if !seg.keywords.isEmpty {
+                lines.append("       Keywords: \(seg.keywords.joined(separator: ", "))")
+            }
+        }
+
+        return lines.joined(separator: "\n")
+    }
+
+    // MARK: - API Key
+
+    private func loadAnthropicKey() -> String? {
+        // Try .env file in common locations
+        let candidates = [
+            URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(".env"),
+            Bundle.main.bundleURL
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .appendingPathComponent(".env"),
+        ]
+        for url in candidates {
+            if let contents = try? String(contentsOf: url, encoding: .utf8) {
+                for line in contents.components(separatedBy: .newlines) {
+                    let trimmed = line.trimmingCharacters(in: .whitespaces)
+                    if trimmed.hasPrefix("ANTHROPIC_API_KEY=") {
+                        let value = String(trimmed.dropFirst("ANTHROPIC_API_KEY=".count))
+                            .trimmingCharacters(in: CharacterSet(charactersIn: "\"'"))
+                        if !value.isEmpty { return value }
+                    }
+                }
+            }
+        }
+        return nil
     }
 
     // MARK: - Helpers

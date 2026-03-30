@@ -67,6 +67,7 @@ public struct CompositionBuilder {
         // Key: timeline track ID → shared composition audio track.
         // Video tracks' extracted audio shares with their paired audio track.
         var audioTrackCompTracks: [UUID: AVMutableCompositionTrack] = [:]
+        var videoTrackCompTracks: [UUID: AVMutableCompositionTrack] = [:]
 
         // Map video track IDs to their paired audio track IDs for audio routing
         let videoToAudioTrackID: [UUID: UUID] = {
@@ -399,4 +400,5 @@ public struct CompositionBuilder {
             duration: comp.duration.seconds  // Use composition's authoritative duration
         )
     }
+
 }
