@@ -11,6 +11,7 @@ public struct ShortFormConfig: Codable, Sendable, Equatable {
     public var faceTracks: [FaceTrack]
     public var speakerToFace: [Int: Int]     // Speaker diarization ID → face track index
     public var layoutSegments: [LayoutSegment]
+    public var sourceTimeOffset: TimeInterval  // Added to timeline time to get source time for face lookups
     public var dividerWidth: CGFloat         // Pixels between stacked speakers (at 1080 reference)
     public var captionRegionHeight: CGFloat  // Bottom caption area height (at 1920 reference)
 
@@ -20,6 +21,7 @@ public struct ShortFormConfig: Codable, Sendable, Equatable {
         faceTracks: [FaceTrack] = [],
         speakerToFace: [Int: Int] = [:],
         layoutSegments: [LayoutSegment] = [],
+        sourceTimeOffset: TimeInterval = 0,
         dividerWidth: CGFloat = 4,
         captionRegionHeight: CGFloat = 200
     ) {
@@ -28,6 +30,7 @@ public struct ShortFormConfig: Codable, Sendable, Equatable {
         self.faceTracks = faceTracks
         self.speakerToFace = speakerToFace
         self.layoutSegments = layoutSegments
+        self.sourceTimeOffset = sourceTimeOffset
         self.dividerWidth = dividerWidth
         self.captionRegionHeight = captionRegionHeight
     }

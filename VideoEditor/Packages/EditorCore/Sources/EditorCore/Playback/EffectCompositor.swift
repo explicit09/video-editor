@@ -72,9 +72,10 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         // Restructures 16:9 source into 9:16 with speakers stacked
         if let sfConfig = instruction.shortFormConfig, sfConfig.isEnabled {
             let renderSize = renderContext?.size ?? CGSize(width: 1080, height: 1920)
-            let time = request.compositionTime.seconds
+            // Map timeline time → source time for face position lookups
+            let sourceTime = request.compositionTime.seconds + sfConfig.sourceTimeOffset
             image = ShortFormLayoutRenderer.recompose(
-                source: image, config: sfConfig, at: time, renderSize: renderSize
+                source: image, config: sfConfig, at: sourceTime, renderSize: renderSize
             )
         } else {
             image = Self.applyCropRect(instruction.cropRect, to: image)

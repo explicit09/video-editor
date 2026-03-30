@@ -1383,13 +1383,15 @@ final class MCPServer {
             layoutSegments = decider.decide(speakerSegments: speakers, speakerToFace: speakerToFace)
         }
 
-        // Build config
+        // Build config — sourceTimeOffset maps timeline time to source time for face lookups
+        let sourceOffset = start ?? 0
         let config = ShortFormConfig(
             isEnabled: true,
             outputAspect: .vertical9x16,
             faceTracks: faceTracks,
             speakerToFace: speakerToFace,
-            layoutSegments: layoutSegments
+            layoutSegments: layoutSegments,
+            sourceTimeOffset: sourceOffset
         )
 
         // Cache for create_short
