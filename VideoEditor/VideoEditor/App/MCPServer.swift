@@ -1407,10 +1407,122 @@ final class MCPServer {
                 messages: [AIMessage(role: "user", content: prompt)],
                 tools: []
             )
-            return "=== TRANSCRIPT ANALYSIS (by Claude) ===\n\n" + response.content
+
+            let initialAnalysis = response.content
+
+            // === PASS 2: Refine episode start timestamps ===
+            // For each episode start Claude found, zoom in on ±2 min of transcript
+            // and ask for the EXACT clean take timestamp.
+            var refinedAnalysis = initialAnalysis
+
+            // Parse episode starts from the initial analysis
+            let episodeStarts = parseEpisodeStarts(from: initialAnalysis)
+
+            if !episodeStarts.isEmpty {
+                var refinements: [String] = []
+
+                for (episodeNum, approxTime) in episodeStarts {
+                    // Extract ±2 min window around the approximate start
+                    let windowStart = max(approxTime - 120, 0)
+                    let windowEnd = min(approxTime + 120, asset.duration)
+                    let windowWords = words.filter { $0.start >= windowStart && $0.end <= windowEnd }
+
+                    guard !windowWords.isEmpty else { continue }
+
+                    var windowTranscript = ""
+                    var wSentenceWords: [String] = []
+                    var wSentenceStart: TimeInterval = windowWords.first?.start ?? 0
+
+                    for (i, word) in windowWords.enumerated() {
+                        if wSentenceWords.isEmpty { wSentenceStart = word.start }
+                        wSentenceWords.append(word.word)
+
+                        let isEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
+                        let hasPause = i + 1 < windowWords.count && (windowWords[i + 1].start - word.end) > 0.8
+                        let isLast = i == windowWords.count - 1
+
+                        if isEnd || hasPause || isLast {
+                            let mins = Int(wSentenceStart) / 60
+                            let secs = Int(wSentenceStart) % 60
+                            windowTranscript += "[\(mins):\(String(format: "%02d", secs))] \(wSentenceWords.joined(separator: " "))\n"
+                            wSentenceWords = []
+                        }
+                    }
+
+                    let refinePrompt = """
+                    I found that Episode \(episodeNum) starts approximately at \(formatTimestamp(approxTime)).
+
+                    Below is the transcript around that area (±2 minutes). Find the EXACT timestamp where the clean, final take of the episode intro begins.
+
+                    Rules:
+                    - If there are multiple attempts at the same intro, pick the LAST complete one — that's the good take.
+                    - Ignore false starts, botched attempts ("I messed up"), and chatting between takes.
+                    - The clean take is the one that flows directly into actual episode content.
+
+                    Respond with ONLY:
+                    EXACT_START: [MM:SS]
+                    REASON: [one line explanation]
+
+                    Transcript:
+                    \(windowTranscript)
+                    """
+
+                    let refineResponse = try await provider.complete(
+                        messages: [AIMessage(role: "user", content: refinePrompt)],
+                        tools: []
+                    )
+
+                    refinements.append("Episode \(episodeNum) refined: \(refineResponse.content.trimmingCharacters(in: .whitespacesAndNewlines))")
+                }
+
+                if !refinements.isEmpty {
+                    refinedAnalysis += "\n\n--- REFINED START TIMESTAMPS ---\n" + refinements.joined(separator: "\n")
+                }
+            }
+
+            return "=== TRANSCRIPT ANALYSIS (by Claude) ===\n\n" + refinedAnalysis
         } catch {
             return "Error calling Claude: \(error.localizedDescription)"
         }
+    }
+
+    /// Parse approximate episode start timestamps from Claude's analysis.
+    private func parseEpisodeStarts(from analysis: String) -> [(episodeNum: Int, time: TimeInterval)] {
+        var starts: [(Int, TimeInterval)] = []
+        let lines = analysis.components(separatedBy: .newlines)
+        var currentEpisode = 0
+
+        for line in lines {
+            let trimmed = line.trimmingCharacters(in: .whitespaces)
+
+            // Match "EPISODE N:" pattern
+            if trimmed.hasPrefix("EPISODE") && trimmed.contains(":") {
+                if let numStr = trimmed.components(separatedBy: " ").dropFirst().first?.replacingOccurrences(of: ":", with: ""),
+                   let num = Int(numStr) {
+                    currentEpisode = num
+                }
+            }
+
+            // Match "Start: MM:SS" or "Start: [MM:SS]"
+            if trimmed.hasPrefix("Start:") && currentEpisode > 0 {
+                let timeStr = trimmed.replacingOccurrences(of: "Start:", with: "")
+                    .trimmingCharacters(in: .whitespaces)
+                    .trimmingCharacters(in: CharacterSet(charactersIn: "[]"))
+                let parts = timeStr.components(separatedBy: ":")
+                if parts.count == 2, let mins = Int(parts[0]), let secs = Int(parts[1]) {
+                    starts.append((currentEpisode, TimeInterval(mins * 60 + secs)))
+                    currentEpisode = 0 // Reset so we don't double-match
+                }
+            }
+        }
+
+        return starts
+    }
+
+    private func formatTimestamp(_ t: TimeInterval) -> String {
+        let m = Int(t) / 60
+        let s = Int(t) % 60
+        return "\(m):\(String(format: "%02d", s))"
     }
 
     // MARK: - Detect Episodes
