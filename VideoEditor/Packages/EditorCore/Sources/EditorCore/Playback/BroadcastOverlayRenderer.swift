@@ -4,24 +4,20 @@ import CoreText
 import CoreGraphics
 
 /// Renders broadcast-style overlays onto video frames.
+/// Matches the Remotion "Technologia Talks" overlay components exactly.
 /// Stateless: all animation is computed from `time`. Same pattern as SubtitleRenderer.
-///
-/// Components (bottom to top):
-/// - SmartTicker: scrolling sponsors ↔ topics
-/// - HostNameBar: persistent host names
-/// - HostIntroStrip: gold strip with photos (38-92s)
-/// - EpisodeTitleCard: centered title (0-30s)
-/// - ChapterCard: pop-in chapter labels
 public struct BroadcastOverlayRenderer {
 
-    /// Render the full overlay stack for a given frame time.
-    /// Returns a CIImage with alpha that composites over the video frame.
+    // Reference resolution — all Remotion pixel values are at this size
+    private static let refW: CGFloat = 3840
+    private static let refH: CGFloat = 2160
+
     public static func render(
         config: BroadcastOverlayConfig,
         at time: TimeInterval,
         renderSize: CGSize
     ) -> CIImage? {
-        let scale = renderSize.width / 3840.0 // All dimensions are 4K reference
+        let s = renderSize.width / refW
         let w = Int(renderSize.width)
         let h = Int(renderSize.height)
         guard w > 0, h > 0 else { return nil }
@@ -35,14 +31,16 @@ public struct BroadcastOverlayRenderer {
 
         ctx.clear(CGRect(x: 0, y: 0, width: w, height: h))
 
-        let s = config.style
+        let st = config.style
+        let fps: Double = 30
+        let frame = time * fps
 
-        // Draw layers (bottom to top in the visual stack, but CGContext y=0 is bottom)
-        drawSmartTicker(ctx: ctx, config: config, time: time, scale: scale, size: renderSize)
-        drawHostNameBar(ctx: ctx, config: config, time: time, scale: scale, size: renderSize)
-        drawHostIntroStrip(ctx: ctx, config: config, time: time, scale: scale, size: renderSize)
-        drawEpisodeTitleCard(ctx: ctx, config: config, time: time, scale: scale, size: renderSize)
-        drawChapterCard(ctx: ctx, config: config, time: time, scale: scale, size: renderSize)
+        // Draw layers bottom to top (CGContext y=0 is bottom of screen)
+        drawSmartTicker(ctx: ctx, config: config, time: time, frame: frame, fps: fps, s: s, size: renderSize)
+        drawHostNameBar(ctx: ctx, config: config, time: time, frame: frame, fps: fps, s: s, size: renderSize)
+        drawHostIntroStrip(ctx: ctx, config: config, time: time, s: s, size: renderSize)
+        drawEpisodeTitleCard(ctx: ctx, config: config, time: time, s: s, size: renderSize)
+        drawChapterCard(ctx: ctx, config: config, time: time, s: s, size: renderSize)
 
         guard let cgImage = ctx.makeImage() else { return nil }
         return CIImage(cgImage: cgImage)
@@ -50,71 +48,85 @@ public struct BroadcastOverlayRenderer {
 }
 
 // MARK: - Episode Title Card
+// Remotion: EpisodeTitleCard.tsx — centered, fit-content, fade in/out
 
 extension BroadcastOverlayRenderer {
 
-    /// Centered title card that fades in/out over the first 30 seconds.
     static func drawEpisodeTitleCard(
         ctx: CGContext, config: BroadcastOverlayConfig,
-        time: TimeInterval, scale: CGFloat, size: CGSize
+        time: TimeInterval, s: CGFloat, size: CGSize
     ) {
-        let s = config.style
-        guard time < s.titleVisibleEnd else { return }
+        let st = config.style
+        guard time < st.titleVisibleEnd else { return }
         guard !config.episodeTitle.isEmpty else { return }
 
-        // Compute opacity
+        // Opacity: linear interpolate [0, fadeInEnd, fadeOutStart, fadeOutEnd] → [0, 1, 1, 0]
         let opacity: CGFloat
-        if time < s.titleFadeInEnd {
-            opacity = CGFloat(time / s.titleFadeInEnd)
-        } else if time > s.titleFadeOutStart {
-            opacity = CGFloat(1.0 - (time - s.titleFadeOutStart) / (s.titleVisibleEnd - s.titleFadeOutStart))
+        if time < st.titleFadeInEnd {
+            opacity = CGFloat(time / st.titleFadeInEnd)
+        } else if time > st.titleFadeOutStart {
+            opacity = max(0, CGFloat(1.0 - (time - st.titleFadeOutStart) / (st.titleVisibleEnd - st.titleFadeOutStart)))
         } else {
             opacity = 1.0
         }
         guard opacity > 0.01 else { return }
 
-        let gold = OverlayStyle.parseHex(s.goldHex)
-        let navy = OverlayStyle.parseHex(s.darkNavyHex)
-        let cyan = OverlayStyle.parseHex(s.cyanHex)
+        // Slide up 40px as it fades in
+        let slideY = st.titleFadeInEnd > 0
+            ? CGFloat(40) * s * max(0, CGFloat(1.0 - time / st.titleFadeInEnd))
+            : 0
 
-        // Card dimensions
-        let cardW = size.width * 0.6
-        let cardH = 300 * scale
+        let gold = OverlayStyle.parseHex(st.goldHex)
+        let navy = OverlayStyle.parseHex(st.darkNavyHex)
+        let cyan = OverlayStyle.parseHex(st.cyanHex)
+        let gray = OverlayStyle.parseHex("#94A3B8")
+
+        // Measure text to compute fit-content width
+        let titleFont = condensedFont(size: 110 * s)
+        let labelFont = condensedFont(size: 36 * s)
+        let subFont = bodyFont(size: 46 * s)
+
+        let titleW = measureText(config.episodeTitle.uppercased(), font: titleFont)
+        let subW = config.episodeSubtitle.isEmpty ? CGFloat(0) : measureText(config.episodeSubtitle, font: subFont)
+        let contentW = max(titleW, subW)
+
+        let padX: CGFloat = 120 * s
+        let padY: CGFloat = 70 * s
+        let cardW = min(contentW + padX * 2, size.width * 0.85)
+        let cardH = padY + 36 * s + 24 * s + 110 * s + (config.episodeSubtitle.isEmpty ? 0 : 36 * s + 46 * s) + padY
         let cardX = (size.width - cardW) / 2
-        let cardY = (size.height - cardH) / 2 + (1.0 - opacity) * 40 * scale // Slide up effect
+        // Center vertically, apply slideY (CG: positive Y = up, but slide is down in screen coords = negative in CG)
+        let cardY = (size.height - cardH) / 2 - slideY
 
         ctx.saveGState()
         ctx.setAlpha(opacity)
 
-        // Background
-        let cardRect = CGRect(x: cardX, y: cardY, width: cardW, height: cardH)
+        // Background: rgba(7, 13, 23, 0.88)
         ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.88))
-        ctx.fill(cardRect)
+        ctx.fill(CGRect(x: cardX, y: cardY, width: cardW, height: cardH))
 
-        // Gold top border
+        // Gold top border: 4px solid GOLD (top of card = cardY + cardH in CG)
         ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
-        ctx.fill(CGRect(x: cardX, y: cardY + cardH - 4 * scale, width: cardW, height: 4 * scale))
+        ctx.fill(CGRect(x: cardX, y: cardY + cardH - 4 * s, width: cardW, height: 4 * s))
 
-        // Cyan bottom border
-        ctx.setFillColor(CGColor(red: cyan.r, green: cyan.g, blue: cyan.b, alpha: 0.5))
-        ctx.fill(CGRect(x: cardX, y: cardY, width: cardW, height: 2 * scale))
+        // Cyan bottom border: 2px solid CYAN at 0x44 alpha
+        ctx.setFillColor(CGColor(red: cyan.r, green: cyan.g, blue: cyan.b, alpha: 0.27))
+        ctx.fill(CGRect(x: cardX, y: cardY, width: cardW, height: 2 * s))
 
-        // "EPISODE" label
-        let labelFont = condensedFont(size: 36 * scale)
-        drawText(ctx: ctx, text: "EPISODE", x: cardX + 60 * scale, y: cardY + cardH - 70 * scale,
-                 font: labelFont, color: CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
+        // "EPISODE" label — gold, 36px, letter-spacing 0.24em, opacity 0.8
+        let labelY = cardY + cardH - padY - 36 * s
+        let goldAlpha = CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 0.8)
+        drawText(ctx: ctx, text: "EPISODE", x: cardX + padX, y: labelY, font: labelFont, color: goldAlpha)
 
-        // Title
-        let titleFont = condensedFont(size: 90 * scale)
-        drawText(ctx: ctx, text: config.episodeTitle.uppercased(), x: cardX + 60 * scale, y: cardY + cardH - 170 * scale,
-                 font: titleFont, color: .white)
+        // Title — white, 110px, uppercase
+        let titleY = labelY - 24 * s - 110 * s
+        drawText(ctx: ctx, text: config.episodeTitle.uppercased(), x: cardX + padX, y: titleY, font: titleFont, color: .white)
 
-        // Subtitle
+        // Subtitle — gray, 46px, Inter
         if !config.episodeSubtitle.isEmpty {
-            let subFont = bodyFont(size: 40 * scale)
-            let gray = CGColor(red: 0.58, green: 0.64, blue: 0.72, alpha: 1) // #94A3B8
-            drawText(ctx: ctx, text: config.episodeSubtitle, x: cardX + 60 * scale, y: cardY + cardH - 240 * scale,
-                     font: subFont, color: gray)
+            let subY = titleY - 36 * s - 46 * s
+            let grayColor = CGColor(red: gray.r, green: gray.g, blue: gray.b, alpha: 1)
+            drawText(ctx: ctx, text: config.episodeSubtitle, x: cardX + padX, y: subY, font: subFont, color: grayColor)
         }
 
         ctx.restoreGState()
@@ -122,331 +134,408 @@ extension BroadcastOverlayRenderer {
 }
 
 // MARK: - Host Name Bar
+// Remotion: HostNameBar.tsx — bottom: TICKER_H, height: NAME_BAR_H
+// Names and titles on same line (baseline aligned), Host B right-aligned
 
 extension BroadcastOverlayRenderer {
 
-    /// Persistent bottom bar with host names. Hides during intro strip.
     static func drawHostNameBar(
         ctx: CGContext, config: BroadcastOverlayConfig,
-        time: TimeInterval, scale: CGFloat, size: CGSize
+        time: TimeInterval, frame: Double, fps: Double, s: CGFloat, size: CGSize
     ) {
-        let s = config.style
+        let st = config.style
         guard !config.hostA.name.isEmpty || !config.hostB.name.isEmpty else { return }
 
-        // Hide during host intro strip (with smooth transition)
-        let hideMargin: TimeInterval = 0.5
-        if time > s.hostIntroStart - hideMargin && time < s.hostIntroEnd + hideMargin {
-            return // Hidden during intro strip
+        let barH = st.nameBarHeight * s     // 150
+        let tickerH = st.tickerHeight * s   // 200
+        let barBaseY = tickerH              // Sits above ticker
+
+        // Hide slide: interpolate [hideFrom, hideFrom+15f, hideUntil-15f, hideUntil] → [0, barH+tickerH, barH+tickerH, 0]
+        let hideFrom = st.hostIntroStart * fps
+        let hideUntil = st.hostIntroEnd * fps
+        let hideSlide: CGFloat
+        if frame < hideFrom || frame > hideUntil {
+            hideSlide = 0
+        } else if frame < hideFrom + 15 {
+            hideSlide = CGFloat((frame - hideFrom) / 15) * (barH + tickerH)
+        } else if frame > hideUntil - 15 {
+            hideSlide = CGFloat((hideUntil - frame) / 15) * (barH + tickerH)
+        } else {
+            hideSlide = barH + tickerH
         }
 
-        let navy = OverlayStyle.parseHex(s.darkNavyHex)
-        let gold = OverlayStyle.parseHex(s.goldHex)
-        let barH = s.nameBarHeight * scale
-        let tickerH = s.tickerHeight * scale
-        let barY = tickerH // Sits above ticker
+        let barY = barBaseY - hideSlide
+        guard barY > -barH else { return } // Fully offscreen
 
-        // Background
-        ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.85))
+        let gold = OverlayStyle.parseHex(st.goldHex)
+        let navy = OverlayStyle.parseHex(st.darkNavyHex)
+
+        // Background: rgba(7, 13, 23, 0.92)
+        ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.92))
         ctx.fill(CGRect(x: 0, y: barY, width: size.width, height: barH))
 
-        // Gold top border
-        ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 0.3))
-        ctx.fill(CGRect(x: 0, y: barY + barH - 2 * scale, width: size.width, height: 2 * scale))
-
-        let nameFont = condensedFont(size: 54 * scale)
-        let titleFont = condensedFont(size: 38 * scale)
-        let midX = size.width / 2
-        let textY = barY + barH / 2 - 10 * scale
-
-        // Host A (left)
-        drawText(ctx: ctx, text: config.hostA.name.uppercased(), x: 60 * scale, y: textY,
-                 font: nameFont, color: .white)
-        drawText(ctx: ctx, text: config.hostA.title.uppercased(), x: 60 * scale, y: textY - 40 * scale,
-                 font: titleFont, color: CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
-
-        // Divider
+        // Gold top border: 2px solid GOLD at 0x55 alpha
         ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 0.33))
-        ctx.fill(CGRect(x: midX - 1 * scale, y: barY + 20 * scale, width: 2 * scale, height: barH - 40 * scale))
+        ctx.fill(CGRect(x: 0, y: barY + barH - 2 * s, width: size.width, height: 2 * s))
 
-        // Host B (right-aligned)
-        let hostBNameWidth = measureText(config.hostB.name.uppercased(), font: nameFont)
-        let hostBTitleWidth = measureText(config.hostB.title.uppercased(), font: titleFont)
-        drawText(ctx: ctx, text: config.hostB.name.uppercased(), x: size.width - 60 * scale - hostBNameWidth, y: textY,
-                 font: nameFont, color: .white)
-        drawText(ctx: ctx, text: config.hostB.title.uppercased(), x: size.width - 60 * scale - hostBTitleWidth, y: textY - 40 * scale,
-                 font: titleFont, color: CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
+        let nameFont = condensedFont(size: 64 * s)
+        let titleFont = condensedFont(size: 46 * s)
+        let padX: CGFloat = 56 * s
+        let midX = size.width / 2
+        let baselineY = barY + barH / 2 - 16 * s
+
+        let goldColor = CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1)
+
+        // Host A: name + title on same line, left-aligned
+        let aNameW = measureText(config.hostA.name.uppercased(), font: nameFont)
+        drawText(ctx: ctx, text: config.hostA.name.uppercased(), x: padX, y: baselineY, font: nameFont, color: .white)
+        drawText(ctx: ctx, text: config.hostA.title.uppercased(), x: padX + aNameW + 16 * s, y: baselineY, font: titleFont, color: goldColor)
+
+        // Divider: 2px wide, 64px tall, centered, GOLD at 0x55 alpha
+        ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 0.33))
+        ctx.fill(CGRect(x: midX - 1 * s, y: barY + (barH - 64 * s) / 2, width: 2 * s, height: 64 * s))
+
+        // Host B: name + title on same line, right-aligned (justifyContent: flex-end)
+        let bNameW = measureText(config.hostB.name.uppercased(), font: nameFont)
+        let bTitleW = measureText(config.hostB.title.uppercased(), font: titleFont)
+        let bTotalW = bNameW + 16 * s + bTitleW
+        let bStartX = size.width - padX - bTotalW
+        drawText(ctx: ctx, text: config.hostB.name.uppercased(), x: bStartX, y: baselineY, font: nameFont, color: .white)
+        drawText(ctx: ctx, text: config.hostB.title.uppercased(), x: bStartX + bNameW + 16 * s, y: baselineY, font: titleFont, color: goldColor)
     }
 }
 
 // MARK: - Smart Ticker
+// Remotion: SmartTicker.tsx — TICKER_H=200, LABEL_W=680, SCROLL_SPD=1.6
+// Cycle: 25s sponsors → 1s fade → 14s topic → 1s fade → repeat
 
 extension BroadcastOverlayRenderer {
 
-    /// Scrolling bottom ticker: sponsors ↔ topics on a 41-second cycle.
     static func drawSmartTicker(
         ctx: CGContext, config: BroadcastOverlayConfig,
-        time: TimeInterval, scale: CGFloat, size: CGSize
+        time: TimeInterval, frame: Double, fps: Double, s: CGFloat, size: CGSize
     ) {
-        let s = config.style
-        let tickerH = s.tickerHeight * scale
-        let navy = OverlayStyle.parseHex(s.darkNavyHex)
-        let gold = OverlayStyle.parseHex(s.goldHex)
-        let goldLight = OverlayStyle.parseHex(s.goldLightHex)
-        let cyan = OverlayStyle.parseHex(s.cyanHex)
+        let st = config.style
+        let tickerH = st.tickerHeight * s   // 200
+        let labelW: CGFloat = 680 * s
+        let navy = OverlayStyle.parseHex(st.darkNavyHex)
+        let gold = OverlayStyle.parseHex(st.goldHex)
+        let goldLight = OverlayStyle.parseHex(st.goldLightHex)
+        let cyan = OverlayStyle.parseHex(st.cyanHex)
 
-        // Background
-        ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.9))
-        ctx.fill(CGRect(x: 0, y: 0, width: size.width, height: tickerH))
+        // Slide down when HostIntroStrip is visible
+        let hideFrom = st.hostIntroStart * fps
+        let hideUntil = st.hostIntroEnd * fps
+        let slideDown: CGFloat
+        if frame < hideFrom || frame > hideUntil {
+            slideDown = 0
+        } else if frame < hideFrom + 15 {
+            slideDown = CGFloat((frame - hideFrom) / 15) * tickerH
+        } else if frame > hideUntil - 15 {
+            slideDown = CGFloat((hideUntil - frame) / 15) * tickerH
+        } else {
+            slideDown = tickerH
+        }
 
-        // Left label: "TECHNOLOGIA TALKS" on gold gradient
-        let labelW = 520 * scale
+        let tickerY: CGFloat = 0 - slideDown
+        guard tickerY > -tickerH else { return }
+
+        // Background: solid DARK_NAVY
+        ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1))
+        ctx.fill(CGRect(x: 0, y: tickerY, width: size.width, height: tickerH))
+
+        // Gold top border: 3px
         ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
-        ctx.fill(CGRect(x: 0, y: 0, width: labelW, height: tickerH))
+        ctx.fill(CGRect(x: 0, y: tickerY + tickerH - 3 * s, width: size.width, height: 3 * s))
 
-        let labelFont = condensedFont(size: 44 * scale)
-        drawText(ctx: ctx, text: "TECHNOLOGIA TALKS", x: 24 * scale, y: tickerH / 2 - 12 * scale,
-                 font: labelFont, color: CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1))
+        // Left label: gold gradient background, "TECHNOLOGIA TALKS"
+        ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
+        ctx.fill(CGRect(x: 0, y: tickerY, width: labelW, height: tickerH - 3 * s))
 
-        // Right section: sponsors or topic based on cycle
-        let cycleDuration = s.tickerCycleDuration
-        let cyclePos = time.truncatingRemainder(dividingBy: cycleDuration)
-        let sponsorEnd = s.tickerSponsorDuration
-        let fade1End = sponsorEnd + s.tickerFadeDuration
-        let topicEnd = fade1End + s.tickerTopicDuration
+        let labelFont = condensedFont(size: 52 * s)
+        let navyColor = CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1)
+        let labelTextW = measureText("TECHNOLOGIA TALKS", font: labelFont)
+        let labelTextX = (labelW - labelTextW) / 2
+        drawText(ctx: ctx, text: "TECHNOLOGIA TALKS", x: labelTextX, y: tickerY + tickerH / 2 - 16 * s, font: labelFont, color: navyColor)
 
-        let contentX = labelW + 24 * scale
-        let contentW = size.width - contentX - 24 * scale
-        let contentY = tickerH / 2
+        // Cycle math
+        let cycleSec = st.tickerCycleDuration // 41
+        let sponsorSec = st.tickerSponsorDuration // 25
+        let fadeSec = st.tickerFadeDuration // 1
+        let cyclePos = time.truncatingRemainder(dividingBy: cycleSec)
 
-        if cyclePos < sponsorEnd {
-            // Sponsors scrolling
-            let scrollText = config.sponsors.joined(separator: "   ◆   ") + "   ◆   "
-            let scrollFont = condensedFont(size: 46 * scale)
-            let charWidth: CGFloat = 28 * scale
-            let segmentWidth = CGFloat(scrollText.count) * charWidth
-            let scrollOffset = CGFloat(time * 1.6 * Double(scale) * 30).truncatingRemainder(dividingBy: max(segmentWidth, 1))
+        // Sponsor opacity: [0, (25-1)*fps, 25*fps, (41-1)*fps, 41*fps] → [1,1,0,0,1]
+        let sponsorOpacity: CGFloat
+        let topicOpacity: CGFloat
 
+        let activeTopic = config.topics.last(where: { $0.timeSeconds <= time })
+        let topicReady = activeTopic != nil
+
+        if !topicReady {
+            sponsorOpacity = 1
+            topicOpacity = 0
+        } else {
+            let cf = cyclePos * fps
+            let sp = sponsorSec * fps
+            let fd = fadeSec * fps
+            let cy = cycleSec * fps
+
+            if cf < sp - fd {
+                sponsorOpacity = 1
+            } else if cf < sp {
+                sponsorOpacity = CGFloat(1.0 - (cf - (sp - fd)) / fd)
+            } else if cf < cy - fd {
+                sponsorOpacity = 0
+            } else {
+                sponsorOpacity = CGFloat((cf - (cy - fd)) / fd)
+            }
+
+            if cf < sp - fd {
+                topicOpacity = 0
+            } else if cf < sp {
+                topicOpacity = CGFloat((cf - (sp - fd)) / fd)
+            } else if cf < cy - fd {
+                topicOpacity = 1
+            } else {
+                topicOpacity = CGFloat(1.0 - (cf - (cy - fd)) / fd)
+            }
+        }
+
+        let contentX = labelW + 48 * s
+        let contentW = size.width - contentX - 48 * s
+        let contentCenterY = tickerY + tickerH / 2
+
+        // Sponsor scroll
+        if sponsorOpacity > 0.01 && !config.sponsors.isEmpty {
             ctx.saveGState()
-            ctx.clip(to: CGRect(x: contentX, y: 0, width: contentW, height: tickerH))
-            let gray = CGColor(red: 0.80, green: 0.84, blue: 0.88, alpha: 1) // #CBD5E1
-            drawText(ctx: ctx, text: scrollText + scrollText, x: contentX - scrollOffset, y: contentY - 14 * scale,
-                     font: scrollFont, color: gray)
-            ctx.restoreGState()
+            ctx.setAlpha(sponsorOpacity)
+            ctx.clip(to: CGRect(x: labelW, y: tickerY, width: size.width - labelW, height: tickerH))
 
-        } else if cyclePos >= fade1End && cyclePos < topicEnd {
-            // Topic display: "NOW DISCUSSING" + active topic
-            let activeTopic = config.topics.last(where: { $0.timeSeconds <= time })
+            let separator = "   ◆   "
+            let sponsorText = config.sponsors.joined(separator: separator) + separator
+            let repeated = sponsorText + sponsorText + sponsorText
+            let segmentW = CGFloat(sponsorText.count) * 28 * s
+            let scrollX = CGFloat(frame * 1.6 * Double(s)).truncatingRemainder(dividingBy: max(segmentW, 1))
+
+            let scrollFont = condensedFont(size: 64 * s)
+            let scrollColor = CGColor(red: 0.80, green: 0.84, blue: 0.88, alpha: 1) // #CBD5E1
+            drawText(ctx: ctx, text: repeated, x: contentX - scrollX, y: contentCenterY - 20 * s, font: scrollFont, color: scrollColor)
+
+            ctx.restoreGState()
+        }
+
+        // Topic display
+        if topicOpacity > 0.01, let topic = activeTopic {
+            ctx.saveGState()
+            ctx.setAlpha(topicOpacity)
 
             // "NOW DISCUSSING" badge
-            let badgeFont = condensedFont(size: 32 * scale)
-            let badgeW = 280 * scale
-            let badgeH = 44 * scale
+            let badgeFont = condensedFont(size: 46 * s)
+            let badgeText = "NOW DISCUSSING"
+            let badgeTextW = measureText(badgeText, font: badgeFont)
+            let badgePadX: CGFloat = 24 * s
+            let badgePadY: CGFloat = 8 * s
+            let badgeW = badgeTextW + badgePadX * 2
+            let badgeH: CGFloat = 46 * s + badgePadY * 2
+
+            let badgeRect = CGRect(x: contentX, y: contentCenterY - badgeH / 2, width: badgeW, height: badgeH)
             ctx.setFillColor(CGColor(red: cyan.r, green: cyan.g, blue: cyan.b, alpha: 1))
-            let badgeRect = CGRect(x: contentX, y: contentY - badgeH / 2, width: badgeW, height: badgeH)
-            let badgePath = CGPath(roundedRect: badgeRect, cornerWidth: 6 * scale, cornerHeight: 6 * scale, transform: nil)
+            let badgePath = CGPath(roundedRect: badgeRect, cornerWidth: 6 * s, cornerHeight: 6 * s, transform: nil)
             ctx.addPath(badgePath)
             ctx.fillPath()
 
-            drawText(ctx: ctx, text: "NOW DISCUSSING", x: contentX + 16 * scale, y: contentY - 10 * scale,
-                     font: badgeFont, color: CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1))
+            drawText(ctx: ctx, text: badgeText, x: contentX + badgePadX, y: contentCenterY - 14 * s, font: badgeFont, color: navyColor)
 
-            // Topic text
-            if let topic = activeTopic {
-                let topicFont = bodyFont(size: 48 * scale)
-                drawText(ctx: ctx, text: topic.text, x: contentX + badgeW + 24 * scale, y: contentY - 14 * scale,
-                         font: topicFont, color: .white)
-            }
+            // Topic text: Inter 66px weight 400
+            let topicFont = bodyFont(size: 66 * s)
+            drawText(ctx: ctx, text: topic.text, x: contentX + badgeW + 28 * s, y: contentCenterY - 20 * s, font: topicFont, color: .white)
+
+            ctx.restoreGState()
         }
-        // During fade transitions, draw nothing (creates a clean cross-fade effect)
     }
 }
 
 // MARK: - Chapter Card
+// Remotion: ChapterCard.tsx — positioned at 38% from top, spring animations
 
 extension BroadcastOverlayRenderer {
 
-    /// Pop-in card showing chapter title at specific timestamps.
     static func drawChapterCard(
         ctx: CGContext, config: BroadcastOverlayConfig,
-        time: TimeInterval, scale: CGFloat, size: CGSize
+        time: TimeInterval, s: CGFloat, size: CGSize
     ) {
-        let s = config.style
-        guard time > s.titleVisibleEnd else { return } // Don't show during title card
+        let st = config.style
+        guard time > st.titleVisibleEnd else { return }
         guard !config.chapters.isEmpty else { return }
 
-        // Find the active chapter (last one that has started)
         var chapterIdx = -1
         var chapter: TimedEntry?
         for (i, ch) in config.chapters.enumerated() {
-            if ch.timeSeconds <= time {
-                chapterIdx = i
-                chapter = ch
-            }
+            if ch.timeSeconds <= time { chapterIdx = i; chapter = ch }
         }
         guard let chapter, chapterIdx >= 0 else { return }
 
         let elapsed = time - chapter.timeSeconds
-        guard elapsed < s.chapterDisplayDuration else { return }
+        guard elapsed < st.chapterDisplayDuration else { return }
 
-        let gold = OverlayStyle.parseHex(s.goldHex)
+        let gold = OverlayStyle.parseHex(st.goldHex)
+        let navy = OverlayStyle.parseHex(st.darkNavyHex)
 
-        // Animation: slide in for first 0.5s, hold, slide out for last 0.5s
+        // Animation: slide in from right, hold, slide out
         let progress: CGFloat
         if elapsed < 0.5 {
             progress = easeOut(CGFloat(elapsed / 0.5))
-        } else if elapsed > s.chapterDisplayDuration - 0.5 {
-            progress = easeOut(CGFloat((s.chapterDisplayDuration - elapsed) / 0.5))
+        } else if elapsed > st.chapterDisplayDuration - 0.5 {
+            progress = easeOut(CGFloat((st.chapterDisplayDuration - elapsed) / 0.5))
         } else {
             progress = 1.0
         }
 
-        let cardY = size.height * 0.62 // 38% from top = 62% from bottom in CG coords
-        let goldBlockW = 120 * scale
-        let goldBlockH = 80 * scale
-        let textPadding = 24 * scale
-        let chapterFont = condensedFont(size: 56 * scale)
-        let numberFont = condensedFont(size: 56 * scale)
+        // Position: 38% from top in screen = 62% from bottom in CG
+        let cardY = size.height * 0.62
+        let goldBlockW: CGFloat = 160 * s
+        let goldBlockH: CGFloat = 100 * s
+        let chapterFont = condensedFont(size: 72 * s)
+        let numberFont = condensedFont(size: 72 * s)
         let chapterText = chapter.text.uppercased()
-        let textWidth = measureText(chapterText, font: chapterFont)
-        let totalW = goldBlockW + textPadding * 2 + textWidth + 40 * scale
+        let textW = measureText(chapterText, font: chapterFont)
+        let textPad: CGFloat = 32 * s
+        let totalW = goldBlockW + textPad * 2 + textW + 40 * s
 
         // Slide from right
+        let endX = size.width - totalW - 60 * s
         let startX = size.width
-        let endX = size.width - totalW - 60 * scale
         let cardX = startX + (endX - startX) * progress
+
+        // Gold accent line on top
+        ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
+        ctx.fill(CGRect(x: cardX, y: cardY + goldBlockH, width: totalW * progress, height: 3 * s))
 
         // Gold number block
         ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
         ctx.fill(CGRect(x: cardX, y: cardY, width: goldBlockW, height: goldBlockH))
 
-        let navy = OverlayStyle.parseHex(s.darkNavyHex)
         let numText = "\(chapterIdx + 1)"
-        let numWidth = measureText(numText, font: numberFont)
-        drawText(ctx: ctx, text: numText, x: cardX + (goldBlockW - numWidth) / 2, y: cardY + goldBlockH / 2 - 16 * scale,
-                 font: numberFont, color: CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1))
+        let numW = measureText(numText, font: numberFont)
+        let navyColor = CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1)
+        drawText(ctx: ctx, text: numText, x: cardX + (goldBlockW - numW) / 2, y: cardY + goldBlockH / 2 - 22 * s, font: numberFont, color: navyColor)
 
-        // Text block with dark background
+        // Text block
         let textBlockX = cardX + goldBlockW
         let textBlockW = totalW - goldBlockW
         ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.88))
         ctx.fill(CGRect(x: textBlockX, y: cardY, width: textBlockW, height: goldBlockH))
 
-        drawText(ctx: ctx, text: chapterText, x: textBlockX + textPadding, y: cardY + goldBlockH / 2 - 16 * scale,
-                 font: chapterFont, color: .white)
+        drawText(ctx: ctx, text: chapterText, x: textBlockX + textPad, y: cardY + goldBlockH / 2 - 22 * s, font: chapterFont, color: .white)
 
-        // Gold accent line on top
-        ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
-        ctx.fill(CGRect(x: cardX, y: cardY + goldBlockH, width: totalW * progress, height: 3 * scale))
+        // Bottom accent line (40% width per Remotion)
+        ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 0.5))
+        ctx.fill(CGRect(x: cardX, y: cardY - 2 * s, width: totalW * 0.4 * progress, height: 2 * s))
     }
 }
 
 // MARK: - Host Intro Strip
+// Remotion: HostIntroStrip.tsx — gold gradient, circular photos, spring slide
 
 extension BroadcastOverlayRenderer {
 
-    /// Gold strip with host photos and names. Slides in at 38s, out at 92s.
     static func drawHostIntroStrip(
         ctx: CGContext, config: BroadcastOverlayConfig,
-        time: TimeInterval, scale: CGFloat, size: CGSize
+        time: TimeInterval, s: CGFloat, size: CGSize
     ) {
-        let s = config.style
-        guard time >= s.hostIntroStart - 1.0 && time <= s.hostIntroEnd + 1.0 else { return }
+        let st = config.style
+        guard time >= st.hostIntroStart - 1.0 && time <= st.hostIntroEnd + 1.0 else { return }
         guard !config.hostA.name.isEmpty || !config.hostB.name.isEmpty else { return }
 
-        // Slide animation
+        // Spring-like slide: ease in 1s, hold, ease out 1s
         let slideProgress: CGFloat
-        if time < s.hostIntroStart {
+        if time < st.hostIntroStart {
             slideProgress = 0
-        } else if time < s.hostIntroStart + 1.0 {
-            slideProgress = easeOut(CGFloat((time - s.hostIntroStart) / 1.0))
-        } else if time > s.hostIntroEnd - 1.0 && time <= s.hostIntroEnd {
-            slideProgress = easeOut(CGFloat((s.hostIntroEnd - time) / 1.0))
-        } else if time > s.hostIntroEnd {
+        } else if time < st.hostIntroStart + 1.0 {
+            slideProgress = easeOut(CGFloat((time - st.hostIntroStart) / 1.0))
+        } else if time > st.hostIntroEnd - 1.0 && time <= st.hostIntroEnd {
+            slideProgress = easeOut(CGFloat((st.hostIntroEnd - time) / 1.0))
+        } else if time > st.hostIntroEnd {
             slideProgress = 0
         } else {
             slideProgress = 1.0
         }
         guard slideProgress > 0.01 else { return }
 
-        let gold = OverlayStyle.parseHex(s.goldHex)
-        let goldLight = OverlayStyle.parseHex(s.goldLightHex)
-        let navy = OverlayStyle.parseHex(s.darkNavyHex)
+        let gold = OverlayStyle.parseHex(st.goldHex)
+        let goldLight = OverlayStyle.parseHex(st.goldLightHex)
+        let navy = OverlayStyle.parseHex(st.darkNavyHex)
 
-        let stripH = s.hostStripHeight * scale
-        let tickerH = s.tickerHeight * scale
-        let nameBarH = s.nameBarHeight * scale
+        let stripH = st.hostStripHeight * s // 320
+        let tickerH = st.tickerHeight * s
+        let nameBarH = st.nameBarHeight * s
         let baseY = tickerH + nameBarH
-        let slideOffset = stripH * (1.0 - slideProgress)
+        let slideOffset = (stripH + 20 * s) * (1.0 - slideProgress)
         let stripY = baseY - slideOffset
 
-        // Gold gradient background
+        // Gold background
         ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
         ctx.fill(CGRect(x: 0, y: stripY, width: size.width, height: stripH))
 
-        // Lighter gold highlight on top half
+        // Lighter gold top half
         ctx.setFillColor(CGColor(red: goldLight.r, green: goldLight.g, blue: goldLight.b, alpha: 0.3))
         ctx.fill(CGRect(x: 0, y: stripY + stripH / 2, width: size.width, height: stripH / 2))
 
         let midX = size.width / 2
-        let photoSize = 200 * scale
-        let nameFont = condensedFont(size: 80 * scale)
-        let titleFont = condensedFont(size: 40 * scale)
+        let photoSize: CGFloat = 260 * s
+        let nameFont = condensedFont(size: 100 * s)
+        let titleFont = condensedFont(size: 58 * s)
+        let navyColor = CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1)
+        let navyFaded = CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.62)
 
-        // Host A (left side)
         let photoY = stripY + (stripH - photoSize) / 2
 
-        // Photo placeholder (circle with initial)
-        drawHostPhoto(ctx: ctx, initial: String(config.hostA.name.prefix(1)), x: 80 * scale, y: photoY,
-                      size: photoSize, navy: navy, scale: scale)
+        // Host A: photo left, text right
+        drawHostCircle(ctx: ctx, initial: String(config.hostA.name.prefix(1)), x: 80 * s, y: photoY, size: photoSize, navy: navy, s: s)
+        let textAX = 80 * s + photoSize + 30 * s
+        let nameY = stripY + stripH / 2 + 10 * s
+        drawText(ctx: ctx, text: config.hostA.name.uppercased(), x: textAX, y: nameY, font: nameFont, color: navyColor)
+        drawText(ctx: ctx, text: config.hostA.title.uppercased(), x: textAX, y: nameY - 60 * s, font: titleFont, color: navyFaded)
 
-        let textX = 80 * scale + photoSize + 30 * scale
-        let nameY = stripY + stripH / 2 + 10 * scale
-        drawText(ctx: ctx, text: config.hostA.name.uppercased(), x: textX, y: nameY,
-                 font: nameFont, color: CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1))
-        drawText(ctx: ctx, text: config.hostA.title.uppercased(), x: textX, y: nameY - 50 * scale,
-                 font: titleFont, color: CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.62))
-
-        // Center divider
+        // Center divider: 3px, 110px tall
         ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.2))
-        ctx.fill(CGRect(x: midX - 1.5 * scale, y: stripY + 40 * scale, width: 3 * scale, height: stripH - 80 * scale))
+        ctx.fill(CGRect(x: midX - 1.5 * s, y: stripY + (stripH - 110 * s) / 2, width: 3 * s, height: 110 * s))
 
-        // Host B (right side, right-aligned)
-        let photoBX = size.width - 80 * scale - photoSize
-        drawHostPhoto(ctx: ctx, initial: String(config.hostB.name.prefix(1)), x: photoBX, y: photoY,
-                      size: photoSize, navy: navy, scale: scale)
+        // Host B: photo right, text left of photo, right-aligned
+        let photoBX = size.width - 80 * s - photoSize
+        drawHostCircle(ctx: ctx, initial: String(config.hostB.name.prefix(1)), x: photoBX, y: photoY, size: photoSize, navy: navy, s: s)
 
-        let hostBNameW = measureText(config.hostB.name.uppercased(), font: nameFont)
-        let hostBTitleW = measureText(config.hostB.title.uppercased(), font: titleFont)
-        let textBX = photoBX - 30 * scale
-        drawText(ctx: ctx, text: config.hostB.name.uppercased(), x: textBX - hostBNameW, y: nameY,
-                 font: nameFont, color: CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1))
-        drawText(ctx: ctx, text: config.hostB.title.uppercased(), x: textBX - hostBTitleW, y: nameY - 50 * scale,
-                 font: titleFont, color: CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.62))
+        let bNameW = measureText(config.hostB.name.uppercased(), font: nameFont)
+        let bTitleW = measureText(config.hostB.title.uppercased(), font: titleFont)
+        let textBEndX = photoBX - 30 * s
+        drawText(ctx: ctx, text: config.hostB.name.uppercased(), x: textBEndX - bNameW, y: nameY, font: nameFont, color: navyColor)
+        drawText(ctx: ctx, text: config.hostB.title.uppercased(), x: textBEndX - bTitleW, y: nameY - 60 * s, font: titleFont, color: navyFaded)
     }
 
-    /// Draw a circular photo placeholder with initial.
-    private static func drawHostPhoto(
+    private static func drawHostCircle(
         ctx: CGContext, initial: String, x: CGFloat, y: CGFloat,
-        size: CGFloat, navy: (r: CGFloat, g: CGFloat, b: CGFloat), scale: CGFloat
+        size: CGFloat, navy: (r: CGFloat, g: CGFloat, b: CGFloat), s: CGFloat
     ) {
-        let circle = CGRect(x: x, y: y, width: size, height: size)
+        let rect = CGRect(x: x, y: y, width: size, height: size)
+
+        // Circle fill
         ctx.saveGState()
-        ctx.addEllipse(in: circle)
+        ctx.addEllipse(in: rect)
         ctx.clip()
-        ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.3))
-        ctx.fill(circle)
+        ctx.setFillColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.15))
+        ctx.fill(rect)
         ctx.restoreGState()
 
-        // Draw border
-        ctx.setStrokeColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.5))
-        ctx.setLineWidth(4 * scale)
-        ctx.strokeEllipse(in: circle.insetBy(dx: 2 * scale, dy: 2 * scale))
+        // Border: 4px navy
+        ctx.setStrokeColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.4))
+        ctx.setLineWidth(4 * s)
+        ctx.strokeEllipse(in: rect.insetBy(dx: 2 * s, dy: 2 * s))
 
-        // Initial letter
-        let initialFont = condensedFont(size: 80 * scale)
-        let initialW = measureText(initial, font: initialFont)
-        drawText(ctx: ctx, text: initial, x: x + (size - initialW) / 2, y: y + size / 2 - 24 * scale,
-                 font: initialFont, color: CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.6))
+        // Initial
+        let font = condensedFont(size: 90 * s)
+        let w = measureText(initial, font: font)
+        let navyColor = CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.5)
+        drawText(ctx: ctx, text: initial, x: x + (size - w) / 2, y: y + size / 2 - 28 * s, font: font, color: navyColor)
     }
 }
 
@@ -454,49 +543,33 @@ extension BroadcastOverlayRenderer {
 
 extension BroadcastOverlayRenderer {
 
-    /// Draw text at position using Core Text.
-    private static func drawText(
-        ctx: CGContext, text: String, x: CGFloat, y: CGFloat,
-        font: CTFont, color: CGColor
-    ) {
-        let attributes: [CFString: Any] = [
-            kCTFontAttributeName: font,
-            kCTForegroundColorAttributeName: color,
-        ]
-        let attrString = CFAttributedStringCreate(nil, text as CFString, attributes as CFDictionary)!
-        let line = CTLineCreateWithAttributedString(attrString)
+    private static func drawText(ctx: CGContext, text: String, x: CGFloat, y: CGFloat, font: CTFont, color: CGColor) {
+        let attrs: [CFString: Any] = [kCTFontAttributeName: font, kCTForegroundColorAttributeName: color]
+        let aStr = CFAttributedStringCreate(nil, text as CFString, attrs as CFDictionary)!
+        let line = CTLineCreateWithAttributedString(aStr)
         ctx.textPosition = CGPoint(x: x, y: y)
         CTLineDraw(line, ctx)
     }
 
-    /// Measure text width.
     private static func measureText(_ text: String, font: CTFont) -> CGFloat {
-        let attributes: [CFString: Any] = [kCTFontAttributeName: font]
-        let attrString = CFAttributedStringCreate(nil, text as CFString, attributes as CFDictionary)!
-        let line = CTLineCreateWithAttributedString(attrString)
+        let attrs: [CFString: Any] = [kCTFontAttributeName: font]
+        let aStr = CFAttributedStringCreate(nil, text as CFString, attrs as CFDictionary)!
+        let line = CTLineCreateWithAttributedString(aStr)
         return CTLineGetBoundsWithOptions(line, []).width
     }
 
-    /// Condensed bold font (BarlowCondensed fallback to system condensed).
     private static func condensedFont(size: CGFloat) -> CTFont {
         let font = CTFontCreateWithName("BarlowCondensed-Black" as CFString, size, nil)
-        if CTFontCopyFamilyName(font) as String == "Barlow Condensed" {
-            return font
-        }
-        // Fallback: system condensed bold
+        if CTFontCopyFamilyName(font) as String == "Barlow Condensed" { return font }
         return CTFontCreateWithName("HelveticaNeue-CondensedBold" as CFString, size, nil)
     }
 
-    /// Body font (Inter fallback to system).
     private static func bodyFont(size: CGFloat) -> CTFont {
         let font = CTFontCreateWithName("Inter" as CFString, size, nil)
-        if CTFontCopyFamilyName(font) as String == "Inter" {
-            return font
-        }
+        if CTFontCopyFamilyName(font) as String == "Inter" { return font }
         return CTFontCreateWithName("HelveticaNeue" as CFString, size, nil)
     }
 
-    /// Ease-out cubic.
     private static func easeOut(_ t: CGFloat) -> CGFloat {
         let t = min(max(t, 0), 1)
         return 1.0 - pow(1.0 - t, 3)
