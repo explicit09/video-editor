@@ -5,13 +5,14 @@ import CoreGraphics
 
 /// Configuration for recomposing video into vertical short-form layouts.
 /// Attached to EffectInstruction, read by the compositor per-frame.
-public struct ShortFormConfig: Codable, Sendable, Equatable {
+public struct ShortFormConfig: Codable, Sendable {
     public var isEnabled: Bool
     public var outputAspect: OutputAspect
     public var faceTracks: [FaceTrack]
     public var speakerToFace: [Int: Int]     // Speaker diarization ID → face track index
     public var layoutSegments: [LayoutSegment]
     public var sourceTimeOffset: TimeInterval  // Added to timeline time to get source time for face lookups
+    public var captionWords: [TranscriptWord] // Words for karaoke captions (source-time-relative)
     public var dividerWidth: CGFloat         // Pixels between stacked speakers (at 1080 reference)
     public var captionRegionHeight: CGFloat  // Bottom caption area height (at 1920 reference)
 
@@ -22,6 +23,7 @@ public struct ShortFormConfig: Codable, Sendable, Equatable {
         speakerToFace: [Int: Int] = [:],
         layoutSegments: [LayoutSegment] = [],
         sourceTimeOffset: TimeInterval = 0,
+        captionWords: [TranscriptWord] = [],
         dividerWidth: CGFloat = 4,
         captionRegionHeight: CGFloat = 200
     ) {
@@ -31,6 +33,7 @@ public struct ShortFormConfig: Codable, Sendable, Equatable {
         self.speakerToFace = speakerToFace
         self.layoutSegments = layoutSegments
         self.sourceTimeOffset = sourceTimeOffset
+        self.captionWords = captionWords
         self.dividerWidth = dividerWidth
         self.captionRegionHeight = captionRegionHeight
     }

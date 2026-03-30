@@ -111,18 +111,30 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             image = image.transformed(by: affine)
         }
 
-        // Render subtitles if present
-        if !instruction.subtitles.isEmpty {
+        // Render subtitles / captions
+        let isShortForm = instruction.shortFormConfig?.isEnabled == true
+        let sfCaptionWords = instruction.shortFormConfig?.captionWords ?? []
+
+        // Generate subtitle entries from short-form caption words if no explicit subtitles
+        var subtitleEntries = instruction.subtitles
+        if subtitleEntries.isEmpty && !sfCaptionWords.isEmpty {
+            let sourceOffset = instruction.shortFormConfig?.sourceTimeOffset ?? 0
+            // Convert source-time words to timeline-time subtitle entries
+            let timelineWords = sfCaptionWords.map {
+                TranscriptWord(word: $0.word, lemma: $0.lemma, start: $0.start - sourceOffset, end: $0.end - sourceOffset, confidence: $0.confidence)
+            }
+            subtitleEntries = SubtitleRenderer.groupWordsIntoSubtitles(timelineWords, wordsPerLine: 5)
+        }
+
+        if !subtitleEntries.isEmpty {
             let time = request.compositionTime.seconds
             let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
 
-            // For 9:16 shorts: position captions in the bottom caption region (safe zone)
-            let isShortForm = instruction.shortFormConfig?.isEnabled == true
-            let captionMargin: CGFloat? = isShortForm ? renderSize.height * 0.03 : nil // 3% from bottom in 9:16
-            let captionFontSize: CGFloat? = isShortForm ? renderSize.height * 0.028 : nil // Larger for mobile
+            let captionMargin: CGFloat? = isShortForm ? renderSize.height * 0.03 : nil
+            let captionFontSize: CGFloat? = isShortForm ? renderSize.height * 0.028 : nil
 
             image = SubtitleRenderer.render(
-                subtitles: instruction.subtitles,
+                subtitles: subtitleEntries,
                 at: time,
                 onto: image,
                 renderSize: renderSize,

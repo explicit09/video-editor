@@ -1439,14 +1439,24 @@ final class MCPServer {
             report.append("3. Layout: \(layoutStr)")
         }
 
-        // Step 5: Build and apply config
+        // Step 5: Get caption words from transcript
+        var captionWords: [TranscriptWord] = []
+        if let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) {
+            captionWords = result.words.filter { $0.start >= sourceStart && $0.end <= sourceEnd }
+        }
+        report.append("5. Captions: \(captionWords.count) words")
+
+        // Step 6: Build and apply config
         let config = ShortFormConfig(
             isEnabled: true,
             outputAspect: .vertical9x16,
             faceTracks: faceTracks,
             speakerToFace: speakerToFace,
             layoutSegments: layoutSegments,
-            sourceTimeOffset: sourceStart
+            sourceTimeOffset: sourceStart,
+            captionWords: captionWords
         )
 
         appState.context.timelineState.shortFormConfig = config
