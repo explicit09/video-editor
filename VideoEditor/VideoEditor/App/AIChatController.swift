@@ -6,7 +6,16 @@ import AIServices
 /// Supports multi-turn tool execution — sends results back to Claude until it's done.
 @MainActor @Observable
 final class AIChatController {
-    private(set) var messages: [ChatMessage] = []
+    private static let maxMessages = 100
+
+    private(set) var messages: [ChatMessage] = [] {
+        didSet {
+            // Prevent unbounded growth — keep last N messages
+            if messages.count > Self.maxMessages {
+                messages = Array(messages.suffix(Self.maxMessages))
+            }
+        }
+    }
     private(set) var isProcessing = false
     private(set) var processingStatus: String?
     private(set) var lastSearchQuery: String?

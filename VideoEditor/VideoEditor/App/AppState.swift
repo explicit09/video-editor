@@ -1057,7 +1057,21 @@ final class AppState {
 
     // MARK: - Playback
 
+    private var compositionRebuildTask: Task<Void, Never>?
+
     func rebuildComposition() {
+        // Debounce: cancel pending rebuild if another comes within 50ms
+        compositionRebuildTask?.cancel()
+        compositionRebuildTask = Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(50))
+            guard !Task.isCancelled else { return }
+            playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay)
+        }
+    }
+
+    /// Force immediate rebuild (for playback start, export, etc.)
+    func rebuildCompositionNow() {
+        compositionRebuildTask?.cancel()
         playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay)
     }
 

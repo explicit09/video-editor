@@ -21,6 +21,7 @@ final class MediaCoordinator {
     private(set) var waveformStates: [UUID: WaveformLoadState] = [:]
     private var pendingTranscriptionProvider: (any TranscriptionProvider)?
     @ObservationIgnored private var waveformTasks: Set<UUID> = []
+    @ObservationIgnored private var analysisTasks: [UUID: Task<Void, Never>] = [:]
 
     /// Called when background analysis/proxy completes. AppState uses this to rebuild composition.
     var onAnalysisComplete: (() -> Void)?
@@ -53,14 +54,20 @@ final class MediaCoordinator {
 
         let importedAsset = asset
 
-        // Background: proxy generation + local analysis
-        Task {
+        // Background: proxy generation + local analysis (cancellable)
+        analysisTasks[importedAsset.id]?.cancel() // Cancel any existing analysis for this asset
+        analysisTasks[importedAsset.id] = Task { [weak self] in
+            guard let self else { return }
+
             // Generate proxy first (analysis uses proxy for speed)
             if importedAsset.type == .video {
+                guard !Task.isCancelled else { return }
                 if let proxyURL = await proxyService.generateProxy(for: importedAsset) {
                     await mediaManager.setProxyURL(proxyURL, for: importedAsset.id)
                 }
             }
+
+            guard !Task.isCancelled else { return }
 
             // Run local analysis (silence, faces, scenes, OCR) — free, automatic
             let latestAsset = await mediaManager.asset(id: importedAsset.id) ?? importedAsset
@@ -68,16 +75,18 @@ final class MediaCoordinator {
                 asset: latestAsset,
                 mediaManager: mediaManager,
                 bundleURL: bundleURL,
-                progress: { stage, _ in
-                    // Could update UI progress here in the future
-                }
+                progress: { stage, _ in }
             )
 
-            await MainActor.run {
-                Task {
-                    await self.refreshAssets()
-                    self.onAnalysisComplete?()
-                    self.onAssetsChanged?()
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run { [weak self] in
+                guard let self else { return }
+                self.analysisTasks.removeValue(forKey: importedAsset.id)
+                Task { [weak self] in
+                    await self?.refreshAssets()
+                    self?.onAnalysisComplete?()
+                    self?.onAssetsChanged?()
                 }
             }
         }

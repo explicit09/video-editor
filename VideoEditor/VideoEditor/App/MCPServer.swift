@@ -13,6 +13,7 @@ final class MCPServer {
     private weak var appState: AppState?
     private var nwListener: NWListener?
     private let port: UInt16 = 8420
+    private var cachedToolsResponse: String?
 
     init(appState: AppState) {
         self.appState = appState
@@ -107,6 +108,9 @@ final class MCPServer {
             ])
 
         case "tools/list":
+            if let cached = cachedToolsResponse {
+                return cached
+            }
             var tools = AIToolRegistry.allTools.map { tool -> [String: Any] in
                 let schemaData = try? JSONEncoder().encode(tool.parameters)
                 let schema = schemaData.flatMap { try? JSONSerialization.jsonObject(with: $0) } ?? [:]
@@ -303,7 +307,9 @@ final class MCPServer {
                     ], "required": ["asset_id"]],
                 ],
             ])
-            return successResponse(id: id, result: ["tools": tools])
+            let response = successResponse(id: id, result: ["tools": tools])
+            cachedToolsResponse = response
+            return response
 
         case "tools/call":
             guard let appState else {
