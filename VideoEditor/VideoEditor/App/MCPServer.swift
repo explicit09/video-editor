@@ -337,6 +337,12 @@ final class MCPServer {
 
     // MARK: - Tool Execution
 
+    /// Public entry point for the in-app agent to call MCP tool handlers.
+    func executeToolForAgent(name: String, arguments: [String: Any]) async -> String {
+        guard let appState else { return "Error: Editor not available" }
+        return await executeToolCall(name: name, arguments: arguments, appState: appState)
+    }
+
     private func executeToolCall(name: String, arguments: [String: Any], appState: AppState) async -> String {
         // MCP-only tools (not in AIToolRegistry)
         if name == "import_media" {

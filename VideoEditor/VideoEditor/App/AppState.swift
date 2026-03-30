@@ -27,7 +27,7 @@ final class AppState {
 
     /// Project bundle directory.
     let projectBundleURL: URL
-    private var mcpServer: MCPServer?
+    private(set) var mcpServer: MCPServer?
 
     private var playbackSyncTimer: Timer?
     private var saveDebounceTask: Task<Void, Never>?

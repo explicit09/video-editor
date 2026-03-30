@@ -205,6 +205,19 @@ final class AIChatController {
                 return .init(toolName: toolCall.name, success: true, message: analysisResult)
             }
 
+            // Content analysis tools — delegate to shared handlers
+            let contentAnalysisTools = [
+                "get_state", "auto_cut", "analyze_transcript", "get_full_transcript",
+                "analyze_audio_energy", "classify_audio", "detect_episodes",
+                "score_content", "segment_topics", "verify_playback",
+            ]
+            if contentAnalysisTools.contains(toolCall.name) {
+                processingStatus = "Running \(toolCall.name)..."
+                let result = await appState.mcpServer?.executeToolForAgent(name: toolCall.name, arguments: args)
+                    ?? "Error: MCP server not available"
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
+
             if toolCall.name == "get_overlay_config" {
                 if let config = appState.context.timelineState.broadcastOverlay {
                     let result = "Overlay: enabled=\(config.isEnabled), title=\(config.episodeTitle), hosts=\(config.hostA.name)/\(config.hostB.name), \(config.topics.count) topics, \(config.chapters.count) chapters"

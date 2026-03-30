@@ -52,6 +52,17 @@ public struct AIToolRegistry: Sendable {
         deleteAsset,
         setOverlayConfig,
         getOverlayConfig,
+        // Content analysis tools (handled by AIChatController / MCPServer, not AIToolResolver)
+        getState,
+        autoCut,
+        analyzeTranscript,
+        getFullTranscript,
+        analyzeAudioEnergy,
+        classifyAudio,
+        detectEpisodes,
+        scoreContent,
+        segmentTopics,
+        verifyPlayback,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -108,6 +119,98 @@ public struct AIToolRegistry: Sendable {
         name: "get_overlay_config",
         description: "Get the current broadcast overlay configuration.",
         parameters: .object([:], required: [])
+    )
+
+    // MARK: - Content analysis tools (handled specially, not via AIToolResolver)
+
+    public static let getState = AIToolDefinition(
+        name: "get_state",
+        description: "Get a human-readable summary of the current editor state: tracks, clips, markers, assets, playhead position, duration.",
+        parameters: .object([:], required: [])
+    )
+
+    public static let autoCut = AIToolDefinition(
+        name: "auto_cut",
+        description: "Intelligent one-click editing. Analyzes audio + transcript to remove silence, filler words, and re-takes. Three presets: 'gentle' (>2s silence), 'standard' (>0.8s + fillers + retakes), 'aggressive' (>0.3s + hedges + speed up). Requires transcript — transcribe first.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of clip to process (optional, defaults to first clip)"),
+            "preset": .init(type: "string", description: "gentle, standard, or aggressive (default: standard)"),
+            "dry_run": .init(type: "boolean", description: "Return plan without executing (default: false)"),
+        ], required: [])
+    )
+
+    public static let analyzeTranscript = AIToolDefinition(
+        name: "analyze_transcript",
+        description: "Send the FULL transcript to Claude for content comprehension. Identifies real episodes, pre-show chat, rehearsals, planning sections. Run this FIRST before any editing. Transcript-first, tools-second.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset"),
+        ], required: ["asset_id"])
+    )
+
+    public static let getFullTranscript = AIToolDefinition(
+        name: "get_full_transcript",
+        description: "Get the complete transcript with timestamps at each sentence. Use to READ and understand the content before editing.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset"),
+            "start": .init(type: "number", description: "Start time in seconds (optional)"),
+            "end": .init(type: "number", description: "End time in seconds (optional)"),
+        ], required: ["asset_id"])
+    )
+
+    public static let analyzeAudioEnergy = AIToolDefinition(
+        name: "analyze_audio_energy",
+        description: "Analyze speech energy, silence ratio, and engagement score for a time range. Returns per-second readings or ranked segments.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset"),
+            "start": .init(type: "number", description: "Start time (optional)"),
+            "end": .init(type: "number", description: "End time (optional)"),
+            "segments": .init(type: "number", description: "Number of segments to rank (optional)"),
+        ], required: ["asset_id"])
+    )
+
+    public static let classifyAudio = AIToolDefinition(
+        name: "classify_audio",
+        description: "Classify audio segments as live_speech, playback, background, or silence using spectral analysis.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset"),
+            "start": .init(type: "number", description: "Start time (optional)"),
+            "end": .init(type: "number", description: "End time (optional)"),
+        ], required: ["asset_id"])
+    )
+
+    public static let detectEpisodes = AIToolDefinition(
+        name: "detect_episodes",
+        description: "Detect episode boundaries using intro phrases, energy analysis, and meta-talk detection.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset"),
+        ], required: ["asset_id"])
+    )
+
+    public static let scoreContent = AIToolDefinition(
+        name: "score_content",
+        description: "Score segments on 5 dimensions: hook strength, retention, emotional arc, completeness, audio quality. Gate-based filtering.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset"),
+            "segments": .init(type: "number", description: "Number of segments (default: 10)"),
+            "gate_threshold": .init(type: "number", description: "Minimum score to pass (default: 7)"),
+        ], required: ["asset_id"])
+    )
+
+    public static let segmentTopics = AIToolDefinition(
+        name: "segment_topics",
+        description: "Break content into coherent topic segments using pauses, speaker changes, and vocabulary shifts.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset"),
+            "min_duration": .init(type: "number", description: "Minimum segment duration (default: 15)"),
+        ], required: ["asset_id"])
+    )
+
+    public static let verifyPlayback = AIToolDefinition(
+        name: "verify_playback",
+        description: "Verify composition integrity: audio cross-correlation, video perceptual hash, silence detection, duration matching.",
+        parameters: .object([
+            "mode": .init(type: "string", description: "'quick' or 'thorough' (default: quick)"),
+        ], required: [])
     )
 
     // MARK: - Tool definitions (matching Claude/OpenAI function-calling schema)
