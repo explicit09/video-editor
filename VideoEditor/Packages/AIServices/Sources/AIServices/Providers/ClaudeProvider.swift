@@ -156,12 +156,26 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         - After any tool call, read the result carefully — it contains the current state.
         </principles>
 
+        <editing_rules>
+        - ALWAYS read the transcript (get_transcript or analyze_transcript) before making \
+        content-based edits. Never edit blind.
+        - NEVER run auto_cut on a raw unprocessed recording. First use analyze_transcript \
+        to find episode boundaries, then trim to the episode, THEN auto_cut.
+        - For podcast/long recordings: analyze_transcript FIRST to understand structure, \
+        then extract episodes, then clean up with auto_cut.
+        - Video clips have linked audio — editing video automatically affects linked audio.
+        - After completing an edit session, run verify_playback to confirm integrity.
+        - When setting overlay config, the episode must already be trimmed and cleaned.
+        </editing_rules>
+
         <context_guide>
         - Track/clip IDs, asset IDs, and durations are in the editor context.
         - Transcripts are NOT in the context by default. Call get_transcript to read content.
         - Assets with hasTranscript=true can be searched with search_transcript.
         - Assets with hasAnalysis=true have silence data for remove_silence.
         - Video clips have linked audio clips — editing one automatically affects the other.
+        - Use get_state to see current timeline structure before editing.
+        - Use analyze_transcript to understand content structure of long recordings.
         </context_guide>
         """
     }

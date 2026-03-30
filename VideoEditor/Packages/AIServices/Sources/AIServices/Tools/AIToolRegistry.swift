@@ -121,6 +121,12 @@ public struct AIToolRegistry: Sendable {
         parameters: .object([:], required: [])
     )
 
+    /// Compact text catalog of all tools — used by PlanGenerator to show Claude
+    /// what's available without sending full tool schemas (saves tokens).
+    public static var toolCatalog: String {
+        allTools.map { "- \($0.name): \($0.description.prefix(100))" }.joined(separator: "\n")
+    }
+
     // MARK: - Content analysis tools (handled specially, not via AIToolResolver)
 
     public static let getState = AIToolDefinition(

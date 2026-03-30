@@ -59,8 +59,8 @@ public struct IntentRouter: Sendable {
             return RoutingDecision(tier: .standard, toolSubset: [])
         }
 
-        // Default: Sonnet with core tools
-        return RoutingDecision(tier: .standard, toolSubset: coreTools)
+        // Default: Sonnet with ALL tools — agent has full access
+        return RoutingDecision(tier: .standard, toolSubset: AIToolRegistry.allTools.map(\.name))
     }
 
     // MARK: - Keyword sets
