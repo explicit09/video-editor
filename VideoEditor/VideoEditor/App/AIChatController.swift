@@ -16,8 +16,12 @@ final class AIChatController {
     private let toolResolver = AIToolResolver()
     private let intentRouter = IntentRouter()
     private let skillRegistry = SkillRegistry()
+    private let planClassifier = PlanClassifier()
+    private let planGenerator = PlanGenerator()
+    private let planExecutor = PlanExecutor()
     private var provider: (any AIProvider)?
     private(set) var activeSkill: String?
+    private(set) var pendingPlan: EditingPlan?
 
     struct ChatMessage: Identifiable {
         let id = UUID()
@@ -90,6 +94,81 @@ final class AIChatController {
                 content: "Current editor state:\n\(context.toJSON())\n\nUser request: \(message)"
             ))
 
+            // === PLAN LAYER ===
+            // Check if user is approving/rejecting a pending plan
+            if let plan = pendingPlan, plan.status == .proposed {
+                if planClassifier.isApproval(message) {
+                    // Execute the approved plan
+                    pendingPlan?.status = .approved
+                    processingStatus = "Executing plan..."
+
+                    let result = await planExecutor.execute(
+                        plan: plan,
+                        provider: provider,
+                        editorState: { [contextBuilder, weak appState] in
+                            guard let appState else { return "{}" }
+                            return await MainActor.run {
+                                contextBuilder.buildContext(
+                                    timeline: appState.timeline,
+                                    assets: appState.assets,
+                                    playheadPosition: appState.timelineViewState.playheadPosition,
+                                    selectedClipIDs: appState.timelineViewState.selectedClipIDs,
+                                    recentActions: [],
+                                    level: .standard
+                                ).toJSON()
+                            }
+                        },
+                        executeToolCall: { @MainActor [weak appState] name, args in
+                            guard let appState else { return "Error: editor unavailable" }
+                            return await appState.mcpServer?.executeToolForAgent(name: name, arguments: args)
+                                ?? "Error: MCP not available"
+                        },
+                        onStatus: { [weak self] status in
+                            Task { @MainActor in self?.processingStatus = status }
+                        }
+                    )
+
+                    pendingPlan?.status = .completed
+                    messages.append(ChatMessage(role: .assistant, content: result, toolResults: []))
+                    isProcessing = false
+                    return
+                } else if planClassifier.isRejection(message) {
+                    pendingPlan?.status = .cancelled
+                    pendingPlan = nil
+                    messages.append(ChatMessage(role: .assistant, content: "Plan cancelled.", toolResults: []))
+                    isProcessing = false
+                    return
+                }
+                // If neither approval nor rejection, treat as a modification — fall through to re-plan
+                pendingPlan = nil
+            }
+
+            // Check if this request needs a plan
+            let hasClips = !appState.timeline.tracks.flatMap(\.clips).isEmpty
+            if planClassifier.needsPlan(message, hasClipsOnTimeline: hasClips, hasPendingPlan: pendingPlan != nil) {
+                processingStatus = "Creating plan..."
+
+                let skill = skillRegistry.match(message)
+                if let skill { activeSkill = skill.name }
+
+                do {
+                    let plan = try await planGenerator.generate(
+                        request: message,
+                        editorState: context.toJSON(),
+                        skillContent: skill?.content,
+                        provider: provider
+                    )
+                    pendingPlan = plan
+                    messages.append(ChatMessage(role: .assistant, content: plan.displayText, toolResults: []))
+                } catch {
+                    messages.append(ChatMessage(role: .assistant, content: "Failed to create plan: \(error.localizedDescription)", toolResults: []))
+                }
+
+                isProcessing = false
+                return
+            }
+
+            // === DIRECT EXECUTION (no plan needed) ===
             // Route: classify intent → pick model + tools
             let routing = intentRouter.route(message)
             var selectedTools = routing.toolSubset.isEmpty
