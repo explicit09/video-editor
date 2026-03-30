@@ -6,8 +6,10 @@ import Foundation
 @MainActor @Observable
 public final class TimelineState {
     public var timeline: Timeline
+    public var broadcastOverlay: BroadcastOverlayConfig?
 
-    public init(timeline: Timeline = Timeline()) {
+    public init(timeline: Timeline = Timeline(), broadcastOverlay: BroadcastOverlayConfig? = nil) {
         self.timeline = timeline
+        self.broadcastOverlay = broadcastOverlay
     }
 }

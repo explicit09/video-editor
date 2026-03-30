@@ -513,3 +513,26 @@ private func modifyTrack(id: UUID, context: EditingContext, _ body: (inout Track
     }
     body(&context.timelineState.timeline.tracks[index])
 }
+
+// MARK: - Broadcast Overlay
+
+public struct SetBroadcastOverlayCommand: Command {
+    public let name = "Set Broadcast Overlay"
+    public let config: BroadcastOverlayConfig?
+    public var affectedClipIDs: [UUID] { [] }
+    public var affectedTrackIDs: [UUID] { [] }
+    private var previousConfig: BroadcastOverlayConfig?
+
+    public init(config: BroadcastOverlayConfig?) {
+        self.config = config
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        previousConfig = context.timelineState.broadcastOverlay
+        context.timelineState.broadcastOverlay = config
+    }
+
+    public func undo(context: EditingContext) throws {
+        context.timelineState.broadcastOverlay = previousConfig
+    }
+}

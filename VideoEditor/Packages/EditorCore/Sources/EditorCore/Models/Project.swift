@@ -7,6 +7,7 @@ public struct Project: Codable, Identifiable, Sendable {
     public var name: String
     public var settings: ProjectSettings
     public var timeline: Timeline
+    public var broadcastOverlay: BroadcastOverlayConfig?
     public var createdAt: Date
     public var modifiedAt: Date
 
@@ -15,6 +16,7 @@ public struct Project: Codable, Identifiable, Sendable {
         name: String,
         settings: ProjectSettings = .default,
         timeline: Timeline = Timeline(),
+        broadcastOverlay: BroadcastOverlayConfig? = nil,
         createdAt: Date = Date(),
         modifiedAt: Date = Date()
     ) {
@@ -22,6 +24,7 @@ public struct Project: Codable, Identifiable, Sendable {
         self.name = name
         self.settings = settings
         self.timeline = timeline
+        self.broadcastOverlay = broadcastOverlay
         self.createdAt = createdAt
         self.modifiedAt = modifiedAt
     }
