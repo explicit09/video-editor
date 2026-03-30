@@ -106,7 +106,7 @@ public actor ProxyService {
 
     /// Get the proxy URL for an asset (may not exist yet).
     public func proxyURL(for assetID: UUID) -> URL {
-        proxiesDir.appendingPathComponent("\(assetID.uuidString)_proxy.mov")
+        proxiesDir.appendingPathComponent("\(assetID.uuidString)_proxy.mp4")
     }
 
     /// Delete proxy for an asset.

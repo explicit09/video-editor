@@ -68,14 +68,15 @@ public struct DegradationResponse {
             break
 
         case .warning:
-            // Evict render cache from memory (keep on disk)
-            // Pause background proxy generation
-            await renderCache.clear()
+            // Evict cache tracking from memory (keep files on disk for re-discovery)
+            await renderCache.evictMemory()
+            await thumbnailCache.evictMemory()
 
         case .critical:
-            // Clear all non-essential caches
+            // Delete render cache files (expensive to rebuild but frees disk)
+            // Keep thumbnail cache files (small, cheap)
             await renderCache.clear()
-            await thumbnailCache.clear()
+            await thumbnailCache.evictMemory()
             // Cancel active proxy jobs
             await proxyService.cancelAll()
         }

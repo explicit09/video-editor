@@ -16,10 +16,18 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
     }
 
     private let ciContext = CIContext(options: [.workingColorSpace: CGColorSpaceCreateDeviceRGB()])
-    private var renderContext: AVVideoCompositionRenderContext?
+    private let renderContextLock = NSLock()
+    private var _renderContext: AVVideoCompositionRenderContext?
+    private var renderContext: AVVideoCompositionRenderContext? {
+        renderContextLock.lock()
+        defer { renderContextLock.unlock() }
+        return _renderContext
+    }
 
     public func renderContextChanged(_ newRenderContext: AVVideoCompositionRenderContext) {
-        renderContext = newRenderContext
+        renderContextLock.lock()
+        _renderContext = newRenderContext
+        renderContextLock.unlock()
     }
 
     public func startRequest(_ request: AVAsynchronousVideoCompositionRequest) {
@@ -37,8 +45,20 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         // Get the source frame
         guard let trackID = instruction.requiredSourceTrackIDs?.first as? CMPersistentTrackID,
               let sourceBuffer = request.sourceFrame(byTrackID: trackID) else {
-            // No source — return empty frame
+            // No source — render explicit black frame (not uninitialized buffer)
+            let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+            var image = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
+
+            // Still render overlay on black gaps (overlay should appear even with no video)
+            if let overlay = instruction.broadcastOverlay, overlay.isEnabled {
+                let time = request.compositionTime.seconds
+                if let overlayImage = BroadcastOverlayRenderer.render(config: overlay, at: time, renderSize: renderSize) {
+                    image = overlayImage.composited(over: image)
+                }
+            }
+
             if let outputBuffer = renderContext?.newPixelBuffer() {
+                ciContext.render(image, to: outputBuffer)
                 request.finish(withComposedVideoFrame: outputBuffer)
             } else {
                 request.finish(with: NSError(domain: "EffectCompositor", code: -2))

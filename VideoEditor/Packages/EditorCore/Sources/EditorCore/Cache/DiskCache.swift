@@ -42,10 +42,17 @@ public actor DiskCache {
         }
     }
 
+    /// Clear everything — removes files AND entries.
     public func clear() {
         for entry in entries.values {
             try? FileManager.default.removeItem(at: entry.url)
         }
+        entries.removeAll()
+    }
+
+    /// Evict tracking only — keeps files on disk for later re-discovery.
+    /// Use for memory pressure warnings where we want to free memory but not rebuild caches.
+    public func evictMemory() {
         entries.removeAll()
     }
 
