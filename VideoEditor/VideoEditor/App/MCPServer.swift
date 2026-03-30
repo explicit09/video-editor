@@ -228,12 +228,32 @@ final class MCPServer {
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
                 [
+                    "name": "extract_clips",
+                    "description": "Find the best short-form clip candidates from a long recording. Claude reads the transcript and identifies 30-90 second moments with strong hooks, complete narratives, and emotional impact. Returns ranked candidates with timestamps and scores. Run analyze_transcript first.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset"],
+                        "count": ["type": "number", "description": "Number of clips to find (default: 5)"],
+                        "min_duration": ["type": "number", "description": "Minimum clip duration in seconds (default: 30)"],
+                        "max_duration": ["type": "number", "description": "Maximum clip duration in seconds (default: 90)"],
+                    ], "required": ["asset_id"]],
+                ],
+                [
                     "name": "extract_segment",
                     "description": "Extract a segment from an asset and place it at timeline position 0. Creates a clean clip with the specified source range starting at the beginning of the timeline. Use this instead of trim_clip when you want the result to start at 0.",
                     "inputSchema": ["type": "object", "properties": [
                         "asset_id": ["type": "string", "description": "UUID of the asset"],
                         "source_start": ["type": "number", "description": "Source start time in seconds"],
                         "source_end": ["type": "number", "description": "Source end time in seconds"],
+                    ], "required": ["asset_id", "source_start", "source_end"]],
+                ],
+                [
+                    "name": "make_short",
+                    "description": "One-click: create a complete short-form clip. Extracts the segment, analyzes faces, applies layout (split/fill), and positions captions for 9:16. Combines extract_segment + analyze_for_shorts + create_short in one call. Optionally rearranges the clip to start with the hook.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "UUID of the asset"],
+                        "source_start": ["type": "number", "description": "Source start time in seconds"],
+                        "source_end": ["type": "number", "description": "Source end time in seconds"],
+                        "layout": ["type": "string", "description": "Layout: 'split', 'fill_0', 'fill_1', or 'auto' (default: auto — Claude decides)"],
                     ], "required": ["asset_id", "source_start", "source_end"]],
                 ],
                 [
@@ -417,6 +437,12 @@ final class MCPServer {
         }
         if name == "analyze_audio_energy" {
             return await handleAnalyzeAudioEnergy(arguments, appState: appState)
+        }
+        if name == "make_short" {
+            return await handleMakeShort(arguments, appState: appState)
+        }
+        if name == "extract_clips" {
+            return await handleExtractClips(arguments, appState: appState)
         }
         if name == "extract_segment" {
             return handleExtractSegment(arguments, appState: appState)
@@ -1338,6 +1364,283 @@ final class MCPServer {
 
         default:
             return "{}"
+        }
+    }
+
+    // MARK: - Make Short (one-click pipeline)
+
+    private func handleMakeShort(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+        guard let sourceStart = args["source_start"] as? Double,
+              let sourceEnd = args["source_end"] as? Double,
+              sourceEnd > sourceStart else {
+            return "Error: Invalid source_start/source_end"
+        }
+
+        var report: [String] = ["=== MAKING SHORT ==="]
+        let duration = sourceEnd - sourceStart
+        report.append("Source: \(String(format: "%.0f", sourceStart))s - \(String(format: "%.0f", sourceEnd))s (\(String(format: "%.0f", duration))s)")
+
+        // Step 1: Extract segment at position 0
+        let extractResult = handleExtractSegment([
+            "asset_id": assetIDStr,
+            "source_start": sourceStart,
+            "source_end": sourceEnd,
+        ], appState: appState)
+        report.append("1. Extract: done")
+
+        // Step 2: Analyze faces
+        let tracker = MultiFaceTracker()
+        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let faceTracks: [FaceTrack]
+        do {
+            faceTracks = try await tracker.trackRange(url: mediaURL, start: sourceStart, end: sourceEnd)
+        } catch {
+            report.append("2. Face tracking: failed — \(error.localizedDescription)")
+            return report.joined(separator: "\n")
+        }
+        report.append("2. Face tracking: \(faceTracks.count) faces, \(faceTracks.first?.samples.count ?? 0) samples each")
+
+        // Step 3: Speaker mapping
+        var speakerToFace: [Int: Int] = [:]
+        if let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ), let speakers = result.speakers {
+            let mapper = SpeakerFaceMapper()
+            speakerToFace = mapper.map(speakerSegments: speakers, faceTracks: faceTracks)
+        } else {
+            for i in 0..<faceTracks.count { speakerToFace[i] = i }
+        }
+
+        // Step 4: Determine layout
+        let layoutStr = args["layout"] as? String ?? "auto"
+        var layoutSegments: [LayoutSegment]
+
+        if layoutStr == "auto" {
+            // Ask Claude to decide layout based on transcript content
+            layoutSegments = await decideLayoutWithClaude(
+                asset: asset, appState: appState,
+                sourceStart: sourceStart, sourceEnd: sourceEnd,
+                speakerToFace: speakerToFace
+            )
+            report.append("3. Layout: auto (Claude decided \(layoutSegments.count) segments)")
+        } else {
+            let layout: ShortFormLayout
+            switch layoutStr {
+            case "fill_0": layout = .fill(activeSpeaker: 0)
+            case "fill_1": layout = .fill(activeSpeaker: 1)
+            default: layout = .split
+            }
+            layoutSegments = [LayoutSegment(startTime: 0, layout: layout)]
+            report.append("3. Layout: \(layoutStr)")
+        }
+
+        // Step 5: Build and apply config
+        let config = ShortFormConfig(
+            isEnabled: true,
+            outputAspect: .vertical9x16,
+            faceTracks: faceTracks,
+            speakerToFace: speakerToFace,
+            layoutSegments: layoutSegments,
+            sourceTimeOffset: sourceStart
+        )
+
+        appState.context.timelineState.shortFormConfig = config
+        appState.rebuildCompositionNow()
+        report.append("4. Applied: 9:16, \(faceTracks.count) faces, \(layoutSegments.count) layout segments")
+        report.append("\nShort ready at 1080x1920. " + stateSnapshot(appState))
+
+        return report.joined(separator: "\n")
+    }
+
+    /// Ask Claude to decide Fill vs Split per segment based on transcript content.
+    private func decideLayoutWithClaude(
+        asset: MediaAsset, appState: AppState,
+        sourceStart: TimeInterval, sourceEnd: TimeInterval,
+        speakerToFace: [Int: Int]
+    ) async -> [LayoutSegment] {
+        guard let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return [LayoutSegment(startTime: 0, layout: .split)]
+        }
+
+        // Build transcript for just this segment
+        let words = result.words.filter { $0.start >= sourceStart && $0.end <= sourceEnd }
+        var transcript = ""
+        var sentenceWords: [String] = []
+        var sentenceStart: TimeInterval = 0
+
+        for (i, word) in words.enumerated() {
+            if sentenceWords.isEmpty { sentenceStart = word.start - sourceStart } // Relative to clip start
+            sentenceWords.append(word.word)
+            let isEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
+            let hasPause = i + 1 < words.count && (words[i + 1].start - word.end) > 0.8
+            let isLast = i == words.count - 1
+            if isEnd || hasPause || isLast {
+                let s = Int(sentenceStart)
+                transcript += "[\(s)s] \(sentenceWords.joined(separator: " "))\n"
+                sentenceWords = []
+            }
+        }
+
+        guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
+            return [LayoutSegment(startTime: 0, layout: .split)]
+        }
+
+        let provider = ClaudeProvider(apiKey: apiKey, model: "claude-sonnet-4-6")
+
+        let prompt = """
+        You are deciding camera layouts for a short-form vertical video clip.
+        Speaker 0 (face 0) is on the left, Speaker 1 (face 1) is on the right.
+
+        For each section of this clip, choose the best layout:
+        - "split" — both speakers visible (stacked vertically). Use for: dialogue, reactions, questions, banter.
+        - "fill_0" — Speaker 0 fills the whole screen. Use for: Speaker 0 telling a story, making a point, monologue.
+        - "fill_1" — Speaker 1 fills the whole screen. Use for: Speaker 1 telling a story, making a point, monologue.
+
+        Rules:
+        - Default to "split" for back-and-forth conversation
+        - Switch to "fill" when one person speaks for 8+ seconds continuously
+        - Switch back to "split" when the other person responds
+        - Minimum segment: 3 seconds (don't switch too fast)
+        - For emotional moments or punchlines, fill on the person delivering it
+
+        Respond with ONLY a JSON array of layout segments:
+        [{"time": 0, "layout": "split"}, {"time": 12, "layout": "fill_0"}, ...]
+
+        Time is in seconds from clip start.
+
+        TRANSCRIPT:
+        \(transcript)
+        """
+
+        do {
+            let response = try await provider.complete(
+                messages: [AIMessage(role: "user", content: prompt)],
+                tools: []
+            )
+
+            // Parse JSON array from response
+            let content = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+            if let jsonStart = content.firstIndex(of: "["),
+               let jsonEnd = content.lastIndex(of: "]") {
+                let jsonStr = String(content[jsonStart...jsonEnd])
+                if let data = jsonStr.data(using: .utf8),
+                   let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
+                    return arr.compactMap { entry -> LayoutSegment? in
+                        guard let time = entry["time"] as? Double,
+                              let layoutStr = entry["layout"] as? String else { return nil }
+                        let layout: ShortFormLayout
+                        switch layoutStr {
+                        case "fill_0": layout = .fill(activeSpeaker: 0)
+                        case "fill_1": layout = .fill(activeSpeaker: 1)
+                        default: layout = .split
+                        }
+                        return LayoutSegment(startTime: time, layout: layout)
+                    }
+                }
+            }
+        } catch {}
+
+        return [LayoutSegment(startTime: 0, layout: .split)]
+    }
+
+    // MARK: - Extract Clips
+
+    private func handleExtractClips(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        let count = args["count"] as? Int ?? (args["count"] as? Double).map({ Int($0) }) ?? 5
+        let minDur = args["min_duration"] as? Double ?? 30
+        let maxDur = args["max_duration"] as? Double ?? 90
+
+        // Get transcript
+        guard let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return "Error: No transcript. Run transcribe_asset first."
+        }
+
+        // Build timestamped transcript
+        let words = result.words
+        var transcript = ""
+        var sentenceWords: [String] = []
+        var sentenceStart: TimeInterval = words.first?.start ?? 0
+
+        for (i, word) in words.enumerated() {
+            if sentenceWords.isEmpty { sentenceStart = word.start }
+            sentenceWords.append(word.word)
+            let isEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
+            let hasPause = i + 1 < words.count && (words[i + 1].start - word.end) > 0.8
+            let isLast = i == words.count - 1
+            if isEnd || hasPause || isLast {
+                let m = Int(sentenceStart) / 60
+                let s = Int(sentenceStart) % 60
+                transcript += "[\(m):\(String(format: "%02d", s))] \(sentenceWords.joined(separator: " "))\n"
+                sentenceWords = []
+            }
+        }
+
+        // Get Claude API key
+        guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
+            return "Error: No API key"
+        }
+
+        let provider = ClaudeProvider(apiKey: apiKey, model: "claude-sonnet-4-6")
+
+        let prompt = """
+        You are finding the best short-form clip candidates from a podcast transcript.
+        Find the \(count) best moments that would make great 30-90 second TikTok/Shorts/Reels clips.
+
+        For each clip, identify:
+        1. EXACT start timestamp [MM:SS] — where the clip should begin
+        2. EXACT end timestamp [MM:SS] — where the clip should end
+        3. Duration (must be \(Int(minDur))-\(Int(maxDur)) seconds)
+        4. Hook sentence — the most compelling line that could open the clip
+        5. Topic — what the clip is about in 5-10 words
+        6. Score 1-10 — how shareable/viral is this moment?
+        7. Best layout — "split" (both speakers visible) or "fill" (single speaker) and which speaker if fill
+        8. Why — one line explaining why this would work as a short
+
+        Rules:
+        - Each clip must be a COMPLETE thought — don't cut mid-sentence
+        - Prefer moments with: strong opinions, stories, surprising facts, emotional reactions, humor
+        - The hook (first sentence) should grab attention immediately
+        - Avoid filler, small talk, or meta-discussion about the podcast itself
+        - Clips should make sense WITHOUT context from the rest of the episode
+
+        Format each clip as:
+        CLIP N:
+        Start: [MM:SS]
+        End: [MM:SS]
+        Duration: Xs
+        Hook: "quote"
+        Topic: description
+        Score: N/10
+        Layout: split/fill_0/fill_1
+        Why: reason
+
+        TRANSCRIPT:
+        \(transcript)
+        """
+
+        do {
+            let response = try await provider.complete(
+                messages: [AIMessage(role: "user", content: prompt)],
+                tools: []
+            )
+            return "=== CLIP CANDIDATES ===\nAsset: \(asset.name)\nRequested: \(count) clips (\(Int(minDur))-\(Int(maxDur))s)\n\n" + response.content
+        } catch {
+            return "Error: \(error.localizedDescription)"
         }
     }
 

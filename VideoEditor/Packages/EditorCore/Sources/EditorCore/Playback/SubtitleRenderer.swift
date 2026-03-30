@@ -20,11 +20,14 @@ public struct SubtitleRenderer {
     }
 
     /// Render subtitle text onto a frame at the given time.
+    /// - Parameter bottomMarginOverride: custom bottom margin in pixels (for 9:16 safe zone positioning)
     public static func render(
         subtitles: [SubtitleEntry],
         at time: TimeInterval,
         onto image: CIImage,
-        renderSize: CGSize
+        renderSize: CGSize,
+        bottomMarginOverride: CGFloat? = nil,
+        fontSizeOverride: CGFloat? = nil
     ) -> CIImage {
         // Find the active subtitle at this time
         guard let active = subtitles.first(where: { time >= $0.startTime && time < $0.endTime }) else {
@@ -32,11 +35,13 @@ public struct SubtitleRenderer {
         }
 
         // Create text image using Core Graphics
+        let fontSize = fontSizeOverride ?? max(renderSize.height * 0.04, 18)
+        let bottomMargin = bottomMarginOverride ?? renderSize.height * 0.08
         let textImage = renderText(
             active.text,
             size: renderSize,
-            fontSize: max(renderSize.height * 0.04, 18), // 4% of frame height
-            bottomMargin: renderSize.height * 0.08 // 8% from bottom
+            fontSize: fontSize,
+            bottomMargin: bottomMargin
         )
 
         guard let textCIImage = textImage else { return image }
