@@ -31,6 +31,7 @@ final class AppState {
 
     private var playbackSyncTimer: Timer?
     private var saveDebounceTask: Task<Void, Never>?
+    private var hasShutdown = false
 
     init() {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
@@ -91,6 +92,8 @@ final class AppState {
         if let dgKey = keys["DEEPGRAM_API_KEY"] {
             media.setTranscriptionProvider(DeepgramProvider(apiKey: dgKey))
         }
+        // Always configure WhisperKit as local fallback (offline, free)
+        media.setLocalTranscriptionProvider(WhisperKitProvider())
 
         // Rebuild composition when proxy/analysis completes in background
         media.onAnalysisComplete = { [weak self] in
@@ -349,7 +352,7 @@ final class AppState {
         preferredTrackID: UUID? = nil,
         startTime: TimeInterval? = nil
     ) async {
-        let duration = max(asset.duration, 1)
+        let duration = defaultTimelineDuration(for: asset)
         let requestedTrackID = preferredTrackID ?? timelineViewState.selectedTrackID
         let requestedTrack = requestedTrackID.flatMap { id in
             timeline.tracks.first(where: { $0.id == id })
@@ -357,7 +360,7 @@ final class AppState {
 
         switch asset.type {
         case .video:
-            let hasAudio = await assetHasAudio(asset)
+            let hasAudio = asset.hasAudioTrack
             let videoTrackID: UUID
             let audioTrackID: UUID?
 
@@ -378,7 +381,11 @@ final class AppState {
                 audioTrackID = hasAudio ? pairedTrackID(for: videoTrackID, sourceType: .video, targetType: .audio) : nil
             }
 
-            let clipStart = startTime ?? trackEnd(for: videoTrackID)
+            let clipStart = resolvedInsertionStart(
+                explicitStart: startTime,
+                primaryTrackID: videoTrackID,
+                companionTrackID: audioTrackID
+            )
             let linkID = UUID() // Shared link group for video+audio pair
             let videoClip = Clip(
                 assetID: asset.id,
@@ -457,7 +464,7 @@ final class AppState {
 
         switch asset.type {
         case .video:
-            let hasAudio = await assetHasAudio(asset)
+            let hasAudio = asset.hasAudioTrack
             let videoTrackID: UUID
             let audioTrackID: UUID?
 
@@ -478,7 +485,11 @@ final class AppState {
                 audioTrackID = hasAudio ? pairedTrackID(for: videoTrackID, sourceType: .video, targetType: .audio) : nil
             }
 
-            let clipStart = startTime ?? trackEnd(for: videoTrackID)
+            let clipStart = resolvedInsertionStart(
+                explicitStart: startTime,
+                primaryTrackID: videoTrackID,
+                companionTrackID: audioTrackID
+            )
             let linkID = UUID()
             let videoClip = Clip(
                 assetID: asset.id,
@@ -648,6 +659,27 @@ final class AppState {
 
     private func trackEnd(for trackID: UUID) -> TimeInterval {
         timeline.tracks.first(where: { $0.id == trackID })?.clips.map(\.timelineRange.end).max() ?? 0
+    }
+
+    private func resolvedInsertionStart(
+        explicitStart: TimeInterval?,
+        primaryTrackID: UUID,
+        companionTrackID: UUID?
+    ) -> TimeInterval {
+        TimelineInsertionStartResolver.resolve(
+            explicitStart: explicitStart,
+            primaryTrackEnd: trackEnd(for: primaryTrackID),
+            companionTrackEnd: companionTrackID.map(trackEnd(for:))
+        )
+    }
+
+    private func defaultTimelineDuration(for asset: MediaAsset) -> TimeInterval {
+        switch asset.type {
+        case .image:
+            return max(asset.duration, EditorTimelineDefaults.stillImageDuration)
+        case .audio, .video:
+            return max(asset.duration, 1)
+        }
     }
 
     private func clampedSourceRange(for asset: MediaAsset, proposed: TimeRange) -> TimeRange {
@@ -993,13 +1025,64 @@ final class AppState {
         saveDebounceTask = Task {
             try? await Task.sleep(for: .seconds(1))
             guard !Task.isCancelled else { return }
-            // Save timeline
-            try? await projectStore.save(to: projectBundleURL, timeline: timeline)
-            // Save asset registry
-            let allAssets = await media.mediaManager.allAssets()
-            let assetsURL = projectBundleURL.appendingPathComponent("assets.json")
+            persistProjectState(waitForCompletion: false)
+        }
+    }
+
+    func flushPendingState() {
+        guard !hasShutdown else { return }
+        saveDebounceTask?.cancel()
+        saveDebounceTask = nil
+        persistProjectState(waitForCompletion: false)
+    }
+
+    func shutdown() {
+        guard !hasShutdown else { return }
+        hasShutdown = true
+
+        saveDebounceTask?.cancel()
+        saveDebounceTask = nil
+        compositionRebuildTask?.cancel()
+        compositionRebuildTask = nil
+        playbackSyncTimer?.invalidate()
+        playbackSyncTimer = nil
+        playbackEngine.pause()
+
+        media.onAnalysisComplete = nil
+        media.onAssetsChanged = nil
+        media.stopBackgroundWork()
+
+        mcpServer?.stop()
+        mcpServer = nil
+
+        persistProjectState(waitForCompletion: true)
+    }
+
+    private func persistProjectState(waitForCompletion: Bool) {
+        let timelineSnapshot = timeline
+        let bundleURL = projectBundleURL
+        let projectStore = self.projectStore
+        let mediaManager = media.mediaManager
+
+        let persist: @Sendable () async -> Void = {
+            try? await projectStore.save(to: bundleURL, timeline: timelineSnapshot)
+            let allAssets = await mediaManager.allAssets()
+            let assetsURL = bundleURL.appendingPathComponent("assets.json")
             if let data = try? JSONEncoder().encode(allAssets) {
                 try? data.write(to: assetsURL)
+            }
+        }
+
+        if waitForCompletion {
+            let semaphore = DispatchSemaphore(value: 0)
+            Task.detached(priority: .userInitiated) {
+                defer { semaphore.signal() }
+                await persist()
+            }
+            _ = semaphore.wait(timeout: .now() + 2)
+        } else {
+            Task.detached(priority: .utility) {
+                await persist()
             }
         }
     }
@@ -1055,6 +1138,23 @@ final class AppState {
         return try await media.importMedia(from: url, mediaDir: mediaDir)
     }
 
+    @discardableResult
+    func pruneNonRenderableClips(
+        minimumDuration: TimeInterval = TimelineFragmentPruner.minimumRenderableDuration
+    ) -> Int {
+        let result = TimelineFragmentPruner.prune(
+            context.timelineState.timeline,
+            minimumDuration: minimumDuration
+        )
+        guard !result.removedClipIDs.isEmpty else { return 0 }
+
+        context.timelineState.timeline = result.timeline
+        normalizeSelection()
+        rebuildComposition()
+        scheduleSave()
+        return result.removedClipIDs.count
+    }
+
     // MARK: - Playback
 
     private var compositionRebuildTask: Task<Void, Never>?
@@ -1065,14 +1165,14 @@ final class AppState {
         compositionRebuildTask = Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(50))
             guard !Task.isCancelled else { return }
-            playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig)
+            playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig, captionStyle: context.timelineState.captionStyle)
         }
     }
 
     /// Force immediate rebuild (for playback start, export, etc.)
     func rebuildCompositionNow() {
         compositionRebuildTask?.cancel()
-        playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig)
+        playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig, captionStyle: context.timelineState.captionStyle)
     }
 
     func seekFromPlayhead() {
@@ -1271,9 +1371,7 @@ final class AppState {
 
     deinit {
         MainActor.assumeIsolated {
-            playbackSyncTimer?.invalidate()
-            playbackSyncTimer = nil
-            saveDebounceTask?.cancel()
+            shutdown()
         }
     }
 }

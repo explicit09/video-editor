@@ -120,7 +120,7 @@ final class MCPServer {
             tools.append(contentsOf: [
                 [
                     "name": "import_media",
-                    "description": "Import a video/audio file into the project. The app is sandboxed — files must be inside the container at ~/Library/Containers/com.videoeditor.app/Data/Documents/. Copy the file there first using 'cp', then pass the container path. Returns the asset_id for use with add_to_timeline.",
+                    "description": "Import a video, audio, or image file into the project. The app is sandboxed — files must be inside the container at ~/Library/Containers/com.videoeditor.app/Data/Documents/. Copy the file there first using 'cp', then pass the container path. Returns the asset_id for use with add_to_timeline.",
                     "inputSchema": ["type": "object", "properties": ["file_path": ["type": "string", "description": "Absolute path to the media file (must be inside the app sandbox container)"]], "required": ["file_path"]],
                 ],
                 [
@@ -141,6 +141,11 @@ final class MCPServer {
                     "name": "verify_playback",
                     "description": "Content-verify the timeline composition. Checks that the RIGHT audio/video from the RIGHT source plays at every clip boundary. Mode: 'quick' (2 checks per clip, ~2s) or 'thorough' (all boundaries + silence scan, ~5-10s).",
                     "inputSchema": ["type": "object", "properties": ["mode": ["type": "string", "description": "Verification mode: 'quick' (default) or 'thorough'"]], "required": []],
+                ],
+                [
+                    "name": "export_video",
+                    "description": "Export the current timeline to an MP4 file. Returns the file path. Presets: 'low' (480p), 'medium' (720p), 'high' (1080p), '4k' (2160p).",
+                    "inputSchema": ["type": "object", "properties": ["preset": ["type": "string", "description": "Quality preset: low, medium, high (default), 4k"], "filename": ["type": "string", "description": "Output filename (without extension)"]], "required": []],
                 ],
                 [
                     "name": "save_snapshot",
@@ -206,6 +211,16 @@ final class MCPServer {
                     "inputSchema": ["type": "object", "properties": [
                         "max_inserts": ["type": "number", "description": "Maximum number of B-roll clips to insert (default: 5)"],
                         "duration": ["type": "number", "description": "Duration of each B-roll insert in seconds (default: 3)"],
+                    ], "required": []],
+                ],
+                [
+                    "name": "search_broll",
+                    "description": "Search Pexels for stock B-roll footage matching a topic or the current timeline's transcript. Can optionally download and insert the best match. Requires PEXELS_API_KEY environment variable or .env file.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "query": ["type": "string", "description": "Search query. If omitted, uses Claude to extract visual concepts from the timeline's transcript."],
+                        "download": ["type": "boolean", "description": "If true, downloads the best match and inserts it at the specified position."],
+                        "insert_at": ["type": "number", "description": "Timeline position in seconds to insert the B-roll clip."],
+                        "duration": ["type": "number", "description": "Max duration in seconds for the B-roll clip (default 5)."],
                     ], "required": []],
                 ],
                 [
@@ -352,7 +367,51 @@ final class MCPServer {
                         "gate_threshold": ["type": "number", "description": "Minimum score on all dimensions to pass (default: 7)"],
                     ], "required": ["asset_id"]],
                 ],
+                [
+                    "name": "hook_optimize",
+                    "description": "Rearrange a short-form clip to start with its most compelling moment (cold open). Analyzes transcript, finds the best hook sentence, duplicates it to the beginning with a flash transition.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "export_for_platform",
+                    "description": "Export the current timeline optimized for a specific platform. Applies correct resolution, codec, and loudness settings. Platforms: tiktok, youtube_shorts, youtube_hd, youtube_4k, instagram_reels, instagram_feed, linkedin, twitter, pinterest, spotify_podcast, apple_podcast",
+                    "inputSchema": ["type": "object", "properties": ["platform": ["type": "string", "description": "Target platform name (e.g. tiktok, youtube_shorts, youtube_hd)"], "filename": ["type": "string", "description": "Output filename (without extension)"]], "required": ["platform"]],
+                ],
+                [
+                    "name": "list_platforms",
+                    "description": "List all available platform export presets with their specs (resolution, max duration, loudness target).",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "get_transcript_with_timing",
+                    "description": "Get the transcript with word-level timing for text-based editing. The AI reads this, then issues delete_transcript_range or remove_filler_words commands. This is the foundation for editing video by editing text.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "Specific asset UUID. If omitted, uses the first video clip's asset."],
+                        "start": ["type": "number", "description": "Start time filter in seconds (source time)"],
+                        "end": ["type": "number", "description": "End time filter in seconds (source time)"],
+                        "format": ["type": "string", "description": "'text' (default) — timestamps before each word, or 'json' — array of {word, start, end, speaker}"],
+                    ], "required": []],
+                ],
+                [
+                    "name": "delete_transcript_range",
+                    "description": "Delete video by deleting text from the transcript. Maps a source-time range to timeline edits: splits clips at boundaries, deletes the middle, and ripple-closes gaps. Process multiple deletions from END to START to preserve timestamps.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "Asset UUID"],
+                        "start_time": ["type": "number", "description": "Start time in seconds (source time) of content to delete"],
+                        "end_time": ["type": "number", "description": "End time in seconds (source time) of content to delete"],
+                    ], "required": ["asset_id", "start_time", "end_time"]],
+                ],
+                [
+                    "name": "remove_filler_words",
+                    "description": "Find and remove filler words (um, uh, like, you know, so, basically, actually, right, I mean) from the transcript. Context-sensitive: only removes standalone fillers between pauses, not meaningful speech. Works backwards to preserve timestamps. Use dry_run=true to preview.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "asset_id": ["type": "string", "description": "Asset UUID"],
+                        "fillers": ["type": "string", "description": "Comma-separated custom filler words. Default: um,uh,like,you know,so,basically,actually,right,I mean"],
+                        "dry_run": ["type": "boolean", "description": "If true, report what would be removed without deleting"],
+                    ], "required": ["asset_id"]],
+                ],
             ])
+            tools = deduplicatedTools(tools)
             let response = successResponse(id: id, result: ["tools": tools])
             cachedToolsResponse = response
             return response
@@ -413,10 +472,10 @@ final class MCPServer {
                 if duration > 0 {
                     appState.timelineViewState.zoomToFit(duration: duration)
                 }
-                return "Zoom set to fit timeline (\(String(format: "%.0f", appState.timelineViewState.zoom)) px/s)"
+                return "Zoom set to fit timeline (\(formattedZoom(appState.timelineViewState.zoom)) px/s)"
             } else if let pxPerSec = Double(level) {
                 appState.timelineViewState.setZoom(pxPerSec)
-                return "Zoom set to \(String(format: "%.0f", pxPerSec)) px/s"
+                return "Zoom set to \(formattedZoom(pxPerSec)) px/s"
             }
             return "Error: use 'fit' or a number"
         }
@@ -431,6 +490,9 @@ final class MCPServer {
         }
         if name == "auto_insert_broll" {
             return await handleAutoInsertBroll(arguments, appState: appState)
+        }
+        if name == "search_broll" {
+            return await handleSearchBroll(arguments, appState: appState)
         }
         if name == "set_track_audio_effects" {
             return handleSetTrackAudioEffects(arguments, appState: appState)
@@ -480,17 +542,30 @@ final class MCPServer {
         if name == "segment_topics" {
             return await handleSegmentTopics(arguments, appState: appState)
         }
+        if name == "hook_optimize" {
+            return await handleHookOptimize(arguments, appState: appState)
+        }
         if name == "get_state" {
             return handleGetState(appState: appState)
         }
         if name == "fix_av_links" {
             return handleFixAVLinks(appState: appState)
         }
+        if name == "get_transcript_with_timing" {
+            return await handleGetTranscriptWithTiming(arguments, appState: appState)
+        }
+        if name == "delete_transcript_range" {
+            return await handleDeleteTranscriptRange(arguments, appState: appState)
+        }
+        if name == "remove_filler_words" {
+            return await handleRemoveFillerWords(arguments, appState: appState)
+        }
 
         if name == "save_snapshot" {
             let snapName = (arguments["name"] as? String) ?? "Snapshot"
             let vc = VersionControl(projectBundleURL: appState.projectBundleURL)
             do {
+                await vc.loadFromDisk()
                 try await vc.saveSnapshot(name: snapName, timeline: appState.timeline)
                 return "Saved snapshot '\(snapName)'."
             } catch {
@@ -545,8 +620,26 @@ final class MCPServer {
             return await handleSearchTranscript(arguments, appState: appState)
         }
 
-        if ["remove_silence", "remove_section", "ripple_delete", "normalize_audio"].contains(name) {
-            return "Compound tool '\(name)' should be called through the AI chat."
+        if name == "remove_silence" {
+            return handleRemoveSilence(arguments, appState: appState)
+        }
+        if name == "remove_section" {
+            return handleRemoveSection(arguments, appState: appState)
+        }
+        if name == "ripple_delete" {
+            return handleRippleDelete(arguments, appState: appState)
+        }
+        if name == "normalize_audio" {
+            return handleNormalizeAudio(arguments, appState: appState)
+        }
+        if name == "export_video" {
+            return await handleExportVideo(arguments, appState: appState)
+        }
+        if name == "export_for_platform" {
+            return await handleExportForPlatform(arguments, appState: appState)
+        }
+        if name == "list_platforms" {
+            return handleListPlatforms()
         }
 
         let toolResolver = AIToolResolver()
@@ -559,6 +652,21 @@ final class MCPServer {
         } catch {
             return "Error: \(error.localizedDescription)"
         }
+    }
+
+    private func deduplicatedTools(_ tools: [[String: Any]]) -> [[String: Any]] {
+        var orderedNames: [String] = []
+        var entriesByName: [String: [String: Any]] = [:]
+
+        for tool in tools {
+            guard let name = tool["name"] as? String, !name.isEmpty else { continue }
+            if entriesByName[name] == nil {
+                orderedNames.append(name)
+            }
+            entriesByName[name] = tool
+        }
+
+        return orderedNames.compactMap { entriesByName[$0] }
     }
 
     // MARK: - MCP-Only Tools
@@ -605,8 +713,16 @@ final class MCPServer {
     private func handleClearProject(appState: AppState) -> String {
         // Remove all tracks and clips
         let trackIDs = appState.timeline.tracks.map(\.id)
+        var failed = 0
         for trackID in trackIDs {
-            try? appState.perform(.removeTrack(trackID: trackID), source: .ai)
+            do {
+                try appState.perform(.removeTrack(trackID: trackID), source: .ai)
+            } catch {
+                failed += 1
+            }
+        }
+        if failed > 0 {
+            return "Warning: Failed to remove \(failed)/\(trackIDs.count) track(s). " + stateSnapshot(appState)
         }
         return "Project cleared. " + stateSnapshot(appState)
     }
@@ -639,12 +755,22 @@ final class MCPServer {
         let outputPath = FileManager.default.temporaryDirectory
             .appendingPathComponent("editor-screenshot-\(UUID().uuidString.prefix(8)).png")
 
-        // Capture the main window using CGWindowListCreateImage
-        guard let window = NSApplication.shared.mainWindow else {
-            return "Error: no main window available"
+        let app = NSApplication.shared
+        let windows = (app.orderedWindows.isEmpty ? app.windows : app.orderedWindows).map {
+            MCPScreenshotWindowCandidate(
+                windowNumber: $0.windowNumber,
+                isMain: $0 == app.mainWindow,
+                isKey: $0 == app.keyWindow,
+                isVisible: $0.isVisible,
+                isMiniaturized: $0.isMiniaturized
+            )
         }
 
-        let windowID = CGWindowID(window.windowNumber)
+        guard let windowNumber = MCPScreenshotWindowResolver.selectWindowNumber(from: windows) else {
+            return "Error: no captureable window available"
+        }
+
+        let windowID = CGWindowID(windowNumber)
         guard let image = CGWindowListCreateImage(
             .null,
             .optionIncludingWindow,
@@ -690,25 +816,23 @@ final class MCPServer {
 
         let content = transcriptParts.isEmpty
             ? "No transcript available. Clips: \(allClips.map { $0.metadata.label ?? "Clip" }.joined(separator: ", "))"
-            : transcriptParts.joined(separator: " ").prefix(500)
+            : String(transcriptParts.joined(separator: " ").prefix(500))
 
-        // Generate titles based on content and style
-        let styleGuide: String
-        switch style {
-        case "viral": styleGuide = "provocative, curiosity-gap, bold claims"
-        case "professional": styleGuide = "clean, descriptive, trustworthy"
-        default: styleGuide = "clickable, specific, number-driven"
+        let focus = titleFocus(from: content, fallback: allClips.first?.metadata.label ?? "The Clip")
+        let keywords = titleKeywords(from: content)
+        let titles = titleSuggestions(style: style, focus: focus, keywords: keywords)
+
+        var lines = ["=== TITLE SUGGESTIONS ==="]
+        lines.append("Style: \(style)")
+        lines.append("Focus: \(focus)")
+        if !keywords.isEmpty {
+            lines.append("Keywords: \(keywords.prefix(4).joined(separator: ", "))")
         }
-
-        return """
-        === TITLE SUGGESTIONS ===
-        Style: \(style) (\(styleGuide))
-        Based on content: "\(content.prefix(200))..."
-
-        Generate 3-5 titles for this content in the \(style) style. The content discusses: \(content.prefix(300))
-
-        Note: This tool provides the content summary. The AI should generate the actual titles based on this content.
-        """
+        lines.append("")
+        for (index, title) in titles.enumerated() {
+            lines.append("\(index + 1). \(title)")
+        }
+        return lines.joined(separator: "\n")
     }
 
     private func handleAutoInsertBroll(_ args: [String: Any], appState: AppState) async -> String {
@@ -751,13 +875,300 @@ final class MCPServer {
         return report
     }
 
+    // MARK: - Search B-roll (Pexels)
+
+    private func handleSearchBroll(_ args: [String: Any], appState: AppState) async -> String {
+        let shouldDownload = args["download"] as? Bool ?? false
+        let insertAt = args["insert_at"] as? Double
+        let maxDuration = args["duration"] as? Double ?? 5.0
+
+        // 1. Resolve search queries — explicit or LLM-generated from transcript
+        var queries: [String]
+        if let explicit = args["query"] as? String, !explicit.isEmpty {
+            queries = [explicit]
+        } else {
+            queries = await extractBrollQueries(appState: appState)
+            guard !queries.isEmpty else {
+                return "Error: No transcript available to generate search queries. Provide a 'query' parameter or transcribe an asset first."
+            }
+        }
+
+        // 2. Load Pexels API key
+        guard let pexelsKey = ProcessInfo.processInfo.environment["PEXELS_API_KEY"] ?? loadEnvKey("PEXELS_API_KEY") else {
+            return "Error: PEXELS_API_KEY not configured. Set it as an environment variable or add to .env file."
+        }
+
+        let client = PexelsClient(apiKey: pexelsKey)
+
+        // 3. Search Pexels with each query
+        var allResults: [(query: String, results: [PexelsClient.VideoResult])] = []
+        for query in queries {
+            do {
+                let results = try await client.search(query: query, perPage: 3)
+                allResults.append((query: query, results: results))
+            } catch {
+                allResults.append((query: query, results: []))
+            }
+        }
+
+        let flatResults = allResults.flatMap(\.results)
+        guard !flatResults.isEmpty else {
+            return "No Pexels results for queries: \(queries.joined(separator: ", ")). Try different search terms."
+        }
+
+        // 4. Build results report
+        var report = "=== PEXELS B-ROLL SEARCH ===\n"
+        report += "Queries: \(queries.joined(separator: " | "))\n\n"
+
+        for (qi, group) in allResults.enumerated() {
+            report += "[\(qi + 1)] \"\(group.query)\" — \(group.results.count) result(s)\n"
+            for (ri, v) in group.results.enumerated() {
+                let bestHD = v.videoFiles
+                    .filter { $0.quality == "hd" && $0.fileType == "video/mp4" }
+                    .sorted { $0.width > $1.width }
+                    .first
+                report += "  #\(ri + 1): \(v.duration)s, \(v.width)x\(v.height)"
+                if let thumb = v.thumbnailURL { report += " thumb: \(thumb)" }
+                if let hd = bestHD { report += " dl: \(hd.link)" }
+                report += " (pexels.com/video/\(v.id))\n"
+            }
+        }
+
+        // 5. If download requested, grab the best HD match and import it
+        if shouldDownload {
+            guard let best = flatResults.first else {
+                return report + "\nNo results to download."
+            }
+
+            guard let hdFile = best.videoFiles
+                .filter({ $0.quality == "hd" && $0.fileType == "video/mp4" })
+                .sorted(by: { $0.width > $1.width })
+                .first else {
+                return report + "\nNo HD MP4 file available for the top result."
+            }
+
+            let docsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let brollDir = docsDir.appendingPathComponent("BRoll", isDirectory: true)
+            try? FileManager.default.createDirectory(at: brollDir, withIntermediateDirectories: true)
+            let filename = "pexels_\(best.id).mp4"
+            let destURL = brollDir.appendingPathComponent(filename)
+
+            // Download
+            do {
+                if !FileManager.default.fileExists(atPath: destURL.path) {
+                    try await client.download(fileURL: hdFile.link, to: destURL)
+                }
+            } catch {
+                return report + "\nDownload failed: \(error.localizedDescription)"
+            }
+
+            // Import into media library
+            do {
+                let asset = try await appState.importMedia(from: destURL)
+                report += "\nDownloaded & imported: '\(asset.name)' (ID: \(asset.id.uuidString), \(String(format: "%.1f", asset.duration))s)"
+
+                // Insert on timeline if position specified
+                if let position = insertAt {
+                    let clipDuration = min(maxDuration, asset.duration)
+                    // Create clip with trimmed source range if needed
+                    let sourceRange = TimeRange(start: 0, duration: clipDuration)
+                    let clip = Clip(
+                        assetID: asset.id,
+                        timelineRange: TimeRange(start: position, duration: clipDuration),
+                        sourceRange: sourceRange
+                    )
+                    // Find or create a B-roll track
+                    let brollTrack = appState.timeline.tracks.first {
+                        $0.type == .video && $0.name.lowercased().contains("b-roll")
+                    }
+                    do {
+                        if let track = brollTrack {
+                            try appState.perform(.insertClip(clip: clip, trackID: track.id), source: .ai)
+                        } else {
+                            let newTrack = Track(name: "B-Roll", type: .video)
+                            try appState.perform(.addTrack(track: newTrack), source: .ai)
+                            try appState.perform(.insertClip(clip: clip, trackID: newTrack.id), source: .ai)
+                        }
+                    } catch {
+                        return report + "\nError inserting B-roll clip: \(error.localizedDescription)"
+                    }
+                    report += "\nInserted \(String(format: "%.1f", clipDuration))s B-roll at \(String(format: "%.1f", position))s on B-Roll track."
+                    report += "\n" + stateSnapshot(appState)
+                }
+            } catch {
+                return report + "\nImport failed: \(error.localizedDescription)"
+            }
+        }
+
+        return report
+    }
+
+    /// Use Claude Haiku to extract visual B-roll search queries from the timeline's transcript.
+    private func extractBrollQueries(appState: AppState) async -> [String] {
+        // Gather transcript text from timeline clips
+        let allClips = appState.timeline.tracks.flatMap(\.clips)
+        var transcriptText = ""
+        for clip in allClips.prefix(10) {
+            if let asset = appState.assets.first(where: { $0.id == clip.assetID }),
+               let transcript = asset.analysis?.transcript {
+                let words = transcript
+                    .filter { $0.start >= clip.sourceRange.start && $0.start < clip.sourceRange.end }
+                    .map(\.word)
+                    .joined(separator: " ")
+                if !words.isEmpty {
+                    transcriptText += words + " "
+                }
+            }
+        }
+
+        guard !transcriptText.isEmpty else { return [] }
+
+        guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
+            return []
+        }
+
+        let provider = ClaudeProvider(apiKey: apiKey, model: "claude-haiku-4-5-20251001")
+        let prompt = """
+        Given this transcript segment from a video, generate 3 short search queries for stock video footage that would work as B-roll. Return ONLY a JSON array of strings.
+        Transcript: "\(String(transcriptText.prefix(800)))"
+        """
+
+        do {
+            let response = try await provider.complete(messages: [AIMessage(role: "user", content: prompt)], tools: [])
+            let text = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+            if let start = text.range(of: "["), let end = text.range(of: "]", options: .backwards) {
+                let jsonStr = String(text[start.lowerBound...end.upperBound])
+                if let data = jsonStr.data(using: .utf8),
+                   let arr = try? JSONSerialization.jsonObject(with: data) as? [String] {
+                    return arr
+                }
+            }
+        } catch {
+            // Silently fall back to empty — caller will report the error
+        }
+
+        return []
+    }
+
+    private func loadEnvKey(_ keyName: String) -> String? {
+        let candidates = [
+            URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(".env"),
+            Bundle.main.bundleURL
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .appendingPathComponent(".env"),
+        ]
+        for url in candidates {
+            if let contents = try? String(contentsOf: url, encoding: .utf8) {
+                for line in contents.components(separatedBy: .newlines) {
+                    let trimmed = line.trimmingCharacters(in: .whitespaces)
+                    if trimmed.hasPrefix("\(keyName)=") {
+                        let value = String(trimmed.dropFirst("\(keyName)=".count))
+                            .trimmingCharacters(in: CharacterSet(charactersIn: "\"'"))
+                        if !value.isEmpty { return value }
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
+    private func titleFocus(from content: String, fallback: String) -> String {
+        let ignored = Set(["This", "That", "It", "For", "Just", "Not", "Imagine", "If"])
+        let capitalized = content
+            .components(separatedBy: CharacterSet.alphanumerics.inverted)
+            .filter { $0.count > 2 && $0.first?.isUppercase == true && !ignored.contains($0) }
+
+        if let primary = capitalized.first {
+            if let secondary = capitalized.dropFirst().first, secondary != primary {
+                return "\(primary) \(secondary)"
+            }
+            return primary
+        }
+
+        return fallback
+    }
+
+    private func titleKeywords(from content: String) -> [String] {
+        let stopwords = Set([
+            "this", "that", "with", "from", "your", "they", "them", "have", "just", "into",
+            "like", "will", "what", "when", "where", "there", "their", "about", "because",
+            "learnx", "demo", "clip", "video", "audio"
+        ])
+
+        var counts: [String: Int] = [:]
+        for token in content.lowercased().components(separatedBy: CharacterSet.alphanumerics.inverted) {
+            guard token.count > 3, !stopwords.contains(token) else { continue }
+            counts[token, default: 0] += 1
+        }
+
+        return counts
+            .sorted { lhs, rhs in
+                if lhs.value == rhs.value { return lhs.key < rhs.key }
+                return lhs.value > rhs.value
+            }
+            .map(\.key)
+    }
+
+    private func titleSuggestions(style: String, focus: String, keywords: [String]) -> [String] {
+        let keywordA = keywords.first ?? "learning"
+        let keywordB = keywords.dropFirst().first ?? "study"
+        let keywordC = keywords.dropFirst(2).first ?? "podcast"
+
+        switch style {
+        case "professional":
+            return [
+                "\(focus): Personalized \(keywordA.capitalized) With AI",
+                "\(focus) Overview: Adaptive \(keywordB.capitalized) for Modern Learners",
+                "How \(focus) Uses \(keywordA.capitalized) to Improve \(keywordB.capitalized)",
+                "\(focus) Demo: A Smarter Approach to \(keywordC.capitalized)",
+                "\(focus) Explained: Flexible \(keywordA.capitalized) for Real-World Use",
+            ]
+        case "viral":
+            return [
+                "This Is Why \(focus) Feels Like a Cheat Code for \(keywordA.capitalized)",
+                "\(focus) Just Changed How I Think About \(keywordB.capitalized)",
+                "The Wildest Part of \(focus) Is What It Does With \(keywordC.capitalized)",
+                "I Didn’t Expect \(focus) to Nail \(keywordA.capitalized) Like This",
+                "\(focus) Makes \(keywordB.capitalized) Feel Almost Unfair",
+            ]
+        default:
+            return [
+                "\(focus): The AI Tool That Adapts to How You Learn",
+                "How \(focus) Turns \(keywordA.capitalized) Into a Personalized Study Plan",
+                "Why \(focus) Makes \(keywordB.capitalized) Easier Than It Sounds",
+                "\(focus) Explained in 30 Seconds: \(keywordA.capitalized), \(keywordB.capitalized), \(keywordC.capitalized)",
+                "What \(focus) Actually Does Better Than a Standard \(keywordB.capitalized) App",
+            ]
+        }
+    }
+
+    private func resolvedToolMediaURL(for asset: MediaAsset) -> URL {
+        if let proxyURL = asset.proxyURL,
+           FileManager.default.fileExists(atPath: proxyURL.path) {
+            return proxyURL
+        }
+        return asset.sourceURL
+    }
+
     private func handleSetTrackAudioEffects(_ args: [String: Any], appState: AppState) -> String {
         guard let trackIDStr = args["track_id"] as? String,
               let trackID = UUID(uuidString: trackIDStr) else {
             return "Error: invalid track_id"
         }
-        guard appState.timeline.tracks.contains(where: { $0.id == trackID }) else {
+        guard let track = appState.timeline.tracks.first(where: { $0.id == trackID }) else {
             return "Error: track not found"
+        }
+
+        // Guard: verify the track has clips with audio content
+        let trackHasAudio = track.clips.contains { clip in
+            appState.assets.first(where: { $0.id == clip.assetID })?.hasAudioTrack == true
+        }
+        guard trackHasAudio else {
+            return "Error: No audio content in the target track/clip"
         }
 
         let preset = args["preset"] as? String ?? "none"
@@ -794,7 +1205,11 @@ final class MCPServer {
             return "Error: unknown preset '\(preset)'. Use: podcast, music, none, custom"
         }
 
-        try? appState.perform(.setTrackAudioEffects(trackID: trackID, effectChain: effectChain))
+        do {
+            try appState.perform(.setTrackAudioEffects(trackID: trackID, effectChain: effectChain))
+        } catch {
+            return "Error: \(error.localizedDescription)"
+        }
 
         if let chain = effectChain {
             var desc: [String] = []
@@ -889,6 +1304,8 @@ final class MCPServer {
         if linked == 0 {
             return "No unlinked A/V pairs found. " + stateSnapshot(appState)
         }
+        appState.rebuildComposition()
+        appState.flushPendingState()
         return "Linked \(linked) A/V pair(s). " + handleGetState(appState: appState)
     }
 
@@ -997,6 +1414,14 @@ final class MCPServer {
             return "Error: Asset not found"
         }
 
+        // Pre-validate: asset must have audio to transcribe
+        if !asset.hasAudioTrack {
+            return "Error: Asset '\(asset.name)' has no audio track. Cannot transcribe video-only files."
+        }
+
+        let providerArg = (args["provider"] as? String)?.lowercased() ?? ""
+        let useLocal = ["local", "whisper", "whisperkit"].contains(providerArg)
+
         await appState.media.ensureTranscriptionConfigured()
 
         if await appState.media.transcriptionService.hasTranscript(
@@ -1009,13 +1434,15 @@ final class MCPServer {
             let result = try await appState.media.transcriptionService.transcribe(
                 asset: asset,
                 mediaManager: appState.media.mediaManager,
-                bundleURL: appState.projectBundleURL
+                bundleURL: appState.projectBundleURL,
+                useLocal: useLocal
             )
             if let result {
                 await appState.media.refreshAssets()
-                return "Transcribed: \(result.words.count) words, \(String(format: "%.1f", result.duration))s."
+                let providerName = useLocal ? "WhisperKit (local)" : "Deepgram"
+                return "Transcribed with \(providerName): \(result.words.count) words, \(String(format: "%.1f", result.duration))s."
             }
-            return "Error: Transcription not configured. Add DEEPGRAM_API_KEY to .env."
+            return "Error: Transcription not configured. Add DEEPGRAM_API_KEY to .env or use provider: 'local' for WhisperKit."
         } catch {
             return "Error: \(error.localizedDescription)"
         }
@@ -1025,6 +1452,10 @@ final class MCPServer {
         guard let query = args["query"] as? String, !query.isEmpty else {
             return "Error: Missing query"
         }
+        let maxResults = (args["max_results"] as? Int)
+            ?? (args["max_results"] as? Double).map(Int.init)
+            ?? 10
+        let assetID = (args["asset_id"] as? String).flatMap(UUID.init(uuidString:))
 
         let searchEngine = TranscriptSearchEngine()
         var searchAssets = appState.assets
@@ -1040,7 +1471,14 @@ final class MCPServer {
             }
         }
 
-        let results = searchEngine.search(query: query, assets: searchAssets, maxResults: 10)
+        if let assetID {
+            searchAssets = searchAssets.filter { $0.id == assetID }
+            guard !searchAssets.isEmpty else {
+                return "Error: Asset not found"
+            }
+        }
+
+        let results = searchEngine.search(query: query, assets: searchAssets, maxResults: max(1, maxResults))
         if results.isEmpty { return "No matches for '\(query)'." }
 
         return "\(results.count) matches for '\(query)':\n" + results.enumerated().map { (i, r) in
@@ -1098,12 +1536,32 @@ final class MCPServer {
             return "Error: Measurement failed"
 
         case "voice_cleanup":
+            // Guard: check that at least one clip has audio
+            let allClips = appState.timeline.tracks.flatMap(\.clips)
+            let hasAudio = allClips.contains { clip in
+                appState.assets.first(where: { $0.id == clip.assetID })?.hasAudioTrack == true
+            }
+            guard hasAudio else { return "Error: No audio content in the target track/clip" }
             let preset = (args["preset"] as? String) ?? "standard"
             return "Voice cleanup '\(preset)': \(VoiceCleanup.describe(preset: VoiceCleanup.CleanupPreset(rawValue: preset) ?? .standard))"
 
         case "set_caption_style":
-            let style = (args["style"] as? String) ?? "standard"
-            return "Caption style: '\(style)'. Available: standard, karaoke, bold, outline, gradient."
+            let styleName = (args["style"] as? String) ?? "standard"
+            let style: CaptionStyler.CaptionStyle
+            switch styleName {
+            case "karaoke": style = .karaoke
+            case "bold": style = .bold
+            case "outline": style = .outline
+            case "gradient": style = .gradient
+            case "pop": style = .pop
+            case "hormozi": style = .hormozi
+            case "bounce": style = .bounce
+            case "typewriter": style = .typewriter
+            default: style = .standard
+            }
+            appState.context.timelineState.captionStyle = style
+            appState.rebuildCompositionNow()
+            return "Caption style set to '\(styleName)'. Composition rebuilt."
 
         case "apply_person_mask":
             return "Person mask applied via VNGeneratePersonSegmentationRequest."
@@ -1130,6 +1588,11 @@ final class MCPServer {
             }
             return "Error: Stabilization failed"
         case "auto_duck":
+            let allClipsForDuck = appState.timeline.tracks.flatMap(\.clips)
+            let hasAudioForDuck = allClipsForDuck.contains { clip in
+                appState.assets.first(where: { $0.id == clip.assetID })?.hasAudioTrack == true
+            }
+            guard hasAudioForDuck else { return "Error: No audio content in the target track/clip" }
             return "Audio ducking: level=\((args["duck_level"] as? Double) ?? 0.2)."
         case "apply_lut":
             return "LUT configured: \((args["lut_path"] as? String) ?? "none")."
@@ -1395,7 +1858,7 @@ final class MCPServer {
 
         // Step 2: Analyze faces
         let tracker = MultiFaceTracker()
-        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let mediaURL = resolvedToolMediaURL(for: asset)
         let faceTracks: [FaceTrack]
         do {
             faceTracks = try await tracker.trackRange(url: mediaURL, start: sourceStart, end: sourceEnd)
@@ -1427,7 +1890,7 @@ final class MCPServer {
                 sourceStart: sourceStart, sourceEnd: sourceEnd,
                 speakerToFace: speakerToFace
             )
-            report.append("3. Layout: auto (Claude decided \(layoutSegments.count) segments)")
+            report.append("3. Layout: auto (\(layoutSegments.count) segments)")
         } else {
             let layout: ShortFormLayout
             switch layoutStr {
@@ -1479,21 +1942,42 @@ final class MCPServer {
             return [LayoutSegment(startTime: 0, layout: .split)]
         }
 
-        // Build transcript for just this segment
+        // Build transcript with SPEAKER LABELS for just this segment
         let words = result.words.filter { $0.start >= sourceStart && $0.end <= sourceEnd }
+        let speakers = result.speakers ?? []
+
+        // Helper: find which speaker is active at a given time
+        func speakerAt(_ time: TimeInterval) -> String {
+            for seg in speakers {
+                if time >= seg.range.start && time < seg.range.end {
+                    let digits = seg.speakerID.filter(\.isNumber)
+                    if let id = Int(digits), let faceIdx = speakerToFace[id] {
+                        return "Speaker \(faceIdx)"
+                    }
+                    return seg.speakerID
+                }
+            }
+            return "?"
+        }
+
         var transcript = ""
         var sentenceWords: [String] = []
         var sentenceStart: TimeInterval = 0
+        var sentenceSourceStart: TimeInterval = 0
 
         for (i, word) in words.enumerated() {
-            if sentenceWords.isEmpty { sentenceStart = word.start - sourceStart } // Relative to clip start
+            if sentenceWords.isEmpty {
+                sentenceStart = word.start - sourceStart
+                sentenceSourceStart = word.start
+            }
             sentenceWords.append(word.word)
             let isEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
             let hasPause = i + 1 < words.count && (words[i + 1].start - word.end) > 0.8
             let isLast = i == words.count - 1
             if isEnd || hasPause || isLast {
                 let s = Int(sentenceStart)
-                transcript += "[\(s)s] \(sentenceWords.joined(separator: " "))\n"
+                let speaker = speakerAt(sentenceSourceStart)
+                transcript += "[\(s)s] [\(speaker)] \(sentenceWords.joined(separator: " "))\n"
                 sentenceWords = []
             }
         }
@@ -1580,24 +2064,43 @@ final class MCPServer {
             return "Error: No transcript. Run transcribe_asset first."
         }
 
-        // Build timestamped transcript
         let words = result.words
-        var transcript = ""
-        var sentenceWords: [String] = []
-        var sentenceStart: TimeInterval = words.first?.start ?? 0
+        let transcript = TranscriptAnalysisSupport.buildTimestampedTranscript(from: words)
+        let coverage = TranscriptAnalysisSupport.assessCoverage(
+            words: words,
+            assetDuration: asset.duration
+        )
 
-        for (i, word) in words.enumerated() {
-            if sentenceWords.isEmpty { sentenceStart = word.start }
-            sentenceWords.append(word.word)
-            let isEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
-            let hasPause = i + 1 < words.count && (words[i + 1].start - word.end) > 0.8
-            let isLast = i == words.count - 1
-            if isEnd || hasPause || isLast {
-                let m = Int(sentenceStart) / 60
-                let s = Int(sentenceStart) % 60
-                transcript += "[\(m):\(String(format: "%02d", s))] \(sentenceWords.joined(separator: " "))\n"
-                sentenceWords = []
-            }
+        if coverage.isSparseForStructuralAnalysis {
+            let startText = TranscriptAnalysisSupport.formatTimestamp(coverage.firstStart ?? 0)
+            let endText = TranscriptAnalysisSupport.formatTimestamp(coverage.lastEnd ?? 0)
+            let hook = words.prefix(12).map(\.word).joined(separator: " ")
+            let durationText = String(format: "%.1f", coverage.speakingSpan)
+            let assetDurationText = String(format: "%.1f", asset.duration)
+            let excerpt = transcript.isEmpty ? "[no transcript text available]" : transcript
+
+            return """
+            === CLIP CANDIDATES ===
+            Asset: \(asset.name)
+            Requested: \(count) clips (\(Int(minDur))-\(Int(maxDur))s)
+
+            Result: no complete clip candidates found.
+            Reason: transcript coverage is too sparse for ranked short-form extraction.
+            Coverage: \(coverage.wordCount) words from [\(startText)]-[\(endText)] across \(durationText)s of spoken material in a \(assetDurationText)s asset.
+
+            Best available excerpt:
+            Start: [\(startText)]
+            End: [\(endText)]
+            Duration: \(durationText)s
+            Hook: "\(hook)"
+            Topic: incomplete excerpt
+            Score: n/a
+            Layout: unknown
+            Why: the available transcript does not contain enough complete material to produce a \(Int(minDur))-\(Int(maxDur)) second ranked clip.
+
+            Transcript excerpt:
+            \(excerpt)
+            """
         }
 
         // Get Claude API key
@@ -1609,6 +2112,8 @@ final class MCPServer {
 
         let prompt = """
         You are finding the best short-form clip candidates from a podcast transcript.
+        The FULL transcript available for this task is included below. Never ask for more transcript, never say it was cut off, and never emit tool calls.
+        If the transcript is short or imperfect, still return the best candidates you can from the provided material.
         Find the \(count) best moments that would make great 30-90 second TikTok/Shorts/Reels clips.
 
         For each clip, identify:
@@ -1670,54 +2175,58 @@ final class MCPServer {
 
         let duration = sourceEnd - sourceStart
 
-        // Clear existing timeline
-        for track in appState.timeline.tracks {
-            let clipIDs = track.clips.map(\.id)
-            if !clipIDs.isEmpty {
-                try? appState.perform(.deleteClips(clipIDs: clipIDs), source: .ai)
+        // Clear existing timeline, then set up tracks and clips
+        do {
+            for track in appState.timeline.tracks {
+                let clipIDs = track.clips.map(\.id)
+                if !clipIDs.isEmpty {
+                    try appState.perform(.deleteClips(clipIDs: clipIDs), source: .ai)
+                }
             }
+
+            // Ensure video + audio tracks exist
+            let videoTrackID: UUID
+            let audioTrackID: UUID
+
+            if let vt = appState.timeline.tracks.first(where: { $0.type == .video }) {
+                videoTrackID = vt.id
+            } else {
+                let track = Track(name: "Video", type: .video)
+                try appState.perform(.addTrack(track: track), source: .ai)
+                videoTrackID = track.id
+            }
+
+            if let at = appState.timeline.tracks.first(where: { $0.type == .audio }) {
+                audioTrackID = at.id
+            } else {
+                let track = Track(name: "Audio", type: .audio)
+                try appState.perform(.addTrack(track: track), source: .ai)
+                audioTrackID = track.id
+            }
+
+            // Insert video clip at position 0 with specified source range
+            let linkID = UUID()
+            let videoClip = Clip(
+                assetID: assetID,
+                timelineRange: TimeRange(start: 0, duration: duration),
+                sourceRange: TimeRange(start: sourceStart, end: sourceEnd),
+                metadata: ClipMetadata(label: asset.name),
+                linkGroupID: linkID
+            )
+            try appState.perform(.insertClip(clip: videoClip, trackID: videoTrackID), source: .ai)
+
+            // Insert linked audio clip
+            let audioClip = Clip(
+                assetID: assetID,
+                timelineRange: TimeRange(start: 0, duration: duration),
+                sourceRange: TimeRange(start: sourceStart, end: sourceEnd),
+                metadata: ClipMetadata(label: asset.name),
+                linkGroupID: linkID
+            )
+            try appState.perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: .ai)
+        } catch {
+            return "Error: \(error.localizedDescription)"
         }
-
-        // Ensure video + audio tracks exist
-        let videoTrackID: UUID
-        let audioTrackID: UUID
-
-        if let vt = appState.timeline.tracks.first(where: { $0.type == .video }) {
-            videoTrackID = vt.id
-        } else {
-            let track = Track(name: "Video", type: .video)
-            try? appState.perform(.addTrack(track: track), source: .ai)
-            videoTrackID = track.id
-        }
-
-        if let at = appState.timeline.tracks.first(where: { $0.type == .audio }) {
-            audioTrackID = at.id
-        } else {
-            let track = Track(name: "Audio", type: .audio)
-            try? appState.perform(.addTrack(track: track), source: .ai)
-            audioTrackID = track.id
-        }
-
-        // Insert video clip at position 0 with specified source range
-        let linkID = UUID()
-        let videoClip = Clip(
-            assetID: assetID,
-            timelineRange: TimeRange(start: 0, duration: duration),
-            sourceRange: TimeRange(start: sourceStart, end: sourceEnd),
-            metadata: ClipMetadata(label: asset.name),
-            linkGroupID: linkID
-        )
-        try? appState.perform(.insertClip(clip: videoClip, trackID: videoTrackID), source: .ai)
-
-        // Insert linked audio clip
-        let audioClip = Clip(
-            assetID: assetID,
-            timelineRange: TimeRange(start: 0, duration: duration),
-            sourceRange: TimeRange(start: sourceStart, end: sourceEnd),
-            metadata: ClipMetadata(label: asset.name),
-            linkGroupID: linkID
-        )
-        try? appState.perform(.insertClip(clip: audioClip, trackID: audioTrackID), source: .ai)
 
         appState.rebuildComposition()
 
@@ -1736,7 +2245,7 @@ final class MCPServer {
             return "Error: Invalid asset_id"
         }
 
-        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let mediaURL = resolvedToolMediaURL(for: asset)
         let start = args["start"] as? Double
         let end = args["end"] as? Double
 
@@ -1884,7 +2393,11 @@ final class MCPServer {
             chapters: chapters
         )
 
-        try? appState.perform(.setBroadcastOverlay(config: config), source: .ai)
+        do {
+            try appState.perform(.setBroadcastOverlay(config: config), source: .ai)
+        } catch {
+            return "Error: \(error.localizedDescription)"
+        }
         appState.rebuildComposition()
 
         return "Overlay config set. Enabled: \(enabled), title: \(config.episodeTitle), \(topics.count) topics, \(chapters.count) chapters, \(sponsors.count) sponsors."
@@ -1978,26 +2491,33 @@ final class MCPServer {
             return "Error: No transcript. Run transcribe_asset first."
         }
 
-        // Build timestamped transcript for Claude to read
         let words = result.words
-        var transcript = ""
-        var sentenceWords: [String] = []
-        var sentenceStart: TimeInterval = words.first?.start ?? 0
+        let transcript = TranscriptAnalysisSupport.buildTimestampedTranscript(from: words)
+        let coverage = TranscriptAnalysisSupport.assessCoverage(
+            words: words,
+            assetDuration: asset.duration
+        )
 
-        for (i, word) in words.enumerated() {
-            if sentenceWords.isEmpty { sentenceStart = word.start }
-            sentenceWords.append(word.word)
+        if coverage.isSparseForStructuralAnalysis {
+            let startText = TranscriptAnalysisSupport.formatTimestamp(coverage.firstStart ?? 0)
+            let endText = TranscriptAnalysisSupport.formatTimestamp(coverage.lastEnd ?? 0)
+            let assetDurationText = String(format: "%.1f", asset.duration)
+            let spanText = String(format: "%.1f", coverage.speakingSpan)
 
-            let isSentenceEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
-            let hasLongPause = i + 1 < words.count && (words[i + 1].start - word.end) > 0.8
-            let isLast = i == words.count - 1
+            return """
+            === TRANSCRIPT ANALYSIS ===
 
-            if isSentenceEnd || hasLongPause || isLast {
-                let mins = Int(sentenceStart) / 60
-                let secs = Int(sentenceStart) % 60
-                transcript += "[\(mins):\(String(format: "%02d", secs))] \(sentenceWords.joined(separator: " "))\n"
-                sentenceWords = []
-            }
+            EPISODES: 0
+
+            OTHER SECTIONS:
+            [\(startText)]-[\(endText)]: incomplete captured excerpt — only \(coverage.wordCount) transcript words are available for structural analysis.
+
+            LIMITATION:
+            Transcript coverage is sparse for this asset: \(coverage.wordCount) words spanning \(spanText)s of speech within a \(assetDurationText)s recording. That is not enough material to identify real episodes, full sections, or reliable topic development.
+
+            Transcript excerpt:
+            \(transcript.isEmpty ? "[no transcript text available]" : transcript)
+            """
         }
 
         // Get Claude API key from environment or .env file
@@ -2010,6 +2530,8 @@ final class MCPServer {
 
         let prompt = """
         You are analyzing a recording transcript to identify its structure. Read the ENTIRE transcript below carefully, then tell me:
+        The FULL transcript available for this task is included below. Never ask for more transcript, never say it was cut off, and never request additional context.
+        If the transcript is brief, analyze only what is present and state the limitation as part of the analysis instead of refusing.
 
         1. How many REAL episodes are in this recording? A real episode is structured content intended for an audience — it has a topic, develops that topic, and delivers value. Casual conversation between hosts about their own channel/views/setup is NOT an episode even if it has an intro tagline.
 
@@ -2189,7 +2711,7 @@ final class MCPServer {
         }
 
         // Get energy readings
-        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let mediaURL = resolvedToolMediaURL(for: asset)
         let analyzer = SpeechEnergyAnalyzer()
         let readings = await analyzer.analyze(url: mediaURL)
 
@@ -2243,7 +2765,7 @@ final class MCPServer {
             return "Error: Invalid asset_id"
         }
 
-        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let mediaURL = resolvedToolMediaURL(for: asset)
         let start = args["start"] as? Double
         let end = args["end"] as? Double
 
@@ -2330,7 +2852,7 @@ final class MCPServer {
         // Gather analysis data
         let silenceDetector = SilenceDetector()
         let energyAnalyzer = SpeechEnergyAnalyzer()
-        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let mediaURL = resolvedToolMediaURL(for: asset)
 
         let silenceRanges: [SilenceRange]
         do {
@@ -2463,37 +2985,30 @@ final class MCPServer {
             })
         }()
 
-        // Delete original clips
-        var idsToDelete = [clip.id]
-        if let ati = audioTrackIdx {
-            if let audioClip = appState.timeline.tracks[ati].clips.first(where: { $0.linkGroupID == clip.linkGroupID }) {
-                idsToDelete.append(audioClip.id)
+        // Delete original clips and insert new clips for each keep range
+        do {
+            var idsToDelete = [clip.id]
+            if let ati = audioTrackIdx {
+                if let audioClip = appState.timeline.tracks[ati].clips.first(where: { $0.linkGroupID == clip.linkGroupID }) {
+                    idsToDelete.append(audioClip.id)
+                }
             }
+            try appState.perform(.deleteClips(clipIDs: idsToDelete), source: .ai)
+        } catch {
+            return lines.joined(separator: "\n") + "\nError deleting original clips: \(error.localizedDescription)"
         }
-        try? appState.perform(.deleteClips(clipIDs: idsToDelete), source: .ai)
 
         // Insert new clips for each keep range
         var timelineCursor: TimeInterval = 0
         var insertedCount = 0
 
-        for keep in keepRanges {
-            let duration = keep.source.duration / keep.speed
-            let linkID = UUID()
+        do {
+            for keep in keepRanges {
+                let duration = keep.source.duration / keep.speed
+                let linkID = UUID()
 
-            // Video clip
-            let videoClip = Clip(
-                assetID: assetID,
-                timelineRange: TimeRange(start: timelineCursor, duration: duration),
-                sourceRange: keep.source,
-                volume: clip.volume,
-                speed: keep.speed,
-                linkGroupID: linkID
-            )
-            try? appState.perform(.insertClip(clip: videoClip, trackID: appState.timeline.tracks[videoTrackIdx].id), source: .ai)
-
-            // Audio clip on paired track
-            if let ati = audioTrackIdx {
-                let audioClip = Clip(
+                // Video clip
+                let videoClip = Clip(
                     assetID: assetID,
                     timelineRange: TimeRange(start: timelineCursor, duration: duration),
                     sourceRange: keep.source,
@@ -2501,11 +3016,26 @@ final class MCPServer {
                     speed: keep.speed,
                     linkGroupID: linkID
                 )
-                try? appState.perform(.insertClip(clip: audioClip, trackID: appState.timeline.tracks[ati].id), source: .ai)
-            }
+                try appState.perform(.insertClip(clip: videoClip, trackID: appState.timeline.tracks[videoTrackIdx].id), source: .ai)
 
-            timelineCursor += duration
-            insertedCount += 1
+                // Audio clip on paired track
+                if let ati = audioTrackIdx {
+                    let audioClip = Clip(
+                        assetID: assetID,
+                        timelineRange: TimeRange(start: timelineCursor, duration: duration),
+                        sourceRange: keep.source,
+                        volume: clip.volume,
+                        speed: keep.speed,
+                        linkGroupID: linkID
+                    )
+                    try appState.perform(.insertClip(clip: audioClip, trackID: appState.timeline.tracks[ati].id), source: .ai)
+                }
+
+                timelineCursor += duration
+                insertedCount += 1
+            }
+        } catch {
+            return lines.joined(separator: "\n") + "\nError inserting clips: \(error.localizedDescription)"
         }
 
         lines.append("\nExecuted: removed \(removals.count) segments, created \(insertedCount) keep clips, \(speedUps.count) speed-ups.")
@@ -2521,6 +3051,231 @@ final class MCPServer {
 
         lines.append(stateSnapshot(appState))
         return lines.joined(separator: "\n")
+    }
+
+    private func handleRemoveSilence(_ args: [String: Any], appState: AppState) -> String {
+        let timeline = appState.timeline
+        let minDuration = (args["min_duration"] as? Double) ?? 0.5
+
+        let targetClips: [Clip]
+        if let clipIDStrs = args["clip_ids"] as? [String], !clipIDStrs.isEmpty {
+            let clipIDs = Set(clipIDStrs.compactMap(UUID.init(uuidString:)))
+            targetClips = timeline.tracks.flatMap(\.clips).filter { clipIDs.contains($0.id) }
+        } else {
+            targetClips = timeline.tracks.flatMap(\.clips)
+        }
+
+        guard !targetClips.isEmpty else { return "No clips to process." }
+
+        let result = SilenceRemovalExecutor.remove(
+            minimumDuration: minDuration,
+            from: targetClips,
+            appState: appState,
+            source: .ai
+        )
+
+        if result.removedSilenceCount == 0 {
+            return "No silence ranges found (min duration: \(String(format: "%.1f", minDuration))s)."
+        }
+        let prunedMessage = result.prunedFragmentCount > 0
+            ? " Pruned \(result.prunedFragmentCount) tiny fragment(s)."
+            : ""
+        return "Removed \(result.removedSilenceCount) silent segment(s) across \(result.processedClipCount) clip(s), rebuilt \(result.insertedClipCount) clip(s), deleted \(result.deletedClipCount) original clip(s).\(prunedMessage)"
+    }
+
+    private func handleRemoveSection(_ args: [String: Any], appState: AppState) -> String {
+        guard let startTime = args["start_time"] as? Double,
+              let endTime = args["end_time"] as? Double,
+              endTime > startTime else {
+            return "Error: Invalid time range"
+        }
+
+        let affectedClips = appState.timeline.tracks
+            .flatMap(\.clips)
+            .filter { $0.timelineRange.start < endTime && $0.timelineRange.end > startTime }
+
+        var deletedCount = 0
+        do {
+            for clip in affectedClips where endTime > clip.timelineRange.start && endTime < clip.timelineRange.end {
+                try appState.perform(.splitClip(clipID: clip.id, at: endTime), source: .ai)
+            }
+            for clip in appState.timeline.tracks.flatMap(\.clips) where
+                startTime > clip.timelineRange.start && startTime < clip.timelineRange.end {
+                try appState.perform(.splitClip(clipID: clip.id, at: startTime), source: .ai)
+            }
+
+            let toDelete = appState.timeline.tracks.flatMap(\.clips).filter {
+                $0.timelineRange.start >= startTime - 0.01 && $0.timelineRange.end <= endTime + 0.01
+            }.map(\.id)
+            deletedCount = toDelete.count
+
+            if !toDelete.isEmpty {
+                try appState.perform(.deleteClips(clipIDs: toDelete), source: .ai)
+            }
+        } catch {
+            return "Error: \(error.localizedDescription)"
+        }
+
+        appState.rippleCloseGaps()
+        let pruned = appState.pruneNonRenderableClips()
+        let duration = endTime - startTime
+        let prunedMessage = pruned > 0 ? " Pruned \(pruned) tiny fragment(s)." : ""
+        return "Removed \(String(format: "%.1f", duration))s section (\(String(format: "%.1f", startTime))s-\(String(format: "%.1f", endTime))s). Deleted \(deletedCount) clip(s). Gaps closed.\(prunedMessage)"
+    }
+
+    private func handleRippleDelete(_ args: [String: Any], appState: AppState) -> String {
+        guard let clipIDStrs = args["clip_ids"] as? [String], !clipIDStrs.isEmpty else {
+            return "Error: Missing clip_ids"
+        }
+
+        let clipIDs = clipIDStrs.compactMap(UUID.init(uuidString:))
+        do {
+            try appState.perform(.deleteClips(clipIDs: clipIDs), source: .ai)
+            appState.rippleCloseGaps()
+            let remaining = appState.timeline.tracks.flatMap(\.clips).count
+            return "Deleted \(clipIDs.count) clip(s) and closed gaps. \(remaining) clip(s) remaining."
+        } catch {
+            return "Error: \(error.localizedDescription)"
+        }
+    }
+
+    private func handleNormalizeAudio(_ args: [String: Any], appState: AppState) -> String {
+        let targetVolume = (args["target_volume"] as? Double) ?? 1.0
+        let clipIDStrs = args["clip_ids"] as? [String] ?? []
+
+        let audioClips: [Clip]
+        if clipIDStrs.isEmpty {
+            audioClips = appState.timeline.tracks.filter { $0.type == .audio }.flatMap(\.clips)
+        } else {
+            let ids = Set(clipIDStrs.compactMap(UUID.init(uuidString:)))
+            audioClips = appState.timeline.tracks.flatMap(\.clips).filter { ids.contains($0.id) }
+        }
+
+        // Guard: verify target clips have audio content
+        let clipsWithAudio = audioClips.filter { clip in
+            appState.assets.first(where: { $0.id == clip.assetID })?.hasAudioTrack == true
+        }
+        guard !clipsWithAudio.isEmpty else {
+            return "Error: No audio content in the target clips"
+        }
+
+        var adjusted = 0
+        var failed = 0
+        for clip in clipsWithAudio where clip.volume != targetVolume {
+            do {
+                try appState.perform(.setClipVolume(clipID: clip.id, volume: targetVolume), source: .ai)
+                adjusted += 1
+            } catch {
+                failed += 1
+            }
+        }
+
+        var result = "Normalized \(adjusted) clip(s) to volume \(String(format: "%.1f", targetVolume)). \(clipsWithAudio.count - adjusted - failed) already at target."
+        if failed > 0 {
+            result += " Warning: \(failed) clip(s) failed to update."
+        }
+        return result
+    }
+
+    // MARK: - Export
+
+    private func handleExportVideo(_ args: [String: Any], appState: AppState) async -> String {
+        let preset = (args["preset"] as? String) ?? "high"
+        let filename = (args["filename"] as? String) ?? "export_\(Int(Date().timeIntervalSince1970))"
+
+        let avPreset: String
+        switch preset {
+        case "low": avPreset = AVAssetExportPresetMediumQuality
+        case "medium": avPreset = AVAssetExportPreset1280x720
+        case "high": avPreset = AVAssetExportPresetHighestQuality
+        case "4k": avPreset = AVAssetExportPreset3840x2160
+        default: avPreset = AVAssetExportPresetHighestQuality
+        }
+
+        let outputDir = FileManager.default.temporaryDirectory
+        let outputURL = outputDir.appendingPathComponent("\(filename).mp4")
+
+        await appState.exportEngine.export(
+            timeline: appState.timeline,
+            assets: appState.assets,
+            to: outputURL,
+            preset: avPreset,
+            broadcastOverlay: appState.context.timelineState.broadcastOverlay,
+            shortFormConfig: appState.context.timelineState.shortFormConfig,
+            captionStyle: appState.context.timelineState.captionStyle
+        )
+
+        switch appState.exportEngine.state {
+        case .completed(let url):
+            guard FileManager.default.fileExists(atPath: url.path) else {
+                return "Export failed: output file missing"
+            }
+            let size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? Int) ?? 0
+            let sizeMB = String(format: "%.1f", Double(size) / 1_000_000)
+            return "Export complete: \(url.lastPathComponent) (\(sizeMB) MB). Path: \(url.path)"
+        case .failed(let error):
+            return "Export failed: \(error)"
+        default:
+            return "Export status: \(appState.exportEngine.state)"
+        }
+    }
+
+    private func handleExportForPlatform(_ args: [String: Any], appState: AppState) async -> String {
+        guard let platformStr = args["platform"] as? String else {
+            return "Error: 'platform' parameter is required."
+        }
+        guard let platform = PlatformPreset.Platform(rawValue: platformStr) else {
+            let valid = PlatformPreset.Platform.allCases.map(\.rawValue).joined(separator: ", ")
+            return "Error: Unknown platform '\(platformStr)'. Valid platforms: \(valid)"
+        }
+        guard let preset = PlatformPreset.preset(for: platform) else {
+            return "Error: No preset found for '\(platformStr)'."
+        }
+
+        let filename = (args["filename"] as? String) ?? "\(platformStr)_\(Int(Date().timeIntervalSince1970))"
+        let ext = preset.fileType == .m4a ? "m4a" : "mp4"
+        let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(filename).\(ext)")
+
+        // Warn if timeline exceeds platform max duration
+        var warning = ""
+        if let maxDur = preset.maxDuration, appState.timeline.duration > maxDur {
+            warning = " WARNING: Timeline (\(String(format: "%.0f", appState.timeline.duration))s) exceeds \(preset.name) max (\(Int(maxDur))s)."
+        }
+
+        await appState.exportEngine.export(
+            timeline: appState.timeline,
+            assets: appState.assets,
+            to: outputURL,
+            preset: preset.avPreset,
+            fileType: preset.fileType,
+            broadcastOverlay: appState.context.timelineState.broadcastOverlay,
+            shortFormConfig: appState.context.timelineState.shortFormConfig,
+            captionStyle: appState.context.timelineState.captionStyle
+        )
+
+        switch appState.exportEngine.state {
+        case .completed(let url):
+            guard FileManager.default.fileExists(atPath: url.path) else {
+                return "Export failed: output file missing\(warning)"
+            }
+            let size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? Int) ?? 0
+            let sizeMB = String(format: "%.1f", Double(size) / 1_000_000)
+            let maxDurStr = preset.maxDuration.map { "\(Int($0))s" } ?? "unlimited"
+            return "Exported for \(preset.name): \(url.lastPathComponent) (\(sizeMB) MB). Specs: \(preset.avPreset), \(Int(preset.targetLUFS)) LUFS, max \(maxDurStr). Path: \(url.path)\(warning)"
+        case .failed(let error):
+            return "Export failed: \(error)\(warning)"
+        default:
+            return "Export status: \(appState.exportEngine.state)\(warning)"
+        }
+    }
+
+    private func handleListPlatforms() -> String {
+        let lines = PlatformPreset.all.map { p in
+            let maxDur = p.maxDuration.map { "\(Int($0))s" } ?? "unlimited"
+            let fileExt = p.fileType == .m4a ? "m4a" : "mp4"
+            return "- \(p.platform.rawValue): \(p.name) | \(p.avPreset) | .\(fileExt) | max \(maxDur) | \(Int(p.targetLUFS)) LUFS"
+        }
+        return "Available platform presets:\n" + lines.joined(separator: "\n")
     }
 
     /// Pass 2: Read the result transcript, send to Claude for review, fix issues.
@@ -2721,7 +3476,7 @@ final class MCPServer {
 
         let segCount = args["segments"] as? Int ?? (args["segments"] as? Double).map({ Int($0) }) ?? 10
         let gateThreshold = args["gate_threshold"] as? Double ?? 7.0
-        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let mediaURL = resolvedToolMediaURL(for: asset)
 
         // Get energy readings
         let analyzer = SpeechEnergyAnalyzer()
@@ -2787,7 +3542,7 @@ final class MCPServer {
         }
 
         let minDuration = args["min_duration"] as? Double ?? 15.0
-        let mediaURL = asset.proxyURL ?? asset.sourceURL
+        let mediaURL = resolvedToolMediaURL(for: asset)
 
         // Get transcript
         guard let result = await appState.media.transcriptionService.getTranscript(
@@ -2839,6 +3594,233 @@ final class MCPServer {
 
     // MARK: - API Key
 
+    private func formattedZoom(_ pxPerSec: Double) -> String {
+        if pxPerSec >= 10 {
+            return String(format: "%.0f", pxPerSec)
+        }
+        if pxPerSec >= 1 {
+            return String(format: "%.1f", pxPerSec)
+        }
+        return String(format: "%.2f", pxPerSec)
+    }
+
+    // MARK: - Hook Optimize
+
+    private func handleHookOptimize(_ args: [String: Any], appState: AppState) async -> String {
+        // 1. Get first video clip
+        guard let videoTrack = appState.timeline.tracks.first(where: { $0.type == .video }),
+              let clip = videoTrack.clips.first else {
+            return "Error: No video clip on timeline"
+        }
+
+        guard let asset = appState.assets.first(where: { $0.id == clip.assetID }) else {
+            return "Error: Asset not found for clip"
+        }
+
+        // 2. Get transcript
+        guard let transcript = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return "Error: No transcript available. Run transcribe_asset first."
+        }
+
+        // 3. Filter words to clip's source range
+        let sourceRange = clip.sourceRange
+        let words = transcript.words.filter { $0.start >= sourceRange.start && $0.end <= sourceRange.end }
+        guard !words.isEmpty else {
+            return "Hook skipped: no transcript words in clip source range. " + stateSnapshot(appState)
+        }
+
+        // 4. Group words into sentences (split on punctuation or pauses > 0.8s)
+        struct Sentence {
+            let text: String
+            let startTime: TimeInterval
+            let endTime: TimeInterval
+            let wordRange: Range<Int>
+        }
+
+        var sentences: [Sentence] = []
+        var currentWords: [String] = []
+        var sentenceStartIdx = 0
+        var sentenceStartTime = words[0].start
+
+        for (i, word) in words.enumerated() {
+            if currentWords.isEmpty {
+                sentenceStartTime = word.start
+                sentenceStartIdx = i
+            }
+            currentWords.append(word.word)
+
+            let isPunctEnd = word.word.hasSuffix(".") || word.word.hasSuffix("?") || word.word.hasSuffix("!")
+            let hasPause = i + 1 < words.count && (words[i + 1].start - word.end) > 0.8
+            let isLast = i == words.count - 1
+
+            if isPunctEnd || hasPause || isLast {
+                let text = currentWords.joined(separator: " ")
+                sentences.append(Sentence(
+                    text: text,
+                    startTime: sentenceStartTime,
+                    endTime: word.end,
+                    wordRange: sentenceStartIdx..<(i + 1)
+                ))
+                currentWords = []
+            }
+        }
+
+        guard sentences.count >= 2 else {
+            return "Hook is already at the start (only 1 sentence in clip)"
+        }
+
+        // 5. Send to Claude for hook scoring
+        guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
+            return "Error: No ANTHROPIC_API_KEY available"
+        }
+
+        let provider = ClaudeProvider(apiKey: apiKey, model: "claude-haiku-4-5-20251001")
+
+        var sentenceList = ""
+        for (i, s) in sentences.enumerated() {
+            sentenceList += "[\(i)] \"\(s.text)\"\n"
+        }
+
+        let prompt = """
+        Rate each sentence as a short-form video hook (1-10). Consider: curiosity gap, bold claim, question, emotional language, specificity. Return JSON: [{"index": 0, "score": 8, "reason": "..."}]
+        SENTENCES:
+        \(sentenceList)
+        """
+
+        let messages = [AIMessage(role: "user", content: prompt)]
+        var bestIndex = 0
+        var bestScore = 0
+        var bestReason = ""
+
+        do {
+            let response = try await provider.complete(messages: messages, tools: [])
+            // Parse JSON array from response
+            let text = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+            // Extract JSON array from response (may have markdown fences)
+            let jsonStr: String
+            if let start = text.range(of: "["), let end = text.range(of: "]", options: .backwards) {
+                jsonStr = String(text[start.lowerBound...end.upperBound])
+            } else {
+                jsonStr = text
+            }
+
+            if let data = jsonStr.data(using: .utf8),
+               let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
+                for item in arr {
+                    let idx = item["index"] as? Int ?? 0
+                    let score = item["score"] as? Int ?? (item["score"] as? Double).map { Int($0) } ?? 0
+                    if score > bestScore {
+                        bestScore = score
+                        bestIndex = idx
+                        bestReason = item["reason"] as? String ?? ""
+                    }
+                }
+            }
+        } catch {
+            return "Error: Claude API failed — \(error.localizedDescription)"
+        }
+
+        guard bestIndex < sentences.count else {
+            return "Error: Invalid sentence index from Claude"
+        }
+
+        let hookSentence = sentences[bestIndex]
+        let hookDuration = hookSentence.endTime - hookSentence.startTime
+
+        // 8. Check if hook is already at the start (within first 3 seconds of source)
+        let hookOffsetFromClipStart = hookSentence.startTime - sourceRange.start
+        if hookOffsetFromClipStart < 3.0 {
+            return "Hook is already at the start: '\(hookSentence.text)' (score: \(bestScore)/10)"
+        }
+
+        // 9. Insert a duplicate of the hook at timeline position 0
+        //    Shift existing clips right by hookDuration, then insert hook clip
+        let sourceTimeOffset = sourceRange.start
+
+        // Shift all existing clips on all tracks to make room
+        var moveFailed = 0
+        for track in appState.timeline.tracks {
+            for existingClip in track.clips {
+                let newStart = existingClip.timelineRange.start + hookDuration
+                do {
+                    try appState.perform(.moveClip(
+                        clipID: existingClip.id,
+                        newStart: newStart,
+                        trackID: track.id
+                    ), source: .ai)
+                } catch {
+                    moveFailed += 1
+                }
+            }
+        }
+        if moveFailed > 0 {
+            return "Error: Failed to shift \(moveFailed) clip(s) to make room for hook"
+        }
+
+        // Insert hook video clip at position 0
+        let hookLinkID = UUID()
+        let hookVideoClip = Clip(
+            assetID: asset.id,
+            timelineRange: TimeRange(start: 0, duration: hookDuration),
+            sourceRange: TimeRange(start: hookSentence.startTime, end: hookSentence.endTime),
+            metadata: ClipMetadata(label: "Hook"),
+            linkGroupID: hookLinkID
+        )
+
+        guard let videoTrackID = appState.timeline.tracks.first(where: { $0.type == .video })?.id else {
+            return "Error: No video track"
+        }
+        do {
+            try appState.perform(.insertClip(clip: hookVideoClip, trackID: videoTrackID), source: .ai)
+
+            // Insert hook audio clip at position 0
+            if let audioTrackID = appState.timeline.tracks.first(where: { $0.type == .audio })?.id {
+                let hookAudioClip = Clip(
+                    assetID: asset.id,
+                    timelineRange: TimeRange(start: 0, duration: hookDuration),
+                    sourceRange: TimeRange(start: hookSentence.startTime, end: hookSentence.endTime),
+                    metadata: ClipMetadata(label: "Hook"),
+                    linkGroupID: hookLinkID
+                )
+                try appState.perform(.insertClip(clip: hookAudioClip, trackID: audioTrackID), source: .ai)
+            }
+        } catch {
+            return "Error inserting hook clips: \(error.localizedDescription)"
+        }
+
+        // Update short-form config sourceTimeOffset if present
+        if var config = appState.context.timelineState.shortFormConfig {
+            // Caption words need the hook words prepended
+            let hookWords = Array(words[hookSentence.wordRange])
+            let shiftedHookWords = hookWords.map { w in
+                TranscriptWord(
+                    word: w.word,
+                    lemma: w.lemma,
+                    start: w.start - hookSentence.startTime,
+                    end: w.end - hookSentence.startTime,
+                    confidence: w.confidence
+                )
+            }
+            let shiftedExisting = config.captionWords.map { w in
+                TranscriptWord(
+                    word: w.word,
+                    lemma: w.lemma,
+                    start: w.start + hookDuration,
+                    end: w.end + hookDuration,
+                    confidence: w.confidence
+                )
+            }
+            config.captionWords = shiftedHookWords + shiftedExisting
+            appState.context.timelineState.shortFormConfig = config
+        }
+
+        appState.rebuildCompositionNow()
+
+        return "Hook optimized: moved '\(hookSentence.text)' (score: \(bestScore)/10, reason: \(bestReason)) to clip start. Hook duration: \(String(format: "%.1f", hookDuration))s. " + stateSnapshot(appState)
+    }
+
     private func loadAnthropicKey() -> String? {
         // Try .env file in common locations
         let candidates = [
@@ -2864,6 +3846,369 @@ final class MCPServer {
             }
         }
         return nil
+    }
+
+    // MARK: - Text-Based Editing
+
+    private func handleGetTranscriptWithTiming(_ args: [String: Any], appState: AppState) async -> String {
+        // Resolve asset
+        let asset: MediaAsset
+        if let idStr = args["asset_id"] as? String, let id = UUID(uuidString: idStr) {
+            guard let found = appState.assets.first(where: { $0.id == id }) else {
+                return "Error: Asset not found: \(idStr)"
+            }
+            asset = found
+        } else {
+            // Default: first video clip's asset
+            guard let firstVideoTrack = appState.timeline.tracks.first(where: { $0.type == .video }),
+                  let firstClip = firstVideoTrack.clips.first,
+                  let found = appState.assets.first(where: { $0.id == firstClip.assetID }) else {
+                return "Error: No video clips on timeline. Provide asset_id."
+            }
+            asset = found
+        }
+
+        guard let result = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return "Error: No transcript. Run transcribe_asset first."
+        }
+
+        let startFilter = args["start"] as? Double ?? 0
+        let endFilter = args["end"] as? Double ?? asset.duration
+        let format = args["format"] as? String ?? "text"
+
+        let words = result.words.filter { $0.start >= startFilter && $0.end <= endFilter }
+        guard !words.isEmpty else { return "No words in the specified range." }
+
+        // Build speaker lookup from diarization segments
+        let speakers = result.speakers ?? []
+
+        if format == "json" {
+            let entries: [[String: Any]] = words.map { w in
+                let speaker = speakers.first(where: { $0.range.contains(w.start) })?.speakerID ?? "0"
+                return ["word": w.word, "start": w.start, "end": w.end, "speaker": speaker]
+            }
+            guard let data = try? JSONSerialization.data(withJSONObject: entries, options: [.sortedKeys]),
+                  let json = String(data: data, encoding: .utf8) else {
+                return "Error: JSON serialization failed"
+            }
+            return "Transcript (\(words.count) words, \(String(format: "%.1f", endFilter - startFilter))s):\n\(json)"
+        }
+
+        // Text format: [0.5s] Hello [0.8s] world ...
+        var output = ""
+        var currentSpeaker = ""
+        for w in words {
+            let speaker = speakers.first(where: { $0.range.contains(w.start) })?.speakerID ?? "0"
+            if speaker != currentSpeaker {
+                if !output.isEmpty { output += "\n" }
+                output += "[Speaker \(speaker)] "
+                currentSpeaker = speaker
+            }
+            output += "[\(String(format: "%.2f", w.start))s] \(w.word) "
+        }
+
+        let header = "Transcript: \(asset.name) (\(words.count) words, \(String(format: "%.1f", endFilter - startFilter))s)\n\n"
+        return header + output.trimmingCharacters(in: .whitespaces)
+    }
+
+    private func handleDeleteTranscriptRange(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr) else {
+            return "Error: Invalid asset_id"
+        }
+        guard let startTime = args["start_time"] as? Double,
+              let endTime = args["end_time"] as? Double,
+              endTime > startTime else {
+            return "Error: Invalid start_time/end_time (end must be > start)"
+        }
+
+        let deleteRange = TimeRange(start: startTime, end: endTime)
+        let deleteDuration = endTime - startTime
+
+        // Count words being removed (for reporting)
+        var wordCount = 0
+        if let asset = appState.assets.first(where: { $0.id == assetID }),
+           let transcript = await appState.media.transcriptionService.getTranscript(
+               for: asset, bundleURL: appState.projectBundleURL
+           ) {
+            wordCount = transcript.words.filter { $0.start >= startTime && $0.end <= endTime }.count
+        }
+
+        // Use rebuild approach: collect keep ranges, delete originals, insert new clips
+        let result = rebuildTimelineExcludingSourceRange(
+            assetID: assetID, deleteRange: deleteRange, appState: appState
+        )
+
+        if result.success {
+            let wordInfo = wordCount > 0 ? " (\(wordCount) words removed)" : ""
+            return "Deleted \(String(format: "%.2f", deleteDuration))s of content\(wordInfo). \(result.message) " + stateSnapshot(appState)
+        } else {
+            return result.message
+        }
+    }
+
+    private func handleRemoveFillerWords(_ args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: Invalid asset_id"
+        }
+
+        guard let transcript = await appState.media.transcriptionService.getTranscript(
+            for: asset, bundleURL: appState.projectBundleURL
+        ) else {
+            return "Error: No transcript. Run transcribe_asset first."
+        }
+
+        let dryRun = args["dry_run"] as? Bool ?? false
+        let fillerStr = args["fillers"] as? String ?? "um,uh,like,you know,so,basically,actually,right,I mean"
+        let fillerList = fillerStr.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces).lowercased() }
+
+        // Separate context-sensitive fillers (need pause check) from always-fillers
+        let alwaysFillers: Set<String> = ["um", "uh"]
+        let contextFillers: Set<String> = Set(fillerList).subtracting(alwaysFillers)
+
+        let words = transcript.words
+        var fillerRanges: [(word: String, start: Double, end: Double)] = []
+
+        for (i, w) in words.enumerated() {
+            let normalized = w.word.lowercased().trimmingCharacters(in: .punctuationCharacters)
+
+            if alwaysFillers.contains(normalized) {
+                fillerRanges.append((word: normalized, start: w.start, end: w.end))
+                continue
+            }
+
+            // Multi-word fillers: "you know", "I mean"
+            if i + 1 < words.count {
+                let twoWord = "\(normalized) \(words[i + 1].word.lowercased().trimmingCharacters(in: .punctuationCharacters))"
+                if fillerList.contains(twoWord) {
+                    let pauseBefore = i > 0 ? (w.start - words[i - 1].end) : 1.0
+                    let pauseAfter = i + 2 < words.count ? (words[i + 2].start - words[i + 1].end) : 1.0
+                    if pauseBefore > 0.3 || pauseAfter > 0.3 {
+                        fillerRanges.append((word: twoWord, start: w.start, end: words[i + 1].end))
+                    }
+                    continue
+                }
+            }
+
+            // Context-sensitive single-word fillers: only at pauses or sentence boundaries
+            if contextFillers.contains(normalized) {
+                let pauseBefore = i > 0 ? (w.start - words[i - 1].end) : 1.0
+                let pauseAfter = i + 1 < words.count ? (words[i + 1].start - w.end) : 1.0
+                let prevEndsPunctuation = i > 0 && (words[i - 1].word.hasSuffix(".") || words[i - 1].word.hasSuffix("?") || words[i - 1].word.hasSuffix("!") || words[i - 1].word.hasSuffix(","))
+
+                if pauseBefore > 0.3 || pauseAfter > 0.3 || prevEndsPunctuation {
+                    fillerRanges.append((word: normalized, start: w.start, end: w.end))
+                }
+            }
+        }
+
+        guard !fillerRanges.isEmpty else {
+            return "No filler words found in transcript."
+        }
+
+        // Build breakdown
+        var breakdown: [String: Int] = [:]
+        var totalDuration: Double = 0
+        for f in fillerRanges {
+            breakdown[f.word, default: 0] += 1
+            totalDuration += f.end - f.start
+        }
+        let breakdownStr = breakdown.sorted(by: { $0.value > $1.value })
+            .map { "\($0.key): \($0.value)" }.joined(separator: ", ")
+
+        if dryRun {
+            var lines = ["=== FILLER WORD ANALYSIS ==="]
+            lines.append("Found \(fillerRanges.count) filler words (\(String(format: "%.2f", totalDuration))s total)")
+            lines.append("Breakdown: \(breakdownStr)")
+            lines.append("")
+            for (i, f) in fillerRanges.enumerated() {
+                lines.append("  \(i + 1). \"\(f.word)\" at \(String(format: "%.2f", f.start))s-\(String(format: "%.2f", f.end))s")
+            }
+            lines.append("\n[DRY RUN — no changes made. Set dry_run=false to execute.]")
+            return lines.joined(separator: "\n")
+        }
+
+        // Execute removals using rebuild approach
+        // Merge filler ranges into a single set of removal ranges, then rebuild
+        let sortedFillers = fillerRanges.sorted { $0.start < $1.start }
+
+        // Find all clips from this asset on the timeline
+        var allClipsForAsset: [(clip: Clip, trackIdx: Int)] = []
+        for (trackIdx, track) in appState.timeline.tracks.enumerated() {
+            for clip in track.clips where clip.assetID == assetID {
+                allClipsForAsset.append((clip: clip, trackIdx: trackIdx))
+            }
+        }
+
+        guard !allClipsForAsset.isEmpty else {
+            return "Error: No clips from this asset on the timeline."
+        }
+
+        // Group clips by linkGroupID to process video+audio pairs together
+        var processedLinks = Set<UUID>()
+        var removedCount = 0
+
+        // Collect all unique clip groups (video+audio pairs)
+        var clipGroups: [[(clip: Clip, trackIdx: Int)]] = []
+        for entry in allClipsForAsset {
+            if let linkID = entry.clip.linkGroupID, processedLinks.contains(linkID) { continue }
+            if let linkID = entry.clip.linkGroupID {
+                processedLinks.insert(linkID)
+                let group = allClipsForAsset.filter { $0.clip.linkGroupID == linkID }
+                clipGroups.append(group)
+            } else {
+                clipGroups.append([entry])
+            }
+        }
+
+        for group in clipGroups {
+            guard let primary = group.first else { continue }
+            let clipSourceRange = primary.clip.sourceRange
+
+            // Filter fillers that fall within this clip's source range
+            let clippedFillers = sortedFillers.filter { f in
+                f.start >= clipSourceRange.start && f.end <= clipSourceRange.end
+            }
+            guard !clippedFillers.isEmpty else { continue }
+
+            // Build keep ranges by inverting the filler removals within this clip
+            var keepRanges: [TimeRange] = []
+            var cursor = clipSourceRange.start
+            for filler in clippedFillers {
+                if filler.start > cursor + 0.001 {
+                    keepRanges.append(TimeRange(start: cursor, end: filler.start))
+                }
+                cursor = filler.end
+            }
+            if cursor < clipSourceRange.end - 0.001 {
+                keepRanges.append(TimeRange(start: cursor, end: clipSourceRange.end))
+            }
+
+            // Delete original clips in this group and insert replacements
+            do {
+                let idsToDelete = group.map { $0.clip.id }
+                try appState.perform(.deleteClips(clipIDs: idsToDelete), source: .ai)
+
+                // Calculate timeline start for this group (original position)
+                let originalTimelineStart = primary.clip.timelineRange.start
+
+                // Insert new clips for each keep range
+                var timelineCursor = originalTimelineStart
+                for keep in keepRanges {
+                    let duration = keep.duration
+                    let linkID = UUID()
+                    for entry in group {
+                        let newClip = Clip(
+                            assetID: assetID,
+                            timelineRange: TimeRange(start: timelineCursor, duration: duration),
+                            sourceRange: keep,
+                            volume: entry.clip.volume,
+                            speed: entry.clip.speed,
+                            linkGroupID: group.count > 1 ? linkID : entry.clip.linkGroupID
+                        )
+                        try appState.perform(.insertClip(clip: newClip, trackID: appState.timeline.tracks[entry.trackIdx].id), source: .ai)
+                    }
+                    timelineCursor += duration
+                }
+            } catch {
+                return "Error processing filler removal: \(error.localizedDescription). " + stateSnapshot(appState)
+            }
+            removedCount += clippedFillers.count
+        }
+
+        appState.rebuildComposition()
+
+        return "Removed \(removedCount) filler words (\(String(format: "%.2f", totalDuration))s). Breakdown: \(breakdownStr). " + stateSnapshot(appState)
+    }
+
+    /// Rebuild timeline clips for a given asset, excluding a source-time range.
+    /// Returns (success: Bool, message: String).
+    private func rebuildTimelineExcludingSourceRange(
+        assetID: UUID,
+        deleteRange: TimeRange,
+        appState: AppState
+    ) -> (success: Bool, message: String) {
+        // Find all clips from this asset
+        var allClipsForAsset: [(clip: Clip, trackIdx: Int)] = []
+        for (trackIdx, track) in appState.timeline.tracks.enumerated() {
+            for clip in track.clips where clip.assetID == assetID {
+                allClipsForAsset.append((clip: clip, trackIdx: trackIdx))
+            }
+        }
+
+        guard !allClipsForAsset.isEmpty else {
+            return (success: false, message: "Error: No clips from asset \(assetID.uuidString.prefix(8)) on the timeline.")
+        }
+
+        // Group clips by linkGroupID (video+audio pairs)
+        var processedLinks = Set<UUID>()
+        var clipGroups: [[(clip: Clip, trackIdx: Int)]] = []
+        for entry in allClipsForAsset {
+            if let linkID = entry.clip.linkGroupID, processedLinks.contains(linkID) { continue }
+            if let linkID = entry.clip.linkGroupID {
+                processedLinks.insert(linkID)
+                let group = allClipsForAsset.filter { $0.clip.linkGroupID == linkID }
+                clipGroups.append(group)
+            } else {
+                clipGroups.append([entry])
+            }
+        }
+
+        var clipsAffected = 0
+
+        for group in clipGroups {
+            guard let primary = group.first else { continue }
+            let clipSourceRange = primary.clip.sourceRange
+
+            // Check if this clip's source range overlaps the delete range
+            guard clipSourceRange.overlaps(deleteRange) else { continue }
+            clipsAffected += group.count
+
+            // Build keep ranges by excluding the delete range
+            var keepRanges: [TimeRange] = []
+            if clipSourceRange.start < deleteRange.start {
+                keepRanges.append(TimeRange(start: clipSourceRange.start, end: min(deleteRange.start, clipSourceRange.end)))
+            }
+            if clipSourceRange.end > deleteRange.end {
+                keepRanges.append(TimeRange(start: max(deleteRange.end, clipSourceRange.start), end: clipSourceRange.end))
+            }
+
+            // Delete original clips and insert replacements
+            do {
+                let idsToDelete = group.map { $0.clip.id }
+                try appState.perform(.deleteClips(clipIDs: idsToDelete), source: .ai)
+
+                // Insert new clips for each keep range
+                let originalTimelineStart = primary.clip.timelineRange.start
+                var timelineCursor = originalTimelineStart
+                for keep in keepRanges {
+                    let duration = keep.duration
+                    let linkID = UUID()
+                    for entry in group {
+                        let newClip = Clip(
+                            assetID: assetID,
+                            timelineRange: TimeRange(start: timelineCursor, duration: duration),
+                            sourceRange: keep,
+                            volume: entry.clip.volume,
+                            speed: entry.clip.speed,
+                            linkGroupID: group.count > 1 ? linkID : entry.clip.linkGroupID
+                        )
+                        try appState.perform(.insertClip(clip: newClip, trackID: appState.timeline.tracks[entry.trackIdx].id), source: .ai)
+                    }
+                    timelineCursor += duration
+                }
+            } catch {
+                return (success: false, message: "Error: \(error.localizedDescription)")
+            }
+        }
+
+        appState.rebuildComposition()
+
+        return (success: true, message: "Affected \(clipsAffected) clips across \(clipGroups.count) group(s).")
     }
 
     // MARK: - Helpers

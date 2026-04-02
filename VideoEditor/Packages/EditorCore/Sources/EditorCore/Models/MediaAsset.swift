@@ -16,6 +16,8 @@ public struct MediaAsset: Codable, Identifiable, Sendable {
     public var fileSize: Int64
     public var importedAt: Date
     public var analysis: MediaAnalysis?
+    /// Whether the source file has an audio track. Probed once at import time.
+    public var hasAudioTrack: Bool
 
     public init(
         id: UUID = UUID(),
@@ -30,7 +32,8 @@ public struct MediaAsset: Codable, Identifiable, Sendable {
         codec: String? = nil,
         fileSize: Int64 = 0,
         importedAt: Date = Date(),
-        analysis: MediaAnalysis? = nil
+        analysis: MediaAnalysis? = nil,
+        hasAudioTrack: Bool = false
     ) {
         self.id = id
         self.name = name
@@ -45,6 +48,7 @@ public struct MediaAsset: Codable, Identifiable, Sendable {
         self.fileSize = fileSize
         self.importedAt = importedAt
         self.analysis = analysis
+        self.hasAudioTrack = hasAudioTrack
     }
 }
 

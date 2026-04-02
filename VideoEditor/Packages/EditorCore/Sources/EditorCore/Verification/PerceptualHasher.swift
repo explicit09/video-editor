@@ -32,6 +32,12 @@ public struct PerceptualHasher: Sendable {
         return !isBlack(cgImage)
     }
 
+    /// Check if a source frame is not black (has meaningful visual content).
+    public func frameIsValid(sourceURL: URL, at time: TimeInterval) async -> Bool {
+        guard let cgImage = extractFrame(from: AVURLAsset(url: sourceURL), at: time) else { return false }
+        return !isBlack(cgImage)
+    }
+
     // MARK: - Frame Extraction
 
     /// Public accessor for ContentVerifier's effect checking.

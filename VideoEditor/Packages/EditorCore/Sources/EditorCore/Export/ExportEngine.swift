@@ -25,7 +25,9 @@ public final class ExportEngine {
         to outputURL: URL,
         preset: String = AVAssetExportPresetHighestQuality,
         fileType: AVFileType = .mp4,
-        broadcastOverlay: BroadcastOverlayConfig? = nil
+        broadcastOverlay: BroadcastOverlayConfig? = nil,
+        shortFormConfig: ShortFormConfig? = nil,
+        captionStyle: CaptionStyler.CaptionStyle = .standard
     ) async {
         guard timeline.tracks.contains(where: { !$0.clips.isEmpty }), timeline.duration > 0 else {
             state = .failed("Nothing to export")
@@ -35,7 +37,7 @@ public final class ExportEngine {
         state = .exporting(progress: 0)
 
         let builder = CompositionBuilder()
-        let result = await builder.build(from: timeline, assets: assets, urlMode: .export, broadcastOverlay: broadcastOverlay)
+        let result = await builder.build(from: timeline, assets: assets, urlMode: .export, broadcastOverlay: broadcastOverlay, shortFormConfig: shortFormConfig, captionStyle: captionStyle)
 
         guard result.duration > 0 else {
             state = .failed("Nothing to export")
@@ -73,6 +75,13 @@ public final class ExportEngine {
 
         switch session.status {
         case .completed:
+            // Validate output file
+            let attrs = try? FileManager.default.attributesOfItem(atPath: outputURL.path)
+            let fileSize = attrs?[.size] as? Int64 ?? 0
+            if fileSize == 0 {
+                state = .failed("Export produced empty file")
+                return
+            }
             state = .completed(outputURL)
         case .failed:
             state = .failed(session.error?.localizedDescription ?? "Export failed")

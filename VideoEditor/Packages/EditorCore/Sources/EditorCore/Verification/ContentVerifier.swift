@@ -4,6 +4,44 @@ import AVFoundation
 /// Tier 2 content verification: verifies the RIGHT content plays at the RIGHT time.
 /// Reads directly from the AVMutableComposition (no export needed for most checks).
 public struct ContentVerifier: Sendable {
+    static let silenceThreshold: Float = 0.005
+
+    struct AudioVerificationContext: Sendable {
+        let assetType: MediaType
+        let trackType: TrackType?
+        let activeAudioClipCount: Int
+
+        var shouldCompareSourceAudio: Bool {
+            guard assetType != .image else { return false }
+            guard activeAudioClipCount <= 1 else { return false }
+
+            switch trackType {
+            case .video?, .audio?:
+                return true
+            default:
+                return assetType == .audio
+            }
+        }
+    }
+
+    struct VisualVerificationContext: Sendable {
+        let assetType: MediaType
+        let trackType: TrackType?
+        let clip: Clip?
+
+        var shouldCompareSourceVideo: Bool {
+            guard assetType == .video else { return false }
+            guard trackType == .video else { return false }
+            guard let clip else { return true }
+            guard clip.transform == .identity else { return false }
+            guard clip.cropRect.isFullFrame else { return false }
+            guard clip.opacity >= 0.999 else { return false }
+            guard clip.effects.isEmpty else { return false }
+            guard clip.blendMode == .normal else { return false }
+            guard clip.transitionIn.type == .none else { return false }
+            return true
+        }
+    }
 
     public enum Mode: Sendable {
         case quick     // ~2s: check 2 points per clip
@@ -101,19 +139,55 @@ public struct ContentVerifier: Sendable {
         let hasher = PerceptualHasher()
         let vidComp = videoComposition
         let assetsByID = Dictionary(uniqueKeysWithValues: assets.map { ($0.id, $0) })
+        let clipsByID = Dictionary(uniqueKeysWithValues: timeline.tracks.flatMap { track in
+            track.clips.map { ($0.id, $0) }
+        })
+        let trackTypeByClipID: [UUID: TrackType] = Dictionary(
+            uniqueKeysWithValues: timeline.tracks.flatMap { track in
+                track.clips.map { ($0.id, track.type) }
+            }
+        )
+        let activeAudioClipCountAtTime: (TimeInterval) -> Int = { exportTime in
+            timeline.tracks
+                .filter { $0.type == .audio && !$0.isMuted }
+                .flatMap(\.clips)
+                .filter { clip in
+                    exportTime >= clip.timelineRange.start && exportTime < clip.timelineRange.end
+                }
+                .count
+        }
 
         var results: [CheckResult] = []
 
         for cp in allCheckpoints {
             switch cp.checkType {
             case .content, .effectApplied:
+                let audioContext: AudioVerificationContext? = {
+                    guard let assetID = cp.assetID, let asset = assetsByID[assetID] else { return nil }
+                    let trackType = cp.clipID.flatMap { trackTypeByClipID[$0] }
+                    return AudioVerificationContext(
+                        assetType: asset.type,
+                        trackType: trackType,
+                        activeAudioClipCount: activeAudioClipCountAtTime(cp.exportTime)
+                    )
+                }()
+                let visualContext: VisualVerificationContext? = {
+                    guard let assetID = cp.assetID, let asset = assetsByID[assetID] else { return nil }
+                    return VisualVerificationContext(
+                        assetType: asset.type,
+                        trackType: cp.clipID.flatMap { trackTypeByClipID[$0] },
+                        clip: cp.clipID.flatMap { clipsByID[$0] }
+                    )
+                }()
                 let result = await verifyContentCheckpoint(
                     cp: cp,
                     composition: composition,
                     videoComposition: vidComp,
                     assetsByID: assetsByID,
                     audioCorrelator: audioCorrelator,
-                    hasher: hasher
+                    hasher: hasher,
+                    audioContext: audioContext,
+                    visualContext: visualContext
                 )
                 results.append(result)
 
@@ -163,19 +237,24 @@ public struct ContentVerifier: Sendable {
         videoComposition: AVVideoComposition?,
         assetsByID: [UUID: MediaAsset],
         audioCorrelator: AudioCrossCorrelator,
-        hasher: PerceptualHasher
+        hasher: PerceptualHasher,
+        audioContext: AudioVerificationContext?,
+        visualContext: VisualVerificationContext?
     ) async -> CheckResult {
         // Audio check: cross-correlate with source
         var audioNCC: Float? = nil
+        var sourceRMS: Float? = nil
         if let assetID = cp.assetID,
            let asset = assetsByID[assetID],
-           let sourceTime = cp.expectedSourceTime {
+           let sourceTime = cp.expectedSourceTime,
+           audioContext?.shouldCompareSourceAudio == true {
             audioNCC = await audioCorrelator.compare(
                 compositionAudio: composition,
                 at: cp.exportTime,
                 sourceURL: asset.sourceURL,
                 at: sourceTime
             )
+            sourceRMS = await measureSourceRMS(asset: AVURLAsset(url: asset.sourceURL), at: sourceTime)
         }
 
         // Audio RMS
@@ -184,16 +263,23 @@ public struct ContentVerifier: Sendable {
         // Video check: pHash comparison with source
         var pHashDist: Int? = nil
         var frameValid = true
+        var sourceFrameValid: Bool? = nil
         if let assetID = cp.assetID,
            let asset = assetsByID[assetID],
-           asset.type == .video,
-           let sourceTime = cp.expectedSourceTime {
-            let exportHash = await hasher.hash(composition: composition, at: cp.exportTime, videoComposition: videoComposition)
-            let sourceHash = await hasher.hash(sourceURL: asset.sourceURL, at: sourceTime)
-            if exportHash != 0 && sourceHash != 0 {
-                pHashDist = hasher.distance(exportHash, sourceHash)
-            }
+           asset.type == .video {
             frameValid = await hasher.frameIsValid(composition: composition, at: cp.exportTime, videoComposition: videoComposition)
+            if let sourceTime = cp.expectedSourceTime {
+                sourceFrameValid = await hasher.frameIsValid(sourceURL: asset.sourceURL, at: sourceTime)
+            }
+
+            if let sourceTime = cp.expectedSourceTime,
+               visualContext?.shouldCompareSourceVideo != false {
+                let exportHash = await hasher.hash(composition: composition, at: cp.exportTime, videoComposition: videoComposition)
+                let sourceHash = await hasher.hash(sourceURL: asset.sourceURL, at: sourceTime)
+                if exportHash != 0 && sourceHash != 0 {
+                    pHashDist = hasher.distance(exportHash, sourceHash)
+                }
+            }
         }
 
         // Determine pass/fail
@@ -205,16 +291,12 @@ public struct ContentVerifier: Sendable {
                 // Effects or speed changes alter audio — just check it's not silent
                 if rms < 0.001 {
                     // Only fail if source also has audio (it might be a genuinely quiet section)
-                    if let assetID = cp.assetID, let asset = assetsByID[assetID],
-                       let sourceTime = cp.expectedSourceTime {
-                        let srcRMS = await measureSourceRMS(asset: AVURLAsset(url: asset.sourceURL), at: sourceTime)
-                        if srcRMS > 0.005 {
-                            passed = false
-                            detail = "audio silent \(cp.speed != 1.0 ? "at \(String(format: "%.2f", cp.speed))x speed" : "with effect")"
-                        }
+                    if Self.shouldFailSilentComposition(compositionRMS: rms, sourceRMS: sourceRMS) {
+                        passed = false
+                        detail = "audio silent \(cp.speed != 1.0 ? "at \(String(format: "%.2f", cp.speed))x speed" : "with effect")"
                     }
                 }
-            } else if ncc < nccPassThreshold {
+            } else if Self.shouldFailAudioMismatch(ncc: ncc, sourceRMS: sourceRMS, threshold: nccPassThreshold) {
                 passed = false
                 detail = "audio content mismatch (NCC=\(String(format: "%.2f", ncc))<\(nccPassThreshold))"
             }
@@ -224,23 +306,15 @@ public struct ContentVerifier: Sendable {
             // No audio at all where we expect content
             if let assetID = cp.assetID, let asset = assetsByID[assetID], asset.type == .video {
                 // Video asset should have audio (unless source is also silent)
-                if let sourceTime = cp.expectedSourceTime {
-                    let sourceRMS = await audioCorrelator.measureRMS(
-                        in: AVMutableComposition(), // placeholder — we'll check source directly
-                        at: sourceTime
-                    )
-                    // Actually measure from source file
-                    let srcAsset = AVURLAsset(url: asset.sourceURL)
-                    let srcRMS = await measureSourceRMS(asset: srcAsset, at: sourceTime)
-                    if srcRMS > 0.005 {
-                        passed = false
-                        detail += (detail.isEmpty ? "" : "; ") + "silent but source has audio (srcRMS=\(String(format: "%.4f", srcRMS)))"
-                    }
+                if Self.shouldFailSilentComposition(compositionRMS: rms, sourceRMS: sourceRMS) {
+                    let srcRMS = sourceRMS ?? 0
+                    passed = false
+                    detail += (detail.isEmpty ? "" : "; ") + "silent but source has audio (srcRMS=\(String(format: "%.4f", srcRMS)))"
                 }
             }
         }
 
-        if !frameValid {
+        if Self.shouldFailBlackFrame(frameValid: frameValid, sourceFrameValid: sourceFrameValid) {
             passed = false
             detail += (detail.isEmpty ? "" : "; ") + "black frame"
         }
@@ -300,7 +374,6 @@ public struct ContentVerifier: Sendable {
 
     private func reduceToQuick(_ checkpoints: [VerificationCheckpoint]) -> [VerificationCheckpoint] {
         // Keep first and second checkpoint per clip, plus all silence checks
-        var seen: Set<UUID> = []
         var count: [UUID: Int] = [:]
         return checkpoints.filter { cp in
             if cp.checkType == .silence { return true }
@@ -309,5 +382,23 @@ public struct ContentVerifier: Sendable {
             count[clipID] = c + 1
             return c < 2  // Keep first 2 per clip
         }
+    }
+
+    static func shouldFailAudioMismatch(ncc: Float, sourceRMS: Float?, threshold: Float) -> Bool {
+        guard ncc < threshold else { return false }
+        guard let sourceRMS else { return true }
+        return sourceRMS > silenceThreshold
+    }
+
+    static func shouldFailSilentComposition(compositionRMS: Float, sourceRMS: Float?) -> Bool {
+        guard compositionRMS < 0.001 else { return false }
+        guard let sourceRMS else { return false }
+        return sourceRMS > silenceThreshold
+    }
+
+    static func shouldFailBlackFrame(frameValid: Bool, sourceFrameValid: Bool?) -> Bool {
+        guard !frameValid else { return false }
+        guard let sourceFrameValid else { return true }
+        return sourceFrameValid
     }
 }

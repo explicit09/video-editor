@@ -13,6 +13,7 @@ import CoreImage
 /// - Audio is extracted from ALL tracks (video assets have audio too), with
 ///   linked A/V pairs handled to prevent double-audio
 public struct CompositionBuilder {
+    static let minimumRenderableClipDuration: TimeInterval = 0.02
 
     public enum MediaURLMode {
         case preview  // use proxyURL if available
@@ -24,9 +25,81 @@ public struct CompositionBuilder {
         public let audioMix: AVAudioMix?
         public let videoComposition: AVVideoComposition?
         public let duration: TimeInterval
+
+        /// Quick sanity check — false means the composition is likely broken.
+        public var isValid: Bool {
+            let trackCount = composition.tracks.count
+            let hasVideoTracks = !composition.tracks(withMediaType: .video).isEmpty
+            return trackCount > 0
+                && duration > 0
+                && (!hasVideoTracks || videoComposition != nil)
+        }
     }
 
     public init() {}
+
+    static func resolvedMediaURL(
+        for asset: MediaAsset,
+        mode: MediaURLMode,
+        fileExists: (String) -> Bool = { FileManager.default.fileExists(atPath: $0) }
+    ) -> URL {
+        switch mode {
+        case .preview:
+            if let proxyURL = asset.proxyURL, fileExists(proxyURL.path) {
+                return proxyURL
+            }
+            return asset.sourceURL
+        case .export:
+            return asset.sourceURL
+        }
+    }
+
+    static func resolvedAudioURL(
+        for asset: MediaAsset,
+        mode: MediaURLMode
+    ) -> URL {
+        switch mode {
+        case .preview:
+            // Keep preview audio on the source file. Proxy audio encodes can
+            // drift at hard cut boundaries, which shows up after silence removal.
+            return asset.sourceURL
+        case .export:
+            return asset.sourceURL
+        }
+    }
+
+    static func shouldBuildClip(_ clip: Clip) -> Bool {
+        clip.timelineRange.duration >= minimumRenderableClipDuration
+        && clip.sourceRange.duration >= minimumRenderableClipDuration
+    }
+
+    static func captionWords(for clip: Clip, asset: MediaAsset) -> [TranscriptWord] {
+        let sourceWords = asset.analysis?.transcript ?? clip.metadata.transcriptSegment?.words ?? []
+        guard !sourceWords.isEmpty else { return [] }
+
+        let sourceStart = clip.sourceRange.start
+        let sourceEnd = clip.sourceRange.end
+        let timelineStart = clip.timelineRange.start
+        let speed = max(clip.speed, 0.1)
+
+        return sourceWords.compactMap { word in
+            let clampedStart = max(word.start, sourceStart)
+            let clampedEnd = min(word.end, sourceEnd)
+            guard clampedEnd > clampedStart else { return nil }
+
+            let exportStart = timelineStart + ((clampedStart - sourceStart) / speed)
+            let exportEnd = timelineStart + ((clampedEnd - sourceStart) / speed)
+            guard exportEnd > exportStart else { return nil }
+
+            return TranscriptWord(
+                word: word.word,
+                lemma: word.lemma,
+                start: exportStart,
+                end: exportEnd,
+                confidence: word.confidence
+            )
+        }
+    }
 
     // MARK: - Internal tracking
 
@@ -45,7 +118,8 @@ public struct CompositionBuilder {
         assets: [MediaAsset],
         urlMode: MediaURLMode = .preview,
         broadcastOverlay: BroadcastOverlayConfig? = nil,
-        shortFormConfig: ShortFormConfig? = nil
+        shortFormConfig: ShortFormConfig? = nil,
+        captionStyle: CaptionStyler.CaptionStyle = .standard
     ) async -> Result {
         let comp = AVMutableComposition()
         var maxDuration: CMTime = .zero
@@ -69,7 +143,6 @@ public struct CompositionBuilder {
         // Key: timeline track ID → shared composition audio track.
         // Video tracks' extracted audio shares with their paired audio track.
         var audioTrackCompTracks: [UUID: AVMutableCompositionTrack] = [:]
-        var videoTrackCompTracks: [UUID: AVMutableCompositionTrack] = [:]
 
         // Map video track IDs to their paired audio track IDs for audio routing
         let videoToAudioTrackID: [UUID: UUID] = {
@@ -77,7 +150,6 @@ public struct CompositionBuilder {
             let videoTracks = timeline.tracks.filter { $0.type != .audio }
             let audioTracks = timeline.tracks.filter { $0.type == .audio }
             for vTrack in videoTracks {
-                // Find paired audio track: audio track with clips sharing linkGroupIDs
                 let vLinkGroups = Set(vTrack.clips.compactMap(\.linkGroupID))
                 if let aTrack = audioTracks.first(where: { track in
                     track.clips.contains { clip in clip.linkGroupID != nil && vLinkGroups.contains(clip.linkGroupID!) }
@@ -92,15 +164,20 @@ public struct CompositionBuilder {
             guard !track.isMuted else { continue }
             if anySoloed && !track.isSoloed { continue }
 
-            for clip in track.clips {
+            let clips = track.clips.sorted {
+                if $0.timelineRange.start != $1.timelineRange.start {
+                    return $0.timelineRange.start < $1.timelineRange.start
+                }
+                return $0.timelineRange.end < $1.timelineRange.end
+            }
+
+            for clip in clips where Self.shouldBuildClip(clip) {
                 guard let mediaAsset = assets.first(where: { $0.id == clip.assetID }) else { continue }
 
-                let mediaURL: URL
-                switch urlMode {
-                case .preview: mediaURL = mediaAsset.proxyURL ?? mediaAsset.sourceURL
-                case .export: mediaURL = mediaAsset.sourceURL
-                }
+                let mediaURL = Self.resolvedMediaURL(for: mediaAsset, mode: urlMode)
+                let audioURL = Self.resolvedAudioURL(for: mediaAsset, mode: urlMode)
                 let avAsset = AVURLAsset(url: mediaURL)
+                let audioAsset = AVURLAsset(url: audioURL)
 
                 let ts: CMTimeScale = 600
                 let insertTime = CMTime(seconds: clip.timelineRange.start, preferredTimescale: ts)
@@ -151,7 +228,7 @@ public struct CompositionBuilder {
                     let hasLinkedAudio = clip.linkGroupID != nil && audioTrackLinkGroups.contains(clip.linkGroupID!)
 
                     if !hasLinkedAudio {
-                        if let audioSourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first {
+                        if let audioSourceTrack = try? await audioAsset.loadTracks(withMediaType: .audio).first {
                             // Route to paired audio track's composition track, or create a shared one
                             let routeKey = videoToAudioTrackID[track.id] ?? track.id
                             let audioCompTrack: AVMutableCompositionTrack
@@ -183,7 +260,7 @@ public struct CompositionBuilder {
 
                 // === AUDIO ===
                 if track.type == .audio {
-                    if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .audio).first {
+                    if let sourceTrack = try? await audioAsset.loadTracks(withMediaType: .audio).first {
                         // Reuse one composition track per timeline audio track
                         let compTrack: AVMutableCompositionTrack
                         if let existing = audioTrackCompTracks[track.id] {
@@ -245,6 +322,14 @@ public struct CompositionBuilder {
             let sorted = videoEntries.sorted {
                 CMTimeCompare($0.effectiveTimeRange.start, $1.effectiveTimeRange.start) < 0
             }
+            let captionWordsByClipID: [UUID: [TranscriptWord]] = Dictionary(
+                uniqueKeysWithValues: sorted.map { entry in
+                    let asset = assets.first(where: { $0.id == entry.clip.assetID })
+                    let captionWords = asset.map { Self.captionWords(for: entry.clip, asset: $0) } ?? []
+                    return (entry.clip.id, captionWords)
+                }
+            )
+            let hasCaptionWords = captionWordsByClipID.values.contains { !$0.isEmpty }
 
             // Determine if any clip needs the custom compositor
             print("[CompositionBuilder] shortFormConfig: \(shortFormConfig?.isEnabled ?? false) faceTracks: \(shortFormConfig?.faceTracks.count ?? 0), broadcastOverlay: \(broadcastOverlay?.isEnabled ?? false), needsCustom will be: \(broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true)")
@@ -255,7 +340,7 @@ public struct CompositionBuilder {
                 entry.clip.blendMode != .normal ||
                 entry.clip.transitionIn.type != .none ||
                 entry.clip.opacity * entry.track.opacity < 1.0
-            }
+            } || hasCaptionWords
 
             var instructions: [any AVVideoCompositionInstructionProtocol] = []
             var cursor: CMTime = .zero
@@ -282,7 +367,8 @@ public struct CompositionBuilder {
                             sourceTrackID: kCMPersistentTrackID_Invalid,
                             effects: [],
                             broadcastOverlay: broadcastOverlay,
-                            shortFormConfig: shortFormConfig
+                            shortFormConfig: shortFormConfig,
+                            captionStyle: captionStyle
                         )
                         instructions.append(gap)
                     } else {
@@ -328,7 +414,9 @@ public struct CompositionBuilder {
                             cropRect: entry.clip.cropRect,
                             blendMode: entry.clip.blendMode,
                             broadcastOverlay: broadcastOverlay,
-                            shortFormConfig: shortFormConfig
+                            shortFormConfig: shortFormConfig,
+                            captionStyle: captionStyle,
+                            captionWords: captionWordsByClipID[entry.clip.id] ?? []
                         )
                         instructions.append(instruction)
                     }
@@ -344,7 +432,9 @@ public struct CompositionBuilder {
                         cropRect: entry.clip.cropRect,
                         blendMode: entry.clip.blendMode,
                         broadcastOverlay: broadcastOverlay,
-                        shortFormConfig: shortFormConfig
+                        shortFormConfig: shortFormConfig,
+                        captionStyle: captionStyle,
+                        captionWords: captionWordsByClipID[entry.clip.id] ?? []
                     )
                     instructions.append(instruction)
                 } else {
@@ -409,12 +499,25 @@ public struct CompositionBuilder {
             videoComposition = vidComp
         }
 
-        return Result(
+        let result = Result(
             composition: comp,
             audioMix: audioMix,
             videoComposition: videoComposition,
             duration: comp.duration.seconds  // Use composition's authoritative duration
         )
+
+        // Diagnostic validation — log warnings but never block
+        if comp.tracks.isEmpty {
+            print("[CompositionBuilder] WARNING: composition has 0 tracks")
+        }
+        if result.duration <= 0 {
+            print("[CompositionBuilder] WARNING: composition duration is \(result.duration)s")
+        }
+        if !comp.tracks(withMediaType: .video).isEmpty && videoComposition == nil {
+            print("[CompositionBuilder] WARNING: video tracks present but videoComposition is nil")
+        }
+
+        return result
     }
 
 }
