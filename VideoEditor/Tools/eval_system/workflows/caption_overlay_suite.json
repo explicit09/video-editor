@@ -1,0 +1,43 @@
+{
+  "id": "caption_overlay_suite",
+  "description": "Exercise caption style and broadcast overlay configuration, then export the resulting video artifact.",
+  "eligibility_tags": ["has-audio"],
+  "max_duration_by_source_family": { "ava": 1200 },
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "transcribe_asset",
+    "set_caption_style",
+    "get_overlay_config",
+    "set_overlay_config",
+    "export_video"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "transcribe_asset", "op": "tool", "tool": "transcribe_asset", "args": { "asset_id": "${context.asset.id}" }, "timeout_seconds": 900 },
+    { "id": "set_caption_style", "op": "tool", "tool": "set_caption_style", "args": { "style": "bold" } },
+    { "id": "get_overlay_config", "op": "tool", "tool": "get_overlay_config", "save_as": "overlay_config_before" },
+    { "id": "set_overlay_config", "op": "tool", "tool": "set_overlay_config", "args": { "enabled": true, "episode_title": "COVERAGE EXPANSION", "episode_subtitle": "Caption Overlay Suite", "host_a_name": "Codex Host", "host_a_title": "AUTOMATED QA", "host_b_name": "VideoEditor", "host_b_title": "SYSTEM", "topics": [{ "time_seconds": 5, "text": "Coverage" }, { "time_seconds": 12, "text": "Automation" }], "chapters": [{ "time_seconds": 5, "text": "Intro" }, { "time_seconds": 15, "text": "Demo" }], "sponsors": ["Codex"] } },
+    { "id": "export_video", "op": "tool", "tool": "export_video", "args": { "filename": "${run.id}", "preset": "medium" }, "save_as": "export_output" }
+  ],
+  "validators": [
+    { "id": "export_exists", "artifact": "export_output" },
+    { "id": "duration_sanity", "artifact": "export_output", "minimum_seconds": 1.0 },
+    { "id": "audio_present", "artifact": "export_output", "required": true, "expected_from_probe": true },
+    { "id": "no_black_frames", "artifact": "export_output" }
+  ],
+  "judges": [
+    {
+      "id": "caption_overlay_export_quality",
+      "rubric_id": "export_visual_quality",
+      "artifact_labels": ["export_output"],
+      "prompt": "You are grading an exported video artifact after enabling captions and broadcast overlays. Respond with JSON only using keys status, score, confidence, explanation. Determine whether the video appears coherent, free of corruption, and visually consistent with a valid captioned/overlay export."
+    }
+  ]
+}

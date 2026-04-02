@@ -1,0 +1,20 @@
+{
+  "id": "episode_cut",
+  "description": "Import a corpus item and run episode detection to validate segmentation outputs exist.",
+  "eligibility_tags": [],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "detect_episodes"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "detect_episodes", "op": "tool", "tool": "detect_episodes", "args": { "asset_id": "${context.asset.id}" } }
+  ],
+  "validators": [],
+  "judges": []
+}

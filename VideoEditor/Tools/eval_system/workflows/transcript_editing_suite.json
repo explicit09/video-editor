@@ -1,0 +1,40 @@
+{
+  "id": "transcript_editing_suite",
+  "description": "Exercise transcript inspection, search, analysis, and text-driven deletion on an imported clip.",
+  "eligibility_tags": ["has-audio"],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "transcribe_asset",
+    "get_transcript",
+    "get_full_transcript",
+    "get_transcript_with_timing",
+    "search_transcript",
+    "analyze_transcript",
+    "delete_transcript_range",
+    "verify_playback"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "transcribe_asset", "op": "tool", "tool": "transcribe_asset", "args": { "asset_id": "${context.asset.id}" }, "timeout_seconds": 900 },
+    { "id": "get_transcript", "op": "tool", "tool": "get_transcript", "args": { "asset_id": "${context.asset.id}" }, "save_as": "transcript_output" },
+    { "id": "get_full_transcript", "op": "tool", "tool": "get_full_transcript", "args": { "asset_id": "${context.asset.id}" }, "save_as": "full_transcript_output" },
+    { "id": "get_transcript_with_timing", "op": "tool", "tool": "get_transcript_with_timing", "args": { "asset_id": "${context.asset.id}", "format": "text" }, "save_as": "timed_transcript_output" },
+    { "id": "search_transcript", "op": "tool", "tool": "search_transcript", "args": { "asset_id": "${context.asset.id}", "query": "the", "max_results": 5 }, "save_as": "search_transcript_output" },
+    { "id": "analyze_transcript", "op": "tool", "tool": "analyze_transcript", "args": { "asset_id": "${context.asset.id}" }, "save_as": "analyze_transcript_output", "timeout_seconds": 600 },
+    { "id": "delete_transcript_range", "op": "tool", "tool": "delete_transcript_range", "args": { "asset_id": "${context.asset.id}", "start_time": 5, "end_time": 6 } },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" }, "save_as": "verify_playback_output" },
+    { "id": "get_transcript_after_delete", "op": "tool", "tool": "get_transcript", "args": { "asset_id": "${context.asset.id}" }, "save_as": "post_edit_transcript_output" }
+  ],
+  "validators": [
+    { "id": "transcript_present", "source": "get_transcript_after_delete" },
+    { "id": "verify_playback_clean", "source": "verify_playback" }
+  ],
+  "judges": []
+}

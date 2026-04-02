@@ -1,0 +1,109 @@
+{
+  "name": "Demo Visual Smoke",
+  "assets": {
+    "demo": "Demo_Raw_2",
+    "image": "import_test_image",
+    "audio": "import_test_audio"
+  },
+  "steps": [
+    {
+      "tool": "clear_project",
+      "expect": {
+        "output_contains": [
+          "Project cleared"
+        ],
+        "timeline": {
+          "trackCount": 0,
+          "clipCount": 0
+        }
+      }
+    },
+    {
+      "tool": "add_to_timeline",
+      "args": {
+        "asset_id": {
+          "$asset": "demo"
+        }
+      },
+      "expect": {
+        "output_contains": [
+          "Added 'Demo_Raw_2' to timeline"
+        ],
+        "timeline": {
+          "trackCount": 2,
+          "clipCount": 2
+        }
+      }
+    },
+    {
+      "tool": "add_track",
+      "args": {
+        "type": "video",
+        "name": "Overlay",
+        "track_id": {
+          "$uuid": "overlay_track"
+        }
+      }
+    },
+    {
+      "tool": "add_track",
+      "args": {
+        "type": "audio",
+        "name": "Music",
+        "track_id": {
+          "$uuid": "music_track"
+        }
+      }
+    },
+    {
+      "tool": "insert_clip",
+      "args": {
+        "asset_id": {
+          "$asset": "image"
+        },
+        "track_id": {
+          "$var": "overlay_track"
+        },
+        "start_time": 5,
+        "duration": 5
+      }
+    },
+    {
+      "tool": "insert_clip",
+      "args": {
+        "asset_id": {
+          "$asset": "audio"
+        },
+        "track_id": {
+          "$var": "music_track"
+        },
+        "start_time": 1
+      }
+    },
+    {
+      "tool": "verify_playback",
+      "args": {
+        "mode": "quick"
+      },
+      "expect": {
+        "output_contains": [
+          "=== CONTENT VERIFICATION ===",
+          "Result:"
+        ],
+        "output_not_contains": [
+          "[FAIL]"
+        ],
+        "verify_no_failures": true
+      }
+    },
+    {
+      "capture": "timeline_after_insert",
+      "zoom": "fit",
+      "expect": {
+        "baseline": "demo_visual_smoke/timeline_after_insert.png",
+        "phash_max_distance": 8,
+        "mean_abs_diff_max": 8.0
+      }
+    }
+  ]
+}

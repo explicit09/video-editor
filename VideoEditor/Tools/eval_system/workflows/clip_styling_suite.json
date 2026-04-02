@@ -1,0 +1,54 @@
+{
+  "id": "clip_styling_suite",
+  "description": "Exercise clip-level transform, speed, effect, transition, keyframe, and volume controls on an imported timeline clip.",
+  "eligibility_tags": [],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "get_state",
+    "set_clip_transform",
+    "set_clip_opacity",
+    "set_clip_speed",
+    "set_clip_transition",
+    "set_clip_effect",
+    "set_clip_keyframes",
+    "set_clip_volume",
+    "verify_playback",
+    "take_screenshot",
+    "set_zoom"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "state_initial", "op": "capture_editor_state", "var": "state_initial" },
+    { "id": "video_track", "op": "select_track", "state_var": "state_initial", "type": "video", "var": "video_track" },
+    { "id": "audio_track", "op": "select_track", "state_var": "state_initial", "type": "audio", "var": "audio_track", "optional": true },
+    { "id": "video_clip", "op": "select_clip", "state_var": "state_initial", "track_var": "video_track", "var": "video_clip" },
+    { "id": "audio_clip", "op": "select_clip", "state_var": "state_initial", "track_var": "audio_track", "var": "audio_clip", "optional": true },
+    { "id": "set_clip_transform", "op": "tool", "tool": "set_clip_transform", "args": { "clip_id": "${context.video_clip.id}", "position_x": 4, "position_y": -2, "scale_x": 1.02, "scale_y": 1.02, "rotation": 0.5 } },
+    { "id": "set_clip_opacity", "op": "tool", "tool": "set_clip_opacity", "args": { "clip_id": "${context.video_clip.id}", "opacity": 0.98 } },
+    { "id": "set_clip_speed", "op": "tool", "tool": "set_clip_speed", "args": { "clip_id": "${context.video_clip.id}", "speed": 1.25 } },
+    { "id": "set_clip_transition", "op": "tool", "tool": "set_clip_transition", "args": { "clip_id": "${context.video_clip.id}", "type": "crossDissolve", "duration": 0.1 } },
+    { "id": "set_clip_effect", "op": "tool", "tool": "set_clip_effect", "args": { "clip_id": "${context.video_clip.id}", "effect_type": "blur", "radius": 10 } },
+    { "id": "set_clip_keyframes", "op": "tool", "tool": "set_clip_keyframes", "args": { "clip_id": "${context.video_clip.id}", "track": "positionX", "keyframes": "[{\"time\":0,\"value\":4.0},{\"time\":1.0,\"value\":8.0},{\"time\":2.0,\"value\":4.0}]" } },
+    { "id": "set_clip_volume", "op": "tool", "tool": "set_clip_volume", "when_context": "audio_clip", "args": { "clip_id": "${context.audio_clip.id}", "volume": 0.9 } },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" }, "save_as": "verify_playback_output" },
+    { "id": "timeline_after_clip_styling", "op": "capture", "label": "timeline_after_clip_styling", "zoom": "fit" }
+  ],
+  "validators": [
+    { "id": "verify_playback_clean", "source": "verify_playback" }
+  ],
+  "judges": [
+    {
+      "id": "clip_styling_timeline_sanity",
+      "rubric_id": "timeline_visual_sanity",
+      "artifact_labels": ["timeline_after_clip_styling"],
+      "prompt": "You are grading a video editor timeline screenshot after clip styling operations. Respond with JSON only using keys status, score, confidence, explanation. Grade whether the timeline remains coherent and visually stable after transform, speed, effect, transition, keyframe, and clip-volume updates."
+    }
+  ]
+}

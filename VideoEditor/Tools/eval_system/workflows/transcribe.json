@@ -1,0 +1,24 @@
+{
+  "id": "transcribe",
+  "description": "Import a corpus item, transcribe it, and validate that transcript text is available.",
+  "eligibility_tags": ["has-audio"],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "transcribe_asset",
+    "get_transcript"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "transcribe_asset", "op": "tool", "tool": "transcribe_asset", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "get_transcript", "op": "tool", "tool": "get_transcript", "args": { "asset_id": "${context.asset.id}" } }
+  ],
+  "validators": [
+    { "id": "transcript_present", "source": "get_transcript" }
+  ],
+  "judges": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "asset_management_suite",
+  "description": "Exercise asset deletion by removing an imported asset, re-importing it, and verifying the resulting timeline remains playable.",
+  "eligibility_tags": [],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "delete_asset",
+    "add_to_timeline",
+    "verify_playback",
+    "take_screenshot",
+    "set_zoom"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media_first", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_first_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "delete_asset", "op": "tool", "tool": "delete_asset", "args": { "asset_id": "${context.asset.id}" }, "expect_any": ["Deleted asset '"] },
+    { "id": "wait_for_delete_refresh", "op": "sleep", "seconds": 2.0 },
+    { "id": "post_delete_assets", "op": "snapshot_assets", "var": "post_delete_assets" },
+    { "id": "import_media_second", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_second_asset", "op": "resolve_imported_asset", "from": "post_delete_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" }, "save_as": "verify_playback_output", "timeout_seconds": 300 },
+    { "id": "timeline_after_asset_management", "op": "capture", "label": "timeline_after_asset_management", "zoom": "fit" }
+  ],
+  "validators": [
+    { "id": "verify_playback_clean", "source": "verify_playback" }
+  ],
+  "judges": [
+    {
+      "id": "asset_management_timeline_sanity",
+      "rubric_id": "timeline_visual_sanity",
+      "artifact_labels": ["timeline_after_asset_management"],
+      "prompt": "You are grading a video editor timeline screenshot after asset deletion and re-import. Respond with JSON only using keys status, score, confidence, explanation. Grade whether the timeline remains coherent and visually stable after asset management operations."
+    }
+  ]
+}

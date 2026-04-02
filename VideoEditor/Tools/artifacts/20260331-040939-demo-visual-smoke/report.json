@@ -1,0 +1,89 @@
+{
+  "name": "Demo Visual Smoke",
+  "passed": false,
+  "step_results": [
+    {
+      "label": "clear_project",
+      "passed": true,
+      "output": "Project cleared. Timeline: 0 tracks, 0 clips, 0.0s.",
+      "details": [
+        "tool=clear_project",
+        "expectations passed"
+      ],
+      "artifact_paths": []
+    },
+    {
+      "label": "add_to_timeline",
+      "passed": true,
+      "output": "Added 'Demo_Raw_2' to timeline. Timeline: 2 tracks, 2 clips, 38.7s.",
+      "details": [
+        "tool=add_to_timeline",
+        "expectations passed"
+      ],
+      "artifact_paths": []
+    },
+    {
+      "label": "add_track",
+      "passed": true,
+      "output": "Timeline: 3 tracks, 2 clips, 38.7s.",
+      "details": [
+        "tool=add_track",
+        "expectations passed"
+      ],
+      "artifact_paths": []
+    },
+    {
+      "label": "add_track",
+      "passed": true,
+      "output": "Timeline: 4 tracks, 2 clips, 38.7s.",
+      "details": [
+        "tool=add_track",
+        "expectations passed"
+      ],
+      "artifact_paths": []
+    },
+    {
+      "label": "insert_clip",
+      "passed": true,
+      "output": "Timeline: 4 tracks, 3 clips, 38.7s.",
+      "details": [
+        "tool=insert_clip",
+        "expectations passed"
+      ],
+      "artifact_paths": []
+    },
+    {
+      "label": "insert_clip",
+      "passed": true,
+      "output": "Timeline: 4 tracks, 4 clips, 38.7s.",
+      "details": [
+        "tool=insert_clip",
+        "expectations passed"
+      ],
+      "artifact_paths": []
+    },
+    {
+      "label": "verify_playback",
+      "passed": true,
+      "output": "=== CONTENT VERIFICATION ===\nMode: quick | Checkpoints: 8 | Duration: expected 38.7s, actual 38.7s \u2713\n\n[PASS] Demo_Raw_2 start @ 0.2s: audio NCC=1.00 video pHash=2 RMS=0.0026 \u2014 OK\n[PASS] Demo_Raw_2 start @ 0.2s: audio NCC=1.00 RMS=0.0026 \u2014 OK\n[PASS] import_test_audio start @ 1.2s: RMS=0.0019 \u2014 OK\n[PASS] import_test_audio mid @ 2.3s: RMS=0.0111 \u2014 OK\n[PASS] import_test_image start @ 5.2s: RMS=0.0062 \u2014 OK\n[PASS] import_test_image mid @ 7.5s: RMS=0.0097 \u2014 OK\n[PASS] Demo_Raw_2 mid @ 19.4s: audio NCC=1.00 video pHash=0 RMS=0.0149 \u2014 OK\n[PASS] Demo_Raw_2 mid @ 19.4s: audio NCC=1.00 RMS=0.0149 \u2014 OK\n\nResult: 8/8 PASS\n\n=== COMPOSITION STRUCTURE ===\nVideo tracks: 1, Audio tracks: 2\nComposition duration: 38.7s",
+      "details": [
+        "tool=verify_playback",
+        "expectations passed"
+      ],
+      "artifact_paths": []
+    },
+    {
+      "label": "timeline_after_insert",
+      "passed": false,
+      "output": "Screenshot saved to: /Users/explicit/Library/Containers/com.videoeditor.app/Data/tmp/editor-screenshot-E3C0CEF0.png\nSize: 1200x792",
+      "details": [
+        "capture=timeline-after-insert",
+        "exception: 'int' object has no attribute 'bit_count'"
+      ],
+      "artifact_paths": [
+        "/Users/explicit/Projects/video-editor/VideoEditor/Tools/artifacts/20260331-040939-demo-visual-smoke/timeline-after-insert.png"
+      ]
+    }
+  ],
+  "artifact_dir": "/Users/explicit/Projects/video-editor/VideoEditor/Tools/artifacts/20260331-040939-demo-visual-smoke"
+}

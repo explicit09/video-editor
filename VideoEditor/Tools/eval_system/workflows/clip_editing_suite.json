@@ -1,0 +1,68 @@
+{
+  "id": "clip_editing_suite",
+  "description": "Exercise core timeline clip editing operations on a single imported asset and validate the edited timeline remains playable.",
+  "eligibility_tags": [],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "get_state",
+    "trim_clip",
+    "split_clip",
+    "roll_trim",
+    "duplicate_clip",
+    "move_clip",
+    "rename_clip",
+    "delete_clips",
+    "insert_clip",
+    "ripple_delete",
+    "remove_section",
+    "fix_av_links",
+    "verify_playback",
+    "take_screenshot",
+    "set_zoom"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "state_initial", "op": "capture_editor_state", "var": "state_initial" },
+    { "id": "primary_video_track", "op": "select_track", "state_var": "state_initial", "type": "video", "var": "primary_video_track" },
+    { "id": "primary_video_clip", "op": "select_clip", "state_var": "state_initial", "track_var": "primary_video_track", "var": "primary_video_clip" },
+    { "id": "trim_clip", "op": "tool", "tool": "trim_clip", "args": { "clip_id": "${context.primary_video_clip.id}", "source_start": 1, "source_end": 18 } },
+    { "id": "state_after_trim", "op": "capture_editor_state", "var": "state_after_trim" },
+    { "id": "trimmed_video_clip", "op": "select_clip", "state_var": "state_after_trim", "track_var": "primary_video_track", "var": "trimmed_video_clip" },
+    { "id": "split_clip", "op": "tool", "tool": "split_clip", "args": { "clip_id": "${context.trimmed_video_clip.id}", "at": 8 } },
+    { "id": "state_after_split", "op": "capture_editor_state", "var": "state_after_split" },
+    { "id": "adjacent_after_split", "op": "select_adjacent_clips", "state_var": "state_after_split", "track_var": "primary_video_track", "left_var": "left_clip", "right_var": "right_clip" },
+    { "id": "roll_trim", "op": "tool", "tool": "roll_trim", "args": { "left_clip_id": "${context.left_clip.id}", "right_clip_id": "${context.right_clip.id}", "new_boundary": 7.5 } },
+    { "id": "duplicate_clip", "op": "tool", "tool": "duplicate_clip", "args": { "clip_id": "${context.right_clip.id}" } },
+    { "id": "state_after_duplicate", "op": "capture_editor_state", "var": "state_after_duplicate" },
+    { "id": "trailing_clip", "op": "select_clip", "state_var": "state_after_duplicate", "track_var": "primary_video_track", "index": -1, "var": "trailing_clip" },
+    { "id": "move_clip", "op": "tool", "tool": "move_clip", "args": { "clip_id": "${context.trailing_clip.id}", "new_start": 20, "track_id": "${context.primary_video_track.id}" } },
+    { "id": "rename_clip", "op": "tool", "tool": "rename_clip", "args": { "clip_id": "${context.trailing_clip.id}", "label": "Codex Renamed" } },
+    { "id": "delete_duplicate", "op": "tool", "tool": "delete_clips", "args": { "clip_ids": ["${context.trailing_clip.id}"] } },
+    { "id": "insert_clip", "op": "tool", "tool": "insert_clip", "args": { "asset_id": "${context.asset.id}", "track_id": "${context.primary_video_track.id}", "start_time": 22, "duration": 4 } },
+    { "id": "state_after_insert", "op": "capture_editor_state", "var": "state_after_insert" },
+    { "id": "inserted_clip", "op": "select_clip", "state_var": "state_after_insert", "track_var": "primary_video_track", "index": -1, "var": "inserted_clip" },
+    { "id": "ripple_delete", "op": "tool", "tool": "ripple_delete", "args": { "clip_ids": ["${context.inserted_clip.id}"] } },
+    { "id": "remove_section", "op": "tool", "tool": "remove_section", "args": { "track_id": "${context.primary_video_track.id}", "start_time": 2, "end_time": 3.5 } },
+    { "id": "fix_av_links", "op": "tool", "tool": "fix_av_links" },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" }, "save_as": "verify_playback_output" },
+    { "id": "timeline_after_clip_edits", "op": "capture", "label": "timeline_after_clip_edits", "zoom": "fit" }
+  ],
+  "validators": [
+    { "id": "verify_playback_clean", "source": "verify_playback" }
+  ],
+  "judges": [
+    {
+      "id": "clip_edit_timeline_sanity",
+      "rubric_id": "timeline_visual_sanity",
+      "artifact_labels": ["timeline_after_clip_edits"],
+      "prompt": "You are grading a video editor timeline screenshot after multiple clip edits. Respond with JSON only using keys status, score, confidence, explanation. Grade whether the timeline remains coherent, clips are visible, lanes are readable, and there is no obvious corruption after the edit sequence."
+    }
+  ]
+}

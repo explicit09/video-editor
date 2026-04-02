@@ -1,0 +1,34 @@
+{
+  "id": "export_verify",
+  "description": "Import a corpus item, place it on the timeline, export it, and validate the exported media artifact.",
+  "eligibility_tags": [],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "export_video"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "export_video", "op": "tool", "tool": "export_video", "args": { "filename": "${run.id}", "preset": "medium" }, "save_as": "export_output" }
+  ],
+  "validators": [
+    { "id": "export_exists", "artifact": "export_output" },
+    { "id": "duration_sanity", "artifact": "export_output", "minimum_seconds": 1.0 },
+    { "id": "audio_present", "artifact": "export_output", "required": true, "expected_from_probe": true },
+    { "id": "no_black_frames", "artifact": "export_output" }
+  ],
+  "judges": [
+    {
+      "id": "export_visual_quality",
+      "rubric_id": "export_visual_quality",
+      "artifact_labels": ["export_output"],
+      "prompt": "You are grading an exported video artifact. Respond with JSON only using keys status, score, confidence, explanation. Determine whether the output appears coherent, free of obvious corruption, and visually consistent with a valid export."
+    }
+  ]
+}
