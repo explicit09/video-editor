@@ -115,32 +115,94 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         let isShortForm = instruction.shortFormConfig?.isEnabled == true
         let sfCaptionWords = instruction.shortFormConfig?.captionWords ?? []
 
-        // Generate subtitle entries from short-form caption words if no explicit subtitles
-        var subtitleEntries = instruction.subtitles
-        if subtitleEntries.isEmpty && !sfCaptionWords.isEmpty {
+        // Collect word-level data for styled captions.
+        // NOTE: 16:9 captions require CompositionBuilder to populate captionWords on
+        // EffectInstruction, which currently only happens via shortFormConfig. Threading
+        // transcript words through CompositionBuilder for 16:9 is a larger change.
+        var allCaptionWords = instruction.captionWords
+        if allCaptionWords.isEmpty && !sfCaptionWords.isEmpty {
             let sourceOffset = instruction.shortFormConfig?.sourceTimeOffset ?? 0
-            // Convert source-time words to timeline-time subtitle entries
-            let timelineWords = sfCaptionWords.map {
+            allCaptionWords = sfCaptionWords.map {
                 TranscriptWord(word: $0.word, lemma: $0.lemma, start: $0.start - sourceOffset, end: $0.end - sourceOffset, confidence: $0.confidence)
             }
-            subtitleEntries = SubtitleRenderer.groupWordsIntoSubtitles(timelineWords, wordsPerLine: 5)
         }
 
-        if !subtitleEntries.isEmpty {
+        // Use CaptionStyler when we have word-level data (all styles including standard)
+        let captionStyle = instruction.captionStyle
+        if !allCaptionWords.isEmpty {
             let time = request.compositionTime.seconds
             let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+            let fontSize = isShortForm ? renderSize.height * 0.028 : max(renderSize.height * 0.04, 18)
 
-            let captionMargin: CGFloat? = isShortForm ? renderSize.height * 0.03 : nil
-            let captionFontSize: CGFloat? = isShortForm ? renderSize.height * 0.028 : nil
+            // Find visible words for this time (window of ~5 words around active)
+            let activeIdx = CaptionStyler.activeWordIndex(at: time, words: allCaptionWords)
+            if let idx = activeIdx {
+                // Compute word progress (0-1 within active word)
+                let activeWord = allCaptionWords[idx]
+                let wordDuration = activeWord.end - activeWord.start
+                let wordProgress = wordDuration > 0 ? Float((time - activeWord.start) / wordDuration) : 0
 
-            image = SubtitleRenderer.render(
-                subtitles: subtitleEntries,
-                at: time,
-                onto: image,
-                renderSize: renderSize,
-                bottomMarginOverride: captionMargin,
-                fontSizeOverride: captionFontSize
-            )
+                // For hormozi, show only active word; for others, window of ~5
+                let windowStart: Int
+                let windowEnd: Int
+                if captionStyle == .hormozi {
+                    windowStart = idx
+                    windowEnd = idx + 1
+                } else {
+                    windowStart = max(0, idx - 2)
+                    windowEnd = min(allCaptionWords.count, idx + 3)
+                }
+                let visibleWords = Array(allCaptionWords[windowStart..<windowEnd])
+                let text = visibleWords.map(\.word).joined(separator: " ")
+                let localActiveIdx = idx - windowStart
+
+                if let captionImage = CaptionStyler.renderCaption(
+                    text: text,
+                    activeWordIndex: localActiveIdx,
+                    style: captionStyle,
+                    size: renderSize,
+                    fontSize: fontSize,
+                    wordProgress: wordProgress
+                ) {
+                    let ciCaption = CIImage(cgImage: captionImage)
+                    image = ciCaption.composited(over: image)
+                }
+
+                // Progress bar for short-form
+                if isShortForm, let firstWord = allCaptionWords.first, let lastWord = allCaptionWords.last {
+                    let totalProgress = Float((time - firstWord.start) / (lastWord.end - firstWord.start))
+                    if let barImage = CaptionStyler.renderProgressBar(
+                        progress: max(0, min(1, totalProgress)),
+                        size: renderSize,
+                        barColor: CGColor(red: 1, green: 1, blue: 1, alpha: 0.9)
+                    ) {
+                        let ciBar = CIImage(cgImage: barImage)
+                        image = ciBar.composited(over: image)
+                    }
+                }
+            }
+        } else {
+            // Fallback: standard SubtitleRenderer for grouped text
+            var subtitleEntries = instruction.subtitles
+            if subtitleEntries.isEmpty && !allCaptionWords.isEmpty {
+                subtitleEntries = SubtitleRenderer.groupWordsIntoSubtitles(allCaptionWords, wordsPerLine: 5)
+            }
+
+            if !subtitleEntries.isEmpty {
+                let time = request.compositionTime.seconds
+                let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+                let captionMargin: CGFloat? = isShortForm ? renderSize.height * 0.03 : nil
+                let captionFontSize: CGFloat? = isShortForm ? renderSize.height * 0.028 : nil
+
+                image = SubtitleRenderer.render(
+                    subtitles: subtitleEntries,
+                    at: time,
+                    onto: image,
+                    renderSize: renderSize,
+                    bottomMarginOverride: captionMargin,
+                    fontSizeOverride: captionFontSize
+                )
+            }
         }
 
         // Render broadcast overlay if configured
@@ -345,6 +407,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
     public let subtitles: [SubtitleRenderer.SubtitleEntry]
     public let broadcastOverlay: BroadcastOverlayConfig?
     public let shortFormConfig: ShortFormConfig?
+    public let captionStyle: CaptionStyler.CaptionStyle
+    public let captionWords: [TranscriptWord]
 
     public init(
         timeRange: CMTimeRange,
@@ -356,7 +420,9 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         blendMode: BlendMode = .normal,
         subtitles: [SubtitleRenderer.SubtitleEntry] = [],
         broadcastOverlay: BroadcastOverlayConfig? = nil,
-        shortFormConfig: ShortFormConfig? = nil
+        shortFormConfig: ShortFormConfig? = nil,
+        captionStyle: CaptionStyler.CaptionStyle = .standard,
+        captionWords: [TranscriptWord] = []
     ) {
         self.timeRange = timeRange
         self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
@@ -368,6 +434,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         self.subtitles = subtitles
         self.broadcastOverlay = broadcastOverlay
         self.shortFormConfig = shortFormConfig
+        self.captionStyle = captionStyle
+        self.captionWords = captionWords
         super.init()
     }
 }

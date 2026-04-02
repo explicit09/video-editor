@@ -30,7 +30,10 @@ public struct AIToolRegistry: Sendable {
         setClipTransition,
         deleteMarker,
         setClipTransform,
+        setClipKeyframes,
         rollTrim,
+        slipClip,
+        rippleTrim,
         autoReframe,
         detectBeats,
         scoreThumbnails,
@@ -77,9 +80,10 @@ public struct AIToolRegistry: Sendable {
 
     public static let transcribeAsset = AIToolDefinition(
         name: "transcribe_asset",
-        description: "Transcribe a media asset that hasn't been transcribed yet. This sends audio to a transcription service and may take a moment. Only call if get_transcript returns no transcript.",
+        description: "Transcribe a media asset that hasn't been transcribed yet. This sends audio to a transcription service and may take a moment. Only call if get_transcript returns no transcript. Supports cloud (Deepgram, default) or local (WhisperKit, offline, free) providers.",
         parameters: .object([
             "asset_id": .init(type: "string", description: "UUID of the asset to transcribe"),
+            "provider": .init(type: "string", description: "Transcription provider: 'deepgram' (default, cloud, supports diarization) or 'local'/'whisper' (WhisperKit, offline, free, no diarization)"),
         ], required: ["asset_id"])
     )
 
@@ -427,6 +431,16 @@ public struct AIToolRegistry: Sendable {
         ], required: ["clip_id"])
     )
 
+    public static let setClipKeyframes = AIToolDefinition(
+        name: "set_clip_keyframes",
+        description: "Animate a clip property over time with keyframes. Tracks: opacity, scaleX, scaleY, positionX, positionY, rotation. Creates smooth animations like Ken Burns, fade in/out, zoom effects.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "track": .init(type: "string", description: "Property to animate: opacity, scaleX, scaleY, positionX, positionY, rotation"),
+            "keyframes": .init(type: "string", description: "JSON array of keyframes: [{\"time\": 0, \"value\": 1.0}, {\"time\": 2.5, \"value\": 0.0}]. Time is seconds from clip start. Interpolation: linear (default), easeIn, easeOut, easeInOut, hold."),
+        ], required: ["clip_id", "track", "keyframes"])
+    )
+
     public static let rollTrim = AIToolDefinition(
         name: "roll_trim",
         description: "Adjust the boundary between two adjacent clips. Extends one while shortening the other — total duration unchanged.",
@@ -435,6 +449,25 @@ public struct AIToolRegistry: Sendable {
             "right_clip_id": .init(type: "string", description: "UUID of the right (incoming) clip"),
             "new_boundary": .init(type: "number", description: "New boundary time in seconds"),
         ], required: ["left_clip_id", "right_clip_id", "new_boundary"])
+    )
+
+    public static let slipClip = AIToolDefinition(
+        name: "slip_clip",
+        description: "Slip edit: shift which portion of source media is shown within a clip without moving it on the timeline or changing its duration. Positive delta shifts source later, negative shifts earlier.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip to slip"),
+            "delta": .init(type: "number", description: "Seconds to shift the source window (positive = later, negative = earlier)"),
+        ], required: ["clip_id", "delta"])
+    )
+
+    public static let rippleTrim = AIToolDefinition(
+        name: "ripple_trim",
+        description: "Trim a clip's head or tail and shift all subsequent clips on the same track to close/open the gap. For head: positive delta trims more from start. For tail: positive delta extends, negative shortens.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip to trim"),
+            "edge": .init(type: "string", description: "Which edge to trim", enumValues: ["head", "tail"]),
+            "delta": .init(type: "number", description: "Seconds to adjust (see description for direction)"),
+        ], required: ["clip_id", "edge", "delta"])
     )
 
     // MARK: - Analysis tools (read-only, return data)
@@ -806,6 +839,24 @@ public struct AIToolResolver: Sendable {
             )
             return [.setClipTransform(clipID: clipID, transform: transform)]
 
+        case "set_clip_keyframes":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr),
+                  let track = arguments["track"] as? String,
+                  let kfJSON = arguments["keyframes"] as? String else {
+                throw AIToolError.invalidArgument("Missing clip_id, track, or keyframes")
+            }
+            guard let data = kfJSON.data(using: .utf8),
+                  let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
+                throw AIToolError.invalidArgument("keyframes must be a valid JSON array")
+            }
+            let keyframes: [Keyframe] = arr.compactMap { entry in
+                guard let time = entry["time"] as? Double, let value = entry["value"] as? Double else { return nil }
+                let interpStr = entry["interpolation"] as? String ?? "linear"
+                let interp = KeyframeInterpolation(rawValue: interpStr) ?? .linear
+                return Keyframe(time: time, value: value, interpolation: interp)
+            }
+            return [.setClipKeyframes(clipID: clipID, track: track, keyframes: keyframes)]
+
         case "roll_trim":
             guard let leftStr = arguments["left_clip_id"] as? String, let leftID = UUID(uuidString: leftStr),
                   let rightStr = arguments["right_clip_id"] as? String, let rightID = UUID(uuidString: rightStr),
@@ -813,6 +864,27 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing left_clip_id, right_clip_id, or new_boundary")
             }
             return [.rollTrim(leftClipID: leftID, rightClipID: rightID, newBoundary: boundary)]
+
+        case "slip_clip":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid clip_id")
+            }
+            guard let delta = arguments["delta"] as? Double else {
+                throw AIToolError.invalidArgument("Missing delta")
+            }
+            return [.slipClip(clipID: clipID, delta: delta)]
+
+        case "ripple_trim":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid clip_id")
+            }
+            guard let edgeStr = arguments["edge"] as? String, let edge = TrimEdge(rawValue: edgeStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid edge (must be 'head' or 'tail')")
+            }
+            guard let delta = arguments["delta"] as? Double else {
+                throw AIToolError.invalidArgument("Missing delta")
+            }
+            return [.rippleTrim(clipID: clipID, edge: edge, delta: delta)]
 
         // Analysis tools — handled upstream in AIChatController/MCPServer (need AppState)
         // Return empty intents — the caller handles these before reaching the resolver.

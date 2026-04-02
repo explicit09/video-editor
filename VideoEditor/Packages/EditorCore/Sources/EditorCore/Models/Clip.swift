@@ -88,6 +88,13 @@ public struct TimeRange: Codable, Sendable, Equatable {
     }
 }
 
+// MARK: - TrimEdge
+
+public enum TrimEdge: String, Codable, Sendable {
+    case head  // trim the start
+    case tail  // trim the end
+}
+
 // MARK: - CropRect
 
 public struct CropRect: Codable, Sendable, Equatable {
