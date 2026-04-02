@@ -20,7 +20,8 @@ final class MediaCoordinator {
     private(set) var assets: [MediaAsset] = []
     private(set) var waveformStates: [UUID: WaveformLoadState] = [:]
     private var pendingTranscriptionProvider: (any TranscriptionProvider)?
-    @ObservationIgnored private var waveformTasks: Set<UUID> = []
+    private var pendingLocalTranscriptionProvider: (any TranscriptionProvider)?
+    @ObservationIgnored private var waveformTasks: [UUID: Task<Void, Never>] = [:]
     @ObservationIgnored private var analysisTasks: [UUID: Task<Void, Never>] = [:]
 
     /// Called when background analysis/proxy completes. AppState uses this to rebuild composition.
@@ -103,6 +104,19 @@ final class MediaCoordinator {
         onAssetsChanged?()
     }
 
+    func stopBackgroundWork() {
+        analysisTasks.values.forEach { $0.cancel() }
+        analysisTasks.removeAll()
+
+        waveformTasks.values.forEach { $0.cancel() }
+        waveformTasks.removeAll()
+
+        memoryMonitor.stopMonitoring()
+        Task {
+            await proxyService.cancelAll()
+        }
+    }
+
     func thumbnail(for assetID: UUID) async -> CGImage? {
         await mediaManager.thumbnail(for: assetID)
     }
@@ -117,9 +131,14 @@ final class MediaCoordinator {
 
     // MARK: - Transcription
 
-    /// Set provider synchronously — configures the actor on first use.
+    /// Set cloud provider synchronously — configures the actor on first use.
     func setTranscriptionProvider(_ provider: any TranscriptionProvider) {
         pendingTranscriptionProvider = provider
+    }
+
+    /// Set local (WhisperKit) provider synchronously — configures the actor on first use.
+    func setLocalTranscriptionProvider(_ provider: any TranscriptionProvider) {
+        pendingLocalTranscriptionProvider = provider
     }
 
     /// Ensure transcription service is configured before use.
@@ -127,6 +146,10 @@ final class MediaCoordinator {
         if let provider = pendingTranscriptionProvider {
             await transcriptionService.configure(provider: provider)
             pendingTranscriptionProvider = nil
+        }
+        if let localProvider = pendingLocalTranscriptionProvider {
+            await transcriptionService.configureLocal(provider: localProvider)
+            pendingLocalTranscriptionProvider = nil
         }
     }
 
@@ -172,6 +195,9 @@ final class MediaCoordinator {
     private func reconcileWaveformStates() async {
         let validAssetIDs = Set(assets.map(\.id))
         waveformStates = waveformStates.filter { validAssetIDs.contains($0.key) }
+        for assetID in waveformTasks.keys where !validAssetIDs.contains(assetID) {
+            waveformTasks.removeValue(forKey: assetID)?.cancel()
+        }
 
         for asset in assets {
             await updateWaveformState(for: asset)
@@ -181,12 +207,13 @@ final class MediaCoordinator {
     private func updateWaveformState(for asset: MediaAsset) async {
         guard asset.type != .image else {
             waveformStates.removeValue(forKey: asset.id)
+            waveformTasks.removeValue(forKey: asset.id)?.cancel()
             return
         }
 
         if let profile = asset.analysis?.loudnessProfile, !profile.isEmpty {
             waveformStates[asset.id] = .ready(profile)
-            waveformTasks.remove(asset.id)
+            waveformTasks.removeValue(forKey: asset.id)?.cancel()
             return
         }
 
@@ -194,20 +221,20 @@ final class MediaCoordinator {
         waveformStates[asset.id] = WaveformLoadStateResolver.resolve(
             for: asset,
             hasAudioTrack: hasAudioTrack,
-            extractionInFlight: waveformTasks.contains(asset.id)
+            extractionInFlight: waveformTasks[asset.id] != nil
         )
 
-        guard hasAudioTrack, !waveformTasks.contains(asset.id) else { return }
+        guard hasAudioTrack, waveformTasks[asset.id] == nil else { return }
 
-        waveformTasks.insert(asset.id)
         waveformStates[asset.id] = .loading
 
-        Task {
+        let task = Task {
             let waveformExtractor = WaveformExtractor()
             let profile = await waveformExtractor.extract(from: asset.sourceURL)
+            guard !Task.isCancelled else { return }
 
             await MainActor.run {
-                self.waveformTasks.remove(asset.id)
+                self.waveformTasks.removeValue(forKey: asset.id)
 
                 if let profile, !profile.isEmpty {
                     Task {
@@ -225,6 +252,8 @@ final class MediaCoordinator {
                 }
             }
         }
+
+        waveformTasks[asset.id] = task
     }
 
     private func assetHasAudioTrack(_ asset: MediaAsset) async -> Bool {
@@ -237,6 +266,12 @@ final class MediaCoordinator {
             let avAsset = AVURLAsset(url: asset.sourceURL)
             guard let tracks = try? await avAsset.loadTracks(withMediaType: .audio) else { return false }
             return !tracks.isEmpty
+        }
+    }
+
+    deinit {
+        MainActor.assumeIsolated {
+            stopBackgroundWork()
         }
     }
 }

@@ -5,12 +5,31 @@ import EditorCore
 /// Transcripts are tied to asset IDs and never regenerated without explicit permission.
 public actor TranscriptionService {
     private var provider: (any TranscriptionProvider)?
+    private var localProvider: (any TranscriptionProvider)?
     private var inProgress: Set<UUID> = []
 
     public init() {}
 
     public func configure(provider: any TranscriptionProvider) {
         self.provider = provider
+    }
+
+    public func configureLocal(provider: any TranscriptionProvider) {
+        self.localProvider = provider
+    }
+
+    /// Resolve which provider to use based on preference and availability.
+    /// - When `useLocal` is true, always use local provider.
+    /// - When diarization is needed and cloud provider exists, prefer cloud (it supports diarization).
+    /// - Otherwise fall back to local if cloud is unavailable.
+    public func resolveProvider(preferLocal: Bool, needsDiarization: Bool) -> (any TranscriptionProvider)? {
+        if preferLocal {
+            return localProvider ?? provider
+        }
+        if needsDiarization, provider != nil {
+            return provider
+        }
+        return provider ?? localProvider
     }
 
     /// Get transcript for an asset. Checks: in-memory → disk → returns nil.
@@ -34,12 +53,14 @@ public actor TranscriptionService {
     }
 
     /// Transcribe an asset. Only runs if no transcript exists (or force = true).
-    /// Returns the result, or nil if provider not configured.
+    /// Returns the result, or nil if no provider is configured.
+    /// Set `useLocal` to force local (WhisperKit) transcription.
     public func transcribe(
         asset: MediaAsset,
         mediaManager: MediaManager,
         bundleURL: URL,
         force: Bool = false,
+        useLocal: Bool = false,
         onStatus: (@Sendable (String) -> Void)? = nil
     ) async throws -> TranscriptionResult? {
         if !force {
@@ -49,10 +70,17 @@ public actor TranscriptionService {
         }
 
         guard !inProgress.contains(asset.id) else { return nil }
-        guard let provider else { return nil }
+
+        let enableDiarization = !useLocal // Only cloud providers support diarization
+        guard let activeProvider = resolveProvider(
+            preferLocal: useLocal,
+            needsDiarization: enableDiarization
+        ) else { return nil }
 
         inProgress.insert(asset.id)
         defer { inProgress.remove(asset.id) }
+
+        let isLocal = activeProvider.name == "WhisperKit"
 
         // Step 1: Extract audio from video
         let audioExtractor = AudioExtractor()
@@ -60,9 +88,11 @@ public actor TranscriptionService {
         if asset.type == .video {
             onStatus?("Extracting audio from video...")
             audioURL = try await audioExtractor.extractAudio(from: asset.sourceURL)
-            onStatus?("Audio extracted. Uploading to Deepgram...")
+            let next = isLocal ? "Transcribing locally..." : "Uploading to \(activeProvider.name)..."
+            onStatus?("Audio extracted. \(next)")
         } else {
-            onStatus?("Uploading audio to Deepgram...")
+            let action = isLocal ? "Preparing local transcription..." : "Uploading audio to \(activeProvider.name)..."
+            onStatus?(action)
             audioURL = asset.sourceURL
         }
         defer {
@@ -70,11 +100,11 @@ public actor TranscriptionService {
         }
 
         // Step 2: Transcribe
-        onStatus?("Transcribing with Deepgram Nova-3...")
-        let rawResult = try await provider.transcribe(
+        onStatus?("Transcribing with \(activeProvider.name)...")
+        let rawResult = try await activeProvider.transcribe(
             audioURL: audioURL,
             language: nil,
-            enableDiarization: true,
+            enableDiarization: enableDiarization,
             progress: { _ in }
         )
 

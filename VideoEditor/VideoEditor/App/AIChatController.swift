@@ -651,6 +651,10 @@ final class AIChatController {
         guard let asset = await appState.media.mediaManager.asset(id: assetID) else {
             throw AIToolError.invalidArgument("Asset not found")
         }
+
+        let providerArg = (args["provider"] as? String)?.lowercased() ?? ""
+        let useLocal = ["local", "whisper", "whisperkit"].contains(providerArg)
+
         await appState.media.ensureTranscriptionConfigured()
 
         if await appState.media.transcriptionService.hasTranscript(
@@ -665,6 +669,7 @@ final class AIChatController {
             asset: asset,
             mediaManager: appState.media.mediaManager,
             bundleURL: appState.projectBundleURL,
+            useLocal: useLocal,
             onStatus: { [weak self] status in
                 Task { @MainActor in self?.processingStatus = status }
             }
@@ -674,9 +679,10 @@ final class AIChatController {
 
         if let result {
             await appState.media.refreshAssets()
-            return "Transcribed (\(result.words.count) words, \(String(format: "%.1f", result.duration))s). Use get_transcript to read."
+            let providerName = useLocal ? "WhisperKit (local)" : "Deepgram"
+            return "Transcribed with \(providerName) (\(result.words.count) words, \(String(format: "%.1f", result.duration))s). Use get_transcript to read."
         } else {
-            return "Transcription not configured. Add DEEPGRAM_API_KEY to .env file."
+            return "Transcription not configured. Add DEEPGRAM_API_KEY to .env file or use provider: 'local' for WhisperKit."
         }
     }
 
@@ -744,74 +750,21 @@ final class AIChatController {
 
         guard !targetClips.isEmpty else { return "No clips to process." }
 
-        var totalRemoved = 0
-        var clipsToDelete: [UUID] = []
+        let result = SilenceRemovalExecutor.remove(
+            minimumDuration: minDuration,
+            from: targetClips,
+            appState: appState,
+            source: .ai
+        )
 
-        for clip in targetClips {
-            guard let asset = appState.assets.first(where: { $0.id == clip.assetID }),
-                  let silenceRanges = asset.analysis?.silenceRanges, !silenceRanges.isEmpty else { continue }
-
-            let clipSourceStart = clip.sourceRange.start
-            let clipSourceEnd = clip.sourceRange.end
-            let timelineOffset = clip.timelineRange.start - clipSourceStart
-
-            // Map silence ranges to timeline time and filter by min duration
-            var silenceInClip: [TimeRange] = []
-            for silence in silenceRanges {
-                let overlapStart = max(silence.start, clipSourceStart)
-                let overlapEnd = min(silence.end, clipSourceEnd)
-                let duration = overlapEnd - overlapStart
-                guard duration >= minDuration else { continue }
-                silenceInClip.append(TimeRange(start: overlapStart + timelineOffset, end: overlapEnd + timelineOffset))
-            }
-
-            guard !silenceInClip.isEmpty else { continue }
-
-            // Process silence ranges from end to start so earlier splits don't shift later positions
-            let sorted = silenceInClip.sorted { $0.start > $1.start }
-
-            for silence in sorted {
-                // Find the clip that currently contains this silence range
-                let allClips = appState.timeline.tracks.flatMap(\.clips)
-                guard let containingClip = allClips.first(where: {
-                    $0.assetID == clip.assetID &&
-                    $0.timelineRange.start <= silence.start + 0.01 &&
-                    $0.timelineRange.end >= silence.end - 0.01
-                }) else { continue }
-
-                let containingID = containingClip.id
-
-                // Split at silence end (if not at clip end)
-                if silence.end < containingClip.timelineRange.end - 0.01 {
-                    try? appState.perform(.splitClip(clipID: containingID, at: silence.end), source: .ai)
-                }
-
-                // Split at silence start (if not at clip start)
-                // After the end split, the original clipID still refers to the head piece
-                if silence.start > containingClip.timelineRange.start + 0.01 {
-                    try? appState.perform(.splitClip(clipID: containingID, at: silence.start), source: .ai)
-                }
-
-                // Find the silent segment by matching time range
-                let postSplitClips = appState.timeline.tracks.flatMap(\.clips)
-                for c in postSplitClips {
-                    if abs(c.timelineRange.start - silence.start) < 0.02 &&
-                       abs(c.timelineRange.end - silence.end) < 0.02 {
-                        clipsToDelete.append(c.id)
-                    }
-                }
-                totalRemoved += 1
-            }
-        }
-
-        if !clipsToDelete.isEmpty {
-            try? appState.perform(.deleteClips(clipIDs: clipsToDelete), source: .ai)
-        }
-
-        if totalRemoved == 0 {
+        if result.removedSilenceCount == 0 {
             return "No silence ranges found (min duration: \(String(format: "%.1f", minDuration))s)."
         }
-        return "Removed \(totalRemoved) silent segment(s), deleted \(clipsToDelete.count) clip(s)."
+
+        let prunedMessage = result.prunedFragmentCount > 0
+            ? " Pruned \(result.prunedFragmentCount) tiny fragment(s)."
+            : ""
+        return "Removed \(result.removedSilenceCount) silent segment(s) across \(result.processedClipCount) clip(s), rebuilt \(result.insertedClipCount) clip(s), deleted \(result.deletedClipCount) original clip(s).\(prunedMessage)"
     }
 
     // MARK: - Tool result feedback

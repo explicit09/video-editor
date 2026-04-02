@@ -11,11 +11,12 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../EditorCore"),
+        .package(url: "https://github.com/argmaxinc/WhisperKit.git", from: "0.9.0"),
     ],
     targets: [
         .target(
             name: "AIServices",
-            dependencies: ["EditorCore"],
+            dependencies: ["EditorCore", "WhisperKit"],
             path: "Sources/AIServices"
         ),
         .testTarget(
