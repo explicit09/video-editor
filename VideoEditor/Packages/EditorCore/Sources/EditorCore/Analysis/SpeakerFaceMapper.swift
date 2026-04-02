@@ -10,38 +10,27 @@ public struct SpeakerFaceMapper: Sendable {
 
     public init() {}
 
-    /// Map speaker IDs to face indices.
-    /// - Parameters:
-    ///   - speakerSegments: Diarization segments with speaker IDs and time ranges
-    ///   - faceTracks: Detected face tracks from MultiFaceTracker
-    /// - Returns: Dictionary mapping speaker ID → face track index
+    /// Map speaker IDs to face indices by first-appearance order.
+    /// Face 0 = leftmost in frame, face 1 = rightmost (from MultiFaceTracker).
+    /// First speaker seen in diarization → face 0, second → face 1, etc.
+    /// Deepgram speaker IDs are arbitrary, so we use appearance order not numeric value.
     public func map(
         speakerSegments: [SpeakerSegment],
         faceTracks: [FaceTrack]
     ) -> [Int: Int] {
         guard !faceTracks.isEmpty, !speakerSegments.isEmpty else { return [:] }
 
-        // For two faces: left = index 0, right = index 1
-        // Speaker who talks first while on the left = Speaker for face 0
-        // This works because podcast hosts don't switch seats
-
         let faceCount = faceTracks.count
         var mapping: [Int: Int] = [:]
+        var nextSlot = 0
 
-        // Get unique speaker IDs in order of first appearance
-        var seenSpeakers: [Int] = []
         for seg in speakerSegments {
-            let speakerID = speakerIDFromString(seg.speakerID)
-            if !seenSpeakers.contains(speakerID) {
-                seenSpeakers.append(speakerID)
+            let id = speakerIDFromString(seg.speakerID)
+            if mapping[id] == nil {
+                mapping[id] = nextSlot
+                nextSlot += 1
+                if nextSlot >= faceCount { break }
             }
-            if seenSpeakers.count >= faceCount { break }
-        }
-
-        // Simple assignment: first speaker seen → face 0 (leftmost), second → face 1, etc.
-        // This works because in most podcast recordings, the hosts are introduced left-to-right.
-        for (i, speakerID) in seenSpeakers.prefix(faceCount).enumerated() {
-            mapping[speakerID] = i
         }
 
         return mapping

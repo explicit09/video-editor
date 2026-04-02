@@ -206,9 +206,11 @@ extension MultiFaceTracker {
                     prevCenters[i] = smoothed
                 }
             } else {
-                // Fewer faces than expected — assign to nearest slot
+                // Fewer faces than expected — assign to nearest unclaimed slot
+                var claimed: Set<Int> = []
                 for face in faces {
-                    let bestSlot = nearestSlot(for: face.center, prevCenters: prevCenters, faceCount: faceCount)
+                    let bestSlot = nearestSlot(for: face.center, prevCenters: prevCenters, faceCount: faceCount, excluding: claimed)
+                    claimed.insert(bestSlot)
                     let smoothed = smooth(current: face.center, previous: prevCenters[bestSlot])
                     tracks[bestSlot].samples.append(FaceSample(
                         time: detection.time,
@@ -233,11 +235,11 @@ extension MultiFaceTracker {
     }
 
     /// Find the nearest existing slot for a detected face based on X distance.
-    private func nearestSlot(for center: CGPoint, prevCenters: [CGPoint?], faceCount: Int) -> Int {
+    private func nearestSlot(for center: CGPoint, prevCenters: [CGPoint?], faceCount: Int, excluding claimed: Set<Int> = []) -> Int {
         var bestSlot = 0
         var bestDist = CGFloat.greatestFiniteMagnitude
 
-        for i in 0..<faceCount {
+        for i in 0..<faceCount where !claimed.contains(i) {
             let slotX = prevCenters[i]?.x ?? (CGFloat(i) + 0.5) / CGFloat(faceCount)
             let dist = abs(center.x - slotX)
             if dist < bestDist {

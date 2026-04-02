@@ -19,7 +19,10 @@ public struct ShortFormLayoutRenderer {
         at time: TimeInterval,
         renderSize: CGSize
     ) -> CIImage {
-        let layout = config.layoutAt(time: time)
+        // Layout segments use clip-relative time (0-based), but `time` is source time.
+        // Subtract sourceTimeOffset to get clip-relative time for layout lookup.
+        let clipTime = time - config.sourceTimeOffset
+        let layout = config.layoutAt(time: clipTime)
         let sourceExtent = source.extent
         let sourceW = sourceExtent.width
         let sourceH = sourceExtent.height
@@ -55,7 +58,7 @@ extension ShortFormLayoutRenderer {
         source: CIImage, sourceW: CGFloat, sourceH: CGFloat,
         config: ShortFormConfig, time: TimeInterval, renderSize: CGSize
     ) -> CIImage {
-        let divider = config.dividerWidth * (renderSize.width / 1080)
+        let divider = config.dividerWidth * (renderSize.height / 1920)
         let captionH = config.captionRegionHeight * (renderSize.height / 1920)
         let regionH = (renderSize.height - captionH - divider) / 2
         let halfW = sourceW / 2
@@ -155,7 +158,7 @@ extension ShortFormLayoutRenderer {
         activeSpeaker: Int
     ) -> CIImage {
         let face = config.faceCenterAt(faceIndex: activeSpeaker, time: time)
-            ?? CGPoint(x: activeSpeaker == 0 ? 0.25 : 0.75, y: 0.5)
+            ?? CGPoint(x: 0.5, y: 0.5)
 
         // For 9:16 output from 16:9 source: crop a narrow vertical strip
         let targetAspect = renderSize.width / renderSize.height // 0.5625 for 9:16
@@ -208,7 +211,7 @@ extension ShortFormLayoutRenderer {
         let otherSpeaker = activeSpeaker == 0 ? 1 : 0
 
         let mainFace = config.faceCenterAt(faceIndex: activeSpeaker, time: time)
-            ?? CGPoint(x: activeSpeaker == 0 ? 0.25 : 0.75, y: 0.5)
+            ?? CGPoint(x: 0.5, y: 0.5)
         let otherFace = config.faceCenterAt(faceIndex: otherSpeaker, time: time)
             ?? CGPoint(x: otherSpeaker == 0 ? 0.25 : 0.75, y: 0.5)
 
