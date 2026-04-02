@@ -26,6 +26,7 @@ public actor VersionControl {
 
     /// Save a named snapshot of the current timeline.
     public func saveSnapshot(name: String, timeline: Timeline) throws {
+        loadFromDisk()
         let data = try JSONEncoder().encode(timeline)
         let snapshot = Snapshot(name: name, timelineData: data)
         snapshots.append(snapshot)
@@ -33,7 +34,7 @@ public actor VersionControl {
         // Persist to disk
         try FileManager.default.createDirectory(at: storageURL, withIntermediateDirectories: true)
         let fileURL = storageURL.appendingPathComponent("\(snapshot.id.uuidString).json")
-        try data.write(to: fileURL)
+        try JSONEncoder().encode(snapshot).write(to: fileURL)
 
         // Save index
         try saveIndex()
@@ -41,11 +42,13 @@ public actor VersionControl {
 
     /// List all snapshots.
     public func listSnapshots() -> [Snapshot] {
-        snapshots.sorted { $0.timestamp > $1.timestamp }
+        loadFromDisk()
+        return snapshots.sorted { $0.timestamp > $1.timestamp }
     }
 
     /// Restore a snapshot by ID.
     public func restoreSnapshot(id: UUID) throws -> Timeline {
+        loadFromDisk()
         guard let snapshot = snapshots.first(where: { $0.id == id }) else {
             throw VersionError.snapshotNotFound
         }
@@ -54,6 +57,7 @@ public actor VersionControl {
 
     /// Delete a snapshot.
     public func deleteSnapshot(id: UUID) throws {
+        loadFromDisk()
         snapshots.removeAll { $0.id == id }
         let fileURL = storageURL.appendingPathComponent("\(id.uuidString).json")
         try? FileManager.default.removeItem(at: fileURL)
@@ -62,18 +66,45 @@ public actor VersionControl {
 
     /// Load snapshots from disk on startup.
     public func loadFromDisk() {
-        let indexURL = storageURL.appendingPathComponent("index.json")
-        guard let data = try? Data(contentsOf: indexURL),
-              let loaded = try? JSONDecoder().decode([Snapshot].self, from: data) else {
-            return
-        }
-        snapshots = loaded
+        snapshots = Array(loadSnapshotIndexAndFiles().values)
+            .sorted { $0.timestamp > $1.timestamp }
     }
 
     private func saveIndex() throws {
         let indexURL = storageURL.appendingPathComponent("index.json")
         let data = try JSONEncoder().encode(snapshots)
         try data.write(to: indexURL)
+    }
+
+    private func loadSnapshotIndexAndFiles() -> [UUID: Snapshot] {
+        var merged: [UUID: Snapshot] = [:]
+        let decoder = JSONDecoder()
+        let indexURL = storageURL.appendingPathComponent("index.json")
+
+        if let data = try? Data(contentsOf: indexURL),
+           let indexedSnapshots = try? decoder.decode([Snapshot].self, from: data) {
+            for snapshot in indexedSnapshots {
+                merged[snapshot.id] = snapshot
+            }
+        }
+
+        guard let fileURLs = try? FileManager.default.contentsOfDirectory(
+            at: storageURL,
+            includingPropertiesForKeys: nil,
+            options: [.skipsHiddenFiles]
+        ) else {
+            return merged
+        }
+
+        for fileURL in fileURLs where fileURL.pathExtension == "json" && fileURL.lastPathComponent != "index.json" {
+            guard let data = try? Data(contentsOf: fileURL),
+                  let snapshot = try? decoder.decode(Snapshot.self, from: data) else {
+                continue
+            }
+            merged[snapshot.id] = snapshot
+        }
+
+        return merged
     }
 }
 

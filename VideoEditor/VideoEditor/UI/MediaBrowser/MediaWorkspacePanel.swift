@@ -71,12 +71,12 @@ struct MediaWorkspacePanel: View {
         .background(CinematicTheme.surface)
         .fileImporter(
             isPresented: $isImporting,
-            allowedContentTypes: [.movie, .video, .quickTimeMovie, .mpeg4Movie, .audio, .mp3, .wav, .image, .png, .jpeg],
+            allowedContentTypes: SupportedMediaTypes.fileImporterTypes,
             allowsMultipleSelection: true
         ) { result in
             Task { await handleImport(result) }
         }
-        .onDrop(of: [.movie, .video, .audio, .fileURL], isTargeted: nil) { providers in
+        .onDrop(of: SupportedMediaTypes.dropTypes, isTargeted: nil) { providers in
             Task { await handleDrop(providers) }
             return true
         }
@@ -424,8 +424,12 @@ struct MediaWorkspacePanel: View {
         switch result {
         case .success(let urls):
             for url in urls {
-                guard url.startAccessingSecurityScopedResource() else { continue }
-                defer { url.stopAccessingSecurityScopedResource() }
+                let didAccess = url.startAccessingSecurityScopedResource()
+                defer {
+                    if didAccess {
+                        url.stopAccessingSecurityScopedResource()
+                    }
+                }
                 do {
                     let asset = try await appState.importMedia(from: url)
                     let thumb = await appState.media.thumbnail(for: asset.id)

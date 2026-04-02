@@ -19,7 +19,7 @@ struct MediaBrowserPanel: View {
             }
         }
         .background(CinematicTheme.surfaceContainerLow)
-        .onDrop(of: [.movie, .video, .audio, .fileURL], isTargeted: nil) { providers in
+        .onDrop(of: SupportedMediaTypes.dropTypes, isTargeted: nil) { providers in
             Task { await handleDrop(providers) }
             return true
         }
@@ -157,8 +157,12 @@ struct MediaBrowserPanel: View {
         switch result {
         case .success(let urls):
             for url in urls {
-                guard url.startAccessingSecurityScopedResource() else { continue }
-                defer { url.stopAccessingSecurityScopedResource() }
+                let didAccess = url.startAccessingSecurityScopedResource()
+                defer {
+                    if didAccess {
+                        url.stopAccessingSecurityScopedResource()
+                    }
+                }
                 do {
                     let asset = try await appState.importMedia(from: url)
                     let thumb = await appState.media.thumbnail(for: asset.id)
@@ -193,12 +197,7 @@ struct MediaBrowserPanel: View {
             await appState.addAssetToTimeline(asset)
         }
     }
-
-    private static let allowedTypes: [UTType] = [
-        .movie, .video, .quickTimeMovie, .mpeg4Movie, .avi,
-        .audio, .mp3, .wav, .aiff,
-        .image, .png, .jpeg, .heic, .tiff,
-    ]
+    private static let allowedTypes: [UTType] = SupportedMediaTypes.fileImporterTypes
 }
 
 // MARK: - Thumbnail View

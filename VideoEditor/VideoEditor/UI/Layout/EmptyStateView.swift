@@ -91,7 +91,7 @@ struct EmptyStateView: View {
         .background(CinematicTheme.surface)
         .fileImporter(
             isPresented: $isImporting,
-            allowedContentTypes: [.movie, .video, .quickTimeMovie, .mpeg4Movie, .audio, .mp3, .wav],
+            allowedContentTypes: SupportedMediaTypes.fileImporterTypes,
             allowsMultipleSelection: true
         ) { result in
             Task { await handleImport(result) }
@@ -145,8 +145,12 @@ struct EmptyStateView: View {
         switch result {
         case .success(let urls):
             for url in urls {
-                guard url.startAccessingSecurityScopedResource() else { continue }
-                defer { url.stopAccessingSecurityScopedResource() }
+                let didAccess = url.startAccessingSecurityScopedResource()
+                defer {
+                    if didAccess {
+                        url.stopAccessingSecurityScopedResource()
+                    }
+                }
                 _ = try? await appState.importMedia(from: url)
             }
         case .failure:

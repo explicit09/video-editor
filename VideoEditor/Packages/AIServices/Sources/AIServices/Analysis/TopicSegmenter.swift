@@ -46,9 +46,7 @@ public struct TopicSegmenter: Sendable {
         }
 
         // Energy resets: drop below silence then rise above speech
-        for i in 1..<energyReadings.count {
-            let prev = energyReadings[i - 1]
-            let curr = energyReadings[i]
+        for (prev, curr) in zip(energyReadings, energyReadings.dropFirst()) {
             if prev.isSilence && curr.isSpeech {
                 candidates.append(BoundaryCandidate(time: curr.time, type: .energyReset, score: 0))
             }

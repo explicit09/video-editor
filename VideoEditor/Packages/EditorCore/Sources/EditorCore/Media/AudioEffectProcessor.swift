@@ -2,7 +2,7 @@ import Foundation
 import AVFoundation
 import Accelerate
 
-/// Processes audio through an effect chain (EQ, compression, noise gate).
+/// Processes audio through an effect chain (EQ, compression, noise gate, de-esser).
 /// Uses AVAssetReader/Writer for offline processing — not real-time.
 public struct AudioEffectProcessor: Sendable {
 
@@ -76,6 +76,13 @@ public struct AudioEffectProcessor: Sendable {
         // Noise gate threshold
         let noiseGateThresholdLinear: Float? = effectChain.noiseGateThreshold.map { Float(pow(10.0, $0 / 20.0)) }
 
+        // De-esser state
+        var deEsserFilter: BiquadFilter? = nil
+        var deEsserEnvelope: Float = 0
+        if let freq = effectChain.deEsserFrequency, freq > 0 {
+            deEsserFilter = BiquadFilter.bandpass(frequency: freq, q: 2.0, sampleRate: sampleRate)
+        }
+
         // Process buffers
         while let sampleBuffer = readerOutput.copyNextSampleBuffer() {
             guard let blockBuffer = CMSampleBufferGetDataBuffer(sampleBuffer) else { continue }
@@ -97,6 +104,11 @@ public struct AudioEffectProcessor: Sendable {
             // Apply compression
             if let comp = compSettings {
                 applyCompression(&samples, settings: comp, envelope: &compEnvelope, sampleRate: Float(sampleRate))
+            }
+
+            // Apply de-esser (after EQ and compression)
+            if deEsserFilter != nil {
+                applyDeEsser(&samples, sidechainFilter: &deEsserFilter!, envelope: &deEsserEnvelope, sampleRate: Float(sampleRate))
             }
 
             // Write processed samples
@@ -160,6 +172,45 @@ public struct AudioEffectProcessor: Sendable {
         }
     }
 
+    // MARK: - De-Esser
+
+    /// Frequency-targeted compressor using sidechain bandpass filtering.
+    /// When energy in the sibilance band exceeds the threshold, the main signal is attenuated.
+    private func applyDeEsser(
+        _ samples: inout [Float],
+        sidechainFilter: inout BiquadFilter,
+        envelope: inout Float,
+        sampleRate: Float
+    ) {
+        let threshold: Float = 0.15        // Sibilance detection threshold (linear)
+        let ratio: Float = 6.0             // Heavy ratio for sibilance reduction
+        let attackCoeff = exp(-1.0 / (0.001 * sampleRate))   // 1ms attack — fast to catch transients
+        let releaseCoeff = exp(-1.0 / (0.02 * sampleRate))   // 20ms release
+
+        // Run sidechain filter on a copy to detect sibilance energy
+        var sidechain = samples
+        sidechainFilter.process(&sidechain)
+
+        for i in 0..<samples.count {
+            let sidechainLevel = abs(sidechain[i])
+
+            // Envelope follower on sidechain signal
+            if sidechainLevel > envelope {
+                envelope = attackCoeff * envelope + (1 - attackCoeff) * sidechainLevel
+            } else {
+                envelope = releaseCoeff * envelope + (1 - releaseCoeff) * sidechainLevel
+            }
+
+            // Attenuate main signal when sidechain exceeds threshold
+            if envelope > threshold {
+                let dbOver = 20 * log10(envelope / threshold)
+                let dbReduction = dbOver * (1 - 1 / ratio)
+                let gain = pow(10.0, -dbReduction / 20.0)
+                samples[i] *= gain
+            }
+        }
+    }
+
     // MARK: - Biquad EQ Filter
 
     struct BiquadFilter {
@@ -178,6 +229,24 @@ public struct AudioEffectProcessor: Sendable {
             let a0 = 1 + alpha / A
             let a1 = -2 * cos(w0)
             let a2 = 1 - alpha / A
+
+            return BiquadFilter(
+                b0: b0 / a0, b1: b1 / a0, b2: b2 / a0,
+                a1: a1 / a0, a2: a2 / a0
+            )
+        }
+
+        /// Bandpass biquad coefficients (Audio EQ Cookbook by Robert Bristow-Johnson)
+        static func bandpass(frequency: Double, q: Double, sampleRate: Double) -> BiquadFilter {
+            let w0 = Float(2.0 * Double.pi * frequency / sampleRate)
+            let alpha = sin(w0) / Float(2.0 * q)
+
+            let b0 = alpha
+            let b1: Float = 0
+            let b2 = -alpha
+            let a0 = 1 + alpha
+            let a1 = -2 * cos(w0)
+            let a2 = 1 - alpha
 
             return BiquadFilter(
                 b0: b0 / a0, b1: b1 / a0, b2: b2 / a0,

@@ -58,4 +58,77 @@ struct MediaManagementTests {
     func fourCharCodeFormatting() {
         #expect(FourCharCode(0x61766331).fourCharString == "avc1")
     }
+
+    @Test("MediaImporter detects image assets and reads dimensions")
+    func importImageAsset() async throws {
+        let importer = MediaImporter()
+        let fileManager = FileManager.default
+        let imageURL = fileManager.temporaryDirectory.appendingPathComponent("sample-\(UUID().uuidString).png")
+        let pngData = Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9WlAbWQAAAAASUVORK5CYII=")!
+        try pngData.write(to: imageURL)
+        defer { try? fileManager.removeItem(at: imageURL) }
+
+        let asset = try await importer.importFile(from: imageURL)
+
+        #expect(asset.type == .image)
+        #expect(asset.width == 1)
+        #expect(asset.height == 1)
+        #expect(asset.duration == 0)
+    }
+
+    @Test("MediaImporter rejects unsupported files")
+    func rejectUnsupportedFile() async {
+        let importer = MediaImporter()
+        let fileManager = FileManager.default
+        let unsupportedURL = fileManager.temporaryDirectory.appendingPathComponent("sample-\(UUID().uuidString).txt")
+        try? Data("not media".utf8).write(to: unsupportedURL)
+        defer { try? fileManager.removeItem(at: unsupportedURL) }
+
+        await #expect(throws: MediaImporter.ImportError.self) {
+            try await importer.importFile(from: unsupportedURL)
+        }
+    }
+
+    @Test("MediaImporter reports unreadable movie files clearly")
+    func rejectUnreadableMovieFile() async {
+        let importer = MediaImporter()
+        let fileManager = FileManager.default
+        let movieURL = fileManager.temporaryDirectory.appendingPathComponent("sample-\(UUID().uuidString).mov")
+        try? Data("broken movie".utf8).write(to: movieURL)
+        defer { try? fileManager.removeItem(at: movieURL) }
+
+        do {
+            try await importer.importFile(from: movieURL)
+            Issue.record("Expected unreadable movie import to fail")
+        } catch let error as MediaImporter.ImportError {
+            #expect(
+                error.errorDescription ==
+                "Could not open media file \(movieURL.lastPathComponent). The file may be incomplete or corrupted."
+            )
+        } catch {
+            Issue.record("Unexpected error type: \(error)")
+        }
+    }
+
+    @Test("MediaManager imports images into the bundle and caches thumbnails")
+    func importImageIntoBundle() async throws {
+        let manager = MediaManager()
+        let fileManager = FileManager.default
+        let imageURL = fileManager.temporaryDirectory.appendingPathComponent("bundle-image-\(UUID().uuidString).png")
+        let bundleMediaDir = fileManager.temporaryDirectory.appendingPathComponent("bundle-images-\(UUID().uuidString)", isDirectory: true)
+        let pngData = Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9WlAbWQAAAAASUVORK5CYII=")!
+        try fileManager.createDirectory(at: bundleMediaDir, withIntermediateDirectories: true)
+        try pngData.write(to: imageURL)
+        defer {
+            try? fileManager.removeItem(at: imageURL)
+            try? fileManager.removeItem(at: bundleMediaDir)
+        }
+
+        let asset = try await manager.importFile(from: imageURL, bundleMediaDir: bundleMediaDir)
+
+        #expect(asset.type == .image)
+        #expect(asset.sourceURL.deletingLastPathComponent() == bundleMediaDir)
+        #expect(fileManager.fileExists(atPath: asset.sourceURL.path))
+        #expect(await manager.thumbnail(for: asset.id) != nil)
+    }
 }
