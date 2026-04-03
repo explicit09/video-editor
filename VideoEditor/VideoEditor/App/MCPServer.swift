@@ -1414,9 +1414,10 @@ final class MCPServer {
             return "Error: Asset not found"
         }
 
-        // Pre-validate: asset must have audio to transcribe
-        if !asset.hasAudioTrack {
-            return "Error: Asset '\(asset.name)' has no audio track. Cannot transcribe video-only files."
+        // Pre-validate: skip transcription only for image assets (hasAudioTrack may be
+        // unreliable for some video containers where AVFoundation can't probe audio tracks)
+        if asset.type == .image {
+            return "Error: Asset '\(asset.name)' is an image. Cannot transcribe images."
         }
 
         let providerArg = (args["provider"] as? String)?.lowercased() ?? ""

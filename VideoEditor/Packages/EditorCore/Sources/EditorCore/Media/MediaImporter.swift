@@ -43,12 +43,15 @@ public struct MediaImporter: Sendable {
         var height: Int?
         var codec: String?
         var duration: TimeInterval = 0
+        var hasAudioTrack = false
 
         switch type {
         case .image:
             let metadata = try imageMetadata(for: sourceURL)
             width = metadata.width
             height = metadata.height
+            // Images never have audio
+            hasAudioTrack = false
 
         case .video, .audio:
             let asset = AVURLAsset(url: sourceURL)
@@ -71,16 +74,13 @@ public struct MediaImporter: Sendable {
                         codec = CMFormatDescriptionGetMediaSubType(desc).fourCharString
                     }
                 }
+
+                // Probe audio track using the SAME asset instance (already loaded)
+                let audioTracks = try await asset.loadTracks(withMediaType: .audio)
+                hasAudioTrack = !audioTracks.isEmpty
             } catch {
                 throw ImportError.unreadableMedia(sourceURL, normalizedUnreadableReason(for: error))
             }
-        }
-
-        // Probe audio track presence once at import time
-        var hasAudioTrack = false
-        if type == .video || type == .audio {
-            let probeAsset = AVURLAsset(url: sourceURL)
-            hasAudioTrack = (try? await probeAsset.loadTracks(withMediaType: .audio).first) != nil
         }
 
         return MediaAsset(
