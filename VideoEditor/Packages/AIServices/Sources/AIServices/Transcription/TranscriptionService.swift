@@ -138,19 +138,28 @@ public actor TranscriptionService {
     public func hasTranscript(for asset: MediaAsset, bundleURL: URL) -> Bool {
         if let transcript = asset.analysis?.transcript, !transcript.isEmpty { return true }
         if FileManager.default.fileExists(atPath: transcriptPath(for: asset, bundleURL: bundleURL)) { return true }
-        // Legacy fallback: old asset-ID-based files
+        if FileManager.default.fileExists(atPath: globalTranscriptPath(for: asset)) { return true }
         if FileManager.default.fileExists(atPath: legacyTranscriptPath(for: asset.id, bundleURL: bundleURL)) { return true }
         return false
     }
 
-    /// Load a persisted transcript from disk — source-stable key first, then legacy asset ID.
+    /// Load a persisted transcript from disk.
+    /// Search order: project-local (stable key) → global cache → project-local (legacy UUID)
     public func loadTranscript(for asset: MediaAsset, bundleURL: URL) -> TranscriptionResult? {
-        // Primary: source-stable key (name + fileSize)
+        // 1. Project-local: source-stable key (name + fileSize)
         let path = transcriptPath(for: asset, bundleURL: bundleURL)
         if let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
             return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
         }
-        // Legacy fallback: old asset-ID-keyed files
+        // 2. Global cache: shared across all projects
+        let globalPath = globalTranscriptPath(for: asset)
+        if let data = try? Data(contentsOf: URL(fileURLWithPath: globalPath)) {
+            let result = try? JSONDecoder().decode(TranscriptionResult.self, from: data)
+            // Copy to project-local for portability
+            if let result { persistTranscript(result, asset: asset, bundleURL: bundleURL) }
+            return result
+        }
+        // 3. Legacy fallback: old asset-ID-keyed files
         let legacyPath = legacyTranscriptPath(for: asset.id, bundleURL: bundleURL)
         if let data = try? Data(contentsOf: URL(fileURLWithPath: legacyPath)) {
             return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
@@ -177,13 +186,31 @@ public actor TranscriptionService {
     }
 
     private func persistTranscript(_ result: TranscriptionResult, asset: MediaAsset, bundleURL: URL) {
-        let dir = bundleURL.appendingPathComponent("analysis/transcripts")
-        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let key = stableKey(for: asset)
-        let url = dir.appendingPathComponent("\(key).json")
         if let data = try? JSONEncoder().encode(result) {
-            try? data.write(to: url)
+            // Save to project-local
+            let localDir = bundleURL.appendingPathComponent("analysis/transcripts")
+            try? FileManager.default.createDirectory(at: localDir, withIntermediateDirectories: true)
+            try? data.write(to: localDir.appendingPathComponent("\(key).json"))
+
+            // Save to global cache (shared across projects)
+            let globalDir = URL(fileURLWithPath: Self.globalCacheDir)
+            try? FileManager.default.createDirectory(at: globalDir, withIntermediateDirectories: true)
+            try? data.write(to: globalDir.appendingPathComponent("\(key).json"))
         }
+    }
+
+    /// Global transcript cache directory — shared across all projects.
+    /// Lives in Application Support, not inside any project bundle.
+    private static var globalCacheDir: String {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupport.appendingPathComponent("VideoEditor/global_transcripts").path
+    }
+
+    /// Path to a transcript in the global cache.
+    private func globalTranscriptPath(for asset: MediaAsset) -> String {
+        let key = stableKey(for: asset)
+        return "\(Self.globalCacheDir)/\(key).json"
     }
 
     /// Stable key from asset display name + file size.
