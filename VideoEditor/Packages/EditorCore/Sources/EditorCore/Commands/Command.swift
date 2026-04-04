@@ -56,6 +56,13 @@ public final class CommandHistory {
 
     public init() {}
 
+    /// Reset undo/redo stacks (used when switching projects).
+    public func clear() {
+        undoStack.removeAll()
+        redoStack.removeAll()
+        updateState()
+    }
+
     public func execute(_ command: inout some Command, context: EditingContext, source: ActionSource = .user) throws {
         try command.execute(context: context)
         let recorded = command

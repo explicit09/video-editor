@@ -12,9 +12,10 @@ final class AppState {
     let timelineViewState: TimelineViewState
     let playbackEngine: PlaybackEngine
     let exportEngine: ExportEngine
-    let media: MediaCoordinator
+    private(set) var media: MediaCoordinator
     let aiChat: AIChatController
     let projectStore: ProjectStore
+    let projectIndex: ProjectIndexManager
 
     // Reactive access
     var timeline: Timeline { context.timelineState.timeline }
@@ -25,24 +26,42 @@ final class AppState {
     // Clipboard
     private(set) var clipboardClips: [(clip: Clip, trackType: TrackType)] = []
 
-    /// Project bundle directory.
-    let projectBundleURL: URL
+    /// Project bundle directory — changes when switching projects.
+    private(set) var projectBundleURL: URL
     private(set) var mcpServer: MCPServer?
 
     private var playbackSyncTimer: Timer?
     private var saveDebounceTask: Task<Void, Never>?
     private var hasShutdown = false
 
-    init() {
+    /// Base directory for all projects.
+    static var appSupportBaseURL: URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let bundleURL = appSupport.appendingPathComponent("VideoEditor/DefaultProject.veditor")
-        for subdir in ["media", "proxies", "cache/thumbnails", "cache/waveforms", "cache/render", "analysis"] {
-            try? FileManager.default.createDirectory(
-                at: bundleURL.appendingPathComponent(subdir),
-                withIntermediateDirectories: true
-            )
+        return appSupport.appendingPathComponent("VideoEditor")
+    }
+
+    init() {
+        let baseURL = Self.appSupportBaseURL
+        try? FileManager.default.createDirectory(at: baseURL, withIntermediateDirectories: true)
+
+        let indexManager = ProjectIndexManager(baseURL: baseURL)
+        indexManager.migrateLegacyIfNeeded()
+
+        // If no projects exist, create "Untitled"
+        if indexManager.index.projects.isEmpty {
+            indexManager.addProject(name: "Untitled")
+            indexManager.setActive("Untitled")
+        }
+        // If active project doesn't exist in index, fall back to first
+        if !indexManager.projectExists(indexManager.activeProjectName),
+           let first = indexManager.index.projects.first {
+            indexManager.setActive(first.name)
         }
 
+        let bundleURL = indexManager.activeBundleURL
+        Self.ensureProjectDirectories(at: bundleURL)
+
+        self.projectIndex = indexManager
         self.projectBundleURL = bundleURL
         self.projectStore = ProjectStore()
         self.context = EditingContext()
@@ -1188,6 +1207,202 @@ final class AppState {
             normalizeSelection()
             rebuildComposition()
         }
+    }
+
+    // MARK: - Project management
+
+    static func ensureProjectDirectories(at bundleURL: URL) {
+        for subdir in ["media", "proxies", "cache/thumbnails", "cache/waveforms", "cache/render", "analysis"] {
+            try? FileManager.default.createDirectory(
+                at: bundleURL.appendingPathComponent(subdir),
+                withIntermediateDirectories: true
+            )
+        }
+    }
+
+    /// Create a new project and switch to it.
+    func createProject(name: String) async -> String {
+        let sanitized = sanitizedProjectName(name)
+
+        if projectIndex.projectExists(sanitized) {
+            return "Error: project '\(sanitized)' already exists"
+        }
+
+        // Save current project first
+        persistProjectState(waitForCompletion: true)
+
+        // Create directory structure
+        let newURL = projectIndex.bundleURL(for: sanitized)
+        Self.ensureProjectDirectories(at: newURL)
+
+        // Register in index
+        projectIndex.addProject(name: sanitized)
+        projectIndex.setActive(sanitized)
+
+        // Switch to new project
+        switchToBundle(newURL)
+
+        return "Created project '\(sanitized)' at \(newURL.path)"
+    }
+
+    /// Open an existing project by name.
+    func openProject(name: String) async -> String {
+        let sanitized = sanitizedProjectName(name)
+
+        guard projectIndex.projectExists(sanitized) else {
+            return "Error: project '\(sanitized)' not found"
+        }
+
+        if sanitized == projectIndex.activeProjectName {
+            return "Project '\(sanitized)' is already open"
+        }
+
+        // Save current project first
+        persistProjectState(waitForCompletion: true)
+
+        let targetURL = projectIndex.bundleURL(for: sanitized)
+        Self.ensureProjectDirectories(at: targetURL)
+
+        projectIndex.setActive(sanitized)
+        switchToBundle(targetURL)
+
+        return "Opened project '\(sanitized)'"
+    }
+
+    /// Save the current project explicitly.
+    func saveCurrentProject() -> String {
+        persistProjectState(waitForCompletion: true)
+        projectIndex.markModified(projectIndex.activeProjectName)
+        return "Saved project '\(projectIndex.activeProjectName)'"
+    }
+
+    /// Close current project (save first), return to empty Untitled.
+    func closeProject() async -> String {
+        let closedName = projectIndex.activeProjectName
+        persistProjectState(waitForCompletion: true)
+
+        // Open or create Untitled
+        if !projectIndex.projectExists("Untitled") {
+            projectIndex.addProject(name: "Untitled")
+        }
+        projectIndex.setActive("Untitled")
+
+        let untitledURL = projectIndex.bundleURL(for: "Untitled")
+        Self.ensureProjectDirectories(at: untitledURL)
+        switchToBundle(untitledURL)
+
+        return "Closed '\(closedName)', opened Untitled"
+    }
+
+    /// Delete a project by name. Cannot delete the active project.
+    func deleteProject(name: String) -> String {
+        let sanitized = sanitizedProjectName(name)
+
+        guard projectIndex.projectExists(sanitized) else {
+            return "Error: project '\(sanitized)' not found"
+        }
+        if sanitized == projectIndex.activeProjectName {
+            return "Error: cannot delete the currently open project. Open a different project first."
+        }
+
+        let targetURL = projectIndex.bundleURL(for: sanitized)
+        try? FileManager.default.removeItem(at: targetURL)
+        projectIndex.removeProject(sanitized)
+
+        return "Deleted project '\(sanitized)'"
+    }
+
+    /// Rename the current project.
+    func renameProject(to newName: String) -> String {
+        let sanitized = sanitizedProjectName(newName)
+        let oldName = projectIndex.activeProjectName
+
+        if oldName == sanitized {
+            return "Project already named '\(sanitized)'"
+        }
+        if projectIndex.projectExists(sanitized) {
+            return "Error: project '\(sanitized)' already exists"
+        }
+
+        // Save first
+        persistProjectState(waitForCompletion: true)
+
+        let oldURL = projectIndex.bundleURL(for: oldName)
+        let newURL = projectIndex.bundleURL(for: sanitized)
+
+        do {
+            try FileManager.default.moveItem(at: oldURL, to: newURL)
+        } catch {
+            return "Error renaming: \(error.localizedDescription)"
+        }
+
+        projectIndex.renameProject(from: oldName, to: sanitized)
+        projectBundleURL = newURL
+        media = MediaCoordinator(bundleURL: newURL)
+        // Re-register callbacks
+        media.onAnalysisComplete = { [weak self] in self?.rebuildComposition() }
+        media.onAssetsChanged = { [weak self] in self?.scheduleSave() }
+
+        // Reload assets into new MediaCoordinator
+        loadProject()
+
+        return "Renamed '\(oldName)' to '\(sanitized)'"
+    }
+
+    /// List all projects with metadata.
+    func listProjects() -> [[String: Any]] {
+        let fm = FileManager.default
+        return projectIndex.index.projects.map { entry in
+            let url = projectIndex.bundleURL(for: entry.name)
+            let isActive = entry.name == projectIndex.activeProjectName
+
+            // Try reading clip count and duration from timeline.json
+            var clipCount = 0
+            var duration: TimeInterval = 0
+            let timelinePath = url.appendingPathComponent("timeline.json")
+            if fm.fileExists(atPath: timelinePath.path),
+               let data = try? Data(contentsOf: timelinePath),
+               let timeline = try? JSONDecoder().decode(Timeline.self, from: data) {
+                clipCount = timeline.tracks.flatMap(\.clips).count
+                duration = timeline.duration
+            }
+
+            let formatter = ISO8601DateFormatter()
+            return [
+                "name": entry.name,
+                "active": isActive,
+                "created": formatter.string(from: entry.created),
+                "modified": formatter.string(from: entry.modified),
+                "clips": clipCount,
+                "duration": String(format: "%.1f", duration),
+            ] as [String: Any]
+        }
+    }
+
+    // MARK: - Internal project switching
+
+    /// Reset editor state and load a different project bundle.
+    private func switchToBundle(_ newURL: URL) {
+        // Stop playback
+        playbackEngine.pause()
+
+        // Clear current state
+        context.timelineState.timeline = Timeline()
+        context.timelineState.broadcastOverlay = nil
+        context.timelineState.shortFormConfig = nil
+        commandHistory.clear()
+        timelineViewState.clearSelection()
+
+        // Switch bundle URL and recreate MediaCoordinator for new path
+        projectBundleURL = newURL
+        media.stopBackgroundWork()
+        media = MediaCoordinator(bundleURL: newURL)
+        media.onAnalysisComplete = { [weak self] in self?.rebuildComposition() }
+        media.onAssetsChanged = { [weak self] in self?.scheduleSave() }
+
+        // Load the target project
+        loadProject()
+        rebuildComposition()
     }
 
     // MARK: - Media import

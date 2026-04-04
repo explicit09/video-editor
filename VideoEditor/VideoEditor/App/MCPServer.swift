@@ -435,8 +435,53 @@ final class MCPServer {
                         "dry_run": ["type": "boolean", "description": "If true, report what would be removed without deleting"],
                     ], "required": ["asset_id"]],
                 ],
+                // Project management tools
+                [
+                    "name": "create_project",
+                    "description": "Create a new empty project and switch to it. Saves the current project first.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "name": ["type": "string", "description": "Project name"],
+                    ], "required": ["name"]],
+                ],
+                [
+                    "name": "open_project",
+                    "description": "Open an existing project by name. Saves the current project first.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "name": ["type": "string", "description": "Project name"],
+                    ], "required": ["name"]],
+                ],
+                [
+                    "name": "list_projects",
+                    "description": "List all projects with name, created date, last modified, duration, clip count. Marks the currently active project.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "save_project",
+                    "description": "Explicitly save the current project to disk.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "close_project",
+                    "description": "Save and close the current project, then open an empty Untitled project.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "delete_project",
+                    "description": "Delete a project by name. Cannot delete the currently open project.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "name": ["type": "string", "description": "Project name to delete"],
+                    ], "required": ["name"]],
+                ],
+                [
+                    "name": "rename_project",
+                    "description": "Rename the currently open project.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "name": ["type": "string", "description": "New project name"],
+                    ], "required": ["name"]],
+                ],
             ])
             tools = deduplicatedTools(tools)
+            cachedToolsResponse = nil  // Invalidate cache when tools list changes
             let response = successResponse(id: id, result: ["tools": tools])
             cachedToolsResponse = response
             return response
@@ -584,6 +629,41 @@ final class MCPServer {
         }
         if name == "remove_filler_words" {
             return await handleRemoveFillerWords(arguments, appState: appState)
+        }
+
+        // Project management tools
+        if name == "create_project" {
+            guard let projectName = arguments["name"] as? String, !projectName.isEmpty else {
+                return "Error: 'name' is required"
+            }
+            return await appState.createProject(name: projectName)
+        }
+        if name == "open_project" {
+            guard let projectName = arguments["name"] as? String, !projectName.isEmpty else {
+                return "Error: 'name' is required"
+            }
+            return await appState.openProject(name: projectName)
+        }
+        if name == "list_projects" {
+            return handleListProjects(appState: appState)
+        }
+        if name == "save_project" {
+            return appState.saveCurrentProject()
+        }
+        if name == "close_project" {
+            return await appState.closeProject()
+        }
+        if name == "delete_project" {
+            guard let projectName = arguments["name"] as? String, !projectName.isEmpty else {
+                return "Error: 'name' is required"
+            }
+            return appState.deleteProject(name: projectName)
+        }
+        if name == "rename_project" {
+            guard let newName = arguments["name"] as? String, !newName.isEmpty else {
+                return "Error: 'name' is required"
+            }
+            return appState.renameProject(to: newName)
         }
 
         if name == "save_snapshot" {
@@ -796,6 +876,24 @@ final class MCPServer {
             return "Warning: Failed to remove \(failed)/\(trackIDs.count) track(s). " + stateSnapshot(appState)
         }
         return "Project cleared. " + stateSnapshot(appState)
+    }
+
+    private func handleListProjects(appState: AppState) -> String {
+        let projects = appState.listProjects()
+        if projects.isEmpty { return "No projects found." }
+
+        var lines: [String] = ["=== Projects ==="]
+        for p in projects {
+            let name = p["name"] as? String ?? "?"
+            let active = (p["active"] as? Bool) == true
+            let created = p["created"] as? String ?? "?"
+            let modified = p["modified"] as? String ?? "?"
+            let clips = p["clips"] as? Int ?? 0
+            let duration = p["duration"] as? String ?? "0.0"
+            let marker = active ? " [ACTIVE]" : ""
+            lines.append("  \(name)\(marker) — \(clips) clips, \(duration)s, created: \(created), modified: \(modified)")
+        }
+        return lines.joined(separator: "\n")
     }
 
     private func handleDeleteAsset(_ args: [String: Any], appState: AppState) -> String {
@@ -1410,6 +1508,7 @@ final class MCPServer {
         let assetList = appState.assets.map { "\($0.name) (ID: \($0.id.uuidString), \(String(format: "%.1f", $0.duration))s)" }
 
         var result = "=== Editor State ===\n"
+        result += "Project: \(appState.projectIndex.activeProjectName)\n"
         result += "Tracks (\(appState.timeline.tracks.count)):\n"
         result += tracks.isEmpty ? "  (none)\n" : tracks.joined(separator: "\n") + "\n"
 
