@@ -319,11 +319,8 @@ public struct CompositionBuilder {
             // After insertTimeRange + scaleTimeRange, comp.duration reflects reality.
             let totalDuration = comp.duration
 
-            let sorted = videoEntries.sorted {
-                CMTimeCompare($0.effectiveTimeRange.start, $1.effectiveTimeRange.start) < 0
-            }
             let captionWordsByClipID: [UUID: [TranscriptWord]] = Dictionary(
-                uniqueKeysWithValues: sorted.map { entry in
+                uniqueKeysWithValues: videoEntries.map { entry in
                     let asset = assets.first(where: { $0.id == entry.clip.assetID })
                     let captionWords = asset.map { Self.captionWords(for: entry.clip, asset: $0) } ?? []
                     return (entry.clip.id, captionWords)
@@ -331,9 +328,13 @@ public struct CompositionBuilder {
             )
             let hasCaptionWords = captionWordsByClipID.values.contains { !$0.isEmpty }
 
+            // Check if multiple video tracks have clips (overlay scenario)
+            let uniqueTrackIDs = Set(videoEntries.map { $0.track.id })
+            let hasMultipleVideoTracks = uniqueTrackIDs.count > 1
+
             // Determine if any clip needs the custom compositor
-            print("[CompositionBuilder] shortFormConfig: \(shortFormConfig?.isEnabled ?? false) faceTracks: \(shortFormConfig?.faceTracks.count ?? 0), broadcastOverlay: \(broadcastOverlay?.isEnabled ?? false), needsCustom will be: \(broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true)")
-            let needsCustomCompositor = broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true || sorted.contains { entry in
+            print("[CompositionBuilder] shortFormConfig: \(shortFormConfig?.isEnabled ?? false) faceTracks: \(shortFormConfig?.faceTracks.count ?? 0), broadcastOverlay: \(broadcastOverlay?.isEnabled ?? false), multiTrack: \(hasMultipleVideoTracks)")
+            let needsCustomCompositor = hasMultipleVideoTracks || broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true || videoEntries.contains { entry in
                 !entry.clip.effects.isEmpty ||
                 entry.clip.transform != .identity ||
                 !entry.clip.cropRect.isFullFrame ||
@@ -342,132 +343,28 @@ public struct CompositionBuilder {
                 entry.clip.opacity * entry.track.opacity < 1.0
             } || hasCaptionWords
 
-            var instructions: [any AVVideoCompositionInstructionProtocol] = []
-            var cursor: CMTime = .zero
-            var previousEntry: VideoClipEntry? = nil
+            let instructions: [any AVVideoCompositionInstructionProtocol]
 
-            for entry in sorted {
-                let entryStart = entry.effectiveTimeRange.start
-                let entryEnd = entry.effectiveTimeRange.end
-
-                // Clamp to avoid going past totalDuration
-                let clampedEnd = CMTimeMinimum(entryEnd, totalDuration)
-
-                // Check for transition on this clip
-                let hasTransition = entry.clip.transitionIn.type != .none && previousEntry != nil
-                let transitionDuration = hasTransition
-                    ? CMTime(seconds: min(entry.clip.transitionIn.duration, 1.0), preferredTimescale: 600)
-                    : .zero
-
-                // Gap before this clip → black frame (only if no transition fills it)
-                if CMTimeCompare(cursor, entryStart) < 0 && !hasTransition {
-                    if needsCustomCompositor {
-                        let gap = EffectInstruction(
-                            timeRange: CMTimeRange(start: cursor, end: entryStart),
-                            sourceTrackID: kCMPersistentTrackID_Invalid,
-                            effects: [],
-                            broadcastOverlay: broadcastOverlay,
-                            shortFormConfig: shortFormConfig,
-                            captionStyle: captionStyle
-                        )
-                        instructions.append(gap)
-                    } else {
-                        let gapInstruction = AVMutableVideoCompositionInstruction()
-                        gapInstruction.timeRange = CMTimeRange(start: cursor, end: entryStart)
-                        gapInstruction.layerInstructions = []
-                        gapInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
-                        instructions.append(gapInstruction)
-                    }
-                }
-
-                // Skip if entry start is past totalDuration
-                guard CMTimeCompare(entryStart, totalDuration) < 0 else { break }
-
-                // Insert TransitionInstruction if this clip has a transition and there's a previous clip
-                if hasTransition, let prevEntry = previousEntry {
-                    let transStart = entryStart
-                    let transEnd = CMTimeAdd(entryStart, transitionDuration)
-
-                    // Shorten the previous clip's instruction to end where transition starts
-                    // (already handled by cursor — previous instruction ended at entryStart)
-
-                    // Create transition instruction
-                    let transType: TransitionType = entry.clip.transitionIn.type
-                    let transInstruction = TransitionInstruction(
-                        timeRange: CMTimeRange(start: transStart, end: transEnd),
-                        fromTrackID: prevEntry.compositionTrack.trackID,
-                        toTrackID: entry.compositionTrack.trackID,
-                        transitionType: transType
-                    )
-                    instructions.append(transInstruction)
-
-                    // Main clip instruction starts after the transition
-                    let mainStart = transEnd
-                    if CMTimeCompare(mainStart, clampedEnd) < 0 {
-                        let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
-                        let instruction = EffectInstruction(
-                            timeRange: CMTimeRange(start: mainStart, end: clampedEnd),
-                            sourceTrackID: entry.compositionTrack.trackID,
-                            effects: entry.clip.effects,
-                            opacity: effectiveOpacity,
-                            transform: entry.clip.transform,
-                            cropRect: entry.clip.cropRect,
-                            blendMode: entry.clip.blendMode,
-                            broadcastOverlay: broadcastOverlay,
-                            shortFormConfig: shortFormConfig,
-                            captionStyle: captionStyle,
-                            captionWords: captionWordsByClipID[entry.clip.id] ?? []
-                        )
-                        instructions.append(instruction)
-                    }
-                } else if needsCustomCompositor {
-                    // Use EffectInstruction — carries effects, transform, opacity to EffectCompositor
-                    let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
-                    let instruction = EffectInstruction(
-                        timeRange: CMTimeRange(start: entryStart, end: clampedEnd),
-                        sourceTrackID: entry.compositionTrack.trackID,
-                        effects: entry.clip.effects,
-                        opacity: effectiveOpacity,
-                        transform: entry.clip.transform,
-                        cropRect: entry.clip.cropRect,
-                        blendMode: entry.clip.blendMode,
-                        broadcastOverlay: broadcastOverlay,
-                        shortFormConfig: shortFormConfig,
-                        captionStyle: captionStyle,
-                        captionWords: captionWordsByClipID[entry.clip.id] ?? []
-                    )
-                    instructions.append(instruction)
-                } else {
-                    // Standard instruction — no effects, fastest path
-                    let instruction = AVMutableVideoCompositionInstruction()
-                    instruction.timeRange = CMTimeRange(start: entryStart, end: clampedEnd)
-                    let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: entry.compositionTrack)
-                    instruction.layerInstructions = [layerInstruction]
-                    instructions.append(instruction)
-                }
-
-                previousEntry = entry
-                cursor = clampedEnd
-            }
-
-            // Trailing gap to fill remainder of composition
-            if CMTimeCompare(cursor, totalDuration) < 0 {
-                if needsCustomCompositor {
-                    let trail = EffectInstruction(
-                        timeRange: CMTimeRange(start: cursor, end: totalDuration),
-                        sourceTrackID: kCMPersistentTrackID_Invalid,
-                        effects: [],
-                        broadcastOverlay: broadcastOverlay,
-                        shortFormConfig: shortFormConfig
-                    )
-                    instructions.append(trail)
-                } else {
-                    let trailInstruction = AVMutableVideoCompositionInstruction()
-                    trailInstruction.timeRange = CMTimeRange(start: cursor, end: totalDuration)
-                    trailInstruction.layerInstructions = []
-                    trailInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
-                    instructions.append(trailInstruction)
-                }
+            if hasMultipleVideoTracks {
+                instructions = Self.buildMultiTrackInstructions(
+                    entries: videoEntries,
+                    timeline: timeline,
+                    totalDuration: totalDuration,
+                    captionWordsByClipID: captionWordsByClipID,
+                    broadcastOverlay: broadcastOverlay,
+                    shortFormConfig: shortFormConfig,
+                    captionStyle: captionStyle
+                )
+            } else {
+                instructions = Self.buildSingleTrackInstructions(
+                    entries: videoEntries,
+                    totalDuration: totalDuration,
+                    captionWordsByClipID: captionWordsByClipID,
+                    needsCustomCompositor: needsCustomCompositor,
+                    broadcastOverlay: broadcastOverlay,
+                    shortFormConfig: shortFormConfig,
+                    captionStyle: captionStyle
+                )
             }
 
             // Debug: validate instructions
@@ -520,4 +417,250 @@ public struct CompositionBuilder {
         return result
     }
 
+    // MARK: - Single-Track Instruction Building (original path)
+
+    private static func buildSingleTrackInstructions(
+        entries: [VideoClipEntry],
+        totalDuration: CMTime,
+        captionWordsByClipID: [UUID: [TranscriptWord]],
+        needsCustomCompositor: Bool,
+        broadcastOverlay: BroadcastOverlayConfig?,
+        shortFormConfig: ShortFormConfig?,
+        captionStyle: CaptionStyler.CaptionStyle
+    ) -> [any AVVideoCompositionInstructionProtocol] {
+        let sorted = entries.sorted {
+            CMTimeCompare($0.effectiveTimeRange.start, $1.effectiveTimeRange.start) < 0
+        }
+
+        var instructions: [any AVVideoCompositionInstructionProtocol] = []
+        var cursor: CMTime = .zero
+        var previousEntry: VideoClipEntry? = nil
+
+        for entry in sorted {
+            let entryStart = entry.effectiveTimeRange.start
+            let entryEnd = entry.effectiveTimeRange.end
+            let clampedEnd = CMTimeMinimum(entryEnd, totalDuration)
+
+            let hasTransition = entry.clip.transitionIn.type != .none && previousEntry != nil
+            let transitionDuration = hasTransition
+                ? CMTime(seconds: min(entry.clip.transitionIn.duration, 1.0), preferredTimescale: 600)
+                : .zero
+
+            // Gap before this clip
+            if CMTimeCompare(cursor, entryStart) < 0 && !hasTransition {
+                if needsCustomCompositor {
+                    let gap = EffectInstruction(
+                        timeRange: CMTimeRange(start: cursor, end: entryStart),
+                        sourceTrackID: kCMPersistentTrackID_Invalid,
+                        effects: [],
+                        broadcastOverlay: broadcastOverlay,
+                        shortFormConfig: shortFormConfig,
+                        captionStyle: captionStyle
+                    )
+                    instructions.append(gap)
+                } else {
+                    let gapInstruction = AVMutableVideoCompositionInstruction()
+                    gapInstruction.timeRange = CMTimeRange(start: cursor, end: entryStart)
+                    gapInstruction.layerInstructions = []
+                    gapInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
+                    instructions.append(gapInstruction)
+                }
+            }
+
+            guard CMTimeCompare(entryStart, totalDuration) < 0 else { break }
+
+            if hasTransition, let prevEntry = previousEntry {
+                let transStart = entryStart
+                let transEnd = CMTimeAdd(entryStart, transitionDuration)
+
+                let transInstruction = TransitionInstruction(
+                    timeRange: CMTimeRange(start: transStart, end: transEnd),
+                    fromTrackID: prevEntry.compositionTrack.trackID,
+                    toTrackID: entry.compositionTrack.trackID,
+                    transitionType: entry.clip.transitionIn.type
+                )
+                instructions.append(transInstruction)
+
+                let mainStart = transEnd
+                if CMTimeCompare(mainStart, clampedEnd) < 0 {
+                    let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
+                    let instruction = EffectInstruction(
+                        timeRange: CMTimeRange(start: mainStart, end: clampedEnd),
+                        sourceTrackID: entry.compositionTrack.trackID,
+                        effects: entry.clip.effects,
+                        opacity: effectiveOpacity,
+                        transform: entry.clip.transform,
+                        cropRect: entry.clip.cropRect,
+                        blendMode: entry.clip.blendMode,
+                        broadcastOverlay: broadcastOverlay,
+                        shortFormConfig: shortFormConfig,
+                        captionStyle: captionStyle,
+                        captionWords: captionWordsByClipID[entry.clip.id] ?? []
+                    )
+                    instructions.append(instruction)
+                }
+            } else if needsCustomCompositor {
+                let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
+                let instruction = EffectInstruction(
+                    timeRange: CMTimeRange(start: entryStart, end: clampedEnd),
+                    sourceTrackID: entry.compositionTrack.trackID,
+                    effects: entry.clip.effects,
+                    opacity: effectiveOpacity,
+                    transform: entry.clip.transform,
+                    cropRect: entry.clip.cropRect,
+                    blendMode: entry.clip.blendMode,
+                    broadcastOverlay: broadcastOverlay,
+                    shortFormConfig: shortFormConfig,
+                    captionStyle: captionStyle,
+                    captionWords: captionWordsByClipID[entry.clip.id] ?? []
+                )
+                instructions.append(instruction)
+            } else {
+                let instruction = AVMutableVideoCompositionInstruction()
+                instruction.timeRange = CMTimeRange(start: entryStart, end: clampedEnd)
+                let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: entry.compositionTrack)
+                instruction.layerInstructions = [layerInstruction]
+                instructions.append(instruction)
+            }
+
+            previousEntry = entry
+            cursor = clampedEnd
+        }
+
+        // Trailing gap
+        if CMTimeCompare(cursor, totalDuration) < 0 {
+            if needsCustomCompositor {
+                let trail = EffectInstruction(
+                    timeRange: CMTimeRange(start: cursor, end: totalDuration),
+                    sourceTrackID: kCMPersistentTrackID_Invalid,
+                    effects: [],
+                    broadcastOverlay: broadcastOverlay,
+                    shortFormConfig: shortFormConfig
+                )
+                instructions.append(trail)
+            } else {
+                let trailInstruction = AVMutableVideoCompositionInstruction()
+                trailInstruction.timeRange = CMTimeRange(start: cursor, end: totalDuration)
+                trailInstruction.layerInstructions = []
+                trailInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
+                instructions.append(trailInstruction)
+            }
+        }
+
+        return instructions
+    }
+
+    // MARK: - Multi-Track Instruction Building (overlay compositing)
+
+    private static func buildMultiTrackInstructions(
+        entries: [VideoClipEntry],
+        timeline: Timeline,
+        totalDuration: CMTime,
+        captionWordsByClipID: [UUID: [TranscriptWord]],
+        broadcastOverlay: BroadcastOverlayConfig?,
+        shortFormConfig: ShortFormConfig?,
+        captionStyle: CaptionStyler.CaptionStyle
+    ) -> [any AVVideoCompositionInstructionProtocol] {
+        let ts: CMTimeScale = 600
+
+        // Build track order: lower index in timeline.tracks = bottom layer
+        let trackOrder: [UUID] = timeline.tracks
+            .filter { $0.type != .audio }
+            .map(\.id)
+
+        // Collect all time boundaries from every video entry
+        var boundarySet: Set<Int64> = [0, totalDuration.value * Int64(ts) / Int64(totalDuration.timescale)]
+        for entry in entries {
+            let start = entry.effectiveTimeRange.start
+            let end = CMTimeMinimum(entry.effectiveTimeRange.end, totalDuration)
+            // Normalize to common timescale
+            let startVal = CMTimeConvertScale(start, timescale: ts, method: .roundHalfAwayFromZero).value
+            let endVal = CMTimeConvertScale(end, timescale: ts, method: .roundHalfAwayFromZero).value
+            boundarySet.insert(startVal)
+            boundarySet.insert(endVal)
+        }
+
+        let boundaries = boundarySet.sorted()
+        var instructions: [any AVVideoCompositionInstructionProtocol] = []
+
+        for i in 0..<(boundaries.count - 1) {
+            let sliceStart = CMTime(value: boundaries[i], timescale: ts)
+            let sliceEnd = CMTime(value: boundaries[i + 1], timescale: ts)
+
+            // Skip zero-duration slices
+            guard CMTimeCompare(sliceStart, sliceEnd) < 0 else { continue }
+            // Clamp to totalDuration
+            guard CMTimeCompare(sliceStart, totalDuration) < 0 else { break }
+            let clampedEnd = CMTimeMinimum(sliceEnd, totalDuration)
+
+            let sliceRange = CMTimeRange(start: sliceStart, duration: CMTimeSubtract(clampedEnd, sliceStart))
+
+            // Find all entries active during this slice, ordered by track layer
+            let activeEntries = entries.filter { entry in
+                let entryStart = entry.effectiveTimeRange.start
+                let entryEnd = CMTimeMinimum(entry.effectiveTimeRange.end, totalDuration)
+                return CMTimeCompare(entryStart, clampedEnd) < 0 && CMTimeCompare(entryEnd, sliceStart) > 0
+            }.sorted { a, b in
+                let aIdx = trackOrder.firstIndex(of: a.track.id) ?? 0
+                let bIdx = trackOrder.firstIndex(of: b.track.id) ?? 0
+                return aIdx < bIdx  // lower index = bottom layer
+            }
+
+            if activeEntries.isEmpty {
+                // Gap — black frame
+                let gap = EffectInstruction(
+                    timeRange: sliceRange,
+                    sourceTrackID: kCMPersistentTrackID_Invalid,
+                    effects: [],
+                    broadcastOverlay: broadcastOverlay,
+                    shortFormConfig: shortFormConfig,
+                    captionStyle: captionStyle
+                )
+                instructions.append(gap)
+            } else if activeEntries.count == 1 {
+                // Single track active — use EffectInstruction
+                let entry = activeEntries[0]
+                let effectiveOpacity = Float(entry.clip.opacity * entry.track.opacity)
+                let instruction = EffectInstruction(
+                    timeRange: sliceRange,
+                    sourceTrackID: entry.compositionTrack.trackID,
+                    effects: entry.clip.effects,
+                    opacity: effectiveOpacity,
+                    transform: entry.clip.transform,
+                    cropRect: entry.clip.cropRect,
+                    blendMode: entry.clip.blendMode,
+                    broadcastOverlay: broadcastOverlay,
+                    shortFormConfig: shortFormConfig,
+                    captionStyle: captionStyle,
+                    captionWords: captionWordsByClipID[entry.clip.id] ?? []
+                )
+                instructions.append(instruction)
+            } else {
+                // Multiple tracks active — use OverlayInstruction
+                let layers = activeEntries.map { entry in
+                    OverlayLayer(
+                        trackID: entry.compositionTrack.trackID,
+                        opacity: Float(entry.clip.opacity * entry.track.opacity),
+                        transform: entry.clip.transform,
+                        cropRect: entry.clip.cropRect,
+                        blendMode: entry.clip.blendMode,
+                        effects: entry.clip.effects
+                    )
+                }
+                // Merge caption words from all active entries
+                let allCaptions = activeEntries.flatMap { captionWordsByClipID[$0.clip.id] ?? [] }
+                let instruction = OverlayInstruction(
+                    timeRange: sliceRange,
+                    layers: layers,
+                    broadcastOverlay: broadcastOverlay,
+                    shortFormConfig: shortFormConfig,
+                    captionStyle: captionStyle,
+                    captionWords: allCaptions
+                )
+                instructions.append(instruction)
+            }
+        }
+
+        return instructions
+    }
 }

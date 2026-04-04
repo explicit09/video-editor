@@ -37,6 +37,12 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             return
         }
 
+        // Handle multi-track overlay instructions
+        if let overlayInstruction = request.videoCompositionInstruction as? OverlayInstruction {
+            handleOverlay(request, instruction: overlayInstruction)
+            return
+        }
+
         guard let instruction = request.videoCompositionInstruction as? EffectInstruction else {
             request.finish(with: NSError(domain: "EffectCompositor", code: -1))
             return
@@ -338,6 +344,85 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         request.finish(withComposedVideoFrame: outputBuffer)
     }
 
+    // MARK: - Overlay Handling (Multi-Track)
+
+    private func handleOverlay(_ request: AVAsynchronousVideoCompositionRequest, instruction: OverlayInstruction) {
+        let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
+        let renderRect = CGRect(origin: .zero, size: renderSize)
+
+        // Start with black background
+        var composited = CIImage(color: .black).cropped(to: renderRect)
+
+        // Composite layers bottom-to-top
+        for layer in instruction.layers {
+            guard let sourceBuffer = request.sourceFrame(byTrackID: layer.trackID) else {
+                continue // Skip layers with no frame at this time
+            }
+
+            var layerImage = CIImage(cvPixelBuffer: sourceBuffer)
+
+            // Apply crop
+            layerImage = Self.applyCropRect(layer.cropRect, to: layerImage)
+
+            // Apply per-layer effects
+            for effect in layer.effects {
+                layerImage = applyEffect(effect, to: layerImage)
+            }
+
+            // Apply transform
+            if layer.transform != .identity {
+                let t = layer.transform
+                var affine = CGAffineTransform.identity
+                let anchorX = renderSize.width * CGFloat(t.anchorX)
+                let anchorY = renderSize.height * CGFloat(t.anchorY)
+                affine = affine.translatedBy(x: anchorX, y: anchorY)
+                affine = affine.rotated(by: CGFloat(t.rotation) * .pi / 180)
+                affine = affine.scaledBy(x: CGFloat(t.scaleX), y: CGFloat(t.scaleY))
+                affine = affine.translatedBy(x: -anchorX, y: -anchorY)
+                affine = affine.translatedBy(x: CGFloat(t.positionX), y: CGFloat(t.positionY))
+                layerImage = layerImage.transformed(by: affine)
+            }
+
+            // Apply opacity via alpha
+            if layer.opacity < 1.0 {
+                layerImage = layerImage.applyingFilter("CIColorMatrix", parameters: [
+                    "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(layer.opacity)),
+                ])
+            }
+
+            // Composite using blend mode
+            if layer.blendMode != .normal {
+                if let blendFilter = CIFilter(name: layer.blendMode.ciFilterName) {
+                    blendFilter.setValue(composited, forKey: kCIInputBackgroundImageKey)
+                    blendFilter.setValue(layerImage, forKey: kCIInputImageKey)
+                    if let blended = blendFilter.outputImage {
+                        composited = blended
+                        continue
+                    }
+                }
+            }
+
+            // Default: source-over compositing
+            composited = layerImage.composited(over: composited)
+        }
+
+        // Render broadcast overlay if configured
+        if let overlay = instruction.broadcastOverlay, overlay.isEnabled {
+            let time = request.compositionTime.seconds
+            if let overlayImage = BroadcastOverlayRenderer.render(config: overlay, at: time, renderSize: renderSize) {
+                composited = overlayImage.composited(over: composited)
+            }
+        }
+
+        guard let outputBuffer = renderContext?.newPixelBuffer() else {
+            request.finish(with: NSError(domain: "EffectCompositor", code: -5))
+            return
+        }
+
+        ciContext.render(composited, to: outputBuffer, bounds: renderRect, colorSpace: CGColorSpaceCreateDeviceRGB())
+        request.finish(withComposedVideoFrame: outputBuffer)
+    }
+
     // MARK: - Effect Application
 
     private func applyEffect(_ effect: EffectInstance, to image: CIImage) -> CIImage {
@@ -465,6 +550,68 @@ public final class TransitionInstruction: NSObject, AVVideoCompositionInstructio
         self.toTrackID = toTrackID
         self.transitionType = transitionType
         self.requiredSourceTrackIDs = [NSNumber(value: fromTrackID), NSNumber(value: toTrackID)]
+        super.init()
+    }
+}
+
+// MARK: - OverlayInstruction
+
+/// Represents a single layer in a multi-track overlay composition.
+public struct OverlayLayer: Sendable {
+    public let trackID: CMPersistentTrackID
+    public let opacity: Float
+    public let transform: Transform2D
+    public let cropRect: CropRect
+    public let blendMode: BlendMode
+    public let effects: [EffectInstance]
+
+    public init(
+        trackID: CMPersistentTrackID,
+        opacity: Float = 1.0,
+        transform: Transform2D = .identity,
+        cropRect: CropRect = .fullFrame,
+        blendMode: BlendMode = .normal,
+        effects: [EffectInstance] = []
+    ) {
+        self.trackID = trackID
+        self.opacity = opacity
+        self.transform = transform
+        self.cropRect = cropRect
+        self.blendMode = blendMode
+        self.effects = effects
+    }
+}
+
+/// Instruction for compositing multiple video tracks (overlay).
+/// Layers are ordered bottom-to-top (index 0 = background).
+public final class OverlayInstruction: NSObject, AVVideoCompositionInstructionProtocol, @unchecked Sendable {
+    public let timeRange: CMTimeRange
+    public let enablePostProcessing = false
+    public let containsTweening = false
+    public let requiredSourceTrackIDs: [NSValue]?
+    public let passthroughTrackID: CMPersistentTrackID = kCMPersistentTrackID_Invalid
+
+    public let layers: [OverlayLayer]
+    public let broadcastOverlay: BroadcastOverlayConfig?
+    public let shortFormConfig: ShortFormConfig?
+    public let captionStyle: CaptionStyler.CaptionStyle
+    public let captionWords: [TranscriptWord]
+
+    public init(
+        timeRange: CMTimeRange,
+        layers: [OverlayLayer],
+        broadcastOverlay: BroadcastOverlayConfig? = nil,
+        shortFormConfig: ShortFormConfig? = nil,
+        captionStyle: CaptionStyler.CaptionStyle = .standard,
+        captionWords: [TranscriptWord] = []
+    ) {
+        self.timeRange = timeRange
+        self.layers = layers
+        self.requiredSourceTrackIDs = layers.map { NSNumber(value: $0.trackID) }
+        self.broadcastOverlay = broadcastOverlay
+        self.shortFormConfig = shortFormConfig
+        self.captionStyle = captionStyle
+        self.captionWords = captionWords
         super.init()
     }
 }

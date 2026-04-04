@@ -350,9 +350,29 @@ final class AppState {
         _ asset: MediaAsset,
         source: ActionSource = .user,
         preferredTrackID: UUID? = nil,
-        startTime: TimeInterval? = nil
+        startTime: TimeInterval? = nil,
+        sourceStart: TimeInterval? = nil,
+        sourceEnd: TimeInterval? = nil
     ) async {
-        let duration = defaultTimelineDuration(for: asset)
+        // If source range specified, delegate to insertAssetSegment
+        if let srcStart = sourceStart, let srcEnd = sourceEnd, srcEnd > srcStart {
+            let sourceRange = TimeRange(start: srcStart, end: srcEnd)
+            await insertAssetSegment(
+                asset,
+                sourceRange: sourceRange,
+                source: source,
+                preferredTrackID: preferredTrackID,
+                startTime: startTime
+            )
+            return
+        }
+
+        let fullDuration = defaultTimelineDuration(for: asset)
+        let effectiveSrcStart = sourceStart ?? 0
+        let effectiveSrcEnd = sourceEnd ?? fullDuration
+        let clipDuration = min(effectiveSrcEnd - effectiveSrcStart, fullDuration)
+        let srcRange = TimeRange(start: effectiveSrcStart, duration: clipDuration)
+
         let requestedTrackID = preferredTrackID ?? timelineViewState.selectedTrackID
         let requestedTrack = requestedTrackID.flatMap { id in
             timeline.tracks.first(where: { $0.id == id })
@@ -389,8 +409,8 @@ final class AppState {
             let linkID = UUID() // Shared link group for video+audio pair
             let videoClip = Clip(
                 assetID: asset.id,
-                timelineRange: TimeRange(start: clipStart, duration: duration),
-                sourceRange: TimeRange(start: 0, duration: duration),
+                timelineRange: TimeRange(start: clipStart, duration: clipDuration),
+                sourceRange: srcRange,
                 metadata: ClipMetadata(label: asset.name),
                 linkGroupID: hasAudio ? linkID : nil
             )
@@ -400,8 +420,8 @@ final class AppState {
             if let audioTrackID {
                 let audioClip = Clip(
                     assetID: asset.id,
-                    timelineRange: TimeRange(start: clipStart, duration: duration),
-                    sourceRange: TimeRange(start: 0, duration: duration),
+                    timelineRange: TimeRange(start: clipStart, duration: clipDuration),
+                    sourceRange: srcRange,
                     metadata: ClipMetadata(label: asset.name),
                     linkGroupID: linkID
                 )
@@ -426,8 +446,8 @@ final class AppState {
             let clipStart = startTime ?? trackEnd(for: trackID)
             let clip = Clip(
                 assetID: asset.id,
-                timelineRange: TimeRange(start: clipStart, duration: duration),
-                sourceRange: TimeRange(start: 0, duration: duration),
+                timelineRange: TimeRange(start: clipStart, duration: clipDuration),
+                sourceRange: srcRange,
                 metadata: ClipMetadata(label: asset.name)
             )
             try? perform(.insertClip(clip: clip, trackID: trackID), source: source)
@@ -438,8 +458,8 @@ final class AppState {
             let clipStart = startTime ?? trackEnd(for: trackID)
             let clip = Clip(
                 assetID: asset.id,
-                timelineRange: TimeRange(start: clipStart, duration: duration),
-                sourceRange: TimeRange(start: 0, duration: duration),
+                timelineRange: TimeRange(start: clipStart, duration: clipDuration),
+                sourceRange: srcRange,
                 metadata: ClipMetadata(label: asset.name)
             )
             try? perform(.insertClip(clip: clip, trackID: trackID), source: source)

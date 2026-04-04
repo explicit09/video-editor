@@ -125,11 +125,13 @@ final class MCPServer {
                 ],
                 [
                     "name": "add_to_timeline",
-                    "description": "Add an imported asset to the timeline. Creates video + linked audio tracks automatically for video assets.",
+                    "description": "Add an imported asset to the timeline. Creates video + linked audio tracks automatically for video assets. Use source_start/source_end to insert only a portion of the asset.",
                     "inputSchema": ["type": "object", "properties": [
                         "asset_id": ["type": "string", "description": "UUID of the imported asset"],
-                        "start_time": ["type": "number", "description": "Optional start position in seconds"],
+                        "start_time": ["type": "number", "description": "Optional start position in seconds on the timeline"],
                         "track_id": ["type": "string", "description": "Optional target track UUID"],
+                        "source_start": ["type": "number", "description": "Source start time in seconds (default: 0)"],
+                        "source_end": ["type": "number", "description": "Source end time in seconds (default: asset duration)"],
                     ], "required": ["asset_id"]],
                 ],
                 [
@@ -705,8 +707,16 @@ final class MCPServer {
         let startTime = args["start_time"] as? Double
         let trackIDStr = args["track_id"] as? String
         let trackID = trackIDStr.flatMap { UUID(uuidString: $0) }
+        let sourceStart = args["source_start"] as? Double
+        let sourceEnd = args["source_end"] as? Double
 
-        await appState.addAssetToTimeline(asset, source: .ai, preferredTrackID: trackID, startTime: startTime)
+        await appState.addAssetToTimeline(
+            asset, source: .ai,
+            preferredTrackID: trackID,
+            startTime: startTime,
+            sourceStart: sourceStart,
+            sourceEnd: sourceEnd
+        )
         return "Added '\(asset.name)' to timeline. " + stateSnapshot(appState)
     }
 
