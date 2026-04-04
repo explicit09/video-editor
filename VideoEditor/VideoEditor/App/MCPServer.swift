@@ -2467,44 +2467,57 @@ final class MCPServer {
             return raw
         }
 
-        var topics: [TimedEntry] = []
-        if let topicArray = args["topics"] as? [[String: Any]] {
+        // PATCH semantics: only override fields that were explicitly passed.
+        // Key present (even empty) = use new value. Key absent = keep existing.
+        let existing = appState.context.timelineState.broadcastOverlay ?? BroadcastOverlayConfig()
+
+        // Topics: passed explicitly → use new. Not passed → keep existing.
+        let topics: [TimedEntry]
+        if args.keys.contains("topics") {
+            let topicArray = args["topics"] as? [[String: Any]] ?? []
             topics = topicArray.compactMap { t in
                 guard let time = t["time_seconds"] as? Double,
                       let text = t["text"] as? String else { return nil }
                 return TimedEntry(timeSeconds: time, text: text)
             }
+        } else {
+            topics = existing.topics
         }
 
-        var chapters: [TimedEntry] = []
-        if let chapterArray = args["chapters"] as? [[String: Any]] {
+        let chapters: [TimedEntry]
+        if args.keys.contains("chapters") {
+            let chapterArray = args["chapters"] as? [[String: Any]] ?? []
             chapters = chapterArray.compactMap { c in
                 guard let time = c["time_seconds"] as? Double,
                       let text = c["text"] as? String else { return nil }
                 return TimedEntry(timeSeconds: time, text: text)
             }
+        } else {
+            chapters = existing.chapters
         }
 
-        var sponsors: [String] = []
-        if let sponsorArray = args["sponsors"] as? [String] {
-            sponsors = sponsorArray
-        } else if let templateSponsors = templateData["sponsors"] as? [String] {
+        let sponsors: [String]
+        if args.keys.contains("sponsors") {
+            sponsors = args["sponsors"] as? [String] ?? []
+        } else if let templateSponsors = templateData["sponsors"] as? [String], !templateSponsors.isEmpty {
             sponsors = templateSponsors
+        } else {
+            sponsors = existing.sponsors
         }
 
         let config = BroadcastOverlayConfig(
             isEnabled: enabled,
-            episodeTitle: args["episode_title"] as? String ?? "",
-            episodeSubtitle: args["episode_subtitle"] as? String ?? "",
+            episodeTitle: resolve("episode_title") ?? existing.episodeTitle,
+            episodeSubtitle: resolve("episode_subtitle") ?? existing.episodeSubtitle,
             hostA: HostInfo(
-                name: resolve("host_a_name") ?? "",
-                title: resolve("host_a_title") ?? "",
-                photoPath: resolvePhotoPath("host_a_photo")
+                name: resolve("host_a_name") ?? existing.hostA.name,
+                title: resolve("host_a_title") ?? existing.hostA.title,
+                photoPath: resolvePhotoPath("host_a_photo") ?? existing.hostA.photoPath
             ),
             hostB: HostInfo(
-                name: resolve("host_b_name") ?? "",
-                title: resolve("host_b_title") ?? "",
-                photoPath: resolvePhotoPath("host_b_photo")
+                name: resolve("host_b_name") ?? existing.hostB.name,
+                title: resolve("host_b_title") ?? existing.hostB.title,
+                photoPath: resolvePhotoPath("host_b_photo") ?? existing.hostB.photoPath
             ),
             sponsors: sponsors,
             topics: topics,
