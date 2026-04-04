@@ -8,7 +8,7 @@ public final class TimelineState {
     public var timeline: Timeline
     public var broadcastOverlay: BroadcastOverlayConfig?
     public var shortFormConfig: ShortFormConfig?
-    public var captionStyle: CaptionStyler.CaptionStyle = .standard
+    public var captionStyle: CaptionStyler.CaptionStyle = .none
 
     public init(timeline: Timeline = Timeline(), broadcastOverlay: BroadcastOverlayConfig? = nil, shortFormConfig: ShortFormConfig? = nil) {
         self.timeline = timeline
