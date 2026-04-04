@@ -3135,27 +3135,69 @@ final class MCPServer {
             return "Error: Invalid time range"
         }
 
-        let affectedClips = appState.timeline.tracks
-            .flatMap(\.clips)
-            .filter { $0.timelineRange.start < endTime && $0.timelineRange.end > startTime }
+        // Use rebuild approach: compute keep ranges, delete all affected clips, insert new ones.
+        // This avoids the split-then-re-fetch race condition that causes CommandError.
+        var allKeepRanges: [(trackIdx: Int, assetID: UUID, source: TimeRange, timeline: TimeRange, linkGroup: UUID?, label: String?)] = []
+
+        for (trackIdx, track) in appState.timeline.tracks.enumerated() {
+            for clip in track.clips {
+                let clipStart = clip.timelineRange.start
+                let clipEnd = clip.timelineRange.end
+
+                // Clip entirely outside removal range — keep as-is
+                if clipEnd <= startTime || clipStart >= endTime {
+                    continue // will be kept by not being in the delete set
+                }
+
+                // Clip partially overlaps — compute the kept portions
+                let sourceOffset = clip.sourceRange.start - clip.timelineRange.start
+
+                // Before the removal range
+                if clipStart < startTime {
+                    let keepEnd = startTime
+                    let keepSourceStart = sourceOffset + clipStart
+                    let keepSourceEnd = sourceOffset + keepEnd
+                    allKeepRanges.append((trackIdx, clip.assetID,
+                        TimeRange(start: keepSourceStart, end: keepSourceEnd),
+                        TimeRange(start: clipStart, end: keepEnd),
+                        clip.linkGroupID, clip.metadata.label))
+                }
+
+                // After the removal range
+                if clipEnd > endTime {
+                    let keepStart = endTime
+                    let keepSourceStart = sourceOffset + keepStart
+                    let keepSourceEnd = sourceOffset + clipEnd
+                    allKeepRanges.append((trackIdx, clip.assetID,
+                        TimeRange(start: keepSourceStart, end: keepSourceEnd),
+                        TimeRange(start: keepStart, end: clipEnd),
+                        clip.linkGroupID, clip.metadata.label))
+                }
+            }
+        }
+
+        // Delete all clips that overlap the removal range
+        let toDelete = appState.timeline.tracks.flatMap(\.clips).filter {
+            $0.timelineRange.start < endTime && $0.timelineRange.end > startTime
+        }.map(\.id)
 
         var deletedCount = 0
         do {
-            for clip in affectedClips where endTime > clip.timelineRange.start && endTime < clip.timelineRange.end {
-                try appState.perform(.splitClip(clipID: clip.id, at: endTime), source: .ai)
-            }
-            for clip in appState.timeline.tracks.flatMap(\.clips) where
-                startTime > clip.timelineRange.start && startTime < clip.timelineRange.end {
-                try appState.perform(.splitClip(clipID: clip.id, at: startTime), source: .ai)
-            }
-
-            let toDelete = appState.timeline.tracks.flatMap(\.clips).filter {
-                $0.timelineRange.start >= startTime - 0.01 && $0.timelineRange.end <= endTime + 0.01
-            }.map(\.id)
-            deletedCount = toDelete.count
-
             if !toDelete.isEmpty {
+                deletedCount = toDelete.count
                 try appState.perform(.deleteClips(clipIDs: toDelete), source: .ai)
+            }
+
+            // Re-insert the kept portions
+            for keep in allKeepRanges {
+                let clip = Clip(
+                    assetID: keep.assetID,
+                    timelineRange: keep.timeline,
+                    sourceRange: keep.source,
+                    linkGroupID: keep.linkGroup
+                )
+                let trackID = appState.timeline.tracks[keep.trackIdx].id
+                try appState.perform(.insertClip(clip: clip, trackID: trackID), source: .ai)
             }
         } catch {
             return "Error: \(error.localizedDescription)"
@@ -3240,6 +3282,10 @@ final class MCPServer {
         let outputDir = FileManager.default.temporaryDirectory
         let outputURL = outputDir.appendingPathComponent("\(filename).mp4")
 
+        // Remove existing file — AVAssetExportSession fails if output exists
+        try? FileManager.default.removeItem(at: outputURL)
+        appState.exportEngine.reset()
+
         await appState.exportEngine.export(
             timeline: appState.timeline,
             assets: appState.assets,
@@ -3280,6 +3326,12 @@ final class MCPServer {
         let filename = (args["filename"] as? String) ?? "\(platformStr)_\(Int(Date().timeIntervalSince1970))"
         let ext = preset.fileType == .m4a ? "m4a" : "mp4"
         let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(filename).\(ext)")
+
+        // Remove existing file — AVAssetExportSession fails with "Operation Stopped" if output exists
+        try? FileManager.default.removeItem(at: outputURL)
+
+        // Reset export engine state from any previous export
+        appState.exportEngine.reset()
 
         // Warn if timeline exceeds platform max duration
         var warning = ""
