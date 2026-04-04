@@ -1,26 +1,7 @@
 ---
 name: shorts-formatter
-description: Format clips for vertical short-form platforms (YouTube Shorts, TikTok, Reels). Handles reframing, cold-open hooks, captions, pacing optimization. Verifies output meets platform specs.
-model: standard
-context-level: full
-tools:
-  - analyze_audio_energy
-  - get_transcript
-  - transcribe_asset
-  - split_clip
-  - trim_clip
-  - move_clip
-  - add_to_timeline
-  - set_clip_speed
-  - set_clip_effect
-  - set_clip_transform
-  - set_clip_transition
-  - set_caption_style
-  - auto_reframe
-  - measure_loudness
-  - verify_playback
-  - get_state
-keywords: shorts, vertical, 9:16, reframe, format, tiktok, reels, youtube shorts, portrait, vertical video, captions, subtitles
+description: Format clips for vertical short-form platforms (YouTube Shorts, TikTok, Reels). Handles reframing, cold-open hooks, captions, pacing optimization. Verifies output meets platform specs. Use when the user asks about shorts, vertical video, 9:16 reframe, format for TikTok, Reels, YouTube Shorts, portrait mode, vertical video, captions, or subtitles.
+allowed-tools: analyze_audio_energy get_transcript transcribe_asset split_clip trim_clip move_clip add_to_timeline set_clip_speed set_clip_effect set_clip_transform set_clip_transition set_caption_style auto_reframe measure_loudness verify_playback get_state
 ---
 
 # Shorts Formatter

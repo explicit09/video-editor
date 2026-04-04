@@ -1,22 +1,7 @@
 ---
 name: auto-cutter
-description: Extract and clean podcast episodes from long recordings. Transcript-first analysis, then mechanical cleanup. Handles multi-episode recordings, rehearsals, false starts.
-model: standard
-context-level: full
-tools:
-  - analyze_transcript
-  - get_full_transcript
-  - auto_cut
-  - get_state
-  - get_transcript
-  - transcribe_asset
-  - search_transcript
-  - score_content
-  - verify_playback
-  - trim_clip
-  - add_to_timeline
-  - clear_project
-keywords: auto cut, clean up, remove fillers, tighten, one click, auto edit, clean edit, polish, remove ums, remove silence, clean audio, tighten pacing, extract episode, podcast, make episode
+description: Extract and clean podcast episodes from long recordings. Transcript-first analysis, then mechanical cleanup. Handles multi-episode recordings, rehearsals, false starts. Use when the user asks about auto cut, clean up, remove fillers, tighten, one click edit, auto edit, clean edit, polish, remove ums, remove silence, clean audio, tighten pacing, extract episode, podcast editing, or make episode.
+allowed-tools: analyze_transcript get_full_transcript auto_cut get_state get_transcript transcribe_asset search_transcript score_content verify_playback trim_clip add_to_timeline clear_project
 ---
 
 # Auto-Cutter: Episode Extraction & Cleanup

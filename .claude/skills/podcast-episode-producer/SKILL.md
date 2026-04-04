@@ -1,28 +1,7 @@
 ---
 name: podcast-episode-producer
-description: Produce edited podcast episodes from raw recordings. Handles transcription, episode detection, extraction, overlay setup, cuts, and export.
-model: standard
-context-level: full
-tools:
-  - import_media
-  - add_to_timeline
-  - transcribe_asset
-  - analyze_transcript
-  - extract_segment
-  - get_transcript_with_timing
-  - search_transcript
-  - set_overlay_config
-  - remove_section
-  - split_clip
-  - ripple_delete
-  - export_video
-  - save_snapshot
-  - restore_snapshot
-  - get_state
-  - set_caption_style
-  - set_zoom
-  - take_screenshot
-keywords: podcast, episode, produce, edit, extract, overlay, lower third, export, technologia
+description: Produce edited podcast episodes from raw recordings. Handles transcription, episode detection, extraction, overlay setup, cuts, and export. Use when the user asks to produce a podcast episode, extract an episode, set up overlays or lower thirds, export a podcast, or work on Technologia Talks.
+allowed-tools: import_media add_to_timeline transcribe_asset analyze_transcript extract_segment get_transcript_with_timing search_transcript set_overlay_config remove_section split_clip ripple_delete export_video save_snapshot restore_snapshot get_state set_caption_style set_zoom take_screenshot
 ---
 
 # Podcast Episode Producer

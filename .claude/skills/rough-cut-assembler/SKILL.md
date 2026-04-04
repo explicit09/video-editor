@@ -1,23 +1,7 @@
 ---
 name: rough-cut-assembler
-description: Assemble raw footage into a rough cut. Uses audio energy to find active takes vs dead air, selects best takes, removes dead air, assembles in order. Verifies assembly quality.
-model: standard
-context-level: full
-tools:
-  - analyze_audio_energy
-  - get_transcript
-  - transcribe_asset
-  - search_transcript
-  - split_clip
-  - trim_clip
-  - move_clip
-  - delete_clips
-  - rename_clip
-  - set_marker
-  - measure_loudness
-  - verify_playback
-  - get_state
-keywords: rough cut, assembly, takes, raw footage, first cut, assemble, organize, select takes, dead air, clean up raw
+description: Assemble raw footage into a rough cut. Uses audio energy to find active takes vs dead air, selects best takes, removes dead air, assembles in order. Verifies assembly quality. Use when the user asks about rough cut, assembly, takes, raw footage, first cut, assemble, organize, select takes, dead air, or clean up raw footage.
+allowed-tools: analyze_audio_energy get_transcript transcribe_asset search_transcript split_clip trim_clip move_clip delete_clips rename_clip set_marker measure_loudness verify_playback get_state
 ---
 
 # Rough Cut Assembler

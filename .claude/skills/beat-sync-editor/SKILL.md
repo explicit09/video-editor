@@ -1,24 +1,7 @@
 ---
 name: beat-sync-editor
-description: Edit video to music by detecting beats and syncing cuts to the rhythm. Matches visual energy to musical energy, handles speed ramps on drops. Verifies beat alignment.
-model: standard
-context-level: full
-tools:
-  - detect_beats
-  - analyze_audio_energy
-  - split_clip
-  - trim_clip
-  - move_clip
-  - delete_clips
-  - set_clip_speed
-  - set_clip_effect
-  - set_clip_transition
-  - set_marker
-  - measure_loudness
-  - rename_clip
-  - verify_playback
-  - get_state
-keywords: beat, sync, music, rhythm, montage, beat drop, music video, cut to beat, tempo, bpm, dance, energy
+description: Edit video to music by detecting beats and syncing cuts to the rhythm. Matches visual energy to musical energy, handles speed ramps on drops. Verifies beat alignment. Use when the user asks about beat sync, music editing, rhythm, montage, beat drop, music video, cut to beat, tempo, BPM, dance, or energy matching.
+allowed-tools: detect_beats analyze_audio_energy split_clip trim_clip move_clip delete_clips set_clip_speed set_clip_effect set_clip_transition set_marker measure_loudness rename_clip verify_playback get_state
 ---
 
 # Beat Sync Editor

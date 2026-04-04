@@ -1,24 +1,7 @@
 ---
 name: podcast-editor
-description: Edit podcast and interview recordings. Uses audio energy analysis to find dead zones, removes filler words, tightens silence, speeds up slow speakers, normalizes audio. Verifies output quality.
-model: standard
-context-level: full
-tools:
-  - analyze_audio_energy
-  - get_transcript
-  - transcribe_asset
-  - search_transcript
-  - split_clip
-  - trim_clip
-  - move_clip
-  - delete_clips
-  - set_clip_speed
-  - set_clip_volume
-  - set_track_volume
-  - measure_loudness
-  - verify_playback
-  - get_state
-keywords: podcast, filler, um, uh, silence, clean up, tighten, edit podcast, interview, remove ums, remove silence, polish audio
+description: Edit podcast and interview recordings. Uses audio energy analysis to find dead zones, removes filler words, tightens silence, speeds up slow speakers, normalizes audio. Verifies output quality. Use when the user asks to clean up a podcast, remove ums, remove filler words, tighten silence, edit an interview, or polish audio.
+allowed-tools: analyze_audio_energy get_transcript transcribe_asset search_transcript split_clip trim_clip move_clip delete_clips set_clip_speed set_clip_volume set_track_volume measure_loudness verify_playback get_state
 ---
 
 # Podcast Editor

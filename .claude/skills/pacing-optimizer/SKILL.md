@@ -1,21 +1,7 @@
 ---
 name: pacing-optimizer
-description: Optimize video pacing by removing dead zones, tightening silence, and adjusting speed. Uses audio energy analysis to find and remove low-engagement sections. Makes content feel tighter and more engaging.
-model: standard
-context-level: full
-tools:
-  - analyze_audio_energy
-  - get_transcript
-  - search_transcript
-  - split_clip
-  - trim_clip
-  - delete_clips
-  - move_clip
-  - set_clip_speed
-  - measure_loudness
-  - verify_playback
-  - get_state
-keywords: pacing, tighten, remove dead air, speed up, boring parts, slow, fix pacing, optimize, dead zones, engagement
+description: Optimize video pacing by removing dead zones, tightening silence, and adjusting speed. Uses audio energy analysis to find and remove low-engagement sections. Makes content feel tighter and more engaging. Use when the user asks about pacing, tighten, remove dead air, speed up, boring parts, slow sections, fix pacing, optimize, dead zones, or engagement.
+allowed-tools: analyze_audio_energy get_transcript search_transcript split_clip trim_clip delete_clips move_clip set_clip_speed measure_loudness verify_playback get_state
 ---
 
 # Pacing Optimizer

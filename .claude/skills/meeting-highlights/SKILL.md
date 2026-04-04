@@ -1,25 +1,7 @@
 ---
 name: meeting-highlights
-description: Create executive summaries from meeting recordings. Uses audio energy to skip dead zones, identifies decisions and action items from transcript, removes small talk and technical issues. Verifies output quality.
-model: standard
-context-level: full
-tools:
-  - analyze_audio_energy
-  - get_transcript
-  - transcribe_asset
-  - search_transcript
-  - split_clip
-  - trim_clip
-  - move_clip
-  - delete_clips
-  - set_marker
-  - rename_clip
-  - measure_loudness
-  - set_clip_speed
-  - set_clip_transition
-  - verify_playback
-  - get_state
-keywords: meeting, highlights, summary, executive summary, action items, decisions, minutes, key moments, recap, meeting notes, important parts
+description: Create executive summaries from meeting recordings. Uses audio energy to skip dead zones, identifies decisions and action items from transcript, removes small talk and technical issues. Verifies output quality. Use when the user asks about meeting highlights, summary, executive summary, action items, decisions, minutes, key moments, recap, meeting notes, or important parts.
+allowed-tools: analyze_audio_energy get_transcript transcribe_asset search_transcript split_clip trim_clip move_clip delete_clips set_marker rename_clip measure_loudness set_clip_speed set_clip_transition verify_playback get_state
 ---
 
 # Meeting Highlights Editor

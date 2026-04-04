@@ -1,26 +1,7 @@
 ---
 name: viral-clip-extractor
-description: Find and create 30-60 second viral clips from long-form video. Uses audio energy analysis + transcript to find genuinely engaging moments (not just good text), creates cold-open hooks, formats for YouTube Shorts/TikTok/Reels. Verifies every output.
-model: standard
-context-level: full
-tools:
-  - analyze_audio_energy
-  - get_transcript
-  - transcribe_asset
-  - search_transcript
-  - split_clip
-  - trim_clip
-  - move_clip
-  - delete_clips
-  - add_to_timeline
-  - set_clip_speed
-  - set_clip_effect
-  - set_clip_transition
-  - rename_clip
-  - measure_loudness
-  - verify_playback
-  - get_state
-keywords: viral, clip, hook, shorts, tiktok, reels, highlight, best moments, social, clips, extract, find moments
+description: Find and create 30-60 second viral clips from long-form video. Uses audio energy analysis + transcript to find genuinely engaging moments (not just good text), creates cold-open hooks, formats for YouTube Shorts/TikTok/Reels. Verifies every output. Use when the user asks about viral clips, hooks, shorts, TikTok, Reels, highlights, best moments, social clips, extract clips, or find moments.
+allowed-tools: analyze_audio_energy get_transcript transcribe_asset search_transcript split_clip trim_clip move_clip delete_clips add_to_timeline set_clip_speed set_clip_effect set_clip_transition rename_clip measure_loudness verify_playback get_state
 ---
 
 # Viral Clip Extractor
