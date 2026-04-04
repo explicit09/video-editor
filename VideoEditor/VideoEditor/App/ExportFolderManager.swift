@@ -88,7 +88,7 @@ final class ExportFolderManager {
         panel.message = "Choose a media source folder (files here won't be copied on import)"
         panel.prompt = "Add Folder"
         guard panel.runModal() == .OK, let url = panel.url else { return nil }
-        addMediaFolderBookmark(for: url)
+        addMediaFolderBookmark(url: url)
         return url
     }
 
@@ -129,7 +129,7 @@ final class ExportFolderManager {
         UserDefaults.standard.set(data, forKey: key)
     }
 
-    private static func addMediaFolderBookmark(for url: URL) {
+    static func addMediaFolderBookmark(url: URL) {
         guard let data = try? url.bookmarkData(options: .withSecurityScope,
                                                 includingResourceValuesForKeys: nil,
                                                 relativeTo: nil) else { return }

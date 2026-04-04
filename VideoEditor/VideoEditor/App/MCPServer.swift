@@ -721,16 +721,35 @@ final class MCPServer {
         }
 
         let sourceURL = URL(fileURLWithPath: path)
-        guard FileManager.default.fileExists(atPath: path) else {
-            return "Error: File not found: \(path)"
+
+        // Check if file is accessible — if not, try to bookmark the parent folder
+        if !FileManager.default.isReadableFile(atPath: path) {
+            // Try existing bookmarks first
+            if ExportFolderManager.canAccessWithoutCopy(path: path) {
+                // Bookmark gave us access, continue
+            } else {
+                // Auto-bookmark: open folder picker for the parent directory
+                let parentDir = sourceURL.deletingLastPathComponent()
+                let panel = NSOpenPanel()
+                panel.canChooseFiles = false
+                panel.canChooseDirectories = true
+                panel.allowsMultipleSelection = false
+                panel.directoryURL = parentDir
+                panel.message = "Grant access to '\(parentDir.lastPathComponent)' to import media without copying"
+                panel.prompt = "Allow Access"
+                if panel.runModal() == .OK, let url = panel.url {
+                    ExportFolderManager.addMediaFolderBookmark(url: url)
+                    _ = url.startAccessingSecurityScopedResource()
+                }
+            }
         }
 
-        // Sandboxed app can only access files inside its container.
-        // If the path is outside, return the container path for the caller to copy into.
-        let importURL = sourceURL
+        guard FileManager.default.isReadableFile(atPath: path) else {
+            return "Error: Cannot access file: \(path). Use add_media_folder to grant access to this directory."
+        }
 
         do {
-            let asset = try await appState.importMedia(from: importURL)
+            let asset = try await appState.importMedia(from: sourceURL)
             return "Imported '\(asset.name)' (ID: \(asset.id.uuidString), type: \(asset.type.rawValue), duration: \(String(format: "%.1f", asset.duration))s). Use add_to_timeline with this asset_id to place it on the timeline."
         } catch {
             return "Error importing: \(error.localizedDescription)"
