@@ -48,8 +48,8 @@ public actor TranscriptionService {
             )
         }
 
-        // Check persisted on disk (by asset ID or source URL)
-        return loadTranscript(for: asset.id, bundleURL: bundleURL, sourceURL: asset.sourceURL)
+        // Check persisted on disk — source-stable key first, then legacy asset ID
+        return loadTranscript(for: asset, bundleURL: bundleURL)
     }
 
     /// Transcribe an asset. Only runs if no transcript exists (or force = true).
@@ -128,34 +128,32 @@ public actor TranscriptionService {
             asset.analysis = analysis
         }
 
-        // Persist to disk — by asset ID and also by source file hash for cross-ID lookup
-        persistTranscript(result, assetID: asset.id, bundleURL: bundleURL)
-        persistTranscriptBySource(result, sourceURL: asset.sourceURL, bundleURL: bundleURL)
+        // Persist to disk — keyed by source file (name + size), survives re-imports
+        persistTranscript(result, asset: asset, bundleURL: bundleURL)
 
         return result
     }
 
-    /// Check if a transcript exists for this asset (memory, disk by ID, or disk by source).
+    /// Check if a transcript exists for this asset (memory, disk by source key, or legacy asset ID).
     public func hasTranscript(for asset: MediaAsset, bundleURL: URL) -> Bool {
         if let transcript = asset.analysis?.transcript, !transcript.isEmpty { return true }
-        if FileManager.default.fileExists(atPath: transcriptPath(for: asset.id, bundleURL: bundleURL)) { return true }
-        if FileManager.default.fileExists(atPath: transcriptPathBySource(asset.sourceURL, bundleURL: bundleURL)) { return true }
+        if FileManager.default.fileExists(atPath: transcriptPath(for: asset, bundleURL: bundleURL)) { return true }
+        // Legacy fallback: old asset-ID-based files
+        if FileManager.default.fileExists(atPath: legacyTranscriptPath(for: asset.id, bundleURL: bundleURL)) { return true }
         return false
     }
 
-    /// Load a persisted transcript from disk — checks by asset ID first, then by source URL.
-    public func loadTranscript(for assetID: UUID, bundleURL: URL, sourceURL: URL? = nil) -> TranscriptionResult? {
-        // Try by asset ID first
-        let path = transcriptPath(for: assetID, bundleURL: bundleURL)
+    /// Load a persisted transcript from disk — source-stable key first, then legacy asset ID.
+    public func loadTranscript(for asset: MediaAsset, bundleURL: URL) -> TranscriptionResult? {
+        // Primary: source-stable key (name + fileSize)
+        let path = transcriptPath(for: asset, bundleURL: bundleURL)
         if let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
             return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
         }
-        // Try by source URL
-        if let sourceURL {
-            let sourcePath = transcriptPathBySource(sourceURL, bundleURL: bundleURL)
-            if let data = try? Data(contentsOf: URL(fileURLWithPath: sourcePath)) {
-                return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
-            }
+        // Legacy fallback: old asset-ID-keyed files
+        let legacyPath = legacyTranscriptPath(for: asset.id, bundleURL: bundleURL)
+        if let data = try? Data(contentsOf: URL(fileURLWithPath: legacyPath)) {
+            return try? JSONDecoder().decode(TranscriptionResult.self, from: data)
         }
         return nil
     }
@@ -167,39 +165,32 @@ public actor TranscriptionService {
 
     // MARK: - Private
 
-    private func transcriptPath(for assetID: UUID, bundleURL: URL) -> String {
+    /// Stable transcript path keyed by source file name + size. Survives re-imports.
+    private func transcriptPath(for asset: MediaAsset, bundleURL: URL) -> String {
+        let key = stableKey(for: asset)
+        return bundleURL.appendingPathComponent("analysis/transcripts/\(key).json").path
+    }
+
+    /// Legacy path keyed by asset UUID — kept for reading old transcripts.
+    private func legacyTranscriptPath(for assetID: UUID, bundleURL: URL) -> String {
         bundleURL.appendingPathComponent("analysis/transcripts/\(assetID.uuidString).json").path
     }
 
-    private func persistTranscript(_ result: TranscriptionResult, assetID: UUID, bundleURL: URL) {
+    private func persistTranscript(_ result: TranscriptionResult, asset: MediaAsset, bundleURL: URL) {
         let dir = bundleURL.appendingPathComponent("analysis/transcripts")
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        let url = dir.appendingPathComponent("\(assetID.uuidString).json")
+        let key = stableKey(for: asset)
+        let url = dir.appendingPathComponent("\(key).json")
         if let data = try? JSONEncoder().encode(result) {
             try? data.write(to: url)
         }
     }
 
-    /// Persist transcript keyed by source file name — survives re-imports with new asset IDs.
-    private func persistTranscriptBySource(_ result: TranscriptionResult, sourceURL: URL, bundleURL: URL) {
-        let dir = bundleURL.appendingPathComponent("analysis/transcripts")
-        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        let key = sourceHashKey(sourceURL)
-        let url = dir.appendingPathComponent("src_\(key).json")
-        if let data = try? JSONEncoder().encode(result) {
-            try? data.write(to: url)
-        }
-    }
-
-    private func transcriptPathBySource(_ sourceURL: URL, bundleURL: URL) -> String {
-        let key = sourceHashKey(sourceURL)
-        return bundleURL.appendingPathComponent("analysis/transcripts/src_\(key).json").path
-    }
-
-    /// Stable key from source file name + size (avoids full path dependency).
-    private func sourceHashKey(_ sourceURL: URL) -> String {
-        let name = sourceURL.lastPathComponent
-        let size = (try? FileManager.default.attributesOfItem(atPath: sourceURL.path)[.size] as? Int64) ?? 0
+    /// Stable key from source file name + file size (from the asset, not disk).
+    /// Format: "filename.mov_123456789" — avoids full path dependency, survives re-imports.
+    private func stableKey(for asset: MediaAsset) -> String {
+        let name = asset.sourceURL.lastPathComponent
+        let size = asset.fileSize
         return "\(name)_\(size)".replacingOccurrences(of: " ", with: "_")
     }
 }

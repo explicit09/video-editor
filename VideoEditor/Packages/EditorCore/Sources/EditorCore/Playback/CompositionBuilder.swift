@@ -6,8 +6,9 @@ import CoreImage
 /// Shared between PlaybackEngine (proxy URLs) and ExportEngine (source URLs).
 ///
 /// Architecture:
-/// - Each video clip gets its own AVMutableCompositionTrack (required because
-///   insertTimeRange shifts existing content, making shared tracks unreliable)
+/// - Video clips on the same timeline track share one AVMutableCompositionTrack
+///   (keeps total track count low — AVFoundation crashes above ~100 tracks).
+///   Clips with transitions alternate between two tracks for crossfades.
 /// - An AVVideoComposition with per-clip instructions tells AVFoundation which
 ///   composition track to render at each point in time
 /// - Audio is extracted from ALL tracks (video assets have audio too), with
@@ -160,6 +161,14 @@ public struct CompositionBuilder {
             return map
         }()
 
+        // Reuse composition video tracks to stay under AVFoundation's ~100 track limit.
+        // Key: timeline track ID -> shared composition video track.
+        // Transitions need two distinct tracks for the crossfade, so we alternate
+        // between a primary and secondary track per timeline track.
+        var videoTrackCompTracks: [UUID: AVMutableCompositionTrack] = [:]
+        var videoTrackAltTracks: [UUID: AVMutableCompositionTrack] = [:]
+        var videoTrackUseAlt: [UUID: Bool] = [:]
+
         for track in timeline.tracks {
             guard !track.isMuted else { continue }
             if anySoloed && !track.isSoloed { continue }
@@ -195,8 +204,41 @@ public struct CompositionBuilder {
 
                 // === VIDEO ===
                 if track.type != .audio {
-                    if let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first,
-                       let compTrack = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
+                    // Determine which composition track to use.
+                    // Clips with transitions alternate between primary and alt tracks
+                    // so the crossfade instruction has two distinct trackIDs.
+                    let hasTransition = clip.transitionIn.type != .none
+                    let useAlt: Bool
+                    if hasTransition {
+                        let prev = videoTrackUseAlt[track.id] ?? false
+                        useAlt = !prev
+                        videoTrackUseAlt[track.id] = useAlt
+                    } else {
+                        useAlt = false
+                        videoTrackUseAlt[track.id] = false
+                    }
+
+                    let compTrack: AVMutableCompositionTrack?
+                    if useAlt {
+                        if let existing = videoTrackAltTracks[track.id] {
+                            compTrack = existing
+                        } else {
+                            let t = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+                            if let t { videoTrackAltTracks[track.id] = t }
+                            compTrack = t
+                        }
+                    } else {
+                        if let existing = videoTrackCompTracks[track.id] {
+                            compTrack = existing
+                        } else {
+                            let t = comp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+                            if let t { videoTrackCompTracks[track.id] = t }
+                            compTrack = t
+                        }
+                    }
+
+                    if let compTrack,
+                       let sourceTrack = try? await avAsset.loadTracks(withMediaType: .video).first {
 
                         try? compTrack.insertTimeRange(sourceRange, of: sourceTrack, at: insertTime)
 

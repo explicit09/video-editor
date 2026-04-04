@@ -698,7 +698,7 @@ final class AIChatController {
         for i in searchableAssets.indices {
             if searchableAssets[i].analysis?.transcript == nil || searchableAssets[i].analysis!.transcript!.isEmpty {
                 if let diskResult = await appState.media.transcriptionService.loadTranscript(
-                    for: searchableAssets[i].id, bundleURL: appState.projectBundleURL
+                    for: searchableAssets[i], bundleURL: appState.projectBundleURL
                 ) {
                     var analysis = searchableAssets[i].analysis ?? MediaAnalysis()
                     analysis.transcript = diskResult.words

@@ -292,15 +292,18 @@ final class MCPServer {
                 ],
                 [
                     "name": "set_overlay_config",
-                    "description": "Set broadcast overlay configuration. Renders professional graphics over the video: episode title card (0-30s), host name bar, scrolling sponsor/topic ticker, chapter cards, and host intro strip (38-92s). Pass enabled=false to disable.",
+                    "description": "Set broadcast overlay configuration. Renders professional graphics over the video: episode title card (0-30s), host name bar, scrolling sponsor/topic ticker, chapter cards, and host intro strip (38-92s). Pass enabled=false to disable. Use 'template' to load a preset (e.g. 'technologia_talks') and only pass episode-specific args.",
                     "inputSchema": ["type": "object", "properties": [
+                        "template": ["type": "string", "description": "Template name (e.g. 'technologia_talks'). Loads host info, sponsors from Tools/overlay_templates/<name>.json. Episode-specific args merge on top."],
                         "enabled": ["type": "boolean", "description": "Enable/disable overlay rendering (default: true)"],
                         "episode_title": ["type": "string", "description": "Episode title (uppercase)"],
                         "episode_subtitle": ["type": "string", "description": "Episode subtitle"],
                         "host_a_name": ["type": "string", "description": "Host A name"],
                         "host_a_title": ["type": "string", "description": "Host A title (e.g. 'CO-HOST · FOUNDER, LEARNX')"],
+                        "host_a_photo": ["type": "string", "description": "Host A photo path"],
                         "host_b_name": ["type": "string", "description": "Host B name"],
                         "host_b_title": ["type": "string", "description": "Host B title"],
+                        "host_b_photo": ["type": "string", "description": "Host B photo path"],
                         "sponsors": ["type": "array", "description": "Sponsor names for scrolling ticker", "items": ["type": "string"]],
                         "topics": ["type": "array", "description": "Topics with timestamps", "items": ["type": "object", "properties": ["time_seconds": ["type": "number"], "text": ["type": "string"]]]],
                         "chapters": ["type": "array", "description": "Chapters with timestamps", "items": ["type": "object", "properties": ["time_seconds": ["type": "number"], "text": ["type": "string"]]]],
@@ -1518,7 +1521,7 @@ final class MCPServer {
         for i in searchAssets.indices {
             if searchAssets[i].analysis?.transcript == nil {
                 if let result = await appState.media.transcriptionService.loadTranscript(
-                    for: searchAssets[i].id, bundleURL: appState.projectBundleURL
+                    for: searchAssets[i], bundleURL: appState.projectBundleURL
                 ) {
                     var analysis = searchAssets[i].analysis ?? MediaAnalysis()
                     analysis.transcript = result.words
@@ -2408,6 +2411,45 @@ final class MCPServer {
     private func handleSetOverlayConfig(_ args: [String: Any], appState: AppState) -> String {
         let enabled = args["enabled"] as? Bool ?? true
 
+        // Load template if specified, then merge episode-specific args on top
+        var templateData: [String: Any] = [:]
+        var templateDir: URL?
+        if let templateName = args["template"] as? String {
+            let templatesURL = URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent() // App/
+                .deletingLastPathComponent() // VideoEditor/
+                .deletingLastPathComponent() // VideoEditor/
+                .appendingPathComponent("Tools/overlay_templates")
+            let templateURL = templatesURL.appendingPathComponent("\(templateName).json")
+            templateDir = templatesURL
+            guard FileManager.default.fileExists(atPath: templateURL.path) else {
+                return "Error: Template '\(templateName)' not found at \(templateURL.path)"
+            }
+            do {
+                let data = try Data(contentsOf: templateURL)
+                guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                    return "Error: Template '\(templateName)' is not a valid JSON object"
+                }
+                templateData = json
+            } catch {
+                return "Error loading template: \(error.localizedDescription)"
+            }
+        }
+
+        // Helper: args override template values
+        func resolve(_ key: String) -> String? {
+            args[key] as? String ?? templateData[key] as? String
+        }
+
+        func resolvePhotoPath(_ key: String) -> String? {
+            guard let raw = resolve(key) else { return nil }
+            if raw.hasPrefix("/") { return raw }
+            if let dir = templateDir {
+                return dir.appendingPathComponent(raw).path
+            }
+            return raw
+        }
+
         var topics: [TimedEntry] = []
         if let topicArray = args["topics"] as? [[String: Any]] {
             topics = topicArray.compactMap { t in
@@ -2429,6 +2471,8 @@ final class MCPServer {
         var sponsors: [String] = []
         if let sponsorArray = args["sponsors"] as? [String] {
             sponsors = sponsorArray
+        } else if let templateSponsors = templateData["sponsors"] as? [String] {
+            sponsors = templateSponsors
         }
 
         let config = BroadcastOverlayConfig(
@@ -2436,12 +2480,14 @@ final class MCPServer {
             episodeTitle: args["episode_title"] as? String ?? "",
             episodeSubtitle: args["episode_subtitle"] as? String ?? "",
             hostA: HostInfo(
-                name: args["host_a_name"] as? String ?? "",
-                title: args["host_a_title"] as? String ?? ""
+                name: resolve("host_a_name") ?? "",
+                title: resolve("host_a_title") ?? "",
+                photoPath: resolvePhotoPath("host_a_photo")
             ),
             hostB: HostInfo(
-                name: args["host_b_name"] as? String ?? "",
-                title: args["host_b_title"] as? String ?? ""
+                name: resolve("host_b_name") ?? "",
+                title: resolve("host_b_title") ?? "",
+                photoPath: resolvePhotoPath("host_b_photo")
             ),
             sponsors: sponsors,
             topics: topics,
@@ -2455,7 +2501,8 @@ final class MCPServer {
         }
         appState.rebuildComposition()
 
-        return "Overlay config set. Enabled: \(enabled), title: \(config.episodeTitle), \(topics.count) topics, \(chapters.count) chapters, \(sponsors.count) sponsors."
+        let templateMsg = args["template"] != nil ? " (from template)" : ""
+        return "Overlay config set\(templateMsg). Enabled: \(enabled), title: \(config.episodeTitle), \(topics.count) topics, \(chapters.count) chapters, \(sponsors.count) sponsors."
     }
 
     private func handleGetOverlayConfig(appState: AppState) -> String {
@@ -2479,6 +2526,29 @@ final class MCPServer {
             lines.append("  [\(Int(c.timeSeconds / 60)):\(String(format: "%02d", Int(c.timeSeconds) % 60))] \(c.text)")
         }
         return lines.joined(separator: "\n")
+    }
+
+    // MARK: - Overlay Timestamp Shifting
+
+    /// Adjusts overlay topic and chapter timestamps after time is removed from the timeline.
+    /// Entries after `cutPoint` are shifted earlier by `duration` seconds.
+    private func shiftOverlayTimestamps(appState: AppState, cutPoint: Double, duration: Double) {
+        guard var overlay = appState.context.timelineState.broadcastOverlay else { return }
+        overlay.topics = overlay.topics.map { topic in
+            var t = topic
+            if t.timeSeconds > cutPoint {
+                t.timeSeconds -= duration
+            }
+            return t
+        }
+        overlay.chapters = overlay.chapters.map { ch in
+            var c = ch
+            if c.timeSeconds > cutPoint {
+                c.timeSeconds -= duration
+            }
+            return c
+        }
+        try? appState.perform(.setBroadcastOverlay(config: overlay), source: .ai)
     }
 
     // MARK: - Get Full Transcript
@@ -3145,79 +3215,56 @@ final class MCPServer {
             return "Error: Invalid time range"
         }
 
-        // Use rebuild approach: compute keep ranges, delete all affected clips, insert new ones.
-        // This avoids the split-then-re-fetch race condition that causes CommandError.
-        var allKeepRanges: [(trackIdx: Int, assetID: UUID, source: TimeRange, timeline: TimeRange, linkGroup: UUID?, label: String?)] = []
+        // Split-then-delete: split clips at boundaries, then ripple-delete
+        // the clips fully within [startTime, endTime].
+        let tolerance = 0.001
 
-        for (trackIdx, track) in appState.timeline.tracks.enumerated() {
-            for clip in track.clips {
-                let clipStart = clip.timelineRange.start
-                let clipEnd = clip.timelineRange.end
-
-                // Clip entirely outside removal range — keep as-is
-                if clipEnd <= startTime || clipStart >= endTime {
-                    continue // will be kept by not being in the delete set
-                }
-
-                // Clip partially overlaps — compute the kept portions
-                let sourceOffset = clip.sourceRange.start - clip.timelineRange.start
-
-                // Before the removal range
-                if clipStart < startTime {
-                    let keepEnd = startTime
-                    let keepSourceStart = sourceOffset + clipStart
-                    let keepSourceEnd = sourceOffset + keepEnd
-                    allKeepRanges.append((trackIdx, clip.assetID,
-                        TimeRange(start: keepSourceStart, end: keepSourceEnd),
-                        TimeRange(start: clipStart, end: keepEnd),
-                        clip.linkGroupID, clip.metadata.label))
-                }
-
-                // After the removal range
-                if clipEnd > endTime {
-                    let keepStart = endTime
-                    let keepSourceStart = sourceOffset + keepStart
-                    let keepSourceEnd = sourceOffset + clipEnd
-                    allKeepRanges.append((trackIdx, clip.assetID,
-                        TimeRange(start: keepSourceStart, end: keepSourceEnd),
-                        TimeRange(start: keepStart, end: clipEnd),
-                        clip.linkGroupID, clip.metadata.label))
-                }
-            }
-        }
-
-        // Delete all clips that overlap the removal range
-        let toDelete = appState.timeline.tracks.flatMap(\.clips).filter {
-            $0.timelineRange.start < endTime && $0.timelineRange.end > startTime
-        }.map(\.id)
-
-        var deletedCount = 0
         do {
-            if !toDelete.isEmpty {
-                deletedCount = toDelete.count
-                try appState.perform(.deleteClips(clipIDs: toDelete), source: .ai)
+            // Step 1: Split at start_time (skip if it falls on a clip boundary)
+            for track in appState.timeline.tracks {
+                if let clip = track.clips.first(where: {
+                    startTime > $0.timelineRange.start + tolerance
+                    && startTime < $0.timelineRange.end - tolerance
+                }) {
+                    try appState.perform(.splitClip(clipID: clip.id, at: startTime), source: .ai)
+                }
             }
 
-            // Re-insert the kept portions
-            for keep in allKeepRanges {
-                let clip = Clip(
-                    assetID: keep.assetID,
-                    timelineRange: keep.timeline,
-                    sourceRange: keep.source,
-                    linkGroupID: keep.linkGroup
-                )
-                let trackID = appState.timeline.tracks[keep.trackIdx].id
-                try appState.perform(.insertClip(clip: clip, trackID: trackID), source: .ai)
+            // Step 2: Split at end_time (re-read timeline — splits change clip IDs)
+            for track in appState.timeline.tracks {
+                if let clip = track.clips.first(where: {
+                    endTime > $0.timelineRange.start + tolerance
+                    && endTime < $0.timelineRange.end - tolerance
+                }) {
+                    try appState.perform(.splitClip(clipID: clip.id, at: endTime), source: .ai)
+                }
             }
+
+            // Step 3: Collect all clips fully within [startTime, endTime]
+            let clipsToDelete = appState.timeline.tracks.flatMap(\.clips).filter { clip in
+                clip.timelineRange.start >= startTime - tolerance
+                && clip.timelineRange.end <= endTime + tolerance
+            }.map(\.id)
+
+            guard !clipsToDelete.isEmpty else {
+                return "No clips found within \(String(format: "%.1f", startTime))s-\(String(format: "%.1f", endTime))s."
+            }
+
+            // Step 4: Delete and ripple-close gaps
+            try appState.perform(.deleteClips(clipIDs: clipsToDelete), source: .ai)
+            appState.rippleCloseGaps()
+
+            let pruned = appState.pruneNonRenderableClips()
+            let duration = endTime - startTime
+
+            // Shift overlay timestamps to account for removed time
+            shiftOverlayTimestamps(appState: appState, cutPoint: startTime, duration: duration)
+
+            let prunedMessage = pruned > 0 ? " Pruned \(pruned) tiny fragment(s)." : ""
+            return "Removed \(String(format: "%.1f", duration))s section (\(String(format: "%.1f", startTime))s-\(String(format: "%.1f", endTime))s). Deleted \(clipsToDelete.count) clip(s). Gaps closed.\(prunedMessage)"
         } catch {
             return "Error: \(error.localizedDescription)"
         }
-
-        appState.rippleCloseGaps()
-        let pruned = appState.pruneNonRenderableClips()
-        let duration = endTime - startTime
-        let prunedMessage = pruned > 0 ? " Pruned \(pruned) tiny fragment(s)." : ""
-        return "Removed \(String(format: "%.1f", duration))s section (\(String(format: "%.1f", startTime))s-\(String(format: "%.1f", endTime))s). Deleted \(deletedCount) clip(s). Gaps closed.\(prunedMessage)"
     }
 
     private func handleRippleDelete(_ args: [String: Any], appState: AppState) -> String {
@@ -3225,10 +3272,22 @@ final class MCPServer {
             return "Error: Missing clip_ids"
         }
 
-        let clipIDs = clipIDStrs.compactMap(UUID.init(uuidString:))
+        let clipIDs = Set(clipIDStrs.compactMap(UUID.init(uuidString:)))
+
+        // Capture deleted clips' time ranges before deletion for overlay shifting
+        let deletedClips = appState.timeline.tracks.flatMap(\.clips).filter { clipIDs.contains($0.id) }
+        let cutPoint = deletedClips.map(\.timelineRange.start).min() ?? 0
+        let deletedDuration = deletedClips.map { $0.timelineRange.end - $0.timelineRange.start }.reduce(0, +)
+
         do {
             try appState.perform(.deleteClips(clipIDs: clipIDs), source: .ai)
             appState.rippleCloseGaps()
+
+            // Shift overlay timestamps to account for removed time
+            if deletedDuration > 0 {
+                shiftOverlayTimestamps(appState: appState, cutPoint: cutPoint, duration: deletedDuration)
+            }
+
             let remaining = appState.timeline.tracks.flatMap(\.clips).count
             return "Deleted \(clipIDs.count) clip(s) and closed gaps. \(remaining) clip(s) remaining."
         } catch {

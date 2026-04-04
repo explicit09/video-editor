@@ -46,10 +46,12 @@ public struct BroadcastOverlayConfig: Codable, Sendable, Equatable {
 public struct HostInfo: Codable, Sendable, Equatable {
     public var name: String
     public var title: String
+    public var photoPath: String?
 
-    public init(name: String = "", title: String = "") {
+    public init(name: String = "", title: String = "", photoPath: String? = nil) {
         self.name = name
         self.title = title
+        self.photoPath = photoPath
     }
 }
 

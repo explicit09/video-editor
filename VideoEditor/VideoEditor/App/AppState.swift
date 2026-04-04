@@ -1126,7 +1126,7 @@ final class AppState {
                     // Restore transcript from disk if not in assets.json
                     if asset.analysis?.transcript == nil || asset.analysis!.transcript!.isEmpty {
                         if let diskResult = await media.transcriptionService.loadTranscript(
-                            for: asset.id, bundleURL: projectBundleURL, sourceURL: asset.sourceURL
+                            for: asset, bundleURL: projectBundleURL
                         ) {
                             var analysis = asset.analysis ?? MediaAnalysis()
                             analysis.transcript = diskResult.words
