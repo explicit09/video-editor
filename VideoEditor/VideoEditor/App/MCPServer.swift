@@ -3280,7 +3280,7 @@ final class MCPServer {
         let deletedDuration = deletedClips.map { $0.timelineRange.end - $0.timelineRange.start }.reduce(0, +)
 
         do {
-            try appState.perform(.deleteClips(clipIDs: clipIDs), source: .ai)
+            try appState.perform(.deleteClips(clipIDs: Array(clipIDs)), source: .ai)
             appState.rippleCloseGaps()
 
             // Shift overlay timestamps to account for removed time
