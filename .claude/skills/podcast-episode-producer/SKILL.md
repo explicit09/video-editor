@@ -70,6 +70,37 @@ Use `split_clip` + `ripple_delete` — the proven manual approach:
 3. `export_video` preset="high" filename="EpisodeN_Title"
 4. Verify export file exists and has reasonable size
 
+## Step 6: Generate YouTube metadata
+
+After export, ALWAYS generate:
+1. **Title** — compelling, includes show name
+2. **Description** — 2-3 sentence hook, then chapter timestamps
+3. **Chapters** — use the overlay topic timestamps formatted as `M:SS - Topic Name`. YouTube requires `0:00` as the first chapter.
+4. **Tags/hashtags** — relevant keywords
+
+Example format:
+```
+TITLE:
+How To Get REAL Feedback On Your Startup Idea | Technologia Talks
+
+DESCRIPTION:
+[2-3 sentence hook about the episode content]
+
+⏱️ CHAPTERS:
+0:00 - Intro
+0:46 - Topic One
+3:48 - Topic Two
+...
+
+🎙️ HOSTS:
+Tadiwa Mbuwayesango — Co-Host · Founder, LEARN-X
+Elvis Kimara — Co-Host · Founder, Throwly
+
+#startups #technologiatalks #podcast
+```
+
+**Present this to the user after export. Do not skip this step.**
+
 ## What NOT to do
 
 - **Never** use `detect_episodes` for finding real episodes — use `analyze_transcript`
