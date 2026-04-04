@@ -14,7 +14,9 @@ public final class DeepgramProvider: TranscriptionProvider, @unchecked Sendable 
     public init(apiKey: String, model: String = "nova-3") {
         self.apiKey = apiKey
         self.model = model
-        self.session = URLSession(configuration: .default)
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 600  // 10 min — large files need time to upload + process
+        self.session = URLSession(configuration: config)
     }
 
     public static func fromEnvironment(model: String = "nova-3") -> DeepgramProvider? {

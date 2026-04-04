@@ -36,7 +36,8 @@ public actor MediaManager {
                 height: asset.height,
                 codec: asset.codec,
                 fileSize: asset.fileSize,
-                importedAt: asset.importedAt
+                importedAt: asset.importedAt,
+                hasAudioTrack: asset.hasAudioTrack
             )
         }
 

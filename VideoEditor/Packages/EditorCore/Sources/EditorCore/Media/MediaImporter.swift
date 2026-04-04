@@ -75,9 +75,10 @@ public struct MediaImporter: Sendable {
                     }
                 }
 
-                // Probe audio track using the SAME asset instance (already loaded)
-                let audioTracks = try await asset.loadTracks(withMediaType: .audio)
-                hasAudioTrack = !audioTracks.isEmpty
+                // Default to true for video/audio types — AVFoundation's loadTracks(withMediaType: .audio)
+                // is unreliable for certain container formats (returns empty even when audio exists).
+                // Safe default: assume audio exists. False positives are harmless (audio ops become no-ops).
+                hasAudioTrack = (type == .video || type == .audio)
             } catch {
                 throw ImportError.unreadableMedia(sourceURL, normalizedUnreadableReason(for: error))
             }

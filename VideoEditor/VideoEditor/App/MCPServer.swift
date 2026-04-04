@@ -2178,11 +2178,10 @@ final class MCPServer {
 
         // Clear existing timeline, then set up tracks and clips
         do {
-            for track in appState.timeline.tracks {
-                let clipIDs = track.clips.map(\.id)
-                if !clipIDs.isEmpty {
-                    try appState.perform(.deleteClips(clipIDs: clipIDs), source: .ai)
-                }
+            // Collect all clip IDs first (linked expansion in perform() can delete across tracks)
+            let allClipIDs = appState.timeline.tracks.flatMap(\.clips).map(\.id)
+            if !allClipIDs.isEmpty {
+                try appState.perform(.deleteClips(clipIDs: allClipIDs), source: .ai)
             }
 
             // Ensure video + audio tracks exist
