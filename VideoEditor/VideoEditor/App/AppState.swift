@@ -1084,12 +1084,37 @@ final class AppState {
         let projectStore = self.projectStore
         let mediaManager = media.mediaManager
 
+        let overlaySnapshot = context.timelineState.broadcastOverlay
+        let shortFormSnapshot = context.timelineState.shortFormConfig
+
         let persist: @Sendable () async -> Void = {
             try? await projectStore.save(to: bundleURL, timeline: timelineSnapshot)
             let allAssets = await mediaManager.allAssets()
             let assetsURL = bundleURL.appendingPathComponent("assets.json")
             if let data = try? JSONEncoder().encode(allAssets) {
                 try? data.write(to: assetsURL)
+            }
+            // Persist overlay config
+            let overlayURL = bundleURL.appendingPathComponent("overlay.json")
+            if let overlay = overlaySnapshot {
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+                if let data = try? encoder.encode(overlay) {
+                    try? data.write(to: overlayURL)
+                }
+            } else {
+                try? FileManager.default.removeItem(at: overlayURL)
+            }
+            // Persist short-form config
+            let shortFormURL = bundleURL.appendingPathComponent("shortform.json")
+            if let sf = shortFormSnapshot {
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+                if let data = try? encoder.encode(sf) {
+                    try? data.write(to: shortFormURL)
+                }
+            } else {
+                try? FileManager.default.removeItem(at: shortFormURL)
             }
         }
 
@@ -1116,6 +1141,20 @@ final class AppState {
             // Load timeline
             if let loadedTimeline = try? await projectStore.load(from: projectBundleURL) {
                 context.timelineState.timeline = loadedTimeline
+            }
+
+            // Load overlay config
+            let overlayURL = projectBundleURL.appendingPathComponent("overlay.json")
+            if let overlayData = try? Data(contentsOf: overlayURL),
+               let overlay = try? JSONDecoder().decode(BroadcastOverlayConfig.self, from: overlayData) {
+                context.timelineState.broadcastOverlay = overlay
+            }
+
+            // Load short-form config
+            let shortFormURL = projectBundleURL.appendingPathComponent("shortform.json")
+            if let sfData = try? Data(contentsOf: shortFormURL),
+               let sf = try? JSONDecoder().decode(ShortFormConfig.self, from: sfData) {
+                context.timelineState.shortFormConfig = sf
             }
 
             // Load assets and merge persisted transcripts
