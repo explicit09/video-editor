@@ -46,6 +46,12 @@ You produce edited podcast episodes from raw multi-hour recordings. Your job is 
 2. Topics and chapters: use `search_transcript` to find REAL timestamps for each topic
    - **NEVER guess timestamps** — always verify from the transcript
    - Convert source timestamps to timeline-relative (subtract episode start time)
+   - **These chapters appear in THREE places — they MUST be consistent:**
+     a. The overlay's chapter cards (pop up during video playback)
+     b. The overlay's ticker (scrolls current topic at the bottom)
+     c. The YouTube description (viewer chapter navigation)
+   - Build ONE list of timestamped topics, use it for ALL three
+   - Aim for 5-8 chapters minimum. Cover every major topic shift.
 3. `set_caption_style` style="none" — unless captions are explicitly requested
 
 ## Step 4: Make cuts
