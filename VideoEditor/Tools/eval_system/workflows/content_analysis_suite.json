@@ -1,0 +1,52 @@
+{
+  "id": "content_analysis_suite",
+  "description": "Exercise content analysis tools, segment extraction, and feature checks on a transcribed asset.",
+  "eligibility_tags": ["has-audio"],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "transcribe_asset",
+    "auto_cut",
+    "score_content",
+    "segment_topics",
+    "extract_clips",
+    "extract_segment",
+    "detect_beats",
+    "score_thumbnails",
+    "test_feature",
+    "verify_playback",
+    "take_screenshot",
+    "set_zoom"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "transcribe_asset", "op": "tool", "tool": "transcribe_asset", "args": { "asset_id": "${context.asset.id}" }, "expect_any_regex": ["Transcribed:", "Already transcribed\\."] },
+    { "id": "auto_cut", "op": "tool", "tool": "auto_cut", "args": { "preset": "gentle", "dry_run": true }, "expect_any": ["=== AUTO CUT PLAN ==="] },
+    { "id": "score_content", "op": "tool", "tool": "score_content", "args": { "asset_id": "${context.asset.id}", "segments": 6, "gate_threshold": 6.5 }, "expect_any": ["=== CONTENT SCORING ==="] },
+    { "id": "segment_topics", "op": "tool", "tool": "segment_topics", "args": { "asset_id": "${context.asset.id}", "min_duration": 15 }, "expect_any": ["=== TOPIC SEGMENTATION ==="] },
+    { "id": "extract_clips", "op": "tool", "tool": "extract_clips", "args": { "asset_id": "${context.asset.id}", "count": 3, "min_duration": 15, "max_duration": 45 }, "expect_any": ["=== CLIP CANDIDATES ==="] },
+    { "id": "extract_segment", "op": "tool", "tool": "extract_segment", "args": { "asset_id": "${context.asset.id}", "source_start": 5, "source_end": 20 }, "expect_any": ["Extracted "] },
+    { "id": "detect_beats", "op": "tool", "tool": "detect_beats", "args": { "asset_id": "${context.asset.id}" }, "expect_any": ["BPM:"] },
+    { "id": "score_thumbnails", "op": "tool", "tool": "score_thumbnails", "args": { "asset_id": "${context.asset.id}", "count": 3 }, "expect_any": ["Top "] },
+    { "id": "test_feature", "op": "tool", "tool": "test_feature", "args": { "feature": "beat_detector" }, "expect_any": ["beat_detector:"], "reject_any": ["FAIL"] },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" }, "save_as": "verify_playback_output", "timeout_seconds": 300 },
+    { "id": "timeline_after_content_analysis", "op": "capture", "label": "timeline_after_content_analysis", "zoom": "fit" }
+  ],
+  "validators": [
+    { "id": "verify_playback_clean", "source": "verify_playback" }
+  ],
+  "judges": [
+    {
+      "id": "content_analysis_timeline_sanity",
+      "rubric_id": "timeline_visual_sanity",
+      "artifact_labels": ["timeline_after_content_analysis"],
+      "prompt": "You are grading a video editor timeline screenshot after content analysis and segment extraction operations. Respond with JSON only using keys status, score, confidence, explanation. Grade whether the timeline remains coherent, readable, and visually stable after automated content-analysis operations."
+    }
+  ]
+}

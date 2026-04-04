@@ -1,0 +1,64 @@
+{
+  "id": "broll_hook_suite",
+  "description": "Exercise B-roll search/suggestion tools and hook optimization on a transcribed clip.",
+  "eligibility_tags": ["has-audio"],
+  "allowed_source_families": ["tvsum", "ava"],
+  "max_duration_by_source_family": { "ava": 1200 },
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "add_track",
+    "transcribe_asset",
+    "search_broll",
+    "suggest_broll",
+    "auto_insert_broll",
+    "generate_title",
+    "hook_optimize",
+    "verify_playback",
+    "get_state",
+    "take_screenshot",
+    "set_zoom"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "transcribe_asset", "op": "tool", "tool": "transcribe_asset", "args": { "asset_id": "${context.asset.id}" }, "expect_any_regex": ["Transcribed:", "Already transcribed\\."] },
+    { "id": "state_before_broll", "op": "tool", "tool": "get_state", "save_as": "state_before_broll" },
+    { "id": "stage_support_broll", "op": "stage_local_file", "path": "${config.tools_root}/baselines/demo_visual_smoke/timeline_after_insert.png", "filename": "support_broll_seed.png", "var": "support_broll_path" },
+    { "id": "support_assets_before_import", "op": "snapshot_assets", "var": "support_assets_before_import" },
+    { "id": "import_support_broll", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.support_broll_path}" } },
+    { "id": "resolve_support_broll_asset", "op": "resolve_imported_asset", "from": "support_assets_before_import", "var": "support_broll_asset" },
+    { "id": "search_broll", "op": "tool", "tool": "search_broll", "args": { "query": "city skyline", "download": false, "duration": 2 }, "expect_any": ["=== PEXELS B-ROLL SEARCH ==="] },
+    { "id": "suggest_broll", "op": "tool", "tool": "suggest_broll", "expect_any": ["B-roll suggestions."] },
+    { "id": "auto_insert_broll", "op": "tool", "tool": "auto_insert_broll", "args": { "max_inserts": 2, "duration": 2.5 }, "expect_any": ["=== B-ROLL INSERTION SUGGESTIONS ==="] },
+    { "id": "selected_broll_suggestion", "op": "select_broll_suggestion", "source": "auto_insert_broll", "var": "broll_suggestion" },
+    { "id": "add_broll_track", "op": "tool", "tool": "add_track", "args": { "type": "video", "name": "Codex Broll Track" } },
+    { "id": "state_with_broll_track", "op": "capture_editor_state", "var": "state_with_broll_track" },
+    { "id": "broll_track", "op": "select_track", "state_var": "state_with_broll_track", "name_contains": "Codex Broll Track", "var": "broll_track" },
+    { "id": "apply_support_broll", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.support_broll_asset.id}", "start_time": "${context.broll_suggestion.start_time}", "track_id": "${context.broll_track.id}" } },
+    { "id": "state_after_broll", "op": "tool", "tool": "get_state", "save_as": "state_after_broll" },
+    { "id": "generate_title", "op": "tool", "tool": "generate_title", "args": { "style": "youtube" }, "expect_any": ["=== TITLE SUGGESTIONS ==="] },
+    { "id": "hook_optimize", "op": "tool", "tool": "hook_optimize", "save_as": "hook_optimize_output", "expect_any": ["Hook optimized:", "Hook is already at the start", "Hook skipped:"] },
+    { "id": "state_after_hook", "op": "tool", "tool": "get_state", "save_as": "state_after_hook" },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" }, "save_as": "verify_playback_output", "timeout_seconds": 300 },
+    { "id": "timeline_after_broll_hook", "op": "capture", "label": "timeline_after_broll_hook", "zoom": "fit" }
+  ],
+  "validators": [
+    { "id": "broll_inserted", "before_source": "state_before_broll", "after_source": "state_after_broll", "expected_clip_label": "support_broll_seed" },
+    { "id": "hook_structure_changed", "before_source": "state_after_broll", "after_source": "state_after_hook", "source": "hook_optimize" },
+    { "id": "verify_playback_post_edit_integrity", "source": "verify_playback" }
+  ],
+  "judges": [
+    {
+      "id": "broll_hook_timeline_sanity",
+      "rubric_id": "timeline_visual_sanity",
+      "artifact_labels": ["timeline_after_broll_hook"],
+      "prompt": "You are grading a video editor timeline screenshot after B-roll and hook optimization operations. Respond with JSON only using keys status, score, confidence, explanation. Grade whether the timeline remains coherent, readable, and visually stable after B-roll enrichment and hook optimization."
+    }
+  ]
+}

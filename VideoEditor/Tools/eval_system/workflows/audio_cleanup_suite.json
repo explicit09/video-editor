@@ -1,0 +1,59 @@
+{
+  "id": "audio_cleanup_suite",
+  "description": "Exercise audio analysis and cleanup tools on an imported asset with an audio track.",
+  "eligibility_tags": ["has-audio"],
+  "max_duration_by_source_family": { "ava": 1200 },
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "get_state",
+    "transcribe_asset",
+    "analyze_audio_energy",
+    "classify_audio",
+    "measure_loudness",
+    "voice_cleanup",
+    "denoise_audio",
+    "normalize_audio",
+    "remove_silence",
+    "remove_filler_words",
+    "auto_duck",
+    "verify_playback",
+    "take_screenshot",
+    "set_zoom"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "state_initial", "op": "capture_editor_state", "var": "state_initial" },
+    { "id": "main_audio_track", "op": "select_track", "state_var": "state_initial", "type": "audio", "var": "main_audio_track" },
+    { "id": "main_audio_clip", "op": "select_clip", "state_var": "state_initial", "track_var": "main_audio_track", "var": "main_audio_clip" },
+    { "id": "transcribe_asset", "op": "tool", "tool": "transcribe_asset", "args": { "asset_id": "${context.asset.id}" }, "expect_any_regex": ["Transcribed:", "Already transcribed\\."] },
+    { "id": "analyze_audio_energy", "op": "tool", "tool": "analyze_audio_energy", "args": { "asset_id": "${context.asset.id}", "start": 0, "end": 20, "segments": 4 }, "expect_any": ["=== AUDIO ENERGY ANALYSIS ==="] },
+    { "id": "classify_audio", "op": "tool", "tool": "classify_audio", "args": { "asset_id": "${context.asset.id}", "start": 0, "end": 20 }, "expect_any": ["=== AUDIO SOURCE CLASSIFICATION ==="] },
+    { "id": "measure_loudness", "op": "tool", "tool": "measure_loudness", "args": { "asset_id": "${context.asset.id}" }, "expect_any": ["Loudness:"] },
+    { "id": "voice_cleanup", "op": "tool", "tool": "voice_cleanup", "args": { "clip_id": "${context.main_audio_clip.id}", "preset": "podcast" }, "expect_any": ["Voice cleanup 'podcast':"] },
+    { "id": "denoise_audio", "op": "tool", "tool": "denoise_audio", "args": { "clip_id": "${context.main_audio_clip.id}", "threshold_db": -38 }, "expect_any": ["Audio denoise:"] },
+    { "id": "normalize_audio", "op": "tool", "tool": "normalize_audio", "args": { "clip_ids": ["${context.main_audio_clip.id}"], "target_volume": 0.95 }, "expect_any": ["Normalized "] },
+    { "id": "remove_silence", "op": "tool", "tool": "remove_silence", "args": { "clip_ids": ["${context.main_audio_clip.id}"], "min_duration": 0.5, "threshold_db": -35 }, "expect_any": ["Removed ", "No silence ranges found"] },
+    { "id": "remove_filler_words", "op": "tool", "tool": "remove_filler_words", "args": { "asset_id": "${context.asset.id}", "dry_run": true }, "expect_any": ["=== FILLER WORD ANALYSIS ===", "No filler words found in transcript."] },
+    { "id": "auto_duck", "op": "tool", "tool": "auto_duck", "args": { "music_track_id": "${context.main_audio_track.id}", "duck_level": 0.3 }, "expect_any": ["Audio ducking:"] },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" }, "save_as": "verify_playback_output", "timeout_seconds": 300 },
+    { "id": "timeline_after_audio_cleanup", "op": "capture", "label": "timeline_after_audio_cleanup", "zoom": "fit" }
+  ],
+  "validators": [
+    { "id": "verify_playback_post_edit_integrity", "source": "verify_playback" }
+  ],
+  "judges": [
+    {
+      "id": "audio_cleanup_timeline_sanity",
+      "rubric_id": "timeline_visual_sanity",
+      "artifact_labels": ["timeline_after_audio_cleanup"],
+      "prompt": "You are grading a video editor timeline screenshot after audio cleanup operations. Respond with JSON only using keys status, score, confidence, explanation. Grade whether the timeline remains coherent, readable, and visually stable after audio cleanup and transcript-driven edits."
+    }
+  ]
+}

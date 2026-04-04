@@ -1,0 +1,1261 @@
+{
+  "name": "public-seed-50",
+  "version": "1.0",
+  "created": "2026-03-30",
+  "source_type": "public",
+  "item_count": 50,
+  "splits": {
+    "development": 30,
+    "calibration": 10,
+    "holdout": 10
+  },
+  "items": [
+    {
+      "id": "two-person-podcast-30s",
+      "filename": "two_person_podcast_30s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_podcast_30s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "podcast"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 30.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-podcast-60s",
+      "filename": "two_person_podcast_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_podcast_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "podcast"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-podcast-120s",
+      "filename": "two_person_podcast_120s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_podcast_120s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "podcast"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 120.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-podcast-300s",
+      "filename": "two_person_podcast_300s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_podcast_300s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "podcast",
+        "long-form"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 300.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-panel-45s",
+      "filename": "two_person_panel_45s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_panel_45s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "panel"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": null,
+      "resolution": null,
+      "fps": null,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-medical-90s",
+      "filename": "two_person_medical_90s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_medical_90s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "interview"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 90.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-debate-60s",
+      "filename": "two_person_debate_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_debate_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "debate"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-tutorial-180s",
+      "filename": "two_person_tutorial_180s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_tutorial_180s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "tutorial"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 180.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-fireside-30s",
+      "filename": "two_person_fireside_30s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_fireside_30s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "fireside-chat"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 30.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "two-person-callshow-240s",
+      "filename": "two_person_callshow_240s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/two_person_callshow_240s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "two-speaker",
+        "call-show",
+        "long-form"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 240.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "single-speaker-keynote-60s",
+      "filename": "single_speaker_keynote_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/single_speaker_keynote_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "single-speaker",
+        "keynote"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "single-speaker-techtalk-120s",
+      "filename": "single_speaker_techtalk_120s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/single_speaker_techtalk_120s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "single-speaker",
+        "tech-talk"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 120.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "single-speaker-demo-45s",
+      "filename": "single_speaker_demo_45s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/single_speaker_demo_45s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "single-speaker",
+        "demo"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 45.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "single-speaker-lecture-90s",
+      "filename": "single_speaker_lecture_90s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/single_speaker_lecture_90s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "single-speaker",
+        "lecture"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 90.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "single-speaker-announce-30s",
+      "filename": "single_speaker_announce_30s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/single_speaker_announce_30s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "talking-head",
+        "single-speaker",
+        "announcement"
+      ],
+      "tasks": [
+        "transcription",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 30.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "public-bigbuckbunny-60s",
+      "filename": "public_bigbuckbunny_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/public_bigbuckbunny_60s.mp4",
+      "source_type": "public-domain",
+      "content_tags": [
+        "animation",
+        "cinematic"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 60.01,
+      "resolution": "416x240",
+      "fps": 24.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "public-elephantsdream-60s",
+      "filename": "public_elephantsdream_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/public_elephantsdream_60s.mp4",
+      "source_type": "public-domain",
+      "content_tags": [
+        "animation",
+        "cinematic"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "640x360",
+      "fps": 24.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "public-fractal-60s",
+      "filename": "public_fractal_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/public_fractal_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "generative",
+        "visual-pattern"
+      ],
+      "tasks": [
+        "export_verify"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1280x720",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "public-gameoflife-60s",
+      "filename": "public_gameoflife_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/public_gameoflife_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "generative",
+        "visual-pattern"
+      ],
+      "tasks": [
+        "export_verify"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "public-testsrc-45s",
+      "filename": "public_testsrc_45s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/public_testsrc_45s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "test-pattern"
+      ],
+      "tasks": [
+        "export_verify"
+      ],
+      "duration_seconds": 45.0,
+      "resolution": "1920x1080",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-change-6x5s",
+      "filename": "scene_change_6x5s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_change_6x5s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "event",
+        "multi-scene"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "shorts_extraction",
+        "export_verify"
+      ],
+      "duration_seconds": 30.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-change-4x10s",
+      "filename": "scene_change_4x10s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_change_4x10s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "event",
+        "multi-scene"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "shorts_extraction",
+        "export_verify"
+      ],
+      "duration_seconds": 40.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-rapidcuts-8x5s",
+      "filename": "scene_rapidcuts_8x5s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_rapidcuts_8x5s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "rapid-cuts",
+        "highlight"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "shorts_extraction",
+        "export_verify"
+      ],
+      "duration_seconds": 40.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-highlight-reel-4-35s",
+      "filename": "scene_highlight_reel_4_35s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_highlight_reel_4_35s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "highlight-reel"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 35.02,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-highlight-reel-5-40s",
+      "filename": "scene_highlight_reel_5_40s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_highlight_reel_5_40s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "highlight-reel"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 40.01,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-highlight-reel-6-45s",
+      "filename": "scene_highlight_reel_6_45s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_highlight_reel_6_45s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "highlight-reel"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 45.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-highlight-reel-7-50s",
+      "filename": "scene_highlight_reel_7_50s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_highlight_reel_7_50s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "highlight-reel"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 50.02,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-highlight-reel-8-55s",
+      "filename": "scene_highlight_reel_8_55s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_highlight_reel_8_55s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "highlight-reel"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 55.01,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-highlight-reel-9-60s",
+      "filename": "scene_highlight_reel_9_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_highlight_reel_9_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "highlight-reel"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "scene-highlight-reel-10-65s",
+      "filename": "scene_highlight_reel_10_65s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/scene_highlight_reel_10_65s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "scene-change",
+        "highlight-reel"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 65.02,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "development"
+      }
+    },
+    {
+      "id": "varied-720p-24fps-30s",
+      "filename": "varied_720p_24fps_30s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/varied_720p_24fps_30s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "varied-format",
+        "720p",
+        "24fps"
+      ],
+      "tasks": [
+        "export_verify",
+        "transcription"
+      ],
+      "duration_seconds": 30.0,
+      "resolution": "1280x720",
+      "fps": 24.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "varied-1080p-60fps-20s",
+      "filename": "varied_1080p_60fps_20s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/varied_1080p_60fps_20s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "varied-format",
+        "1080p",
+        "60fps"
+      ],
+      "tasks": [
+        "export_verify",
+        "transcription"
+      ],
+      "duration_seconds": 20.0,
+      "resolution": "1920x1080",
+      "fps": 60.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "varied-4k-30fps-10s",
+      "filename": "varied_4k_30fps_10s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/varied_4k_30fps_10s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "varied-format",
+        "4k",
+        "30fps"
+      ],
+      "tasks": [
+        "export_verify"
+      ],
+      "duration_seconds": 10.0,
+      "resolution": "3840x2160",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "varied-vertical-9x16-30s",
+      "filename": "varied_vertical_9x16_30s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/varied_vertical_9x16_30s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "varied-format",
+        "vertical",
+        "9x16"
+      ],
+      "tasks": [
+        "export_verify",
+        "shorts_extraction"
+      ],
+      "duration_seconds": 30.0,
+      "resolution": "1080x1920",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "varied-square-1x1-25s",
+      "filename": "varied_square_1x1_25s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/varied_square_1x1_25s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "varied-format",
+        "square",
+        "1x1"
+      ],
+      "tasks": [
+        "export_verify"
+      ],
+      "duration_seconds": 25.0,
+      "resolution": "720x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": true,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "noisy-audio-1-30s",
+      "filename": "noisy_audio_1_30s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/noisy_audio_1_30s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "noisy-audio",
+        "instructional"
+      ],
+      "tasks": [
+        "transcription",
+        "export_verify"
+      ],
+      "duration_seconds": 30.02,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "noisy-audio-2-40s",
+      "filename": "noisy_audio_2_40s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/noisy_audio_2_40s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "noisy-audio",
+        "instructional"
+      ],
+      "tasks": [
+        "transcription",
+        "export_verify"
+      ],
+      "duration_seconds": 40.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "noisy-audio-3-50s",
+      "filename": "noisy_audio_3_50s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/noisy_audio_3_50s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "noisy-audio",
+        "instructional"
+      ],
+      "tasks": [
+        "transcription",
+        "export_verify"
+      ],
+      "duration_seconds": 50.01,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "noisy-audio-4-60s",
+      "filename": "noisy_audio_4_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/noisy_audio_4_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "noisy-audio",
+        "instructional"
+      ],
+      "tasks": [
+        "transcription",
+        "export_verify"
+      ],
+      "duration_seconds": 60.01,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "noisy-audio-5-70s",
+      "filename": "noisy_audio_5_70s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/noisy_audio_5_70s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "noisy-audio",
+        "instructional"
+      ],
+      "tasks": [
+        "transcription",
+        "export_verify"
+      ],
+      "duration_seconds": 70.02,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": false,
+        "split": "calibration"
+      }
+    },
+    {
+      "id": "varying-volume-1-45s",
+      "filename": "varying_volume_1_45s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/varying_volume_1_45s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "varying-volume",
+        "instructional"
+      ],
+      "tasks": [
+        "transcription",
+        "export_verify"
+      ],
+      "duration_seconds": 45.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout"
+      }
+    },
+    {
+      "id": "varying-volume-2-60s",
+      "filename": "varying_volume_2_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/varying_volume_2_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "varying-volume",
+        "instructional"
+      ],
+      "tasks": [
+        "transcription",
+        "export_verify"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout"
+      }
+    },
+    {
+      "id": "varying-volume-3-75s",
+      "filename": "varying_volume_3_75s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/varying_volume_3_75s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "varying-volume",
+        "instructional"
+      ],
+      "tasks": [
+        "transcription",
+        "export_verify"
+      ],
+      "duration_seconds": 75.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout"
+      }
+    },
+    {
+      "id": "silence-gap-lecture-60s",
+      "filename": "silence_gap_lecture_60s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/silence_gap_lecture_60s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "silence-gaps",
+        "lecture"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout"
+      }
+    },
+    {
+      "id": "silence-gap-multi-90s",
+      "filename": "silence_gap_multi_90s.mp4",
+      "media_type": "video",
+      "relative_path": "public_seed/silence_gap_multi_90s.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "silence-gaps",
+        "lecture",
+        "multi-pause"
+      ],
+      "tasks": [
+        "transcription",
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 90.0,
+      "resolution": "1280x720",
+      "fps": 30.0,
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout"
+      }
+    },
+    {
+      "id": "failure-audio-sync",
+      "filename": "failure_audio_sync.mp4",
+      "media_type": "video",
+      "relative_path": "failure_pack/failure_audio_sync.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "failure-case",
+        "audio-sync-offset"
+      ],
+      "tasks": [
+        "export_verify",
+        "transcription"
+      ],
+      "duration_seconds": 62.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout",
+        "failure_note": "Audio offset by 2 seconds from video"
+      }
+    },
+    {
+      "id": "failure-bad-crop",
+      "filename": "failure_bad_crop.mp4",
+      "media_type": "video",
+      "relative_path": "failure_pack/failure_bad_crop.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "failure-case",
+        "bad-crop",
+        "pixelated"
+      ],
+      "tasks": [
+        "export_verify"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout",
+        "failure_note": "Cropped to 200x200 then upscaled to 1920x1080"
+      }
+    },
+    {
+      "id": "failure-black-insert",
+      "filename": "failure_black_insert.mp4",
+      "media_type": "video",
+      "relative_path": "failure_pack/failure_black_insert.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "failure-case",
+        "black-frame-insert"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "export_verify"
+      ],
+      "duration_seconds": 63.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout",
+        "failure_note": "3s black frame inserted at 10s mark"
+      }
+    },
+    {
+      "id": "failure-late-cut",
+      "filename": "failure_late_cut.mp4",
+      "media_type": "video",
+      "relative_path": "failure_pack/failure_late_cut.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "failure-case",
+        "late-cut",
+        "dead-air"
+      ],
+      "tasks": [
+        "episode_segmentation",
+        "shorts_extraction",
+        "export_verify"
+      ],
+      "duration_seconds": 70.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout",
+        "failure_note": "First 10s is black/silence"
+      }
+    },
+    {
+      "id": "failure-subtitle-overlap",
+      "filename": "failure_subtitle_overlap.mp4",
+      "media_type": "video",
+      "relative_path": "failure_pack/failure_subtitle_overlap.mp4",
+      "source_type": "synthetic",
+      "content_tags": [
+        "failure-case",
+        "subtitle-overlap"
+      ],
+      "tasks": [
+        "export_verify"
+      ],
+      "duration_seconds": 60.0,
+      "resolution": "1920x1080",
+      "fps": 25.0,
+      "annotations": {
+        "visible_speaker": false,
+        "safe_for_shorts": false,
+        "holdout": true,
+        "split": "holdout",
+        "failure_note": "Overlapping burned-in subtitles at t=10-15s"
+      }
+    }
+  ]
+}

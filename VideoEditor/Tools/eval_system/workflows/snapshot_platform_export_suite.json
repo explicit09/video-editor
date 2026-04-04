@@ -1,0 +1,51 @@
+{
+  "id": "snapshot_platform_export_suite",
+  "description": "Exercise snapshot save/restore, marker management, platform export listing, and platform-specific export.",
+  "eligibility_tags": [],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "set_marker",
+    "save_snapshot",
+    "list_snapshots",
+    "restore_snapshot",
+    "get_state",
+    "delete_marker",
+    "list_platforms",
+    "export_for_platform"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "set_marker", "op": "tool", "tool": "set_marker", "args": { "time": 1, "label": "Codex Workflow Marker" } },
+    { "id": "save_snapshot", "op": "tool", "tool": "save_snapshot", "args": { "name": "Codex Workflow Snapshot" } },
+    { "id": "list_snapshots", "op": "tool", "tool": "list_snapshots", "save_as": "snapshot_list_output" },
+    { "id": "selected_snapshot", "op": "select_snapshot", "source": "list_snapshots", "name_contains": "Codex Workflow Snapshot", "var": "selected_snapshot" },
+    { "id": "clear_project_again", "op": "tool", "tool": "clear_project" },
+    { "id": "restore_snapshot", "op": "tool", "tool": "restore_snapshot", "args": { "snapshot_id": "${context.selected_snapshot.id}" } },
+    { "id": "state_after_restore", "op": "capture_editor_state", "var": "state_after_restore" },
+    { "id": "workflow_marker", "op": "select_marker", "state_var": "state_after_restore", "label_contains": "Codex Workflow Marker", "var": "workflow_marker" },
+    { "id": "delete_marker", "op": "tool", "tool": "delete_marker", "args": { "marker_id": "${context.workflow_marker.id}" } },
+    { "id": "list_platforms", "op": "tool", "tool": "list_platforms", "save_as": "platform_list_output" },
+    { "id": "export_for_platform", "op": "tool", "tool": "export_for_platform", "args": { "platform": "youtube_shorts", "filename": "${run.id}" }, "save_as": "export_output" }
+  ],
+  "validators": [
+    { "id": "export_exists", "artifact": "export_output" },
+    { "id": "duration_sanity", "artifact": "export_output", "minimum_seconds": 1.0 },
+    { "id": "audio_present", "artifact": "export_output", "required": true, "expected_from_probe": true },
+    { "id": "no_black_frames", "artifact": "export_output" }
+  ],
+  "judges": [
+    {
+      "id": "platform_export_visual_quality",
+      "rubric_id": "export_visual_quality",
+      "artifact_labels": ["export_output"],
+      "prompt": "You are grading a platform-targeted exported video artifact. Respond with JSON only using keys status, score, confidence, explanation. Determine whether the output appears coherent, free of obvious corruption, and visually consistent with a valid platform export."
+    }
+  ]
+}

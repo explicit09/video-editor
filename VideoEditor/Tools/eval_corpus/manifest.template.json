@@ -1,0 +1,32 @@
+{
+  "dataset_name": "local-seed",
+  "source_type": "local",
+  "created_at": "2026-03-30T00:00:00Z",
+  "items": [
+    {
+      "id": "sample-item-001",
+      "filename": "sample.mov",
+      "media_type": "video",
+      "relative_path": "source_videos/sample.mov",
+      "content_tags": [
+        "talking_head"
+      ],
+      "tasks": [
+        "transcribe",
+        "episode_cut",
+        "viral_clip_extract",
+        "export_verify"
+      ],
+      "annotations": {
+        "visible_speaker": true,
+        "safe_for_shorts": true,
+        "holdout": false
+      },
+      "expected": {
+        "episode_ranges": [],
+        "short_ranges": [],
+        "notes": ""
+      }
+    }
+  ]
+}

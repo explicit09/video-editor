@@ -1,0 +1,35 @@
+{
+  "id": "short_extract",
+  "description": "Import a corpus item, analyze it for shorts, create a short, and verify playback on the resulting timeline.",
+  "eligibility_tags": [],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "analyze_for_shorts",
+    "create_short",
+    "verify_playback",
+    "take_screenshot"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "analyze_for_shorts", "op": "tool", "tool": "analyze_for_shorts", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "create_short", "op": "tool", "tool": "create_short", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" } },
+    { "id": "short_timeline", "op": "capture", "label": "short_timeline", "zoom": "fit" }
+  ],
+  "validators": [
+    { "id": "verify_playback_clean", "source": "verify_playback" }
+  ],
+  "judges": [
+    {
+      "id": "short_timeline_visual_sanity",
+      "rubric_id": "short_timeline_visual_sanity",
+      "artifact_labels": ["short_timeline"],
+      "prompt": "You are grading a short-form editing timeline screenshot. Respond with JSON only using keys status, score, confidence, explanation. Determine whether the short-form timeline looks coherent and not obviously broken."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": "track_management_suite",
+  "description": "Exercise track add/remove, lock/mute, and audio track settings on a timeline with imported media.",
+  "eligibility_tags": [],
+  "declared_tools": [
+    "clear_project",
+    "import_media",
+    "add_to_timeline",
+    "get_state",
+    "add_track",
+    "remove_track",
+    "lock_track",
+    "mute_track",
+    "set_track_volume",
+    "set_track_audio_effects",
+    "verify_playback",
+    "take_screenshot",
+    "set_zoom"
+  ],
+  "steps": [
+    { "id": "clear_project", "op": "tool", "tool": "clear_project" },
+    { "id": "stage_asset", "op": "stage_corpus_asset" },
+    { "id": "snapshot_assets", "op": "snapshot_assets", "var": "pre_import_assets" },
+    { "id": "import_media", "op": "tool", "tool": "import_media", "args": { "file_path": "${context.staged_file_path}" } },
+    { "id": "resolve_asset", "op": "resolve_imported_asset", "from": "pre_import_assets" },
+    { "id": "add_to_timeline", "op": "tool", "tool": "add_to_timeline", "args": { "asset_id": "${context.asset.id}" } },
+    { "id": "state_initial", "op": "capture_editor_state", "var": "state_initial" },
+    { "id": "main_audio_track", "op": "select_track", "state_var": "state_initial", "type": "audio", "var": "main_audio_track" },
+    { "id": "add_video_track", "op": "tool", "tool": "add_track", "args": { "type": "video", "name": "Codex Spare Video" } },
+    { "id": "add_audio_track", "op": "tool", "tool": "add_track", "args": { "type": "audio", "name": "Codex Spare Audio" } },
+    { "id": "state_after_add", "op": "capture_editor_state", "var": "state_after_add" },
+    { "id": "spare_video_track", "op": "select_track", "state_var": "state_after_add", "name_contains": "Codex Spare Video", "var": "spare_video_track" },
+    { "id": "spare_audio_track", "op": "select_track", "state_var": "state_after_add", "name_contains": "Codex Spare Audio", "var": "spare_audio_track" },
+    { "id": "lock_track_on", "op": "tool", "tool": "lock_track", "args": { "track_id": "${context.spare_video_track.id}", "locked": true } },
+    { "id": "lock_track_off", "op": "tool", "tool": "lock_track", "args": { "track_id": "${context.spare_video_track.id}", "locked": false } },
+    { "id": "mute_track_on", "op": "tool", "tool": "mute_track", "args": { "track_id": "${context.main_audio_track.id}", "muted": true } },
+    { "id": "mute_track_off", "op": "tool", "tool": "mute_track", "args": { "track_id": "${context.main_audio_track.id}", "muted": false } },
+    { "id": "set_track_volume", "op": "tool", "tool": "set_track_volume", "args": { "track_id": "${context.main_audio_track.id}", "volume": 0.75 } },
+    { "id": "set_track_audio_effects", "op": "tool", "tool": "set_track_audio_effects", "args": { "track_id": "${context.main_audio_track.id}", "preset": "podcast" } },
+    { "id": "remove_spare_video", "op": "tool", "tool": "remove_track", "args": { "track_id": "${context.spare_video_track.id}" } },
+    { "id": "remove_spare_audio", "op": "tool", "tool": "remove_track", "args": { "track_id": "${context.spare_audio_track.id}" } },
+    { "id": "verify_playback", "op": "tool", "tool": "verify_playback", "args": { "mode": "quick" }, "save_as": "verify_playback_output", "timeout_seconds": 600 },
+    { "id": "timeline_after_track_management", "op": "capture", "label": "timeline_after_track_management", "zoom": "fit" }
+  ],
+  "validators": [
+    { "id": "verify_playback_clean", "source": "verify_playback" }
+  ],
+  "judges": [
+    {
+      "id": "track_management_timeline_sanity",
+      "rubric_id": "timeline_visual_sanity",
+      "artifact_labels": ["timeline_after_track_management"],
+      "prompt": "You are grading a video editor timeline screenshot after track management operations. Respond with JSON only using keys status, score, confidence, explanation. Grade whether track lanes remain coherent, readable, and visually stable after add/remove and mute/lock operations."
+    }
+  ]
+}
