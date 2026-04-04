@@ -131,6 +131,18 @@ final class ExportFolderManager {
         UserDefaults.standard.set(data, forKey: key)
     }
 
+    /// Remove a bookmarked media source folder.
+    static func removeMediaFolderBookmark(url: URL) {
+        let current = mediaFolders
+        var dataArray = UserDefaults.standard.array(forKey: mediaBookmarksKey) as? [Data] ?? []
+        // Rebuild without the matching folder
+        let remaining = zip(current, dataArray).filter { $0.0.path != url.path }.map(\.1)
+        if remaining.count != dataArray.count {
+            dataArray = remaining
+            UserDefaults.standard.set(dataArray, forKey: mediaBookmarksKey)
+        }
+    }
+
     static func addMediaFolderBookmark(url: URL) {
         guard let data = try? url.bookmarkData(options: .withSecurityScope,
                                                 includingResourceValuesForKeys: nil,

@@ -6,12 +6,16 @@ enum LeftPanelTab: String, CaseIterable, Hashable {
     case library = "Library"
     case transcript = "Transcript"
     case search = "Search"
+    case projects = "Projects"
+    case settings = "Settings"
 
     var icon: String {
         switch self {
         case .library: "photo.on.rectangle"
         case .transcript: "text.alignleft"
         case .search: "sparkle.magnifyingglass"
+        case .projects: "folder"
+        case .settings: "gearshape"
         }
     }
 }
@@ -446,6 +450,10 @@ struct ContentView: View {
                     TranscriptPanel()
                 case .search:
                     searchUtilityPanel
+                case .projects:
+                    ProjectBrowserPanel()
+                case .settings:
+                    SettingsPanel()
                 }
             }
         }
@@ -479,6 +487,8 @@ struct ContentView: View {
         case .library: "Library"
         case .transcript: "Transcript"
         case .search: "Search"
+        case .projects: "Projects"
+        case .settings: "Settings"
         }
     }
 
@@ -487,6 +497,8 @@ struct ContentView: View {
         case .library: "Media sources, import, and drag to timeline"
         case .transcript: "Transcript access while editing"
         case .search: "AI search matches and quick sequence actions"
+        case .projects: "Switch between projects or create new ones"
+        case .settings: "Export, media sources, and storage"
         }
     }
 
