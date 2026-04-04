@@ -402,8 +402,8 @@ extension BroadcastOverlayRenderer {
         let textPad: CGFloat = 32 * s
         let totalW = goldBlockW + textPad * 2 + textW + 40 * s
 
-        // Slide from right
-        let endX = size.width - totalW - 60 * s
+        // Slide from right to center
+        let endX = (size.width - totalW) / 2
         let startX = size.width
         let cardX = startX + (endX - startX) * progress
 
