@@ -3335,6 +3335,27 @@ final class MCPServer {
             }
         }
 
+        // Consolidate: merge adjacent keep ranges when the gap between them is tiny.
+        // Removals < 0.3s are imperceptible — merging them reduces clip count dramatically.
+        // A 28-min episode with 60 removals becomes ~10-15 clips instead of 61.
+        let mergeThreshold: TimeInterval = 0.3
+        var consolidated: [(source: TimeRange, speed: Double)] = []
+        for range in keepRanges {
+            if let last = consolidated.last,
+               last.speed == range.speed,
+               (range.source.start - last.source.end) < mergeThreshold {
+                // Gap is tiny — merge into one clip (includes the small removed section)
+                consolidated[consolidated.count - 1] = (
+                    source: TimeRange(start: last.source.start, end: range.source.end),
+                    speed: last.speed
+                )
+            } else {
+                consolidated.append(range)
+            }
+        }
+        let preConsolidate = keepRanges.count
+        keepRanges = consolidated
+
         // Find the tracks this clip lives on
         guard let videoTrackIdx = appState.timeline.tracks.firstIndex(where: { $0.clips.contains(where: { $0.id == clip.id }) }) else {
             lines.append("\nError: Could not find clip's track")
@@ -3402,7 +3423,8 @@ final class MCPServer {
             return lines.joined(separator: "\n") + "\nError inserting clips: \(error.localizedDescription)"
         }
 
-        lines.append("\nExecuted: removed \(removals.count) segments, created \(insertedCount) keep clips, \(speedUps.count) speed-ups.")
+        let consolidatedNote = preConsolidate > insertedCount ? " (consolidated from \(preConsolidate))" : ""
+        lines.append("\nExecuted: removed \(removals.count) segments, created \(insertedCount) clips\(consolidatedNote), \(speedUps.count) speed-ups.")
 
         // === PASS 2: Claude review ===
         // Read the transcript of what's now on the timeline, send to Claude,
