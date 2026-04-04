@@ -50,7 +50,7 @@ final class MediaCoordinator {
 
     // MARK: - Import
 
-    func importMedia(from url: URL, mediaDir: URL) async throws -> MediaAsset {
+    func importMedia(from url: URL, mediaDir: URL?) async throws -> MediaAsset {
         var asset = try await mediaManager.importFile(from: url, bundleMediaDir: mediaDir)
 
         let importedAsset = asset

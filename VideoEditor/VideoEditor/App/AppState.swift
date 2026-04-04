@@ -1193,7 +1193,9 @@ final class AppState {
     // MARK: - Media import
 
     func importMedia(from url: URL) async throws -> MediaAsset {
-        let mediaDir = projectBundleURL.appendingPathComponent("media")
+        // If the file is in a bookmarked media folder, reference it directly (no copy)
+        let canReference = ExportFolderManager.canAccessWithoutCopy(path: url.path)
+        let mediaDir = canReference ? nil : projectBundleURL.appendingPathComponent("media")
         return try await media.importMedia(from: url, mediaDir: mediaDir)
     }
 

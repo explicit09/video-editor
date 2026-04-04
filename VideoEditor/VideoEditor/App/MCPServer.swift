@@ -146,7 +146,7 @@ final class MCPServer {
                 ],
                 [
                     "name": "export_video",
-                    "description": "Export the current timeline to an MP4 file. Returns the file path. Presets: 'low' (480p), 'medium' (720p), 'high' (1080p), '4k' (2160p).",
+                    "description": "Export the current timeline to an MP4 file. Returns the file path. Presets: 'low' (480p), 'medium' (720p), 'high' (1080p), '4k' (2160p). Exports to the default folder if set (use set_export_folder), otherwise tmp.",
                     "inputSchema": ["type": "object", "properties": ["preset": ["type": "string", "description": "Quality preset: low, medium, high (default), 4k"], "filename": ["type": "string", "description": "Output filename (without extension)"]], "required": []],
                 ],
                 [
@@ -379,12 +379,32 @@ final class MCPServer {
                 ],
                 [
                     "name": "export_for_platform",
-                    "description": "Export the current timeline optimized for a specific platform. Applies correct resolution, codec, and loudness settings. Platforms: tiktok, youtube_shorts, youtube_hd, youtube_4k, instagram_reels, instagram_feed, linkedin, twitter, pinterest, spotify_podcast, apple_podcast",
+                    "description": "Export the current timeline optimized for a specific platform. Applies correct resolution, codec, and loudness settings. Platforms: tiktok, youtube_shorts, youtube_hd, youtube_4k, instagram_reels, instagram_feed, linkedin, twitter, pinterest, spotify_podcast, apple_podcast. Exports to the default folder if set (use set_export_folder), otherwise tmp.",
                     "inputSchema": ["type": "object", "properties": ["platform": ["type": "string", "description": "Target platform name (e.g. tiktok, youtube_shorts, youtube_hd)"], "filename": ["type": "string", "description": "Output filename (without extension)"]], "required": ["platform"]],
                 ],
                 [
                     "name": "list_platforms",
                     "description": "List all available platform export presets with their specs (resolution, max duration, loudness target).",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "set_export_folder",
+                    "description": "Open a folder picker to set the default export destination. Exports will go here instead of tmp. The choice persists across sessions.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "get_export_folder",
+                    "description": "Get the current default export folder path, or report that none is set.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "add_media_folder",
+                    "description": "Open a folder picker to bookmark a media source folder. Files imported from bookmarked folders are referenced in-place (no copy), saving disk space. Use for folders like Downloads, external drives, or NAS mounts.",
+                    "inputSchema": ["type": "object", "properties": [:], "required": []],
+                ],
+                [
+                    "name": "list_media_folders",
+                    "description": "List all bookmarked media source folders. Files in these folders are referenced on import, not copied.",
                     "inputSchema": ["type": "object", "properties": [:], "required": []],
                 ],
                 [
@@ -645,6 +665,25 @@ final class MCPServer {
         }
         if name == "list_platforms" {
             return handleListPlatforms()
+        }
+        if name == "set_export_folder" {
+            return handleSetExportFolder()
+        }
+        if name == "get_export_folder" {
+            return handleGetExportFolder()
+        }
+        if name == "add_media_folder" {
+            if let url = ExportFolderManager.addMediaFolder() {
+                return "Media folder added: \(url.path). Files imported from this folder will be referenced in-place (no copy)."
+            }
+            return "No folder selected."
+        }
+        if name == "list_media_folders" {
+            let folders = ExportFolderManager.mediaFolders
+            if folders.isEmpty {
+                return "No media folders bookmarked. Use add_media_folder to add one. Files from bookmarked folders are referenced on import, saving disk space."
+            }
+            return "Bookmarked media folders:\n" + folders.map { "  - \($0.path)" }.joined(separator: "\n")
         }
 
         let toolResolver = AIToolResolver()
@@ -3379,8 +3418,7 @@ final class MCPServer {
         default: avPreset = AVAssetExportPresetHighestQuality
         }
 
-        let outputDir = FileManager.default.temporaryDirectory
-        let outputURL = outputDir.appendingPathComponent("\(filename).mp4")
+        let outputURL = ExportFolderManager.exportURL(filename: filename, ext: "mp4")
 
         // Remove existing file — AVAssetExportSession fails if output exists
         try? FileManager.default.removeItem(at: outputURL)
@@ -3396,6 +3434,8 @@ final class MCPServer {
             captionStyle: appState.context.timelineState.captionStyle
         )
 
+        defer { ExportFolderManager.stopAccessing() }
+
         switch appState.exportEngine.state {
         case .completed(let url):
             guard FileManager.default.fileExists(atPath: url.path) else {
@@ -3403,7 +3443,8 @@ final class MCPServer {
             }
             let size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? Int) ?? 0
             let sizeMB = String(format: "%.1f", Double(size) / 1_000_000)
-            return "Export complete: \(url.lastPathComponent) (\(sizeMB) MB). Path: \(url.path)"
+            let folderNote = ExportFolderManager.defaultFolder != nil ? "" : " (tip: use set_export_folder to choose a persistent destination)"
+            return "Export complete: \(url.lastPathComponent) (\(sizeMB) MB). Path: \(url.path)\(folderNote)"
         case .failed(let error):
             return "Export failed: \(error)"
         default:
@@ -3425,7 +3466,7 @@ final class MCPServer {
 
         let filename = (args["filename"] as? String) ?? "\(platformStr)_\(Int(Date().timeIntervalSince1970))"
         let ext = preset.fileType == .m4a ? "m4a" : "mp4"
-        let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(filename).\(ext)")
+        let outputURL = ExportFolderManager.exportURL(filename: filename, ext: ext)
 
         // Remove existing file — AVAssetExportSession fails with "Operation Stopped" if output exists
         try? FileManager.default.removeItem(at: outputURL)
@@ -3450,6 +3491,8 @@ final class MCPServer {
             captionStyle: appState.context.timelineState.captionStyle
         )
 
+        defer { ExportFolderManager.stopAccessing() }
+
         switch appState.exportEngine.state {
         case .completed(let url):
             guard FileManager.default.fileExists(atPath: url.path) else {
@@ -3458,7 +3501,8 @@ final class MCPServer {
             let size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? Int) ?? 0
             let sizeMB = String(format: "%.1f", Double(size) / 1_000_000)
             let maxDurStr = preset.maxDuration.map { "\(Int($0))s" } ?? "unlimited"
-            return "Exported for \(preset.name): \(url.lastPathComponent) (\(sizeMB) MB). Specs: \(preset.avPreset), \(Int(preset.targetLUFS)) LUFS, max \(maxDurStr). Path: \(url.path)\(warning)"
+            let folderNote = ExportFolderManager.defaultFolder != nil ? "" : " (tip: use set_export_folder to choose a persistent destination)"
+            return "Exported for \(preset.name): \(url.lastPathComponent) (\(sizeMB) MB). Specs: \(preset.avPreset), \(Int(preset.targetLUFS)) LUFS, max \(maxDurStr). Path: \(url.path)\(warning)\(folderNote)"
         case .failed(let error):
             return "Export failed: \(error)\(warning)"
         default:
@@ -3473,6 +3517,20 @@ final class MCPServer {
             return "- \(p.platform.rawValue): \(p.name) | \(p.avPreset) | .\(fileExt) | max \(maxDur) | \(Int(p.targetLUFS)) LUFS"
         }
         return "Available platform presets:\n" + lines.joined(separator: "\n")
+    }
+
+    private func handleSetExportFolder() -> String {
+        if let url = ExportFolderManager.pickDefaultFolder() {
+            return "Default export folder set to: \(url.path). All future exports will go here."
+        }
+        return "No folder selected. Default export folder unchanged."
+    }
+
+    private func handleGetExportFolder() -> String {
+        if let url = ExportFolderManager.defaultFolder {
+            return "Default export folder: \(url.path)"
+        }
+        return "No default export folder set. Exports go to the system tmp directory. Use set_export_folder to choose a folder."
     }
 
     /// Pass 2: Read the result transcript, send to Claude for review, fix issues.
