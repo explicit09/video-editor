@@ -640,11 +640,24 @@ public struct AIToolDefinition: Codable, Sendable {
     public let description: String
     public let parameters: ParameterSchema
 
+    public init(name: String, description: String, parameters: ParameterSchema) {
+        self.name = name
+        self.description = description
+        self.parameters = parameters
+    }
+
     public struct ParameterSchema: Codable, Sendable {
         public let type: String
         public let properties: [String: Property]?
         public let required: [String]?
         public let items: Property?
+
+        public init(type: String, properties: [String: Property]?, required: [String]?, items: Property?) {
+            self.type = type
+            self.properties = properties
+            self.required = required
+            self.items = items
+        }
 
         public final class Property: Codable, Sendable {
             public let type: String

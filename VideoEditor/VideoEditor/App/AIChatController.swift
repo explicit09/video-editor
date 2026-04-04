@@ -180,9 +180,12 @@ final class AIChatController {
             // === DIRECT EXECUTION (no plan needed) ===
             // Route: classify intent → pick model + tools
             let routing = intentRouter.route(message)
+            // Use MCPServer tool definitions (single source of truth) + AIToolRegistry as fallback
+            let mcpTools = appState.mcpServer?.toolDefinitionsForAgent() ?? []
+            let allAvailableTools = mcpTools.isEmpty ? AIToolRegistry.allTools : mcpTools
             var selectedTools = routing.toolSubset.isEmpty
                 ? [] // No tools for questions
-                : AIToolRegistry.allTools.filter { routing.toolSubset.contains($0.name) }
+                : allAvailableTools.filter { routing.toolSubset.contains($0.name) }
             var currentModel: String? = routing.tier.rawValue
 
             // Skill matching: check if user's message activates a skill
@@ -192,7 +195,7 @@ final class AIChatController {
                 skillPrompt = skill.content
                 // Override tools to the skill's recommended set if specified
                 if !skill.tools.isEmpty {
-                    selectedTools = AIToolRegistry.allTools.filter { skill.tools.contains($0.name) }
+                    selectedTools = allAvailableTools.filter { skill.tools.contains($0.name) }
                 }
                 // Skills always use standard model (complex workflows)
                 if skill.model == "standard" {
@@ -374,28 +377,13 @@ final class AIChatController {
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
 
-            // Editing tools
+            // All other tools — route through MCPServer (single source of truth)
+            // This gives the in-app agent access to ALL 90+ tools without duplicating logic
             processingStatus = "Executing \(toolCall.name)..."
-
-            // Special case: insert_clip for video assets — create linked audio track
-            if toolCall.name == "insert_clip",
-               let assetIDStr = args["asset_id"] as? String,
-               let assetID = UUID(uuidString: assetIDStr),
-               let asset = appState.assets.first(where: { $0.id == assetID }),
-               asset.type == .video {
-                let startTime = args["start_time"] as? Double
-                let preferredTrack = (args["track_id"] as? String).flatMap { UUID(uuidString: $0) }
-                await appState.addAssetToTimeline(asset, source: .ai, preferredTrackID: preferredTrack, startTime: startTime)
-            } else {
-                let intents = try toolResolver.resolve(toolName: toolCall.name, arguments: args, assets: appState.assets)
-                for intent in intents {
-                    try appState.perform(intent, source: .ai)
-                }
-            }
-
-            // Return detailed feedback for destructive operations
-            let feedback = describeTool(toolCall.name, args: args, timeline: appState.timeline)
-            return .init(toolName: toolCall.name, success: true, message: feedback)
+            let result = await appState.mcpServer?.executeToolForAgent(name: toolCall.name, arguments: args)
+                ?? "Error: MCP server not available"
+            let isError = result.hasPrefix("Error:")
+            return .init(toolName: toolCall.name, success: !isError, message: result)
         } catch {
             return .init(toolName: toolCall.name, success: false, message: error.localizedDescription)
         }

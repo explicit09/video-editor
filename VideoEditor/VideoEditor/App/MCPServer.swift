@@ -481,7 +481,8 @@ final class MCPServer {
                 ],
             ])
             tools = deduplicatedTools(tools)
-            cachedToolsResponse = nil  // Invalidate cache when tools list changes
+            toolListCache = tools  // Cache for in-app agent
+            cachedToolsResponse = nil
             let response = successResponse(id: id, result: ["tools": tools])
             cachedToolsResponse = response
             return response
@@ -523,6 +524,57 @@ final class MCPServer {
         guard let appState else { return "Error: Editor not available" }
         return await executeToolCall(name: name, arguments: arguments, appState: appState)
     }
+
+    /// All MCP tool names — used by the in-app agent to know what's available.
+    var allToolNames: [String] {
+        guard let appState else { return [] }
+        let tools = buildToolList(appState: appState)
+        return tools.compactMap { $0["name"] as? String }
+    }
+
+    /// Build tool list for Claude — converts MCP tool defs to AIToolDefinition format.
+    func toolDefinitionsForAgent() -> [AIToolDefinition] {
+        guard let appState else { return [] }
+        let tools = buildToolList(appState: appState)
+        return tools.compactMap { tool -> AIToolDefinition? in
+            guard let name = tool["name"] as? String,
+                  let desc = tool["description"] as? String else { return nil }
+            let schema = tool["inputSchema"] as? [String: Any] ?? [:]
+            let props = schema["properties"] as? [String: [String: Any]] ?? [:]
+            let required = schema["required"] as? [String] ?? []
+
+            var paramProps: [String: AIToolDefinition.ParameterSchema.Property] = [:]
+            for (key, val) in props {
+                let type = val["type"] as? String ?? "string"
+                let pdesc = val["description"] as? String
+                let enumVals = val["enum"] as? [String]
+                paramProps[key] = AIToolDefinition.ParameterSchema.Property(
+                    type: type, description: pdesc, enumValues: enumVals, items: nil
+                )
+            }
+
+            return AIToolDefinition(
+                name: name,
+                description: desc,
+                parameters: AIToolDefinition.ParameterSchema(
+                    type: "object",
+                    properties: paramProps.isEmpty ? nil : paramProps,
+                    required: required.isEmpty ? nil : required,
+                    items: nil
+                )
+            )
+        }
+    }
+
+    /// Extract the raw tool list from the MCP handler.
+    private func buildToolList(appState: AppState) -> [[String: Any]] {
+        // This calls the same code path as tools/list MCP method
+        // We need the tool array — extract from the response builder
+        return toolListCache ?? []
+    }
+
+    /// Cached tool list built during handleRequest
+    private var toolListCache: [[String: Any]]?
 
     private func executeToolCall(name: String, arguments: [String: Any], appState: AppState) async -> String {
         // MCP-only tools (not in AIToolRegistry)
