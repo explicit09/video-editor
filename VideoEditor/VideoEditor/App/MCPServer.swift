@@ -1406,6 +1406,10 @@ final class MCPServer {
         return "No transcript. Use transcribe_asset first."
     }
 
+    /// In-progress background transcription tasks, keyed by asset ID.
+    private var backgroundTranscriptions: [UUID: Task<Void, Never>] = [:]
+    private var backgroundTranscriptionResults: [UUID: String] = [:]
+
     private func handleTranscribeAsset(_ args: [String: Any], appState: AppState) async -> String {
         guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr) else {
             return "Error: Missing asset_id"
@@ -1414,14 +1418,13 @@ final class MCPServer {
             return "Error: Asset not found"
         }
 
-        // Pre-validate: skip transcription only for image assets (hasAudioTrack may be
-        // unreliable for some video containers where AVFoundation can't probe audio tracks)
         if asset.type == .image {
             return "Error: Asset '\(asset.name)' is an image. Cannot transcribe images."
         }
 
         let providerArg = (args["provider"] as? String)?.lowercased() ?? ""
         let useLocal = ["local", "whisper", "whisperkit"].contains(providerArg)
+        let runAsync = (args["async"] as? Bool) ?? (asset.duration > 300)
 
         await appState.media.ensureTranscriptionConfigured()
 
@@ -1431,6 +1434,48 @@ final class MCPServer {
             return "Already transcribed. Use get_transcript to read."
         }
 
+        // Check if background transcription is in progress
+        if let existing = backgroundTranscriptions[assetID], !existing.isCancelled {
+            if let result = backgroundTranscriptionResults[assetID] {
+                backgroundTranscriptions.removeValue(forKey: assetID)
+                backgroundTranscriptionResults.removeValue(forKey: assetID)
+                return result
+            }
+            return "Transcription in progress for '\(asset.name)'. Poll again or use get_transcript to check."
+        }
+
+        // For long assets or explicit async, run in background and return immediately
+        if runAsync {
+            let task = Task { [weak self] in
+                do {
+                    let result = try await appState.media.transcriptionService.transcribe(
+                        asset: asset,
+                        mediaManager: appState.media.mediaManager,
+                        bundleURL: appState.projectBundleURL,
+                        useLocal: useLocal
+                    )
+                    if let result {
+                        await appState.media.refreshAssets()
+                        let providerName = useLocal ? "WhisperKit (local)" : "Deepgram"
+                        await MainActor.run {
+                            self?.backgroundTranscriptionResults[assetID] = "Transcribed with \(providerName): \(result.words.count) words, \(String(format: "%.1f", result.duration))s."
+                        }
+                    } else {
+                        await MainActor.run {
+                            self?.backgroundTranscriptionResults[assetID] = "Error: Transcription not configured."
+                        }
+                    }
+                } catch {
+                    await MainActor.run {
+                        self?.backgroundTranscriptionResults[assetID] = "Error: \(error.localizedDescription)"
+                    }
+                }
+            }
+            backgroundTranscriptions[assetID] = task
+            return "Transcription started for '\(asset.name)' (\(String(format: "%.0f", asset.duration))s). Use get_transcript to check when ready."
+        }
+
+        // Synchronous path for short assets
         do {
             let result = try await appState.media.transcriptionService.transcribe(
                 asset: asset,
