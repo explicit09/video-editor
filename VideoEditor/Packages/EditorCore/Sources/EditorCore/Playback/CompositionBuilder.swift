@@ -46,7 +46,9 @@ public struct CompositionBuilder {
     ) -> URL {
         switch mode {
         case .preview:
-            if let proxyURL = asset.proxyURL, fileExists(proxyURL.path) {
+            // Full-res for ≤1080p sources — proxy only for 4K+
+            let height = asset.height ?? 0
+            if height > 1080, let proxyURL = asset.proxyURL, fileExists(proxyURL.path) {
                 return proxyURL
             }
             return asset.sourceURL
