@@ -467,19 +467,25 @@ extension BroadcastOverlayRenderer {
         let navy = OverlayStyle.parseHex(st.darkNavyHex)
 
         let stripH = st.hostStripHeight * s // 320
-        let tickerH = st.tickerHeight * s
-        let nameBarH = st.nameBarHeight * s
-        let baseY = tickerH + nameBarH
-        let slideOffset = (stripH + 20 * s) * (1.0 - slideProgress)
-        let stripY = baseY - slideOffset
+        // Strip sits at bottom of frame (y=0 in CGContext), slides up from below
+        let slideOffset = stripH * (1.0 - slideProgress)
+        let stripY = -slideOffset
 
-        // Gold background
-        ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
-        ctx.fill(CGRect(x: 0, y: stripY, width: size.width, height: stripH))
-
-        // Lighter gold top half
-        ctx.setFillColor(CGColor(red: goldLight.r, green: goldLight.g, blue: goldLight.b, alpha: 0.3))
-        ctx.fill(CGRect(x: 0, y: stripY + stripH / 2, width: size.width, height: stripH / 2))
+        // Gold horizontal gradient (matches Remotion: GOLD → GOLD_LIGHT → GOLD)
+        let gradColors = [
+            CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1),
+            CGColor(red: goldLight.r, green: goldLight.g, blue: goldLight.b, alpha: 1),
+            CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1)
+        ] as CFArray
+        if let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradColors, locations: [0, 0.5, 1]) {
+            ctx.saveGState()
+            ctx.clip(to: CGRect(x: 0, y: stripY, width: size.width, height: stripH))
+            ctx.drawLinearGradient(gradient, start: CGPoint(x: 0, y: stripY + stripH / 2), end: CGPoint(x: size.width, y: stripY + stripH / 2), options: [])
+            ctx.restoreGState()
+        } else {
+            ctx.setFillColor(CGColor(red: gold.r, green: gold.g, blue: gold.b, alpha: 1))
+            ctx.fill(CGRect(x: 0, y: stripY, width: size.width, height: stripH))
+        }
 
         let midX = size.width / 2
         let photoSize: CGFloat = 260 * s
@@ -490,9 +496,11 @@ extension BroadcastOverlayRenderer {
 
         let photoY = stripY + (stripH - photoSize) / 2
 
-        // Host A: photo left, text right
-        drawHostCircle(ctx: ctx, initial: String(config.hostA.name.prefix(1)), x: 80 * s, y: photoY, size: photoSize, navy: navy, s: s)
-        let textAX = 80 * s + photoSize + 30 * s
+        // Host A: photo left, text right (padding 60px, gap 28px per Remotion)
+        let padEdge: CGFloat = 60 * s
+        let gap: CGFloat = 28 * s
+        drawHostCircle(ctx: ctx, initial: String(config.hostA.name.prefix(1)), x: padEdge, y: photoY, size: photoSize, navy: navy, s: s, photoPath: config.hostA.photoPath)
+        let textAX = padEdge + photoSize + gap
         let nameY = stripY + stripH / 2 + 10 * s
         drawText(ctx: ctx, text: config.hostA.name.uppercased(), x: textAX, y: nameY, font: nameFont, color: navyColor)
         drawText(ctx: ctx, text: config.hostA.title.uppercased(), x: textAX, y: nameY - 60 * s, font: titleFont, color: navyFaded)
@@ -502,23 +510,49 @@ extension BroadcastOverlayRenderer {
         ctx.fill(CGRect(x: midX - 1.5 * s, y: stripY + (stripH - 110 * s) / 2, width: 3 * s, height: 110 * s))
 
         // Host B: photo right, text left of photo, right-aligned
-        let photoBX = size.width - 80 * s - photoSize
-        drawHostCircle(ctx: ctx, initial: String(config.hostB.name.prefix(1)), x: photoBX, y: photoY, size: photoSize, navy: navy, s: s)
+        let photoBX = size.width - padEdge - photoSize
+        drawHostCircle(ctx: ctx, initial: String(config.hostB.name.prefix(1)), x: photoBX, y: photoY, size: photoSize, navy: navy, s: s, photoPath: config.hostB.photoPath)
 
         let bNameW = measureText(config.hostB.name.uppercased(), font: nameFont)
         let bTitleW = measureText(config.hostB.title.uppercased(), font: titleFont)
-        let textBEndX = photoBX - 30 * s
+        let textBEndX = photoBX - gap
         drawText(ctx: ctx, text: config.hostB.name.uppercased(), x: textBEndX - bNameW, y: nameY, font: nameFont, color: navyColor)
         drawText(ctx: ctx, text: config.hostB.title.uppercased(), x: textBEndX - bTitleW, y: nameY - 60 * s, font: titleFont, color: navyFaded)
     }
 
+    nonisolated(unsafe) private static var photoCache: [String: CGImage] = [:]
+
     private static func drawHostCircle(
         ctx: CGContext, initial: String, x: CGFloat, y: CGFloat,
-        size: CGFloat, navy: (r: CGFloat, g: CGFloat, b: CGFloat), s: CGFloat
+        size: CGFloat, navy: (r: CGFloat, g: CGFloat, b: CGFloat), s: CGFloat,
+        photoPath: String? = nil
     ) {
         let rect = CGRect(x: x, y: y, width: size, height: size)
 
-        // Circle fill
+        // Try loading actual photo
+        if let photoPath, let photo = loadPhoto(path: photoPath) {
+            ctx.saveGState()
+            ctx.addEllipse(in: rect)
+            ctx.clip()
+            // Aspect-fill, crop from top (shows face)
+            let imgW = CGFloat(photo.width)
+            let imgH = CGFloat(photo.height)
+            let scale = max(size / imgW, size / imgH)
+            let drawW = imgW * scale
+            let drawH = imgH * scale
+            let drawX = x + (size - drawW) / 2
+            let drawY = y - (drawH - size) // align top of image (face) into circle
+            ctx.draw(photo, in: CGRect(x: drawX, y: drawY, width: drawW, height: drawH))
+            ctx.restoreGState()
+
+            // Border: 4px dark navy (matches Remotion)
+            ctx.setStrokeColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 1))
+            ctx.setLineWidth(4 * s)
+            ctx.strokeEllipse(in: rect.insetBy(dx: 2 * s, dy: 2 * s))
+            return
+        }
+
+        // Fallback: circle with initial
         ctx.saveGState()
         ctx.addEllipse(in: rect)
         ctx.clip()
@@ -526,16 +560,28 @@ extension BroadcastOverlayRenderer {
         ctx.fill(rect)
         ctx.restoreGState()
 
-        // Border: 4px navy
         ctx.setStrokeColor(CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.4))
         ctx.setLineWidth(4 * s)
         ctx.strokeEllipse(in: rect.insetBy(dx: 2 * s, dy: 2 * s))
 
-        // Initial
         let font = condensedFont(size: 90 * s)
         let w = measureText(initial, font: font)
         let navyColor = CGColor(red: navy.r, green: navy.g, blue: navy.b, alpha: 0.5)
         drawText(ctx: ctx, text: initial, x: x + (size - w) / 2, y: y + size / 2 - 28 * s, font: font, color: navyColor)
+    }
+
+    private static func loadPhoto(path: String) -> CGImage? {
+        if let cached = photoCache[path] { return cached }
+        let url = URL(fileURLWithPath: path)
+        guard let provider = CGDataProvider(url: url as CFURL) else { return nil }
+        let image: CGImage?
+        if path.lowercased().hasSuffix(".png") {
+            image = CGImage(pngDataProviderSource: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
+        } else {
+            image = CGImage(jpegDataProviderSource: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
+        }
+        if let image { photoCache[path] = image }
+        return image
     }
 }
 
