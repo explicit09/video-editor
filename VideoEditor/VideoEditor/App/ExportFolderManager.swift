@@ -98,7 +98,9 @@ final class ExportFolderManager {
         let fileURL = URL(fileURLWithPath: path)
         for folder in mediaFolders {
             if fileURL.path.hasPrefix(folder.path) {
-                return folder.startAccessingSecurityScopedResource()
+                // Start access (may return false if already accessing — that's OK)
+                _ = folder.startAccessingSecurityScopedResource()
+                return true
             }
         }
         return false
