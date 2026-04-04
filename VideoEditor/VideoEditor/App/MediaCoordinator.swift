@@ -15,7 +15,7 @@ final class MediaCoordinator {
     let thumbnailCache: DiskCache
     let renderCache: DiskCache
     let memoryMonitor: MemoryPressureMonitor
-    let bundleURL: URL
+    private(set) var bundleURL: URL
 
     private(set) var assets: [MediaAsset] = []
     private(set) var waveformStates: [UUID: WaveformLoadState] = [:]
@@ -102,6 +102,12 @@ final class MediaCoordinator {
         assets = await mediaManager.allAssets()
         await reconcileWaveformStates()
         onAssetsChanged?()
+    }
+
+    /// Update the bundle URL for project switching without recreating the coordinator.
+    func updateBundleURL(_ newURL: URL) {
+        stopBackgroundWork()
+        bundleURL = newURL
     }
 
     func stopBackgroundWork() {

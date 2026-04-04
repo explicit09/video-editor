@@ -1390,19 +1390,22 @@ final class AppState {
         context.timelineState.timeline = Timeline()
         context.timelineState.broadcastOverlay = nil
         context.timelineState.shortFormConfig = nil
+        context.timelineState.captionStyle = .none
         commandHistory.clear()
         timelineViewState.clearSelection()
 
-        // Switch bundle URL and recreate MediaCoordinator for new path
+        // Switch bundle URL — keep the same MediaCoordinator to avoid dealloc crash,
+        // just clear its assets and update the bundle URL
         projectBundleURL = newURL
-        media.stopBackgroundWork()
-        media = MediaCoordinator(bundleURL: newURL)
-        media.onAnalysisComplete = { [weak self] in self?.rebuildComposition() }
-        media.onAssetsChanged = { [weak self] in self?.scheduleSave() }
+        Self.ensureProjectDirectories(at: newURL)
+        Task {
+            await media.mediaManager.removeAll()
+            await media.refreshAssets()
+        }
+        media.updateBundleURL(newURL)
 
-        // Load the target project
+        // Load the target project (async parts run in background)
         loadProject()
-        rebuildComposition()
     }
 
     // MARK: - Media import

@@ -63,6 +63,11 @@ public actor MediaManager {
         thumbnailCache.removeValue(forKey: id)
     }
 
+    public func removeAll() {
+        assets.removeAll()
+        thumbnailCache.removeAll()
+    }
+
     public func asset(id: UUID) -> MediaAsset? {
         assets.first { $0.id == id }
     }
