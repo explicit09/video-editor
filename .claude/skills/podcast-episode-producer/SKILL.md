@@ -36,6 +36,24 @@ You produce edited podcast episodes from raw multi-hour recordings. Your job is 
    - The first take is usually incomplete or has mistakes
 4. `save_snapshot` label="episode_extracted"
 
+## Step 2.5: Post-extraction analysis — NEVER SKIP
+
+After extracting, run `analyze_transcript` AGAIN on just the extracted episode:
+
+1. `analyze_transcript` — Claude now reads ONLY the episode content, not the full recording
+2. This second pass gives you:
+   - **Exact topic transitions** within the episode (with timeline-relative timestamps)
+   - **Verification** that start/end are clean (no rehearsal, no behind-scenes chatter leaked in)
+   - **Chapter descriptions** tuned to the episode's actual content
+   - **Any issues** — dead sections, off-topic tangents, content that should be cut
+3. Use these refined timestamps for the overlay topics/chapters — they're more accurate than
+   the first-pass timestamps which were relative to the full 2+ hour recording
+4. If Claude says the start has rehearsal or the end has post-show chatter, re-extract with tighter bounds
+
+**Why two analysis passes?**
+- First pass (Step 1): finds episodes in 2+ hours of raw recording. Rough boundaries.
+- Second pass (Step 2.5): refines the extracted episode. Exact topic structure.
+
 ## Step 3: Set up overlay from template
 
 1. `set_overlay_config` with `template="technologia_talks"` (loads hosts, photos, sponsors)
