@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+@testable import EditorCore
 @testable import VideoEditor
 
 @Suite("Timeline Shell Support Tests")
@@ -80,6 +81,31 @@ struct TimelineShellSupportTests {
         )
 
         #expect(target == TimelineScrollTarget(horizontalOffset: 940, verticalOffset: 75))
+    }
+
+    @Test("timeline snapping respects playhead and nearby clip edges")
+    func timelineSnapResolverUsesExistingPoints() {
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 5.1, end: 9.1),
+            sourceRange: TimeRange(start: 0, end: 4)
+        )
+        let timeline = Timeline(
+            tracks: [Track(name: "V1", type: .video, clips: [clip])],
+            markers: [Marker(time: 12, label: "Cut")]
+        )
+
+        let snapped = TimelineSnapResolver.snappedTime(
+            for: 5.08,
+            excluding: [UUID()],
+            in: timeline,
+            playhead: 0,
+            snapEnabled: true,
+            snapThresholdPixels: 8,
+            zoom: 100
+        )
+
+        #expect(snapped == 5.1)
     }
 
     @Test("timeline view state exposes explicit auto-follow state")

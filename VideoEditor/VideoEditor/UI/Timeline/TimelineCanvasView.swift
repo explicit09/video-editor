@@ -229,12 +229,13 @@ struct TimelineCanvasView: View {
 
     private func handleAssetDrop(assetID: UUID, startTime: TimeInterval, trackID: UUID) {
         guard let asset = appState.assets.first(where: { $0.id == assetID }) else { return }
+        let snappedStart = snappedTime(for: startTime, excluding: [])
 
         Task { @MainActor in
             await appState.addAssetToTimeline(
                 asset,
                 preferredTrackID: trackID,
-                startTime: startTime
+                startTime: snappedStart
             )
         }
     }
@@ -258,8 +259,20 @@ struct TimelineCanvasView: View {
         return [clipID]
     }
 
-    private func snapTime(_ proposedTime: TimeInterval, _: Set<UUID>) -> TimeInterval {
-        proposedTime
+    private func snapTime(_ proposedTime: TimeInterval, _ clipIDs: Set<UUID>) -> TimeInterval {
+        snappedTime(for: proposedTime, excluding: clipIDs)
+    }
+
+    private func snappedTime(for proposedTime: TimeInterval, excluding clipIDs: Set<UUID>) -> TimeInterval {
+        TimelineSnapResolver.snappedTime(
+            for: proposedTime,
+            excluding: clipIDs,
+            in: timeline,
+            playhead: viewState.playheadPosition,
+            snapEnabled: viewState.snapEnabled,
+            snapThresholdPixels: viewState.snapThresholdPixels,
+            zoom: viewState.zoom
+        )
     }
 
     private static let scrollSpaceName = "TimelineCanvasScrollSpace"

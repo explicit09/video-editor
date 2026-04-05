@@ -1,4 +1,5 @@
 import Foundation
+import EditorCore
 
 struct TimelineShellMetrics: Sendable, Equatable {
     let headerWidth: Double
@@ -130,5 +131,28 @@ enum TimelineScrollTargetResolver {
         }
 
         return nil
+    }
+}
+
+enum TimelineSnapResolver {
+    static func snappedTime(
+        for proposedTime: TimeInterval,
+        excluding clipIDs: Set<UUID> = [],
+        in timeline: Timeline,
+        playhead: TimeInterval,
+        snapEnabled: Bool,
+        snapThresholdPixels: Double,
+        zoom: Double
+    ) -> TimeInterval {
+        let clampedTime = max(0, proposedTime)
+        guard snapEnabled else { return clampedTime }
+
+        let snapThreshold = snapThresholdPixels / max(zoom, 0.001)
+        let points = SnapUtils.snapPoints(
+            from: timeline,
+            playhead: playhead,
+            excludeClipIDs: clipIDs
+        )
+        return SnapUtils.snap(time: clampedTime, to: points, threshold: snapThreshold) ?? clampedTime
     }
 }
