@@ -53,8 +53,9 @@ public struct AutoReframer: Sendable {
         let sourceSize = try await videoTrack.load(.naturalSize)
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
-        generator.requestedTimeToleranceBefore = CMTime(seconds: 0.1, preferredTimescale: 600)
-        generator.requestedTimeToleranceAfter = CMTime(seconds: 0.1, preferredTimescale: 600)
+        generator.maximumSize = CGSize(width: 640, height: 360) // Small for fast face detection
+        generator.requestedTimeToleranceBefore = CMTime(seconds: 0.5, preferredTimescale: 600)
+        generator.requestedTimeToleranceAfter = CMTime(seconds: 0.5, preferredTimescale: 600)
 
         var cropRegions: [(time: TimeInterval, rect: CGRect)] = []
         var previousCenter = CGPoint(x: 0.5, y: 0.5) // Start centered
