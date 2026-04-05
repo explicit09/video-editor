@@ -28,4 +28,16 @@ struct DockingCoordinatorTests {
 
         #expect(target == .splitLeading)
     }
+
+    @Test("drop target falls back to tab stack for interior split-or-tabs drops")
+    func interiorTabFallbackTarget() {
+        let coordinator = DockingCoordinator()
+        let target = coordinator.resolveDropTarget(
+            point: CGPoint(x: 160, y: 120),
+            frame: CGRect(x: 0, y: 0, width: 320, height: 240),
+            allowedBehavior: .splitOrTabs
+        )
+
+        #expect(target == .tabStack)
+    }
 }

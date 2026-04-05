@@ -62,6 +62,6 @@ final class DockingCoordinator: ObservableObject {
         if point.x >= frame.maxX - edgeInset { return .splitTrailing }
         if point.y <= frame.minY + edgeInset { return .splitTop }
         if point.y >= frame.maxY - edgeInset { return .splitBottom }
-        return isInTabStrip ? .tabStack : nil
+        return .tabStack
     }
 }
