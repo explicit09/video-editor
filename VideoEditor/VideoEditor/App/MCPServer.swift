@@ -1774,11 +1774,22 @@ final class MCPServer {
                 guard !result.cropRegions.isEmpty else {
                     return "Error: Auto reframe produced no crop regions — no faces or subjects detected in '\(asset.name)'."
                 }
-                var lines = ["Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr)."]
-                for (i, region) in result.cropRegions.prefix(10).enumerated() {
-                    lines.append("  #\(i+1) [\(String(format: "%.1f", region.time))s] x=\(String(format: "%.2f", region.rect.origin.x)) y=\(String(format: "%.2f", region.rect.origin.y)) w=\(String(format: "%.2f", region.rect.width)) h=\(String(format: "%.2f", region.rect.height))")
+
+                // Apply: find the clip on the timeline and set its cropRect
+                let applyMode = (args["apply"] as? Bool) ?? true
+                if applyMode, let clip = appState.timeline.tracks.flatMap(\.clips).first(where: { $0.assetID == assetID }) {
+                    // Use the average/dominant crop as the clip's cropRect
+                    let avgX = result.cropRegions.map(\.rect.origin.x).reduce(0, +) / CGFloat(result.cropRegions.count)
+                    let avgY = result.cropRegions.map(\.rect.origin.y).reduce(0, +) / CGFloat(result.cropRegions.count)
+                    let avgW = result.cropRegions.map(\.rect.width).reduce(0, +) / CGFloat(result.cropRegions.count)
+                    let avgH = result.cropRegions.map(\.rect.height).reduce(0, +) / CGFloat(result.cropRegions.count)
+                    let crop = CropRect(x: Double(avgX), y: Double(avgY), width: Double(avgW), height: Double(avgH))
+                    try appState.perform(.setClipCrop(clipID: clip.id, cropRect: crop), source: .ai)
+                    appState.rebuildCompositionNow()
                 }
-                if result.cropRegions.count > 10 { lines.append("  ... and \(result.cropRegions.count - 10) more") }
+
+                var lines = ["Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr). Applied to clip."]
+                lines.append("Crop: x=\(String(format: "%.2f", result.cropRegions.first!.rect.origin.x)) y=\(String(format: "%.2f", result.cropRegions.first!.rect.origin.y)) w=\(String(format: "%.2f", result.cropRegions.first!.rect.width)) h=\(String(format: "%.2f", result.cropRegions.first!.rect.height))")
                 return lines.joined(separator: "\n")
             } catch {
                 return "Error: Reframe analysis failed — \(error.localizedDescription)"
