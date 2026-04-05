@@ -11,6 +11,10 @@ enum UtilityTheme {
     static let textMuted = Color(hex: 0xA2A9B0)
     static let accent = Color(hex: 0x5E87FF)
     static let accentText = Color.white
+    static let success = Color(hex: 0x53E16F)
+    static let warning = Color(hex: 0xF5CC64)
+    static let danger = Color(hex: 0xFFB4AB)
+    static let info = Color(hex: 0x7DE7FF)
     static let shadow = Color.black.opacity(0.18)
 }
 
@@ -49,6 +53,53 @@ struct UtilityStatusBadgeMetrics: Equatable, Sendable {
     }
 }
 
+enum UtilityStatusBadgeStyle: Equatable, Sendable {
+    case neutral
+    case accent
+    case success
+    case warning
+    case danger
+    case info
+
+    var foregroundColor: Color {
+        switch self {
+        case .neutral:
+            UtilityTheme.textMuted
+        case .accent:
+            UtilityTheme.accentText
+        case .success:
+            UtilityTheme.success
+        case .warning:
+            UtilityTheme.warning
+        case .danger:
+            UtilityTheme.danger
+        case .info:
+            UtilityTheme.info
+        }
+    }
+
+    var backgroundColor: Color {
+        switch self {
+        case .neutral:
+            UtilityTheme.chrome
+        case .accent:
+            UtilityTheme.accent
+        case .success:
+            UtilityTheme.success.opacity(0.16)
+        case .warning:
+            UtilityTheme.warning.opacity(0.16)
+        case .danger:
+            UtilityTheme.danger.opacity(0.16)
+        case .info:
+            UtilityTheme.info.opacity(0.16)
+        }
+    }
+
+    var isSolidFill: Bool {
+        self == .accent
+    }
+}
+
 struct UtilitySegmentedControlMetrics: Equatable, Sendable {
     let showsLabels: Bool
     let controlHeight: CGFloat
@@ -66,7 +117,17 @@ struct UtilitySegmentedControlMetrics: Equatable, Sendable {
 struct UtilityStatusBadge: View {
     let text: String
     var icon: String? = nil
-    var isAccent = false
+    var style: UtilityStatusBadgeStyle = .neutral
+
+    init(text: String, icon: String? = nil, style: UtilityStatusBadgeStyle = .neutral) {
+        self.text = text
+        self.icon = icon
+        self.style = style
+    }
+
+    init(text: String, icon: String? = nil, isAccent: Bool) {
+        self.init(text: text, icon: icon, style: isAccent ? .accent : .neutral)
+    }
 
     var body: some View {
         let metrics = UtilityStatusBadgeMetrics.make(text: text, showsIcon: icon != nil)
@@ -81,10 +142,10 @@ struct UtilityStatusBadge: View {
                 .font(.system(size: 10, weight: .semibold))
                 .lineLimit(1)
         }
-        .foregroundStyle(isAccent ? UtilityTheme.accentText : UtilityTheme.textMuted)
+        .foregroundStyle(style.foregroundColor)
         .padding(.horizontal, metrics.horizontalPadding)
         .frame(height: metrics.height)
-        .background(isAccent ? UtilityTheme.accent : UtilityTheme.chrome)
+        .background(style.backgroundColor)
         .clipShape(Capsule())
     }
 }
@@ -247,10 +308,10 @@ struct UtilityPanelHeaderMetrics: Equatable, Sendable {
 struct UtilityHeaderBadge: View {
     let text: String
     var systemImage: String? = nil
-    var isAccent = false
+    var style: UtilityStatusBadgeStyle = .neutral
 
     var body: some View {
-        UtilityStatusBadge(text: text, icon: systemImage, isAccent: isAccent)
+        UtilityStatusBadge(text: text, icon: systemImage, style: style)
     }
 }
 

@@ -67,7 +67,7 @@ struct InspectorPanel: View {
                             UtilityHeaderBadge(
                                 text: appState.aiChat.processingStatus ?? "Thinking",
                                 systemImage: "sparkles",
-                                isAccent: true
+                                style: .info
                             )
                         }
 
@@ -228,8 +228,8 @@ struct InspectorPanel: View {
                         .foregroundStyle(CinematicTheme.onSurface)
 
                     HStack(spacing: 8) {
-                        UtilityStatusBadge(text: "\(appState.timeline.tracks.flatMap(\.clips).count) clips", icon: "rectangle.stack")
-                        UtilityStatusBadge(text: "\(appState.commandHistory.canUndo ? "Undo ready" : "History clean")", icon: "arrow.uturn.backward")
+                    UtilityStatusBadge(text: "\(appState.timeline.tracks.flatMap(\.clips).count) clips", icon: "rectangle.stack")
+                        UtilityStatusBadge(text: "\(appState.commandHistory.canUndo ? "Undo ready" : "History clean")", icon: "arrow.uturn.backward", style: .info)
                     }
                 }
             }
@@ -252,7 +252,7 @@ struct InspectorPanel: View {
                     UtilityStatusBadge(
                         text: appState.playbackEngine.isPlaying ? "Playing" : "Idle",
                         icon: appState.playbackEngine.isPlaying ? "play.fill" : "pause.fill",
-                        isAccent: appState.playbackEngine.isPlaying
+                        style: appState.playbackEngine.isPlaying ? .success : .warning
                     )
                 }
 
@@ -831,9 +831,13 @@ struct InspectorPanel: View {
                             .foregroundStyle(CinematicTheme.onSurface)
 
                         HStack(spacing: 8) {
-                            UtilityStatusBadge(text: asset.type.rawValue.capitalized, icon: asset.type == .audio ? "waveform" : asset.type == .video ? "film" : "photo", isAccent: asset.type == .audio)
+                            UtilityStatusBadge(
+                                text: asset.type.rawValue.capitalized,
+                                icon: asset.type == .audio ? "waveform" : asset.type == .video ? "film" : "photo",
+                                style: asset.type == .audio ? .success : .info
+                            )
                             if let codec = asset.codec {
-                                UtilityStatusBadge(text: codec.uppercased(), icon: "cpu")
+                                UtilityStatusBadge(text: codec.uppercased(), icon: "cpu", style: .neutral)
                             }
                         }
                     }

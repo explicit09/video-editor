@@ -21,6 +21,16 @@ struct EditorStabilizationSupportTests {
         #expect(metrics.horizontalPadding == UtilitySpacing.sm)
     }
 
+    @Test("utility status badge styles keep accent solid and semantic tones tinted")
+    func utilityStatusBadgeStylesDifferentiateSemanticTones() {
+        #expect(UtilityStatusBadgeStyle.accent.isSolidFill)
+        #expect(!UtilityStatusBadgeStyle.neutral.isSolidFill)
+        #expect(!UtilityStatusBadgeStyle.success.isSolidFill)
+        #expect(!UtilityStatusBadgeStyle.warning.isSolidFill)
+        #expect(!UtilityStatusBadgeStyle.danger.isSolidFill)
+        #expect(!UtilityStatusBadgeStyle.info.isSolidFill)
+    }
+
     @Test("utility segmented control metrics collapse labels on narrow widths")
     func utilitySegmentedControlMetricsCollapseLabels() {
         let metrics = UtilitySegmentedControlMetrics.make(

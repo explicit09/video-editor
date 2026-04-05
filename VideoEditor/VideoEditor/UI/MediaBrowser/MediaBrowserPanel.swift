@@ -84,7 +84,8 @@ struct MediaBrowserPanel: View {
                 HStack {
                     UtilityStatusBadge(
                         text: importError,
-                        icon: "exclamationmark.triangle.fill"
+                        icon: "exclamationmark.triangle.fill",
+                        style: .danger
                     )
                     Spacer()
                 }

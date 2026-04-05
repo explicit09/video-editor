@@ -59,7 +59,8 @@ struct MediaWorkspacePanel: View {
                 HStack {
                     UtilityStatusBadge(
                         text: importError,
-                        icon: "exclamationmark.triangle.fill"
+                        icon: "exclamationmark.triangle.fill",
+                        style: .danger
                     )
                     Spacer()
                 }
@@ -124,7 +125,7 @@ struct MediaWorkspacePanel: View {
                     UtilityStatusBadge(
                         text: "All",
                         icon: "line.3.horizontal.decrease.circle",
-                        isAccent: selectedBinID == nil
+                        style: selectedBinID == nil ? .accent : .neutral
                     )
                 }
                 .buttonStyle(.plain)
@@ -443,14 +444,14 @@ struct MediaWorkspacePanel: View {
                     UtilityStatusBadge(
                         text: TimeFormatter.timecode(sourceCurrentTime),
                         icon: "clock",
-                        isAccent: true
+                        style: .info
                     )
 
                     if selectionDuration > 0, selectionDuration < duration {
                         UtilityStatusBadge(
                             text: "SEL \(TimeFormatter.durationHMS(selectionDuration))",
                             icon: "selection.pin.in.out",
-                            isAccent: true
+                            style: .accent
                         )
                     }
 

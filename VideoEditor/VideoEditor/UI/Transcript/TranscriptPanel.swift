@@ -118,7 +118,7 @@ struct TranscriptPanel: View {
                                 UtilityHeaderBadge(
                                     text: context.clip.metadata.label ?? context.asset.name,
                                     systemImage: "waveform.and.mic",
-                                    isAccent: true
+                                    style: .info
                                 )
                             }
                         }
@@ -525,7 +525,7 @@ struct TranscriptPanel: View {
                 title: "No transcript available",
                 detail: "Select a clip with transcript data, or run transcription on a source to make spoken content searchable."
             ) {
-                UtilityStatusBadge(text: "Use AI to transcribe", icon: "sparkles", isAccent: true)
+                UtilityStatusBadge(text: "Use AI to transcribe", icon: "sparkles", style: .accent)
             }
             Spacer()
         }

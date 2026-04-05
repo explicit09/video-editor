@@ -35,7 +35,7 @@ struct TimelineToolbarView: View {
             UtilityStatusBadge(
                 text: tool.rawValue.uppercased(),
                 icon: tool.icon,
-                isAccent: true
+                style: .accent
             )
 
             HStack(spacing: 6) {
@@ -51,7 +51,7 @@ struct TimelineToolbarView: View {
                 UtilityStatusBadge(
                     text: viewState.snapEnabled ? "SNAP ON" : "SNAP OFF",
                     icon: "scope",
-                    isAccent: viewState.snapEnabled
+                    style: viewState.snapEnabled ? .success : .neutral
                 )
             }
             .buttonStyle(.plain)
@@ -62,7 +62,7 @@ struct TimelineToolbarView: View {
                 UtilityStatusBadge(
                     text: viewState.rippleEnabled ? "RIPPLE ON" : "RIPPLE OFF",
                     icon: "arrow.left.arrow.right.circle",
-                    isAccent: viewState.rippleEnabled
+                    style: viewState.rippleEnabled ? .warning : .neutral
                 )
             }
             .buttonStyle(.plain)
@@ -73,7 +73,7 @@ struct TimelineToolbarView: View {
                 UtilityStatusBadge(
                     text: viewState.linkedSelectionEnabled ? "LINKED ON" : "LINKED OFF",
                     icon: "link",
-                    isAccent: viewState.linkedSelectionEnabled
+                    style: viewState.linkedSelectionEnabled ? .success : .neutral
                 )
             }
             .buttonStyle(.plain)
@@ -84,7 +84,7 @@ struct TimelineToolbarView: View {
                 UtilityStatusBadge(
                     text: viewState.autoFollowPlayhead ? "FOLLOW ON" : "FOLLOW OFF",
                     icon: "dot.radiowaves.left.and.right",
-                    isAccent: viewState.autoFollowPlayhead
+                    style: viewState.autoFollowPlayhead ? .info : .neutral
                 )
             }
             .buttonStyle(.plain)
@@ -92,11 +92,13 @@ struct TimelineToolbarView: View {
             UtilityStatusBadge(
                 text: "\(timeline.tracks.count) lanes",
                 icon: "square.stack.3d.down.right",
+                style: .info
             )
 
             UtilityStatusBadge(
                 text: zoomLabel(for: viewState.zoom),
                 icon: "timeline.selection",
+                style: .info
             )
 
             Menu {

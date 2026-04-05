@@ -51,7 +51,8 @@ struct ProjectBrowserPanel: View {
                         if layout.showsSecondaryBadges {
                             UtilityStatusBadge(
                                 text: "\(appState.projectIndex.index.projects.count) projects",
-                                icon: "folder"
+                                icon: "folder",
+                                style: .info
                             )
                         }
                         UtilityHeaderButton(icon: "plus", title: layout.showsSecondaryBadges ? "New" : nil, isProminent: true) {
@@ -154,7 +155,7 @@ struct ProjectBrowserPanel: View {
             Spacer()
 
             if isActive {
-                UtilityStatusBadge(text: "ACTIVE", isAccent: true)
+                UtilityStatusBadge(text: "ACTIVE", style: .accent)
             }
         }
         .padding(8)

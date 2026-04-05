@@ -21,7 +21,7 @@ struct SearchResultsView: View {
                     UtilityStatusBadge(
                         text: "\(results.count) matches",
                         icon: "sparkles.rectangle.stack",
-                        isAccent: true
+                        style: .info
                     )
                 }
             )
@@ -69,7 +69,7 @@ struct SearchResultsView: View {
                     UtilityStatusBadge(
                         text: placement == nil ? "Source Only" : "On Timeline",
                         icon: placement == nil ? "tray" : "timeline.selection",
-                        isAccent: placement != nil
+                        style: placement == nil ? .warning : .success
                     )
                 }
                 .frame(width: 88, alignment: .leading)

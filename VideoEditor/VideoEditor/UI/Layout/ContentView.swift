@@ -191,13 +191,14 @@ struct ContentView: View {
                 UtilityStatusBadge(
                     text: "AI ACTIVE",
                     icon: "sparkles",
-                    isAccent: true
+                    style: .accent
                 )
             }
 
             UtilityStatusBadge(
                 text: layoutMode == .compact ? "COMPACT" : "EXPANDED",
-                icon: layoutMode == .compact ? "rectangle.compress.vertical" : "rectangle.expand.vertical"
+                icon: layoutMode == .compact ? "rectangle.compress.vertical" : "rectangle.expand.vertical",
+                style: .info
             )
 
             CinematicToolbarButton(
@@ -485,7 +486,7 @@ private struct SettingsSheet: View {
 
             HStack {
                 if saved {
-                    UtilityStatusBadge(text: "Saved - restart app", icon: "checkmark.circle.fill", isAccent: true)
+                    UtilityStatusBadge(text: "Saved - restart app", icon: "checkmark.circle.fill", style: .success)
                 }
                 Spacer()
                 CinematicToolbarButton(icon: "square.and.arrow.down", label: "Save", isActive: true, action: saveKeys)
