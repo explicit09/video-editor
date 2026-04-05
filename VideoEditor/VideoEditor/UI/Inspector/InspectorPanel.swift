@@ -83,9 +83,10 @@ struct InspectorPanel: View {
 
             if showsTabs {
                 HStack {
-                    CinematicSegmentedTabBar(
+                    UtilitySegmentedControl(
                         items: RightRailTab.allCases,
                         selection: $selectedTab,
+                        availableWidth: 220,
                         label: { $0.rawValue },
                         icon: { $0.icon }
                     )
@@ -227,8 +228,8 @@ struct InspectorPanel: View {
                         .foregroundStyle(CinematicTheme.onSurface)
 
                     HStack(spacing: 8) {
-                        CinematicStatusPill(text: "\(appState.timeline.tracks.flatMap(\.clips).count) clips", icon: "rectangle.stack", tone: CinematicTheme.tertiary)
-                        CinematicStatusPill(text: "\(appState.commandHistory.canUndo ? "Undo ready" : "History clean")", icon: "arrow.uturn.backward", tone: CinematicTheme.aqua)
+                        UtilityStatusBadge(text: "\(appState.timeline.tracks.flatMap(\.clips).count) clips", icon: "rectangle.stack")
+                        UtilityStatusBadge(text: "\(appState.commandHistory.canUndo ? "Undo ready" : "History clean")", icon: "arrow.uturn.backward")
                     }
                 }
             }
@@ -248,10 +249,10 @@ struct InspectorPanel: View {
                             .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
                     }
                     Spacer()
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: appState.playbackEngine.isPlaying ? "Playing" : "Idle",
                         icon: appState.playbackEngine.isPlaying ? "play.fill" : "pause.fill",
-                        tone: appState.playbackEngine.isPlaying ? CinematicTheme.success : CinematicTheme.warning
+                        isAccent: appState.playbackEngine.isPlaying
                     )
                 }
 
@@ -830,9 +831,9 @@ struct InspectorPanel: View {
                             .foregroundStyle(CinematicTheme.onSurface)
 
                         HStack(spacing: 8) {
-                            CinematicStatusPill(text: asset.type.rawValue.capitalized, icon: asset.type == .audio ? "waveform" : asset.type == .video ? "film" : "photo", tone: asset.type == .audio ? CinematicTheme.success : CinematicTheme.tertiary)
+                            UtilityStatusBadge(text: asset.type.rawValue.capitalized, icon: asset.type == .audio ? "waveform" : asset.type == .video ? "film" : "photo", isAccent: asset.type == .audio)
                             if let codec = asset.codec {
-                                CinematicStatusPill(text: codec.uppercased(), icon: "cpu", tone: CinematicTheme.aqua)
+                                UtilityStatusBadge(text: codec.uppercased(), icon: "cpu")
                             }
                         }
                     }

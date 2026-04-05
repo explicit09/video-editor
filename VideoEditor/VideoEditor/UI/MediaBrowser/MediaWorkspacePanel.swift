@@ -57,10 +57,9 @@ struct MediaWorkspacePanel: View {
 
             if let importError {
                 HStack {
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: importError,
-                        icon: "exclamationmark.triangle.fill",
-                        tone: CinematicTheme.error
+                        icon: "exclamationmark.triangle.fill"
                     )
                     Spacer()
                 }
@@ -122,10 +121,10 @@ struct MediaWorkspacePanel: View {
                     .foregroundStyle(CinematicTheme.onSurface)
                 Spacer()
                 Button(action: { selectedBinID = nil }) {
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: "All",
                         icon: "line.3.horizontal.decrease.circle",
-                        tone: selectedBinID == nil ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant
+                        isAccent: selectedBinID == nil
                     )
                 }
                 .buttonStyle(.plain)
@@ -441,17 +440,17 @@ struct MediaWorkspacePanel: View {
 
             VStack(alignment: .leading, spacing: 10) {
                 HStack(spacing: 8) {
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: TimeFormatter.timecode(sourceCurrentTime),
                         icon: "clock",
-                        tone: CinematicTheme.aqua
+                        isAccent: true
                     )
 
                     if selectionDuration > 0, selectionDuration < duration {
-                        CinematicStatusPill(
+                        UtilityStatusBadge(
                             text: "SEL \(TimeFormatter.durationHMS(selectionDuration))",
                             icon: "selection.pin.in.out",
-                            tone: CinematicTheme.primary
+                            isAccent: true
                         )
                     }
 

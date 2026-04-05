@@ -25,12 +25,11 @@ struct SettingsPanel: View {
     // MARK: - Header
 
     private var header: some View {
-        CinematicPanelHeader(
+        UtilityPanelHeader(
             eyebrow: "PREFERENCES",
             title: "Settings",
             subtitle: "Export, media sources, and storage"
         )
-        .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
     }
 
     // MARK: - Export Section

@@ -82,10 +82,9 @@ struct MediaBrowserPanel: View {
 
             if let importError {
                 HStack {
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: importError,
-                        icon: "exclamationmark.triangle.fill",
-                        tone: CinematicTheme.error
+                        icon: "exclamationmark.triangle.fill"
                     )
                     Spacer()
                 }

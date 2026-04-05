@@ -525,7 +525,7 @@ struct TranscriptPanel: View {
                 title: "No transcript available",
                 detail: "Select a clip with transcript data, or run transcription on a source to make spoken content searchable."
             ) {
-                CinematicStatusPill(text: "Use AI to transcribe", icon: "sparkles", tone: CinematicTheme.primary)
+                UtilityStatusBadge(text: "Use AI to transcribe", icon: "sparkles", isAccent: true)
             }
             Spacer()
         }

@@ -188,17 +188,16 @@ struct ContentView: View {
             Spacer(minLength: 20)
 
             if appState.aiChat.isProcessing {
-                CinematicStatusPill(
+                UtilityStatusBadge(
                     text: "AI ACTIVE",
                     icon: "sparkles",
-                    tone: CinematicTheme.primary
+                    isAccent: true
                 )
             }
 
-            CinematicStatusPill(
+            UtilityStatusBadge(
                 text: layoutMode == .compact ? "COMPACT" : "EXPANDED",
-                icon: layoutMode == .compact ? "rectangle.compress.vertical" : "rectangle.expand.vertical",
-                tone: CinematicTheme.aqua
+                icon: layoutMode == .compact ? "rectangle.compress.vertical" : "rectangle.expand.vertical"
             )
 
             CinematicToolbarButton(
@@ -454,15 +453,16 @@ private struct SettingsSheet: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "CONFIGURATION",
                 title: "Settings",
                 subtitle: "Local keys for AI and transcription services",
-                trailingAccessory: {
-                    CinematicToolbarButton(icon: "xmark", action: { isPresented = false })
+                badgeCount: 0,
+                showsPrimaryAction: false,
+                trailingAccessory: { _ in
+                    UtilityHeaderButton(icon: "xmark", action: { isPresented = false })
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             VStack(alignment: .leading, spacing: CinematicSpacing.md) {
                 settingsField(
@@ -485,7 +485,7 @@ private struct SettingsSheet: View {
 
             HStack {
                 if saved {
-                    CinematicStatusPill(text: "Saved - restart app", icon: "checkmark.circle.fill", tone: CinematicTheme.success)
+                    UtilityStatusBadge(text: "Saved - restart app", icon: "checkmark.circle.fill", isAccent: true)
                 }
                 Spacer()
                 CinematicToolbarButton(icon: "square.and.arrow.down", label: "Save", isActive: true, action: saveKeys)

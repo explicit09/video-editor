@@ -32,10 +32,10 @@ struct TimelineToolbarView: View {
             }
             .menuStyle(.button)
 
-            CinematicStatusPill(
+            UtilityStatusBadge(
                 text: tool.rawValue.uppercased(),
                 icon: tool.icon,
-                tone: CinematicTheme.primary
+                isAccent: true
             )
 
             HStack(spacing: 6) {
@@ -48,10 +48,10 @@ struct TimelineToolbarView: View {
             Button {
                 viewState.snapEnabled.toggle()
             } label: {
-                CinematicStatusPill(
+                UtilityStatusBadge(
                     text: viewState.snapEnabled ? "SNAP ON" : "SNAP OFF",
                     icon: "scope",
-                    tone: viewState.snapEnabled ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant
+                    isAccent: viewState.snapEnabled
                 )
             }
             .buttonStyle(.plain)
@@ -59,10 +59,10 @@ struct TimelineToolbarView: View {
             Button {
                 viewState.rippleEnabled.toggle()
             } label: {
-                CinematicStatusPill(
+                UtilityStatusBadge(
                     text: viewState.rippleEnabled ? "RIPPLE ON" : "RIPPLE OFF",
                     icon: "arrow.left.arrow.right.circle",
-                    tone: viewState.rippleEnabled ? CinematicTheme.warning : CinematicTheme.onSurfaceVariant
+                    isAccent: viewState.rippleEnabled
                 )
             }
             .buttonStyle(.plain)
@@ -70,10 +70,10 @@ struct TimelineToolbarView: View {
             Button {
                 viewState.linkedSelectionEnabled.toggle()
             } label: {
-                CinematicStatusPill(
+                UtilityStatusBadge(
                     text: viewState.linkedSelectionEnabled ? "LINKED ON" : "LINKED OFF",
                     icon: "link",
-                    tone: viewState.linkedSelectionEnabled ? CinematicTheme.success : CinematicTheme.onSurfaceVariant
+                    isAccent: viewState.linkedSelectionEnabled
                 )
             }
             .buttonStyle(.plain)
@@ -81,24 +81,22 @@ struct TimelineToolbarView: View {
             Button {
                 viewState.autoFollowPlayhead.toggle()
             } label: {
-                CinematicStatusPill(
+                UtilityStatusBadge(
                     text: viewState.autoFollowPlayhead ? "FOLLOW ON" : "FOLLOW OFF",
                     icon: "dot.radiowaves.left.and.right",
-                    tone: viewState.autoFollowPlayhead ? CinematicTheme.aqua : CinematicTheme.onSurfaceVariant
+                    isAccent: viewState.autoFollowPlayhead
                 )
             }
             .buttonStyle(.plain)
 
-            CinematicStatusPill(
+            UtilityStatusBadge(
                 text: "\(timeline.tracks.count) lanes",
                 icon: "square.stack.3d.down.right",
-                tone: CinematicTheme.aqua
             )
 
-            CinematicStatusPill(
+            UtilityStatusBadge(
                 text: zoomLabel(for: viewState.zoom),
                 icon: "timeline.selection",
-                tone: CinematicTheme.tertiary
             )
 
             Menu {

@@ -13,6 +13,14 @@ struct EditorStabilizationSupportTests {
         #expect(metrics.horizontalPadding == UtilitySpacing.sm)
     }
 
+    @Test("utility status badge metrics handle longer toolbar labels without growing taller")
+    func utilityStatusBadgeMetricsKeepFixedHeightForToolbarLabels() {
+        let metrics = UtilityStatusBadgeMetrics.make(text: "EXPANDED", showsIcon: true)
+
+        #expect(metrics.height == UtilityMetrics.controlHeight - 4)
+        #expect(metrics.horizontalPadding == UtilitySpacing.sm)
+    }
+
     @Test("utility segmented control metrics collapse labels on narrow widths")
     func utilitySegmentedControlMetricsCollapseLabels() {
         let metrics = UtilitySegmentedControlMetrics.make(
