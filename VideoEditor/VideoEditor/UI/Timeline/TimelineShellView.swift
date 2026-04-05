@@ -53,6 +53,7 @@ struct TimelineShellView: View {
                         .frame(height: metrics.rulerHeight)
 
                         TimelineCanvasView(
+                            tool: tool,
                             timeline: timeline,
                             viewState: viewState,
                             thumbnails: thumbnails,

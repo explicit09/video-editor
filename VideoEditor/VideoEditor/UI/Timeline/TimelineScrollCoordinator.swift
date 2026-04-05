@@ -15,4 +15,9 @@ final class TimelineScrollCoordinator {
     func requestScroll(_ request: TimelineScrollRequest?) {
         pendingRequest = request
     }
+
+    func takePendingRequest() -> TimelineScrollRequest? {
+        defer { pendingRequest = nil }
+        return pendingRequest
+    }
 }

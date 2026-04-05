@@ -69,6 +69,19 @@ struct TimelineShellSupportTests {
         #expect(request?.anchorX == 788)
     }
 
+    @Test("scroll request resolution preserves the current axis when needed")
+    func scrollTargetResolutionPreservesUnspecifiedAxis() {
+        let request = TimelineScrollRequest(anchorX: 940, anchorY: nil)
+
+        let target = TimelineScrollTargetResolver.resolveScrollTarget(
+            for: request,
+            horizontalOffset: 200,
+            verticalOffset: 75
+        )
+
+        #expect(target == TimelineScrollTarget(horizontalOffset: 940, verticalOffset: 75))
+    }
+
     @Test("timeline view state exposes explicit auto-follow state")
     @MainActor
     func timelineViewStateAutoFollowFlag() {

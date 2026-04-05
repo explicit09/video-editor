@@ -26,6 +26,11 @@ struct TimelineShellMetrics: Sendable, Equatable {
     }
 }
 
+struct TimelineScrollTarget: Sendable, Equatable {
+    let horizontalOffset: Double
+    let verticalOffset: Double
+}
+
 struct TimelineViewport: Sendable, Equatable {
     let visibleXRange: ClosedRange<Double>
     let visibleYRange: ClosedRange<Double>
@@ -52,6 +57,17 @@ struct TimelineScrollRequest: Sendable, Equatable {
 }
 
 enum TimelineScrollTargetResolver {
+    static func resolveScrollTarget(
+        for request: TimelineScrollRequest,
+        horizontalOffset: Double,
+        verticalOffset: Double
+    ) -> TimelineScrollTarget {
+        TimelineScrollTarget(
+            horizontalOffset: request.anchorX ?? horizontalOffset,
+            verticalOffset: request.anchorY ?? verticalOffset
+        )
+    }
+
     static func requestToReveal(
         _ frame: TimelineVisibleFrame,
         in viewport: TimelineViewport,
