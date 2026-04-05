@@ -131,4 +131,16 @@ struct TimelineShellSupportTests {
 
         #expect(range == 31...39)
     }
+
+    @Test("selection zoom clamps to zero without treating viewport width as timeline duration")
+    func selectionZoomClampsToZero() {
+        let range = TimelineSelectionZoomResolver.zoomRange(
+            selection: 1...3,
+            fallbackPlayhead: 2,
+            viewportWidth: 320,
+            minimumDuration: 8
+        )
+
+        #expect(range == 0...8)
+    }
 }
