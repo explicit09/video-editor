@@ -119,4 +119,16 @@ struct TimelineShellSupportTests {
 
         #expect(viewState.autoFollowPlayhead == true)
     }
+
+    @Test("selection zoom expands to the minimum duration around the selection")
+    func selectionZoomExpandsAroundSelection() {
+        let range = TimelineSelectionZoomResolver.zoomRange(
+            selection: 32...38,
+            fallbackPlayhead: 36,
+            viewportWidth: 1280,
+            minimumDuration: 8
+        )
+
+        #expect(range == 31...39)
+    }
 }

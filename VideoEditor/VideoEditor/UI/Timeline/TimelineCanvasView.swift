@@ -192,8 +192,18 @@ struct TimelineCanvasView: View {
 
     private func timelineBackdrop(width: Double, height: Double) -> some View {
         Rectangle()
-            .fill(CinematicTheme.surfaceContainer)
+            .fill(CinematicTheme.surfaceContainerLow)
             .frame(width: width, height: height)
+            .overlay(
+                LinearGradient(
+                    colors: [
+                        CinematicTheme.surfaceContainerHighest.opacity(0.12),
+                        CinematicTheme.surfaceContainerLowest.opacity(0.02),
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
             .overlay(alignment: .topLeading) {
                 Path { path in
                     var y = 8.0
@@ -203,7 +213,7 @@ struct TimelineCanvasView: View {
                         y += layoutState.height(for: track) + rowSpacing
                     }
                 }
-                .stroke(CinematicTheme.outlineVariant.opacity(0.14), lineWidth: 0.6)
+                .stroke(CinematicTheme.outlineVariant.opacity(0.18), lineWidth: 0.6)
             }
     }
 

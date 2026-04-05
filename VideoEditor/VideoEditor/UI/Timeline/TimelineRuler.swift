@@ -7,38 +7,68 @@ struct TimelineRuler: View {
     var horizontalOffset: Double = 0
 
     var body: some View {
-        Canvas { context, size in
-            let step = rulerStep(for: viewState.zoom)
-            let totalSeconds = totalWidth / viewState.zoom
-            var time: TimeInterval = 0
+        let step = rulerStep(for: viewState.zoom)
+        let totalSeconds = max(totalWidth / max(viewState.zoom, 0.001), 0)
 
-            while time <= totalSeconds {
-                let x = viewState.durationToWidth(time) - horizontalOffset
-                let isMajor = isMajorTick(time, step: step)
-                let isZero = time == 0
+        return ZStack(alignment: .topLeading) {
+            Canvas { context, size in
+                var time: TimeInterval = 0
 
-                let tickHeight: Double = isMajor ? 16 : 8
-                let path = Path { p in
-                    p.move(to: CGPoint(x: x, y: size.height))
-                    p.addLine(to: CGPoint(x: x, y: size.height - tickHeight))
-                }
-                context.stroke(
-                    path,
-                    with: .color(isZero ? CinematicTheme.primary.opacity(0.7) : CinematicTheme.onSurfaceVariant.opacity(isMajor ? 0.44 : 0.22)),
-                    lineWidth: isMajor ? 1 : 0.5
-                )
+                while time <= totalSeconds {
+                    let x = viewState.durationToWidth(time) - horizontalOffset
+                    let isMajor = isMajorTick(time, step: step)
+                    let isZero = time == 0
+                    let tickHeight: Double = isMajor ? 18 : 7
 
-                if isMajor {
-                    let label = TimeFormatter.rulerTimecode(time)
-                    context.draw(
-                        Text(label).font(.cinLabel).foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72)),
-                        at: CGPoint(x: x + 4, y: 8),
-                        anchor: .leading
+                    let path = Path { path in
+                        path.move(to: CGPoint(x: x, y: size.height))
+                        path.addLine(to: CGPoint(x: x, y: size.height - tickHeight))
+                    }
+
+                    context.stroke(
+                        path,
+                        with: .color(
+                            isZero
+                            ? CinematicTheme.primary.opacity(0.9)
+                            : CinematicTheme.onSurfaceVariant.opacity(isMajor ? 0.58 : 0.18)
+                        ),
+                        lineWidth: isMajor ? 1.1 : 0.6
                     )
-                }
 
-                time += step
+                    time += step
+                }
             }
+
+            GeometryReader { _ in
+                ForEach(majorTickTimes(step: step, totalSeconds: totalSeconds), id: \.self) { time in
+                    let x = viewState.durationToWidth(time) - horizontalOffset
+                    Text(TimeFormatter.rulerTimecode(time))
+                        .font(.cinLabelRegular)
+                        .monospacedDigit()
+                        .foregroundStyle(time == 0 ? CinematicTheme.primary : CinematicTheme.onSurface)
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 2)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                .fill(
+                                    time == 0
+                                    ? CinematicTheme.primary.opacity(0.14)
+                                    : CinematicTheme.surfaceContainerHighest.opacity(0.92)
+                                )
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                .strokeBorder(
+                                    time == 0
+                                    ? CinematicTheme.primary.opacity(0.28)
+                                    : CinematicTheme.outlineVariant.opacity(0.18),
+                                    lineWidth: 0.8
+                                )
+                        )
+                        .position(x: x + 28, y: 10)
+                }
+            }
+            .allowsHitTesting(false)
         }
         .background(
             LinearGradient(
@@ -52,7 +82,7 @@ struct TimelineRuler: View {
         )
         .overlay(alignment: .bottom) {
             Rectangle()
-                .fill(CinematicTheme.outlineVariant.opacity(0.3))
+                .fill(CinematicTheme.outlineVariant.opacity(0.34))
                 .frame(height: 1)
         }
     }
@@ -66,11 +96,24 @@ struct TimelineRuler: View {
         return steps.first { $0 >= rawStep } ?? 60
     }
 
+    private func majorTickTimes(step: TimeInterval, totalSeconds: TimeInterval) -> [TimeInterval] {
+        var times: [TimeInterval] = []
+        var time: TimeInterval = 0
+
+        while time <= totalSeconds {
+            if isMajorTick(time, step: step) {
+                times.append(time)
+            }
+            time += step
+        }
+
+        return times
+    }
+
     private func isMajorTick(_ time: TimeInterval, step: TimeInterval) -> Bool {
         if step < 1 {
             return time.truncatingRemainder(dividingBy: 1.0) < 0.001
         }
         return time.truncatingRemainder(dividingBy: step * 5) < 0.001
     }
-
 }

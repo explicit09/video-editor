@@ -578,7 +578,11 @@ private struct TimelineClipView: View {
 
             switch waveformState ?? .loading {
             case .ready(let waveform) where !waveform.isEmpty:
-                WaveformView(amplitudes: waveform, color: audioWaveformColor)
+                WaveformView(
+                    amplitudes: waveform,
+                    color: audioWaveformColor,
+                    isSelected: isSelected
+                )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 12)
@@ -719,7 +723,7 @@ private struct TimelineClipView: View {
     }
 
     private var audioWaveformColor: Color {
-        Color(hex: 0xB8FFC5)
+        isSelected ? Color(hex: 0xD8FFE0) : Color(hex: 0x9ACFA8)
     }
 
     private func placeholderWaveform(text: String) -> some View {
@@ -745,7 +749,7 @@ private struct TimelineClipView: View {
 
     private var outlineColor: Color {
         if isSelected {
-            return CinematicTheme.primary
+            return CinematicTheme.primary.opacity(0.96)
         }
         if isHovered || isDragging {
             return clipAccentColor.opacity(0.85)
@@ -754,12 +758,12 @@ private struct TimelineClipView: View {
     }
 
     private var outlineWidth: Double {
-        isSelected ? 1.6 : (isHovered ? 1.0 : 0.6)
+        isSelected ? 1.8 : (isHovered ? 1.0 : 0.6)
     }
 
     private var shadowColor: Color {
         if isSelected || isDragging {
-            return clipAccentColor.opacity(0.24)
+            return clipAccentColor.opacity(isSelected ? 0.3 : 0.24)
         }
         return .clear
     }

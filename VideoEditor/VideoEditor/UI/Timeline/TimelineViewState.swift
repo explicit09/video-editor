@@ -174,3 +174,52 @@ final class TimelineViewState {
         }
     }
 }
+
+enum TimelineSelectionZoomResolver {
+    static func zoomRange(
+        selection: ClosedRange<Double>?,
+        fallbackPlayhead: Double,
+        viewportWidth: Double,
+        minimumDuration: Double
+    ) -> ClosedRange<Double> {
+        let viewportLimit = max(viewportWidth, 0)
+        let minimumSpan = max(minimumDuration, 0)
+        let baseRange = selection ?? (fallbackPlayhead...fallbackPlayhead)
+        let baseDuration = max(baseRange.upperBound - baseRange.lowerBound, 0)
+        let targetDuration = max(baseDuration, minimumSpan)
+        let center = (baseRange.lowerBound + baseRange.upperBound) / 2
+
+        let halfSpan = targetDuration / 2
+        var lower = center - halfSpan
+        var upper = center + halfSpan
+
+        if lower < 0 {
+            upper -= lower
+            lower = 0
+        }
+
+        if upper > viewportLimit {
+            let overflow = upper - viewportLimit
+            lower = max(0, lower - overflow)
+            upper = viewportLimit
+        }
+
+        if upper - lower < targetDuration {
+            let missing = targetDuration - (upper - lower)
+            let trailingRoom = max(viewportLimit - upper, 0)
+            let trailingShift = min(missing, trailingRoom)
+            upper += trailingShift
+
+            let remaining = targetDuration - (upper - lower)
+            if remaining > 0 {
+                lower = max(0, lower - remaining)
+            }
+        }
+
+        if upper < lower {
+            upper = lower
+        }
+
+        return lower...upper
+    }
+}
