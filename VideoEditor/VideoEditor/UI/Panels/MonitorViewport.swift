@@ -33,7 +33,7 @@ struct MonitorViewport<OverlayContent: View>: View {
             }
 
             if let emptyState {
-                MonitorEmptyStateView(state: emptyState)
+                MonitorEmptyStateOverlay(state: emptyState)
             }
 
             overlayContent
@@ -43,7 +43,7 @@ struct MonitorViewport<OverlayContent: View>: View {
     }
 }
 
-private struct MonitorEmptyStateView: View {
+private struct MonitorEmptyStateOverlay: View {
     let state: MonitorEmptyState
 
     var body: some View {
