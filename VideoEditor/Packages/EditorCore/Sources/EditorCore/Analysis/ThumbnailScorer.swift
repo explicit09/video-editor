@@ -19,24 +19,30 @@ public struct ThumbnailScorer: Sendable {
     public init() {}
 
     /// Analyze video and return the top N best thumbnail candidates.
+    /// Use `start`/`end` to limit the scan range (in seconds).
     public func findBestThumbnails(
         url: URL,
         count: Int = 5,
-        sampleInterval: TimeInterval = 2.0
+        sampleInterval: TimeInterval = 2.0,
+        start: TimeInterval? = nil,
+        end: TimeInterval? = nil
     ) async -> [ScoredFrame] {
         let asset = AVURLAsset(url: url)
         guard let duration = try? await asset.load(.duration).seconds, duration > 0 else {
             return []
         }
 
+        let scanStart = max(start ?? 1.0, 1.0)
+        let scanEnd = min(end ?? duration, duration) - 1.0
+
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
         generator.maximumSize = CGSize(width: 640, height: 360) // Analyze at lower res for speed
 
         var frames: [ScoredFrame] = []
-        var time: TimeInterval = 1.0 // Skip first second (usually black/slate)
+        var time: TimeInterval = scanStart
 
-        while time < duration - 1.0 { // Skip last second
+        while time < scanEnd {
             let cmTime = CMTime(seconds: time, preferredTimescale: 600)
             guard let cgImage = try? generator.copyCGImage(at: cmTime, actualTime: nil) else {
                 time += sampleInterval

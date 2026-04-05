@@ -854,6 +854,12 @@ final class MCPServer {
 
         let sourceURL = URL(fileURLWithPath: path)
 
+        // Deduplicate: if an asset with the same filename already exists, return it
+        let filename = sourceURL.deletingPathExtension().lastPathComponent
+        if let existing = appState.assets.first(where: { $0.name == filename }) {
+            return "Already imported '\(existing.name)' (ID: \(existing.id.uuidString)). Use this asset_id."
+        }
+
         // Check if file is accessible — if not, try to bookmark the parent folder
         if !FileManager.default.isReadableFile(atPath: path) {
             // Try existing bookmarks first
@@ -1764,10 +1770,12 @@ final class MCPServer {
             let ratioStr = (args["aspect_ratio"] as? String) ?? "9:16"
             let ratio = AutoReframer.TargetAspectRatio(rawValue: ratioStr) ?? .vertical
             let reframer = AutoReframer()
-            if let result = try? await reframer.analyze(url: asset.sourceURL, targetRatio: ratio, sampleInterval: 2.0) {
+            do {
+                let result = try await reframer.analyze(url: asset.sourceURL, targetRatio: ratio, sampleInterval: 2.0)
                 return "Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr)."
+            } catch {
+                return "Error: Reframe analysis failed — \(error.localizedDescription)"
             }
-            return "Error: Reframe analysis failed"
 
         case "detect_beats":
             guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
@@ -1782,10 +1790,18 @@ final class MCPServer {
             guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
                   let asset = appState.assets.first(where: { $0.id == assetID }) else { return "Error: Invalid asset_id" }
             let count = (args["count"] as? Int) ?? 5
+            var scanStart = args["start"] as? Double
+            var scanEnd = args["end"] as? Double
+            // Auto-limit long files to first 600s to prevent timeout
+            if scanStart == nil && scanEnd == nil && asset.duration > 600 {
+                scanStart = 0
+                scanEnd = 600
+            }
             let scorer = ThumbnailScorer()
-            let frames = await scorer.findBestThumbnails(url: asset.sourceURL, count: count)
+            let frames = await scorer.findBestThumbnails(url: asset.sourceURL, count: count, start: scanStart, end: scanEnd)
             if frames.isEmpty { return "No thumbnails found." }
-            return "Top \(frames.count): " + frames.map { "\(TimeFormatter.duration($0.time)) score=\(String(format: "%.0f", $0.score))" }.joined(separator: ", ")
+            let rangeNote = (scanStart != nil || scanEnd != nil) ? " (range: \(String(format: "%.0f", scanStart ?? 0))s–\(String(format: "%.0f", scanEnd ?? asset.duration))s)" : ""
+            return "Top \(frames.count)\(rangeNote): " + frames.map { "\(TimeFormatter.duration($0.time)) score=\(String(format: "%.0f", $0.score))" }.joined(separator: ", ")
 
         case "suggest_broll":
             guard let asset = appState.assets.first(where: { $0.analysis?.transcript != nil }),
@@ -2591,8 +2607,16 @@ final class MCPServer {
             return "Error: Invalid asset_id"
         }
 
-        guard var config = shortFormConfigs[assetID] else {
-            return "Error: No short-form analysis found for this asset. Run analyze_for_shorts first."
+        var config: ShortFormConfig
+        if let cached = shortFormConfigs[assetID] {
+            config = cached
+        } else {
+            // Auto-chain: run analyze_for_shorts first, then retry
+            let analyzeResult = await handleAnalyzeForShorts(args, appState: appState)
+            guard let cached = shortFormConfigs[assetID] else {
+                return "Error: Auto-analyze failed. \(analyzeResult)"
+            }
+            config = cached
         }
 
         // Override layout if specified

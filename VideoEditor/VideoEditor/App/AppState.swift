@@ -1398,14 +1398,16 @@ final class AppState {
         // just clear its assets and update the bundle URL
         projectBundleURL = newURL
         Self.ensureProjectDirectories(at: newURL)
+        media.updateBundleURL(newURL)
+
+        // Ensure removeAll completes before loading the new project
         Task {
             await media.mediaManager.removeAll()
             await media.refreshAssets()
+            await MainActor.run {
+                loadProject()
+            }
         }
-        media.updateBundleURL(newURL)
-
-        // Load the target project (async parts run in background)
-        loadProject()
     }
 
     // MARK: - Media import
