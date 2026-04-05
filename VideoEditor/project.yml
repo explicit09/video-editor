@@ -20,9 +20,6 @@ targets:
       - path: VideoEditor
         excludes:
           - Resources
-          - UI/Layout/EditorWorkspaceShell.swift
-          - UI/Layout/EmptyStateView.swift
-          - UI/Preview/PreviewPanel.swift
     resources:
       - path: VideoEditor/Resources/Assets.xcassets
     settings:
