@@ -159,7 +159,7 @@ enum CinematicMetrics {
 enum DesignSystem {
     static let utilityTopBarHeight = UtilityMetrics.topBarHeight
     static let utilityPageBarHeight = UtilityMetrics.pageBarHeight
-    static let utilityPanelHeaderHeight = UtilityMetrics.panelHeaderHeight
+    static let utilityPanelHeaderHeight = UtilityMetrics.panelHeaderMinHeight
     static let utilityControlHeight = UtilityMetrics.controlHeight
 }
 

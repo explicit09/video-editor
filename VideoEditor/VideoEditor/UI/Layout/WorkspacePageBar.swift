@@ -3,16 +3,15 @@ import SwiftUI
 struct WorkspacePageBarMetrics: Equatable, Sendable {
     let barHeight: CGFloat
     let showsLabels: Bool
-    let usesVerticalRail: Bool
 
     static func make(containerWidth: CGFloat) -> Self {
         switch containerWidth {
         case ..<720:
-            Self(barHeight: 32, showsLabels: false, usesVerticalRail: true)
+            Self(barHeight: 32, showsLabels: false)
         case ..<1120:
-            Self(barHeight: 34, showsLabels: false, usesVerticalRail: false)
+            Self(barHeight: 34, showsLabels: false)
         default:
-            Self(barHeight: 36, showsLabels: true, usesVerticalRail: false)
+            Self(barHeight: 36, showsLabels: true)
         }
     }
 }

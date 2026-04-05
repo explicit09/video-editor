@@ -19,7 +19,14 @@ struct EditorStabilizationSupportTests {
 
         #expect(metrics.barHeight == 36)
         #expect(metrics.showsLabels)
-        #expect(!metrics.usesVerticalRail)
+    }
+
+    @Test("Workspace page bar metrics collapse labels on narrow widths")
+    func workspacePageBarMetricsCollapseLabelsOnNarrowWidths() {
+        let metrics = WorkspacePageBarMetrics.make(containerWidth: 640)
+
+        #expect(metrics.barHeight == 32)
+        #expect(!metrics.showsLabels)
     }
 
     @Test("Waveform state resolver prefers cached profiles")

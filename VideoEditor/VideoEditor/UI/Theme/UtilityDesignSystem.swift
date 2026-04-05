@@ -34,7 +34,7 @@ enum UtilityMetrics {
     static let topBarHeight: CGFloat = 42
     static let pageBarHeight: CGFloat = 36
     static let controlHeight: CGFloat = 28
-    static let panelHeaderHeight: CGFloat = 34
+    static let panelHeaderMinHeight: CGFloat = 34
 }
 
 enum UtilitySurfaceTone {
@@ -125,15 +125,17 @@ struct UtilityPanelHeader<LeadingAccessory: View, TrailingAccessory: View>: View
                     Text(subtitle)
                         .font(.system(size: 11, weight: .regular))
                         .foregroundStyle(UtilityTheme.textMuted)
-                        .lineLimit(1)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
 
             Spacer(minLength: 0)
             trailingAccessory
         }
         .padding(.horizontal, UtilitySpacing.md)
-        .frame(height: UtilityMetrics.panelHeaderHeight)
+        .padding(.vertical, UtilitySpacing.sm)
+        .frame(minHeight: UtilityMetrics.panelHeaderMinHeight, alignment: .top)
         .background(UtilityTheme.chromeElevated)
     }
 }
