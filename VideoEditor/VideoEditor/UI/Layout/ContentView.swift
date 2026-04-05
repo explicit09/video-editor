@@ -62,6 +62,8 @@ struct ContentView: View {
     @State private var isLeftPanelVisible = true
     @State private var isRightRailVisible = true
     @State private var editorTool: EditorTool = .selection
+    @State private var editDockLayout = PanelRegistry.editDefaultLayout
+    @State private var hasLoadedEditLayout = false
 
     enum Workspace: String, CaseIterable {
         case edit = "Edit"
@@ -315,77 +317,33 @@ struct ContentView: View {
 
     @ViewBuilder
     private func mainWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        if appState.assets.isEmpty && appState.timeline.tracks.isEmpty && selectedWorkspace == .edit {
-            EmptyStateView(commandBarText: $commandBarText, onSend: sendCommandBarMessage)
-                .panelSurface(.elevated, strokeOpacity: 0.8)
-        } else {
-            switch selectedWorkspace {
-            case .edit:
-                editorWorkspace(layoutMode: layoutMode)
-            case .media:
-                focusedMediaWorkspace
-            case .transcript:
-                focusedTranscriptWorkspace(layoutMode: layoutMode)
-            case .ai:
-                focusedAIWorkspace(layoutMode: layoutMode)
-            case .deliver:
-                deliverWorkspace(layoutMode: layoutMode)
-            }
+        switch selectedWorkspace {
+        case .edit:
+            editorWorkspace(layoutMode: layoutMode)
+        case .media:
+            focusedMediaWorkspace
+        case .transcript:
+            focusedTranscriptWorkspace(layoutMode: layoutMode)
+        case .ai:
+            focusedAIWorkspace(layoutMode: layoutMode)
+        case .deliver:
+            deliverWorkspace(layoutMode: layoutMode)
         }
     }
 
     private func editorWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        let previewAspectRatio =
-            appState.context.timelineState.shortFormConfig?.isEnabled == true
-            ? Double(appState.context.timelineState.shortFormConfig?.outputAspect.aspectRatio ?? 16.0 / 9.0)
-            : nil
-        let chrome = EditWorkspaceChrome.make(isUtilityPanelVisible: isLeftPanelVisible)
-
-        return EditorWorkspaceShell(
-            isLeftPanelVisible: chrome.showsLeftRail,
-            isRightRailVisible: isRightRailVisible,
-            previewAspectRatio: previewAspectRatio,
-            leftRail: {
-                EmptyView()
-            },
-            centerTop: { layout in
-                VStack(spacing: CinematicSpacing.md) {
-                    PreviewPanel(
-                        player: appState.playbackEngine.player,
-                        layoutMode: layoutMode,
-                        isProcessing: appState.aiChat.isProcessing,
-                        processingStatus: appState.aiChat.processingStatus,
-                        currentTime: appState.playbackEngine.currentTime,
-                        duration: appState.playbackEngine.duration,
-                        clipCount: appState.timeline.tracks.flatMap(\.clips).count
-                    )
-                    .frame(minHeight: layout.previewContentMinHeight, maxHeight: .infinity)
-                    .layoutPriority(1)
-
-                    transportBar
-                    commandDock
-
-                    if chrome.showsEmbeddedUtilityPanel {
-                        utilityPanel
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            },
-            centerBottom: { layout in
-                TimelinePanel(tool: editorTool)
-                    .frame(minHeight: layout.timelineSectionMinHeight)
-                    .panelSurface(.elevated, strokeOpacity: 0.86)
-            },
-            rightRail: {
-                InspectorPanel(
-                    selectedTab: $rightRailTab,
-                    context: selectionInspectorContext,
-                    layoutMode: layoutMode,
-                    showsTabs: true
-                )
-            }
+        let registry = PanelRegistry.edit(
+            layoutMode: layoutMode,
+            selectedTool: $editorTool
         )
+
+        return DockHostView(layout: $editDockLayout, registry: registry)
+            .onAppear {
+                loadEditLayoutIfNeeded(using: registry)
+            }
+            .onChange(of: editDockLayout) { _, _ in
+                persistEditLayout(using: registry)
+            }
     }
 
     private var utilityPanel: some View {
@@ -786,21 +744,39 @@ struct ContentView: View {
     }
 
     private var selectionInspectorContext: SelectionInspectorContext {
-        let selectedIDs = Array(appState.timelineViewState.selectedClipIDs)
+        SelectionInspectorContext.resolve(
+            selectedClipIDs: appState.timelineViewState.selectedClipIDs,
+            selectedTrackID: appState.timelineViewState.selectedTrackID
+        )
+    }
 
-        if selectedIDs.count == 1, let id = selectedIDs.first {
-            return .clip(id)
+    private func loadEditLayoutIfNeeded(using registry: PanelRegistry) {
+        guard !hasLoadedEditLayout else { return }
+        loadEditLayout(using: registry)
+    }
+
+    private func loadEditLayout(using registry: PanelRegistry) {
+        do {
+            editDockLayout = try registry
+                .makeLayoutStore(baseURL: appState.workspaceLayoutsBaseURL)
+                .loadLayout(for: PanelRegistry.editWorkspaceID)
+        } catch {
+            editDockLayout = PanelRegistry.editDefaultLayout
         }
 
-        if !selectedIDs.isEmpty {
-            return .clips(selectedIDs)
-        }
+        hasLoadedEditLayout = true
+    }
 
-        if let trackID = appState.timelineViewState.selectedTrackID {
-            return .track(trackID)
-        }
+    private func persistEditLayout(using registry: PanelRegistry) {
+        guard hasLoadedEditLayout else { return }
 
-        return .project
+        do {
+            try registry
+                .makeLayoutStore(baseURL: appState.workspaceLayoutsBaseURL)
+                .save(editDockLayout)
+        } catch {
+            print("[ContentView] Failed to persist edit layout: \(error.localizedDescription)")
+        }
     }
 
     private func editorLayoutMode(for width: CGFloat) -> EditorLayoutMode {

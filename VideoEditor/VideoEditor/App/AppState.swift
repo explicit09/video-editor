@@ -40,6 +40,10 @@ final class AppState {
         return appSupport.appendingPathComponent("VideoEditor")
     }
 
+    var workspaceLayoutsBaseURL: URL {
+        projectBundleURL.appendingPathComponent("WorkspaceLayouts", isDirectory: true)
+    }
+
     init() {
         let baseURL = Self.appSupportBaseURL
         try? FileManager.default.createDirectory(at: baseURL, withIntermediateDirectories: true)
@@ -276,9 +280,10 @@ final class AppState {
 
     func toggleClipSelection(_ clipID: UUID, extend: Bool) {
         guard let selectedTrackID = trackID(for: clipID) else { return }
-        let clipIDs = linkedSelectionIDs(for: clipID)
 
         if extend {
+            let clipIDs = linkedSelectionIDs(for: clipID)
+
             // Range selection: if there's an anchor, select all clips between anchor and target
             if let anchorID = timelineViewState.lastSelectedClipID,
                let anchorTrackID = trackID(for: anchorID),
@@ -297,9 +302,7 @@ final class AppState {
             let selectedTrackIDs = Set(timelineViewState.selectedClipIDs.compactMap { self.trackID(for: $0) })
             timelineViewState.selectedTrackID = selectedTrackIDs.count == 1 ? selectedTrackIDs.first : selectedTrackID
         } else {
-            timelineViewState.selectedClipIDs = Set(clipIDs)
-            let selectedTrackIDs = Set(clipIDs.compactMap { self.trackID(for: $0) })
-            timelineViewState.selectedTrackID = selectedTrackIDs.count == 1 ? selectedTrackIDs.first : selectedTrackID
+            timelineViewState.selectClip(clipID, in: selectedTrackID)
         }
         timelineViewState.lastSelectedClipID = clipID
     }

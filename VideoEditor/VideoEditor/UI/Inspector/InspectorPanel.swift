@@ -19,6 +19,27 @@ enum SelectionInspectorContext: Equatable {
     case track(UUID)
     case clip(UUID)
     case clips([UUID])
+
+    static func resolve(
+        selectedClipIDs: Set<UUID>,
+        selectedTrackID: UUID?
+    ) -> Self {
+        let orderedClipIDs = selectedClipIDs.sorted { $0.uuidString < $1.uuidString }
+
+        if orderedClipIDs.count == 1, let clipID = orderedClipIDs.first {
+            return .clip(clipID)
+        }
+
+        if !orderedClipIDs.isEmpty {
+            return .clips(orderedClipIDs)
+        }
+
+        if let selectedTrackID {
+            return .track(selectedTrackID)
+        }
+
+        return .project
+    }
 }
 
 struct InspectorPanel: View {

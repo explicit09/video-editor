@@ -2,6 +2,52 @@ import SwiftUI
 import AVFoundation
 import EditorCore
 
+struct MonitorEmptyState: Equatable, Sendable {
+    let icon: String
+    let title: String
+    let detail: String
+}
+
+struct MonitorViewport<OverlayContent: View>: View {
+    let player: AVPlayer?
+    let emptyState: MonitorEmptyState?
+    @ViewBuilder var overlayContent: OverlayContent
+
+    init(
+        player: AVPlayer?,
+        emptyState: MonitorEmptyState? = nil,
+        @ViewBuilder overlayContent: () -> OverlayContent = { EmptyView() }
+    ) {
+        self.player = player
+        self.emptyState = emptyState
+        self.overlayContent = overlayContent()
+    }
+
+    var body: some View {
+        ZStack {
+            if let player {
+                AVPlayerView(player: player)
+                    .background(CinematicTheme.surfaceContainerLowest)
+            } else {
+                Rectangle()
+                    .fill(CinematicTheme.surfaceContainerLowest)
+            }
+
+            if let emptyState {
+                CinematicEmptyStateBlock(
+                    icon: emptyState.icon,
+                    title: emptyState.title,
+                    detail: emptyState.detail
+                )
+            }
+
+            overlayContent
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .clipped()
+    }
+}
+
 struct PreviewPanel: View {
     let player: AVPlayer
     let layoutMode: EditorLayoutMode
@@ -34,18 +80,16 @@ struct PreviewPanel: View {
             )
             .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
-            ZStack {
-                AVPlayerView(player: player)
-                    .background(CinematicTheme.surfaceContainerLowest)
-
-                if duration == 0 {
-                    CinematicEmptyStateBlock(
+            MonitorViewport(
+                player: duration == 0 ? nil : player,
+                emptyState: duration == 0
+                    ? MonitorEmptyState(
                         icon: "rectangle.on.rectangle.angled",
                         title: "No active composition",
                         detail: "Import media or add clips to the timeline to populate the preview."
                     )
-                }
-
+                    : nil
+            ) {
                 if isProcessing {
                     VStack(spacing: 8) {
                         ProgressView()
@@ -64,7 +108,6 @@ struct PreviewPanel: View {
                     .padding(.bottom, 28)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .panelSurface(.elevated, strokeOpacity: 0.9)
