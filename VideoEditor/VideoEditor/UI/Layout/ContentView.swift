@@ -39,6 +39,18 @@ enum EditorTool: String, CaseIterable, Hashable {
     }
 }
 
+struct EditWorkspaceChrome: Equatable, Sendable {
+    let showsLeftRail: Bool
+    let showsEmbeddedUtilityPanel: Bool
+
+    static func make(isUtilityPanelVisible: Bool) -> Self {
+        Self(
+            showsLeftRail: false,
+            showsEmbeddedUtilityPanel: isUtilityPanelVisible
+        )
+    }
+}
+
 struct ContentView: View {
     @Environment(AppState.self) private var appState
     @State private var selectedWorkspace: Workspace = .edit
@@ -327,13 +339,14 @@ struct ContentView: View {
             appState.context.timelineState.shortFormConfig?.isEnabled == true
             ? Double(appState.context.timelineState.shortFormConfig?.outputAspect.aspectRatio ?? 16.0 / 9.0)
             : nil
+        let chrome = EditWorkspaceChrome.make(isUtilityPanelVisible: isLeftPanelVisible)
 
         return EditorWorkspaceShell(
-            isLeftPanelVisible: isLeftPanelVisible,
+            isLeftPanelVisible: chrome.showsLeftRail,
             isRightRailVisible: isRightRailVisible,
             previewAspectRatio: previewAspectRatio,
             leftRail: {
-                utilityPanel
+                EmptyView()
             },
             centerTop: { layout in
                 VStack(spacing: CinematicSpacing.md) {
@@ -351,6 +364,11 @@ struct ContentView: View {
 
                     transportBar
                     commandDock
+
+                    if chrome.showsEmbeddedUtilityPanel {
+                        utilityPanel
+                            .frame(maxWidth: .infinity)
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             },

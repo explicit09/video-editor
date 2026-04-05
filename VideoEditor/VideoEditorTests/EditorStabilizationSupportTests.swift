@@ -5,6 +5,14 @@ import EditorCore
 
 @Suite("Editor Stabilization Support Tests")
 struct EditorStabilizationSupportTests {
+    @Test("Edit workspace chrome embeds utility panel instead of using left rail")
+    func editWorkspaceChromeEmbedsUtilityPanelInsteadOfUsingLeftRail() {
+        let chrome = EditWorkspaceChrome.make(isUtilityPanelVisible: true)
+
+        #expect(!chrome.showsLeftRail)
+        #expect(chrome.showsEmbeddedUtilityPanel)
+    }
+
     @Test("Workspace page bar metrics prefer compact top bar on desktop widths")
     func workspacePageBarMetricsPreferTopBarOnDesktopWidths() {
         let metrics = WorkspacePageBarMetrics.make(containerWidth: 1440)
