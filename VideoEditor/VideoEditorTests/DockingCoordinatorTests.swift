@@ -40,4 +40,16 @@ struct DockingCoordinatorTests {
 
         #expect(target == .tabStack)
     }
+
+    @Test("drop target rejects points outside the frame")
+    func outOfBoundsTarget() {
+        let coordinator = DockingCoordinator()
+        let target = coordinator.resolveDropTarget(
+            point: CGPoint(x: 321, y: 120),
+            frame: CGRect(x: 0, y: 0, width: 320, height: 240),
+            allowedBehavior: .splitOrTabs
+        )
+
+        #expect(target == nil)
+    }
 }

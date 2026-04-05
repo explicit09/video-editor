@@ -17,7 +17,7 @@ struct DockTabStripView: View {
         }
         .padding(.horizontal, CinematicSpacing.sm)
         .padding(.vertical, 6)
-        .frame(height: CinematicMetrics.panelHeaderHeight)
+        .frame(height: DockDropGeometry.tabStripHeight)
         .background(CinematicTheme.surfaceContainerHigh)
     }
 
