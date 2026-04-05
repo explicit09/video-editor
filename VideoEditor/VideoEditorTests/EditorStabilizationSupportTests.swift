@@ -17,6 +17,19 @@ struct EditorStabilizationSupportTests {
         #expect(!layout.showsSecondaryBadges)
     }
 
+    @Test("panel header metrics raise subtitle minimum height for long copy and actions")
+    func utilityPanelHeaderMetricsExpandForLongSubtitles() {
+        let metrics = UtilityPanelHeaderMetrics.make(
+            availableWidth: 320,
+            subtitle: "Search, ask questions, trigger edits, and keep the current context readable without clipping.",
+            badgeCount: 1,
+            showsPrimaryAction: true
+        )
+
+        #expect(metrics.compactLayout.showsPrimaryAction)
+        #expect(metrics.minimumHeight > 48)
+    }
+
     @Test("Edit workspace chrome embeds utility panel instead of using left rail")
     func editWorkspaceChromeEmbedsUtilityPanelInsteadOfUsingLeftRail() {
         let chrome = EditWorkspaceChrome.make(isUtilityPanelVisible: true)

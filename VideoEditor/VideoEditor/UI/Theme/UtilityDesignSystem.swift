@@ -103,6 +103,50 @@ struct CompactPanelHeaderLayout: Equatable, Sendable {
     }
 }
 
+struct UtilityPanelHeaderMetrics: Equatable, Sendable {
+    let compactLayout: CompactPanelHeaderLayout
+    let minimumHeight: CGFloat
+
+    static func make(
+        availableWidth: Double,
+        subtitle: String?,
+        badgeCount: Int,
+        showsPrimaryAction: Bool
+    ) -> Self {
+        let compactLayout = CompactPanelHeaderLayout.make(
+            availableWidth: availableWidth,
+            badgeCount: badgeCount,
+            showsPrimaryAction: showsPrimaryAction
+        )
+
+        guard let subtitle, !subtitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return Self(
+                compactLayout: compactLayout,
+                minimumHeight: UtilityMetrics.panelHeaderMinHeight
+            )
+        }
+
+        var minimumHeight: CGFloat = 52
+
+        if showsPrimaryAction {
+            minimumHeight += 8
+        }
+
+        if availableWidth < 360 || subtitle.count > 72 {
+            minimumHeight += 12
+        }
+
+        if availableWidth < 280 || subtitle.count > 120 {
+            minimumHeight += 12
+        }
+
+        return Self(
+            compactLayout: compactLayout,
+            minimumHeight: minimumHeight
+        )
+    }
+}
+
 struct UtilityHeaderBadge: View {
     let text: String
     var systemImage: String? = nil
@@ -156,6 +200,8 @@ struct UtilityHeaderButton: View {
 }
 
 struct UtilityPanelHeader: View {
+    @State private var availableWidth: CGFloat = 0
+
     let eyebrow: String?
     let title: String
     let subtitle: String?
@@ -199,56 +245,63 @@ struct UtilityPanelHeader: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            let layout = CompactPanelHeaderLayout.make(
-                availableWidth: geometry.size.width,
-                badgeCount: badgeCount,
-                showsPrimaryAction: showsPrimaryAction
-            )
+        let metrics = UtilityPanelHeaderMetrics.make(
+            availableWidth: availableWidth > 0 ? availableWidth : 480,
+            subtitle: subtitle,
+            badgeCount: badgeCount,
+            showsPrimaryAction: showsPrimaryAction
+        )
 
-            HStack(
-                alignment: subtitle == nil ? .center : .top,
-                spacing: UtilitySpacing.sm
-            ) {
-                leadingAccessory
+        HStack(
+            alignment: subtitle == nil ? .center : .top,
+            spacing: UtilitySpacing.sm
+        ) {
+            leadingAccessory
 
-                VStack(alignment: .leading, spacing: UtilitySpacing.xxxs) {
-                    if let eyebrow {
-                        Text(eyebrow)
-                            .font(.system(size: 10, weight: .semibold))
-                            .tracking(0.7)
-                            .foregroundStyle(UtilityTheme.textMuted)
-                    }
-
-                    Text(title)
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(UtilityTheme.text)
-
-                    if let subtitle {
-                        Text(subtitle)
-                            .font(.system(size: 11, weight: .regular))
-                            .foregroundStyle(UtilityTheme.textMuted)
-                            .lineLimit(2)
-                    }
+            VStack(alignment: .leading, spacing: UtilitySpacing.xxxs) {
+                if let eyebrow {
+                    Text(eyebrow)
+                        .font(.system(size: 10, weight: .semibold))
+                        .tracking(0.7)
+                        .foregroundStyle(UtilityTheme.textMuted)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
 
-                Spacer(minLength: 0)
-                trailingAccessory(layout)
+                Text(title)
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(UtilityTheme.text)
+
+                if let subtitle {
+                    Text(subtitle)
+                        .font(.system(size: 11, weight: .regular))
+                        .foregroundStyle(UtilityTheme.textMuted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
-            .padding(.horizontal, UtilitySpacing.md)
-            .padding(.vertical, UtilitySpacing.sm)
-            .frame(
-                width: geometry.size.width,
-                height: headerHeight,
-                alignment: .topLeading
-            )
-            .background(UtilityTheme.chromeElevated)
-        }
-        .frame(height: headerHeight, alignment: .top)
-    }
+            .frame(maxWidth: .infinity, alignment: .leading)
 
-    private var headerHeight: CGFloat {
-        subtitle == nil ? UtilityMetrics.panelHeaderMinHeight : 48
+            Spacer(minLength: 0)
+            trailingAccessory(metrics.compactLayout)
+        }
+        .padding(.horizontal, UtilitySpacing.md)
+        .padding(.vertical, UtilitySpacing.sm)
+        .frame(maxWidth: .infinity, minHeight: metrics.minimumHeight, alignment: .topLeading)
+        .background(UtilityTheme.chromeElevated)
+        .background {
+            GeometryReader { proxy in
+                Color.clear.preference(
+                    key: UtilityPanelHeaderWidthPreferenceKey.self,
+                    value: proxy.size.width
+                )
+            }
+        }
+        .onPreferenceChange(UtilityPanelHeaderWidthPreferenceKey.self) { availableWidth = $0 }
+    }
+}
+
+private struct UtilityPanelHeaderWidthPreferenceKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }
