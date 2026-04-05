@@ -5,6 +5,48 @@ import Testing
 @Suite("Timeline Shell Support Tests")
 struct TimelineShellSupportTests {
 
+    @Test("workspace shell sizes the composed top section within the available height budget")
+    func workspaceShellSectionSizingContract() {
+        let containerHeight = 680.0
+        let layout = EditorWorkspaceShellLayout.make(
+            containerWidth: 1360,
+            containerHeight: containerHeight,
+            leftRailVisible: true,
+            rightRailVisible: true
+        )
+
+        let verticalSectionsHeight =
+            layout.topSectionMinHeight +
+            layout.timelineSectionMinHeight +
+            Double(CinematicSpacing.md)
+
+        #expect(layout.topSectionMinHeight > EditorWorkspaceShellLayout.topSectionChromeHeight)
+        #expect(layout.timelineSectionMinHeight > layout.topSectionMinHeight)
+        #expect(verticalSectionsHeight <= containerHeight)
+    }
+
+    @Test("workspace shell posture responds to container width")
+    func workspaceShellWidthResponsivePosture() {
+        let narrowLayout = EditorWorkspaceShellLayout.make(
+            containerWidth: 1280,
+            containerHeight: 980,
+            leftRailVisible: true,
+            rightRailVisible: true
+        )
+        let wideLayout = EditorWorkspaceShellLayout.make(
+            containerWidth: 1880,
+            containerHeight: 980,
+            leftRailVisible: true,
+            rightRailVisible: true
+        )
+
+        #expect(narrowLayout.centerColumnMaxWidth == nil)
+        #expect(wideLayout.centerColumnMaxWidth != nil)
+        #expect(narrowLayout.leftRailWidth < wideLayout.leftRailWidth)
+        #expect(narrowLayout.rightRailWidth < wideLayout.rightRailWidth)
+        #expect(wideLayout.rightRailWidth > wideLayout.leftRailWidth)
+    }
+
     @Test("Shell metrics reserve compact header and ruler space")
     func shellMetricsReserveCompactHeaderAndRulerSpace() {
         let metrics = TimelineShellMetrics()

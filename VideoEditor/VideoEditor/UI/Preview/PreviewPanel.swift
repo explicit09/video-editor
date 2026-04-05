@@ -64,8 +64,9 @@ struct PreviewPanel: View {
                     .padding(.bottom, 28)
                 }
             }
-            .frame(minHeight: layoutMode == .compact ? 300 : 360)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .panelSurface(.elevated, strokeOpacity: 0.9)
     }
 }

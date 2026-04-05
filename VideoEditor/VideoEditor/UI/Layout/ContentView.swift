@@ -383,42 +383,45 @@ struct ContentView: View {
     }
 
     private func editorWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        HStack(alignment: .top, spacing: CinematicSpacing.md) {
-            if isLeftPanelVisible {
+        EditorWorkspaceShell(
+            isLeftPanelVisible: isLeftPanelVisible,
+            isRightRailVisible: isRightRailVisible,
+            leftRail: {
                 utilityPanel
-                    .frame(width: layoutMode == .compact ? CinematicMetrics.compactSidebarWidth : CinematicMetrics.expandedSidebarWidth)
-            }
+            },
+            centerTop: { layout in
+                VStack(spacing: CinematicSpacing.md) {
+                    PreviewPanel(
+                        player: appState.playbackEngine.player,
+                        layoutMode: layoutMode,
+                        isProcessing: appState.aiChat.isProcessing,
+                        processingStatus: appState.aiChat.processingStatus,
+                        currentTime: appState.playbackEngine.currentTime,
+                        duration: appState.playbackEngine.duration,
+                        clipCount: appState.timeline.tracks.flatMap(\.clips).count
+                    )
+                    .frame(minHeight: layout.previewContentMinHeight, maxHeight: .infinity)
+                    .layoutPriority(1)
 
-            VStack(spacing: CinematicSpacing.md) {
-                PreviewPanel(
-                    player: appState.playbackEngine.player,
-                    layoutMode: layoutMode,
-                    isProcessing: appState.aiChat.isProcessing,
-                    processingStatus: appState.aiChat.processingStatus,
-                    currentTime: appState.playbackEngine.currentTime,
-                    duration: appState.playbackEngine.duration,
-                    clipCount: appState.timeline.tracks.flatMap(\.clips).count
-                )
-
-                transportBar
-                commandDock
-
+                    transportBar
+                    commandDock
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            },
+            centerBottom: { layout in
                 TimelinePanel(tool: editorTool)
-                    .frame(minHeight: layoutMode == .compact ? 260 : 320)
+                    .frame(minHeight: layout.timelineSectionMinHeight)
                     .panelSurface(.elevated, strokeOpacity: 0.86)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            if isRightRailVisible {
+            },
+            rightRail: {
                 InspectorPanel(
                     selectedTab: $rightRailTab,
                     context: selectionInspectorContext,
                     layoutMode: layoutMode,
                     showsTabs: true
                 )
-                .frame(width: layoutMode == .compact ? CinematicMetrics.compactRightRailWidth : CinematicMetrics.expandedRightRailWidth)
             }
-        }
+        )
     }
 
     private var utilityPanel: some View {
