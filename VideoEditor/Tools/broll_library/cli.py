@@ -26,7 +26,7 @@ def _ensure_dirs(drive: Path, categories: set[str]):
 
 
 def run_seed(
-    *, drive: Path, pexels_key: str, pixabay_key: str, max_total: int = 2000,
+    *, drive: Path, pexels_key: str, pixabay_key: str | None = None, max_total: int = 2000,
 ) -> int:
     pairs = all_search_pairs()
     categories = {cat for cat, _, _ in pairs}
@@ -35,7 +35,7 @@ def run_seed(
     lib = _lib_path(drive)
     db = BRollDB(lib / DB_NAME)
     pexels = PexelsProvider(api_key=pexels_key)
-    pixabay = PixabayProvider(api_key=pixabay_key)
+    pixabay = PixabayProvider(api_key=pixabay_key) if pixabay_key else None
 
     downloaded = 0
     clips_per_keyword = max(1, max_total // len(pairs))
@@ -50,10 +50,13 @@ def run_seed(
             print(f"  Pexels error for '{keyword}': {e}")
             pexels_results = []
 
-        try:
-            pixabay_results = pixabay.search(keyword, per_page=clips_per_keyword)
-        except Exception as e:
-            print(f"  Pixabay error for '{keyword}': {e}")
+        if pixabay:
+            try:
+                pixabay_results = pixabay.search(keyword, per_page=clips_per_keyword)
+            except Exception as e:
+                print(f"  Pixabay error for '{keyword}': {e}")
+                pixabay_results = []
+        else:
             pixabay_results = []
 
         combined = []
@@ -151,8 +154,7 @@ def main():
             print("Error: PEXELS_API_KEY not found in environment or .env")
             sys.exit(1)
         if not pixabay_key:
-            print("Error: PIXABAY_API_KEY not found in environment or .env")
-            sys.exit(1)
+            print("Warning: PIXABAY_API_KEY not found — seeding from Pexels only.")
 
         print(f"Seeding B-roll library to {args.drive}/BRollLibrary/ ...")
         count = run_seed(
