@@ -291,6 +291,14 @@ struct InspectorPanel: View {
                         ) {
                             try? appState.perform(.lockTrack(trackID: track.id, locked: !track.isLocked))
                         }
+
+                        trackTogglePill(
+                            icon: "headphones",
+                            label: track.isSoloed ? "Solo" : "Normal",
+                            isOn: track.isSoloed
+                        ) {
+                            try? appState.perform(.soloTrack(trackID: track.id, soloed: !track.isSoloed))
+                        }
                     }
 
                     CinematicInspectorFieldRow(label: "Type") {

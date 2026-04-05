@@ -2,6 +2,8 @@ import SwiftUI
 import EditorCore
 
 struct TimelineShellView: View {
+    @Environment(AppState.self) private var appState
+
     let tool: EditorTool
     let timeline: Timeline
     let viewState: TimelineViewState
@@ -10,8 +12,6 @@ struct TimelineShellView: View {
 
     @State private var scrollCoordinator = TimelineScrollCoordinator()
 
-    private let expandedTrackHeight = 84.0
-    private let collapsedTrackHeight = 28.0
     private let rowSpacing = Double(CinematicSpacing.clipGap)
     private let toolbarHeight = Double(CinematicMetrics.controlHeight) + 20
 
@@ -21,8 +21,8 @@ struct TimelineShellView: View {
                 viewportWidth: geo.size.width,
                 viewportHeight: geo.size.height,
                 trackCount: timeline.tracks.count,
-                expandedTrackHeight: expandedTrackHeight,
-                collapsedTrackHeight: collapsedTrackHeight
+                expandedTrackHeight: viewState.trackLayoutState.expandedTrackHeight,
+                collapsedTrackHeight: viewState.trackLayoutState.collapsedTrackHeight
             )
             let rightColumnWidth = max(geo.size.width - metrics.headerWidth, 0)
             let rightColumnHeight = max(geo.size.height - toolbarHeight, 0)
@@ -38,8 +38,8 @@ struct TimelineShellView: View {
                         TrackHeaderColumnView(
                             tracks: timeline.tracks,
                             viewState: viewState,
-                            coordinator: scrollCoordinator,
-                            rowHeight: expandedTrackHeight
+                            layoutState: viewState.trackLayoutState,
+                            coordinator: scrollCoordinator
                         )
                         .frame(width: metrics.headerWidth)
                     }
@@ -56,10 +56,10 @@ struct TimelineShellView: View {
                             tool: tool,
                             timeline: timeline,
                             viewState: viewState,
+                            layoutState: viewState.trackLayoutState,
                             thumbnails: thumbnails,
                             waveformStates: waveformStates,
                             coordinator: scrollCoordinator,
-                            rowHeight: expandedTrackHeight,
                             rowSpacing: rowSpacing
                         )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -68,7 +68,7 @@ struct TimelineShellView: View {
                     .overlay(alignment: .topLeading) {
                         PlayheadView(
                             viewState: viewState,
-                            onSeek: nil,
+                            onSeek: { appState.seekFromPlayhead() },
                             horizontalOffset: scrollCoordinator.horizontalOffset,
                             scrubHeight: metrics.rulerHeight
                         )
@@ -80,7 +80,11 @@ struct TimelineShellView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .background(shellBackground)
             .onAppear {
+                updateVisibleWidth(containerSize: geo.size, metrics: metrics)
                 updateScrollRequest(containerSize: geo.size, metrics: metrics)
+            }
+            .onChange(of: geo.size.width) { _, _ in
+                updateVisibleWidth(containerSize: geo.size, metrics: metrics)
             }
             .onChange(of: viewState.selectedClipIDs) { _, _ in
                 updateScrollRequest(containerSize: geo.size, metrics: metrics)
@@ -98,6 +102,10 @@ struct TimelineShellView: View {
                 updateScrollRequest(containerSize: geo.size, metrics: metrics)
             }
         }
+    }
+
+    private func updateVisibleWidth(containerSize: CGSize, metrics: TimelineShellMetrics) {
+        viewState.visibleWidth = max(containerSize.width - metrics.headerWidth, 0)
     }
 
     private var shellBackground: some View {
@@ -154,7 +162,8 @@ struct TimelineShellView: View {
         var maxY: Double?
 
         for (index, track) in timeline.tracks.enumerated() {
-            let rowY = 8 + Double(index) * (expandedTrackHeight + rowSpacing)
+            let rowY = viewState.trackLayoutState.yOffset(for: index, in: timeline.tracks, rowSpacing: rowSpacing)
+            let rowHeight = viewState.trackLayoutState.height(for: track)
 
             for clip in track.clips where viewState.selectedClipIDs.contains(clip.id) {
                 let clipMinX = viewState.durationToWidth(clip.timelineRange.start)
@@ -163,7 +172,7 @@ struct TimelineShellView: View {
                 minX = min(minX ?? clipMinX, clipMinX)
                 maxX = max(maxX ?? clipMaxX, clipMaxX)
                 minY = min(minY ?? rowY, rowY)
-                maxY = max(maxY ?? (rowY + expandedTrackHeight), rowY + expandedTrackHeight)
+                maxY = max(maxY ?? (rowY + rowHeight), rowY + rowHeight)
             }
         }
 

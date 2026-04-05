@@ -45,18 +45,9 @@ struct TimelineTrackView: View {
     }
 
     var body: some View {
-        HStack(spacing: 0) {
-            trackLabel
-            clipArea
-        }
+        clipArea
         .frame(height: trackHeight)
         .clipped()
-        .onAppear { draftName = resolvedTrackName }
-        .onChange(of: track.name) { _, newValue in
-            if draftName != newValue {
-                draftName = newValue
-            }
-        }
     }
 
     private var clipArea: some View {

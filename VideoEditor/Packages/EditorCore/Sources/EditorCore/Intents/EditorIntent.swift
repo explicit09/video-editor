@@ -21,6 +21,7 @@ public enum EditorIntent: Sendable {
     case setClipCrop(clipID: UUID, cropRect: CropRect)
     case muteTrack(trackID: UUID, muted: Bool)
     case lockTrack(trackID: UUID, locked: Bool)
+    case soloTrack(trackID: UUID, soloed: Bool)
     case setTrackVolume(trackID: UUID, volume: Double)
     case renameClip(clipID: UUID, label: String)
     case duplicateClip(clipID: UUID)
@@ -83,6 +84,8 @@ public struct IntentResolver: Sendable {
             return MuteTrackCommand(trackID: trackID, muted: muted)
         case .lockTrack(let trackID, let locked):
             return LockTrackCommand(trackID: trackID, locked: locked)
+        case .soloTrack(let trackID, let soloed):
+            return SoloTrackCommand(trackID: trackID, soloed: soloed)
         case .setTrackVolume(let trackID, let volume):
             return SetTrackVolumeCommand(trackID: trackID, volume: volume)
         case .renameClip(let clipID, let label):

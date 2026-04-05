@@ -659,6 +659,23 @@ final class AppState {
         scheduleSave()
     }
 
+    func renameTrack(id: UUID, to name: String) {
+        updateTrack(id: id) { $0.name = name }
+    }
+
+    func toggleTrackSolo(_ trackID: UUID) {
+        guard let track = timeline.tracks.first(where: { $0.id == trackID }) else { return }
+        try? perform(.soloTrack(trackID: trackID, soloed: !track.isSoloed))
+    }
+
+    func toggleTrackCollapse(_ trackID: UUID) {
+        timelineViewState.trackLayoutState.toggleCollapse(trackID)
+    }
+
+    func cycleTrackHeight(_ trackID: UUID) {
+        timelineViewState.trackLayoutState.cycleHeight(for: trackID)
+    }
+
     func updateClip(id: UUID, _ transform: (inout Clip) -> Void) {
         var timeline = context.timelineState.timeline
 

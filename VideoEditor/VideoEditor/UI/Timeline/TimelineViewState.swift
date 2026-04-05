@@ -16,6 +16,7 @@ final class TimelineViewState {
     var autoFollowPlayhead: Bool = false
     var lastSelectedClipID: UUID?
     var placementMode: PlacementMode = .overwrite
+    var trackLayoutState = TrackLayoutState()
 
     enum PlacementMode: String, CaseIterable {
         case insert = "Insert"

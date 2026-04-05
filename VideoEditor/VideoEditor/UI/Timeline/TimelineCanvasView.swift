@@ -8,21 +8,19 @@ struct TimelineCanvasView: View {
     let tool: EditorTool
     let timeline: Timeline
     let viewState: TimelineViewState
+    let layoutState: TrackLayoutState
     let thumbnails: [UUID: CGImage]
     let waveformStates: [UUID: WaveformLoadState]
     let coordinator: TimelineScrollCoordinator
-    let rowHeight: Double
     let rowSpacing: Double
 
     @State private var scrollRequestToken = UUID()
     @State private var pendingScrollTarget: TimelineScrollTarget?
 
-    private let trackLabelWidth = 182.0
-
     var body: some View {
         GeometryReader { geo in
             let contentWidth = max(viewState.durationToWidth(timeline.duration + 10), geo.size.width)
-            let contentHeight = max(timelineContentHeight, geo.size.height)
+            let contentHeight = max(layoutState.totalContentHeight(for: timeline.tracks, rowSpacing: rowSpacing), geo.size.height)
 
             ScrollViewReader { proxy in
                 ScrollView([.horizontal, .vertical], showsIndicators: true) {
@@ -38,7 +36,7 @@ struct TimelineCanvasView: View {
                                     trackIndex: index,
                                     contentWidth: contentWidth
                                 )
-                                .offset(y: 8 + Double(index) * (rowHeight + rowSpacing))
+                                .offset(y: layoutState.yOffset(for: index, in: timeline.tracks, rowSpacing: rowSpacing))
                             }
                         }
 
@@ -96,13 +94,6 @@ struct TimelineCanvasView: View {
         }
     }
 
-    private var timelineContentHeight: Double {
-        guard !timeline.tracks.isEmpty else { return 0 }
-        let rowCount = Double(timeline.tracks.count)
-        let gaps = Double(max(timeline.tracks.count - 1, 0)) * rowSpacing
-        return (rowCount * rowHeight) + gaps + 16
-    }
-
     private func timelineRow(
         track: Track,
         trackIndex: Int,
@@ -112,7 +103,7 @@ struct TimelineCanvasView: View {
             track: track,
             tool: tool,
             playheadTime: viewState.playheadPosition,
-            trackHeight: rowHeight,
+            trackHeight: layoutState.height(for: track),
             viewState: viewState,
             selectedClipIDs: viewState.selectedClipIDs,
             isSelectedTrack: viewState.selectedTrackID == track.id,
@@ -122,12 +113,8 @@ struct TimelineCanvasView: View {
             snapTime: snapTime,
             onTrackTap: { appState.timelineViewState.selectTrack(track.id) },
             onRenameTrack: { _ in },
-            onToggleMute: {
-                try? appState.perform(.muteTrack(trackID: track.id, muted: !track.isMuted))
-            },
-            onToggleLock: {
-                try? appState.perform(.lockTrack(trackID: track.id, locked: !track.isLocked))
-            },
+            onToggleMute: { },
+            onToggleLock: { },
             onAddLane: { },
             onCycleHeight: { },
             onRemoveTrack: nil,
@@ -172,8 +159,7 @@ struct TimelineCanvasView: View {
             isCollapsed: false,
             onToggleCollapse: nil
         )
-        .frame(width: contentWidth, height: rowHeight, alignment: .leading)
-        .offset(x: -trackLabelWidth)
+        .frame(width: contentWidth, height: layoutState.height(for: track), alignment: .leading)
         .clipped()
     }
 
@@ -184,10 +170,10 @@ struct TimelineCanvasView: View {
             .overlay(alignment: .topLeading) {
                 Path { path in
                     var y = 8.0
-                    for _ in timeline.tracks {
+                    for track in timeline.tracks {
                         path.move(to: CGPoint(x: 0, y: y))
                         path.addLine(to: CGPoint(x: width, y: y))
-                        y += rowHeight + rowSpacing
+                        y += layoutState.height(for: track) + rowSpacing
                     }
                 }
                 .stroke(CinematicTheme.outlineVariant.opacity(0.14), lineWidth: 0.6)
@@ -217,14 +203,16 @@ struct TimelineCanvasView: View {
         verticalOffset: Double,
         sourceTrackIndex: Int
     ) {
-        let rowStep = rowHeight + rowSpacing
-        let deltaRows = Int((verticalOffset / rowStep).rounded())
-        let targetIndex = min(
-            max(sourceTrackIndex + deltaRows, 0),
-            max(timeline.tracks.count - 1, 0)
+        guard timeline.tracks.indices.contains(sourceTrackIndex) else { return }
+        let snappedStart = snappedTime(for: newStart, excluding: [clipID])
+        let targetTrackID = TimelineDropResolver.targetTrackID(
+            currentIndex: sourceTrackIndex,
+            verticalOffset: verticalOffset,
+            movingTrackType: timeline.tracks[sourceTrackIndex].type,
+            tracks: layoutState.timelineEntries(for: timeline.tracks),
+            clipGap: rowSpacing
         )
-        guard let targetTrackID = timeline.tracks[safe: targetIndex]?.id else { return }
-        appState.moveSelection(primaryClipID: clipID, newStart: newStart, targetTrackID: targetTrackID)
+        appState.moveSelection(primaryClipID: clipID, newStart: snappedStart, targetTrackID: targetTrackID)
     }
 
     private func handleAssetDrop(assetID: UUID, startTime: TimeInterval, trackID: UUID) {
