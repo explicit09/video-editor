@@ -18,7 +18,7 @@ enum DockDropGeometry {
     static let tabStripHeight: CGFloat = CinematicMetrics.panelHeaderHeight
     static let edgeInsetRatio: CGFloat = 0.18
 
-    static func edgeInset(for frame: CGRect) -> CGFloat {
+    static func edgeExtent(for frame: CGRect) -> CGFloat {
         min(frame.width, frame.height) * edgeInsetRatio
     }
 
@@ -65,7 +65,7 @@ final class DockingCoordinator: ObservableObject {
     ) -> DockDropTarget? {
         guard frame.contains(point) else { return nil }
 
-        let edgeInset = DockDropGeometry.edgeInset(for: frame)
+        let edgeInset = DockDropGeometry.edgeExtent(for: frame)
         let isInTabStrip = DockDropGeometry.tabStripFrame(in: frame).contains(point)
 
         if allowedBehavior == .tabs {

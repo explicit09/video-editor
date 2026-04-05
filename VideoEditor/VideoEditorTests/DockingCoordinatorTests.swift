@@ -52,4 +52,21 @@ struct DockingCoordinatorTests {
 
         #expect(target == nil)
     }
+
+    @Test("small panes use the shared split extent instead of a fixed overlay floor")
+    func smallPaneUsesSharedSplitExtent() {
+        let frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        let sharedExtent = DockDropGeometry.edgeExtent(for: frame)
+
+        #expect(sharedExtent < 44)
+
+        let coordinator = DockingCoordinator()
+        let interiorTarget = coordinator.resolveDropTarget(
+            point: CGPoint(x: 20, y: 40),
+            frame: frame,
+            allowedBehavior: .splitOrTabs
+        )
+
+        #expect(interiorTarget == .tabStack)
+    }
 }

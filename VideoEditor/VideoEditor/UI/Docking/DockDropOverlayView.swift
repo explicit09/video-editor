@@ -17,9 +17,10 @@ struct DockDropOverlayView: View {
     private func overlay(for target: DockDropTarget, size: CGSize) -> some View {
         let highlight = CinematicTheme.primaryContainer.opacity(0.22)
         let border = CinematicTheme.primary.opacity(0.9)
+        let frame = CGRect(origin: .zero, size: size)
         let tabHeight = min(size.height, DockDropGeometry.tabStripHeight)
-        let edgeWidth = max(44, size.width * DockDropGeometry.edgeInsetRatio)
-        let edgeHeight = max(44, size.height * DockDropGeometry.edgeInsetRatio)
+        let edgeWidth = DockDropGeometry.edgeExtent(for: frame)
+        let edgeHeight = edgeWidth
 
         switch target {
         case .tabStack:
