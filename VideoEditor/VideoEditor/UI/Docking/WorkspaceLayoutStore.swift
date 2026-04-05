@@ -4,6 +4,7 @@ struct WorkspaceLayoutStore {
     let defaults: [String: DockWorkspaceLayout]
     let fileManager: FileManager
     let baseURL: URL
+    let allowedPanelIDs: Set<PanelID>
 
     func loadLayout(for workspaceID: String) throws -> DockWorkspaceLayout {
         let url = layoutURL(for: workspaceID)
@@ -12,12 +13,17 @@ struct WorkspaceLayoutStore {
             return try defaultLayout(for: workspaceID)
         }
 
-        let data = try Data(contentsOf: url)
-        let decoded = try JSONDecoder().decode(DockWorkspaceLayout.self, from: data)
-        return isValid(decoded) ? decoded : try defaultLayout(for: workspaceID)
+        do {
+            let data = try Data(contentsOf: url)
+            let decoded = try JSONDecoder().decode(DockWorkspaceLayout.self, from: data)
+            return try validatedLayout(decoded)
+        } catch {
+            return try defaultLayout(for: workspaceID)
+        }
     }
 
     func save(_ layout: DockWorkspaceLayout) throws {
+        _ = try validatedLayout(layout)
         try fileManager.createDirectory(at: baseURL, withIntermediateDirectories: true, attributes: nil)
 
         let data = try JSONEncoder().encode(layout)
@@ -42,18 +48,26 @@ struct WorkspaceLayoutStore {
     private func isValid(_ node: DockLayoutNode) -> Bool {
         switch node {
         case let .panel(panelID):
-            return WorkspaceDefaultLayouts.knownPanelIDs.contains(panelID)
+            return allowedPanelIDs.contains(panelID)
         case let .tabs(activePanelID, panelIDs):
             return !panelIDs.isEmpty
                 && panelIDs.contains(activePanelID)
-                && panelIDs.allSatisfy(WorkspaceDefaultLayouts.knownPanelIDs.contains)
+                && panelIDs.allSatisfy(allowedPanelIDs.contains)
         case let .split(axis: _, ratio: ratio, leading: leading, trailing: trailing):
             guard ratio.isFinite, ratio > 0, ratio < 1 else { return false }
             return isValid(leading) && isValid(trailing)
         }
     }
+
+    private func validatedLayout(_ layout: DockWorkspaceLayout) throws -> DockWorkspaceLayout {
+        guard isValid(layout) else {
+            throw WorkspaceLayoutStoreError.invalidLayout(workspaceID: layout.workspaceID)
+        }
+        return layout
+    }
 }
 
 enum WorkspaceLayoutStoreError: Error, Equatable {
     case missingDefaultLayout(workspaceID: String)
+    case invalidLayout(workspaceID: String)
 }
