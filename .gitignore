@@ -18,6 +18,9 @@ Package.resolved
 # OS
 .DS_Store
 
+# Local worktrees
+.worktrees/
+
 # Environment
 .env*
 !*.env.example
