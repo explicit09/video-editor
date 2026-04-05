@@ -16,9 +16,23 @@ struct TimelineShellSupportTests {
             collapsedTrackHeight: 28
         )
 
-        #expect(metrics.headerWidth == 152)
+        #expect(metrics.headerWidth == 136)
         #expect(metrics.rulerHeight == 32)
         #expect(metrics.scrollContentHeight > metrics.rulerHeight)
+    }
+
+    @Test("track header layout keeps only core controls inline and moves utility actions to overflow")
+    func trackHeaderLayoutUsesOverflowForUtilityActions() {
+        let expanded = TrackHeaderLayout.make(isCollapsed: false, canRemoveTrack: true)
+        let collapsed = TrackHeaderLayout.make(isCollapsed: true, canRemoveTrack: false)
+
+        #expect(expanded.inlineControls == [.arm, .mute, .solo, .lock])
+        #expect(expanded.showsOverflowMenu)
+        #expect(expanded.overflowControls == [.addLane, .cycleHeight, .removeTrack])
+
+        #expect(collapsed.inlineControls == [.arm, .mute, .solo, .lock])
+        #expect(!collapsed.showsOverflowMenu)
+        #expect(collapsed.overflowControls.isEmpty)
     }
 
     @Test("selection reveal returns vertical and horizontal anchors when needed")

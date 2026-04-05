@@ -13,7 +13,7 @@ struct TimelineShellMetrics: Sendable, Equatable {
         expandedTrackHeight: Double,
         collapsedTrackHeight: Double
     ) -> TimelineShellMetrics {
-        let headerWidth = 152.0
+        let headerWidth = TrackHeaderLayout.headerWidth
         let rulerHeight = 32.0
         let trackCountValue = Double(max(trackCount, 1))
         let rowHeight = max(expandedTrackHeight, collapsedTrackHeight)
@@ -23,6 +23,49 @@ struct TimelineShellMetrics: Sendable, Equatable {
             headerWidth: headerWidth,
             rulerHeight: rulerHeight,
             scrollContentHeight: minimumTrackStackHeight + rulerHeight
+        )
+    }
+}
+
+enum TrackHeaderControl: Sendable, Equatable {
+    case arm
+    case mute
+    case solo
+    case lock
+    case addLane
+    case cycleHeight
+    case removeTrack
+}
+
+struct TrackHeaderLayout: Sendable, Equatable {
+    static let headerWidth = 136.0
+    static let textFieldHeight = 28.0
+    static let controlSize = 18.0
+
+    let inlineControls: [TrackHeaderControl]
+    let overflowControls: [TrackHeaderControl]
+
+    var showsOverflowMenu: Bool {
+        !overflowControls.isEmpty
+    }
+
+    static func make(isCollapsed: Bool, canRemoveTrack: Bool) -> Self {
+        let coreControls: [TrackHeaderControl] = [.arm, .mute, .solo, .lock]
+        guard !isCollapsed else {
+            return Self(
+                inlineControls: coreControls,
+                overflowControls: []
+            )
+        }
+
+        var overflowControls: [TrackHeaderControl] = [.addLane, .cycleHeight]
+        if canRemoveTrack {
+            overflowControls.append(.removeTrack)
+        }
+
+        return Self(
+            inlineControls: coreControls,
+            overflowControls: overflowControls
         )
     }
 }

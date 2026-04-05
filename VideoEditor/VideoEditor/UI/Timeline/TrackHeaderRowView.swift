@@ -19,6 +19,13 @@ struct TrackHeaderRowView: View {
         layoutState.height(for: track)
     }
 
+    private var headerLayout: TrackHeaderLayout {
+        TrackHeaderLayout.make(
+            isCollapsed: isCollapsed,
+            canRemoveTrack: removableAction != nil
+        )
+    }
+
     private var trackAccentColor: Color {
         switch track.type {
         case .video: CinematicTheme.tertiary
@@ -66,8 +73,8 @@ struct TrackHeaderRowView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: isCollapsed ? 4 : 6) {
-            HStack(spacing: 6) {
+        VStack(alignment: .leading, spacing: isCollapsed ? 3 : 5) {
+            HStack(spacing: 5) {
                 headerButton(
                     icon: isCollapsed ? "chevron.right" : "chevron.down",
                     isActive: false,
@@ -91,8 +98,8 @@ struct TrackHeaderRowView: View {
                 Text("\(track.clips.count)")
                     .font(.cinLabelRegular)
                     .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.74))
-                    .padding(.horizontal, 6)
-                    .frame(height: 18)
+                    .padding(.horizontal, 5)
+                    .frame(height: 16)
                     .background(CinematicTheme.surfaceContainerHighest)
                     .clipShape(Capsule())
             }
@@ -100,7 +107,7 @@ struct TrackHeaderRowView: View {
             if !isCollapsed {
                 TextField("Track Name", text: $draftName)
                     .textFieldStyle(.plain)
-                    .font(.cinBody)
+                    .font(.system(size: 12, weight: .medium))
                     .foregroundStyle(CinematicTheme.onSurface)
                     .lineLimit(1)
                     .focused($isNameFocused)
@@ -115,110 +122,19 @@ struct TrackHeaderRowView: View {
                             draftName = newValue
                         }
                     }
-                    .padding(.horizontal, 10)
-                    .frame(height: CinematicMetrics.fieldHeight)
+                    .padding(.horizontal, 8)
+                    .frame(height: TrackHeaderLayout.textFieldHeight)
                     .background(CinematicTheme.surfaceContainerLowest)
-                    .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+                    .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.sm))
 
-                HStack(spacing: 6) {
-                    headerButton(
-                        icon: "target",
-                        isActive: isArmed,
-                        tooltip: isArmed ? "Clear destination track" : "Arm destination track"
-                    ) {
-                        appState.timelineViewState.toggleArmedTrack(track.id)
-                    }
-
-                    headerButton(
-                        icon: muteIcon,
-                        isActive: !track.isMuted,
-                        tooltip: track.isMuted ? "Unmute track" : "Mute track"
-                    ) {
-                        try? appState.perform(.muteTrack(trackID: track.id, muted: !track.isMuted))
-                    }
-
-                    headerButton(
-                        icon: soloIcon,
-                        isActive: track.isSoloed,
-                        tooltip: track.isSoloed ? "Clear solo" : "Solo track"
-                    ) {
-                        try? appState.perform(.soloTrack(trackID: track.id, soloed: !track.isSoloed))
-                    }
-
-                    headerButton(
-                        icon: track.isLocked ? "lock.fill" : "lock.open.fill",
-                        isActive: track.isLocked,
-                        tooltip: track.isLocked ? "Unlock track" : "Lock track"
-                    ) {
-                        try? appState.perform(.lockTrack(trackID: track.id, locked: !track.isLocked))
-                    }
-
-                    headerButton(
-                        icon: "plus",
-                        isActive: false,
-                        tooltip: "Add \(track.type.rawValue) lane"
-                    ) {
-                        appState.addTrack(of: track.type, positionedAfter: track.id)
-                    }
-
-                    headerButton(
-                        icon: "arrow.up.and.down.text.horizontal",
-                        isActive: false,
-                        tooltip: "Cycle lane height"
-                    ) {
-                        appState.cycleTrackHeight(track.id)
-                    }
-
-                    if let onRemoveTrack = removableAction {
-                        headerButton(
-                            icon: "trash",
-                            isActive: false,
-                            isDestructive: true,
-                            tooltip: "Remove empty track"
-                        ) {
-                            onRemoveTrack()
-                        }
-                    }
-                }
+                controlsRow
             } else {
-                HStack(spacing: 6) {
-                    headerButton(
-                        icon: "target",
-                        isActive: isArmed,
-                        tooltip: isArmed ? "Clear destination track" : "Arm destination track"
-                    ) {
-                        appState.timelineViewState.toggleArmedTrack(track.id)
-                    }
-
-                    headerButton(
-                        icon: muteIcon,
-                        isActive: !track.isMuted,
-                        tooltip: track.isMuted ? "Unmute track" : "Mute track"
-                    ) {
-                        try? appState.perform(.muteTrack(trackID: track.id, muted: !track.isMuted))
-                    }
-
-                    headerButton(
-                        icon: soloIcon,
-                        isActive: track.isSoloed,
-                        tooltip: track.isSoloed ? "Clear solo" : "Solo track"
-                    ) {
-                        try? appState.perform(.soloTrack(trackID: track.id, soloed: !track.isSoloed))
-                    }
-
-                    headerButton(
-                        icon: track.isLocked ? "lock.fill" : "lock.open.fill",
-                        isActive: track.isLocked,
-                        tooltip: track.isLocked ? "Unlock track" : "Lock track"
-                    ) {
-                        try? appState.perform(.lockTrack(trackID: track.id, locked: !track.isLocked))
-                    }
-                }
+                controlsRow
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, isCollapsed ? 4 : 10)
-        .frame(width: 152, height: rowHeight, alignment: .topLeading)
+        .padding(.horizontal, 8)
+        .padding(.vertical, isCollapsed ? 4 : 6)
+        .frame(width: TrackHeaderLayout.headerWidth, height: rowHeight, alignment: .topLeading)
         .background(trackHeaderBackground)
         .overlay(alignment: .trailing) {
             Rectangle()
@@ -263,6 +179,20 @@ struct TrackHeaderRowView: View {
         }
     }
 
+    private var controlsRow: some View {
+        HStack(spacing: 5) {
+            ForEach(headerLayout.inlineControls, id: \.self) { control in
+                inlineButton(for: control)
+            }
+
+            Spacer(minLength: 0)
+
+            if headerLayout.showsOverflowMenu {
+                overflowMenu
+            }
+        }
+    }
+
     private var resolvedTrackName: String {
         track.name.isEmpty ? "\(track.type.rawValue.capitalized) Track" : track.name
     }
@@ -300,12 +230,97 @@ struct TrackHeaderRowView: View {
             Image(systemName: icon)
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(buttonForeground(isActive: isActive, isDestructive: isDestructive))
-                .frame(width: 20, height: 20)
+                .frame(width: TrackHeaderLayout.controlSize, height: TrackHeaderLayout.controlSize)
                 .background(buttonBackground(isActive: isActive, isDestructive: isDestructive))
                 .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.sm))
         }
         .buttonStyle(.plain)
         .help(tooltip)
+    }
+
+    @ViewBuilder
+    private func inlineButton(for control: TrackHeaderControl) -> some View {
+        switch control {
+        case .arm:
+            headerButton(
+                icon: "target",
+                isActive: isArmed,
+                tooltip: isArmed ? "Clear destination track" : "Arm destination track"
+            ) {
+                appState.timelineViewState.toggleArmedTrack(track.id)
+            }
+        case .mute:
+            headerButton(
+                icon: muteIcon,
+                isActive: !track.isMuted,
+                tooltip: track.isMuted ? "Unmute track" : "Mute track"
+            ) {
+                try? appState.perform(.muteTrack(trackID: track.id, muted: !track.isMuted))
+            }
+        case .solo:
+            headerButton(
+                icon: soloIcon,
+                isActive: track.isSoloed,
+                tooltip: track.isSoloed ? "Clear solo" : "Solo track"
+            ) {
+                try? appState.perform(.soloTrack(trackID: track.id, soloed: !track.isSoloed))
+            }
+        case .lock:
+            headerButton(
+                icon: track.isLocked ? "lock.fill" : "lock.open.fill",
+                isActive: track.isLocked,
+                tooltip: track.isLocked ? "Unlock track" : "Lock track"
+            ) {
+                try? appState.perform(.lockTrack(trackID: track.id, locked: !track.isLocked))
+            }
+        case .addLane, .cycleHeight, .removeTrack:
+            EmptyView()
+        }
+    }
+
+    private var overflowMenu: some View {
+        Menu {
+            ForEach(headerLayout.overflowControls, id: \.self) { control in
+                overflowButton(for: control)
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
+                .frame(width: TrackHeaderLayout.controlSize, height: TrackHeaderLayout.controlSize)
+                .background(CinematicTheme.surfaceContainerHighest)
+                .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.sm))
+        }
+        .menuStyle(.borderlessButton)
+        .fixedSize()
+    }
+
+    @ViewBuilder
+    private func overflowButton(for control: TrackHeaderControl) -> some View {
+        switch control {
+        case .addLane:
+            Button {
+                appState.addTrack(of: track.type, positionedAfter: track.id)
+            } label: {
+                Label("Add \(track.type.rawValue) lane", systemImage: "plus")
+            }
+        case .cycleHeight:
+            Button {
+                appState.cycleTrackHeight(track.id)
+            } label: {
+                Label("Cycle lane height", systemImage: "arrow.up.and.down.text.horizontal")
+            }
+        case .removeTrack:
+            if let onRemoveTrack = removableAction {
+                Button(role: .destructive) {
+                    onRemoveTrack()
+                } label: {
+                    Label("Remove empty track", systemImage: "trash")
+                }
+            }
+        case .arm, .mute, .solo, .lock:
+            EmptyView()
+        }
     }
 
     private func buttonBackground(isActive: Bool, isDestructive: Bool) -> Color {
