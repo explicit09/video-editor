@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreTransferable
+import AVFoundation
 import EditorCore
 import UniformTypeIdentifiers
 
@@ -14,6 +15,11 @@ struct MediaWorkspacePanel: View {
     @State private var isImporting = false
     @State private var importError: String?
     @State private var thumbnails: [UUID: CGImage] = [:]
+    @State private var sourcePlayer = AVPlayer()
+    @State private var sourceCurrentTime: TimeInterval = 0
+    @State private var markedInTime: TimeInterval?
+    @State private var markedOutTime: TimeInterval?
+    private let sourceMonitorTimer = Timer.publish(every: 1.0 / 15.0, on: .main, in: .common).autoconnect()
 
     enum SortOrder: String, CaseIterable {
         case dateAdded = "Date Added"
@@ -84,6 +90,16 @@ struct MediaWorkspacePanel: View {
             if let selectedAssetID, !visibleIDs.contains(selectedAssetID) {
                 self.selectedAssetID = nil
             }
+        }
+        .onChange(of: selectedAssetID) { _, _ in
+            configureSourceMonitor()
+        }
+        .onReceive(sourceMonitorTimer) { _ in
+            syncSourceMonitorTime()
+        }
+        .onDisappear {
+            sourcePlayer.pause()
+            sourcePlayer.replaceCurrentItem(with: nil)
         }
     }
 
@@ -317,53 +333,204 @@ struct MediaWorkspacePanel: View {
             )
             .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
-            if let cgImage = thumbnails[asset.id] {
-                Image(decorative: cgImage, scale: 1.0)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxHeight: 140)
-                    .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
-                    .padding(.horizontal, 12)
-            }
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    sourceMonitor(asset)
 
-            Spacer().frame(height: 16)
+                    VStack(alignment: .leading, spacing: 12) {
+                        metadataRow("FILENAME", asset.name)
+                        if let w = asset.width, let h = asset.height {
+                            metadataRow("RESOLUTION", "\(w) × \(h)")
+                        }
+                        if let codec = asset.codec {
+                            metadataRow("CODEC", codec)
+                        }
+                        if asset.duration > 0 {
+                            metadataRow("DURATION", TimeFormatter.duration(asset.duration))
+                        }
+                        if asset.fileSize > 0 {
+                            metadataRow("SIZE", formatFileSize(asset.fileSize))
+                        }
 
-            VStack(alignment: .leading, spacing: 12) {
-                metadataRow("FILENAME", asset.name)
-                if let w = asset.width, let h = asset.height {
-                    metadataRow("RESOLUTION", "\(w) × \(h)")
-                }
-                if let codec = asset.codec {
-                    metadataRow("CODEC", codec)
-                }
-                if asset.duration > 0 {
-                    metadataRow("DURATION", TimeFormatter.duration(asset.duration))
-                }
-                if asset.fileSize > 0 {
-                    metadataRow("SIZE", formatFileSize(asset.fileSize))
-                }
-
-                // AI tags
-                if asset.analysis?.transcript != nil {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("AI TAGS")
-                            .font(.cinLabel)
-                            .tracking(1)
-                            .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
-                        HStack(spacing: 4) {
-                            aiTag("TRANSCRIBED")
-                            if asset.analysis?.silenceRanges != nil {
-                                aiTag("ANALYZED")
+                        // AI tags
+                        if asset.analysis?.transcript != nil {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("AI TAGS")
+                                    .font(.cinLabel)
+                                    .tracking(1)
+                                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+                                HStack(spacing: 4) {
+                                    aiTag("TRANSCRIBED")
+                                    if asset.analysis?.silenceRanges != nil {
+                                        aiTag("ANALYZED")
+                                    }
+                                }
                             }
                         }
                     }
+                    .padding(.horizontal, 12)
+                }
+                .padding(.vertical, 12)
+            }
+        }
+        .background(CinematicTheme.surfaceContainerLow)
+    }
+
+    private func sourceMonitor(_ asset: MediaAsset) -> some View {
+        let duration = max(asset.duration, 0)
+        let canScrub = asset.type != .image && duration > 0
+        let selectedStart = resolvedMarkedIn(for: asset)
+        let selectedEnd = resolvedMarkedOut(for: asset)
+        let selectionDuration = max(selectedEnd - selectedStart, 0)
+
+        return VStack(alignment: .leading, spacing: 12) {
+            Text("SOURCE MONITOR")
+                .font(.cinLabel)
+                .tracking(1)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
+                .padding(.horizontal, 12)
+
+            ZStack {
+                RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                    .fill(CinematicTheme.surfaceContainerLowest)
+
+                if asset.type == .image {
+                    if let cgImage = thumbnails[asset.id] {
+                        Image(decorative: cgImage, scale: 1.0)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(12)
+                    } else {
+                        Image(systemName: "photo")
+                            .font(.system(size: 28, weight: .medium))
+                            .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.4))
+                    }
+                } else {
+                    AVPlayerView(player: sourcePlayer)
+                        .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+
+                    if asset.type == .audio {
+                        VStack(spacing: 8) {
+                            Image(systemName: "waveform")
+                                .font(.system(size: 24, weight: .medium))
+                            Text("Audio Source")
+                                .font(.cinLabelRegular)
+                        }
+                        .foregroundStyle(.white.opacity(0.8))
+                        .padding(16)
+                        .background(.black.opacity(0.28))
+                        .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+                    }
+                }
+            }
+            .frame(height: 170)
+            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
+            .overlay(
+                RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                    .strokeBorder(CinematicTheme.outlineVariant.opacity(0.18), lineWidth: 1)
+            )
+            .padding(.horizontal, 12)
+
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 8) {
+                    CinematicStatusPill(
+                        text: TimeFormatter.timecode(sourceCurrentTime),
+                        icon: "clock",
+                        tone: CinematicTheme.aqua
+                    )
+
+                    if selectionDuration > 0, selectionDuration < duration {
+                        CinematicStatusPill(
+                            text: "SEL \(TimeFormatter.durationHMS(selectionDuration))",
+                            icon: "selection.pin.in.out",
+                            tone: CinematicTheme.primary
+                        )
+                    }
+
+                    Spacer()
+
+                    if asset.type != .image {
+                        CinematicToolbarButton(icon: sourcePlayer.rate == 0 ? "play.fill" : "pause.fill", isActive: true) {
+                            toggleSourcePlayback()
+                        }
+                    }
+                }
+
+                if canScrub {
+                    Slider(
+                        value: Binding(
+                            get: { min(max(sourceCurrentTime, 0), duration) },
+                            set: { newValue in
+                                seekSourceMonitor(to: newValue)
+                            }
+                        ),
+                        in: 0...duration
+                    )
+                    .tint(CinematicTheme.primary)
+                }
+
+                HStack(spacing: 8) {
+                    Button("Mark In") {
+                        markedInTime = min(max(sourceCurrentTime, 0), duration)
+                        if let markedOutTime, markedOutTime < resolvedMarkedIn(for: asset) {
+                            self.markedOutTime = nil
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(CinematicTheme.primary)
+
+                    Button("Mark Out") {
+                        let candidate = min(max(sourceCurrentTime, 0), duration)
+                        let start = resolvedMarkedIn(for: asset)
+                        markedOutTime = max(candidate, start)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(CinematicTheme.primary)
+
+                    Button("Clear Range") {
+                        markedInTime = nil
+                        markedOutTime = nil
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(CinematicTheme.onSurfaceVariant)
+
+                    Spacer()
+                }
+
+                HStack(spacing: 8) {
+                    CinematicToolbarButton(
+                        icon: "arrow.right.to.line",
+                        label: "Insert At Playhead",
+                        isActive: true
+                    ) {
+                        insertSelectedRangeAtPlayhead(asset)
+                    }
+
+                    CinematicToolbarButton(
+                        icon: "square.on.square",
+                        label: "Overwrite",
+                        isActive: true
+                    ) {
+                        overwriteSelectedRangeAtPlayhead(asset)
+                    }
+
+                    CinematicToolbarButton(
+                        icon: "plus.rectangle.on.folder",
+                        label: selectionDuration > 0 && selectionDuration < duration ? "Append Selection" : "Append Full",
+                        isActive: true
+                    ) {
+                        appendSelectedRange(asset)
+                    }
+                }
+
+                HStack(spacing: 12) {
+                    monitorMetric(label: "IN", value: TimeFormatter.timecode(selectedStart))
+                    monitorMetric(label: "OUT", value: TimeFormatter.timecode(selectedEnd))
+                    monitorMetric(label: "PLAYHEAD", value: TimeFormatter.timecode(appState.timelineViewState.playheadPosition))
                 }
             }
             .padding(.horizontal, 12)
-
-            Spacer()
         }
-        .background(CinematicTheme.surfaceContainerLow)
     }
 
     private func metadataRow(_ label: String, _ value: String) -> some View {
@@ -416,6 +583,120 @@ struct MediaWorkspacePanel: View {
     private func addToTimeline(_ asset: MediaAsset) {
         Task { @MainActor in
             await appState.addAssetToTimeline(asset)
+        }
+    }
+
+    private func selectedSourceRange(for asset: MediaAsset) -> TimeRange {
+        let start = resolvedMarkedIn(for: asset)
+        let end = resolvedMarkedOut(for: asset)
+        if asset.type == .image {
+            return TimeRange(start: 0, duration: max(asset.duration, EditorTimelineDefaults.stillImageDuration))
+        }
+        if end <= start || abs(end - start - asset.duration) < 0.01 {
+            return TimeRange(start: 0, duration: max(asset.duration, 0.1))
+        }
+        return TimeRange(start: start, end: end)
+    }
+
+    private func appendSelectedRange(_ asset: MediaAsset) {
+        let selectedRange = selectedSourceRange(for: asset)
+
+        Task { @MainActor in
+            if asset.type == .image || abs(selectedRange.duration - asset.duration) < 0.01 {
+                await appState.addAssetToTimeline(asset)
+            } else {
+                await appState.insertAssetSegment(
+                    asset,
+                    sourceRange: selectedRange
+                )
+            }
+        }
+    }
+
+    private func insertSelectedRangeAtPlayhead(_ asset: MediaAsset) {
+        let selectedRange = selectedSourceRange(for: asset)
+        appState.insertAssetSegmentAtPlayhead(asset, sourceRange: selectedRange)
+    }
+
+    private func overwriteSelectedRangeAtPlayhead(_ asset: MediaAsset) {
+        let selectedRange = selectedSourceRange(for: asset)
+        appState.overwriteAssetSegmentAtPlayhead(asset, sourceRange: selectedRange)
+    }
+
+    private func configureSourceMonitor() {
+        guard let asset = selectedAsset else {
+            sourcePlayer.pause()
+            sourcePlayer.replaceCurrentItem(with: nil)
+            sourceCurrentTime = 0
+            markedInTime = nil
+            markedOutTime = nil
+            return
+        }
+
+        markedInTime = nil
+        markedOutTime = nil
+        sourceCurrentTime = 0
+
+        guard asset.type != .image else {
+            sourcePlayer.pause()
+            sourcePlayer.replaceCurrentItem(with: nil)
+            return
+        }
+
+        sourcePlayer.pause()
+        sourcePlayer.replaceCurrentItem(with: AVPlayerItem(url: asset.sourceURL))
+        sourcePlayer.actionAtItemEnd = .pause
+        seekSourceMonitor(to: 0)
+    }
+
+    private func syncSourceMonitorTime() {
+        guard let asset = selectedAsset, asset.type != .image else { return }
+        let current = sourcePlayer.currentTime().seconds
+        guard current.isFinite else { return }
+
+        let clamped = min(max(current, 0), max(asset.duration, 0))
+        if abs(sourceCurrentTime - clamped) > 0.02 {
+            sourceCurrentTime = clamped
+        }
+    }
+
+    private func seekSourceMonitor(to time: TimeInterval) {
+        let clamped = min(max(time, 0), max(selectedAsset?.duration ?? time, 0))
+        sourceCurrentTime = clamped
+        let cmTime = CMTime(seconds: clamped, preferredTimescale: 600)
+        sourcePlayer.seek(to: cmTime, toleranceBefore: .zero, toleranceAfter: .zero)
+    }
+
+    private func toggleSourcePlayback() {
+        if sourcePlayer.rate == 0 {
+            sourcePlayer.play()
+        } else {
+            sourcePlayer.pause()
+        }
+    }
+
+    private func resolvedMarkedIn(for asset: MediaAsset) -> TimeInterval {
+        min(max(markedInTime ?? 0, 0), max(asset.duration, 0))
+    }
+
+    private func resolvedMarkedOut(for asset: MediaAsset) -> TimeInterval {
+        let duration = max(asset.duration, 0)
+        return min(max(markedOutTime ?? duration, resolvedMarkedIn(for: asset)), duration)
+    }
+
+    private var selectedAsset: MediaAsset? {
+        guard let selectedAssetID else { return nil }
+        return appState.assets.first(where: { $0.id == selectedAssetID })
+    }
+
+    private func monitorMetric(label: String, value: String) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label)
+                .font(.cinLabel)
+                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.5))
+            Text(value)
+                .font(.cinTimecode)
+                .foregroundStyle(CinematicTheme.onSurface)
         }
     }
 

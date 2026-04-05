@@ -354,9 +354,12 @@ struct InspectorPanel: View {
 
     private func clipInspector(_ clip: Clip) -> some View {
         let asset = appState.assets.first(where: { $0.id == clip.assetID })
+        let currentClip = resolvedClip(clip.id) ?? clip
         let track = appState.timeline.tracks.first { track in
             track.clips.contains(where: { $0.id == clip.id })
         }
+        let neighbors = adjacentClips(for: clip.id)
+        let frameStep = 1.0 / max(appState.context.timelineState.projectSettings.frameRate, 1)
 
         return VStack(alignment: .leading, spacing: CinematicSpacing.md) {
             CinematicCard {
@@ -402,6 +405,59 @@ struct InspectorPanel: View {
                             Text(track.name)
                                 .font(.cinBody)
                                 .foregroundStyle(CinematicTheme.onSurface)
+                        }
+                    }
+                }
+            }
+
+            CinematicCard {
+                VStack(alignment: .leading, spacing: CinematicSpacing.md) {
+                    Text("Edit")
+                        .font(.cinTitleSmall)
+                        .foregroundStyle(CinematicTheme.onSurface)
+
+                    CinematicInspectorFieldRow(label: "Slip") {
+                        HStack(spacing: 8) {
+                            editNudgeButton("-1f") {
+                                try? appState.perform(.slipClip(clipID: currentClip.id, delta: -frameStep))
+                            }
+                            editNudgeButton("+1f") {
+                                try? appState.perform(.slipClip(clipID: currentClip.id, delta: frameStep))
+                            }
+                            editNudgeButton("-1s") {
+                                try? appState.perform(.slipClip(clipID: currentClip.id, delta: -1))
+                            }
+                            editNudgeButton("+1s") {
+                                try? appState.perform(.slipClip(clipID: currentClip.id, delta: 1))
+                            }
+                        }
+                    }
+
+                    CinematicInspectorFieldRow(label: "Roll") {
+                        HStack(spacing: 8) {
+                            editNudgeButton("Earlier") {
+                                guard let left = neighbors.left else { return }
+                                try? appState.perform(
+                                    .rollTrim(
+                                        leftClipID: left.id,
+                                        rightClipID: currentClip.id,
+                                        newBoundary: currentClip.timelineRange.start - frameStep
+                                    )
+                                )
+                            }
+                            .disabled(neighbors.left == nil)
+
+                            editNudgeButton("Later") {
+                                guard let right = neighbors.right else { return }
+                                try? appState.perform(
+                                    .rollTrim(
+                                        leftClipID: currentClip.id,
+                                        rightClipID: right.id,
+                                        newBoundary: currentClip.timelineRange.end + frameStep
+                                    )
+                                )
+                            }
+                            .disabled(neighbors.right == nil)
                         }
                     }
                 }
@@ -626,6 +682,66 @@ struct InspectorPanel: View {
                 }
             }
 
+            if track?.type != .audio {
+                CinematicCard {
+                    VStack(alignment: .leading, spacing: CinematicSpacing.md) {
+                        Text("Transition")
+                            .font(.cinTitleSmall)
+                            .foregroundStyle(CinematicTheme.onSurface)
+
+                        let currentTransition = resolvedClip(clip.id)?.transitionIn ?? clip.transitionIn
+
+                        CinematicInspectorFieldRow(label: "Type") {
+                            Picker("", selection: Binding(
+                                get: { currentTransition.type },
+                                set: { newType in
+                                    let nextDuration = newType == .none ? 0 : max(currentTransition.duration, 0.1)
+                                    try? appState.perform(
+                                        .setClipTransition(
+                                            clipID: clip.id,
+                                            transition: ClipTransition(type: newType, duration: nextDuration)
+                                        )
+                                    )
+                                }
+                            )) {
+                                ForEach(TransitionType.allCases, id: \.self) { type in
+                                    Text(transitionName(for: type)).tag(type)
+                                }
+                            }
+                            .labelsHidden()
+                        }
+
+                        if currentTransition.type != .none {
+                            CinematicInspectorFieldRow(label: "Duration") {
+                                HStack(spacing: 8) {
+                                    Slider(value: Binding(
+                                        get: { currentTransition.duration },
+                                        set: { newDuration in
+                                            try? appState.perform(
+                                                .setClipTransition(
+                                                    clipID: clip.id,
+                                                    transition: ClipTransition(
+                                                        type: currentTransition.type,
+                                                        duration: newDuration
+                                                    )
+                                                )
+                                            )
+                                        }
+                                    ), in: 0.1...2.0)
+                                    .tint(CinematicTheme.primary)
+
+                                    Text(String(format: "%.1fs", currentTransition.duration))
+                                        .font(.cinLabelRegular)
+                                        .monospacedDigit()
+                                        .foregroundStyle(CinematicTheme.onSurfaceVariant)
+                                        .frame(width: 42, alignment: .trailing)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             if let asset {
                 CinematicCard {
                     VStack(alignment: .leading, spacing: CinematicSpacing.sm) {
@@ -754,6 +870,17 @@ struct InspectorPanel: View {
         case "radius": 0.0...100.0
         case "sharpness": 0.0...2.0
         default: 0.0...1.0
+        }
+    }
+
+    private func transitionName(for type: TransitionType) -> String {
+        switch type {
+        case .none: "None"
+        case .crossDissolve: "Cross Dissolve"
+        case .fadeToBlack: "Fade To Black"
+        case .fadeFromBlack: "Fade From Black"
+        case .wipeLeft: "Wipe Left"
+        case .wipeRight: "Wipe Right"
         }
     }
 
@@ -927,6 +1054,29 @@ struct InspectorPanel: View {
 
     private func resolvedClip(_ id: UUID) -> Clip? {
         appState.timeline.tracks.flatMap(\.clips).first(where: { $0.id == id })
+    }
+
+    private func adjacentClips(for clipID: UUID) -> (left: Clip?, right: Clip?) {
+        for track in appState.timeline.tracks {
+            guard let clipIndex = track.clips.firstIndex(where: { $0.id == clipID }) else { continue }
+            let left = clipIndex > 0 ? track.clips[clipIndex - 1] : nil
+            let right = track.clips.indices.contains(clipIndex + 1) ? track.clips[clipIndex + 1] : nil
+            return (left, right)
+        }
+        return (nil, nil)
+    }
+
+    private func editNudgeButton(_ label: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(label)
+                .font(.cinLabelRegular)
+                .foregroundStyle(CinematicTheme.onSurface)
+                .padding(.horizontal, 10)
+                .frame(height: CinematicMetrics.controlHeight)
+                .background(CinematicTheme.surfaceContainerHighest)
+                .clipShape(Capsule())
+        }
+        .buttonStyle(.plain)
     }
 
     private func trackRangeText(_ track: Track) -> String {

@@ -122,7 +122,8 @@ public struct CompositionBuilder {
         urlMode: MediaURLMode = .preview,
         broadcastOverlay: BroadcastOverlayConfig? = nil,
         shortFormConfig: ShortFormConfig? = nil,
-        captionStyle: CaptionStyler.CaptionStyle = .standard
+        captionStyle: CaptionStyler.CaptionStyle = .standard,
+        projectSettings: ProjectSettings = .default
     ) async -> Result {
         let comp = AVMutableComposition()
         var maxDuration: CMTime = .zero
@@ -340,6 +341,33 @@ public struct CompositionBuilder {
             }
         }
 
+        // === ATTACH AUDIO EFFECT TAPS ===
+        // For tracks with audioEffectChain, ensure we have params and attach a processing tap.
+        // Map: composition audio trackID → timeline track with effect chain
+        let tracksByID: [UUID: Track] = Dictionary(uniqueKeysWithValues: timeline.tracks.map { ($0.id, $0) })
+        var paramsForCompTrack: [CMPersistentTrackID: AVMutableAudioMixInputParameters] = [:]
+        for param in audioParams {
+            if let trackID = param.trackID as CMPersistentTrackID?, trackID != kCMPersistentTrackID_Invalid {
+                paramsForCompTrack[trackID] = param
+            }
+        }
+
+        for (timelineTrackID, compTrack) in audioTrackCompTracks {
+            guard let timelineTrack = tracksByID[timelineTrackID],
+                  let chain = timelineTrack.audioEffectChain else { continue }
+
+            if let tap = AudioEffectTap.createTap(for: chain) {
+                let trackID = compTrack.trackID
+                if let existing = paramsForCompTrack[trackID] {
+                    existing.audioTapProcessor = tap
+                } else {
+                    let params = AVMutableAudioMixInputParameters(track: compTrack)
+                    params.audioTapProcessor = tap
+                    audioParams.append(params)
+                }
+            }
+        }
+
         // === BUILD AUDIO MIX ===
         var audioMix: AVAudioMix?
         if !audioParams.isEmpty {
@@ -377,8 +405,10 @@ public struct CompositionBuilder {
             let hasMultipleVideoTracks = uniqueTrackIDs.count > 1
 
             // Determine if any clip needs the custom compositor
+            let bgColor = projectSettings.backgroundCIColor
+            let hasCustomBackground = projectSettings.backgroundColorHex != "#000000"
             print("[CompositionBuilder] shortFormConfig: \(shortFormConfig?.isEnabled ?? false) faceTracks: \(shortFormConfig?.faceTracks.count ?? 0), broadcastOverlay: \(broadcastOverlay?.isEnabled ?? false), multiTrack: \(hasMultipleVideoTracks)")
-            let needsCustomCompositor = hasMultipleVideoTracks || broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true || videoEntries.contains { entry in
+            let needsCustomCompositor = hasMultipleVideoTracks || hasCustomBackground || broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true || videoEntries.contains { entry in
                 !entry.clip.effects.isEmpty ||
                 !entry.clip.keyframes.tracks.isEmpty ||
                 entry.clip.transform != .identity ||
@@ -398,7 +428,8 @@ public struct CompositionBuilder {
                     captionWordsByClipID: captionWordsByClipID,
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
-                    captionStyle: captionStyle
+                    captionStyle: captionStyle,
+                    backgroundColor: bgColor
                 )
             } else {
                 instructions = Self.buildSingleTrackInstructions(
@@ -408,7 +439,8 @@ public struct CompositionBuilder {
                     needsCustomCompositor: needsCustomCompositor,
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
-                    captionStyle: captionStyle
+                    captionStyle: captionStyle,
+                    backgroundColor: bgColor
                 )
             }
 
@@ -428,7 +460,8 @@ public struct CompositionBuilder {
 
             let vidComp = AVMutableVideoComposition()
             vidComp.instructions = instructions
-            vidComp.frameDuration = CMTime(value: 1, timescale: 30)
+            let fps = Int32(max(projectSettings.frameRate, 1))
+            vidComp.frameDuration = CMTime(value: 1, timescale: fps)
             // Use short-form output size if active, otherwise source size
             if let sfConfig = shortFormConfig, sfConfig.isEnabled {
                 vidComp.renderSize = sfConfig.outputAspect.size
@@ -471,11 +504,18 @@ public struct CompositionBuilder {
         needsCustomCompositor: Bool,
         broadcastOverlay: BroadcastOverlayConfig?,
         shortFormConfig: ShortFormConfig?,
-        captionStyle: CaptionStyler.CaptionStyle
+        captionStyle: CaptionStyler.CaptionStyle,
+        backgroundColor: CIColor = .black
     ) -> [any AVVideoCompositionInstructionProtocol] {
         let sorted = entries.sorted {
             CMTimeCompare($0.effectiveTimeRange.start, $1.effectiveTimeRange.start) < 0
         }
+        let bgCGColor = CGColor(
+            red: backgroundColor.red,
+            green: backgroundColor.green,
+            blue: backgroundColor.blue,
+            alpha: backgroundColor.alpha
+        )
 
         var instructions: [any AVVideoCompositionInstructionProtocol] = []
         var cursor: CMTime = .zero
@@ -501,14 +541,15 @@ public struct CompositionBuilder {
                         clipStartTime: cursor.seconds,
                         broadcastOverlay: broadcastOverlay,
                         shortFormConfig: shortFormConfig,
-                        captionStyle: captionStyle
+                        captionStyle: captionStyle,
+                        backgroundColor: backgroundColor
                     )
                     instructions.append(gap)
                 } else {
                     let gapInstruction = AVMutableVideoCompositionInstruction()
                     gapInstruction.timeRange = CMTimeRange(start: cursor, end: entryStart)
                     gapInstruction.layerInstructions = []
-                    gapInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
+                    gapInstruction.backgroundColor = bgCGColor
                     instructions.append(gapInstruction)
                 }
             }
@@ -523,7 +564,8 @@ public struct CompositionBuilder {
                     timeRange: CMTimeRange(start: transStart, end: transEnd),
                     fromTrackID: prevEntry.compositionTrack.trackID,
                     toTrackID: entry.compositionTrack.trackID,
-                    transitionType: entry.clip.transitionIn.type
+                    transitionType: entry.clip.transitionIn.type,
+                    backgroundColor: backgroundColor
                 )
                 instructions.append(transInstruction)
 
@@ -543,7 +585,8 @@ public struct CompositionBuilder {
                         broadcastOverlay: broadcastOverlay,
                         shortFormConfig: shortFormConfig,
                         captionStyle: captionStyle,
-                        captionWords: captionWordsByClipID[entry.clip.id] ?? []
+                        captionWords: captionWordsByClipID[entry.clip.id] ?? [],
+                        backgroundColor: backgroundColor
                     )
                     instructions.append(instruction)
                 }
@@ -562,7 +605,8 @@ public struct CompositionBuilder {
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
                     captionStyle: captionStyle,
-                    captionWords: captionWordsByClipID[entry.clip.id] ?? []
+                    captionWords: captionWordsByClipID[entry.clip.id] ?? [],
+                    backgroundColor: backgroundColor
                 )
                 instructions.append(instruction)
             } else {
@@ -586,14 +630,15 @@ public struct CompositionBuilder {
                     effects: [],
                     clipStartTime: cursor.seconds,
                     broadcastOverlay: broadcastOverlay,
-                    shortFormConfig: shortFormConfig
+                    shortFormConfig: shortFormConfig,
+                    backgroundColor: backgroundColor
                 )
                 instructions.append(trail)
             } else {
                 let trailInstruction = AVMutableVideoCompositionInstruction()
                 trailInstruction.timeRange = CMTimeRange(start: cursor, end: totalDuration)
                 trailInstruction.layerInstructions = []
-                trailInstruction.backgroundColor = CGColor(gray: 0, alpha: 1)
+                trailInstruction.backgroundColor = bgCGColor
                 instructions.append(trailInstruction)
             }
         }
@@ -610,7 +655,8 @@ public struct CompositionBuilder {
         captionWordsByClipID: [UUID: [TranscriptWord]],
         broadcastOverlay: BroadcastOverlayConfig?,
         shortFormConfig: ShortFormConfig?,
-        captionStyle: CaptionStyler.CaptionStyle
+        captionStyle: CaptionStyler.CaptionStyle,
+        backgroundColor: CIColor = .black
     ) -> [any AVVideoCompositionInstructionProtocol] {
         let ts: CMTimeScale = 600
 
@@ -658,7 +704,7 @@ public struct CompositionBuilder {
             }
 
             if activeEntries.isEmpty {
-                // Gap — black frame
+                // Gap — background color frame
                 let gap = EffectInstruction(
                     timeRange: sliceRange,
                     sourceTrackID: kCMPersistentTrackID_Invalid,
@@ -666,7 +712,8 @@ public struct CompositionBuilder {
                     clipStartTime: sliceStart.seconds,
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
-                    captionStyle: captionStyle
+                    captionStyle: captionStyle,
+                    backgroundColor: backgroundColor
                 )
                 instructions.append(gap)
             } else if activeEntries.count == 1 {
@@ -686,7 +733,8 @@ public struct CompositionBuilder {
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
                     captionStyle: captionStyle,
-                    captionWords: captionWordsByClipID[entry.clip.id] ?? []
+                    captionWords: captionWordsByClipID[entry.clip.id] ?? [],
+                    backgroundColor: backgroundColor
                 )
                 instructions.append(instruction)
             } else {
@@ -711,7 +759,8 @@ public struct CompositionBuilder {
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
                     captionStyle: captionStyle,
-                    captionWords: allCaptions
+                    captionWords: allCaptions,
+                    backgroundColor: backgroundColor
                 )
                 instructions.append(instruction)
             }

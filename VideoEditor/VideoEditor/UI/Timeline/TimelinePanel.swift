@@ -38,43 +38,45 @@ struct TimelinePanel: View {
         VStack(spacing: 0) {
             timelineToolbar(viewState: viewState, timeline: timeline)
             GeometryReader { geo in
+                let trackLabelWidth: Double = 182
+                let rulerHeight: Double = 28
                 let totalWidth = max(viewState.durationToWidth(timeline.duration + 10), geo.size.width)
+                let trackContentHeight = max(trackStackHeight(for: timeline), geo.size.height - rulerHeight)
+                let contentHeight = trackContentHeight + rulerHeight
 
-                ScrollView([.horizontal], showsIndicators: true) {
+                ScrollView([.horizontal, .vertical], showsIndicators: true) {
                     ZStack(alignment: .topLeading) {
                         Rectangle()
                             .fill(Color.clear)
                             .contentShape(Rectangle())
-                            .frame(width: totalWidth + 182, height: geo.size.height)
+                            .frame(width: totalWidth + trackLabelWidth, height: contentHeight)
                             .onTapGesture {
                                 viewState.clearSelection()
                             }
 
-                        let trackLabelWidth: Double = 182
-
                         VStack(spacing: 0) {
                             HStack(spacing: 0) {
-                                Color.clear.frame(width: trackLabelWidth, height: 28)
+                                Color.clear.frame(width: trackLabelWidth, height: rulerHeight)
                                 TimelineRuler(viewState: viewState, totalWidth: totalWidth)
-                                    .frame(height: 28)
+                                    .frame(height: rulerHeight)
                             }
 
                             if timeline.tracks.isEmpty {
-                                emptyTimeline(width: totalWidth, height: geo.size.height - 30)
+                                emptyTimeline(width: totalWidth, height: trackContentHeight)
                             } else {
                                 trackStack(timeline: timeline, viewState: viewState, width: totalWidth)
                             }
                         }
-                        .frame(width: totalWidth + trackLabelWidth)
+                        .frame(width: totalWidth + trackLabelWidth, height: contentHeight, alignment: .topLeading)
 
                         MarkersOverlay(markers: timeline.markers, viewState: viewState)
-                            .frame(width: totalWidth, height: geo.size.height)
+                            .frame(width: totalWidth, height: contentHeight)
                             .offset(x: trackLabelWidth)
 
                         PlayheadView(viewState: viewState) {
                             appState.seekFromPlayhead()
                         }
-                        .frame(width: totalWidth, height: geo.size.height)
+                        .frame(width: totalWidth, height: contentHeight)
                         .offset(x: trackLabelWidth)
                     }
                 }
@@ -204,6 +206,17 @@ struct TimelinePanel: View {
             .buttonStyle(.plain)
 
             Button {
+                viewState.rippleEnabled.toggle()
+            } label: {
+                CinematicStatusPill(
+                    text: viewState.rippleEnabled ? "RIPPLE ON" : "RIPPLE OFF",
+                    icon: "arrow.left.arrow.right.circle",
+                    tone: viewState.rippleEnabled ? CinematicTheme.warning : CinematicTheme.onSurfaceVariant
+                )
+            }
+            .buttonStyle(.plain)
+
+            Button {
                 viewState.linkedSelectionEnabled.toggle()
             } label: {
                 CinematicStatusPill(
@@ -274,6 +287,15 @@ struct TimelinePanel: View {
             Spacer()
         }
         .frame(width: width, height: height)
+    }
+
+    private func trackStackHeight(for timeline: Timeline) -> Double {
+        guard !timeline.tracks.isEmpty else { return 0 }
+        let heights = timeline.tracks.reduce(0.0) { partial, track in
+            partial + trackHeight(for: track.id)
+        }
+        let gaps = Double(max(timeline.tracks.count - 1, 0)) * CinematicSpacing.clipGap
+        return heights + gaps
     }
 
     // MARK: - Track Stack
@@ -354,6 +376,9 @@ struct TimelinePanel: View {
                     },
                     onClipTrim: { clipID, newSourceStart, newSourceEnd in
                         try? appState.perform(.trimClip(clipID: clipID, newSourceRange: TimeRange(start: newSourceStart, end: newSourceEnd)))
+                    },
+                    onClipRippleTrim: { clipID, edge, delta in
+                        try appState.perform(.rippleTrim(clipID: clipID, edge: edge, delta: delta))
                     },
                     onClipSplit: { clipID, at in
                         try? appState.perform(.splitClip(clipID: clipID, at: at))

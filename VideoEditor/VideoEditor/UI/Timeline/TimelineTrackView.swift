@@ -27,6 +27,7 @@ struct TimelineTrackView: View {
     let onClipDrag: (UUID, TimeInterval, Double) -> Void
     let onAssetDrop: (UUID, TimeInterval) -> Void
     var onClipTrim: ((UUID, TimeInterval, TimeInterval) -> Void)?
+    var onClipRippleTrim: ((UUID, TrimEdge, TimeInterval) throws -> Void)?
     var onClipSplit: ((UUID, TimeInterval) -> Void)?
     var onClipDelete: ((UUID) -> Void)?
     var onClipDuplicate: ((UUID) -> Void)?
@@ -122,10 +123,22 @@ struct TimelineTrackView: View {
                     onTap: { extend in onClipTap(clip.id, extend) },
                     onDrag: { newStart, verticalOffset in onClipDrag(clip.id, newStart, verticalOffset) },
                     onTrimStart: { newSourceStart in
-                        onClipTrim?(clip.id, newSourceStart, clip.sourceRange.end)
+                        if viewState.rippleEnabled {
+                            let delta = newSourceStart - clip.sourceRange.start
+                            guard abs(delta) > 0.0001 else { return }
+                            try? onClipRippleTrim?(clip.id, .head, delta)
+                        } else {
+                            onClipTrim?(clip.id, newSourceStart, clip.sourceRange.end)
+                        }
                     },
                     onTrimEnd: { newSourceEnd in
-                        onClipTrim?(clip.id, clip.sourceRange.start, newSourceEnd)
+                        if viewState.rippleEnabled {
+                            let delta = newSourceEnd - clip.sourceRange.end
+                            guard abs(delta) > 0.0001 else { return }
+                            try? onClipRippleTrim?(clip.id, .tail, delta)
+                        } else {
+                            onClipTrim?(clip.id, clip.sourceRange.start, newSourceEnd)
+                        }
                     },
                     onSplit: { at in onClipSplit?(clip.id, at) },
                     onDelete: { onClipDelete?(clip.id) },

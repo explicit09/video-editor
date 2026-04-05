@@ -51,9 +51,9 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         // Get the source frame
         guard let trackID = instruction.requiredSourceTrackIDs?.first as? CMPersistentTrackID,
               let sourceBuffer = request.sourceFrame(byTrackID: trackID) else {
-            // No source — render explicit black frame (not uninitialized buffer)
+            // No source — render background color frame (not uninitialized buffer)
             let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
-            var image = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
+            var image = CIImage(color: instruction.backgroundColor).cropped(to: CGRect(origin: .zero, size: renderSize))
 
             // Still render overlay on black gaps (overlay should appear even with no video)
             if let overlay = instruction.broadcastOverlay, overlay.isEnabled {
@@ -224,10 +224,10 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             }
         }
 
-        // Apply blend mode (composites against black background for single-clip)
+        // Apply blend mode (composites against background for single-clip)
         let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
         if instruction.blendMode != .normal {
-            let background = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
+            let background = CIImage(color: instruction.backgroundColor).cropped(to: CGRect(origin: .zero, size: renderSize))
             if let blendFilter = CIFilter(name: instruction.blendMode.ciFilterName) {
                 blendFilter.setValue(background, forKey: kCIInputBackgroundImageKey)
                 blendFilter.setValue(image, forKey: kCIInputImageKey)
@@ -237,7 +237,7 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             }
         }
 
-        image = Self.fitToRenderFrame(image, renderSize: renderSize)
+        image = Self.fitToRenderFrame(image, renderSize: renderSize, backgroundColor: instruction.backgroundColor)
 
         // Render to output buffer
         guard let outputBuffer = renderContext?.newPixelBuffer() else {
@@ -345,9 +345,9 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         return Float(Double(clampedBase) * min(max(value, 0), 1))
     }
 
-    static func fitToRenderFrame(_ image: CIImage, renderSize: CGSize) -> CIImage {
+    static func fitToRenderFrame(_ image: CIImage, renderSize: CGSize, backgroundColor: CIColor = .black) -> CIImage {
         let renderRect = CGRect(origin: .zero, size: renderSize)
-        let background = CIImage(color: .black).cropped(to: renderRect)
+        let background = CIImage(color: backgroundColor).cropped(to: renderRect)
         return image.composited(over: background).cropped(to: renderRect)
     }
 
@@ -361,18 +361,19 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         let progress = CGFloat(elapsed.seconds / instruction.timeRange.duration.seconds)
 
         // Get source frames
+        let bgColor = instruction.backgroundColor
         let fromImage: CIImage
         if let fromBuffer = request.sourceFrame(byTrackID: instruction.fromTrackID) {
             fromImage = CIImage(cvPixelBuffer: fromBuffer)
         } else {
-            fromImage = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
+            fromImage = CIImage(color: bgColor).cropped(to: CGRect(origin: .zero, size: renderSize))
         }
 
         let toImage: CIImage
         if let toBuffer = request.sourceFrame(byTrackID: instruction.toTrackID) {
             toImage = CIImage(cvPixelBuffer: toBuffer)
         } else {
-            toImage = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
+            toImage = CIImage(color: bgColor).cropped(to: CGRect(origin: .zero, size: renderSize))
         }
 
         // Blend based on transition type
@@ -384,14 +385,14 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
                 "inputTime": progress,
             ])
         case .fadeToBlack:
-            let black = CIImage(color: .black).cropped(to: fromImage.extent)
+            let bg = CIImage(color: bgColor).cropped(to: fromImage.extent)
             result = fromImage.applyingFilter("CIDissolveTransition", parameters: [
-                "inputTargetImage": black,
+                "inputTargetImage": bg,
                 "inputTime": progress,
             ])
         case .fadeFromBlack:
-            let black = CIImage(color: .black).cropped(to: toImage.extent)
-            result = black.applyingFilter("CIDissolveTransition", parameters: [
+            let bg = CIImage(color: bgColor).cropped(to: toImage.extent)
+            result = bg.applyingFilter("CIDissolveTransition", parameters: [
                 "inputTargetImage": toImage,
                 "inputTime": progress,
             ])
@@ -424,8 +425,8 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
         let renderRect = CGRect(origin: .zero, size: renderSize)
 
-        // Start with black background
-        var composited = CIImage(color: .black).cropped(to: renderRect)
+        // Start with background color
+        var composited = CIImage(color: instruction.backgroundColor).cropped(to: renderRect)
 
         // Composite layers bottom-to-top
         for layer in instruction.layers {
@@ -498,7 +499,7 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             return
         }
 
-        composited = Self.fitToRenderFrame(composited, renderSize: renderSize)
+        composited = Self.fitToRenderFrame(composited, renderSize: renderSize, backgroundColor: instruction.backgroundColor)
         ciContext.render(composited, to: outputBuffer, bounds: renderRect, colorSpace: CGColorSpaceCreateDeviceRGB())
         request.finish(withComposedVideoFrame: outputBuffer)
     }
@@ -588,6 +589,7 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
     public let shortFormConfig: ShortFormConfig?
     public let captionStyle: CaptionStyler.CaptionStyle
     public let captionWords: [TranscriptWord]
+    public let backgroundColor: CIColor
 
     public init(
         timeRange: CMTimeRange,
@@ -603,7 +605,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         broadcastOverlay: BroadcastOverlayConfig? = nil,
         shortFormConfig: ShortFormConfig? = nil,
         captionStyle: CaptionStyler.CaptionStyle = .standard,
-        captionWords: [TranscriptWord] = []
+        captionWords: [TranscriptWord] = [],
+        backgroundColor: CIColor = .black
     ) {
         self.timeRange = timeRange
         self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
@@ -620,6 +623,7 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         self.shortFormConfig = shortFormConfig
         self.captionStyle = captionStyle
         self.captionWords = captionWords
+        self.backgroundColor = backgroundColor
         super.init()
     }
 }
@@ -637,17 +641,20 @@ public final class TransitionInstruction: NSObject, AVVideoCompositionInstructio
     public let fromTrackID: CMPersistentTrackID
     public let toTrackID: CMPersistentTrackID
     public let transitionType: TransitionType
+    public let backgroundColor: CIColor
 
     public init(
         timeRange: CMTimeRange,
         fromTrackID: CMPersistentTrackID,
         toTrackID: CMPersistentTrackID,
-        transitionType: TransitionType
+        transitionType: TransitionType,
+        backgroundColor: CIColor = .black
     ) {
         self.timeRange = timeRange
         self.fromTrackID = fromTrackID
         self.toTrackID = toTrackID
         self.transitionType = transitionType
+        self.backgroundColor = backgroundColor
         self.requiredSourceTrackIDs = [NSNumber(value: fromTrackID), NSNumber(value: toTrackID)]
         super.init()
     }
@@ -701,6 +708,7 @@ public final class OverlayInstruction: NSObject, AVVideoCompositionInstructionPr
     public let shortFormConfig: ShortFormConfig?
     public let captionStyle: CaptionStyler.CaptionStyle
     public let captionWords: [TranscriptWord]
+    public let backgroundColor: CIColor
 
     public init(
         timeRange: CMTimeRange,
@@ -708,7 +716,8 @@ public final class OverlayInstruction: NSObject, AVVideoCompositionInstructionPr
         broadcastOverlay: BroadcastOverlayConfig? = nil,
         shortFormConfig: ShortFormConfig? = nil,
         captionStyle: CaptionStyler.CaptionStyle = .standard,
-        captionWords: [TranscriptWord] = []
+        captionWords: [TranscriptWord] = [],
+        backgroundColor: CIColor = .black
     ) {
         self.timeRange = timeRange
         self.layers = layers
@@ -718,6 +727,7 @@ public final class OverlayInstruction: NSObject, AVVideoCompositionInstructionPr
         self.shortFormConfig = shortFormConfig
         self.captionStyle = captionStyle
         self.captionWords = captionWords
+        self.backgroundColor = backgroundColor
         super.init()
     }
 }

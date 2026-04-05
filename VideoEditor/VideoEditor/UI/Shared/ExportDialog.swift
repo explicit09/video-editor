@@ -258,7 +258,8 @@ struct ExportDialog: View {
                 assets: appState.assets,
                 to: url,
                 preset: preset.avPreset,
-                fileType: preset.fileType
+                fileType: preset.fileType,
+                projectSettings: appState.context.timelineState.projectSettings
             )
         }
     }

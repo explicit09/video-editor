@@ -854,12 +854,6 @@ final class MCPServer {
 
         let sourceURL = URL(fileURLWithPath: path)
 
-        // Deduplicate: if an asset with the same filename already exists, return it
-        let filename = sourceURL.deletingPathExtension().lastPathComponent
-        if let existing = appState.assets.first(where: { $0.name == filename }) {
-            return "Already imported '\(existing.name)' (ID: \(existing.id.uuidString)). Use this asset_id."
-        }
-
         // Check if file is accessible — if not, try to bookmark the parent folder
         if !FileManager.default.isReadableFile(atPath: path) {
             // Try existing bookmarks first
@@ -1592,7 +1586,7 @@ final class MCPServer {
         let mode: ContentVerifier.Mode = modeStr == "thorough" ? .thorough : .quick
 
         let builder = CompositionBuilder()
-        let result = await builder.build(from: appState.timeline, assets: appState.assets, urlMode: .preview)
+        let result = await builder.build(from: appState.timeline, assets: appState.assets, urlMode: .preview, projectSettings: appState.context.timelineState.projectSettings)
 
         let verifier = ContentVerifier()
         let report = await verifier.verify(
@@ -1770,9 +1764,18 @@ final class MCPServer {
             let ratioStr = (args["aspect_ratio"] as? String) ?? "9:16"
             let ratio = AutoReframer.TargetAspectRatio(rawValue: ratioStr) ?? .vertical
             let reframer = AutoReframer()
+            let mediaURL = resolvedToolMediaURL(for: asset)
             do {
-                let result = try await reframer.analyze(url: asset.sourceURL, targetRatio: ratio, sampleInterval: 2.0)
-                return "Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr)."
+                let result = try await reframer.analyze(url: mediaURL, targetRatio: ratio, sampleInterval: 2.0)
+                guard !result.cropRegions.isEmpty else {
+                    return "Error: Auto reframe produced no crop regions — no faces or subjects detected in '\(asset.name)'."
+                }
+                var lines = ["Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr)."]
+                for (i, region) in result.cropRegions.prefix(10).enumerated() {
+                    lines.append("  #\(i+1) [\(String(format: "%.1f", region.time))s] x=\(String(format: "%.2f", region.rect.origin.x)) y=\(String(format: "%.2f", region.rect.origin.y)) w=\(String(format: "%.2f", region.rect.width)) h=\(String(format: "%.2f", region.rect.height))")
+                }
+                if result.cropRegions.count > 10 { lines.append("  ... and \(result.cropRegions.count - 10) more") }
+                return lines.joined(separator: "\n")
             } catch {
                 return "Error: Reframe analysis failed — \(error.localizedDescription)"
             }
@@ -2612,7 +2615,11 @@ final class MCPServer {
             config = cached
         } else {
             // Auto-chain: run analyze_for_shorts first, then retry
-            let analyzeResult = await handleAnalyzeForShorts(args, appState: appState)
+            // Map source_start/source_end to start/end for the analyzer
+            var analyzeArgs = args
+            if let ss = args["source_start"] { analyzeArgs["start"] = ss }
+            if let se = args["source_end"] { analyzeArgs["end"] = se }
+            let analyzeResult = await handleAnalyzeForShorts(analyzeArgs, appState: appState)
             guard let cached = shortFormConfigs[assetID] else {
                 return "Error: Auto-analyze failed. \(analyzeResult)"
             }
@@ -3647,7 +3654,8 @@ final class MCPServer {
             preset: avPreset,
             broadcastOverlay: appState.context.timelineState.broadcastOverlay,
             shortFormConfig: appState.context.timelineState.shortFormConfig,
-            captionStyle: appState.context.timelineState.captionStyle
+            captionStyle: appState.context.timelineState.captionStyle,
+            projectSettings: appState.context.timelineState.projectSettings
         )
 
         defer { ExportFolderManager.stopAccessing() }
@@ -3704,7 +3712,8 @@ final class MCPServer {
             fileType: preset.fileType,
             broadcastOverlay: appState.context.timelineState.broadcastOverlay,
             shortFormConfig: appState.context.timelineState.shortFormConfig,
-            captionStyle: appState.context.timelineState.captionStyle
+            captionStyle: appState.context.timelineState.captionStyle,
+            projectSettings: appState.context.timelineState.projectSettings
         )
 
         defer { ExportFolderManager.stopAccessing() }

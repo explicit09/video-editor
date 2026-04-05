@@ -1,4 +1,6 @@
 import Foundation
+import CoreImage
+import CoreGraphics
 
 // MARK: - Project
 
@@ -54,4 +56,26 @@ public struct ProjectSettings: Codable, Sendable {
     }
 
     public static let `default` = ProjectSettings()
+
+    /// Parse backgroundColorHex into a CIColor. Falls back to black.
+    public var backgroundCIColor: CIColor {
+        let hex = backgroundColorHex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+        guard hex.count == 6, let value = UInt64(hex, radix: 16) else { return .black }
+        let r = CGFloat((value >> 16) & 0xFF) / 255.0
+        let g = CGFloat((value >> 8) & 0xFF) / 255.0
+        let b = CGFloat(value & 0xFF) / 255.0
+        return CIColor(red: r, green: g, blue: b)
+    }
+
+    /// Parse backgroundColorHex into a CGColor. Falls back to black.
+    public var backgroundCGColor: CGColor {
+        let hex = backgroundColorHex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+        guard hex.count == 6, let value = UInt64(hex, radix: 16) else {
+            return CGColor(gray: 0, alpha: 1)
+        }
+        let r = CGFloat((value >> 16) & 0xFF) / 255.0
+        let g = CGFloat((value >> 8) & 0xFF) / 255.0
+        let b = CGFloat(value & 0xFF) / 255.0
+        return CGColor(srgbRed: r, green: g, blue: b, alpha: 1)
+    }
 }

@@ -590,6 +590,59 @@ final class AppState {
         }
     }
 
+    func insertAssetSegmentAtPlayhead(
+        _ asset: MediaAsset,
+        sourceRange requestedSourceRange: TimeRange,
+        source: ActionSource = .user,
+        preferredTrackID: UUID? = nil,
+        label: String? = nil
+    ) {
+        let sourceRange = clampedSourceRange(for: asset, proposed: requestedSourceRange)
+        let insertionStart = max(timelineViewState.playheadPosition, 0)
+        let plan = buildPlacementInsertionPlan(
+            for: asset,
+            sourceRange: sourceRange,
+            preferredTrackID: preferredTrackID,
+            startTime: insertionStart,
+            label: label
+        )
+        let prepIntents = plan.affectedTrackIDs.flatMap {
+            buildInsertGapIntents(trackID: $0, at: insertionStart, duration: sourceRange.duration)
+        }
+        let intents = prepIntents + plan.intents
+        guard !intents.isEmpty else { return }
+
+        try? perform(intents.count == 1 ? intents[0] : .batch(intents), source: source)
+        timelineViewState.selectClip(plan.primaryClipID, in: plan.primaryTrackID)
+    }
+
+    func overwriteAssetSegmentAtPlayhead(
+        _ asset: MediaAsset,
+        sourceRange requestedSourceRange: TimeRange,
+        source: ActionSource = .user,
+        preferredTrackID: UUID? = nil,
+        label: String? = nil
+    ) {
+        let sourceRange = clampedSourceRange(for: asset, proposed: requestedSourceRange)
+        let insertionStart = max(timelineViewState.playheadPosition, 0)
+        let overwriteRange = TimeRange(start: insertionStart, duration: sourceRange.duration)
+        let plan = buildPlacementInsertionPlan(
+            for: asset,
+            sourceRange: sourceRange,
+            preferredTrackID: preferredTrackID,
+            startTime: insertionStart,
+            label: label
+        )
+        let prepIntents = plan.affectedTrackIDs.flatMap {
+            buildOverwriteGapIntents(trackID: $0, replacing: overwriteRange)
+        }
+        let intents = prepIntents + plan.intents
+        guard !intents.isEmpty else { return }
+
+        try? perform(intents.count == 1 ? intents[0] : .batch(intents), source: source)
+        timelineViewState.selectClip(plan.primaryClipID, in: plan.primaryTrackID)
+    }
+
     func addTrack(of type: TrackType, positionedAfter afterTrackID: UUID? = nil) {
         let insertionIndex = afterTrackID.flatMap { id in
             timeline.tracks.firstIndex(where: { $0.id == id }).map { $0 + 1 }
@@ -731,6 +784,291 @@ final class AppState {
         let remaining = max(asset.duration - start, 0.1)
         let duration = min(max(proposed.duration, 0.1), remaining)
         return TimeRange(start: start, duration: duration)
+    }
+
+    private struct PlacementInsertionPlan {
+        let primaryTrackID: UUID
+        let primaryClipID: UUID
+        let affectedTrackIDs: [UUID]
+        let intents: [EditorIntent]
+    }
+
+    private func buildPlacementInsertionPlan(
+        for asset: MediaAsset,
+        sourceRange: TimeRange,
+        preferredTrackID: UUID?,
+        startTime: TimeInterval,
+        label: String?
+    ) -> PlacementInsertionPlan {
+        let requestedTrackID = preferredTrackID ?? timelineViewState.selectedTrackID
+        let requestedTrack = requestedTrackID.flatMap { id in
+            timeline.tracks.first(where: { $0.id == id })
+        }
+
+        switch asset.type {
+        case .video:
+            let hasAudio = asset.hasAudioTrack
+            let videoTrackID: UUID
+            let audioTrackID: UUID?
+
+            if let requestedTrack {
+                switch requestedTrack.type {
+                case .video:
+                    videoTrackID = resolveTrackID(for: .video, preferredTrackID: requestedTrack.id)
+                    audioTrackID = hasAudio ? pairedTrackID(for: requestedTrack.id, sourceType: .video, targetType: .audio) : nil
+                case .audio:
+                    videoTrackID = pairedTrackID(for: requestedTrack.id, sourceType: .audio, targetType: .video)
+                    audioTrackID = hasAudio ? requestedTrack.id : nil
+                default:
+                    videoTrackID = resolveTrackID(for: .video, preferredTrackID: nil)
+                    audioTrackID = hasAudio ? pairedTrackID(for: videoTrackID, sourceType: .video, targetType: .audio) : nil
+                }
+            } else {
+                videoTrackID = resolveTrackID(for: .video, preferredTrackID: timelineViewState.selectedTrackID)
+                audioTrackID = hasAudio ? pairedTrackID(for: videoTrackID, sourceType: .video, targetType: .audio) : nil
+            }
+
+            let linkID = UUID()
+            let videoClip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: startTime, duration: sourceRange.duration),
+                sourceRange: sourceRange,
+                metadata: ClipMetadata(label: label ?? asset.name),
+                linkGroupID: hasAudio ? linkID : nil
+            )
+
+            var intents: [EditorIntent] = [
+                .insertClip(clip: videoClip, trackID: videoTrackID)
+            ]
+            var affectedTrackIDs = [videoTrackID]
+
+            if let audioTrackID {
+                let audioClip = Clip(
+                    assetID: asset.id,
+                    timelineRange: TimeRange(start: startTime, duration: sourceRange.duration),
+                    sourceRange: sourceRange,
+                    metadata: ClipMetadata(label: label ?? asset.name),
+                    linkGroupID: linkID
+                )
+                intents.append(.insertClip(clip: audioClip, trackID: audioTrackID))
+                affectedTrackIDs.append(audioTrackID)
+            }
+
+            return PlacementInsertionPlan(
+                primaryTrackID: videoTrackID,
+                primaryClipID: videoClip.id,
+                affectedTrackIDs: affectedTrackIDs,
+                intents: intents
+            )
+
+        case .audio:
+            let trackID: UUID
+            if let requestedTrack {
+                switch requestedTrack.type {
+                case .audio:
+                    trackID = requestedTrack.id
+                case .video:
+                    trackID = pairedTrackID(for: requestedTrack.id, sourceType: .video, targetType: .audio)
+                default:
+                    trackID = resolveTrackID(for: .audio, preferredTrackID: nil)
+                }
+            } else {
+                trackID = resolveTrackID(for: .audio, preferredTrackID: timelineViewState.selectedTrackID)
+            }
+
+            let clip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: startTime, duration: sourceRange.duration),
+                sourceRange: sourceRange,
+                metadata: ClipMetadata(label: label ?? asset.name)
+            )
+
+            return PlacementInsertionPlan(
+                primaryTrackID: trackID,
+                primaryClipID: clip.id,
+                affectedTrackIDs: [trackID],
+                intents: [.insertClip(clip: clip, trackID: trackID)]
+            )
+
+        case .image:
+            let trackID = resolveTrackID(
+                for: .video,
+                preferredTrackID: requestedTrack?.type == .video ? requestedTrack?.id : nil
+            )
+            let clip = Clip(
+                assetID: asset.id,
+                timelineRange: TimeRange(start: startTime, duration: sourceRange.duration),
+                sourceRange: sourceRange,
+                metadata: ClipMetadata(label: label ?? asset.name)
+            )
+
+            return PlacementInsertionPlan(
+                primaryTrackID: trackID,
+                primaryClipID: clip.id,
+                affectedTrackIDs: [trackID],
+                intents: [.insertClip(clip: clip, trackID: trackID)]
+            )
+        }
+    }
+
+    private func buildInsertGapIntents(trackID: UUID, at insertionStart: TimeInterval, duration: TimeInterval) -> [EditorIntent] {
+        guard let track = timeline.tracks.first(where: { $0.id == trackID }) else { return [] }
+        let sortedClips = track.clips.sorted { lhs, rhs in
+            if lhs.timelineRange.start != rhs.timelineRange.start {
+                return lhs.timelineRange.start < rhs.timelineRange.start
+            }
+            return lhs.timelineRange.end < rhs.timelineRange.end
+        }
+
+        var trimIntents: [EditorIntent] = []
+        var moveIntents: [EditorIntent] = []
+        var fragmentIntents: [EditorIntent] = []
+
+        if let spanningClip = sortedClips.first(where: {
+            $0.timelineRange.start < insertionStart && $0.timelineRange.end > insertionStart
+        }) {
+            let leftDuration = insertionStart - spanningClip.timelineRange.start
+            let rightDuration = spanningClip.timelineRange.end - insertionStart
+            let rightSourceStart = spanningClip.sourceRange.start + leftDuration
+
+            trimIntents.append(
+                .trimClip(
+                    clipID: spanningClip.id,
+                    newSourceRange: TimeRange(
+                        start: spanningClip.sourceRange.start,
+                        duration: leftDuration
+                    )
+                )
+            )
+
+            fragmentIntents.append(
+                .insertClip(
+                    clip: makeFragmentClip(
+                        from: spanningClip,
+                        timelineStart: insertionStart + duration,
+                        sourceStart: rightSourceStart,
+                        duration: rightDuration
+                    ),
+                    trackID: trackID
+                )
+            )
+        }
+
+        let downstreamClips = sortedClips
+            .filter { $0.timelineRange.start >= insertionStart }
+            .sorted { lhs, rhs in
+                if lhs.timelineRange.start != rhs.timelineRange.start {
+                    return lhs.timelineRange.start > rhs.timelineRange.start
+                }
+                return lhs.timelineRange.end > rhs.timelineRange.end
+            }
+
+        for clip in downstreamClips {
+            moveIntents.append(
+                .moveClip(
+                    clipID: clip.id,
+                    newStart: clip.timelineRange.start + duration,
+                    trackID: trackID
+                )
+            )
+        }
+
+        return trimIntents + moveIntents + fragmentIntents
+    }
+
+    private func buildOverwriteGapIntents(trackID: UUID, replacing overwriteRange: TimeRange) -> [EditorIntent] {
+        guard let track = timeline.tracks.first(where: { $0.id == trackID }) else { return [] }
+
+        var trimIntents: [EditorIntent] = []
+        var deleteIDs: [UUID] = []
+        var fragmentIntents: [EditorIntent] = []
+
+        for clip in track.clips where clip.timelineRange.overlaps(overwriteRange) {
+            let clipStart = clip.timelineRange.start
+            let clipEnd = clip.timelineRange.end
+            let overwriteStart = overwriteRange.start
+            let overwriteEnd = overwriteRange.end
+
+            if clipStart < overwriteStart && clipEnd > overwriteEnd {
+                let leftDuration = overwriteStart - clipStart
+                let rightDuration = clipEnd - overwriteEnd
+                let rightSourceStart = clip.sourceRange.start + (overwriteEnd - clipStart)
+
+                trimIntents.append(
+                    .trimClip(
+                        clipID: clip.id,
+                        newSourceRange: TimeRange(
+                            start: clip.sourceRange.start,
+                            duration: leftDuration
+                        )
+                    )
+                )
+
+                fragmentIntents.append(
+                    .insertClip(
+                        clip: makeFragmentClip(
+                            from: clip,
+                            timelineStart: overwriteEnd,
+                            sourceStart: rightSourceStart,
+                            duration: rightDuration
+                        ),
+                        trackID: trackID
+                    )
+                )
+            } else if clipStart < overwriteStart && clipEnd > overwriteStart {
+                let keptDuration = overwriteStart - clipStart
+                trimIntents.append(
+                    .trimClip(
+                        clipID: clip.id,
+                        newSourceRange: TimeRange(
+                            start: clip.sourceRange.start,
+                            duration: keptDuration
+                        )
+                    )
+                )
+            } else if clipStart < overwriteEnd && clipEnd > overwriteEnd {
+                let newSourceStart = clip.sourceRange.start + (overwriteEnd - clipStart)
+                trimIntents.append(
+                    .trimClip(
+                        clipID: clip.id,
+                        newSourceRange: TimeRange(start: newSourceStart, end: clip.sourceRange.end)
+                    )
+                )
+            } else {
+                deleteIDs.append(clip.id)
+            }
+        }
+
+        var intents = trimIntents
+        if !deleteIDs.isEmpty {
+            intents.append(.deleteClips(clipIDs: deleteIDs))
+        }
+        intents.append(contentsOf: fragmentIntents)
+        return intents
+    }
+
+    private func makeFragmentClip(
+        from clip: Clip,
+        timelineStart: TimeInterval,
+        sourceStart: TimeInterval,
+        duration: TimeInterval
+    ) -> Clip {
+        Clip(
+            assetID: clip.assetID,
+            timelineRange: TimeRange(start: timelineStart, duration: duration),
+            sourceRange: TimeRange(start: sourceStart, duration: duration),
+            transform: clip.transform,
+            cropRect: clip.cropRect,
+            opacity: clip.opacity,
+            volume: clip.volume,
+            effects: clip.effects,
+            keyframes: clip.keyframes,
+            metadata: clip.metadata,
+            speed: clip.speed,
+            transitionIn: clip.transitionIn,
+            linkGroupID: clip.linkGroupID,
+            blendMode: clip.blendMode
+        )
     }
 
     private func assetHasAudio(_ asset: MediaAsset) async -> Bool {
@@ -1157,9 +1495,11 @@ final class AppState {
         guard FileManager.default.fileExists(atPath: timelinePath.path) else { return }
 
         Task {
-            // Load timeline
+            // Load timeline and project settings
             if let loadedTimeline = try? await projectStore.load(from: projectBundleURL) {
                 context.timelineState.timeline = loadedTimeline
+                let metadata = await projectStore.projectMetadata()
+                context.timelineState.projectSettings = metadata.settings
             }
 
             // Load overlay config
@@ -1192,15 +1532,19 @@ final class AppState {
                             asset.analysis = analysis
                         }
                     }
-                    // Validate source file exists
-                    if FileManager.default.fileExists(atPath: asset.sourceURL.path) {
+                    // Activate bookmark access for reference imports, then validate
+                    let accessible = ExportFolderManager.canAccessWithoutCopy(path: asset.sourceURL.path)
+                        || FileManager.default.fileExists(atPath: asset.sourceURL.path)
+                    if accessible {
                         await media.mediaManager.add(asset)
                     } else {
-                        print("[AppState] Missing media file: \(asset.sourceURL.lastPathComponent)")
+                        print("[AppState] Missing media file: \(asset.sourceURL.lastPathComponent) at \(asset.sourceURL.path)")
                     }
                 }
                 await media.refreshAssets()
                 await removeAudiolessVideoClips(using: loadedAssets)
+            } else {
+                print("[AppState] No assets.json at \(assetsURL.path)")
             }
 
             timelineViewState.clearSelection()
@@ -1401,9 +1745,9 @@ final class AppState {
         media.updateBundleURL(newURL)
 
         // Ensure removeAll completes before loading the new project
+        // Note: don't refreshAssets() here — loadProject() will refresh after adding assets
         Task {
             await media.mediaManager.removeAll()
-            await media.refreshAssets()
             await MainActor.run {
                 loadProject()
             }
@@ -1413,6 +1757,12 @@ final class AppState {
     // MARK: - Media import
 
     func importMedia(from url: URL) async throws -> MediaAsset {
+        // Dedup: if an asset with the same name already exists, return it
+        let importName = url.deletingPathExtension().lastPathComponent
+        if let existing = assets.first(where: { $0.name == importName }) {
+            return existing
+        }
+
         // If the file is in a bookmarked media folder, reference it directly (no copy)
         let canReference = ExportFolderManager.canAccessWithoutCopy(path: url.path)
         let mediaDir = canReference ? nil : projectBundleURL.appendingPathComponent("media")
@@ -1446,14 +1796,14 @@ final class AppState {
         compositionRebuildTask = Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(50))
             guard !Task.isCancelled else { return }
-            playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig, captionStyle: context.timelineState.captionStyle)
+            playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig, captionStyle: context.timelineState.captionStyle, projectSettings: context.timelineState.projectSettings)
         }
     }
 
     /// Force immediate rebuild (for playback start, export, etc.)
     func rebuildCompositionNow() {
         compositionRebuildTask?.cancel()
-        playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig, captionStyle: context.timelineState.captionStyle)
+        playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig, captionStyle: context.timelineState.captionStyle, projectSettings: context.timelineState.projectSettings)
     }
 
     func seekFromPlayhead() {
