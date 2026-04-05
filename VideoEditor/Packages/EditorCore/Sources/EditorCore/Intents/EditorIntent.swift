@@ -27,6 +27,7 @@ public enum EditorIntent: Sendable {
     case setClipTransition(clipID: UUID, transition: ClipTransition)
     case setClipSpeed(clipID: UUID, speed: Double)
     case setClipEffect(clipID: UUID, effect: EffectInstance)
+    case replacePrimaryClipEffect(clipID: UUID, effect: EffectInstance)
     case rollTrim(leftClipID: UUID, rightClipID: UUID, newBoundary: TimeInterval)
     case reorderTrack(trackID: UUID, newIndex: Int)
     case linkClips(clipIDs: [UUID], linkGroupID: UUID?)
@@ -94,6 +95,8 @@ public struct IntentResolver: Sendable {
             return SetClipSpeedCommand(clipID: clipID, speed: speed)
         case .setClipEffect(let clipID, let effect):
             return SetClipEffectCommand(clipID: clipID, effect: effect)
+        case .replacePrimaryClipEffect(let clipID, let effect):
+            return ReplacePrimaryClipEffectCommand(clipID: clipID, effect: effect)
         case .rollTrim(let leftClipID, let rightClipID, let newBoundary):
             return RollTrimCommand(leftClipID: leftClipID, rightClipID: rightClipID, newBoundary: newBoundary)
         case .reorderTrack(let trackID, let newIndex):

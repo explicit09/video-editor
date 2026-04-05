@@ -91,6 +91,98 @@ struct EffectRenderingTests {
         return ciContext.createCGImage(output, from: rect)
     }
 
+    private func render(_ image: CIImage, size: CGSize) -> CGImage? {
+        ciContext.createCGImage(image, from: CGRect(origin: .zero, size: size))
+    }
+
+    private func pixel(_ image: CGImage, x: Int, y: Int) -> (UInt8, UInt8, UInt8, UInt8)? {
+        guard x >= 0, y >= 0, x < image.width, y < image.height else { return nil }
+
+        let bytesPerPixel = 4
+        let bytesPerRow = image.width * bytesPerPixel
+        var data = [UInt8](repeating: 0, count: image.height * bytesPerRow)
+        guard let ctx = CGContext(
+            data: &data,
+            width: image.width,
+            height: image.height,
+            bitsPerComponent: 8,
+            bytesPerRow: bytesPerRow,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else {
+            return nil
+        }
+
+        ctx.draw(image, in: CGRect(x: 0, y: 0, width: image.width, height: image.height))
+        let offset = ((image.height - 1 - y) * bytesPerRow) + (x * bytesPerPixel)
+        return (data[offset], data[offset + 1], data[offset + 2], data[offset + 3])
+    }
+
+    private func makeGreenScreenImage() -> CGImage {
+        let size = 256
+        var pixels = [UInt8](repeating: 0, count: size * size * 4)
+        for y in 0..<size {
+            for x in 0..<size {
+                let offset = (y * size + x) * 4
+                let isSubject = x >= 80 && x < 176 && y >= 80 && y < 176
+                if isSubject {
+                    pixels[offset + 0] = 220
+                    pixels[offset + 1] = 30
+                    pixels[offset + 2] = 30
+                } else {
+                    pixels[offset + 0] = 0
+                    pixels[offset + 1] = 220
+                    pixels[offset + 2] = 0
+                }
+                pixels[offset + 3] = 255
+            }
+        }
+
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let data = Data(pixels)
+        let provider = CGDataProvider(data: data as CFData)!
+        return CGImage(
+            width: size, height: size,
+            bitsPerComponent: 8, bitsPerPixel: 32,
+            bytesPerRow: size * 4,
+            space: colorSpace,
+            bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue),
+            provider: provider,
+            decode: nil, shouldInterpolate: false,
+            intent: .defaultIntent
+        )!
+    }
+
+    private func makeNoisyImage() -> CGImage {
+        let size = 256
+        var pixels = [UInt8](repeating: 0, count: size * size * 4)
+        for y in 0..<size {
+            for x in 0..<size {
+                let offset = (y * size + x) * 4
+                let base = UInt8((x + y) / 2)
+                let noise = UInt8(((x * 17) + (y * 31)) % 40)
+                pixels[offset + 0] = UInt8(min(255, Int(base) + Int(noise)))
+                pixels[offset + 1] = UInt8(min(255, Int(base) + Int(noise / 2)))
+                pixels[offset + 2] = UInt8(min(255, Int(base) + Int(noise)))
+                pixels[offset + 3] = 255
+            }
+        }
+
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let data = Data(pixels)
+        let provider = CGDataProvider(data: data as CFData)!
+        return CGImage(
+            width: size, height: size,
+            bitsPerComponent: 8, bitsPerPixel: 32,
+            bytesPerRow: size * 4,
+            space: colorSpace,
+            bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue),
+            provider: provider,
+            decode: nil, shouldInterpolate: false,
+            intent: .defaultIntent
+        )!
+    }
+
     // MARK: - Determinism Test
 
     @Test("Same input produces identical output on repeated renders")
@@ -270,5 +362,85 @@ struct EffectRenderingTests {
         #expect(output.height == input.height)
         #expect(outputProps.meanLuminance > inputProps.meanLuminance + 10,
                 "Cropping to the brighter half should increase luminance: input=\(inputProps.meanLuminance), output=\(outputProps.meanLuminance)")
+    }
+
+    @Test("Scale transform changes the rendered frame instead of behaving like identity")
+    func scaleTransformChangesRenderedFrame() {
+        let input = makeCheckerboard()
+        let size = CGSize(width: input.width, height: input.height)
+        let transformed = EffectCompositor.applyTransform(
+            Transform2D(scaleX: 1.8, scaleY: 1.8),
+            to: CIImage(cgImage: input),
+            renderSize: size
+        )
+        let fitted = EffectCompositor.fitToRenderFrame(transformed, renderSize: size)
+
+        guard let output = render(fitted, size: size) else {
+            Issue.record("Scale transform rendering failed")
+            return
+        }
+
+        let score = ssim.compute(input, output)
+        #expect(score < 0.99, "Scaled output should differ from the source, got SSIM=\(score)")
+    }
+
+    @Test("Keyframe resolution animates transform and opacity over clip time")
+    func keyframeResolution() {
+        let keyframes = KeyframeStore(tracks: [
+            "scaleX": [Keyframe(time: 0, value: 1), Keyframe(time: 2, value: 2)],
+            "scaleY": [Keyframe(time: 0, value: 1), Keyframe(time: 2, value: 2)],
+            "opacity": [Keyframe(time: 0, value: 1), Keyframe(time: 2, value: 0.2)],
+        ])
+
+        let transform = EffectCompositor.resolvedTransform(
+            baseTransform: .identity,
+            keyframes: keyframes,
+            compositionTime: 1.0,
+            clipStartTime: 0
+        )
+        let opacity = EffectCompositor.resolvedOpacity(
+            baseOpacity: 1.0,
+            keyframes: keyframes,
+            compositionTime: 1.0,
+            clipStartTime: 0
+        )
+
+        #expect(abs(transform.scaleX - 1.5) < 0.001)
+        #expect(abs(transform.scaleY - 1.5) < 0.001)
+        #expect(abs(opacity - 0.6) < 0.001)
+    }
+
+    @Test("Chroma key removes green background while preserving foreground subject")
+    func chromaKeyRemovesGreen() {
+        let input = makeGreenScreenImage()
+        let size = CGSize(width: input.width, height: input.height)
+        let keyed = ChromaKey.apply(to: CIImage(cgImage: input), targetHue: 0.33, tolerance: 0.12)
+        let fitted = EffectCompositor.fitToRenderFrame(keyed, renderSize: size)
+
+        guard let output = render(fitted, size: size),
+              let corner = pixel(output, x: 10, y: 10),
+              let center = pixel(output, x: 128, y: 128) else {
+            Issue.record("Chroma key rendering failed")
+            return
+        }
+
+        #expect(corner.1 < 20, "Background green should key out to black, got G=\(corner.1)")
+        #expect(center.0 > 150, "Foreground subject should remain red, got R=\(center.0)")
+        #expect(center.1 < 80, "Foreground subject should not remain green, got G=\(center.1)")
+    }
+
+    @Test("Video denoise measurably changes a noisy frame")
+    func videoDenoiseChangesNoisyFrame() {
+        let input = makeNoisyImage()
+        let denoised = VideoDenoiser.denoise(image: CIImage(cgImage: input), level: 0.6, sharpness: 0.4)
+
+        guard let output = render(denoised, size: CGSize(width: input.width, height: input.height)) else {
+            Issue.record("Video denoise rendering failed")
+            return
+        }
+
+        let score = ssim.compute(input, output)
+        #expect(score < 0.999, "Denoising should change the frame, got SSIM=\(score)")
+        #expect(score > 0.7, "Denoising should preserve overall structure, got SSIM=\(score)")
     }
 }

@@ -760,8 +760,8 @@ final class MCPServer {
         // Analysis tools — use same handlers as AIChatController
         let analysisTools = ["auto_reframe", "detect_beats", "score_thumbnails", "suggest_broll",
                             "apply_person_mask", "track_object", "voice_cleanup", "denoise_audio",
-                            "denoise_video", "stabilize_video", "set_caption_style", "apply_lut",
-                            "measure_loudness", "auto_duck", "chroma_key"]
+                            "stabilize_video", "set_caption_style",
+                            "measure_loudness", "auto_duck"]
         if analysisTools.contains(name) {
             return await handleAnalysisTool(name: name, args: arguments, appState: appState)
         }

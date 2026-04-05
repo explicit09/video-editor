@@ -820,7 +820,11 @@ public struct AIToolResolver: Sendable {
             guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
                 throw AIToolError.invalidArgument("Missing clip_id")
             }
-            let effectType = (arguments["effect_type"] as? String) ?? "colorCorrection"
+            let effectType = (arguments["effect_type"] as? String) ?? (arguments["effect"] as? String) ?? "colorCorrection"
+            if effectType == "none" || effectType == "clear" {
+                // Clear all effects
+                return [.replacePrimaryClipEffect(clipID: clipID, effect: EffectInstance(type: "_none", parameters: [:]))]
+            }
             let effect: EffectInstance
             switch effectType {
             case "colorCorrection":
@@ -837,17 +841,18 @@ public struct AIToolResolver: Sendable {
             default:
                 throw AIToolError.invalidArgument("Unknown effect type: \(effectType)")
             }
-            return [.setClipEffect(clipID: clipID, effect: effect)]
+            return [.replacePrimaryClipEffect(clipID: clipID, effect: effect)]
 
         case "set_clip_transform":
             guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
                 throw AIToolError.invalidArgument("Missing clip_id")
             }
+            let uniformScale = (arguments["scale"] as? Double) ?? 1.0
             let transform = Transform2D(
-                positionX: (arguments["position_x"] as? Double) ?? 0,
-                positionY: (arguments["position_y"] as? Double) ?? 0,
-                scaleX: (arguments["scale_x"] as? Double) ?? 1,
-                scaleY: (arguments["scale_y"] as? Double) ?? 1,
+                positionX: (arguments["position_x"] as? Double) ?? (arguments["x"] as? Double) ?? 0,
+                positionY: (arguments["position_y"] as? Double) ?? (arguments["y"] as? Double) ?? 0,
+                scaleX: (arguments["scale_x"] as? Double) ?? uniformScale,
+                scaleY: (arguments["scale_y"] as? Double) ?? uniformScale,
                 rotation: (arguments["rotation"] as? Double) ?? 0
             )
             return [.setClipTransform(clipID: clipID, transform: transform)]
@@ -869,6 +874,33 @@ public struct AIToolResolver: Sendable {
                 return Keyframe(time: time, value: value, interpolation: interp)
             }
             return [.setClipKeyframes(clipID: clipID, track: track, keyframes: keyframes)]
+
+        case "denoise_video":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let level = (arguments["level"] as? Double) ?? 0.5
+            return [.replacePrimaryClipEffect(clipID: clipID, effect: .videoDenoise(level: level))]
+
+        case "apply_lut":
+            guard let clipIDStr = arguments["clip_id"] as? String,
+                  let clipID = UUID(uuidString: clipIDStr),
+                  let lutPath = arguments["lut_path"] as? String,
+                  !lutPath.isEmpty else {
+                throw AIToolError.invalidArgument("Missing clip_id or lut_path")
+            }
+            return [.replacePrimaryClipEffect(clipID: clipID, effect: .lut(path: lutPath))]
+
+        case "chroma_key":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let targetHue = (arguments["target_hue"] as? Double) ?? 0.33
+            let tolerance = (arguments["tolerance"] as? Double) ?? 0.1
+            return [.replacePrimaryClipEffect(
+                clipID: clipID,
+                effect: .chromaKey(targetHue: targetHue, tolerance: tolerance)
+            )]
 
         case "roll_trim":
             guard let leftStr = arguments["left_clip_id"] as? String, let leftID = UUID(uuidString: leftStr),
@@ -903,8 +935,7 @@ public struct AIToolResolver: Sendable {
         // Return empty intents — the caller handles these before reaching the resolver.
         case "auto_reframe", "detect_beats", "score_thumbnails", "suggest_broll",
              "apply_person_mask", "track_object", "voice_cleanup", "denoise_audio",
-             "denoise_video", "stabilize_video", "set_caption_style", "apply_lut",
-             "measure_loudness", "auto_duck", "chroma_key":
+             "stabilize_video", "set_caption_style", "measure_loudness", "auto_duck":
             return []
 
         case "remove_track":

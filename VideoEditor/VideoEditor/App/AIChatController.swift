@@ -479,7 +479,7 @@ final class AIChatController {
             return "Audio denoising configured. Noise gate at \((args["threshold_db"] as? Double) ?? -40)dB. Apply via AudioProcessor pipeline."
 
         case "denoise_video":
-            return "Video denoising configured at level \((args["level"] as? Double) ?? 0.5). Applied via VideoDenoiser in EffectCompositor."
+            return nil // Resolved through AIToolResolver so it actually mutates the clip
 
         case "stabilize_video":
             guard let assetIDStr = args["asset_id"] as? String, let assetID = UUID(uuidString: assetIDStr),
@@ -495,13 +495,10 @@ final class AIChatController {
             return "Auto ducking configured. Duck level: \((args["duck_level"] as? Double) ?? 0.2). Applied via AudioDucker in CompositionBuilder."
 
         case "apply_lut":
-            let lutPath = (args["lut_path"] as? String) ?? ""
-            return "LUT '\(lutPath)' will be applied via CIColorCubeWithColorSpace. Load with LUTLoader first."
+            return nil // Resolved through AIToolResolver so it actually mutates the clip
 
         case "chroma_key":
-            let hue = (args["target_hue"] as? Double) ?? 0.33
-            let tolerance = (args["tolerance"] as? Double) ?? 0.1
-            return "Chroma key configured: hue=\(String(format: "%.2f", hue)), tolerance=\(String(format: "%.2f", tolerance)). Applied via ChromaKey filter in EffectCompositor."
+            return nil // Resolved through AIToolResolver so it actually mutates the clip
 
         default:
             return nil // Not an analysis tool

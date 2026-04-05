@@ -92,29 +92,31 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             image = applyEffect(effect, to: image)
         }
 
+        let compositionTime = request.compositionTime.seconds
+        let resolvedOpacity = Self.resolvedOpacity(
+            baseOpacity: instruction.opacity,
+            keyframes: instruction.keyframes,
+            compositionTime: compositionTime,
+            clipStartTime: instruction.clipStartTime
+        )
+        let resolvedTransform = Self.resolvedTransform(
+            baseTransform: instruction.transform,
+            keyframes: instruction.keyframes,
+            compositionTime: compositionTime,
+            clipStartTime: instruction.clipStartTime
+        )
+
         // Apply opacity
-        if instruction.opacity < 1.0 {
+        if resolvedOpacity < 1.0 {
             image = image.applyingFilter("CIColorMatrix", parameters: [
-                "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(instruction.opacity)),
+                "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(resolvedOpacity)),
             ])
         }
 
         // Apply transform
-        if instruction.transform != .identity {
-            let t = instruction.transform
-            var affine = CGAffineTransform.identity
-            // Move to anchor point, apply transform, move back
+        if resolvedTransform != .identity {
             let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
-            let anchorX = renderSize.width * CGFloat(t.anchorX)
-            let anchorY = renderSize.height * CGFloat(t.anchorY)
-
-            affine = affine.translatedBy(x: anchorX, y: anchorY)
-            affine = affine.rotated(by: CGFloat(t.rotation) * .pi / 180)
-            affine = affine.scaledBy(x: CGFloat(t.scaleX), y: CGFloat(t.scaleY))
-            affine = affine.translatedBy(x: -anchorX, y: -anchorY)
-            affine = affine.translatedBy(x: CGFloat(t.positionX), y: CGFloat(t.positionY))
-
-            image = image.transformed(by: affine)
+            image = Self.applyTransform(resolvedTransform, to: image, renderSize: renderSize)
         }
 
         // Render subtitles / captions
@@ -223,8 +225,8 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         }
 
         // Apply blend mode (composites against black background for single-clip)
+        let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
         if instruction.blendMode != .normal {
-            let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
             let background = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: renderSize))
             if let blendFilter = CIFilter(name: instruction.blendMode.ciFilterName) {
                 blendFilter.setValue(background, forKey: kCIInputBackgroundImageKey)
@@ -235,13 +237,14 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             }
         }
 
+        image = Self.fitToRenderFrame(image, renderSize: renderSize)
+
         // Render to output buffer
         guard let outputBuffer = renderContext?.newPixelBuffer() else {
             request.finish(with: NSError(domain: "EffectCompositor", code: -3))
             return
         }
 
-        let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
         ciContext.render(image, to: outputBuffer, bounds: CGRect(origin: .zero, size: renderSize), colorSpace: CGColorSpaceCreateDeviceRGB())
         request.finish(withComposedVideoFrame: outputBuffer)
     }
@@ -275,6 +278,77 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             )
         )
         return scaled.transformed(by: CGAffineTransform(translationX: extent.minX, y: extent.minY))
+    }
+
+    static func applyTransform(_ transform: Transform2D, to image: CIImage, renderSize: CGSize) -> CIImage {
+        guard transform != .identity else { return image }
+
+        let anchorPoint = CGPoint(
+            x: renderSize.width * CGFloat(transform.anchorX),
+            y: renderSize.height * CGFloat(transform.anchorY)
+        )
+
+        return image
+            .transformed(by: CGAffineTransform(translationX: -anchorPoint.x, y: -anchorPoint.y))
+            .transformed(by: CGAffineTransform(scaleX: CGFloat(transform.scaleX), y: CGFloat(transform.scaleY)))
+            .transformed(by: CGAffineTransform(rotationAngle: CGFloat(transform.rotation) * .pi / 180))
+            .transformed(by: CGAffineTransform(
+                translationX: anchorPoint.x + CGFloat(transform.positionX),
+                y: anchorPoint.y + CGFloat(transform.positionY)
+            ))
+    }
+
+    static func resolvedTransform(
+        baseTransform: Transform2D,
+        keyframes: KeyframeStore,
+        compositionTime: TimeInterval,
+        clipStartTime: TimeInterval
+    ) -> Transform2D {
+        guard !keyframes.tracks.isEmpty else { return baseTransform }
+
+        let localTime = max(0, compositionTime - clipStartTime)
+        let interpolator = KeyframeInterpolator()
+        var resolved = baseTransform
+
+        if let track = keyframes.tracks["positionX"], let value = interpolator.value(at: localTime, keyframes: track) {
+            resolved.positionX = value
+        }
+        if let track = keyframes.tracks["positionY"], let value = interpolator.value(at: localTime, keyframes: track) {
+            resolved.positionY = value
+        }
+        if let track = keyframes.tracks["scaleX"], let value = interpolator.value(at: localTime, keyframes: track) {
+            resolved.scaleX = value
+        }
+        if let track = keyframes.tracks["scaleY"], let value = interpolator.value(at: localTime, keyframes: track) {
+            resolved.scaleY = value
+        }
+        if let track = keyframes.tracks["rotation"], let value = interpolator.value(at: localTime, keyframes: track) {
+            resolved.rotation = value
+        }
+
+        return resolved
+    }
+
+    static func resolvedOpacity(
+        baseOpacity: Float,
+        keyframes: KeyframeStore,
+        compositionTime: TimeInterval,
+        clipStartTime: TimeInterval
+    ) -> Float {
+        let clampedBase = Float(min(max(Double(baseOpacity), 0), 1))
+        guard let track = keyframes.tracks["opacity"], !track.isEmpty else { return clampedBase }
+
+        let localTime = max(0, compositionTime - clipStartTime)
+        let interpolator = KeyframeInterpolator()
+        guard let value = interpolator.value(at: localTime, keyframes: track) else { return clampedBase }
+
+        return Float(Double(clampedBase) * min(max(value, 0), 1))
+    }
+
+    static func fitToRenderFrame(_ image: CIImage, renderSize: CGSize) -> CIImage {
+        let renderRect = CGRect(origin: .zero, size: renderSize)
+        let background = CIImage(color: .black).cropped(to: renderRect)
+        return image.composited(over: background).cropped(to: renderRect)
     }
 
     // MARK: - Transition Handling
@@ -369,24 +443,29 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
                 layerImage = applyEffect(effect, to: layerImage)
             }
 
+            let compositionTime = request.compositionTime.seconds
+            let resolvedOpacity = Self.resolvedOpacity(
+                baseOpacity: layer.opacity,
+                keyframes: layer.keyframes,
+                compositionTime: compositionTime,
+                clipStartTime: layer.clipStartTime
+            )
+            let resolvedTransform = Self.resolvedTransform(
+                baseTransform: layer.transform,
+                keyframes: layer.keyframes,
+                compositionTime: compositionTime,
+                clipStartTime: layer.clipStartTime
+            )
+
             // Apply transform
-            if layer.transform != .identity {
-                let t = layer.transform
-                var affine = CGAffineTransform.identity
-                let anchorX = renderSize.width * CGFloat(t.anchorX)
-                let anchorY = renderSize.height * CGFloat(t.anchorY)
-                affine = affine.translatedBy(x: anchorX, y: anchorY)
-                affine = affine.rotated(by: CGFloat(t.rotation) * .pi / 180)
-                affine = affine.scaledBy(x: CGFloat(t.scaleX), y: CGFloat(t.scaleY))
-                affine = affine.translatedBy(x: -anchorX, y: -anchorY)
-                affine = affine.translatedBy(x: CGFloat(t.positionX), y: CGFloat(t.positionY))
-                layerImage = layerImage.transformed(by: affine)
+            if resolvedTransform != .identity {
+                layerImage = Self.applyTransform(resolvedTransform, to: layerImage, renderSize: renderSize)
             }
 
             // Apply opacity via alpha
-            if layer.opacity < 1.0 {
+            if resolvedOpacity < 1.0 {
                 layerImage = layerImage.applyingFilter("CIColorMatrix", parameters: [
-                    "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(layer.opacity)),
+                    "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(resolvedOpacity)),
                 ])
             }
 
@@ -419,6 +498,7 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             return
         }
 
+        composited = Self.fitToRenderFrame(composited, renderSize: renderSize)
         ciContext.render(composited, to: outputBuffer, bounds: renderRect, colorSpace: CGColorSpaceCreateDeviceRGB())
         request.finish(withComposedVideoFrame: outputBuffer)
     }
@@ -429,21 +509,33 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         guard effect.isEnabled else { return image }
 
         switch effect.type {
-        case "colorCorrection":
+        case EffectInstance.typeColorCorrection:
             return applyColorCorrection(effect.parameters, to: image)
-        case "lut":
+        case EffectInstance.typeLUT:
             guard let lutPath = effect.stringParameters["path"],
                   let filter = LUTLoader.cachedFilter(at: lutPath) else {
                 return image
             }
             filter.setValue(image, forKey: kCIInputImageKey)
             return filter.outputImage ?? image
-        case "blur":
+        case EffectInstance.typeBlur:
             let radius = effect.parameters["radius"] ?? 10
             return image.applyingFilter("CIGaussianBlur", parameters: ["inputRadius": radius])
-        case "sharpen":
+        case EffectInstance.typeSharpen:
             let sharpness = effect.parameters["sharpness"] ?? 0.4
             return image.applyingFilter("CISharpenLuminance", parameters: ["inputSharpness": sharpness])
+        case EffectInstance.typeVideoDenoise:
+            return VideoDenoiser.denoise(
+                image: image,
+                level: effect.parameters["level"] ?? 0.5,
+                sharpness: effect.parameters["sharpness"] ?? 0.4
+            )
+        case EffectInstance.typeChromaKey:
+            return ChromaKey.apply(
+                to: image,
+                targetHue: effect.parameters["targetHue"] ?? 0.33,
+                tolerance: effect.parameters["tolerance"] ?? 0.1
+            )
         default:
             return image
         }
@@ -480,7 +572,7 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
 public final class EffectInstruction: NSObject, AVVideoCompositionInstructionProtocol, @unchecked Sendable {
     public let timeRange: CMTimeRange
     public let enablePostProcessing = false
-    public let containsTweening = false
+    public let containsTweening: Bool
     public let requiredSourceTrackIDs: [NSValue]?
     public let passthroughTrackID: CMPersistentTrackID = kCMPersistentTrackID_Invalid
 
@@ -489,6 +581,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
     public let transform: Transform2D
     public let cropRect: CropRect
     public let blendMode: BlendMode
+    public let keyframes: KeyframeStore
+    public let clipStartTime: TimeInterval
     public let subtitles: [SubtitleRenderer.SubtitleEntry]
     public let broadcastOverlay: BroadcastOverlayConfig?
     public let shortFormConfig: ShortFormConfig?
@@ -503,6 +597,8 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         transform: Transform2D = .identity,
         cropRect: CropRect = .fullFrame,
         blendMode: BlendMode = .normal,
+        keyframes: KeyframeStore = KeyframeStore(),
+        clipStartTime: TimeInterval = 0,
         subtitles: [SubtitleRenderer.SubtitleEntry] = [],
         broadcastOverlay: BroadcastOverlayConfig? = nil,
         shortFormConfig: ShortFormConfig? = nil,
@@ -511,11 +607,14 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
     ) {
         self.timeRange = timeRange
         self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
+        self.containsTweening = !keyframes.tracks.isEmpty
         self.effects = effects
         self.opacity = opacity
         self.transform = transform
         self.cropRect = cropRect
         self.blendMode = blendMode
+        self.keyframes = keyframes
+        self.clipStartTime = clipStartTime
         self.subtitles = subtitles
         self.broadcastOverlay = broadcastOverlay
         self.shortFormConfig = shortFormConfig
@@ -564,6 +663,8 @@ public struct OverlayLayer: Sendable {
     public let cropRect: CropRect
     public let blendMode: BlendMode
     public let effects: [EffectInstance]
+    public let keyframes: KeyframeStore
+    public let clipStartTime: TimeInterval
 
     public init(
         trackID: CMPersistentTrackID,
@@ -571,7 +672,9 @@ public struct OverlayLayer: Sendable {
         transform: Transform2D = .identity,
         cropRect: CropRect = .fullFrame,
         blendMode: BlendMode = .normal,
-        effects: [EffectInstance] = []
+        effects: [EffectInstance] = [],
+        keyframes: KeyframeStore = KeyframeStore(),
+        clipStartTime: TimeInterval = 0
     ) {
         self.trackID = trackID
         self.opacity = opacity
@@ -579,6 +682,8 @@ public struct OverlayLayer: Sendable {
         self.cropRect = cropRect
         self.blendMode = blendMode
         self.effects = effects
+        self.keyframes = keyframes
+        self.clipStartTime = clipStartTime
     }
 }
 
@@ -587,7 +692,7 @@ public struct OverlayLayer: Sendable {
 public final class OverlayInstruction: NSObject, AVVideoCompositionInstructionProtocol, @unchecked Sendable {
     public let timeRange: CMTimeRange
     public let enablePostProcessing = false
-    public let containsTweening = false
+    public let containsTweening: Bool
     public let requiredSourceTrackIDs: [NSValue]?
     public let passthroughTrackID: CMPersistentTrackID = kCMPersistentTrackID_Invalid
 
@@ -608,6 +713,7 @@ public final class OverlayInstruction: NSObject, AVVideoCompositionInstructionPr
         self.timeRange = timeRange
         self.layers = layers
         self.requiredSourceTrackIDs = layers.map { NSNumber(value: $0.trackID) }
+        self.containsTweening = layers.contains { !$0.keyframes.tracks.isEmpty }
         self.broadcastOverlay = broadcastOverlay
         self.shortFormConfig = shortFormConfig
         self.captionStyle = captionStyle

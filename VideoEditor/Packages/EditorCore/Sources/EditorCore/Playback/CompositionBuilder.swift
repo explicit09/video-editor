@@ -380,6 +380,7 @@ public struct CompositionBuilder {
             print("[CompositionBuilder] shortFormConfig: \(shortFormConfig?.isEnabled ?? false) faceTracks: \(shortFormConfig?.faceTracks.count ?? 0), broadcastOverlay: \(broadcastOverlay?.isEnabled ?? false), multiTrack: \(hasMultipleVideoTracks)")
             let needsCustomCompositor = hasMultipleVideoTracks || broadcastOverlay?.isEnabled == true || shortFormConfig?.isEnabled == true || videoEntries.contains { entry in
                 !entry.clip.effects.isEmpty ||
+                !entry.clip.keyframes.tracks.isEmpty ||
                 entry.clip.transform != .identity ||
                 !entry.clip.cropRect.isFullFrame ||
                 entry.clip.blendMode != .normal ||
@@ -497,6 +498,7 @@ public struct CompositionBuilder {
                         timeRange: CMTimeRange(start: cursor, end: entryStart),
                         sourceTrackID: kCMPersistentTrackID_Invalid,
                         effects: [],
+                        clipStartTime: cursor.seconds,
                         broadcastOverlay: broadcastOverlay,
                         shortFormConfig: shortFormConfig,
                         captionStyle: captionStyle
@@ -536,6 +538,8 @@ public struct CompositionBuilder {
                         transform: entry.clip.transform,
                         cropRect: entry.clip.cropRect,
                         blendMode: entry.clip.blendMode,
+                        keyframes: entry.clip.keyframes,
+                        clipStartTime: entry.clip.timelineRange.start,
                         broadcastOverlay: broadcastOverlay,
                         shortFormConfig: shortFormConfig,
                         captionStyle: captionStyle,
@@ -553,6 +557,8 @@ public struct CompositionBuilder {
                     transform: entry.clip.transform,
                     cropRect: entry.clip.cropRect,
                     blendMode: entry.clip.blendMode,
+                    keyframes: entry.clip.keyframes,
+                    clipStartTime: entry.clip.timelineRange.start,
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
                     captionStyle: captionStyle,
@@ -578,6 +584,7 @@ public struct CompositionBuilder {
                     timeRange: CMTimeRange(start: cursor, end: totalDuration),
                     sourceTrackID: kCMPersistentTrackID_Invalid,
                     effects: [],
+                    clipStartTime: cursor.seconds,
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig
                 )
@@ -656,6 +663,7 @@ public struct CompositionBuilder {
                     timeRange: sliceRange,
                     sourceTrackID: kCMPersistentTrackID_Invalid,
                     effects: [],
+                    clipStartTime: sliceStart.seconds,
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
                     captionStyle: captionStyle
@@ -673,6 +681,8 @@ public struct CompositionBuilder {
                     transform: entry.clip.transform,
                     cropRect: entry.clip.cropRect,
                     blendMode: entry.clip.blendMode,
+                    keyframes: entry.clip.keyframes,
+                    clipStartTime: entry.clip.timelineRange.start,
                     broadcastOverlay: broadcastOverlay,
                     shortFormConfig: shortFormConfig,
                     captionStyle: captionStyle,
@@ -688,7 +698,9 @@ public struct CompositionBuilder {
                         transform: entry.clip.transform,
                         cropRect: entry.clip.cropRect,
                         blendMode: entry.clip.blendMode,
-                        effects: entry.clip.effects
+                        effects: entry.clip.effects,
+                        keyframes: entry.clip.keyframes,
+                        clipStartTime: entry.clip.timelineRange.start
                     )
                 }
                 // Merge caption words from all active entries

@@ -330,6 +330,37 @@ public struct SetClipEffectCommand: Command {
     }
 }
 
+/// Replace the clip's primary visual effect stack with a single effect.
+/// Used by AI/MCP setter-style tools that should not accumulate stale effects.
+public struct ReplacePrimaryClipEffectCommand: Command {
+    public let name = "Replace Primary Effect"
+    public let clipID: UUID
+    public let effect: EffectInstance
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousEffects: [EffectInstance]?
+
+    public init(clipID: UUID, effect: EffectInstance) {
+        self.clipID = clipID
+        self.effect = effect
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            previousEffects = clip.effects
+            if effect.type == "_none" {
+                clip.effects = []
+            } else {
+                clip.effects = [effect]
+            }
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let prev = previousEffects else { return }
+        try modifyClip(id: clipID, context: context) { $0.effects = prev }
+    }
+}
+
 /// Set clip playback speed.
 public struct SetClipSpeedCommand: Command {
     public let name = "Set Clip Speed"

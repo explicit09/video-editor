@@ -28,6 +28,61 @@ struct AIServicesTests {
         #expect(CostTier.frequent.rawValue == "frequent")
         #expect(CostTier.expensive.rawValue == "expensive")
     }
+
+    @MainActor
+    @Test("Visual effect tools resolve to clip-mutating intents")
+    func visualEffectToolResolution() throws {
+        let resolver = AIToolResolver()
+
+        let effectIntents = try resolver.resolve(toolName: "set_clip_effect", arguments: [
+            "clip_id": UUID().uuidString,
+            "effect_type": "blur",
+            "radius": 12.0,
+        ])
+        #expect(effectIntents.count == 1)
+        if case .replacePrimaryClipEffect(_, let effect) = effectIntents[0] {
+            #expect(effect.type == EffectInstance.typeBlur)
+            #expect(effect.parameters["radius"] == 12.0)
+        } else {
+            Issue.record("set_clip_effect should resolve to replacePrimaryClipEffect")
+        }
+
+        let denoiseIntents = try resolver.resolve(toolName: "denoise_video", arguments: [
+            "clip_id": UUID().uuidString,
+            "level": 0.45,
+        ])
+        if case .replacePrimaryClipEffect(_, let effect) = denoiseIntents[0] {
+            #expect(effect.type == EffectInstance.typeVideoDenoise)
+            #expect(effect.parameters["level"] == 0.45)
+        } else {
+            Issue.record("denoise_video should resolve to replacePrimaryClipEffect")
+        }
+
+        let lutPath = "/tmp/test.cube"
+        let lutIntents = try resolver.resolve(toolName: "apply_lut", arguments: [
+            "clip_id": UUID().uuidString,
+            "lut_path": lutPath,
+        ])
+        if case .replacePrimaryClipEffect(_, let effect) = lutIntents[0] {
+            #expect(effect.type == EffectInstance.typeLUT)
+            #expect(effect.stringParameters["path"] == lutPath)
+        } else {
+            Issue.record("apply_lut should resolve to replacePrimaryClipEffect")
+        }
+
+        let chromaIntents = try resolver.resolve(toolName: "chroma_key", arguments: [
+            "clip_id": UUID().uuidString,
+            "target_hue": 0.33,
+            "tolerance": 0.12,
+        ])
+        if case .replacePrimaryClipEffect(_, let effect) = chromaIntents[0] {
+            #expect(effect.type == EffectInstance.typeChromaKey)
+            #expect(effect.parameters["targetHue"] == 0.33)
+            #expect(effect.parameters["tolerance"] == 0.12)
+        } else {
+            Issue.record("chroma_key should resolve to replacePrimaryClipEffect")
+        }
+    }
 }
 
 @Suite("Lemmatizer Tests")

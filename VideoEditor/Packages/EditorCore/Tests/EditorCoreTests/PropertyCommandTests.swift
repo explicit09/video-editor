@@ -137,6 +137,35 @@ struct PropertyCommandTests {
     }
 
     @MainActor
+    @Test("ReplacePrimaryClipEffect swaps the full tool-managed stack and undo restores")
+    func replacePrimaryClipEffect() throws {
+        let originalEffects = [
+            EffectInstance(type: "blur", parameters: ["radius": 4]),
+            EffectInstance(type: "sharpen", parameters: ["sharpness": 0.5]),
+        ]
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 0, end: 5),
+            sourceRange: TimeRange(start: 0, end: 5),
+            effects: originalEffects
+        )
+        let context = EditingContext(timelineState: TimelineState(timeline: Timeline(tracks: [Track(name: "V", type: .video, clips: [clip])])))
+        let replacement = EffectInstance.videoDenoise(level: 0.45)
+
+        var cmd = try IntentResolver().resolve(.replacePrimaryClipEffect(clipID: clip.id, effect: replacement))
+        try cmd.execute(context: context)
+
+        #expect(context.timelineState.timeline.tracks[0].clips[0].effects.count == 1)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].effects[0].type == EffectInstance.typeVideoDenoise)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].effects[0].parameters["level"] == 0.45)
+
+        try cmd.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].effects.count == 2)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].effects[0].type == EffectInstance.typeBlur)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].effects[1].type == EffectInstance.typeSharpen)
+    }
+
+    @MainActor
     @Test("Transition, blend mode, and linking commands round-trip through undo")
     func transitionBlendAndLinkRoundTrip() throws {
         let clipA = Clip(assetID: UUID(), timelineRange: TimeRange(start: 0, end: 4), sourceRange: TimeRange(start: 0, end: 4))

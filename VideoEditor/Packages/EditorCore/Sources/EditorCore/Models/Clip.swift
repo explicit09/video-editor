@@ -276,11 +276,40 @@ extension EffectInstance {
         )
     }
 
+    public static func lut(path: String) -> EffectInstance {
+        EffectInstance(
+            type: typeLUT,
+            stringParameters: ["path": path]
+        )
+    }
+
+    public static func videoDenoise(level: Double = 0.5, sharpness: Double = 0.4) -> EffectInstance {
+        EffectInstance(
+            type: typeVideoDenoise,
+            parameters: [
+                "level": level,
+                "sharpness": sharpness,
+            ]
+        )
+    }
+
+    public static func chromaKey(targetHue: Double = 0.33, tolerance: Double = 0.1) -> EffectInstance {
+        EffectInstance(
+            type: typeChromaKey,
+            parameters: [
+                "targetHue": targetHue,
+                "tolerance": tolerance,
+            ]
+        )
+    }
+
     /// Known effect type constants.
     public static let typeColorCorrection = "colorCorrection"
     public static let typeLUT = "lut"
     public static let typeBlur = "blur"
     public static let typeSharpen = "sharpen"
+    public static let typeVideoDenoise = "videoDenoise"
+    public static let typeChromaKey = "chromaKey"
 }
 
 public struct KeyframeStore: Codable, Sendable {
