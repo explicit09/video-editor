@@ -1195,6 +1195,27 @@ final class MCPServer {
                 return report + "\nDownload failed: \(error.localizedDescription)"
             }
 
+            // Cache into local B-roll library if it exists on an external drive
+            let volumesURL = URL(fileURLWithPath: "/Volumes")
+            if let volumes = try? FileManager.default.contentsOfDirectory(at: volumesURL, includingPropertiesForKeys: nil) {
+                for vol in volumes {
+                    let dbCandidate = vol.appendingPathComponent("BRollLibrary/broll.db")
+                    if FileManager.default.fileExists(atPath: dbCandidate.path) {
+                        let libDir = vol.appendingPathComponent("BRollLibrary")
+                        // Determine category from first query word (best-effort)
+                        let category = queries.first?.lowercased()
+                            .replacingOccurrences(of: " ", with: "_") ?? "uncategorized"
+                        let catDir = libDir.appendingPathComponent(category)
+                        try? FileManager.default.createDirectory(at: catDir, withIntermediateDirectories: true)
+                        let libDest = catDir.appendingPathComponent(filename)
+                        if !FileManager.default.fileExists(atPath: libDest.path) {
+                            try? FileManager.default.copyItem(at: destURL, to: libDest)
+                        }
+                        break
+                    }
+                }
+            }
+
             // Import into media library
             do {
                 let asset = try await appState.importMedia(from: destURL)
