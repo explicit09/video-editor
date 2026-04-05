@@ -766,8 +766,9 @@ public struct AIToolResolver: Sendable {
             guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
                 throw AIToolError.invalidArgument("Missing or invalid clip_id")
             }
-            guard let start = arguments["source_start"] as? Double, let end = arguments["source_end"] as? Double else {
-                throw AIToolError.invalidArgument("Missing source_start or source_end")
+            guard let start = (arguments["source_start"] as? Double) ?? (arguments["start"] as? Double),
+                  let end = (arguments["source_end"] as? Double) ?? (arguments["end"] as? Double) else {
+                throw AIToolError.invalidArgument("Missing source_start/source_end")
             }
             return [.trimClip(clipID: clipID, newSourceRange: TimeRange(start: start, end: end))]
 
@@ -895,8 +896,21 @@ public struct AIToolResolver: Sendable {
             guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
                 throw AIToolError.invalidArgument("Missing clip_id")
             }
-            let targetHue = (arguments["target_hue"] as? Double) ?? 0.33
-            let tolerance = (arguments["tolerance"] as? Double) ?? 0.1
+            // Accept "color" as string ("green"=0.33, "blue"=0.66) or "target_hue" as double
+            let targetHue: Double
+            if let hue = arguments["target_hue"] as? Double {
+                targetHue = hue
+            } else if let color = arguments["color"] as? String {
+                switch color.lowercased() {
+                case "green": targetHue = 0.33
+                case "blue": targetHue = 0.66
+                case "red": targetHue = 0.0
+                default: targetHue = 0.33
+                }
+            } else {
+                targetHue = 0.33
+            }
+            let tolerance = (arguments["tolerance"] as? Double) ?? (arguments["threshold"] as? Double) ?? 0.1
             return [.replacePrimaryClipEffect(
                 clipID: clipID,
                 effect: .chromaKey(targetHue: targetHue, tolerance: tolerance)

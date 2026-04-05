@@ -4365,8 +4365,8 @@ final class MCPServer {
               let assetID = UUID(uuidString: assetIDStr) else {
             return "Error: Invalid asset_id"
         }
-        guard let startTime = args["start_time"] as? Double,
-              let endTime = args["end_time"] as? Double,
+        guard let startTime = (args["start_time"] as? Double) ?? (args["start"] as? Double),
+              let endTime = (args["end_time"] as? Double) ?? (args["end"] as? Double),
               endTime > startTime else {
             return "Error: Invalid start_time/end_time (end must be > start)"
         }
