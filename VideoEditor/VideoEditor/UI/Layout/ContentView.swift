@@ -39,6 +39,68 @@ enum EditorTool: String, CaseIterable, Hashable {
     }
 }
 
+struct WorkspacePageBarMetrics: Equatable, Sendable {
+    let barHeight: CGFloat
+    let showsLabels: Bool
+    let usesVerticalRail: Bool
+
+    static func make(containerWidth: CGFloat) -> Self {
+        switch containerWidth {
+        case ..<720:
+            Self(barHeight: 32, showsLabels: false, usesVerticalRail: true)
+        case ..<1120:
+            Self(barHeight: 34, showsLabels: false, usesVerticalRail: false)
+        default:
+            Self(barHeight: 36, showsLabels: true, usesVerticalRail: false)
+        }
+    }
+}
+
+struct WorkspacePageBar<Item: Hashable>: View {
+    let items: [Item]
+    @Binding var selection: Item
+    let metrics: WorkspacePageBarMetrics
+    let title: (Item) -> String
+    let icon: (Item) -> String
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: UtilitySpacing.xs) {
+                ForEach(items, id: \.self) { item in
+                    workspaceButton(for: item)
+                }
+            }
+            .padding(.horizontal, UtilitySpacing.sm)
+        }
+        .frame(height: metrics.barHeight)
+        .utilitySurface(.chrome)
+    }
+
+    private func workspaceButton(for item: Item) -> some View {
+        let isSelected = item == selection
+
+        return Button {
+            selection = item
+        } label: {
+            HStack(spacing: UtilitySpacing.xs) {
+                Image(systemName: icon(item))
+                    .font(.system(size: 11, weight: .semibold))
+
+                if metrics.showsLabels {
+                    Text(title(item))
+                        .font(.system(size: 12, weight: .semibold))
+                }
+            }
+            .foregroundStyle(isSelected ? UtilityTheme.accentText : UtilityTheme.textMuted)
+            .padding(.horizontal, metrics.showsLabels ? UtilitySpacing.md : UtilitySpacing.sm)
+            .frame(height: max(metrics.barHeight - 8, 24))
+            .background(isSelected ? UtilityTheme.accent : UtilityTheme.chromeElevated)
+            .clipShape(Capsule())
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 struct ContentView: View {
     @Environment(AppState.self) private var appState
     @State private var selectedWorkspace: Workspace = .edit
@@ -72,21 +134,28 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geo in
             let layoutMode = editorLayoutMode(for: geo.size.width)
+            let pageBarMetrics = WorkspacePageBarMetrics.make(containerWidth: geo.size.width)
 
-            VStack(spacing: CinematicSpacing.md) {
+            VStack(spacing: UtilitySpacing.sm) {
                 topBar(layoutMode: layoutMode)
 
-                HStack(alignment: .top, spacing: CinematicSpacing.md) {
-                    sideNav
+                WorkspacePageBar(
+                    items: Workspace.allCases,
+                    selection: Binding(
+                        get: { selectedWorkspace },
+                        set: { selectWorkspace($0) }
+                    ),
+                    metrics: pageBarMetrics,
+                    title: { $0.rawValue },
+                    icon: { $0.icon }
+                )
 
-                    mainWorkspace(layoutMode: layoutMode)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                mainWorkspace(layoutMode: layoutMode)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding(.horizontal, CinematicSpacing.md)
-            .padding(.top, CinematicSpacing.xs)
-            .padding(.bottom, CinematicSpacing.md)
+            .padding(.horizontal, UtilitySpacing.lg)
+            .padding(.top, UtilitySpacing.sm)
+            .padding(.bottom, UtilitySpacing.lg)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(appBackground)
         }
@@ -144,20 +213,13 @@ struct ContentView: View {
     private var appBackground: some View {
         LinearGradient(
             colors: [
-                CinematicTheme.surface,
-                CinematicTheme.surfaceDim,
-                CinematicTheme.surfaceGlass.opacity(0.55),
+                UtilityTheme.canvas,
+                UtilityTheme.recessed,
+                UtilityTheme.canvas,
             ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
+            startPoint: .top,
+            endPoint: .bottom
         )
-        .overlay(alignment: .topTrailing) {
-            Circle()
-                .fill(CinematicTheme.primaryContainer.opacity(0.08))
-                .frame(width: 320, height: 320)
-                .blur(radius: 80)
-                .offset(x: 120, y: -80)
-        }
     }
 
     private func stepForward() {
@@ -216,30 +278,24 @@ struct ContentView: View {
 
     private func topBar(layoutMode: EditorLayoutMode) -> some View {
         HStack(spacing: CinematicSpacing.sm) {
-            HStack(spacing: 10) {
-                RoundedRectangle(cornerRadius: CinematicRadius.md)
-                    .fill(
-                        LinearGradient(
-                            colors: [CinematicTheme.primaryContainer, CinematicTheme.tertiaryContainer.opacity(0.72)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 24, height: 24)
+            HStack(spacing: UtilitySpacing.sm) {
+                RoundedRectangle(cornerRadius: UtilityRadius.sm)
+                    .fill(UtilityTheme.accent)
+                    .frame(width: 20, height: 20)
                     .overlay(
                         Image(systemName: "play.rectangle")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundStyle(CinematicTheme.onPrimaryContainer)
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(UtilityTheme.accentText)
                     )
 
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: UtilitySpacing.xxxs) {
                     Text("Unified Pro Editor")
-                        .font(.cinTitle)
-                        .foregroundStyle(CinematicTheme.onSurface)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(UtilityTheme.text)
                     Text(selectedWorkspace.rawValue.uppercased())
-                        .font(.cinLabelRegular)
-                        .tracking(1.2)
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.76))
+                        .font(.system(size: 10, weight: .medium))
+                        .tracking(0.8)
+                        .foregroundStyle(UtilityTheme.textMuted)
                 }
             }
 
@@ -279,69 +335,15 @@ struct ContentView: View {
 
             CinematicToolbarButton(icon: "gearshape", action: { showSettings = true })
         }
-        .padding(.horizontal, CinematicSpacing.md)
-        .frame(height: CinematicMetrics.topBarHeight)
-        .panelSurface(.floating, strokeOpacity: 0.82, shadow: true)
+        .padding(.horizontal, UtilitySpacing.md)
+        .frame(height: UtilityMetrics.topBarHeight)
+        .utilitySurface(.chromeElevated, shadow: true)
         .sheet(isPresented: $showSettings) {
             SettingsSheet(isPresented: $showSettings)
         }
         .sheet(isPresented: $showExportDialog) {
             ExportDialog(isPresented: $showExportDialog)
         }
-    }
-
-    private var sideNav: some View {
-        VStack(spacing: CinematicSpacing.sm) {
-            ForEach(Workspace.allCases, id: \.self) { workspace in
-                sideNavItem(workspace)
-            }
-
-            Spacer(minLength: 0)
-
-            CinematicToolbarButton(
-                icon: "sparkles",
-                label: "Ask AI",
-                isActive: selectedWorkspace == .ai
-            ) {
-                selectWorkspace(.ai)
-            }
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, CinematicSpacing.md)
-        .frame(width: 92)
-        .panelSurface(.elevated, strokeOpacity: 0.85)
-    }
-
-    private func sideNavItem(_ workspace: Workspace) -> some View {
-        let isSelected = selectedWorkspace == workspace
-
-        return Button {
-            selectWorkspace(workspace)
-        } label: {
-            VStack(spacing: 6) {
-                Image(systemName: workspace.icon)
-                    .font(.system(size: 16, weight: .semibold))
-                Text(workspace.rawValue)
-                    .font(.cinLabelRegular)
-                    .multilineTextAlignment(.center)
-            }
-            .foregroundStyle(isSelected ? CinematicTheme.onPrimaryContainer : CinematicTheme.onSurfaceVariant)
-            .frame(maxWidth: .infinity)
-            .frame(height: 64)
-            .background(
-                isSelected
-                    ? AnyShapeStyle(
-                        LinearGradient(
-                            colors: [CinematicTheme.primaryContainer, CinematicTheme.tertiaryContainer.opacity(0.72)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    : AnyShapeStyle(CinematicTheme.surfaceContainerHighest.opacity(0.72))
-            )
-            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
-        }
-        .buttonStyle(.plain)
     }
 
     private func selectWorkspace(_ workspace: Workspace) {
@@ -432,12 +434,11 @@ struct ContentView: View {
 
     private var utilityPanel: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "EDITOR TOOLS",
                 title: leftPanelTitle,
                 subtitle: leftPanelSubtitle
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             HStack {
                 CinematicSegmentedTabBar(
@@ -448,8 +449,8 @@ struct ContentView: View {
                 )
                 Spacer()
             }
-            .padding(.horizontal, CinematicSpacing.md)
-            .padding(.vertical, CinematicSpacing.sm)
+            .padding(.horizontal, UtilitySpacing.md)
+            .padding(.vertical, UtilitySpacing.sm)
 
             Group {
                 switch leftPanelTab {
@@ -466,7 +467,7 @@ struct ContentView: View {
                 }
             }
         }
-        .panelSurface(.base, strokeOpacity: 0.9)
+        .utilitySurface(.panel)
     }
 
     private var searchUtilityPanel: some View {

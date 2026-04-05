@@ -5,6 +5,14 @@ import EditorCore
 
 @Suite("Editor Stabilization Support Tests")
 struct EditorStabilizationSupportTests {
+    @Test("Workspace page bar metrics prefer compact top bar on desktop widths")
+    func workspacePageBarMetricsPreferTopBarOnDesktopWidths() {
+        let metrics = WorkspacePageBarMetrics.make(containerWidth: 1440)
+
+        #expect(metrics.barHeight == 36)
+        #expect(metrics.showsLabels)
+        #expect(!metrics.usesVerticalRail)
+    }
 
     @Test("Waveform state resolver prefers cached profiles")
     func waveformStateResolverPrefersCachedProfiles() {
