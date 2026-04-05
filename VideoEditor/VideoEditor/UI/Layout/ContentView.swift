@@ -383,9 +383,15 @@ struct ContentView: View {
     }
 
     private func editorWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        EditorWorkspaceShell(
+        let previewAspectRatio =
+            appState.context.timelineState.shortFormConfig?.isEnabled == true
+            ? Double(appState.context.timelineState.shortFormConfig?.outputAspect.aspectRatio ?? 16.0 / 9.0)
+            : nil
+
+        return EditorWorkspaceShell(
             isLeftPanelVisible: isLeftPanelVisible,
             isRightRailVisible: isRightRailVisible,
+            previewAspectRatio: previewAspectRatio,
             leftRail: {
                 utilityPanel
             },

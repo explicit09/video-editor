@@ -4,6 +4,7 @@ struct EditorWorkspaceShellLayout: Equatable, Sendable {
     let leftRailWidth: Double
     let rightRailWidth: Double
     let centerColumnMaxWidth: Double?
+    let centerColumnWidth: Double
     let topSectionMinHeight: Double
     let timelineSectionMinHeight: Double
 
@@ -23,36 +24,16 @@ struct EditorWorkspaceShellLayout: Equatable, Sendable {
         containerWidth: Double,
         containerHeight: Double,
         leftRailVisible: Bool,
-        rightRailVisible: Bool
+        rightRailVisible: Bool,
+        previewAspectRatio: Double? = nil
     ) -> EditorWorkspaceShellLayout {
         let railExpansion = interpolationProgress(
             value: containerWidth,
             lowerBound: 1280,
             upperBound: 1880
         )
-        let heightExpansion = interpolationProgress(
-            value: containerHeight,
-            lowerBound: 680,
-            upperBound: 980
-        )
-        let availableVerticalBudget = max(
-            Self.topSectionChromeHeight + 2,
-            containerHeight - verticalSectionSpacing
-        )
-        let preferredTopSectionHeight = Self.topSectionChromeHeight + interpolatedValue(
-            minimum: 72,
-            maximum: 180,
-            progress: heightExpansion
-        )
-        let topSectionBudgetCap = max(
-            Self.topSectionChromeHeight + 24,
-            availableVerticalBudget * 0.39
-        )
-        let topSectionMinHeight = min(preferredTopSectionHeight, topSectionBudgetCap)
-        let timelineSectionMinHeight = max(
-            topSectionMinHeight + 1,
-            availableVerticalBudget - topSectionMinHeight
-        )
+        let resolvedPreviewAspectRatio = previewAspectRatio ?? (16.0 / 9.0)
+        let portraitPreviewBoost = resolvedPreviewAspectRatio < 1 ? 1.0 : 0.0
         let centerColumnMaxWidth =
             containerWidth >= 1760
             ? interpolatedValue(
@@ -65,11 +46,50 @@ struct EditorWorkspaceShellLayout: Equatable, Sendable {
                 )
             )
             : nil
+        let visibleRailCount = (leftRailVisible ? 1.0 : 0.0) + (rightRailVisible ? 1.0 : 0.0)
+        let horizontalSpacing = Double(CinematicSpacing.md) * visibleRailCount
+        let centerColumnWidthBudget = max(
+            320.0,
+            containerWidth - horizontalSpacing - (leftRailVisible ? interpolatedValue(minimum: 220, maximum: 280, progress: railExpansion) : 0) - (rightRailVisible ? interpolatedValue(minimum: 244, maximum: 312, progress: railExpansion) : 0)
+        )
+        let centerColumnWidth = min(centerColumnWidthBudget, centerColumnMaxWidth ?? centerColumnWidthBudget)
+        let availableVerticalBudget = max(
+            Self.topSectionChromeHeight + 2,
+            containerHeight - verticalSectionSpacing
+        )
+        let previewMinimumHeight = portraitPreviewBoost > 0 ? 280.0 : 220.0
+        let previewMaximumHeight = portraitPreviewBoost > 0 ? 540.0 : 420.0
+        let aspectFitPreviewHeight = max(0, centerColumnWidth / resolvedPreviewAspectRatio)
+        let previewPreferredHeight = min(
+            max(previewMinimumHeight, aspectFitPreviewHeight),
+            previewMaximumHeight
+        )
+        let centerColumnComfort = interpolationProgress(
+            value: centerColumnWidth,
+            lowerBound: 480,
+            upperBound: 1100
+        )
+        let minimumTimelineShare = interpolatedValue(
+            minimum: portraitPreviewBoost > 0 ? 0.30 : 0.34,
+            maximum: portraitPreviewBoost > 0 ? 0.38 : 0.42,
+            progress: centerColumnComfort
+        )
+        let minimumTimelineHeight = max(240.0, availableVerticalBudget * minimumTimelineShare)
+        let topSectionBudgetCap = max(
+            Self.topSectionChromeHeight + previewMinimumHeight,
+            availableVerticalBudget - minimumTimelineHeight
+        )
+        let topSectionMinHeight = min(
+            Self.topSectionChromeHeight + previewPreferredHeight,
+            topSectionBudgetCap
+        )
+        let timelineSectionMinHeight = max(0, availableVerticalBudget - topSectionMinHeight)
 
         return EditorWorkspaceShellLayout(
             leftRailWidth: leftRailVisible ? interpolatedValue(minimum: 220, maximum: 280, progress: railExpansion) : 0,
             rightRailWidth: rightRailVisible ? interpolatedValue(minimum: 244, maximum: 312, progress: railExpansion) : 0,
             centerColumnMaxWidth: centerColumnMaxWidth,
+            centerColumnWidth: centerColumnWidth,
             topSectionMinHeight: topSectionMinHeight,
             timelineSectionMinHeight: timelineSectionMinHeight
         )
@@ -101,6 +121,7 @@ struct EditorWorkspaceShellLayout: Equatable, Sendable {
 struct EditorWorkspaceShell<LeftRail: View, CenterTop: View, CenterBottom: View, RightRail: View>: View {
     let isLeftPanelVisible: Bool
     let isRightRailVisible: Bool
+    let previewAspectRatio: Double?
     let leftRail: () -> LeftRail
     let centerTop: (EditorWorkspaceShellLayout) -> CenterTop
     let centerBottom: (EditorWorkspaceShellLayout) -> CenterBottom
@@ -112,7 +133,8 @@ struct EditorWorkspaceShell<LeftRail: View, CenterTop: View, CenterBottom: View,
                 containerWidth: geometry.size.width,
                 containerHeight: geometry.size.height,
                 leftRailVisible: isLeftPanelVisible,
-                rightRailVisible: isRightRailVisible
+                rightRailVisible: isRightRailVisible,
+                previewAspectRatio: previewAspectRatio
             )
 
             HStack(alignment: .top, spacing: CinematicSpacing.md) {
