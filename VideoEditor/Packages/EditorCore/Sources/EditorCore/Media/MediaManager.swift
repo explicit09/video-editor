@@ -88,6 +88,17 @@ public actor MediaManager {
 
     // MARK: - Thumbnails
 
+    /// Regenerate thumbnails for all assets that don't have one cached.
+    public func regenerateMissingThumbnails() async {
+        for asset in assets {
+            if thumbnailCache[asset.id] == nil {
+                if let thumb = try? await importer.generateThumbnail(for: asset.sourceURL) {
+                    storeThumbnail(thumb, for: asset.id)
+                }
+            }
+        }
+    }
+
     public func thumbnail(for assetID: UUID) -> CGImage? {
         // Move to front of access order (LRU)
         if let idx = thumbnailAccessOrder.firstIndex(of: assetID) {

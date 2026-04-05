@@ -49,7 +49,7 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         }
 
         // Get the source frame
-        guard let trackID = instruction.requiredSourceTrackIDs?.first as? CMPersistentTrackID,
+        guard let trackID = Self.sourceTrackID(from: instruction.requiredSourceTrackIDs),
               let sourceBuffer = request.sourceFrame(byTrackID: trackID) else {
             // No source — render background color frame (not uninitialized buffer)
             let renderSize = renderContext?.size ?? CGSize(width: 1920, height: 1080)
@@ -251,6 +251,17 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
 
     public func cancelAllPendingVideoCompositionRequests() {
         // No-op: synchronous processing
+    }
+
+    static func sourceTrackID(from requiredSourceTrackIDs: [NSValue]?) -> CMPersistentTrackID? {
+        guard let first = requiredSourceTrackIDs?.first else { return nil }
+
+        if let number = first as? NSNumber {
+            let trackID = CMPersistentTrackID(number.int32Value)
+            return trackID == kCMPersistentTrackID_Invalid ? nil : trackID
+        }
+
+        return nil
     }
 
     static func applyCropRect(_ cropRect: CropRect, to image: CIImage) -> CIImage {
@@ -609,7 +620,11 @@ public final class EffectInstruction: NSObject, AVVideoCompositionInstructionPro
         backgroundColor: CIColor = .black
     ) {
         self.timeRange = timeRange
-        self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
+        if sourceTrackID == kCMPersistentTrackID_Invalid {
+            self.requiredSourceTrackIDs = nil
+        } else {
+            self.requiredSourceTrackIDs = [NSNumber(value: sourceTrackID)]
+        }
         self.containsTweening = !keyframes.tracks.isEmpty
         self.effects = effects
         self.opacity = opacity

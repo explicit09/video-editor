@@ -1542,6 +1542,7 @@ final class AppState {
                     }
                 }
                 await media.refreshAssets()
+                await media.mediaManager.regenerateMissingThumbnails()
                 await removeAudiolessVideoClips(using: loadedAssets)
             } else {
                 print("[AppState] No assets.json at \(assetsURL.path)")
