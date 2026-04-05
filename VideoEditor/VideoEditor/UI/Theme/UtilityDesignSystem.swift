@@ -37,6 +37,103 @@ enum UtilityMetrics {
     static let panelHeaderMinHeight: CGFloat = 34
 }
 
+struct UtilityStatusBadgeMetrics: Equatable, Sendable {
+    let height: CGFloat
+    let horizontalPadding: CGFloat
+
+    static func make(text: String, showsIcon: Bool) -> Self {
+        Self(
+            height: UtilityMetrics.controlHeight - 4,
+            horizontalPadding: showsIcon || text.count > 2 ? UtilitySpacing.sm : UtilitySpacing.xs
+        )
+    }
+}
+
+struct UtilitySegmentedControlMetrics: Equatable, Sendable {
+    let showsLabels: Bool
+    let controlHeight: CGFloat
+
+    static func make(availableWidth: CGFloat, itemCount: Int) -> Self {
+        let widthPerItem = availableWidth / max(CGFloat(itemCount), 1)
+
+        return Self(
+            showsLabels: widthPerItem >= 76,
+            controlHeight: UtilityMetrics.controlHeight
+        )
+    }
+}
+
+struct UtilityStatusBadge: View {
+    let text: String
+    var icon: String? = nil
+    var isAccent = false
+
+    var body: some View {
+        let metrics = UtilityStatusBadgeMetrics.make(text: text, showsIcon: icon != nil)
+
+        HStack(spacing: UtilitySpacing.xxs) {
+            if let icon {
+                Image(systemName: icon)
+                    .font(.system(size: 10, weight: .semibold))
+            }
+
+            Text(text)
+                .font(.system(size: 10, weight: .semibold))
+                .lineLimit(1)
+        }
+        .foregroundStyle(isAccent ? UtilityTheme.accentText : UtilityTheme.textMuted)
+        .padding(.horizontal, metrics.horizontalPadding)
+        .frame(height: metrics.height)
+        .background(isAccent ? UtilityTheme.accent : UtilityTheme.chrome)
+        .clipShape(Capsule())
+    }
+}
+
+struct UtilitySegmentedControl<Item: Hashable>: View {
+    let items: [Item]
+    @Binding var selection: Item
+    let availableWidth: CGFloat
+    let label: (Item) -> String
+    var icon: ((Item) -> String?)? = nil
+
+    var body: some View {
+        let metrics = UtilitySegmentedControlMetrics.make(
+            availableWidth: availableWidth,
+            itemCount: items.count
+        )
+
+        HStack(spacing: UtilitySpacing.xs) {
+            ForEach(items, id: \.self) { item in
+                Button {
+                    selection = item
+                } label: {
+                    HStack(spacing: UtilitySpacing.xxs) {
+                        if let iconName = icon?(item) {
+                            Image(systemName: iconName)
+                                .font(.system(size: 11, weight: .semibold))
+                        }
+
+                        if metrics.showsLabels {
+                            Text(label(item))
+                                .font(.system(size: 10, weight: .semibold))
+                        }
+                    }
+                    .foregroundStyle(selection == item ? UtilityTheme.accentText : UtilityTheme.text)
+                    .padding(.horizontal, UtilitySpacing.sm)
+                    .frame(height: metrics.controlHeight)
+                    .frame(maxWidth: .infinity)
+                    .background(selection == item ? UtilityTheme.accent : UtilityTheme.chrome)
+                    .clipShape(RoundedRectangle(cornerRadius: UtilityRadius.sm))
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(UtilitySpacing.xxs)
+        .background(UtilityTheme.recessed)
+        .clipShape(RoundedRectangle(cornerRadius: UtilityRadius.md))
+    }
+}
+
 enum UtilitySurfaceTone {
     case chrome
     case chromeElevated
@@ -153,21 +250,7 @@ struct UtilityHeaderBadge: View {
     var isAccent = false
 
     var body: some View {
-        HStack(spacing: UtilitySpacing.xxs) {
-            if let systemImage {
-                Image(systemName: systemImage)
-                    .font(.system(size: 10, weight: .semibold))
-            }
-
-            Text(text)
-                .font(.system(size: 10, weight: .semibold))
-                .lineLimit(1)
-        }
-        .foregroundStyle(isAccent ? UtilityTheme.accentText : UtilityTheme.textMuted)
-        .padding(.horizontal, UtilitySpacing.sm)
-        .frame(height: UtilityMetrics.controlHeight - 4)
-        .background(isAccent ? UtilityTheme.accent : UtilityTheme.chrome)
-        .clipShape(Capsule())
+        UtilityStatusBadge(text: text, icon: systemImage, isAccent: isAccent)
     }
 }
 

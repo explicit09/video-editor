@@ -5,6 +5,25 @@ import EditorCore
 
 @Suite("Editor Stabilization Support Tests")
 struct EditorStabilizationSupportTests {
+    @Test("utility status badge metrics keep compact height for short labels")
+    func utilityStatusBadgeMetricsUseCompactHeight() {
+        let metrics = UtilityStatusBadgeMetrics.make(text: "AI", showsIcon: true)
+
+        #expect(metrics.height == UtilityMetrics.controlHeight - 4)
+        #expect(metrics.horizontalPadding == UtilitySpacing.sm)
+    }
+
+    @Test("utility segmented control metrics collapse labels on narrow widths")
+    func utilitySegmentedControlMetricsCollapseLabels() {
+        let metrics = UtilitySegmentedControlMetrics.make(
+            availableWidth: 180,
+            itemCount: 3
+        )
+
+        #expect(metrics.showsLabels == false)
+        #expect(metrics.controlHeight == UtilityMetrics.controlHeight)
+    }
+
     @Test("panel header collapses badges before clipping the primary action")
     func compactHeaderPriority() {
         let layout = CompactPanelHeaderLayout.make(
