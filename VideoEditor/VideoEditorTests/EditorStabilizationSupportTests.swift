@@ -38,6 +38,86 @@ struct EditorStabilizationSupportTests {
         #expect(chrome.showsEmbeddedUtilityPanel)
     }
 
+    @Test("AI panel reveal inserts the panel into the inspector stack when missing from edit")
+    @MainActor
+    func revealAIPanelInsertsIntoEditWorkspace() {
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: .expanded,
+            selectedTool: .constant(.selection)
+        )
+
+        let revealed = registry.revealingPanel(.aiAssistant, in: PanelRegistry.editDefaultLayout)
+        let expected = DockWorkspaceLayout(
+            workspaceID: PanelRegistry.editWorkspaceID,
+            root: .split(
+                axis: .vertical,
+                ratio: 0.64,
+                leading: .split(
+                    axis: .horizontal,
+                    ratio: 0.22,
+                    leading: .tabs(
+                        activePanelID: .projectBin,
+                        panelIDs: [.projectBin, .effects]
+                    ),
+                    trailing: .split(
+                        axis: .horizontal,
+                        ratio: 0.78,
+                        leading: .split(
+                            axis: .horizontal,
+                            ratio: 0.5,
+                            leading: .panel(.sourceMonitor),
+                            trailing: .panel(.programMonitor)
+                        ),
+                        trailing: .tabs(
+                            activePanelID: .aiAssistant,
+                            panelIDs: [.inspector, .aiAssistant]
+                        )
+                    )
+                ),
+                trailing: .panel(.timeline)
+            )
+        )
+
+        #expect(revealed.root.containsPanel(.aiAssistant))
+        #expect(revealed == expected)
+    }
+
+    @Test("AI panel reveal selects an existing AI tab instead of duplicating it")
+    @MainActor
+    func revealAIPanelSelectsExistingTab() {
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: .expanded,
+            selectedTool: .constant(.selection)
+        )
+        let layout = DockWorkspaceLayout(
+            workspaceID: PanelRegistry.mediaWorkspaceID,
+            root: .split(
+                axis: .horizontal,
+                ratio: 0.7,
+                leading: .panel(.mediaWorkspace),
+                trailing: .tabs(
+                    activePanelID: .inspector,
+                    panelIDs: [.inspector, .aiAssistant, .timeline]
+                )
+            )
+        )
+
+        let revealed = registry.revealingPanel(.aiAssistant, in: layout)
+
+        guard case let .split(_, _, _, trailing) = revealed.root else {
+            Issue.record("Expected media root to remain a split layout")
+            return
+        }
+
+        guard case let .tabs(activePanelID, panelIDs) = trailing else {
+            Issue.record("Expected existing tab stack to stay intact")
+            return
+        }
+
+        #expect(activePanelID == .aiAssistant)
+        #expect(panelIDs == [.inspector, .aiAssistant, .timeline])
+    }
+
     @Test("Workspace page bar metrics prefer compact top bar on desktop widths")
     func workspacePageBarMetricsPreferTopBarOnDesktopWidths() {
         let metrics = WorkspacePageBarMetrics.make(containerWidth: 1440)

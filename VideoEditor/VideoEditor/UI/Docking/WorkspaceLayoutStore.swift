@@ -16,7 +16,7 @@ struct WorkspaceLayoutStore {
         do {
             let data = try Data(contentsOf: url)
             let decoded = try JSONDecoder().decode(DockWorkspaceLayout.self, from: data)
-            return try validatedLayout(decoded)
+            return try validatedLayout(decoded, expectedWorkspaceID: workspaceID)
         } catch {
             return try defaultLayout(for: workspaceID)
         }
@@ -67,7 +67,14 @@ struct WorkspaceLayoutStore {
         }
     }
 
-    private func validatedLayout(_ layout: DockWorkspaceLayout) throws -> DockWorkspaceLayout {
+    private func validatedLayout(
+        _ layout: DockWorkspaceLayout,
+        expectedWorkspaceID: String? = nil
+    ) throws -> DockWorkspaceLayout {
+        if let expectedWorkspaceID, layout.workspaceID != expectedWorkspaceID {
+            throw WorkspaceLayoutStoreError.invalidLayout(workspaceID: expectedWorkspaceID)
+        }
+
         guard isValid(layout) else {
             throw WorkspaceLayoutStoreError.invalidLayout(workspaceID: layout.workspaceID)
         }

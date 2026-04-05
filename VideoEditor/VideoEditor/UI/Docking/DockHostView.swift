@@ -59,7 +59,18 @@ private struct DockNodeView: View {
                 coordinator: coordinator,
                 onDropPanel: onDropPanel
             ) {
-                panelContent(for: panelID)
+                VStack(spacing: 0) {
+                    DockPanelHeaderView(
+                        definition: registry.definition(for: panelID),
+                        panelID: panelID,
+                        onBeginDrag: {
+                            coordinator.beginDrag(panelID: panelID)
+                        }
+                    )
+
+                    panelContent(for: panelID)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
         case let .tabs(activePanelID, panelIDs):
             DockLeafContainer(
@@ -252,6 +263,54 @@ private struct DockNodeView: View {
     }
 }
 
+private struct DockPanelHeaderView: View {
+    let definition: PanelDefinition?
+    let panelID: PanelID
+    let onBeginDrag: () -> Void
+
+    var body: some View {
+        HStack(spacing: UtilitySpacing.sm) {
+            Image(systemName: definition?.systemImage ?? "square.on.square")
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundStyle(UtilityTheme.textMuted)
+
+            Text(definition?.title ?? fallbackTitle)
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundStyle(UtilityTheme.text)
+                .lineLimit(1)
+
+            Spacer(minLength: 0)
+
+            HStack(spacing: 3) {
+                Image(systemName: "line.3.horizontal")
+                Image(systemName: "line.3.horizontal")
+            }
+            .font(.system(size: 9, weight: .semibold))
+            .foregroundStyle(UtilityTheme.textMuted)
+            .padding(.horizontal, UtilitySpacing.xs)
+            .frame(height: UtilityMetrics.controlHeight - 4)
+            .background(UtilityTheme.chrome)
+            .clipShape(Capsule())
+        }
+        .padding(.horizontal, UtilitySpacing.md)
+        .frame(height: DockDropGeometry.tabStripHeight)
+        .background(CinematicTheme.surfaceContainerHigh)
+        .contentShape(Rectangle())
+        .onDrag {
+            onBeginDrag()
+            return NSItemProvider(object: panelID.rawValue as NSString)
+        }
+        .help("Drag to redock \(definition?.title ?? fallbackTitle)")
+    }
+
+    private var fallbackTitle: String {
+        panelID.rawValue
+            .split(separator: "-")
+            .map { $0.capitalized }
+            .joined(separator: " ")
+    }
+}
+
 private struct DockLeafContainer<Content: View>: View {
     let targetPanelID: PanelID
     let allowedBehavior: DockDropBehavior
@@ -334,7 +393,7 @@ private struct DockPanelDropDelegate: DropDelegate {
     }
 }
 
-private extension DockWorkspaceLayout {
+extension DockWorkspaceLayout {
     func applyingDrop(
         draggedPanelID: PanelID,
         onto targetPanelID: PanelID,
@@ -351,9 +410,27 @@ private extension DockWorkspaceLayout {
 
         return Self(workspaceID: workspaceID, root: insertedRoot)
     }
+
+    func revealingPanel(
+        _ panelID: PanelID,
+        preferredTargets: [PanelID]
+    ) -> Self {
+        if root.containsPanel(panelID) {
+            let selectedRoot = root.selectingPanel(panelID) ?? root
+            return Self(workspaceID: workspaceID, root: selectedRoot)
+        }
+
+        guard let targetPanelID = preferredTargets.first(where: root.containsPanel) ?? root.firstPanelID else {
+            return self
+        }
+
+        let insertedRoot = root.insertingPanel(panelID, onto: targetPanelID, target: .tabStack) ?? root
+        let selectedRoot = insertedRoot.selectingPanel(panelID) ?? insertedRoot
+        return Self(workspaceID: workspaceID, root: selectedRoot)
+    }
 }
 
-private extension DockLayoutNode {
+extension DockLayoutNode {
     func containsPanel(_ panelID: PanelID) -> Bool {
         switch self {
         case let .panel(id):
@@ -362,6 +439,17 @@ private extension DockLayoutNode {
             return panelIDs.contains(panelID)
         case let .split(_, _, leading, trailing):
             return leading.containsPanel(panelID) || trailing.containsPanel(panelID)
+        }
+    }
+
+    var firstPanelID: PanelID? {
+        switch self {
+        case let .panel(panelID):
+            return panelID
+        case let .tabs(_, panelIDs):
+            return panelIDs.first
+        case let .split(_, _, leading, trailing):
+            return leading.firstPanelID ?? trailing.firstPanelID
         }
     }
 
@@ -393,6 +481,26 @@ private extension DockLayoutNode {
             case (.none, .none):
                 return nil
             }
+        }
+    }
+
+    func selectingPanel(_ panelID: PanelID) -> DockLayoutNode? {
+        switch self {
+        case let .panel(id):
+            return id == panelID ? self : nil
+        case let .tabs(_, panelIDs):
+            guard panelIDs.contains(panelID) else { return nil }
+            return .tabs(activePanelID: panelID, panelIDs: panelIDs)
+        case let .split(axis, ratio, leading, trailing):
+            if let selectedLeading = leading.selectingPanel(panelID) {
+                return .split(axis: axis, ratio: ratio, leading: selectedLeading, trailing: trailing)
+            }
+
+            if let selectedTrailing = trailing.selectingPanel(panelID) {
+                return .split(axis: axis, ratio: ratio, leading: leading, trailing: selectedTrailing)
+            }
+
+            return nil
         }
     }
 

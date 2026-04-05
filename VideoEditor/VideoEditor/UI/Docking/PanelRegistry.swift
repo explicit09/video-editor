@@ -231,6 +231,13 @@ struct PanelRegistry {
         definitions[panelID]
     }
 
+    func revealingPanel(_ panelID: PanelID, in layout: DockWorkspaceLayout) -> DockWorkspaceLayout {
+        layout.revealingPanel(
+            panelID,
+            preferredTargets: preferredRevealTargets(for: panelID, workspaceID: layout.workspaceID)
+        )
+    }
+
     func makeLayoutStore(baseURL: URL) -> WorkspaceLayoutStore {
         WorkspaceLayoutStore(
             defaults: defaultLayouts,
@@ -238,6 +245,27 @@ struct PanelRegistry {
             baseURL: baseURL,
             allowedPanelIDs: allowedPanelIDs
         )
+    }
+
+    private func preferredRevealTargets(for panelID: PanelID, workspaceID: String) -> [PanelID] {
+        guard panelID == .aiAssistant else {
+            return [panelID]
+        }
+
+        switch workspaceID {
+        case Self.editWorkspaceID:
+            return [.inspector, .programMonitor, .timeline]
+        case Self.mediaWorkspaceID:
+            return [.inspector, .timeline, .projectBin]
+        case Self.transcriptWorkspaceID:
+            return [.inspector, .transcript, .programMonitor]
+        case Self.aiWorkspaceID:
+            return [.aiAssistant, .transcript, .programMonitor]
+        case Self.deliverWorkspaceID:
+            return [.inspector, .deliver, .programMonitor]
+        default:
+            return [.inspector, .programMonitor, .timeline]
+        }
     }
 }
 

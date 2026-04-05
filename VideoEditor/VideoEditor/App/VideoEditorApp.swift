@@ -155,9 +155,18 @@ struct VideoEditorApp: App {
 private struct WorkspaceLayoutCommands: Commands {
     @FocusedValue(\.restoreWorkspaceLayoutAction) private var restoreWorkspaceLayoutAction
     @FocusedValue(\.resetWorkspaceLayoutsAction) private var resetWorkspaceLayoutsAction
+    @FocusedValue(\.revealAIPanelAction) private var revealAIPanelAction
 
     var body: some Commands {
         CommandMenu("Workspace") {
+            Button("Show AI Copilot Panel") {
+                revealAIPanelAction?()
+            }
+            .keyboardShortcut("i", modifiers: [.command, .option])
+            .disabled(revealAIPanelAction == nil)
+
+            Divider()
+
             Button("Restore Current Workspace Layout") {
                 restoreWorkspaceLayoutAction?()
             }

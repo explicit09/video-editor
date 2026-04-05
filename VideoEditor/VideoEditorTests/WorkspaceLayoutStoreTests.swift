@@ -105,6 +105,31 @@ struct WorkspaceLayoutStoreTests {
         #expect(resolved == defaults["edit"])
     }
 
+    @Test("workspace layout store falls back to defaults when persisted workspace id does not match the file")
+    func mismatchedWorkspaceIDFallsBackToDefaults() throws {
+        let defaults = WorkspaceDefaultLayouts.make()
+        let baseURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = WorkspaceLayoutStore(
+            defaults: defaults,
+            fileManager: .default,
+            baseURL: baseURL,
+            allowedPanelIDs: WorkspaceDefaultLayouts.knownPanelIDs
+        )
+
+        try FileManager.default.createDirectory(at: baseURL, withIntermediateDirectories: true)
+        try JSONEncoder().encode(
+            DockWorkspaceLayout(
+                workspaceID: "deliver",
+                root: .panel(.deliver)
+            )
+        )
+        .write(to: baseURL.appendingPathComponent("edit.json"))
+
+        let resolved = try store.loadLayout(for: "edit")
+
+        #expect(resolved == defaults["edit"])
+    }
+
     @Test("save rejects invalid layouts before writing")
     func saveRejectsInvalidLayouts() throws {
         let defaults = WorkspaceDefaultLayouts.make()

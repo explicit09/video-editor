@@ -74,6 +74,10 @@ private struct ResetWorkspaceLayoutsActionKey: FocusedValueKey {
     typealias Value = () -> Void
 }
 
+private struct RevealAIPanelActionKey: FocusedValueKey {
+    typealias Value = () -> Void
+}
+
 extension FocusedValues {
     var restoreWorkspaceLayoutAction: (() -> Void)? {
         get { self[RestoreWorkspaceLayoutActionKey.self] }
@@ -84,6 +88,11 @@ extension FocusedValues {
         get { self[ResetWorkspaceLayoutsActionKey.self] }
         set { self[ResetWorkspaceLayoutsActionKey.self] = newValue }
     }
+
+    var revealAIPanelAction: (() -> Void)? {
+        get { self[RevealAIPanelActionKey.self] }
+        set { self[RevealAIPanelActionKey.self] = newValue }
+    }
 }
 
 struct ContentView: View {
@@ -93,9 +102,6 @@ struct ContentView: View {
     @State private var showSettings = false
     @State private var showExportDialog = false
     @State private var leftPanelTab: LeftPanelTab = .library
-    @State private var rightRailTab: RightRailTab = .inspector
-    @State private var isLeftPanelVisible = true
-    @State private var isRightRailVisible = true
     @State private var editorTool: EditorTool = .selection
     @State private var editDockState = WorkspaceDockState(layout: PanelRegistry.editDefaultLayout)
     @State private var mediaDockState = WorkspaceDockState(layout: PanelRegistry.mediaDefaultLayout)
@@ -153,6 +159,7 @@ struct ContentView: View {
         .focusable()
         .focusedSceneValue(\.restoreWorkspaceLayoutAction, restoreSelectedWorkspaceLayout)
         .focusedSceneValue(\.resetWorkspaceLayoutsAction, resetAllWorkspaceLayouts)
+        .focusedSceneValue(\.revealAIPanelAction, revealAIPanelInSelectedWorkspace)
         .onKeyPress("j") { guard shouldHandleGlobalShortcut else { return .ignored }; stepBackward(); return .handled }
         .onKeyPress("k") { guard shouldHandleGlobalShortcut else { return .ignored }; appState.playbackEngine.togglePlayPause(); return .handled }
         .onKeyPress("l") { guard shouldHandleGlobalShortcut else { return .ignored }; stepForward(); return .handled }
@@ -307,19 +314,12 @@ struct ContentView: View {
                 tone: CinematicTheme.aqua
             )
 
-            HStack(spacing: 8) {
-                CinematicToolbarButton(
-                    icon: "sidebar.left",
-                    isActive: isLeftPanelVisible,
-                    action: { isLeftPanelVisible.toggle() }
-                )
-
-                CinematicToolbarButton(
-                    icon: "sidebar.right",
-                    isActive: isRightRailVisible,
-                    action: { isRightRailVisible.toggle() }
-                )
-            }
+            CinematicToolbarButton(
+                icon: "sparkles.rectangle.stack",
+                label: selectedWorkspaceHasAIPanel ? "Focus AI" : "Show AI",
+                isActive: selectedWorkspaceHasAIPanel,
+                action: revealAIPanelInSelectedWorkspace
+            )
 
             CinematicToolbarButton(icon: "square.and.arrow.up", label: "Export") {
                 showExportDialog = true
@@ -342,14 +342,13 @@ struct ContentView: View {
         selectedWorkspace = workspace
         switch workspace {
         case .edit:
-            rightRailTab = .inspector
+            break
         case .transcript:
             leftPanelTab = .transcript
-            rightRailTab = .inspector
         case .media:
             leftPanelTab = .library
         case .ai:
-            rightRailTab = .ai
+            break
         case .deliver:
             break
         }
@@ -806,7 +805,7 @@ struct ContentView: View {
         let text = commandBarText.trimmingCharacters(in: .whitespaces)
         guard !text.isEmpty else { return }
         commandBarText = ""
-        rightRailTab = .ai
+        revealAIPanelInSelectedWorkspace()
         Task {
             await appState.aiChat.send(message: text, appState: appState)
         }
@@ -849,6 +848,10 @@ struct ContentView: View {
         )
     }
 
+    private var selectedWorkspaceHasAIPanel: Bool {
+        selectedWorkspaceState.wrappedValue.layout.root.containsPanel(.aiAssistant)
+    }
+
     private func restoreSelectedWorkspaceLayout() {
         let registry = persistenceRegistry
         let workspaceID = selectedWorkspaceID
@@ -886,6 +889,15 @@ struct ContentView: View {
         transcriptDockState.layout = PanelRegistry.transcriptDefaultLayout
         aiDockState.layout = PanelRegistry.aiDefaultLayout
         deliverDockState.layout = PanelRegistry.deliverDefaultLayout
+    }
+
+    private func revealAIPanelInSelectedWorkspace() {
+        let registry = persistenceRegistry
+        let state = selectedWorkspaceState
+
+        var nextState = state.wrappedValue
+        nextState.layout = registry.revealingPanel(.aiAssistant, in: nextState.layout)
+        state.wrappedValue = nextState
     }
 }
 
