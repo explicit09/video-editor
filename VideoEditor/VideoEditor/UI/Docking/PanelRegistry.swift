@@ -1,12 +1,5 @@
 import SwiftUI
 
-extension PanelID {
-    static let effects: PanelID = "effects"
-    static let mediaWorkspace: PanelID = "media-workspace"
-    static let transcript: PanelID = "transcript"
-    static let aiAssistant: PanelID = "ai-assistant"
-}
-
 struct PanelDefinition {
     let id: PanelID
     let title: String
@@ -24,6 +17,7 @@ struct PanelRegistry {
     static let mediaWorkspaceID = "media"
     static let transcriptWorkspaceID = "transcript"
     static let aiWorkspaceID = "ai"
+    static let deliverWorkspaceID = "deliver"
 
     static func workspaceRegistry(
         layoutMode: EditorLayoutMode,
@@ -97,6 +91,13 @@ struct PanelRegistry {
                     )
                 }
             ),
+            .deliver: PanelDefinition(
+                id: .deliver,
+                title: "Deliver",
+                systemImage: "square.and.arrow.up",
+                allowedDropBehavior: .splitOrTabs,
+                makeContent: { AnyView(DeliverPanel()) }
+            ),
         ]
 
         return Self(
@@ -106,6 +107,7 @@ struct PanelRegistry {
                 mediaWorkspaceID: mediaDefaultLayout,
                 transcriptWorkspaceID: transcriptDefaultLayout,
                 aiWorkspaceID: aiDefaultLayout,
+                deliverWorkspaceID: deliverDefaultLayout,
             ]
         )
     }
@@ -215,6 +217,10 @@ struct PanelRegistry {
                 )
             )
         )
+    }
+
+    static var deliverDefaultLayout: DockWorkspaceLayout {
+        WorkspaceDefaultLayouts.deliverDefaultLayout
     }
 
     var allowedPanelIDs: Set<PanelID> {

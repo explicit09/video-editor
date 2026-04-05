@@ -66,6 +66,26 @@ struct WorkspaceDockState {
     var loadTracker = EditLayoutLoadTracker()
 }
 
+private struct RestoreWorkspaceLayoutActionKey: FocusedValueKey {
+    typealias Value = () -> Void
+}
+
+private struct ResetWorkspaceLayoutsActionKey: FocusedValueKey {
+    typealias Value = () -> Void
+}
+
+extension FocusedValues {
+    var restoreWorkspaceLayoutAction: (() -> Void)? {
+        get { self[RestoreWorkspaceLayoutActionKey.self] }
+        set { self[RestoreWorkspaceLayoutActionKey.self] = newValue }
+    }
+
+    var resetWorkspaceLayoutsAction: (() -> Void)? {
+        get { self[ResetWorkspaceLayoutsActionKey.self] }
+        set { self[ResetWorkspaceLayoutsActionKey.self] = newValue }
+    }
+}
+
 struct ContentView: View {
     @Environment(AppState.self) private var appState
     @State private var selectedWorkspace: Workspace = .edit
@@ -81,6 +101,7 @@ struct ContentView: View {
     @State private var mediaDockState = WorkspaceDockState(layout: PanelRegistry.mediaDefaultLayout)
     @State private var transcriptDockState = WorkspaceDockState(layout: PanelRegistry.transcriptDefaultLayout)
     @State private var aiDockState = WorkspaceDockState(layout: PanelRegistry.aiDefaultLayout)
+    @State private var deliverDockState = WorkspaceDockState(layout: PanelRegistry.deliverDefaultLayout)
 
     enum Workspace: String, CaseIterable {
         case edit = "Edit"
@@ -130,6 +151,8 @@ struct ContentView: View {
         }
         .frame(minWidth: 1200, minHeight: 760)
         .focusable()
+        .focusedSceneValue(\.restoreWorkspaceLayoutAction, restoreSelectedWorkspaceLayout)
+        .focusedSceneValue(\.resetWorkspaceLayoutsAction, resetAllWorkspaceLayouts)
         .onKeyPress("j") { guard shouldHandleGlobalShortcut else { return .ignored }; stepBackward(); return .handled }
         .onKeyPress("k") { guard shouldHandleGlobalShortcut else { return .ignored }; appState.playbackEngine.togglePlayPause(); return .handled }
         .onKeyPress("l") { guard shouldHandleGlobalShortcut else { return .ignored }; stepForward(); return .handled }
@@ -344,7 +367,7 @@ struct ContentView: View {
         case .ai:
             focusedAIWorkspace(layoutMode: layoutMode)
         case .deliver:
-            deliverWorkspace(layoutMode: layoutMode)
+            focusedDeliverWorkspace(layoutMode: layoutMode)
         }
     }
 
@@ -641,126 +664,17 @@ struct ContentView: View {
         )
     }
 
-    private func deliverWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        let trackCount = appState.timeline.tracks.count
-        let clipCount = appState.clipCount
-        let canExport = appState.canExportCurrentTimeline
+    private func focusedDeliverWorkspace(layoutMode: EditorLayoutMode) -> some View {
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: layoutMode,
+            selectedTool: $editorTool
+        )
 
-        return HStack(spacing: CinematicSpacing.md) {
-            VStack(spacing: CinematicSpacing.md) {
-                CinematicCard(tone: .floating) {
-                    VStack(alignment: .leading, spacing: CinematicSpacing.md) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Deliver")
-                                    .font(.cinHeadline)
-                                    .foregroundStyle(CinematicTheme.onSurface)
-                                Text("Export presets, sequence summary, and output readiness")
-                                    .font(.cinBody)
-                                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
-                            }
-                            Spacer()
-                            CinematicStatusPill(
-                                text: canExport ? "Ready" : "Needs Clips",
-                                icon: canExport ? "checkmark.circle.fill" : "exclamationmark.triangle.fill",
-                                tone: canExport ? CinematicTheme.success : CinematicTheme.warning
-                            )
-                        }
-
-                        HStack(spacing: CinematicSpacing.sm) {
-                            summaryMetric(value: "\(trackCount)", label: "Tracks")
-                            summaryMetric(value: "\(clipCount)", label: "Clips")
-                            summaryMetric(value: TimeFormatter.duration(appState.timeline.duration), label: "Runtime")
-                        }
-                    }
-                }
-
-                CinematicCard {
-                    VStack(alignment: .leading, spacing: CinematicSpacing.md) {
-                        Text("Presets")
-                            .font(.cinTitleSmall)
-                            .foregroundStyle(CinematicTheme.onSurface)
-
-                        HStack(spacing: 8) {
-                            CinematicStatusPill(text: "YouTube 4K", icon: "play.rectangle.fill", tone: CinematicTheme.tertiary)
-                            CinematicStatusPill(text: "YouTube 1080p", icon: "play.rectangle", tone: CinematicTheme.aqua)
-                            CinematicStatusPill(text: "ProRes", icon: "film", tone: CinematicTheme.primary)
-                        }
-
-                        CinematicToolbarButton(icon: "square.and.arrow.up", label: "Open Export Dialog", isActive: true) {
-                            showExportDialog = true
-                        }
-                        .disabled(!canExport)
-                    }
-                }
-
-                // Export progress (shown during export)
-                switch appState.exportEngine.state {
-                case .exporting(let progress):
-                    CinematicCard(tone: .elevated) {
-                        VStack(alignment: .leading, spacing: CinematicSpacing.sm) {
-                            HStack {
-                                Text("Exporting...")
-                                    .font(.cinTitleSmall)
-                                    .foregroundStyle(CinematicTheme.onSurface)
-                                Spacer()
-                                Text("\(Int(progress * 100))%")
-                                    .font(.cinTimecode)
-                                    .foregroundStyle(CinematicTheme.primary)
-                            }
-                            ProgressView(value: Double(progress))
-                                .tint(CinematicTheme.primary)
-                            Button("Cancel Export") {
-                                appState.exportEngine.cancel()
-                            }
-                            .buttonStyle(.plain)
-                            .font(.cinLabelRegular)
-                            .foregroundStyle(CinematicTheme.error)
-                        }
-                    }
-                case .completed(let url):
-                    CinematicCard(tone: .elevated) {
-                        HStack {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(CinematicTheme.success)
-                            Text("Export complete")
-                                .font(.cinTitleSmall)
-                                .foregroundStyle(CinematicTheme.success)
-                            Spacer()
-                            Button("Reveal in Finder") {
-                                NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
-                            }
-                            .buttonStyle(.plain)
-                            .font(.cinLabelRegular)
-                            .foregroundStyle(CinematicTheme.primary)
-                        }
-                    }
-                case .failed(let msg):
-                    CinematicCard(tone: .elevated) {
-                        HStack {
-                            Image(systemName: "exclamationmark.circle.fill")
-                                .foregroundStyle(CinematicTheme.error)
-                            Text(msg)
-                                .font(.cinBody)
-                                .foregroundStyle(CinematicTheme.error)
-                        }
-                    }
-                case .idle:
-                    EmptyView()
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-
-            if isRightRailVisible {
-                InspectorPanel(
-                    selectedTab: $rightRailTab,
-                    context: .project,
-                    layoutMode: layoutMode,
-                    showsTabs: true
-                )
-                .frame(width: layoutMode == .compact ? CinematicMetrics.compactRightRailWidth : CinematicMetrics.expandedRightRailWidth)
-            }
-        }
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.deliverWorkspaceID,
+            state: $deliverDockState,
+            registry: registry
+        )
     }
 
     private var selectionInspectorContext: SelectionInspectorContext {
@@ -896,6 +810,82 @@ struct ContentView: View {
         Task {
             await appState.aiChat.send(message: text, appState: appState)
         }
+    }
+
+    private var selectedWorkspaceID: String {
+        switch selectedWorkspace {
+        case .edit:
+            PanelRegistry.editWorkspaceID
+        case .media:
+            PanelRegistry.mediaWorkspaceID
+        case .transcript:
+            PanelRegistry.transcriptWorkspaceID
+        case .ai:
+            PanelRegistry.aiWorkspaceID
+        case .deliver:
+            PanelRegistry.deliverWorkspaceID
+        }
+    }
+
+    private var selectedWorkspaceState: Binding<WorkspaceDockState> {
+        switch selectedWorkspace {
+        case .edit:
+            $editDockState
+        case .media:
+            $mediaDockState
+        case .transcript:
+            $transcriptDockState
+        case .ai:
+            $aiDockState
+        case .deliver:
+            $deliverDockState
+        }
+    }
+
+    private var persistenceRegistry: PanelRegistry {
+        PanelRegistry.workspaceRegistry(
+            layoutMode: .expanded,
+            selectedTool: $editorTool
+        )
+    }
+
+    private func restoreSelectedWorkspaceLayout() {
+        let registry = persistenceRegistry
+        let workspaceID = selectedWorkspaceID
+        let state = selectedWorkspaceState
+
+        do {
+            try registry
+                .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: appState.projectBundleURL))
+                .resetLayout(for: workspaceID)
+        } catch {
+            print("[ContentView] Failed to restore \(workspaceID) layout: \(error.localizedDescription)")
+        }
+
+        guard let defaultLayout = registry.defaultLayouts[workspaceID] else { return }
+
+        var nextState = state.wrappedValue
+        nextState.layout = defaultLayout
+        state.wrappedValue = nextState
+    }
+
+    private func resetAllWorkspaceLayouts() {
+        let registry = persistenceRegistry
+        let store = registry.makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: appState.projectBundleURL))
+
+        for workspaceID in registry.defaultLayouts.keys {
+            do {
+                try store.resetLayout(for: workspaceID)
+            } catch {
+                print("[ContentView] Failed to reset \(workspaceID) layout: \(error.localizedDescription)")
+            }
+        }
+
+        editDockState.layout = PanelRegistry.editDefaultLayout
+        mediaDockState.layout = PanelRegistry.mediaDefaultLayout
+        transcriptDockState.layout = PanelRegistry.transcriptDefaultLayout
+        aiDockState.layout = PanelRegistry.aiDefaultLayout
+        deliverDockState.layout = PanelRegistry.deliverDefaultLayout
     }
 }
 

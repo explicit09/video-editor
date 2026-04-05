@@ -30,6 +30,14 @@ struct WorkspaceLayoutStore {
         try data.write(to: layoutURL(for: layout.workspaceID), options: [.atomic])
     }
 
+    func resetLayout(for workspaceID: String) throws {
+        _ = try defaultLayout(for: workspaceID)
+
+        let url = layoutURL(for: workspaceID)
+        guard fileManager.fileExists(atPath: url.path) else { return }
+        try fileManager.removeItem(at: url)
+    }
+
     private func defaultLayout(for workspaceID: String) throws -> DockWorkspaceLayout {
         guard let layout = defaults[workspaceID] else {
             throw WorkspaceLayoutStoreError.missingDefaultLayout(workspaceID: workspaceID)

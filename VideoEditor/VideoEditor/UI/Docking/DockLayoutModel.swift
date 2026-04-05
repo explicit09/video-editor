@@ -16,6 +16,11 @@ struct PanelID: RawRepresentable, Hashable, Codable, Sendable, ExpressibleByStri
     static let programMonitor: PanelID = "program-monitor"
     static let timeline: PanelID = "timeline"
     static let inspector: PanelID = "inspector"
+    static let effects: PanelID = "effects"
+    static let mediaWorkspace: PanelID = "media-workspace"
+    static let transcript: PanelID = "transcript"
+    static let aiAssistant: PanelID = "ai-assistant"
+    static let deliver: PanelID = "deliver"
 }
 
 enum DockAxis: String, Codable, Sendable {
@@ -35,6 +40,24 @@ struct DockWorkspaceLayout: Codable, Equatable, Sendable {
 }
 
 enum WorkspaceDefaultLayouts {
+    static let deliverDefaultLayout = DockWorkspaceLayout(
+        workspaceID: "deliver",
+        root: .split(
+            axis: .horizontal,
+            ratio: 0.66,
+            leading: .panel(.programMonitor),
+            trailing: .split(
+                axis: .vertical,
+                ratio: 0.76,
+                leading: .panel(.deliver),
+                trailing: .tabs(
+                    activePanelID: .inspector,
+                    panelIDs: [.inspector, .timeline]
+                )
+            )
+        )
+    )
+
     static func make() -> [String: DockWorkspaceLayout] {
         [
             "edit": DockWorkspaceLayout(
@@ -53,7 +76,8 @@ enum WorkspaceDefaultLayouts {
                     ),
                     trailing: .panel(.timeline)
                 )
-            )
+            ),
+            "deliver": deliverDefaultLayout,
         ]
     }
 
@@ -63,5 +87,10 @@ enum WorkspaceDefaultLayouts {
         .programMonitor,
         .timeline,
         .inspector,
+        .effects,
+        .mediaWorkspace,
+        .transcript,
+        .aiAssistant,
+        .deliver,
     ]
 }

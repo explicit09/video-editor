@@ -4,6 +4,33 @@ import Testing
 
 @Suite("Workspace Layout Store Tests")
 struct WorkspaceLayoutStoreTests {
+    @Test("reset restores the default layout for a customized workspace")
+    func workspaceResetRestoresDefaults() throws {
+        let defaults = WorkspaceDefaultLayouts.make()
+        let baseURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = WorkspaceLayoutStore(
+            defaults: defaults,
+            fileManager: .default,
+            baseURL: baseURL,
+            allowedPanelIDs: WorkspaceDefaultLayouts.knownPanelIDs
+        )
+
+        #expect(defaults["deliver"] != nil)
+
+        try store.save(
+            DockWorkspaceLayout(
+                workspaceID: "deliver",
+                root: .panel(.inspector)
+            )
+        )
+
+        try store.resetLayout(for: "deliver")
+
+        let resolved = try store.loadLayout(for: "deliver")
+
+        #expect(resolved == defaults["deliver"])
+    }
+
     @Test("workspace layout store falls back to defaults when persisted layout references unknown panels")
     func workspaceLayoutFallback() throws {
         let defaults = WorkspaceDefaultLayouts.make()
