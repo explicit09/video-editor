@@ -16,26 +16,29 @@ public struct MultiFaceTracker: Sendable {
     public func track(
         url: URL,
         sampleInterval: TimeInterval = 0.5,
-        expectedFaces: Int = 2
+        expectedFaces: Int = 2,
+        startTime: TimeInterval? = nil,
+        endTime: TimeInterval? = nil
     ) async throws -> [FaceTrack] {
         let asset = AVURLAsset(url: url)
-        let duration = try await asset.load(.duration).seconds
+        let assetDuration = try await asset.load(.duration).seconds
         guard let _ = try await asset.loadTracks(withMediaType: .video).first else {
             throw MultiFaceTrackerError.noVideoTrack
         }
+
+        let rangeStart = startTime ?? 0
+        let rangeEnd = endTime ?? assetDuration
 
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
         generator.requestedTimeToleranceBefore = CMTime(seconds: 0.1, preferredTimescale: 600)
         generator.requestedTimeToleranceAfter = CMTime(seconds: 0.1, preferredTimescale: 600)
-        // Smaller size for faster processing
         generator.maximumSize = CGSize(width: 960, height: 540)
 
-        // Collect raw face detections per frame
         var frameDetections: [(time: TimeInterval, faces: [DetectedFace])] = []
 
-        var time: TimeInterval = 0
-        while time < duration {
+        var time: TimeInterval = rangeStart
+        while time < rangeEnd {
             let cmTime = CMTime(seconds: time, preferredTimescale: 600)
             guard let cgImage = try? generator.copyCGImage(at: cmTime, actualTime: nil) else {
                 time += sampleInterval

@@ -1765,8 +1765,12 @@ final class MCPServer {
             let ratio = AutoReframer.TargetAspectRatio(rawValue: ratioStr) ?? .vertical
             let reframer = AutoReframer()
             let mediaURL = resolvedToolMediaURL(for: asset)
+            // Use range from args or timeline clip, limit to 600s max
+            let rangeStart = (args["start"] as? Double) ?? appState.timeline.tracks.flatMap(\.clips).first(where: { $0.assetID == assetID })?.sourceRange.start
+            let rangeEnd = (args["end"] as? Double) ?? appState.timeline.tracks.flatMap(\.clips).first(where: { $0.assetID == assetID })?.sourceRange.end
+            let interval = (rangeEnd ?? asset.duration) - (rangeStart ?? 0) > 300 ? 4.0 : 2.0
             do {
-                let result = try await reframer.analyze(url: mediaURL, targetRatio: ratio, sampleInterval: 2.0)
+                let result = try await reframer.analyze(url: mediaURL, targetRatio: ratio, sampleInterval: interval, startTime: rangeStart, endTime: rangeEnd)
                 guard !result.cropRegions.isEmpty else {
                     return "Error: Auto reframe produced no crop regions — no faces or subjects detected in '\(asset.name)'."
                 }
@@ -2614,11 +2618,17 @@ final class MCPServer {
         if let cached = shortFormConfigs[assetID] {
             config = cached
         } else {
-            // Auto-chain: run analyze_for_shorts first, then retry
-            // Map source_start/source_end to start/end for the analyzer
+            // Auto-chain: run analyze_for_shorts first
             var analyzeArgs = args
             if let ss = args["source_start"] { analyzeArgs["start"] = ss }
             if let se = args["source_end"] { analyzeArgs["end"] = se }
+            // If no explicit range, use the first clip's source range from timeline
+            if analyzeArgs["start"] == nil {
+                if let clip = appState.timeline.tracks.flatMap(\.clips).first(where: { $0.assetID == assetID }) {
+                    analyzeArgs["start"] = clip.sourceRange.start
+                    analyzeArgs["end"] = clip.sourceRange.end
+                }
+            }
             let analyzeResult = await handleAnalyzeForShorts(analyzeArgs, appState: appState)
             guard let cached = shortFormConfigs[assetID] else {
                 return "Error: Auto-analyze failed. \(analyzeResult)"

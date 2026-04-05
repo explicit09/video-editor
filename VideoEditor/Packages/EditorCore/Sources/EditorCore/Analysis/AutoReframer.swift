@@ -39,10 +39,13 @@ public struct AutoReframer: Sendable {
     public func analyze(
         url: URL,
         targetRatio: TargetAspectRatio,
-        sampleInterval: TimeInterval = 0.5
+        sampleInterval: TimeInterval = 0.5,
+        startTime: TimeInterval? = nil,
+        endTime: TimeInterval? = nil
     ) async throws -> ReframeResult {
         let asset = AVURLAsset(url: url)
-        let duration = try await asset.load(.duration).seconds
+        let assetDuration = try await asset.load(.duration).seconds
+        let duration = endTime ?? assetDuration
         guard let videoTrack = try await asset.loadTracks(withMediaType: .video).first else {
             throw ReframeError.noVideoTrack
         }
@@ -56,7 +59,7 @@ public struct AutoReframer: Sendable {
         var cropRegions: [(time: TimeInterval, rect: CGRect)] = []
         var previousCenter = CGPoint(x: 0.5, y: 0.5) // Start centered
 
-        var time: TimeInterval = 0
+        var time: TimeInterval = startTime ?? 0
         while time < duration {
             let cmTime = CMTime(seconds: time, preferredTimescale: 600)
 
