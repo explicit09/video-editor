@@ -660,7 +660,7 @@ final class AppState {
     }
 
     func renameTrack(id: UUID, to name: String) {
-        updateTrack(id: id) { $0.name = name }
+        try? perform(.renameTrack(trackID: id, name: name))
     }
 
     func toggleTrackSolo(_ trackID: UUID) {

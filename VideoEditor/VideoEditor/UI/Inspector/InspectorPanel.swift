@@ -29,6 +29,8 @@ struct InspectorPanel: View {
     var showsTabs = true
 
     @State private var inputText = ""
+    @State private var trackNameDraft = ""
+    @FocusState private var isTrackNameFocused: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -261,21 +263,44 @@ struct InspectorPanel: View {
                         .foregroundStyle(CinematicTheme.onSurface)
 
                     CinematicInspectorFieldRow(label: "Name") {
-                        TextField("Track name", text: Binding(
-                            get: { resolvedTrack(track.id)?.name ?? track.name },
-                            set: { newValue in
-                                appState.updateTrack(id: track.id) { $0.name = newValue }
-                            }
-                        ))
+                        TextField("Track name", text: $trackNameDraft)
                         .textFieldStyle(.plain)
                         .font(.cinBody)
+                        .focused($isTrackNameFocused)
                         .padding(.horizontal, 10)
                         .frame(height: CinematicMetrics.fieldHeight)
                         .background(CinematicTheme.surfaceContainerLowest)
                         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+                        .onAppear {
+                            trackNameDraft = track.name
+                        }
+                        .onSubmit {
+                            commitTrackRename(track)
+                        }
+                        .onChange(of: isTrackNameFocused) { _, focused in
+                            if !focused {
+                                commitTrackRenameIfNeeded(track)
+                            }
+                        }
+                        .onChange(of: track.name) { _, newValue in
+                            if !isTrackNameFocused && trackNameDraft != newValue {
+                                trackNameDraft = newValue
+                            }
+                        }
+                        .onDisappear {
+                            commitTrackRenameIfNeeded(track)
+                        }
                     }
 
                     HStack(spacing: 8) {
+                        CinematicToolbarButton(
+                            icon: "target",
+                            label: viewStateTargetLabel(for: track),
+                            isActive: appState.timelineViewState.armedTrackID == track.id
+                        ) {
+                            appState.timelineViewState.toggleArmedTrack(track.id)
+                        }
+
                         trackTogglePill(
                             icon: track.type == .audio ? "speaker.wave.2.fill" : "eye.fill",
                             label: track.isMuted ? "Muted" : "Active",
@@ -332,7 +357,7 @@ struct InspectorPanel: View {
                             appState.addTrack(of: track.type, positionedAfter: track.id)
                         }
 
-                        if track.clips.isEmpty {
+                        if track.clips.isEmpty && !track.isLocked {
                             CinematicToolbarButton(icon: "trash", label: "Remove", isDestructive: true) {
                                 try? appState.perform(.removeTrack(trackID: track.id))
                             }
@@ -358,6 +383,29 @@ struct InspectorPanel: View {
             .clipShape(Capsule())
         }
         .buttonStyle(.plain)
+    }
+
+    private func viewStateTargetLabel(for track: Track) -> String {
+        appState.timelineViewState.armedTrackID == track.id ? "Armed" : "Target"
+    }
+
+    private func commitTrackRename(_ track: Track) {
+        let trimmed = trackNameDraft.trimmingCharacters(in: .whitespacesAndNewlines)
+        let nextName = trimmed.isEmpty ? defaultTrackName(for: track) : trimmed
+        trackNameDraft = nextName
+        appState.renameTrack(id: track.id, to: nextName)
+        isTrackNameFocused = false
+    }
+
+    private func commitTrackRenameIfNeeded(_ track: Track) {
+        let trimmed = trackNameDraft.trimmingCharacters(in: .whitespacesAndNewlines)
+        let nextName = trimmed.isEmpty ? defaultTrackName(for: track) : trimmed
+        guard nextName != track.name else { return }
+        commitTrackRename(track)
+    }
+
+    private func defaultTrackName(for track: Track) -> String {
+        track.name.isEmpty ? "\(track.type.rawValue.capitalized) Track" : track.name
     }
 
     private func clipInspector(_ clip: Clip) -> some View {

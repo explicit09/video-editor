@@ -185,6 +185,32 @@ public struct LockTrackCommand: Command {
     }
 }
 
+/// Rename a track.
+public struct RenameTrackCommand: Command {
+    public let name = "Rename Track"
+    public let trackID: UUID
+    public let newName: String
+    public var affectedTrackIDs: [UUID] { [trackID] }
+    private var previousName: String?
+
+    public init(trackID: UUID, name: String) {
+        self.trackID = trackID
+        self.newName = name
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyTrack(id: trackID, context: context) { track in
+            previousName = track.name
+            track.name = newName
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let previousName else { return }
+        try modifyTrack(id: trackID, context: context) { $0.name = previousName }
+    }
+}
+
 /// Toggle track solo state.
 public struct SoloTrackCommand: Command {
     public let name = "Toggle Solo Track"

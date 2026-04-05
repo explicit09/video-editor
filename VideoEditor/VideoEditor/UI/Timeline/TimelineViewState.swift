@@ -9,6 +9,8 @@ final class TimelineViewState {
     var zoom: Double = 100              // pixels per second
     var selectedClipIDs: Set<UUID> = []
     var selectedTrackID: UUID?
+    var armedTrackID: UUID?
+    var dragTargetTrackID: UUID?
     var isPlaying: Bool = false
     var snapEnabled: Bool = true
     var rippleEnabled: Bool = false
@@ -83,6 +85,26 @@ final class TimelineViewState {
         selectedTrackID = trackID
         selectedClipIDs.removeAll()
         lastSelectedClipID = nil
+    }
+
+    func armTrack(_ trackID: UUID) {
+        armedTrackID = trackID
+    }
+
+    func toggleArmedTrack(_ trackID: UUID) {
+        armedTrackID = armedTrackID == trackID ? nil : trackID
+    }
+
+    func clearArmedTrack() {
+        armedTrackID = nil
+    }
+
+    func updateDragTargetTrack(_ trackID: UUID?) {
+        dragTargetTrackID = trackID
+    }
+
+    var effectiveTargetTrackID: UUID? {
+        dragTargetTrackID ?? armedTrackID
     }
 
     func selectClip(_ clipID: UUID, in trackID: UUID) {

@@ -9,6 +9,7 @@ struct TrackHeaderRowView: View {
     let layoutState: TrackLayoutState
 
     @State private var draftName = ""
+    @FocusState private var isNameFocused: Bool
 
     private var isCollapsed: Bool {
         layoutState.isCollapsed(track.id)
@@ -53,11 +54,15 @@ struct TrackHeaderRowView: View {
         LinearGradient(
             colors: [
                 CinematicTheme.surfaceContainerLow,
-                trackAccentColor.opacity(viewState.selectedTrackID == track.id ? 0.14 : 0.06),
+                trackAccentColor.opacity(isArmed ? 0.18 : viewState.selectedTrackID == track.id ? 0.14 : 0.06),
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
+    }
+
+    private var isArmed: Bool {
+        viewState.armedTrackID == track.id
     }
 
     var body: some View {
@@ -68,6 +73,7 @@ struct TrackHeaderRowView: View {
                     isActive: false,
                     tooltip: isCollapsed ? "Expand track header" : "Collapse track header"
                 ) {
+                    commitTrackNameIfNeeded()
                     appState.toggleTrackCollapse(track.id)
                 }
 
@@ -97,13 +103,32 @@ struct TrackHeaderRowView: View {
                     .font(.cinBody)
                     .foregroundStyle(CinematicTheme.onSurface)
                     .lineLimit(1)
+                    .focused($isNameFocused)
                     .onSubmit(commitTrackName)
+                    .onChange(of: isNameFocused) { _, focused in
+                        if !focused {
+                            commitTrackNameIfNeeded()
+                        }
+                    }
+                    .onChange(of: track.name) { _, newValue in
+                        if !isNameFocused && draftName != newValue {
+                            draftName = newValue
+                        }
+                    }
                     .padding(.horizontal, 10)
                     .frame(height: CinematicMetrics.fieldHeight)
                     .background(CinematicTheme.surfaceContainerLowest)
                     .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
 
                 HStack(spacing: 6) {
+                    headerButton(
+                        icon: "target",
+                        isActive: isArmed,
+                        tooltip: isArmed ? "Clear destination track" : "Arm destination track"
+                    ) {
+                        appState.timelineViewState.toggleArmedTrack(track.id)
+                    }
+
                     headerButton(
                         icon: muteIcon,
                         isActive: !track.isMuted,
@@ -158,6 +183,14 @@ struct TrackHeaderRowView: View {
             } else {
                 HStack(spacing: 6) {
                     headerButton(
+                        icon: "target",
+                        isActive: isArmed,
+                        tooltip: isArmed ? "Clear destination track" : "Arm destination track"
+                    ) {
+                        appState.timelineViewState.toggleArmedTrack(track.id)
+                    }
+
+                    headerButton(
                         icon: muteIcon,
                         isActive: !track.isMuted,
                         tooltip: track.isMuted ? "Unmute track" : "Mute track"
@@ -201,6 +234,15 @@ struct TrackHeaderRowView: View {
                     .padding(.trailing, 8)
             }
         }
+        .overlay(alignment: .bottomTrailing) {
+            if viewState.effectiveTargetTrackID == track.id {
+                Capsule()
+                    .fill(trackAccentColor.opacity(0.28))
+                    .frame(width: 18, height: 6)
+                    .padding(.bottom, 6)
+                    .padding(.trailing, 8)
+            }
+        }
         .contentShape(Rectangle())
         .onTapGesture {
             appState.timelineViewState.selectTrack(track.id)
@@ -208,10 +250,16 @@ struct TrackHeaderRowView: View {
         .onAppear {
             draftName = resolvedTrackName
         }
+        .onChange(of: isCollapsed) { _, _ in
+            commitTrackNameIfNeeded()
+        }
         .onChange(of: track.name) { _, newValue in
-            if draftName != newValue {
+            if !isNameFocused && draftName != newValue {
                 draftName = newValue
             }
+        }
+        .onDisappear {
+            commitTrackNameIfNeeded()
         }
     }
 
@@ -230,7 +278,15 @@ struct TrackHeaderRowView: View {
         let trimmed = draftName.trimmingCharacters(in: .whitespacesAndNewlines)
         let nextName = trimmed.isEmpty ? resolvedTrackName : trimmed
         draftName = nextName
-        appState.updateTrack(id: track.id) { $0.name = nextName }
+        appState.renameTrack(id: track.id, to: nextName)
+        isNameFocused = false
+    }
+
+    private func commitTrackNameIfNeeded() {
+        let trimmed = draftName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let nextName = trimmed.isEmpty ? resolvedTrackName : trimmed
+        guard nextName != track.name else { return }
+        commitTrackName()
     }
 
     private func headerButton(

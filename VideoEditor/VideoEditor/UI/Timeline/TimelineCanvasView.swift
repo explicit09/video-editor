@@ -119,6 +119,14 @@ struct TimelineCanvasView: View {
             onCycleHeight: { },
             onRemoveTrack: nil,
             onClipTap: { clipID, extend in appState.toggleClipSelection(clipID, extend: extend) },
+            onDragChanged: { clipID, newStart, verticalOffset in
+                handleClipDragPreview(
+                    clipID: clipID,
+                    newStart: newStart,
+                    verticalOffset: verticalOffset,
+                    sourceTrackIndex: trackIndex
+                )
+            },
             onClipDrag: { clipID, newStart, verticalOffset in
                 handleClipDrag(
                     clipID: clipID,
@@ -161,6 +169,25 @@ struct TimelineCanvasView: View {
         )
         .frame(width: contentWidth, height: layoutState.height(for: track), alignment: .leading)
         .clipped()
+    }
+
+    private func handleClipDragPreview(
+        clipID: UUID,
+        newStart: TimeInterval,
+        verticalOffset: Double,
+        sourceTrackIndex: Int
+    ) {
+        guard timeline.tracks.indices.contains(sourceTrackIndex) else { return }
+        let _ = newStart
+        let targetTrackID = TimelineDropResolver.targetTrackID(
+            currentIndex: sourceTrackIndex,
+            verticalOffset: verticalOffset,
+            movingTrackType: timeline.tracks[sourceTrackIndex].type,
+            tracks: layoutState.timelineEntries(for: timeline.tracks),
+            clipGap: rowSpacing
+        )
+        viewState.updateDragTargetTrack(targetTrackID)
+        _ = clipID
     }
 
     private func timelineBackdrop(width: Double, height: Double) -> some View {
@@ -212,7 +239,9 @@ struct TimelineCanvasView: View {
             tracks: layoutState.timelineEntries(for: timeline.tracks),
             clipGap: rowSpacing
         )
+        viewState.updateDragTargetTrack(targetTrackID)
         appState.moveSelection(primaryClipID: clipID, newStart: snappedStart, targetTrackID: targetTrackID)
+        viewState.updateDragTargetTrack(nil)
     }
 
     private func handleAssetDrop(assetID: UUID, startTime: TimeInterval, trackID: UUID) {
@@ -226,6 +255,7 @@ struct TimelineCanvasView: View {
                 startTime: snappedStart
             )
         }
+        viewState.updateDragTargetTrack(nil)
     }
 
     private func linkClips(for clipID: UUID) {
