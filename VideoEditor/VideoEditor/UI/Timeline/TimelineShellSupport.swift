@@ -1,89 +1,116 @@
 import Foundation
 
 struct TimelineShellMetrics: Sendable, Equatable {
-    let compactHeaderHeight: Double
+    let headerWidth: Double
     let rulerHeight: Double
+    let scrollContentHeight: Double
 
-    var reservedTopInset: Double {
-        compactHeaderHeight + rulerHeight
-    }
+    static func make(
+        viewportWidth: Double,
+        viewportHeight: Double,
+        trackCount: Int,
+        expandedTrackHeight: Double,
+        collapsedTrackHeight: Double
+    ) -> TimelineShellMetrics {
+        let headerWidth = 152.0
+        let rulerHeight = 32.0
+        let trackCountValue = Double(max(trackCount, 1))
+        let rowHeight = max(expandedTrackHeight, collapsedTrackHeight)
+        let minimumTrackStackHeight = max(viewportHeight - rulerHeight, trackCountValue * rowHeight)
 
-    init(compactHeaderHeight: Double = 50, rulerHeight: Double = 28) {
-        self.compactHeaderHeight = compactHeaderHeight
-        self.rulerHeight = rulerHeight
-    }
-}
-
-struct TimelineVisibleFrame: Sendable, Equatable {
-    var originX: Double
-    var width: Double
-
-    var endX: Double {
-        originX + width
-    }
-
-    func contains(_ x: Double) -> Bool {
-        x >= originX && x <= endX
-    }
-
-    func contains(_ frame: TimelineVisibleFrame) -> Bool {
-        frame.originX >= originX && frame.endX <= endX
+        return TimelineShellMetrics(
+            headerWidth: headerWidth,
+            rulerHeight: rulerHeight,
+            scrollContentHeight: minimumTrackStackHeight + rulerHeight
+        )
     }
 }
 
 struct TimelineViewport: Sendable, Equatable {
-    var visibleFrame: TimelineVisibleFrame
-    var shellMetrics: TimelineShellMetrics
+    let visibleXRange: ClosedRange<Double>
+    let visibleYRange: ClosedRange<Double>
+}
 
-    var contentTopInset: Double {
-        shellMetrics.reservedTopInset
+struct TimelineVisibleFrame: Sendable, Equatable {
+    let minX: Double
+    let maxX: Double
+    let minY: Double
+    let maxY: Double
+
+    var width: Double {
+        max(0, maxX - minX)
     }
 
-    init(
-        visibleFrame: TimelineVisibleFrame,
-        shellMetrics: TimelineShellMetrics = TimelineShellMetrics()
-    ) {
-        self.visibleFrame = visibleFrame
-        self.shellMetrics = shellMetrics
+    var height: Double {
+        max(0, maxY - minY)
     }
 }
 
 struct TimelineScrollRequest: Sendable, Equatable {
-    let horizontalOffset: Double
+    let anchorX: Double?
+    let anchorY: Double?
 }
 
 enum TimelineScrollTargetResolver {
-    static func selectionVisibilityRequest(
-        for clipFrame: TimelineVisibleFrame,
-        in viewport: TimelineViewport
-    ) -> TimelineScrollRequest? {
-        scrollRequest(for: clipFrame, in: viewport.visibleFrame)
-    }
-
-    static func playheadVisibilityRequest(
-        playheadX: Double,
+    static func requestToReveal(
+        _ frame: TimelineVisibleFrame,
         in viewport: TimelineViewport,
-        autoFollowEnabled: Bool
+        padding: Double
     ) -> TimelineScrollRequest? {
-        guard autoFollowEnabled else { return nil }
-        return scrollRequest(
-            for: TimelineVisibleFrame(originX: playheadX, width: 0),
-            in: viewport.visibleFrame
+        let anchorX = revealAnchor(
+            lowerBound: viewport.visibleXRange.lowerBound,
+            upperBound: viewport.visibleXRange.upperBound,
+            minValue: frame.minX,
+            maxValue: frame.maxX,
+            padding: padding
         )
-    }
+        let anchorY = revealAnchor(
+            lowerBound: viewport.visibleYRange.lowerBound,
+            upperBound: viewport.visibleYRange.upperBound,
+            minValue: frame.minY,
+            maxValue: frame.maxY,
+            padding: padding
+        )
 
-    private static func scrollRequest(
-        for targetFrame: TimelineVisibleFrame,
-        in visibleFrame: TimelineVisibleFrame
-    ) -> TimelineScrollRequest? {
-        guard visibleFrame.width > 0 else { return nil }
-
-        if targetFrame.originX < visibleFrame.originX {
-            return TimelineScrollRequest(horizontalOffset: targetFrame.originX - visibleFrame.originX)
+        if anchorX == nil && anchorY == nil {
+            return nil
         }
 
-        if targetFrame.endX > visibleFrame.endX {
-            return TimelineScrollRequest(horizontalOffset: targetFrame.endX - visibleFrame.endX)
+        return TimelineScrollRequest(anchorX: anchorX, anchorY: anchorY)
+    }
+
+    static func requestToKeepPlayheadVisible(
+        playheadX: Double,
+        in viewport: TimelineViewport,
+        autoFollow: Bool,
+        padding: Double
+    ) -> TimelineScrollRequest? {
+        guard autoFollow else { return nil }
+
+        let anchorX = revealAnchor(
+            lowerBound: viewport.visibleXRange.lowerBound,
+            upperBound: viewport.visibleXRange.upperBound,
+            minValue: playheadX,
+            maxValue: playheadX,
+            padding: padding
+        )
+
+        return anchorX.map { TimelineScrollRequest(anchorX: $0, anchorY: nil) }
+    }
+
+    private static func revealAnchor(
+        lowerBound: Double,
+        upperBound: Double,
+        minValue: Double,
+        maxValue: Double,
+        padding: Double
+    ) -> Double? {
+        if maxValue > upperBound - padding {
+            return minValue - padding
+        }
+
+        if minValue < lowerBound + padding {
+            return maxValue + padding - (upperBound - lowerBound)
         }
 
         return nil

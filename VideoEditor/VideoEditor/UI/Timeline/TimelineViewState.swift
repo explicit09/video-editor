@@ -13,6 +13,7 @@ final class TimelineViewState {
     var snapEnabled: Bool = true
     var rippleEnabled: Bool = false
     var linkedSelectionEnabled: Bool = true
+    var autoFollowPlayhead: Bool = false
     var lastSelectedClipID: UUID?
     var placementMode: PlacementMode = .overwrite
 

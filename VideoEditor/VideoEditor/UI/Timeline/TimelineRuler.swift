@@ -4,6 +4,7 @@ import EditorCore
 struct TimelineRuler: View {
     let viewState: TimelineViewState
     let totalWidth: Double
+    var horizontalOffset: Double = 0
 
     var body: some View {
         Canvas { context, size in
@@ -12,7 +13,7 @@ struct TimelineRuler: View {
             var time: TimeInterval = 0
 
             while time <= totalSeconds {
-                let x = viewState.durationToWidth(time)
+                let x = viewState.durationToWidth(time) - horizontalOffset
                 let isMajor = isMajorTick(time, step: step)
                 let isZero = time == 0
 
@@ -51,7 +52,7 @@ struct TimelineRuler: View {
         )
         .overlay(alignment: .bottom) {
             Rectangle()
-                .fill(CinematicTheme.outlineVariant.opacity(0.24))
+                .fill(CinematicTheme.outlineVariant.opacity(0.3))
                 .frame(height: 1)
         }
     }

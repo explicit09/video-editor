@@ -1,0 +1,145 @@
+import SwiftUI
+import EditorCore
+
+struct TimelineToolbarView: View {
+    @Environment(AppState.self) private var appState
+
+    let tool: EditorTool
+    let viewState: TimelineViewState
+    let timeline: Timeline
+
+    var body: some View {
+        HStack(spacing: CinematicSpacing.sm) {
+            Menu {
+                Button("Video Track") { appState.addTrack(of: .video, positionedAfter: viewState.selectedTrackID) }
+                Button("Audio Track") { appState.addTrack(of: .audio, positionedAfter: viewState.selectedTrackID) }
+                Button("Text Track") { appState.addTrack(of: .text, positionedAfter: viewState.selectedTrackID) }
+                Button("Effect Track") { appState.addTrack(of: .effect, positionedAfter: viewState.selectedTrackID) }
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "plus")
+                    Text("Add Track")
+                        .font(.cinLabel)
+                }
+                .foregroundStyle(CinematicTheme.onSurface)
+                .padding(.horizontal, 12)
+                .frame(height: CinematicMetrics.controlHeight)
+                .background(CinematicTheme.surfaceContainerHighest)
+                .clipShape(Capsule())
+            }
+            .menuStyle(.button)
+
+            CinematicStatusPill(
+                text: tool.rawValue.uppercased(),
+                icon: tool.icon,
+                tone: CinematicTheme.primary
+            )
+
+            HStack(spacing: 6) {
+                CinematicToolbarButton(icon: "arrow.uturn.backward", action: { try? appState.undo() })
+                    .disabled(!appState.commandHistory.canUndo)
+                CinematicToolbarButton(icon: "arrow.uturn.forward", action: { try? appState.redo() })
+                    .disabled(!appState.commandHistory.canRedo)
+            }
+
+            Button {
+                viewState.snapEnabled.toggle()
+            } label: {
+                CinematicStatusPill(
+                    text: viewState.snapEnabled ? "SNAP ON" : "SNAP OFF",
+                    icon: "scope",
+                    tone: viewState.snapEnabled ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant
+                )
+            }
+            .buttonStyle(.plain)
+
+            Button {
+                viewState.rippleEnabled.toggle()
+            } label: {
+                CinematicStatusPill(
+                    text: viewState.rippleEnabled ? "RIPPLE ON" : "RIPPLE OFF",
+                    icon: "arrow.left.arrow.right.circle",
+                    tone: viewState.rippleEnabled ? CinematicTheme.warning : CinematicTheme.onSurfaceVariant
+                )
+            }
+            .buttonStyle(.plain)
+
+            Button {
+                viewState.linkedSelectionEnabled.toggle()
+            } label: {
+                CinematicStatusPill(
+                    text: viewState.linkedSelectionEnabled ? "LINKED ON" : "LINKED OFF",
+                    icon: "link",
+                    tone: viewState.linkedSelectionEnabled ? CinematicTheme.success : CinematicTheme.onSurfaceVariant
+                )
+            }
+            .buttonStyle(.plain)
+
+            Button {
+                viewState.autoFollowPlayhead.toggle()
+            } label: {
+                CinematicStatusPill(
+                    text: viewState.autoFollowPlayhead ? "FOLLOW ON" : "FOLLOW OFF",
+                    icon: "dot.radiowaves.left.and.right",
+                    tone: viewState.autoFollowPlayhead ? CinematicTheme.aqua : CinematicTheme.onSurfaceVariant
+                )
+            }
+            .buttonStyle(.plain)
+
+            CinematicStatusPill(
+                text: "\(timeline.tracks.count) lanes",
+                icon: "square.stack.3d.down.right",
+                tone: CinematicTheme.aqua
+            )
+
+            CinematicStatusPill(
+                text: zoomLabel(for: viewState.zoom),
+                icon: "timeline.selection",
+                tone: CinematicTheme.tertiary
+            )
+
+            Menu {
+                Button("Zoom In") { viewState.zoomIn() }
+                Button("Zoom Out") { viewState.zoomOut() }
+                Divider()
+                Button("Full Extent") { viewState.zoomToFit(duration: timeline.duration) }
+                    .disabled(timeline.duration == 0)
+                Button("Detail Zoom") { viewState.zoomToDetail() }
+            } label: {
+                HStack(spacing: 6) {
+                    CinematicToolbarButton(icon: "minus", action: { viewState.zoomOut() })
+                    CinematicToolbarButton(icon: "arrow.left.and.right", action: { viewState.zoomToFit(duration: timeline.duration) })
+                        .disabled(timeline.duration == 0)
+                    CinematicToolbarButton(icon: "plus", action: { viewState.zoomIn() })
+                }
+            }
+            .menuStyle(.button)
+
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(
+            LinearGradient(
+                colors: [
+                    CinematicTheme.surfaceContainerHigh,
+                    CinematicTheme.surfaceContainerHighest.opacity(0.86),
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .fill(CinematicTheme.outlineVariant.opacity(0.2))
+                .frame(height: 1)
+        }
+    }
+
+    private func zoomLabel(for zoom: Double) -> String {
+        if zoom < 10 {
+            return String(format: "%.1f px/s", zoom)
+        }
+        return "\(Int(zoom.rounded())) px/s"
+    }
+}

@@ -4,35 +4,42 @@ import EditorCore
 struct PlayheadView: View {
     let viewState: TimelineViewState
     var onSeek: (() -> Void)?
+    var horizontalOffset: Double = 0
+    var scrubHeight: Double = 32
 
     var body: some View {
         GeometryReader { geo in
-            let x = viewState.durationToWidth(viewState.playheadPosition)
+            let x = viewState.durationToWidth(viewState.playheadPosition) - horizontalOffset
 
-            // Playhead line
             Path { path in
                 path.move(to: CGPoint(x: x, y: 0))
                 path.addLine(to: CGPoint(x: x, y: geo.size.height))
             }
-            .stroke(CinematicTheme.error, lineWidth: 1)
+            .stroke(CinematicTheme.error.opacity(0.92), lineWidth: 1.4)
+            .shadow(color: CinematicTheme.error.opacity(0.24), radius: 2, x: 0, y: 0)
 
-            // Playhead handle (top triangle)
             Path { path in
-                path.move(to: CGPoint(x: x - 6, y: 0))
-                path.addLine(to: CGPoint(x: x + 6, y: 0))
-                path.addLine(to: CGPoint(x: x, y: 10))
+                path.move(to: CGPoint(x: x - 7, y: 0))
+                path.addLine(to: CGPoint(x: x + 7, y: 0))
+                path.addLine(to: CGPoint(x: x, y: 12))
                 path.closeSubpath()
             }
-            .fill(CinematicTheme.error)
+            .fill(
+                LinearGradient(
+                    colors: [CinematicTheme.error, CinematicTheme.error.opacity(0.72)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+            .shadow(color: CinematicTheme.error.opacity(0.18), radius: 1, x: 0, y: 1)
 
-            // Scrub area (ruler height)
             Color.clear
-                .frame(height: 28)
+                .frame(height: scrubHeight)
                 .contentShape(Rectangle())
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { value in
-                            viewState.playheadPosition = max(0, viewState.xToTime(value.location.x))
+                            viewState.playheadPosition = max(0, viewState.xToTime(value.location.x + horizontalOffset))
                             onSeek?()
                         }
                 )
