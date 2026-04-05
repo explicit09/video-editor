@@ -9,6 +9,9 @@ struct TimelineToolbarView: View {
     let timeline: Timeline
 
     var body: some View {
+        let selectionRange = viewState.selectedTimeRange(in: timeline)
+        let canZoomToExtent = timeline.duration > 0
+
         HStack(spacing: CinematicSpacing.sm) {
             Menu {
                 Button("Video Track") { appState.addTrack(of: .video, positionedAfter: viewState.selectedTrackID) }
@@ -102,14 +105,29 @@ struct TimelineToolbarView: View {
                 Button("Zoom In") { viewState.zoomIn() }
                 Button("Zoom Out") { viewState.zoomOut() }
                 Divider()
+                Button("Fit Selection") {
+                    if let selectionRange {
+                        viewState.zoomToRange(selectionRange)
+                    }
+                }
+                .disabled(selectionRange == nil)
                 Button("Full Extent") { viewState.zoomToFit(duration: timeline.duration) }
-                    .disabled(timeline.duration == 0)
+                    .disabled(!canZoomToExtent)
                 Button("Detail Zoom") { viewState.zoomToDetail() }
+                Divider()
+                ForEach(TimelineViewState.zoomPresets, id: \.self) { preset in
+                    Button(zoomPresetLabel(for: preset)) {
+                        viewState.setZoom(preset)
+                    }
+                }
             } label: {
                 HStack(spacing: 6) {
                     CinematicToolbarButton(icon: "minus", action: { viewState.zoomOut() })
-                    CinematicToolbarButton(icon: "arrow.left.and.right", action: { viewState.zoomToFit(duration: timeline.duration) })
-                        .disabled(timeline.duration == 0)
+                    CinematicToolbarButton(
+                        icon: selectionRange == nil ? "arrow.left.and.right" : "viewfinder",
+                        action: { performPrimaryZoom(selectionRange: selectionRange, canZoomToExtent: canZoomToExtent) }
+                    )
+                    .disabled(selectionRange == nil && !canZoomToExtent)
                     CinematicToolbarButton(icon: "plus", action: { viewState.zoomIn() })
                 }
             }
@@ -141,5 +159,20 @@ struct TimelineToolbarView: View {
             return String(format: "%.1f px/s", zoom)
         }
         return "\(Int(zoom.rounded())) px/s"
+    }
+
+    private func performPrimaryZoom(selectionRange: TimeRange?, canZoomToExtent: Bool) {
+        if let selectionRange {
+            viewState.zoomToRange(selectionRange)
+        } else if canZoomToExtent {
+            viewState.zoomToFit(duration: timeline.duration)
+        }
+    }
+
+    private func zoomPresetLabel(for preset: Double) -> String {
+        if preset < 10 {
+            return String(format: "%.1f px/s", preset)
+        }
+        return "\(Int(preset.rounded())) px/s"
     }
 }

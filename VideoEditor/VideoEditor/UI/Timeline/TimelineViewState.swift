@@ -154,6 +154,21 @@ final class TimelineViewState {
         lastSelectedClipID = nil
     }
 
+    func selectedTimeRange(in timeline: Timeline) -> TimeRange? {
+        var minimumStart: TimeInterval?
+        var maximumEnd: TimeInterval?
+
+        for track in timeline.tracks {
+            for clip in track.clips where selectedClipIDs.contains(clip.id) {
+                minimumStart = min(minimumStart ?? clip.timelineRange.start, clip.timelineRange.start)
+                maximumEnd = max(maximumEnd ?? clip.timelineRange.end, clip.timelineRange.end)
+            }
+        }
+
+        guard let minimumStart, let maximumEnd else { return nil }
+        return TimeRange(start: minimumStart, end: maximumEnd)
+    }
+
     private enum ZoomDirection {
         case `in`
         case out

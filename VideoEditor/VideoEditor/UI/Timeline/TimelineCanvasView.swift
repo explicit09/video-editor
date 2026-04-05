@@ -194,6 +194,10 @@ struct TimelineCanvasView: View {
         Rectangle()
             .fill(CinematicTheme.surfaceContainerLow)
             .frame(width: width, height: height)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                viewState.clearSelection()
+            }
             .overlay(
                 LinearGradient(
                     colors: [

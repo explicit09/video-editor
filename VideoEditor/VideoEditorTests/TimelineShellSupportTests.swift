@@ -120,6 +120,32 @@ struct TimelineShellSupportTests {
         #expect(viewState.autoFollowPlayhead == true)
     }
 
+    @Test("timeline view state derives a fit-selection range from the selected clips")
+    @MainActor
+    func timelineViewStateSelectedTimeRange() {
+        let firstClip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 3, end: 9),
+            sourceRange: TimeRange(start: 0, end: 6)
+        )
+        let secondClip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 12, end: 18),
+            sourceRange: TimeRange(start: 0, end: 6)
+        )
+        let timeline = Timeline(
+            tracks: [
+                Track(name: "Video 1", type: .video, clips: [firstClip]),
+                Track(name: "Audio 1", type: .audio, clips: [secondClip]),
+            ]
+        )
+        let viewState = TimelineViewState()
+
+        viewState.selectedClipIDs = [firstClip.id, secondClip.id]
+
+        #expect(viewState.selectedTimeRange(in: timeline) == TimeRange(start: 3, end: 18))
+    }
+
     @Test("selection zoom expands to the minimum duration around the selection")
     func selectionZoomExpandsAroundSelection() {
         let range = TimelineSelectionZoomResolver.zoomRange(

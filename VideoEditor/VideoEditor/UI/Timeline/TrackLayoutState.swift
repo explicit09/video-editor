@@ -3,21 +3,43 @@ import EditorCore
 
 @MainActor @Observable
 final class TrackLayoutState {
+    enum RowHeightMode: CaseIterable {
+        case compact
+        case standard
+        case expanded
+    }
+
     let collapsedTrackHeight: Double = 28
+    let compactTrackHeight: Double = 56
     let expandedTrackHeight: Double = 84
+    let detailTrackHeight: Double = 120
 
     var collapsedTrackIDs: Set<UUID> = []
+    private var rowHeightModes: [UUID: RowHeightMode] = [:]
 
     func height(for track: Track) -> Double {
         height(for: track.id)
     }
 
     func height(for trackID: UUID) -> Double {
-        collapsedTrackIDs.contains(trackID) ? collapsedTrackHeight : expandedTrackHeight
+        guard !collapsedTrackIDs.contains(trackID) else { return collapsedTrackHeight }
+
+        switch rowHeightMode(for: trackID) {
+        case .compact:
+            return compactTrackHeight
+        case .standard:
+            return expandedTrackHeight
+        case .expanded:
+            return detailTrackHeight
+        }
     }
 
     func isCollapsed(_ trackID: UUID) -> Bool {
         collapsedTrackIDs.contains(trackID)
+    }
+
+    func rowHeightMode(for trackID: UUID) -> RowHeightMode {
+        rowHeightModes[trackID] ?? .standard
     }
 
     func toggleCollapse(_ trackID: UUID) {
@@ -27,7 +49,11 @@ final class TrackLayoutState {
     }
 
     func cycleHeight(for trackID: UUID) {
-        toggleCollapse(trackID)
+        let allModes = RowHeightMode.allCases
+        let currentMode = rowHeightMode(for: trackID)
+        guard let currentIndex = allModes.firstIndex(of: currentMode) else { return }
+        let nextIndex = (currentIndex + 1) % allModes.count
+        rowHeightModes[trackID] = allModes[nextIndex]
     }
 
     func yOffset(for trackIndex: Int, in tracks: [Track], rowSpacing: Double) -> Double {
