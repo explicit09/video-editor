@@ -2,130 +2,17 @@ import SwiftUI
 import AppKit
 import EditorCore
 
-enum LeftPanelTab: String, CaseIterable, Hashable {
-    case library = "Library"
-    case transcript = "Transcript"
-    case search = "Search"
-    case projects = "Projects"
-    case settings = "Settings"
-
-    var icon: String {
-        switch self {
-        case .library: "photo.on.rectangle"
-        case .transcript: "text.alignleft"
-        case .search: "sparkle.magnifyingglass"
-        case .projects: "folder"
-        case .settings: "gearshape"
-        }
-    }
-}
-
-enum EditorLayoutMode: Hashable {
-    case compact
-    case expanded
-}
-
-enum EditorTool: String, CaseIterable, Hashable {
-    case selection = "Select"
-    case blade = "Blade"
-    case trim = "Trim"
-
-    var icon: String {
-        switch self {
-        case .selection: "cursorarrow"
-        case .blade: "scissors"
-        case .trim: "arrow.left.and.right.righttriangle.left.righttriangle.right"
-        }
-    }
-}
-
-struct EditWorkspaceChrome: Equatable, Sendable {
-    let showsLeftRail: Bool
-    let showsEmbeddedUtilityPanel: Bool
-
-    static func make(isUtilityPanelVisible: Bool) -> Self {
-        Self(
-            showsLeftRail: false,
-            showsEmbeddedUtilityPanel: isUtilityPanelVisible
-        )
-    }
-}
-
-struct EditLayoutLoadTracker {
-    private(set) var loadedBundleURL: URL?
-
-    mutating func markLoadedIfNeeded(for bundleURL: URL) -> Bool {
-        guard loadedBundleURL != bundleURL else { return false }
-        loadedBundleURL = bundleURL
-        return true
-    }
-}
-
-struct WorkspaceDockState {
-    var layout: DockWorkspaceLayout
-    var loadTracker = EditLayoutLoadTracker()
-}
-
-private struct RestoreWorkspaceLayoutActionKey: FocusedValueKey {
-    typealias Value = () -> Void
-}
-
-private struct ResetWorkspaceLayoutsActionKey: FocusedValueKey {
-    typealias Value = () -> Void
-}
-
-private struct RevealAIPanelActionKey: FocusedValueKey {
-    typealias Value = () -> Void
-}
-
-extension FocusedValues {
-    var restoreWorkspaceLayoutAction: (() -> Void)? {
-        get { self[RestoreWorkspaceLayoutActionKey.self] }
-        set { self[RestoreWorkspaceLayoutActionKey.self] = newValue }
-    }
-
-    var resetWorkspaceLayoutsAction: (() -> Void)? {
-        get { self[ResetWorkspaceLayoutsActionKey.self] }
-        set { self[ResetWorkspaceLayoutsActionKey.self] = newValue }
-    }
-
-    var revealAIPanelAction: (() -> Void)? {
-        get { self[RevealAIPanelActionKey.self] }
-        set { self[RevealAIPanelActionKey.self] = newValue }
-    }
-}
-
 struct ContentView: View {
     @Environment(AppState.self) private var appState
-    @State private var selectedWorkspace: Workspace = .edit
-    @State private var commandBarText = ""
+    @State private var selectedWorkspace: EditorWorkspace = .edit
     @State private var showSettings = false
     @State private var showExportDialog = false
-    @State private var leftPanelTab: LeftPanelTab = .library
     @State private var editorTool: EditorTool = .selection
     @State private var editDockState = WorkspaceDockState(layout: PanelRegistry.editDefaultLayout)
     @State private var mediaDockState = WorkspaceDockState(layout: PanelRegistry.mediaDefaultLayout)
     @State private var transcriptDockState = WorkspaceDockState(layout: PanelRegistry.transcriptDefaultLayout)
     @State private var aiDockState = WorkspaceDockState(layout: PanelRegistry.aiDefaultLayout)
     @State private var deliverDockState = WorkspaceDockState(layout: PanelRegistry.deliverDefaultLayout)
-
-    enum Workspace: String, CaseIterable {
-        case edit = "Edit"
-        case transcript = "Transcript"
-        case media = "Media"
-        case ai = "AI"
-        case deliver = "Deliver"
-
-        var icon: String {
-            switch self {
-            case .edit: "timeline.selection"
-            case .transcript: "text.alignleft"
-            case .media: "photo.on.rectangle"
-            case .ai: "sparkles"
-            case .deliver: "square.and.arrow.up"
-            }
-        }
-    }
 
     var body: some View {
         GeometryReader { geo in
@@ -136,7 +23,7 @@ struct ContentView: View {
                 topBar(layoutMode: layoutMode)
 
                 WorkspacePageBar(
-                    items: Workspace.allCases,
+                    items: EditorWorkspace.allCases,
                     selection: Binding(
                         get: { selectedWorkspace },
                         set: { selectWorkspace($0) }
@@ -338,20 +225,8 @@ struct ContentView: View {
         }
     }
 
-    private func selectWorkspace(_ workspace: Workspace) {
+    private func selectWorkspace(_ workspace: EditorWorkspace) {
         selectedWorkspace = workspace
-        switch workspace {
-        case .edit:
-            break
-        case .transcript:
-            leftPanelTab = .transcript
-        case .media:
-            leftPanelTab = .library
-        case .ai:
-            break
-        case .deliver:
-            break
-        }
     }
 
     @ViewBuilder
@@ -380,247 +255,6 @@ struct ContentView: View {
             workspaceID: PanelRegistry.editWorkspaceID,
             state: $editDockState,
             registry: registry
-        )
-    }
-
-    private var utilityPanel: some View {
-        VStack(spacing: 0) {
-            UtilityPanelHeader(
-                eyebrow: "EDITOR TOOLS",
-                title: leftPanelTitle,
-                subtitle: leftPanelSubtitle
-            )
-
-            HStack {
-                CinematicSegmentedTabBar(
-                    items: LeftPanelTab.allCases,
-                    selection: $leftPanelTab,
-                    label: { $0.rawValue },
-                    icon: { $0.icon }
-                )
-                Spacer()
-            }
-            .padding(.horizontal, UtilitySpacing.md)
-            .padding(.vertical, UtilitySpacing.sm)
-
-            Group {
-                switch leftPanelTab {
-                case .library:
-                    MediaBrowserPanel()
-                case .transcript:
-                    TranscriptPanel()
-                case .search:
-                    searchUtilityPanel
-                case .projects:
-                    ProjectBrowserPanel()
-                case .settings:
-                    SettingsPanel()
-                }
-            }
-        }
-        .utilitySurface(.panel)
-    }
-
-    private var searchUtilityPanel: some View {
-        VStack(spacing: 0) {
-            if let query = appState.aiChat.lastSearchQuery,
-               let results = appState.aiChat.lastSearchResults,
-               !results.isEmpty {
-                SearchResultsView(query: query, results: results)
-            } else {
-                CinematicEmptyStateBlock(
-                    icon: "sparkle.magnifyingglass",
-                    title: "Search your edit",
-                    detail: "Use the AI rail to search transcripts or ask the editor to gather moments into a sequence."
-                ) {
-                    VStack(spacing: 8) {
-                        CinematicStatusPill(text: "Open AI tab", icon: "sparkles", tone: CinematicTheme.primary)
-                        CinematicStatusPill(text: "Search results appear here", icon: "rectangle.stack.person.crop", tone: CinematicTheme.aqua)
-                    }
-                }
-            }
-        }
-        .background(CinematicTheme.surfaceContainerLow)
-    }
-
-    private var leftPanelTitle: String {
-        switch leftPanelTab {
-        case .library: "Library"
-        case .transcript: "Transcript"
-        case .search: "Search"
-        case .projects: "Projects"
-        case .settings: "Settings"
-        }
-    }
-
-    private var leftPanelSubtitle: String {
-        switch leftPanelTab {
-        case .library: "Media sources, import, and drag to timeline"
-        case .transcript: "Transcript access while editing"
-        case .search: "AI search matches and quick sequence actions"
-        case .projects: "Switch between projects or create new ones"
-        case .settings: "Export, media sources, and storage"
-        }
-    }
-
-    private var transportBar: some View {
-        HStack(spacing: CinematicSpacing.md) {
-            Text(TimeFormatter.timecode(appState.playbackEngine.currentTime))
-                .font(.cinTimecode)
-                .foregroundStyle(CinematicTheme.onSurface)
-                .frame(width: 118, alignment: .leading)
-
-            HStack(spacing: 8) {
-                CinematicToolbarButton(icon: "backward.end.fill") {
-                    appState.playbackEngine.seek(to: 0)
-                    appState.timelineViewState.playheadPosition = 0
-                }
-
-                CinematicToolbarButton(icon: appState.playbackEngine.isPlaying ? "pause.fill" : "play.fill", isActive: true) {
-                    appState.playbackEngine.togglePlayPause()
-                }
-
-                CinematicToolbarButton(icon: "forward.end.fill") {
-                    appState.playbackEngine.seek(to: appState.playbackEngine.duration)
-                    appState.timelineViewState.playheadPosition = appState.playbackEngine.duration
-                }
-            }
-
-            Spacer()
-
-            HStack(spacing: 8) {
-                CinematicSegmentedTabBar(
-                    items: EditorTool.allCases,
-                    selection: $editorTool,
-                    label: { $0.rawValue },
-                    icon: { $0.icon }
-                )
-
-                Rectangle()
-                    .fill(CinematicTheme.outlineVariant.opacity(0.3))
-                    .frame(width: 1, height: 20)
-
-                editModePicker
-            }
-            .frame(maxWidth: 480)
-
-            Spacer()
-
-            Menu {
-                ForEach([0.5, 1.0, 1.5, 2.0], id: \.self) { rate in
-                    Button {
-                        appState.playbackEngine.playbackRate = Float(rate)
-                        if appState.playbackEngine.isPlaying {
-                            appState.playbackEngine.player.rate = Float(rate)
-                        }
-                    } label: {
-                        let label = rate == 1.0 ? "1x" : "\(rate == 0.5 ? "0.5" : rate == 1.5 ? "1.5" : "2")x"
-                        if Float(rate) == appState.playbackEngine.playbackRate {
-                            Label(label, systemImage: "checkmark")
-                        } else {
-                            Text(label)
-                        }
-                    }
-                }
-            } label: {
-                HStack(spacing: 4) {
-                    Image(systemName: "gauge.with.needle")
-                        .font(.system(size: 12, weight: .semibold))
-                    Text(speedLabel(for: appState.playbackEngine.playbackRate))
-                        .font(.cinLabel)
-                }
-                .foregroundStyle(CinematicTheme.onSurface)
-                .padding(.horizontal, 10)
-                .frame(height: CinematicMetrics.controlHeight)
-                .background(CinematicTheme.surfaceContainerHighest)
-                .clipShape(Capsule())
-            }
-            .menuStyle(.button)
-
-            CinematicToolbarButton(
-                icon: appState.playbackEngine.loopEnabled ? "repeat" : "repeat",
-                isActive: appState.playbackEngine.loopEnabled
-            ) {
-                appState.playbackEngine.loopEnabled.toggle()
-            }
-            .help(appState.playbackEngine.loopEnabled ? "Disable loop" : "Enable loop")
-
-            Text(TimeFormatter.timecode(appState.playbackEngine.duration))
-                .font(.cinTimecode)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.64))
-                .frame(width: 118, alignment: .trailing)
-        }
-        .padding(.horizontal, CinematicSpacing.md)
-        .frame(height: 54)
-        .panelSurface(.elevated, strokeOpacity: 0.84)
-    }
-
-    @ViewBuilder
-    private var editModePicker: some View {
-        @Bindable var viewState = appState.timelineViewState
-        Menu {
-            ForEach(TimelineViewState.PlacementMode.allCases, id: \.self) { mode in
-                Button {
-                    appState.timelineViewState.placementMode = mode
-                } label: {
-                    Label(mode.rawValue, systemImage: mode.icon)
-                }
-            }
-        } label: {
-            HStack(spacing: 4) {
-                Image(systemName: appState.timelineViewState.placementMode.icon)
-                    .font(.system(size: 10, weight: .semibold))
-                Text(appState.timelineViewState.placementMode.rawValue.prefix(3).uppercased())
-                    .font(.cinLabel)
-            }
-            .foregroundStyle(CinematicTheme.onSurfaceVariant)
-            .padding(.horizontal, 8)
-            .frame(height: CinematicMetrics.controlHeight)
-            .background(CinematicTheme.surfaceContainerHighest)
-            .clipShape(Capsule())
-        }
-        .menuStyle(.button)
-        .help("Placement mode: \(appState.timelineViewState.placementMode.rawValue)")
-    }
-
-    private var commandDock: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "sparkles")
-                .foregroundStyle(appState.aiChat.isProcessing ? CinematicTheme.primary : CinematicTheme.primary.opacity(0.68))
-                .font(.system(size: 15))
-                .symbolEffect(.pulse, isActive: appState.aiChat.isProcessing)
-
-            TextField("Ask AI to search, rough cut, or transform the current edit…", text: $commandBarText)
-                .textFieldStyle(.plain)
-                .font(.cinBody)
-                .foregroundStyle(CinematicTheme.onSurface)
-                .onSubmit { sendCommandBarMessage() }
-                .disabled(appState.aiChat.isProcessing)
-
-            if appState.aiChat.isProcessing {
-                ProgressView()
-                    .scaleEffect(0.55)
-                    .tint(CinematicTheme.primary)
-            } else {
-                Button(action: sendCommandBarMessage) {
-                    Image(systemName: "arrow.up.circle.fill")
-                        .font(.system(size: 24))
-                        .foregroundStyle(
-                            commandBarText.trimmingCharacters(in: .whitespaces).isEmpty
-                                ? CinematicTheme.onSurfaceVariant.opacity(0.3)
-                                : CinematicTheme.primaryContainer
-                        )
-                }
-                .buttonStyle(.plain)
-                .disabled(commandBarText.trimmingCharacters(in: .whitespaces).isEmpty)
-            }
-        }
-        .padding(.horizontal, 16)
-        .frame(height: 54)
-        .glassPanel(tint: CinematicTheme.surfaceGlass)
-        .overlay(
-            RoundedRectangle(cornerRadius: CinematicRadius.lg)
-                .strokeBorder(CinematicTheme.panelStroke.opacity(0.82), lineWidth: 1)
         )
     }
 
@@ -676,13 +310,6 @@ struct ContentView: View {
         )
     }
 
-    private var selectionInspectorContext: SelectionInspectorContext {
-        SelectionInspectorContext.resolve(
-            selectedClipIDs: appState.timelineViewState.selectedClipIDs,
-            selectedTrackID: appState.timelineViewState.selectedTrackID
-        )
-    }
-
     private func dockedWorkspace(
         workspaceID: String,
         state: Binding<WorkspaceDockState>,
@@ -697,133 +324,44 @@ struct ContentView: View {
         return DockHostView(layout: layoutBinding, registry: registry)
             .id("\(workspaceID)-\(projectBundleURL.path)")
             .onAppear {
-                loadWorkspaceLayoutIfNeeded(
-                    state: state,
+                var nextState = state.wrappedValue
+                WorkspaceDockPersistence.loadLayoutIfNeeded(
+                    state: &nextState,
                     using: registry,
                     workspaceID: workspaceID,
                     for: projectBundleURL
                 )
+                state.wrappedValue = nextState
             }
             .onChange(of: projectBundleURL) { _, newBundleURL in
-                loadWorkspaceLayoutIfNeeded(
-                    state: state,
+                var nextState = state.wrappedValue
+                WorkspaceDockPersistence.loadLayoutIfNeeded(
+                    state: &nextState,
                     using: registry,
                     workspaceID: workspaceID,
                     for: newBundleURL
                 )
+                state.wrappedValue = nextState
             }
             .onChange(of: state.wrappedValue.layout) { _, _ in
-                persistWorkspaceLayout(
-                    state: state,
-                    using: registry,
-                    for: projectBundleURL
-                )
+                do {
+                    try WorkspaceDockPersistence.persist(
+                        state.wrappedValue,
+                        using: registry,
+                        for: projectBundleURL
+                    )
+                } catch {
+                    print("[ContentView] Failed to persist \(state.wrappedValue.layout.workspaceID) layout: \(error.localizedDescription)")
+                }
             }
-    }
-
-    private func loadWorkspaceLayoutIfNeeded(
-        state: Binding<WorkspaceDockState>,
-        using registry: PanelRegistry,
-        workspaceID: String,
-        for bundleURL: URL
-    ) {
-        var nextState = state.wrappedValue
-        guard nextState.loadTracker.markLoadedIfNeeded(for: bundleURL) else { return }
-        state.wrappedValue = nextState
-        loadWorkspaceLayout(state: state, using: registry, workspaceID: workspaceID, for: bundleURL)
-    }
-
-    private func loadWorkspaceLayout(
-        state: Binding<WorkspaceDockState>,
-        using registry: PanelRegistry,
-        workspaceID: String,
-        for bundleURL: URL
-    ) {
-        var nextState = state.wrappedValue
-
-        do {
-            nextState.layout = try registry
-                .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: bundleURL))
-                .loadLayout(for: workspaceID)
-        } catch {
-            nextState.layout = registry.defaultLayouts[workspaceID] ?? nextState.layout
-        }
-
-        state.wrappedValue = nextState
-    }
-
-    private func persistWorkspaceLayout(
-        state: Binding<WorkspaceDockState>,
-        using registry: PanelRegistry,
-        for bundleURL: URL
-    ) {
-        let workspaceState = state.wrappedValue
-        guard workspaceState.loadTracker.loadedBundleURL == bundleURL else { return }
-
-        do {
-            try registry
-                .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: bundleURL))
-                .save(workspaceState.layout)
-        } catch {
-            print("[ContentView] Failed to persist \(workspaceState.layout.workspaceID) layout: \(error.localizedDescription)")
-        }
-    }
-
-    private func workspaceLayoutsBaseURL(for bundleURL: URL) -> URL {
-        bundleURL.appendingPathComponent("WorkspaceLayouts", isDirectory: true)
     }
 
     private func editorLayoutMode(for width: CGFloat) -> EditorLayoutMode {
         width < 1560 ? .compact : .expanded
     }
 
-    private func summaryMetric(value: String, label: String) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(value)
-                .font(.cinHeadlineSmall)
-                .foregroundStyle(CinematicTheme.onSurface)
-            Text(label.uppercased())
-                .font(.cinLabel)
-                .tracking(1.2)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 6)
-    }
-
-    private func speedLabel(for rate: Float) -> String {
-        switch rate {
-        case 0.5: return "0.5x"
-        case 1.0: return "1x"
-        case 1.5: return "1.5x"
-        case 2.0: return "2x"
-        default: return String(format: "%.1fx", rate)
-        }
-    }
-
-    private func sendCommandBarMessage() {
-        let text = commandBarText.trimmingCharacters(in: .whitespaces)
-        guard !text.isEmpty else { return }
-        commandBarText = ""
-        revealAIPanelInSelectedWorkspace()
-        Task {
-            await appState.aiChat.send(message: text, appState: appState)
-        }
-    }
-
     private var selectedWorkspaceID: String {
-        switch selectedWorkspace {
-        case .edit:
-            PanelRegistry.editWorkspaceID
-        case .media:
-            PanelRegistry.mediaWorkspaceID
-        case .transcript:
-            PanelRegistry.transcriptWorkspaceID
-        case .ai:
-            PanelRegistry.aiWorkspaceID
-        case .deliver:
-            PanelRegistry.deliverWorkspaceID
-        }
+        selectedWorkspace.workspaceID
     }
 
     private var selectedWorkspaceState: Binding<WorkspaceDockState> {
@@ -858,9 +396,11 @@ struct ContentView: View {
         let state = selectedWorkspaceState
 
         do {
-            try registry
-                .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: appState.projectBundleURL))
-                .resetLayout(for: workspaceID)
+            try WorkspaceDockPersistence.resetLayout(
+                for: workspaceID,
+                using: registry,
+                for: appState.projectBundleURL
+            )
         } catch {
             print("[ContentView] Failed to restore \(workspaceID) layout: \(error.localizedDescription)")
         }
@@ -874,11 +414,14 @@ struct ContentView: View {
 
     private func resetAllWorkspaceLayouts() {
         let registry = persistenceRegistry
-        let store = registry.makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: appState.projectBundleURL))
 
         for workspaceID in registry.defaultLayouts.keys {
             do {
-                try store.resetLayout(for: workspaceID)
+                try WorkspaceDockPersistence.resetLayout(
+                    for: workspaceID,
+                    using: registry,
+                    for: appState.projectBundleURL
+                )
             } catch {
                 print("[ContentView] Failed to reset \(workspaceID) layout: \(error.localizedDescription)")
             }
@@ -895,9 +438,11 @@ struct ContentView: View {
         let registry = persistenceRegistry
         let state = selectedWorkspaceState
 
-        var nextState = state.wrappedValue
-        nextState.layout = registry.revealingPanel(.aiAssistant, in: nextState.layout)
-        state.wrappedValue = nextState
+        state.wrappedValue = WorkspaceDockPersistence.revealedState(
+            byRevealing: .aiAssistant,
+            in: state.wrappedValue,
+            using: registry
+        )
     }
 }
 

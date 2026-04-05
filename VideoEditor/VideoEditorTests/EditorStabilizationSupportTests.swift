@@ -30,14 +30,6 @@ struct EditorStabilizationSupportTests {
         #expect(metrics.minimumHeight > 48)
     }
 
-    @Test("Edit workspace chrome embeds utility panel instead of using left rail")
-    func editWorkspaceChromeEmbedsUtilityPanelInsteadOfUsingLeftRail() {
-        let chrome = EditWorkspaceChrome.make(isUtilityPanelVisible: true)
-
-        #expect(!chrome.showsLeftRail)
-        #expect(chrome.showsEmbeddedUtilityPanel)
-    }
-
     @Test("AI panel reveal inserts the panel into the inspector stack when missing from edit")
     @MainActor
     func revealAIPanelInsertsIntoEditWorkspace() {
@@ -132,6 +124,80 @@ struct EditorStabilizationSupportTests {
 
         #expect(metrics.barHeight == 32)
         #expect(!metrics.showsLabels)
+    }
+
+    @Test("editor workspace metadata aligns with persisted workspace IDs")
+    @MainActor
+    func editorWorkspaceMetadataAlignsWithPersistedWorkspaceIDs() {
+        #expect(EditorWorkspace.edit.workspaceID == PanelRegistry.editWorkspaceID)
+        #expect(EditorWorkspace.media.workspaceID == PanelRegistry.mediaWorkspaceID)
+        #expect(EditorWorkspace.transcript.workspaceID == PanelRegistry.transcriptWorkspaceID)
+        #expect(EditorWorkspace.ai.workspaceID == PanelRegistry.aiWorkspaceID)
+        #expect(EditorWorkspace.deliver.workspaceID == PanelRegistry.deliverWorkspaceID)
+    }
+
+    @Test("workspace dock persistence loads each bundle only once per state")
+    @MainActor
+    func workspaceDockPersistenceLoadsEachBundleOnlyOncePerState() throws {
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: .expanded,
+            selectedTool: .constant(.selection)
+        )
+        let bundleURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        let persistedLayout = DockWorkspaceLayout(
+            workspaceID: PanelRegistry.editWorkspaceID,
+            root: .panel(.timeline)
+        )
+        let replacementLayout = DockWorkspaceLayout(
+            workspaceID: PanelRegistry.editWorkspaceID,
+            root: .panel(.inspector)
+        )
+        let store = registry.makeLayoutStore(
+            baseURL: WorkspaceDockPersistence.workspaceLayoutsBaseURL(for: bundleURL)
+        )
+
+        try store.save(persistedLayout)
+
+        var state = WorkspaceDockState(layout: PanelRegistry.editDefaultLayout)
+        WorkspaceDockPersistence.loadLayoutIfNeeded(
+            state: &state,
+            using: registry,
+            workspaceID: PanelRegistry.editWorkspaceID,
+            for: bundleURL
+        )
+
+        #expect(state.layout == persistedLayout)
+
+        try store.save(replacementLayout)
+
+        WorkspaceDockPersistence.loadLayoutIfNeeded(
+            state: &state,
+            using: registry,
+            workspaceID: PanelRegistry.editWorkspaceID,
+            for: bundleURL
+        )
+
+        #expect(state.layout == persistedLayout)
+    }
+
+    @Test("workspace dock persistence reveals the AI panel without changing the workspace ID")
+    @MainActor
+    func workspaceDockPersistenceRevealsAIPanel() {
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: .expanded,
+            selectedTool: .constant(.selection)
+        )
+        let state = WorkspaceDockState(layout: PanelRegistry.editDefaultLayout)
+
+        let revealed = WorkspaceDockPersistence.revealedState(
+            byRevealing: .aiAssistant,
+            in: state,
+            using: registry
+        )
+
+        #expect(revealed.layout.workspaceID == PanelRegistry.editWorkspaceID)
+        #expect(revealed.layout.root.containsPanel(.aiAssistant))
     }
 
     @Test("Waveform state resolver prefers cached profiles")
