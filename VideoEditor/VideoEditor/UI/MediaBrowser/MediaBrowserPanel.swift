@@ -54,24 +54,31 @@ struct MediaBrowserPanel: View {
 
     private var header: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "LIBRARY",
                 title: "Project Bin",
                 subtitle: "Import media and drag it into exact timeline lanes",
-                trailingAccessory: {
+                badgeCount: 1,
+                showsPrimaryAction: true,
+                trailingAccessory: { layout in
                     HStack(spacing: 8) {
-                        CinematicStatusPill(
-                            text: "\(appState.assets.count) assets",
-                            icon: "shippingbox",
-                            tone: CinematicTheme.aqua
-                        )
-                        CinematicToolbarButton(icon: "plus", label: "Import", isActive: true) {
+                        if layout.showsSecondaryBadges {
+                            UtilityHeaderBadge(
+                                text: "\(appState.assets.count) assets",
+                                systemImage: "shippingbox"
+                            )
+                        }
+
+                        UtilityHeaderButton(
+                            icon: "plus",
+                            title: layout.showsSecondaryBadges ? "Import" : nil,
+                            isProminent: true
+                        ) {
                             isImporting = true
                         }
                     }
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             if let importError {
                 HStack {

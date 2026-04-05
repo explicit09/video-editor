@@ -84,58 +84,171 @@ extension View {
     }
 }
 
-struct UtilityPanelHeader<LeadingAccessory: View, TrailingAccessory: View>: View {
+struct CompactPanelHeaderLayout: Equatable, Sendable {
+    let showsPrimaryAction: Bool
+    let showsSecondaryBadges: Bool
+
+    static func make(
+        availableWidth: Double,
+        badgeCount: Int,
+        showsPrimaryAction: Bool
+    ) -> Self {
+        let resolvedBadgeCount = max(badgeCount, 0)
+        let supportsSecondaryBadges = resolvedBadgeCount > 0 && availableWidth >= 236
+
+        return Self(
+            showsPrimaryAction: showsPrimaryAction,
+            showsSecondaryBadges: supportsSecondaryBadges
+        )
+    }
+}
+
+struct UtilityHeaderBadge: View {
+    let text: String
+    var systemImage: String? = nil
+    var isAccent = false
+
+    var body: some View {
+        HStack(spacing: UtilitySpacing.xxs) {
+            if let systemImage {
+                Image(systemName: systemImage)
+                    .font(.system(size: 10, weight: .semibold))
+            }
+
+            Text(text)
+                .font(.system(size: 10, weight: .semibold))
+                .lineLimit(1)
+        }
+        .foregroundStyle(isAccent ? UtilityTheme.accentText : UtilityTheme.textMuted)
+        .padding(.horizontal, UtilitySpacing.sm)
+        .frame(height: UtilityMetrics.controlHeight - 4)
+        .background(isAccent ? UtilityTheme.accent : UtilityTheme.chrome)
+        .clipShape(Capsule())
+    }
+}
+
+struct UtilityHeaderButton: View {
+    let icon: String
+    var title: String? = nil
+    var isProminent = false
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: UtilitySpacing.xxs) {
+                Image(systemName: icon)
+                    .font(.system(size: 11, weight: .semibold))
+
+                if let title {
+                    Text(title)
+                        .font(.system(size: 10, weight: .semibold))
+                        .lineLimit(1)
+                }
+            }
+            .foregroundStyle(isProminent ? UtilityTheme.accentText : UtilityTheme.text)
+            .padding(.horizontal, UtilitySpacing.sm)
+            .frame(height: UtilityMetrics.controlHeight)
+            .background(isProminent ? UtilityTheme.accent : UtilityTheme.chrome)
+            .clipShape(RoundedRectangle(cornerRadius: UtilityRadius.sm))
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+struct UtilityPanelHeader: View {
     let eyebrow: String?
     let title: String
     let subtitle: String?
-    @ViewBuilder var leadingAccessory: LeadingAccessory
-    @ViewBuilder var trailingAccessory: TrailingAccessory
+    let badgeCount: Int
+    let showsPrimaryAction: Bool
+    private let leadingAccessory: AnyView
+    private let trailingAccessory: (CompactPanelHeaderLayout) -> AnyView
 
     init(
         eyebrow: String? = nil,
         title: String,
         subtitle: String? = nil,
-        @ViewBuilder leadingAccessory: () -> LeadingAccessory = { EmptyView() },
-        @ViewBuilder trailingAccessory: () -> TrailingAccessory = { EmptyView() }
+        @ViewBuilder leadingAccessory: () -> some View = { EmptyView() },
+        @ViewBuilder trailingAccessory: @escaping () -> some View = { EmptyView() }
     ) {
         self.eyebrow = eyebrow
         self.title = title
         self.subtitle = subtitle
-        self.leadingAccessory = leadingAccessory()
-        self.trailingAccessory = trailingAccessory()
+        self.badgeCount = 0
+        self.showsPrimaryAction = false
+        self.leadingAccessory = AnyView(leadingAccessory())
+        self.trailingAccessory = { _ in AnyView(trailingAccessory()) }
+    }
+
+    init(
+        eyebrow: String? = nil,
+        title: String,
+        subtitle: String? = nil,
+        badgeCount: Int,
+        showsPrimaryAction: Bool,
+        @ViewBuilder leadingAccessory: () -> some View = { EmptyView() },
+        @ViewBuilder trailingAccessory: @escaping (CompactPanelHeaderLayout) -> some View
+    ) {
+        self.eyebrow = eyebrow
+        self.title = title
+        self.subtitle = subtitle
+        self.badgeCount = badgeCount
+        self.showsPrimaryAction = showsPrimaryAction
+        self.leadingAccessory = AnyView(leadingAccessory())
+        self.trailingAccessory = { layout in AnyView(trailingAccessory(layout)) }
     }
 
     var body: some View {
-        HStack(spacing: UtilitySpacing.sm) {
-            leadingAccessory
+        GeometryReader { geometry in
+            let layout = CompactPanelHeaderLayout.make(
+                availableWidth: geometry.size.width,
+                badgeCount: badgeCount,
+                showsPrimaryAction: showsPrimaryAction
+            )
 
-            VStack(alignment: .leading, spacing: UtilitySpacing.xxxs) {
-                if let eyebrow {
-                    Text(eyebrow)
-                        .font(.system(size: 10, weight: .semibold))
-                        .tracking(0.7)
-                        .foregroundStyle(UtilityTheme.textMuted)
+            HStack(
+                alignment: subtitle == nil ? .center : .top,
+                spacing: UtilitySpacing.sm
+            ) {
+                leadingAccessory
+
+                VStack(alignment: .leading, spacing: UtilitySpacing.xxxs) {
+                    if let eyebrow {
+                        Text(eyebrow)
+                            .font(.system(size: 10, weight: .semibold))
+                            .tracking(0.7)
+                            .foregroundStyle(UtilityTheme.textMuted)
+                    }
+
+                    Text(title)
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(UtilityTheme.text)
+
+                    if let subtitle {
+                        Text(subtitle)
+                            .font(.system(size: 11, weight: .regular))
+                            .foregroundStyle(UtilityTheme.textMuted)
+                            .lineLimit(2)
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text(title)
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(UtilityTheme.text)
-
-                if let subtitle {
-                    Text(subtitle)
-                        .font(.system(size: 11, weight: .regular))
-                        .foregroundStyle(UtilityTheme.textMuted)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+                Spacer(minLength: 0)
+                trailingAccessory(layout)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-            Spacer(minLength: 0)
-            trailingAccessory
+            .padding(.horizontal, UtilitySpacing.md)
+            .padding(.vertical, UtilitySpacing.sm)
+            .frame(
+                width: geometry.size.width,
+                height: headerHeight,
+                alignment: .topLeading
+            )
+            .background(UtilityTheme.chromeElevated)
         }
-        .padding(.horizontal, UtilitySpacing.md)
-        .padding(.vertical, UtilitySpacing.sm)
-        .frame(minHeight: UtilityMetrics.panelHeaderMinHeight, alignment: .top)
-        .background(UtilityTheme.chromeElevated)
+        .frame(height: headerHeight, alignment: .top)
+    }
+
+    private var headerHeight: CGFloat {
+        subtitle == nil ? UtilityMetrics.panelHeaderMinHeight : 48
     }
 }

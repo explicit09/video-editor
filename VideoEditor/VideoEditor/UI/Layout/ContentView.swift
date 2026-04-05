@@ -61,6 +61,11 @@ struct EditLayoutLoadTracker {
     }
 }
 
+struct WorkspaceDockState {
+    var layout: DockWorkspaceLayout
+    var loadTracker = EditLayoutLoadTracker()
+}
+
 struct ContentView: View {
     @Environment(AppState.self) private var appState
     @State private var selectedWorkspace: Workspace = .edit
@@ -72,8 +77,10 @@ struct ContentView: View {
     @State private var isLeftPanelVisible = true
     @State private var isRightRailVisible = true
     @State private var editorTool: EditorTool = .selection
-    @State private var editDockLayout = PanelRegistry.editDefaultLayout
-    @State private var editLayoutLoadTracker = EditLayoutLoadTracker()
+    @State private var editDockState = WorkspaceDockState(layout: PanelRegistry.editDefaultLayout)
+    @State private var mediaDockState = WorkspaceDockState(layout: PanelRegistry.mediaDefaultLayout)
+    @State private var transcriptDockState = WorkspaceDockState(layout: PanelRegistry.transcriptDefaultLayout)
+    @State private var aiDockState = WorkspaceDockState(layout: PanelRegistry.aiDefaultLayout)
 
     enum Workspace: String, CaseIterable {
         case edit = "Edit"
@@ -331,7 +338,7 @@ struct ContentView: View {
         case .edit:
             editorWorkspace(layoutMode: layoutMode)
         case .media:
-            focusedMediaWorkspace
+            focusedMediaWorkspace(layoutMode: layoutMode)
         case .transcript:
             focusedTranscriptWorkspace(layoutMode: layoutMode)
         case .ai:
@@ -342,23 +349,16 @@ struct ContentView: View {
     }
 
     private func editorWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        let registry = PanelRegistry.edit(
+        let registry = PanelRegistry.workspaceRegistry(
             layoutMode: layoutMode,
             selectedTool: $editorTool
         )
-        let projectBundleURL = appState.projectBundleURL
 
-        return DockHostView(layout: $editDockLayout, registry: registry)
-            .id(projectBundleURL)
-            .onAppear {
-                loadEditLayoutIfNeeded(using: registry, for: projectBundleURL)
-            }
-            .onChange(of: projectBundleURL) { _, newBundleURL in
-                loadEditLayoutIfNeeded(using: registry, for: newBundleURL)
-            }
-            .onChange(of: editDockLayout) { _, _ in
-                persistEditLayout(using: registry, for: projectBundleURL)
-            }
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.editWorkspaceID,
+            state: $editDockState,
+            registry: registry
+        )
     }
 
     private var utilityPanel: some View {
@@ -602,38 +602,43 @@ struct ContentView: View {
         )
     }
 
-    private var focusedMediaWorkspace: some View {
-        MediaWorkspacePanel()
-            .panelSurface(.elevated, strokeOpacity: 0.86)
+    private func focusedMediaWorkspace(layoutMode: EditorLayoutMode) -> some View {
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: layoutMode,
+            selectedTool: $editorTool
+        )
+
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.mediaWorkspaceID,
+            state: $mediaDockState,
+            registry: registry
+        )
     }
 
     private func focusedTranscriptWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        HStack(spacing: CinematicSpacing.md) {
-            TranscriptPanel()
-                .panelSurface(.elevated, strokeOpacity: 0.86)
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: layoutMode,
+            selectedTool: $editorTool
+        )
 
-            if isRightRailVisible {
-                InspectorPanel(
-                    selectedTab: $rightRailTab,
-                    context: selectionInspectorContext,
-                    layoutMode: layoutMode,
-                    showsTabs: true
-                )
-                .frame(width: layoutMode == .compact ? CinematicMetrics.compactRightRailWidth : CinematicMetrics.expandedRightRailWidth)
-            }
-        }
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.transcriptWorkspaceID,
+            state: $transcriptDockState,
+            registry: registry
+        )
     }
 
     private func focusedAIWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        InspectorPanel(
-            selectedTab: $rightRailTab,
-            context: selectionInspectorContext,
+        let registry = PanelRegistry.workspaceRegistry(
             layoutMode: layoutMode,
-            showsTabs: false
+            selectedTool: $editorTool
         )
-        .onAppear { rightRailTab = .ai }
-        .frame(maxWidth: 760, maxHeight: .infinity)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.aiWorkspaceID,
+            state: $aiDockState,
+            registry: registry
+        )
     }
 
     private func deliverWorkspace(layoutMode: EditorLayoutMode) -> some View {
@@ -765,30 +770,89 @@ struct ContentView: View {
         )
     }
 
-    private func loadEditLayoutIfNeeded(using registry: PanelRegistry, for bundleURL: URL) {
-        guard editLayoutLoadTracker.markLoadedIfNeeded(for: bundleURL) else { return }
-        loadEditLayout(using: registry, for: bundleURL)
+    private func dockedWorkspace(
+        workspaceID: String,
+        state: Binding<WorkspaceDockState>,
+        registry: PanelRegistry
+    ) -> some View {
+        let projectBundleURL = appState.projectBundleURL
+        let layoutBinding = Binding(
+            get: { state.wrappedValue.layout },
+            set: { state.wrappedValue.layout = $0 }
+        )
+
+        return DockHostView(layout: layoutBinding, registry: registry)
+            .id("\(workspaceID)-\(projectBundleURL.path)")
+            .onAppear {
+                loadWorkspaceLayoutIfNeeded(
+                    state: state,
+                    using: registry,
+                    workspaceID: workspaceID,
+                    for: projectBundleURL
+                )
+            }
+            .onChange(of: projectBundleURL) { _, newBundleURL in
+                loadWorkspaceLayoutIfNeeded(
+                    state: state,
+                    using: registry,
+                    workspaceID: workspaceID,
+                    for: newBundleURL
+                )
+            }
+            .onChange(of: state.wrappedValue.layout) { _, _ in
+                persistWorkspaceLayout(
+                    state: state,
+                    using: registry,
+                    for: projectBundleURL
+                )
+            }
     }
 
-    private func loadEditLayout(using registry: PanelRegistry, for bundleURL: URL) {
+    private func loadWorkspaceLayoutIfNeeded(
+        state: Binding<WorkspaceDockState>,
+        using registry: PanelRegistry,
+        workspaceID: String,
+        for bundleURL: URL
+    ) {
+        var nextState = state.wrappedValue
+        guard nextState.loadTracker.markLoadedIfNeeded(for: bundleURL) else { return }
+        state.wrappedValue = nextState
+        loadWorkspaceLayout(state: state, using: registry, workspaceID: workspaceID, for: bundleURL)
+    }
+
+    private func loadWorkspaceLayout(
+        state: Binding<WorkspaceDockState>,
+        using registry: PanelRegistry,
+        workspaceID: String,
+        for bundleURL: URL
+    ) {
+        var nextState = state.wrappedValue
+
         do {
-            editDockLayout = try registry
+            nextState.layout = try registry
                 .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: bundleURL))
-                .loadLayout(for: PanelRegistry.editWorkspaceID)
+                .loadLayout(for: workspaceID)
         } catch {
-            editDockLayout = PanelRegistry.editDefaultLayout
+            nextState.layout = registry.defaultLayouts[workspaceID] ?? nextState.layout
         }
+
+        state.wrappedValue = nextState
     }
 
-    private func persistEditLayout(using registry: PanelRegistry, for bundleURL: URL) {
-        guard editLayoutLoadTracker.loadedBundleURL == bundleURL else { return }
+    private func persistWorkspaceLayout(
+        state: Binding<WorkspaceDockState>,
+        using registry: PanelRegistry,
+        for bundleURL: URL
+    ) {
+        let workspaceState = state.wrappedValue
+        guard workspaceState.loadTracker.loadedBundleURL == bundleURL else { return }
 
         do {
             try registry
                 .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: bundleURL))
-                .save(editDockLayout)
+                .save(workspaceState.layout)
         } catch {
-            print("[ContentView] Failed to persist edit layout: \(error.localizedDescription)")
+            print("[ContentView] Failed to persist \(workspaceState.layout.workspaceID) layout: \(error.localizedDescription)")
         }
     }
 

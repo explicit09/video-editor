@@ -5,6 +5,18 @@ import EditorCore
 
 @Suite("Editor Stabilization Support Tests")
 struct EditorStabilizationSupportTests {
+    @Test("panel header collapses badges before clipping the primary action")
+    func compactHeaderPriority() {
+        let layout = CompactPanelHeaderLayout.make(
+            availableWidth: 220,
+            badgeCount: 2,
+            showsPrimaryAction: true
+        )
+
+        #expect(layout.showsPrimaryAction)
+        #expect(!layout.showsSecondaryBadges)
+    }
+
     @Test("Edit workspace chrome embeds utility panel instead of using left rail")
     func editWorkspaceChromeEmbedsUtilityPanelInsteadOfUsingLeftRail() {
         let chrome = EditWorkspaceChrome.make(isUtilityPanelVisible: true)

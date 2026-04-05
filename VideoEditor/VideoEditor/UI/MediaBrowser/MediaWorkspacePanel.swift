@@ -29,24 +29,31 @@ struct MediaWorkspacePanel: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "MEDIA WORKSPACE",
                 title: "Library Browser",
                 subtitle: "Organize sources, review metadata, and send assets to the timeline",
-                trailingAccessory: {
+                badgeCount: 1,
+                showsPrimaryAction: true,
+                trailingAccessory: { layout in
                     HStack(spacing: 8) {
-                        CinematicStatusPill(
-                            text: "\(filteredAssets.count) visible",
-                            icon: "rectangle.grid.2x2",
-                            tone: CinematicTheme.aqua
-                        )
-                        CinematicToolbarButton(icon: "plus", label: "Import", isActive: true) {
+                        if layout.showsSecondaryBadges {
+                            UtilityHeaderBadge(
+                                text: "\(filteredAssets.count) visible",
+                                systemImage: "rectangle.grid.2x2"
+                            )
+                        }
+
+                        UtilityHeaderButton(
+                            icon: "plus",
+                            title: layout.showsSecondaryBadges ? "Import" : nil,
+                            isProminent: true
+                        ) {
                             isImporting = true
                         }
                     }
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             if let importError {
                 HStack {
@@ -323,15 +330,16 @@ struct MediaWorkspacePanel: View {
 
     private func assetInspector(_ asset: MediaAsset) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "INSPECTOR",
                 title: asset.name,
                 subtitle: "Source metadata and AI analysis",
-                trailingAccessory: {
-                    CinematicToolbarButton(icon: "xmark", action: { selectedAssetID = nil })
+                badgeCount: 0,
+                showsPrimaryAction: true,
+                trailingAccessory: { _ in
+                    UtilityHeaderButton(icon: "xmark", action: { selectedAssetID = nil })
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {

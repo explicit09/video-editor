@@ -91,25 +91,40 @@ struct TranscriptPanel: View {
     // MARK: - Header
 
     private var header: some View {
-        VStack(spacing: 0) {
-            CinematicPanelHeader(
+        let context = transcriptContext
+        let fillerCount = context.map { $0.words.filter { isFiller($0.word) }.count } ?? 0
+
+        return VStack(spacing: 0) {
+            UtilityPanelHeader(
                 eyebrow: "TRANSCRIPT",
                 title: "Text Edit",
                 subtitle: "Select words to delete sections or remove filler words",
-                trailingAccessory: {
-                    if let context = transcriptContext {
+                badgeCount: context == nil ? 0 : 1,
+                showsPrimaryAction: fillerCount > 0,
+                trailingAccessory: { layout in
+                    if let context {
                         HStack(spacing: 8) {
-                            removeAllFillersButton(context)
-                            CinematicStatusPill(
-                                text: context.clip.metadata.label ?? context.asset.name,
-                                icon: "waveform.and.mic",
-                                tone: CinematicTheme.primary
-                            )
+                            if layout.showsPrimaryAction {
+                                UtilityHeaderButton(
+                                    icon: "wand.and.stars",
+                                    title: layout.showsSecondaryBadges ? "Remove Fillers (\(fillerCount))" : nil,
+                                    isProminent: true,
+                                    action: { removeAllFillers(context) }
+                                )
+                                .disabled(fillerCount == 0)
+                            }
+
+                            if layout.showsSecondaryBadges {
+                                UtilityHeaderBadge(
+                                    text: context.clip.metadata.label ?? context.asset.name,
+                                    systemImage: "waveform.and.mic",
+                                    isAccent: true
+                                )
+                            }
                         }
                     }
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             HStack(spacing: 6) {
                 Image(systemName: "magnifyingglass")
@@ -128,21 +143,6 @@ struct TranscriptPanel: View {
             .padding(.bottom, 12)
         }
         .background(CinematicTheme.surfaceContainer)
-    }
-
-    // MARK: - Remove all fillers button
-
-    private func removeAllFillersButton(_ context: TranscriptContext) -> some View {
-        let fillerCount = context.words.filter { isFiller($0.word) }.count
-        return Group {
-            if fillerCount > 0 {
-                CinematicToolbarButton(
-                    icon: "wand.and.stars",
-                    label: "Remove Fillers (\(fillerCount))",
-                    action: { removeAllFillers(context) }
-                )
-            }
-        }
     }
 
     // MARK: - Transcript content

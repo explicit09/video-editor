@@ -55,28 +55,31 @@ struct InspectorPanel: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: railEyebrow,
                 title: railTitle,
                 subtitle: railSubtitle,
-                trailingAccessory: {
+                badgeCount: selectedTab == .ai && appState.aiChat.isProcessing ? 1 : 0,
+                showsPrimaryAction: selectedTab == .ai,
+                trailingAccessory: { layout in
                     HStack(spacing: 8) {
-                        if appState.aiChat.isProcessing && selectedTab == .ai {
-                            ProgressView()
-                                .scaleEffect(0.6)
-                                .tint(CinematicTheme.primary)
+                        if selectedTab == .ai && layout.showsSecondaryBadges && appState.aiChat.isProcessing {
+                            UtilityHeaderBadge(
+                                text: appState.aiChat.processingStatus ?? "Thinking",
+                                systemImage: "sparkles",
+                                isAccent: true
+                            )
                         }
 
                         if selectedTab == .ai {
-                            CinematicToolbarButton(icon: "trash", isDestructive: false) {
+                            UtilityHeaderButton(icon: "trash", action: {
                                 appState.aiChat.clearHistory()
-                            }
+                            })
                             .disabled(appState.aiChat.messages.isEmpty)
                         }
                     }
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.68))
 
             if showsTabs {
                 HStack {
