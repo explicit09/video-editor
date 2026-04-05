@@ -226,6 +226,15 @@ final class MCPServer {
                     ], "required": []],
                 ],
                 [
+                    "name": "search_local_broll",
+                    "description": "Search the local B-roll library on the external drive. Returns file paths to matching clips. Faster than search_broll (no API call). Falls back to search_broll if no local matches.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "query": ["type": "string", "description": "Search keywords (e.g., 'cityscape', 'sunset', 'cooking')"],
+                        "energy": ["type": "string", "enum": ["low", "medium", "high"], "description": "Energy level filter. low=calm/ambient, medium=moderate, high=dramatic/fast"],
+                        "limit": ["type": "integer", "description": "Max results to return (default 5)"],
+                    ], "required": ["query"]],
+                ],
+                [
                     "name": "delete_asset",
                     "description": "Remove an imported asset from the media library. Cannot delete assets that are currently used by clips on the timeline.",
                     "inputSchema": ["type": "object", "properties": [
@@ -615,6 +624,9 @@ final class MCPServer {
         }
         if name == "search_broll" {
             return await handleSearchBroll(arguments, appState: appState)
+        }
+        if name == "search_local_broll" {
+            return await handleSearchLocalBroll(arguments, appState: appState)
         }
         if name == "set_track_audio_effects" {
             return handleSetTrackAudioEffects(arguments, appState: appState)
@@ -1224,6 +1236,83 @@ final class MCPServer {
         return report
     }
 
+    // MARK: - Search Local B-roll Library
+
+    private func handleSearchLocalBroll(_ args: [String: Any], appState: AppState) async -> String {
+        let query = args["query"] as? String ?? ""
+        let energy = args["energy"] as? String
+        let limit = args["limit"] as? Int ?? 5
+
+        guard !query.isEmpty else {
+            return "Error: 'query' parameter is required."
+        }
+
+        // Find the B-roll library — check mounted volumes
+        let fm = FileManager.default
+        let volumesURL = URL(fileURLWithPath: "/Volumes")
+        guard let volumes = try? fm.contentsOfDirectory(at: volumesURL, includingPropertiesForKeys: nil) else {
+            return "Error: Cannot list /Volumes"
+        }
+
+        var dbURL: URL?
+        for vol in volumes {
+            let candidate = vol.appendingPathComponent("BRollLibrary/broll.db")
+            if fm.fileExists(atPath: candidate.path) {
+                dbURL = candidate
+                break
+            }
+        }
+
+        guard let dbPath = dbURL else {
+            return "No local B-roll library found. Run `python3 broll_library.py seed --drive /Volumes/<drive>` first, or use search_broll for live Pexels search."
+        }
+
+        let libDir = dbPath.deletingLastPathComponent()
+
+        // Query SQLite using EditorCore's SQLiteDatabase wrapper
+        guard let db = try? SQLiteDatabase(path: dbPath.path) else {
+            return "Error: Could not open B-roll database at \(dbPath.path)"
+        }
+        defer { db.close() }
+
+        var sql = "SELECT * FROM clips WHERE keywords LIKE ?"
+        var params: [SQLiteValue] = [.text("%\(query)%")]
+        if let energy = energy {
+            sql += " AND energy = ?"
+            params.append(.text(energy))
+        }
+        sql += " ORDER BY duration DESC LIMIT ?"
+        params.append(.int(limit))
+
+        guard let rows = try? db.query(sql, params: params) else {
+            return "Error: Query failed."
+        }
+
+        if rows.isEmpty {
+            return "No local matches for '\(query)'. Use search_broll for live Pexels API search."
+        }
+
+        var report = "=== LOCAL B-ROLL RESULTS ===\n"
+        report += "Query: \(query)"
+        if let energy = energy { report += " | Energy: \(energy)" }
+        report += "\n\n"
+
+        for (i, row) in rows.enumerated() {
+            let filename = row["filename"]?.textValue ?? "?"
+            let category = row["category"]?.textValue ?? "?"
+            let keywords = row["keywords"]?.textValue ?? ""
+            let duration = row["duration"]?.doubleValue ?? 0
+            let energyTag = row["energy"]?.textValue ?? "?"
+            let path = libDir.appendingPathComponent(category)
+                .appendingPathComponent(filename).path
+
+            report += "#\(i + 1): \(path)\n"
+            report += "  Duration: \(String(format: "%.1f", duration))s | Energy: \(energyTag) | Keywords: \(keywords)\n"
+        }
+
+        return report
+    }
+
     /// Use Claude Haiku to extract visual B-roll search queries from the timeline's transcript.
     private func extractBrollQueries(appState: AppState) async -> [String] {
         // Gather transcript text from timeline clips
@@ -1775,6 +1864,8 @@ final class MCPServer {
                     return "Error: Auto reframe produced no crop regions — no faces or subjects detected in '\(asset.name)'."
                 }
 
+                var lines = ["Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr). Applied to clip."]
+
                 // Apply: find the clip on the timeline and set its cropRect
                 let applyMode = (args["apply"] as? Bool) ?? true
                 if applyMode, let clip = appState.timeline.tracks.flatMap(\.clips).first(where: { $0.assetID == assetID }) {
@@ -1785,10 +1876,14 @@ final class MCPServer {
                     let avgH = result.cropRegions.map(\.rect.height).reduce(0, +) / CGFloat(result.cropRegions.count)
                     let crop = CropRect(x: Double(avgX), y: Double(avgY), width: Double(avgW), height: Double(avgH))
                     try appState.perform(.setClipCrop(clipID: clip.id, cropRect: crop), source: .ai)
+                    let disabledShortForm = appState.clearShortFormLayoutIfNeeded()
                     appState.rebuildCompositionNow()
+
+                    if disabledShortForm {
+                        lines.append("Disabled active short-form layout so clip crop can render in preview.")
+                    }
                 }
 
-                var lines = ["Auto reframe: \(result.cropRegions.count) crop regions for \(ratioStr). Applied to clip."]
                 lines.append("Crop: x=\(String(format: "%.2f", result.cropRegions.first!.rect.origin.x)) y=\(String(format: "%.2f", result.cropRegions.first!.rect.origin.y)) w=\(String(format: "%.2f", result.cropRegions.first!.rect.width)) h=\(String(format: "%.2f", result.cropRegions.first!.rect.height))")
                 return lines.joined(separator: "\n")
             } catch {
