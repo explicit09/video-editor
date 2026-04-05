@@ -5,6 +5,34 @@ import Testing
 
 @Suite("Selection Behavior Tests")
 struct SelectionBehaviorTests {
+    @Test("edit layout load tracking only suppresses reloads for the same project bundle")
+    func editLayoutLoadTrackerSkipsOnlySameBundle() {
+        var tracker = EditLayoutLoadTracker()
+        let firstBundleURL = URL(fileURLWithPath: "/tmp/ProjectA.videoeditor")
+        let secondBundleURL = URL(fileURLWithPath: "/tmp/ProjectB.videoeditor")
+
+        let firstLoad = tracker.markLoadedIfNeeded(for: firstBundleURL)
+        let repeatedLoad = tracker.markLoadedIfNeeded(for: firstBundleURL)
+        let secondLoad = tracker.markLoadedIfNeeded(for: secondBundleURL)
+
+        #expect(firstLoad)
+        #expect(!repeatedLoad)
+        #expect(secondLoad)
+    }
+
+    @Test("edit layout load tracking treats renamed bundles as a new layout source")
+    func editLayoutLoadTrackerReloadsWhenBundleURLChanges() {
+        var tracker = EditLayoutLoadTracker()
+        let originalBundleURL = URL(fileURLWithPath: "/tmp/Project.videoeditor")
+        let renamedBundleURL = URL(fileURLWithPath: "/tmp/Renamed Project.videoeditor")
+
+        let initialLoad = tracker.markLoadedIfNeeded(for: originalBundleURL)
+        let renamedLoad = tracker.markLoadedIfNeeded(for: renamedBundleURL)
+
+        #expect(initialLoad)
+        #expect(renamedLoad)
+    }
+
     @MainActor
     @Test("normal clip selection keeps focus on the clicked clip even when clips are linked")
     func singleSelectionDoesNotPromoteToLinkedGroup() {

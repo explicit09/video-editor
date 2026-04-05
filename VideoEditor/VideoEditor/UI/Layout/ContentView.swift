@@ -51,6 +51,16 @@ struct EditWorkspaceChrome: Equatable, Sendable {
     }
 }
 
+struct EditLayoutLoadTracker {
+    private(set) var loadedBundleURL: URL?
+
+    mutating func markLoadedIfNeeded(for bundleURL: URL) -> Bool {
+        guard loadedBundleURL != bundleURL else { return false }
+        loadedBundleURL = bundleURL
+        return true
+    }
+}
+
 struct ContentView: View {
     @Environment(AppState.self) private var appState
     @State private var selectedWorkspace: Workspace = .edit
@@ -63,7 +73,7 @@ struct ContentView: View {
     @State private var isRightRailVisible = true
     @State private var editorTool: EditorTool = .selection
     @State private var editDockLayout = PanelRegistry.editDefaultLayout
-    @State private var hasLoadedEditLayout = false
+    @State private var editLayoutLoadTracker = EditLayoutLoadTracker()
 
     enum Workspace: String, CaseIterable {
         case edit = "Edit"
@@ -336,13 +346,18 @@ struct ContentView: View {
             layoutMode: layoutMode,
             selectedTool: $editorTool
         )
+        let projectBundleURL = appState.projectBundleURL
 
         return DockHostView(layout: $editDockLayout, registry: registry)
+            .id(projectBundleURL)
             .onAppear {
-                loadEditLayoutIfNeeded(using: registry)
+                loadEditLayoutIfNeeded(using: registry, for: projectBundleURL)
+            }
+            .onChange(of: projectBundleURL) { _, newBundleURL in
+                loadEditLayoutIfNeeded(using: registry, for: newBundleURL)
             }
             .onChange(of: editDockLayout) { _, _ in
-                persistEditLayout(using: registry)
+                persistEditLayout(using: registry, for: projectBundleURL)
             }
     }
 
@@ -750,33 +765,35 @@ struct ContentView: View {
         )
     }
 
-    private func loadEditLayoutIfNeeded(using registry: PanelRegistry) {
-        guard !hasLoadedEditLayout else { return }
-        loadEditLayout(using: registry)
+    private func loadEditLayoutIfNeeded(using registry: PanelRegistry, for bundleURL: URL) {
+        guard editLayoutLoadTracker.markLoadedIfNeeded(for: bundleURL) else { return }
+        loadEditLayout(using: registry, for: bundleURL)
     }
 
-    private func loadEditLayout(using registry: PanelRegistry) {
+    private func loadEditLayout(using registry: PanelRegistry, for bundleURL: URL) {
         do {
             editDockLayout = try registry
-                .makeLayoutStore(baseURL: appState.workspaceLayoutsBaseURL)
+                .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: bundleURL))
                 .loadLayout(for: PanelRegistry.editWorkspaceID)
         } catch {
             editDockLayout = PanelRegistry.editDefaultLayout
         }
-
-        hasLoadedEditLayout = true
     }
 
-    private func persistEditLayout(using registry: PanelRegistry) {
-        guard hasLoadedEditLayout else { return }
+    private func persistEditLayout(using registry: PanelRegistry, for bundleURL: URL) {
+        guard editLayoutLoadTracker.loadedBundleURL == bundleURL else { return }
 
         do {
             try registry
-                .makeLayoutStore(baseURL: appState.workspaceLayoutsBaseURL)
+                .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: bundleURL))
                 .save(editDockLayout)
         } catch {
             print("[ContentView] Failed to persist edit layout: \(error.localizedDescription)")
         }
+    }
+
+    private func workspaceLayoutsBaseURL(for bundleURL: URL) -> URL {
+        bundleURL.appendingPathComponent("WorkspaceLayouts", isDirectory: true)
     }
 
     private func editorLayoutMode(for width: CGFloat) -> EditorLayoutMode {
