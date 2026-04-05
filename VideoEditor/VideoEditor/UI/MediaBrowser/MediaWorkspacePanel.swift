@@ -29,31 +29,38 @@ struct MediaWorkspacePanel: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "MEDIA WORKSPACE",
                 title: "Library Browser",
                 subtitle: "Organize sources, review metadata, and send assets to the timeline",
-                trailingAccessory: {
+                badgeCount: 1,
+                showsPrimaryAction: true,
+                trailingAccessory: { layout in
                     HStack(spacing: 8) {
-                        CinematicStatusPill(
-                            text: "\(filteredAssets.count) visible",
-                            icon: "rectangle.grid.2x2",
-                            tone: CinematicTheme.aqua
-                        )
-                        CinematicToolbarButton(icon: "plus", label: "Import", isActive: true) {
+                        if layout.showsSecondaryBadges {
+                            UtilityHeaderBadge(
+                                text: "\(filteredAssets.count) visible",
+                                systemImage: "rectangle.grid.2x2"
+                            )
+                        }
+
+                        UtilityHeaderButton(
+                            icon: "plus",
+                            title: layout.showsSecondaryBadges ? "Import" : nil,
+                            isProminent: true
+                        ) {
                             isImporting = true
                         }
                     }
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             if let importError {
                 HStack {
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: importError,
                         icon: "exclamationmark.triangle.fill",
-                        tone: CinematicTheme.error
+                        style: .danger
                     )
                     Spacer()
                 }
@@ -115,10 +122,10 @@ struct MediaWorkspacePanel: View {
                     .foregroundStyle(CinematicTheme.onSurface)
                 Spacer()
                 Button(action: { selectedBinID = nil }) {
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: "All",
                         icon: "line.3.horizontal.decrease.circle",
-                        tone: selectedBinID == nil ? CinematicTheme.primary : CinematicTheme.onSurfaceVariant
+                        style: selectedBinID == nil ? .accent : .neutral
                     )
                 }
                 .buttonStyle(.plain)
@@ -323,15 +330,16 @@ struct MediaWorkspacePanel: View {
 
     private func assetInspector(_ asset: MediaAsset) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "INSPECTOR",
                 title: asset.name,
                 subtitle: "Source metadata and AI analysis",
-                trailingAccessory: {
-                    CinematicToolbarButton(icon: "xmark", action: { selectedAssetID = nil })
+                badgeCount: 0,
+                showsPrimaryAction: true,
+                trailingAccessory: { _ in
+                    UtilityHeaderButton(icon: "xmark", action: { selectedAssetID = nil })
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
@@ -433,17 +441,17 @@ struct MediaWorkspacePanel: View {
 
             VStack(alignment: .leading, spacing: 10) {
                 HStack(spacing: 8) {
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: TimeFormatter.timecode(sourceCurrentTime),
                         icon: "clock",
-                        tone: CinematicTheme.aqua
+                        style: .info
                     )
 
                     if selectionDuration > 0, selectionDuration < duration {
-                        CinematicStatusPill(
+                        UtilityStatusBadge(
                             text: "SEL \(TimeFormatter.durationHMS(selectionDuration))",
                             icon: "selection.pin.in.out",
-                            tone: CinematicTheme.primary
+                            style: .accent
                         )
                     }
 

@@ -2,96 +2,51 @@ import SwiftUI
 import AppKit
 import EditorCore
 
-enum LeftPanelTab: String, CaseIterable, Hashable {
-    case library = "Library"
-    case transcript = "Transcript"
-    case search = "Search"
-    case projects = "Projects"
-    case settings = "Settings"
-
-    var icon: String {
-        switch self {
-        case .library: "photo.on.rectangle"
-        case .transcript: "text.alignleft"
-        case .search: "sparkle.magnifyingglass"
-        case .projects: "folder"
-        case .settings: "gearshape"
-        }
-    }
-}
-
-enum EditorLayoutMode: Hashable {
-    case compact
-    case expanded
-}
-
-enum EditorTool: String, CaseIterable, Hashable {
-    case selection = "Select"
-    case blade = "Blade"
-    case trim = "Trim"
-
-    var icon: String {
-        switch self {
-        case .selection: "cursorarrow"
-        case .blade: "scissors"
-        case .trim: "arrow.left.and.right.righttriangle.left.righttriangle.right"
-        }
-    }
-}
-
 struct ContentView: View {
     @Environment(AppState.self) private var appState
-    @State private var selectedWorkspace: Workspace = .edit
-    @State private var commandBarText = ""
+    @State private var selectedWorkspace: EditorWorkspace = .edit
     @State private var showSettings = false
     @State private var showExportDialog = false
-    @State private var leftPanelTab: LeftPanelTab = .library
-    @State private var rightRailTab: RightRailTab = .inspector
-    @State private var isLeftPanelVisible = true
-    @State private var isRightRailVisible = true
     @State private var editorTool: EditorTool = .selection
-
-    enum Workspace: String, CaseIterable {
-        case edit = "Edit"
-        case transcript = "Transcript"
-        case media = "Media"
-        case ai = "AI"
-        case deliver = "Deliver"
-
-        var icon: String {
-            switch self {
-            case .edit: "timeline.selection"
-            case .transcript: "text.alignleft"
-            case .media: "photo.on.rectangle"
-            case .ai: "sparkles"
-            case .deliver: "square.and.arrow.up"
-            }
-        }
-    }
+    @State private var editDockState = WorkspaceDockState(layout: PanelRegistry.editDefaultLayout)
+    @State private var mediaDockState = WorkspaceDockState(layout: PanelRegistry.mediaDefaultLayout)
+    @State private var transcriptDockState = WorkspaceDockState(layout: PanelRegistry.transcriptDefaultLayout)
+    @State private var aiDockState = WorkspaceDockState(layout: PanelRegistry.aiDefaultLayout)
+    @State private var deliverDockState = WorkspaceDockState(layout: PanelRegistry.deliverDefaultLayout)
 
     var body: some View {
         GeometryReader { geo in
             let layoutMode = editorLayoutMode(for: geo.size.width)
+            let pageBarMetrics = WorkspacePageBarMetrics.make(containerWidth: geo.size.width)
 
-            VStack(spacing: CinematicSpacing.md) {
+            VStack(spacing: UtilitySpacing.sm) {
                 topBar(layoutMode: layoutMode)
 
-                HStack(alignment: .top, spacing: CinematicSpacing.md) {
-                    sideNav
+                WorkspacePageBar(
+                    items: EditorWorkspace.allCases,
+                    selection: Binding(
+                        get: { selectedWorkspace },
+                        set: { selectWorkspace($0) }
+                    ),
+                    metrics: pageBarMetrics,
+                    title: { $0.rawValue },
+                    icon: { $0.icon }
+                )
 
-                    mainWorkspace(layoutMode: layoutMode)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                mainWorkspace(layoutMode: layoutMode)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding(.horizontal, CinematicSpacing.md)
-            .padding(.top, CinematicSpacing.xs)
-            .padding(.bottom, CinematicSpacing.md)
+            .padding(.horizontal, UtilitySpacing.lg)
+            .padding(.top, UtilitySpacing.sm)
+            .padding(.bottom, UtilitySpacing.lg)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(appBackground)
         }
         .frame(minWidth: 1200, minHeight: 760)
         .focusable()
+        .focusedSceneValue(\.restoreWorkspaceLayoutAction, restoreSelectedWorkspaceLayout)
+        .focusedSceneValue(\.resetWorkspaceLayoutsAction, resetAllWorkspaceLayouts)
+        .focusedSceneValue(\.revealAIPanelAction, revealAIPanelInSelectedWorkspace)
         .onKeyPress("j") { guard shouldHandleGlobalShortcut else { return .ignored }; stepBackward(); return .handled }
         .onKeyPress("k") { guard shouldHandleGlobalShortcut else { return .ignored }; appState.playbackEngine.togglePlayPause(); return .handled }
         .onKeyPress("l") { guard shouldHandleGlobalShortcut else { return .ignored }; stepForward(); return .handled }
@@ -144,20 +99,13 @@ struct ContentView: View {
     private var appBackground: some View {
         LinearGradient(
             colors: [
-                CinematicTheme.surface,
-                CinematicTheme.surfaceDim,
-                CinematicTheme.surfaceGlass.opacity(0.55),
+                UtilityTheme.canvas,
+                UtilityTheme.recessed,
+                UtilityTheme.canvas,
             ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
+            startPoint: .top,
+            endPoint: .bottom
         )
-        .overlay(alignment: .topTrailing) {
-            Circle()
-                .fill(CinematicTheme.primaryContainer.opacity(0.08))
-                .frame(width: 320, height: 320)
-                .blur(radius: 80)
-                .offset(x: 120, y: -80)
-        }
     }
 
     private func stepForward() {
@@ -216,62 +164,49 @@ struct ContentView: View {
 
     private func topBar(layoutMode: EditorLayoutMode) -> some View {
         HStack(spacing: CinematicSpacing.sm) {
-            HStack(spacing: 10) {
-                RoundedRectangle(cornerRadius: CinematicRadius.md)
-                    .fill(
-                        LinearGradient(
-                            colors: [CinematicTheme.primaryContainer, CinematicTheme.tertiaryContainer.opacity(0.72)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 24, height: 24)
+            HStack(spacing: UtilitySpacing.sm) {
+                RoundedRectangle(cornerRadius: UtilityRadius.sm)
+                    .fill(UtilityTheme.accent)
+                    .frame(width: 20, height: 20)
                     .overlay(
                         Image(systemName: "play.rectangle")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundStyle(CinematicTheme.onPrimaryContainer)
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(UtilityTheme.accentText)
                     )
 
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: UtilitySpacing.xxxs) {
                     Text("Unified Pro Editor")
-                        .font(.cinTitle)
-                        .foregroundStyle(CinematicTheme.onSurface)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(UtilityTheme.text)
                     Text(selectedWorkspace.rawValue.uppercased())
-                        .font(.cinLabelRegular)
-                        .tracking(1.2)
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.76))
+                        .font(.system(size: 10, weight: .medium))
+                        .tracking(0.8)
+                        .foregroundStyle(UtilityTheme.textMuted)
                 }
             }
 
             Spacer(minLength: 20)
 
             if appState.aiChat.isProcessing {
-                CinematicStatusPill(
+                UtilityStatusBadge(
                     text: "AI ACTIVE",
                     icon: "sparkles",
-                    tone: CinematicTheme.primary
+                    style: .accent
                 )
             }
 
-            CinematicStatusPill(
+            UtilityStatusBadge(
                 text: layoutMode == .compact ? "COMPACT" : "EXPANDED",
                 icon: layoutMode == .compact ? "rectangle.compress.vertical" : "rectangle.expand.vertical",
-                tone: CinematicTheme.aqua
+                style: .info
             )
 
-            HStack(spacing: 8) {
-                CinematicToolbarButton(
-                    icon: "sidebar.left",
-                    isActive: isLeftPanelVisible,
-                    action: { isLeftPanelVisible.toggle() }
-                )
-
-                CinematicToolbarButton(
-                    icon: "sidebar.right",
-                    isActive: isRightRailVisible,
-                    action: { isRightRailVisible.toggle() }
-                )
-            }
+            CinematicToolbarButton(
+                icon: "sparkles.rectangle.stack",
+                label: selectedWorkspaceHasAIPanel ? "Focus AI" : "Show AI",
+                isActive: selectedWorkspaceHasAIPanel,
+                action: revealAIPanelInSelectedWorkspace
+            )
 
             CinematicToolbarButton(icon: "square.and.arrow.up", label: "Export") {
                 showExportDialog = true
@@ -279,9 +214,9 @@ struct ContentView: View {
 
             CinematicToolbarButton(icon: "gearshape", action: { showSettings = true })
         }
-        .padding(.horizontal, CinematicSpacing.md)
-        .frame(height: CinematicMetrics.topBarHeight)
-        .panelSurface(.floating, strokeOpacity: 0.82, shadow: true)
+        .padding(.horizontal, UtilitySpacing.md)
+        .frame(height: UtilityMetrics.topBarHeight)
+        .utilitySurface(.chromeElevated, shadow: true)
         .sheet(isPresented: $showSettings) {
             SettingsSheet(isPresented: $showSettings)
         }
@@ -290,589 +225,224 @@ struct ContentView: View {
         }
     }
 
-    private var sideNav: some View {
-        VStack(spacing: CinematicSpacing.sm) {
-            ForEach(Workspace.allCases, id: \.self) { workspace in
-                sideNavItem(workspace)
-            }
-
-            Spacer(minLength: 0)
-
-            CinematicToolbarButton(
-                icon: "sparkles",
-                label: "Ask AI",
-                isActive: selectedWorkspace == .ai
-            ) {
-                selectWorkspace(.ai)
-            }
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, CinematicSpacing.md)
-        .frame(width: 92)
-        .panelSurface(.elevated, strokeOpacity: 0.85)
-    }
-
-    private func sideNavItem(_ workspace: Workspace) -> some View {
-        let isSelected = selectedWorkspace == workspace
-
-        return Button {
-            selectWorkspace(workspace)
-        } label: {
-            VStack(spacing: 6) {
-                Image(systemName: workspace.icon)
-                    .font(.system(size: 16, weight: .semibold))
-                Text(workspace.rawValue)
-                    .font(.cinLabelRegular)
-                    .multilineTextAlignment(.center)
-            }
-            .foregroundStyle(isSelected ? CinematicTheme.onPrimaryContainer : CinematicTheme.onSurfaceVariant)
-            .frame(maxWidth: .infinity)
-            .frame(height: 64)
-            .background(
-                isSelected
-                    ? AnyShapeStyle(
-                        LinearGradient(
-                            colors: [CinematicTheme.primaryContainer, CinematicTheme.tertiaryContainer.opacity(0.72)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    : AnyShapeStyle(CinematicTheme.surfaceContainerHighest.opacity(0.72))
-            )
-            .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.lg))
-        }
-        .buttonStyle(.plain)
-    }
-
-    private func selectWorkspace(_ workspace: Workspace) {
+    private func selectWorkspace(_ workspace: EditorWorkspace) {
         selectedWorkspace = workspace
-        switch workspace {
-        case .edit:
-            rightRailTab = .inspector
-        case .transcript:
-            leftPanelTab = .transcript
-            rightRailTab = .inspector
-        case .media:
-            leftPanelTab = .library
-        case .ai:
-            rightRailTab = .ai
-        case .deliver:
-            break
-        }
     }
 
     @ViewBuilder
     private func mainWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        if appState.assets.isEmpty && appState.timeline.tracks.isEmpty && selectedWorkspace == .edit {
-            EmptyStateView(commandBarText: $commandBarText, onSend: sendCommandBarMessage)
-                .panelSurface(.elevated, strokeOpacity: 0.8)
-        } else {
-            switch selectedWorkspace {
-            case .edit:
-                editorWorkspace(layoutMode: layoutMode)
-            case .media:
-                focusedMediaWorkspace
-            case .transcript:
-                focusedTranscriptWorkspace(layoutMode: layoutMode)
-            case .ai:
-                focusedAIWorkspace(layoutMode: layoutMode)
-            case .deliver:
-                deliverWorkspace(layoutMode: layoutMode)
-            }
+        switch selectedWorkspace {
+        case .edit:
+            editorWorkspace(layoutMode: layoutMode)
+        case .media:
+            focusedMediaWorkspace(layoutMode: layoutMode)
+        case .transcript:
+            focusedTranscriptWorkspace(layoutMode: layoutMode)
+        case .ai:
+            focusedAIWorkspace(layoutMode: layoutMode)
+        case .deliver:
+            focusedDeliverWorkspace(layoutMode: layoutMode)
         }
     }
 
     private func editorWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        HStack(alignment: .top, spacing: CinematicSpacing.md) {
-            if isLeftPanelVisible {
-                utilityPanel
-                    .frame(width: layoutMode == .compact ? CinematicMetrics.compactSidebarWidth : CinematicMetrics.expandedSidebarWidth)
-            }
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: layoutMode,
+            selectedTool: $editorTool
+        )
 
-            VStack(spacing: CinematicSpacing.md) {
-                PreviewPanel(
-                    player: appState.playbackEngine.player,
-                    layoutMode: layoutMode,
-                    isProcessing: appState.aiChat.isProcessing,
-                    processingStatus: appState.aiChat.processingStatus,
-                    currentTime: appState.playbackEngine.currentTime,
-                    duration: appState.playbackEngine.duration,
-                    clipCount: appState.timeline.tracks.flatMap(\.clips).count
-                )
-
-                transportBar
-                commandDock
-
-                TimelinePanel(tool: editorTool)
-                    .frame(minHeight: layoutMode == .compact ? 260 : 320)
-                    .panelSurface(.elevated, strokeOpacity: 0.86)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            if isRightRailVisible {
-                InspectorPanel(
-                    selectedTab: $rightRailTab,
-                    context: selectionInspectorContext,
-                    layoutMode: layoutMode,
-                    showsTabs: true
-                )
-                .frame(width: layoutMode == .compact ? CinematicMetrics.compactRightRailWidth : CinematicMetrics.expandedRightRailWidth)
-            }
-        }
-    }
-
-    private var utilityPanel: some View {
-        VStack(spacing: 0) {
-            CinematicPanelHeader(
-                eyebrow: "EDITOR TOOLS",
-                title: leftPanelTitle,
-                subtitle: leftPanelSubtitle
-            )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
-
-            HStack {
-                CinematicSegmentedTabBar(
-                    items: LeftPanelTab.allCases,
-                    selection: $leftPanelTab,
-                    label: { $0.rawValue },
-                    icon: { $0.icon }
-                )
-                Spacer()
-            }
-            .padding(.horizontal, CinematicSpacing.md)
-            .padding(.vertical, CinematicSpacing.sm)
-
-            Group {
-                switch leftPanelTab {
-                case .library:
-                    MediaBrowserPanel()
-                case .transcript:
-                    TranscriptPanel()
-                case .search:
-                    searchUtilityPanel
-                case .projects:
-                    ProjectBrowserPanel()
-                case .settings:
-                    SettingsPanel()
-                }
-            }
-        }
-        .panelSurface(.base, strokeOpacity: 0.9)
-    }
-
-    private var searchUtilityPanel: some View {
-        VStack(spacing: 0) {
-            if let query = appState.aiChat.lastSearchQuery,
-               let results = appState.aiChat.lastSearchResults,
-               !results.isEmpty {
-                SearchResultsView(query: query, results: results)
-            } else {
-                CinematicEmptyStateBlock(
-                    icon: "sparkle.magnifyingglass",
-                    title: "Search your edit",
-                    detail: "Use the AI rail to search transcripts or ask the editor to gather moments into a sequence."
-                ) {
-                    VStack(spacing: 8) {
-                        CinematicStatusPill(text: "Open AI tab", icon: "sparkles", tone: CinematicTheme.primary)
-                        CinematicStatusPill(text: "Search results appear here", icon: "rectangle.stack.person.crop", tone: CinematicTheme.aqua)
-                    }
-                }
-            }
-        }
-        .background(CinematicTheme.surfaceContainerLow)
-    }
-
-    private var leftPanelTitle: String {
-        switch leftPanelTab {
-        case .library: "Library"
-        case .transcript: "Transcript"
-        case .search: "Search"
-        case .projects: "Projects"
-        case .settings: "Settings"
-        }
-    }
-
-    private var leftPanelSubtitle: String {
-        switch leftPanelTab {
-        case .library: "Media sources, import, and drag to timeline"
-        case .transcript: "Transcript access while editing"
-        case .search: "AI search matches and quick sequence actions"
-        case .projects: "Switch between projects or create new ones"
-        case .settings: "Export, media sources, and storage"
-        }
-    }
-
-    private var transportBar: some View {
-        HStack(spacing: CinematicSpacing.md) {
-            Text(TimeFormatter.timecode(appState.playbackEngine.currentTime))
-                .font(.cinTimecode)
-                .foregroundStyle(CinematicTheme.onSurface)
-                .frame(width: 118, alignment: .leading)
-
-            HStack(spacing: 8) {
-                CinematicToolbarButton(icon: "backward.end.fill") {
-                    appState.playbackEngine.seek(to: 0)
-                    appState.timelineViewState.playheadPosition = 0
-                }
-
-                CinematicToolbarButton(icon: appState.playbackEngine.isPlaying ? "pause.fill" : "play.fill", isActive: true) {
-                    appState.playbackEngine.togglePlayPause()
-                }
-
-                CinematicToolbarButton(icon: "forward.end.fill") {
-                    appState.playbackEngine.seek(to: appState.playbackEngine.duration)
-                    appState.timelineViewState.playheadPosition = appState.playbackEngine.duration
-                }
-            }
-
-            Spacer()
-
-            HStack(spacing: 8) {
-                CinematicSegmentedTabBar(
-                    items: EditorTool.allCases,
-                    selection: $editorTool,
-                    label: { $0.rawValue },
-                    icon: { $0.icon }
-                )
-
-                Rectangle()
-                    .fill(CinematicTheme.outlineVariant.opacity(0.3))
-                    .frame(width: 1, height: 20)
-
-                editModePicker
-            }
-            .frame(maxWidth: 480)
-
-            Spacer()
-
-            Menu {
-                ForEach([0.5, 1.0, 1.5, 2.0], id: \.self) { rate in
-                    Button {
-                        appState.playbackEngine.playbackRate = Float(rate)
-                        if appState.playbackEngine.isPlaying {
-                            appState.playbackEngine.player.rate = Float(rate)
-                        }
-                    } label: {
-                        let label = rate == 1.0 ? "1x" : "\(rate == 0.5 ? "0.5" : rate == 1.5 ? "1.5" : "2")x"
-                        if Float(rate) == appState.playbackEngine.playbackRate {
-                            Label(label, systemImage: "checkmark")
-                        } else {
-                            Text(label)
-                        }
-                    }
-                }
-            } label: {
-                HStack(spacing: 4) {
-                    Image(systemName: "gauge.with.needle")
-                        .font(.system(size: 12, weight: .semibold))
-                    Text(speedLabel(for: appState.playbackEngine.playbackRate))
-                        .font(.cinLabel)
-                }
-                .foregroundStyle(CinematicTheme.onSurface)
-                .padding(.horizontal, 10)
-                .frame(height: CinematicMetrics.controlHeight)
-                .background(CinematicTheme.surfaceContainerHighest)
-                .clipShape(Capsule())
-            }
-            .menuStyle(.button)
-
-            CinematicToolbarButton(
-                icon: appState.playbackEngine.loopEnabled ? "repeat" : "repeat",
-                isActive: appState.playbackEngine.loopEnabled
-            ) {
-                appState.playbackEngine.loopEnabled.toggle()
-            }
-            .help(appState.playbackEngine.loopEnabled ? "Disable loop" : "Enable loop")
-
-            Text(TimeFormatter.timecode(appState.playbackEngine.duration))
-                .font(.cinTimecode)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.64))
-                .frame(width: 118, alignment: .trailing)
-        }
-        .padding(.horizontal, CinematicSpacing.md)
-        .frame(height: 54)
-        .panelSurface(.elevated, strokeOpacity: 0.84)
-    }
-
-    @ViewBuilder
-    private var editModePicker: some View {
-        @Bindable var viewState = appState.timelineViewState
-        Menu {
-            ForEach(TimelineViewState.PlacementMode.allCases, id: \.self) { mode in
-                Button {
-                    appState.timelineViewState.placementMode = mode
-                } label: {
-                    Label(mode.rawValue, systemImage: mode.icon)
-                }
-            }
-        } label: {
-            HStack(spacing: 4) {
-                Image(systemName: appState.timelineViewState.placementMode.icon)
-                    .font(.system(size: 10, weight: .semibold))
-                Text(appState.timelineViewState.placementMode.rawValue.prefix(3).uppercased())
-                    .font(.cinLabel)
-            }
-            .foregroundStyle(CinematicTheme.onSurfaceVariant)
-            .padding(.horizontal, 8)
-            .frame(height: CinematicMetrics.controlHeight)
-            .background(CinematicTheme.surfaceContainerHighest)
-            .clipShape(Capsule())
-        }
-        .menuStyle(.button)
-        .help("Placement mode: \(appState.timelineViewState.placementMode.rawValue)")
-    }
-
-    private var commandDock: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "sparkles")
-                .foregroundStyle(appState.aiChat.isProcessing ? CinematicTheme.primary : CinematicTheme.primary.opacity(0.68))
-                .font(.system(size: 15))
-                .symbolEffect(.pulse, isActive: appState.aiChat.isProcessing)
-
-            TextField("Ask AI to search, rough cut, or transform the current edit…", text: $commandBarText)
-                .textFieldStyle(.plain)
-                .font(.cinBody)
-                .foregroundStyle(CinematicTheme.onSurface)
-                .onSubmit { sendCommandBarMessage() }
-                .disabled(appState.aiChat.isProcessing)
-
-            if appState.aiChat.isProcessing {
-                ProgressView()
-                    .scaleEffect(0.55)
-                    .tint(CinematicTheme.primary)
-            } else {
-                Button(action: sendCommandBarMessage) {
-                    Image(systemName: "arrow.up.circle.fill")
-                        .font(.system(size: 24))
-                        .foregroundStyle(
-                            commandBarText.trimmingCharacters(in: .whitespaces).isEmpty
-                                ? CinematicTheme.onSurfaceVariant.opacity(0.3)
-                                : CinematicTheme.primaryContainer
-                        )
-                }
-                .buttonStyle(.plain)
-                .disabled(commandBarText.trimmingCharacters(in: .whitespaces).isEmpty)
-            }
-        }
-        .padding(.horizontal, 16)
-        .frame(height: 54)
-        .glassPanel(tint: CinematicTheme.surfaceGlass)
-        .overlay(
-            RoundedRectangle(cornerRadius: CinematicRadius.lg)
-                .strokeBorder(CinematicTheme.panelStroke.opacity(0.82), lineWidth: 1)
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.editWorkspaceID,
+            state: $editDockState,
+            registry: registry
         )
     }
 
-    private var focusedMediaWorkspace: some View {
-        MediaWorkspacePanel()
-            .panelSurface(.elevated, strokeOpacity: 0.86)
+    private func focusedMediaWorkspace(layoutMode: EditorLayoutMode) -> some View {
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: layoutMode,
+            selectedTool: $editorTool
+        )
+
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.mediaWorkspaceID,
+            state: $mediaDockState,
+            registry: registry
+        )
     }
 
     private func focusedTranscriptWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        HStack(spacing: CinematicSpacing.md) {
-            TranscriptPanel()
-                .panelSurface(.elevated, strokeOpacity: 0.86)
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: layoutMode,
+            selectedTool: $editorTool
+        )
 
-            if isRightRailVisible {
-                InspectorPanel(
-                    selectedTab: $rightRailTab,
-                    context: selectionInspectorContext,
-                    layoutMode: layoutMode,
-                    showsTabs: true
-                )
-                .frame(width: layoutMode == .compact ? CinematicMetrics.compactRightRailWidth : CinematicMetrics.expandedRightRailWidth)
-            }
-        }
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.transcriptWorkspaceID,
+            state: $transcriptDockState,
+            registry: registry
+        )
     }
 
     private func focusedAIWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        InspectorPanel(
-            selectedTab: $rightRailTab,
-            context: selectionInspectorContext,
+        let registry = PanelRegistry.workspaceRegistry(
             layoutMode: layoutMode,
-            showsTabs: false
+            selectedTool: $editorTool
         )
-        .onAppear { rightRailTab = .ai }
-        .frame(maxWidth: 760, maxHeight: .infinity)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.aiWorkspaceID,
+            state: $aiDockState,
+            registry: registry
+        )
     }
 
-    private func deliverWorkspace(layoutMode: EditorLayoutMode) -> some View {
-        let trackCount = appState.timeline.tracks.count
-        let clipCount = appState.clipCount
-        let canExport = appState.canExportCurrentTimeline
+    private func focusedDeliverWorkspace(layoutMode: EditorLayoutMode) -> some View {
+        let registry = PanelRegistry.workspaceRegistry(
+            layoutMode: layoutMode,
+            selectedTool: $editorTool
+        )
 
-        return HStack(spacing: CinematicSpacing.md) {
-            VStack(spacing: CinematicSpacing.md) {
-                CinematicCard(tone: .floating) {
-                    VStack(alignment: .leading, spacing: CinematicSpacing.md) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Deliver")
-                                    .font(.cinHeadline)
-                                    .foregroundStyle(CinematicTheme.onSurface)
-                                Text("Export presets, sequence summary, and output readiness")
-                                    .font(.cinBody)
-                                    .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
-                            }
-                            Spacer()
-                            CinematicStatusPill(
-                                text: canExport ? "Ready" : "Needs Clips",
-                                icon: canExport ? "checkmark.circle.fill" : "exclamationmark.triangle.fill",
-                                tone: canExport ? CinematicTheme.success : CinematicTheme.warning
-                            )
-                        }
+        return dockedWorkspace(
+            workspaceID: PanelRegistry.deliverWorkspaceID,
+            state: $deliverDockState,
+            registry: registry
+        )
+    }
 
-                        HStack(spacing: CinematicSpacing.sm) {
-                            summaryMetric(value: "\(trackCount)", label: "Tracks")
-                            summaryMetric(value: "\(clipCount)", label: "Clips")
-                            summaryMetric(value: TimeFormatter.duration(appState.timeline.duration), label: "Runtime")
-                        }
-                    }
-                }
+    private func dockedWorkspace(
+        workspaceID: String,
+        state: Binding<WorkspaceDockState>,
+        registry: PanelRegistry
+    ) -> some View {
+        let projectBundleURL = appState.projectBundleURL
+        let layoutBinding = Binding(
+            get: { state.wrappedValue.layout },
+            set: { state.wrappedValue.layout = $0 }
+        )
 
-                CinematicCard {
-                    VStack(alignment: .leading, spacing: CinematicSpacing.md) {
-                        Text("Presets")
-                            .font(.cinTitleSmall)
-                            .foregroundStyle(CinematicTheme.onSurface)
-
-                        HStack(spacing: 8) {
-                            CinematicStatusPill(text: "YouTube 4K", icon: "play.rectangle.fill", tone: CinematicTheme.tertiary)
-                            CinematicStatusPill(text: "YouTube 1080p", icon: "play.rectangle", tone: CinematicTheme.aqua)
-                            CinematicStatusPill(text: "ProRes", icon: "film", tone: CinematicTheme.primary)
-                        }
-
-                        CinematicToolbarButton(icon: "square.and.arrow.up", label: "Open Export Dialog", isActive: true) {
-                            showExportDialog = true
-                        }
-                        .disabled(!canExport)
-                    }
-                }
-
-                // Export progress (shown during export)
-                switch appState.exportEngine.state {
-                case .exporting(let progress):
-                    CinematicCard(tone: .elevated) {
-                        VStack(alignment: .leading, spacing: CinematicSpacing.sm) {
-                            HStack {
-                                Text("Exporting...")
-                                    .font(.cinTitleSmall)
-                                    .foregroundStyle(CinematicTheme.onSurface)
-                                Spacer()
-                                Text("\(Int(progress * 100))%")
-                                    .font(.cinTimecode)
-                                    .foregroundStyle(CinematicTheme.primary)
-                            }
-                            ProgressView(value: Double(progress))
-                                .tint(CinematicTheme.primary)
-                            Button("Cancel Export") {
-                                appState.exportEngine.cancel()
-                            }
-                            .buttonStyle(.plain)
-                            .font(.cinLabelRegular)
-                            .foregroundStyle(CinematicTheme.error)
-                        }
-                    }
-                case .completed(let url):
-                    CinematicCard(tone: .elevated) {
-                        HStack {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(CinematicTheme.success)
-                            Text("Export complete")
-                                .font(.cinTitleSmall)
-                                .foregroundStyle(CinematicTheme.success)
-                            Spacer()
-                            Button("Reveal in Finder") {
-                                NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
-                            }
-                            .buttonStyle(.plain)
-                            .font(.cinLabelRegular)
-                            .foregroundStyle(CinematicTheme.primary)
-                        }
-                    }
-                case .failed(let msg):
-                    CinematicCard(tone: .elevated) {
-                        HStack {
-                            Image(systemName: "exclamationmark.circle.fill")
-                                .foregroundStyle(CinematicTheme.error)
-                            Text(msg)
-                                .font(.cinBody)
-                                .foregroundStyle(CinematicTheme.error)
-                        }
-                    }
-                case .idle:
-                    EmptyView()
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-
-            if isRightRailVisible {
-                InspectorPanel(
-                    selectedTab: $rightRailTab,
-                    context: .project,
-                    layoutMode: layoutMode,
-                    showsTabs: true
+        return DockHostView(layout: layoutBinding, registry: registry)
+            .id("\(workspaceID)-\(projectBundleURL.path)")
+            .onAppear {
+                var nextState = state.wrappedValue
+                WorkspaceDockPersistence.loadLayoutIfNeeded(
+                    state: &nextState,
+                    using: registry,
+                    workspaceID: workspaceID,
+                    for: projectBundleURL
                 )
-                .frame(width: layoutMode == .compact ? CinematicMetrics.compactRightRailWidth : CinematicMetrics.expandedRightRailWidth)
+                state.wrappedValue = nextState
             }
-        }
-    }
-
-    private var selectionInspectorContext: SelectionInspectorContext {
-        let selectedIDs = Array(appState.timelineViewState.selectedClipIDs)
-
-        if selectedIDs.count == 1, let id = selectedIDs.first {
-            return .clip(id)
-        }
-
-        if !selectedIDs.isEmpty {
-            return .clips(selectedIDs)
-        }
-
-        if let trackID = appState.timelineViewState.selectedTrackID {
-            return .track(trackID)
-        }
-
-        return .project
+            .onChange(of: projectBundleURL) { _, newBundleURL in
+                var nextState = state.wrappedValue
+                WorkspaceDockPersistence.loadLayoutIfNeeded(
+                    state: &nextState,
+                    using: registry,
+                    workspaceID: workspaceID,
+                    for: newBundleURL
+                )
+                state.wrappedValue = nextState
+            }
+            .onChange(of: state.wrappedValue.layout) { _, _ in
+                do {
+                    try WorkspaceDockPersistence.persist(
+                        state.wrappedValue,
+                        using: registry,
+                        for: projectBundleURL
+                    )
+                } catch {
+                    print("[ContentView] Failed to persist \(state.wrappedValue.layout.workspaceID) layout: \(error.localizedDescription)")
+                }
+            }
     }
 
     private func editorLayoutMode(for width: CGFloat) -> EditorLayoutMode {
         width < 1560 ? .compact : .expanded
     }
 
-    private func summaryMetric(value: String, label: String) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(value)
-                .font(.cinHeadlineSmall)
-                .foregroundStyle(CinematicTheme.onSurface)
-            Text(label.uppercased())
-                .font(.cinLabel)
-                .tracking(1.2)
-                .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.6))
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 6)
+    private var selectedWorkspaceID: String {
+        selectedWorkspace.workspaceID
     }
 
-    private func speedLabel(for rate: Float) -> String {
-        switch rate {
-        case 0.5: return "0.5x"
-        case 1.0: return "1x"
-        case 1.5: return "1.5x"
-        case 2.0: return "2x"
-        default: return String(format: "%.1fx", rate)
+    private var selectedWorkspaceState: Binding<WorkspaceDockState> {
+        switch selectedWorkspace {
+        case .edit:
+            $editDockState
+        case .media:
+            $mediaDockState
+        case .transcript:
+            $transcriptDockState
+        case .ai:
+            $aiDockState
+        case .deliver:
+            $deliverDockState
         }
     }
 
-    private func sendCommandBarMessage() {
-        let text = commandBarText.trimmingCharacters(in: .whitespaces)
-        guard !text.isEmpty else { return }
-        commandBarText = ""
-        rightRailTab = .ai
-        Task {
-            await appState.aiChat.send(message: text, appState: appState)
+    private var persistenceRegistry: PanelRegistry {
+        PanelRegistry.workspaceRegistry(
+            layoutMode: .expanded,
+            selectedTool: $editorTool
+        )
+    }
+
+    private var selectedWorkspaceHasAIPanel: Bool {
+        selectedWorkspaceState.wrappedValue.layout.root.containsPanel(.aiAssistant)
+    }
+
+    private func restoreSelectedWorkspaceLayout() {
+        let registry = persistenceRegistry
+        let workspaceID = selectedWorkspaceID
+        let state = selectedWorkspaceState
+
+        do {
+            try WorkspaceDockPersistence.resetLayout(
+                for: workspaceID,
+                using: registry,
+                for: appState.projectBundleURL
+            )
+        } catch {
+            print("[ContentView] Failed to restore \(workspaceID) layout: \(error.localizedDescription)")
         }
+
+        guard let defaultLayout = registry.defaultLayouts[workspaceID] else { return }
+
+        var nextState = state.wrappedValue
+        nextState.layout = defaultLayout
+        state.wrappedValue = nextState
+    }
+
+    private func resetAllWorkspaceLayouts() {
+        let registry = persistenceRegistry
+
+        for workspaceID in registry.defaultLayouts.keys {
+            do {
+                try WorkspaceDockPersistence.resetLayout(
+                    for: workspaceID,
+                    using: registry,
+                    for: appState.projectBundleURL
+                )
+            } catch {
+                print("[ContentView] Failed to reset \(workspaceID) layout: \(error.localizedDescription)")
+            }
+        }
+
+        editDockState.layout = PanelRegistry.editDefaultLayout
+        mediaDockState.layout = PanelRegistry.mediaDefaultLayout
+        transcriptDockState.layout = PanelRegistry.transcriptDefaultLayout
+        aiDockState.layout = PanelRegistry.aiDefaultLayout
+        deliverDockState.layout = PanelRegistry.deliverDefaultLayout
+    }
+
+    private func revealAIPanelInSelectedWorkspace() {
+        let registry = persistenceRegistry
+        let state = selectedWorkspaceState
+
+        state.wrappedValue = WorkspaceDockPersistence.revealedState(
+            byRevealing: .aiAssistant,
+            in: state.wrappedValue,
+            using: registry
+        )
     }
 }
 
@@ -884,15 +454,16 @@ private struct SettingsSheet: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "CONFIGURATION",
                 title: "Settings",
                 subtitle: "Local keys for AI and transcription services",
-                trailingAccessory: {
-                    CinematicToolbarButton(icon: "xmark", action: { isPresented = false })
+                badgeCount: 0,
+                showsPrimaryAction: false,
+                trailingAccessory: { _ in
+                    UtilityHeaderButton(icon: "xmark", action: { isPresented = false })
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             VStack(alignment: .leading, spacing: CinematicSpacing.md) {
                 settingsField(
@@ -915,7 +486,7 @@ private struct SettingsSheet: View {
 
             HStack {
                 if saved {
-                    CinematicStatusPill(text: "Saved - restart app", icon: "checkmark.circle.fill", tone: CinematicTheme.success)
+                    UtilityStatusBadge(text: "Saved - restart app", icon: "checkmark.circle.fill", style: .success)
                 }
                 Spacer()
                 CinematicToolbarButton(icon: "square.and.arrow.down", label: "Save", isActive: true, action: saveKeys)

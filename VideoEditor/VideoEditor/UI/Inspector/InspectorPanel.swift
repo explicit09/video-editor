@@ -19,6 +19,27 @@ enum SelectionInspectorContext: Equatable {
     case track(UUID)
     case clip(UUID)
     case clips([UUID])
+
+    static func resolve(
+        selectedClipIDs: Set<UUID>,
+        selectedTrackID: UUID?
+    ) -> Self {
+        let orderedClipIDs = selectedClipIDs.sorted { $0.uuidString < $1.uuidString }
+
+        if orderedClipIDs.count == 1, let clipID = orderedClipIDs.first {
+            return .clip(clipID)
+        }
+
+        if !orderedClipIDs.isEmpty {
+            return .clips(orderedClipIDs)
+        }
+
+        if let selectedTrackID {
+            return .track(selectedTrackID)
+        }
+
+        return .project
+    }
 }
 
 struct InspectorPanel: View {
@@ -29,37 +50,43 @@ struct InspectorPanel: View {
     var showsTabs = true
 
     @State private var inputText = ""
+    @State private var trackNameDraft = ""
+    @FocusState private var isTrackNameFocused: Bool
 
     var body: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: railEyebrow,
                 title: railTitle,
                 subtitle: railSubtitle,
-                trailingAccessory: {
+                badgeCount: selectedTab == .ai && appState.aiChat.isProcessing ? 1 : 0,
+                showsPrimaryAction: selectedTab == .ai,
+                trailingAccessory: { layout in
                     HStack(spacing: 8) {
-                        if appState.aiChat.isProcessing && selectedTab == .ai {
-                            ProgressView()
-                                .scaleEffect(0.6)
-                                .tint(CinematicTheme.primary)
+                        if selectedTab == .ai && layout.showsSecondaryBadges && appState.aiChat.isProcessing {
+                            UtilityHeaderBadge(
+                                text: appState.aiChat.processingStatus ?? "Thinking",
+                                systemImage: "sparkles",
+                                style: .info
+                            )
                         }
 
                         if selectedTab == .ai {
-                            CinematicToolbarButton(icon: "trash", isDestructive: false) {
+                            UtilityHeaderButton(icon: "trash", action: {
                                 appState.aiChat.clearHistory()
-                            }
+                            })
                             .disabled(appState.aiChat.messages.isEmpty)
                         }
                     }
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.68))
 
             if showsTabs {
                 HStack {
-                    CinematicSegmentedTabBar(
+                    UtilitySegmentedControl(
                         items: RightRailTab.allCases,
                         selection: $selectedTab,
+                        availableWidth: 220,
                         label: { $0.rawValue },
                         icon: { $0.icon }
                     )
@@ -201,8 +228,8 @@ struct InspectorPanel: View {
                         .foregroundStyle(CinematicTheme.onSurface)
 
                     HStack(spacing: 8) {
-                        CinematicStatusPill(text: "\(appState.timeline.tracks.flatMap(\.clips).count) clips", icon: "rectangle.stack", tone: CinematicTheme.tertiary)
-                        CinematicStatusPill(text: "\(appState.commandHistory.canUndo ? "Undo ready" : "History clean")", icon: "arrow.uturn.backward", tone: CinematicTheme.aqua)
+                    UtilityStatusBadge(text: "\(appState.timeline.tracks.flatMap(\.clips).count) clips", icon: "rectangle.stack")
+                        UtilityStatusBadge(text: "\(appState.commandHistory.canUndo ? "Undo ready" : "History clean")", icon: "arrow.uturn.backward", style: .info)
                     }
                 }
             }
@@ -222,10 +249,10 @@ struct InspectorPanel: View {
                             .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
                     }
                     Spacer()
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: appState.playbackEngine.isPlaying ? "Playing" : "Idle",
                         icon: appState.playbackEngine.isPlaying ? "play.fill" : "pause.fill",
-                        tone: appState.playbackEngine.isPlaying ? CinematicTheme.success : CinematicTheme.warning
+                        style: appState.playbackEngine.isPlaying ? .success : .warning
                     )
                 }
 
@@ -261,21 +288,44 @@ struct InspectorPanel: View {
                         .foregroundStyle(CinematicTheme.onSurface)
 
                     CinematicInspectorFieldRow(label: "Name") {
-                        TextField("Track name", text: Binding(
-                            get: { resolvedTrack(track.id)?.name ?? track.name },
-                            set: { newValue in
-                                appState.updateTrack(id: track.id) { $0.name = newValue }
-                            }
-                        ))
+                        TextField("Track name", text: $trackNameDraft)
                         .textFieldStyle(.plain)
                         .font(.cinBody)
+                        .focused($isTrackNameFocused)
                         .padding(.horizontal, 10)
                         .frame(height: CinematicMetrics.fieldHeight)
                         .background(CinematicTheme.surfaceContainerLowest)
                         .clipShape(RoundedRectangle(cornerRadius: CinematicRadius.md))
+                        .onAppear {
+                            trackNameDraft = track.name
+                        }
+                        .onSubmit {
+                            commitTrackRename(track)
+                        }
+                        .onChange(of: isTrackNameFocused) { _, focused in
+                            if !focused {
+                                commitTrackRenameIfNeeded(track)
+                            }
+                        }
+                        .onChange(of: track.name) { _, newValue in
+                            if !isTrackNameFocused && trackNameDraft != newValue {
+                                trackNameDraft = newValue
+                            }
+                        }
+                        .onDisappear {
+                            commitTrackRenameIfNeeded(track)
+                        }
                     }
 
                     HStack(spacing: 8) {
+                        CinematicToolbarButton(
+                            icon: "target",
+                            label: viewStateTargetLabel(for: track),
+                            isActive: appState.timelineViewState.armedTrackID == track.id
+                        ) {
+                            appState.timelineViewState.toggleArmedTrack(track.id)
+                        }
+
                         trackTogglePill(
                             icon: track.type == .audio ? "speaker.wave.2.fill" : "eye.fill",
                             label: track.isMuted ? "Muted" : "Active",
@@ -290,6 +340,14 @@ struct InspectorPanel: View {
                             isOn: track.isLocked
                         ) {
                             try? appState.perform(.lockTrack(trackID: track.id, locked: !track.isLocked))
+                        }
+
+                        trackTogglePill(
+                            icon: "headphones",
+                            label: track.isSoloed ? "Solo" : "Normal",
+                            isOn: track.isSoloed
+                        ) {
+                            try? appState.perform(.soloTrack(trackID: track.id, soloed: !track.isSoloed))
                         }
                     }
 
@@ -324,7 +382,7 @@ struct InspectorPanel: View {
                             appState.addTrack(of: track.type, positionedAfter: track.id)
                         }
 
-                        if track.clips.isEmpty {
+                        if track.clips.isEmpty && !track.isLocked {
                             CinematicToolbarButton(icon: "trash", label: "Remove", isDestructive: true) {
                                 try? appState.perform(.removeTrack(trackID: track.id))
                             }
@@ -350,6 +408,29 @@ struct InspectorPanel: View {
             .clipShape(Capsule())
         }
         .buttonStyle(.plain)
+    }
+
+    private func viewStateTargetLabel(for track: Track) -> String {
+        appState.timelineViewState.armedTrackID == track.id ? "Armed" : "Target"
+    }
+
+    private func commitTrackRename(_ track: Track) {
+        let trimmed = trackNameDraft.trimmingCharacters(in: .whitespacesAndNewlines)
+        let nextName = trimmed.isEmpty ? defaultTrackName(for: track) : trimmed
+        trackNameDraft = nextName
+        appState.renameTrack(id: track.id, to: nextName)
+        isTrackNameFocused = false
+    }
+
+    private func commitTrackRenameIfNeeded(_ track: Track) {
+        let trimmed = trackNameDraft.trimmingCharacters(in: .whitespacesAndNewlines)
+        let nextName = trimmed.isEmpty ? defaultTrackName(for: track) : trimmed
+        guard nextName != track.name else { return }
+        commitTrackRename(track)
+    }
+
+    private func defaultTrackName(for track: Track) -> String {
+        track.name.isEmpty ? "\(track.type.rawValue.capitalized) Track" : track.name
     }
 
     private func clipInspector(_ clip: Clip) -> some View {
@@ -750,9 +831,13 @@ struct InspectorPanel: View {
                             .foregroundStyle(CinematicTheme.onSurface)
 
                         HStack(spacing: 8) {
-                            CinematicStatusPill(text: asset.type.rawValue.capitalized, icon: asset.type == .audio ? "waveform" : asset.type == .video ? "film" : "photo", tone: asset.type == .audio ? CinematicTheme.success : CinematicTheme.tertiary)
+                            UtilityStatusBadge(
+                                text: asset.type.rawValue.capitalized,
+                                icon: asset.type == .audio ? "waveform" : asset.type == .video ? "film" : "photo",
+                                style: asset.type == .audio ? .success : .info
+                            )
                             if let codec = asset.codec {
-                                CinematicStatusPill(text: codec.uppercased(), icon: "cpu", tone: CinematicTheme.aqua)
+                                UtilityStatusBadge(text: codec.uppercased(), icon: "cpu", style: .neutral)
                             }
                         }
                     }
