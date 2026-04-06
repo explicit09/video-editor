@@ -300,6 +300,48 @@ struct AIServicesTests {
     }
 }
 
+@Suite("IntentRouter Tests")
+struct IntentRouterTests {
+
+    @Test("Playback keywords route to fast tier with playback tools")
+    func playbackRouting() {
+        let router = IntentRouter()
+
+        for keyword in ["undo that", "redo", "play the timeline", "pause", "seek to 10", "go to the start", "loop this"] {
+            let decision = router.route(keyword)
+            #expect(decision.tier == .fast, "'\(keyword)' should route to fast tier")
+            #expect(decision.toolSubset.contains("play_pause") || decision.toolSubset.contains("undo"),
+                    "'\(keyword)' should include playback tools")
+        }
+    }
+
+    @Test("New property keywords route correctly")
+    func newPropertyRouting() {
+        let router = IntentRouter()
+
+        let decision = router.route("crop this clip to center")
+        #expect(decision.tier == .fast)
+        #expect(decision.toolSubset.contains("set_clip_crop"))
+
+        let blendDecision = router.route("set blend mode to multiply")
+        #expect(blendDecision.tier == .fast)
+        #expect(blendDecision.toolSubset.contains("set_clip_blend_mode"))
+    }
+
+    @Test("New structural keywords route correctly")
+    func newStructuralRouting() {
+        let router = IntentRouter()
+
+        let decision = router.route("reorder the tracks")
+        #expect(decision.tier == .fast)
+        #expect(decision.toolSubset.contains("reorder_track"))
+
+        let linkDecision = router.route("link these clips together")
+        #expect(linkDecision.tier == .fast)
+        #expect(linkDecision.toolSubset.contains("link_clips"))
+    }
+}
+
 @Suite("Lemmatizer Tests")
 struct LemmatizerTests {
 

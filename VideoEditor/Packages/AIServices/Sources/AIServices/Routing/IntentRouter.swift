@@ -38,6 +38,14 @@ public struct IntentRouter: Sendable {
             )
         }
 
+        // Playback / undo / redo → Haiku + playback tools
+        if matchesAny(lower, keywords: playbackKeywords) {
+            return RoutingDecision(
+                tier: .fast,
+                toolSubset: playbackTools
+            )
+        }
+
         // Simple property changes → Haiku + property tools
         if matchesAny(lower, keywords: propertyKeywords) {
             return RoutingDecision(
@@ -65,6 +73,11 @@ public struct IntentRouter: Sendable {
 
     // MARK: - Keyword sets
 
+    private let playbackKeywords = [
+        "undo", "redo", "play", "pause", "stop",
+        "seek", "go to", "jump to", "loop", "rewind",
+    ]
+
     private let contentKeywords = [
         "transcript", "says", "said", "mention", "spoken", "talking",
         "silence", "silent", "filler", "um", "uh", "search",
@@ -81,12 +94,14 @@ public struct IntentRouter: Sendable {
         "volume", "opacity", "speed", "mute", "unmute",
         "louder", "quieter", "softer", "faster", "slower",
         "fade", "transparent", "visible", "lock", "unlock",
+        "crop", "blend", "composite", "solo", "unsolo",
     ]
 
     private let structuralKeywords = [
         "add track", "new track", "delete", "remove", "split",
         "cut", "trim", "move", "duplicate", "copy", "paste",
         "marker", "rename",
+        "reorder", "link", "unlink", "group", "ungroup",
     ]
 
     private let questionKeywords = [
@@ -96,6 +111,10 @@ public struct IntentRouter: Sendable {
     ]
 
     // MARK: - Tool subsets
+
+    private let playbackTools = [
+        "play_pause", "seek", "toggle_loop", "undo", "redo",
+    ]
 
     private let contentTools = [
         "get_transcript", "transcribe_asset", "search_transcript",
@@ -113,12 +132,14 @@ public struct IntentRouter: Sendable {
         "set_clip_volume", "set_clip_opacity", "set_clip_speed",
         "mute_track", "lock_track", "set_track_volume",
         "set_clip_transition", "rename_clip",
+        "set_clip_crop", "set_clip_blend_mode", "solo_track", "rename_track",
     ]
 
     private let structuralTools = [
         "add_track", "remove_track", "insert_clip", "delete_clips",
         "split_clip", "trim_clip", "move_clip", "duplicate_clip",
         "ripple_delete", "set_marker", "delete_marker", "rename_clip",
+        "reorder_track", "link_clips", "remove_clip_effect",
     ]
 
     private let coreTools = [
