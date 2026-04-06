@@ -31,11 +31,8 @@ struct ProgramMonitorPanel: View {
                 if let overlayClip = appState.selectedVideoOverlayClip {
                     OverlayMonitorControls(
                         clip: overlayClip,
-                        onMove: { delta in
-                            appState.updateOverlayClipPosition(overlayClip.id, delta: delta, canvasSize: CGSize(width: 1920, height: 1080))
-                        },
-                        onScale: { delta in
-                            appState.updateOverlayClipScale(overlayClip.id, delta: delta)
+                        onTransformUpdate: { transform in
+                            try? appState.perform(.setClipTransform(clipID: overlayClip.id, transform: transform))
                         }
                     )
                 }

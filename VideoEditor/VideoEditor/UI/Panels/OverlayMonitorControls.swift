@@ -5,10 +5,14 @@ import EditorCore
 
 /// On-canvas manipulation handles for PiP overlay clips in the program monitor.
 /// Renders a selection frame with corner handles for drag-to-move and drag-to-scale.
+/// All gestures capture the initial transform at drag start and apply cumulative
+/// deltas to the snapshot, preventing exponential drift.
 struct OverlayMonitorControls: View {
     let clip: Clip
-    let onMove: (CGSize) -> Void
-    let onScale: (CGSize) -> Void
+    let onTransformUpdate: (Transform2D) -> Void
+
+    @GestureState private var moveStart: Transform2D?
+    @GestureState private var scaleStart: Transform2D?
 
     var body: some View {
         GeometryReader { proxy in
@@ -20,14 +24,22 @@ struct OverlayMonitorControls: View {
                     .frame(width: frame.width, height: frame.height)
 
                 // Corner scale handles
-                OverlayCornerHandles(frame: frame, onScale: onScale)
+                OverlayCornerHandles(frame: frame) { delta in
+                    let base = scaleStart ?? clip.transform
+                    onTransformUpdate(OverlayGeometry.transformByScaling(base, anchor: .zero, delta: delta))
+                }
             }
             .frame(width: frame.width, height: frame.height)
             .position(x: frame.midX, y: frame.midY)
             .gesture(
                 DragGesture()
+                    .updating($moveStart) { _, state, _ in
+                        if state == nil { state = clip.transform }
+                    }
                     .onChanged { value in
-                        onMove(value.translation)
+                        let base = moveStart ?? clip.transform
+                        let updated = OverlayGeometry.transformByTranslating(base, delta: value.translation, canvasSize: proxy.size)
+                        onTransformUpdate(updated)
                     }
             )
         }

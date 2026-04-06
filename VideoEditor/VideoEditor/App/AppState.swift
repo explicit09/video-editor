@@ -163,20 +163,6 @@ final class AppState {
         return nil
     }
 
-    /// Update a PiP overlay clip's position by a pixel delta on the monitor canvas.
-    func updateOverlayClipPosition(_ clipID: UUID, delta: CGSize, canvasSize: CGSize) {
-        guard let clip = clipByID(clipID) else { return }
-        let updated = OverlayGeometry.transformByTranslating(clip.transform, delta: delta, canvasSize: canvasSize)
-        try? perform(.setClipTransform(clipID: clipID, transform: updated))
-    }
-
-    /// Update a PiP overlay clip's scale by a pixel delta on the monitor canvas.
-    func updateOverlayClipScale(_ clipID: UUID, delta: CGSize) {
-        guard let clip = clipByID(clipID) else { return }
-        let updated = OverlayGeometry.transformByScaling(clip.transform, anchor: .zero, delta: delta)
-        try? perform(.setClipTransform(clipID: clipID, transform: updated))
-    }
-
     private func clipByID(_ id: UUID) -> Clip? {
         for track in timeline.tracks {
             if let clip = track.clips.first(where: { $0.id == id }) {
