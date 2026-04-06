@@ -180,6 +180,72 @@ struct AIServicesTests {
     }
 
     @MainActor
+    @Test("Link clips tool resolves correctly")
+    func linkClipsToolResolution() throws {
+        let resolver = AIToolResolver()
+        let clip1 = UUID()
+        let clip2 = UUID()
+
+        let linkIntents = try resolver.resolve(toolName: "link_clips", arguments: [
+            "clip_ids": [clip1.uuidString, clip2.uuidString],
+            "link": true,
+        ])
+        #expect(linkIntents.count == 1)
+        if case .linkClips(let ids, let groupID) = linkIntents[0] {
+            #expect(ids.count == 2)
+            #expect(ids.contains(clip1))
+            #expect(ids.contains(clip2))
+            #expect(groupID != nil)
+        } else {
+            Issue.record("link_clips with link=true should resolve to linkClips with non-nil groupID")
+        }
+
+        let unlinkIntents = try resolver.resolve(toolName: "link_clips", arguments: [
+            "clip_ids": [clip1.uuidString],
+            "link": false,
+        ])
+        if case .linkClips(_, let groupID) = unlinkIntents[0] {
+            #expect(groupID == nil)
+        } else {
+            Issue.record("link_clips with link=false should have nil groupID")
+        }
+    }
+
+    @MainActor
+    @Test("Batch tool resolves to batch intent with nested operations")
+    func batchToolResolution() throws {
+        let resolver = AIToolResolver()
+        let trackID = UUID()
+        let clipID = UUID()
+
+        let ops = """
+        [{"tool":"solo_track","args":{"track_id":"\(trackID.uuidString)","soloed":true}},{"tool":"set_clip_volume","args":{"clip_id":"\(clipID.uuidString)","volume":0.5}}]
+        """
+
+        let intents = try resolver.resolve(toolName: "batch", arguments: [
+            "operations": ops,
+        ])
+        #expect(intents.count == 1)
+        if case .batch(let nested) = intents[0] {
+            #expect(nested.count == 2)
+            if case .soloTrack(let id, let soloed) = nested[0] {
+                #expect(id == trackID)
+                #expect(soloed == true)
+            } else {
+                Issue.record("First batch op should be soloTrack")
+            }
+            if case .setClipVolume(let id, let vol) = nested[1] {
+                #expect(id == clipID)
+                #expect(vol == 0.5)
+            } else {
+                Issue.record("Second batch op should be setClipVolume")
+            }
+        } else {
+            Issue.record("batch should resolve to .batch")
+        }
+    }
+
+    @MainActor
     @Test("Overlay presentation tools resolve correctly")
     func overlayPresentationToolResolution() throws {
         let resolver = AIToolResolver()

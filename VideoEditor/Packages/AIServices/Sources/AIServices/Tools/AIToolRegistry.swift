@@ -74,6 +74,8 @@ public struct AIToolRegistry: Sendable {
         soloTrack,
         renameTrack,
         reorderTrack,
+        linkClips,
+        batch,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -727,6 +729,25 @@ public struct AIToolRegistry: Sendable {
             "new_index": .init(type: "number", description: "Target position (0-based)"),
         ], required: ["track_id", "new_index"])
     )
+
+    // MARK: - Link + Batch tools
+
+    public static let linkClips = AIToolDefinition(
+        name: "link_clips",
+        description: "Link or unlink clips so edits propagate together (e.g. video+audio pair). Linked clips move, split, and delete as a group.",
+        parameters: .object([
+            "clip_ids": .init(type: "array", description: "UUIDs of clips to link/unlink", items: .init(type: "string")),
+            "link": .init(type: "boolean", description: "true to link, false to unlink"),
+        ], required: ["clip_ids", "link"])
+    )
+
+    public static let batch = AIToolDefinition(
+        name: "batch",
+        description: "Execute multiple tool calls as a single undoable operation. Only intent-backed tools are allowed (not undo, redo, play_pause, seek, toggle_loop, get_action_log).",
+        parameters: .object([
+            "operations": .init(type: "string", description: "JSON array of {\"tool\": \"tool_name\", \"args\": {...}} objects"),
+        ], required: ["operations"])
+    )
 }
 
 // MARK: - AIToolDefinition (JSON Schema compatible)
@@ -1196,6 +1217,38 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing new_index")
             }
             return [.reorderTrack(trackID: trackID, newIndex: newIndex)]
+
+        case "link_clips":
+            guard let idStrings = arguments["clip_ids"] as? [String] else {
+                throw AIToolError.invalidArgument("Missing clip_ids array")
+            }
+            let ids = idStrings.compactMap { UUID(uuidString: $0) }
+            guard !ids.isEmpty else { throw AIToolError.invalidArgument("No valid clip IDs") }
+            guard let link = arguments["link"] as? Bool else {
+                throw AIToolError.invalidArgument("Missing link parameter (true/false)")
+            }
+            return [.linkClips(clipIDs: ids, linkGroupID: link ? UUID() : nil)]
+
+        case "batch":
+            guard let opsJSON = arguments["operations"] as? String,
+                  let data = opsJSON.data(using: .utf8),
+                  let ops = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
+                throw AIToolError.invalidArgument("operations must be a valid JSON array string")
+            }
+            let appStateTools: Set<String> = ["undo", "redo", "play_pause", "seek", "toggle_loop", "get_action_log"]
+            var allIntents: [EditorIntent] = []
+            for op in ops {
+                guard let toolName = op["tool"] as? String else {
+                    throw AIToolError.invalidArgument("Each operation must have a 'tool' field")
+                }
+                guard !appStateTools.contains(toolName) else {
+                    throw AIToolError.invalidArgument("'\(toolName)' cannot be used inside batch")
+                }
+                let opArgs = op["args"] as? [String: Any] ?? [:]
+                let intents = try resolve(toolName: toolName, arguments: opArgs, assets: assets)
+                allIntents.append(contentsOf: intents)
+            }
+            return [.batch(allIntents)]
 
         default:
             throw AIToolError.unknownTool(toolName)
