@@ -71,6 +71,26 @@ public final class SkillRegistry: @unchecked Sendable {
         skills.first { $0.name == name }
     }
 
+    /// Generate a formatted skill catalog for inclusion in the AI system prompt.
+    /// Returns empty string if no skills are loaded.
+    public func skillCatalog() -> String {
+        guard !skills.isEmpty else { return "" }
+
+        var lines = [
+            "<available_skills>",
+            "When you recognize a task matches one of these workflows, call activate_skill",
+            "to get the full step-by-step workflow before proceeding.",
+            "",
+        ]
+
+        for skill in skills {
+            lines.append("- \(skill.name): \(skill.description)")
+        }
+
+        lines.append("</available_skills>")
+        return lines.joined(separator: "\n")
+    }
+
     // MARK: - Parsing
 
     /// Parse a SKILL.md file into an EditingSkill.
