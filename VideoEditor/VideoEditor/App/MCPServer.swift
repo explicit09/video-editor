@@ -830,6 +830,69 @@ final class MCPServer {
             return "Bookmarked media folders:\n" + folders.map { "  - \($0.path)" }.joined(separator: "\n")
         }
 
+        // Playback & undo tools — need AppState directly
+        if name == "undo" {
+            guard appState.commandHistory.canUndo else { return "Nothing to undo." }
+            do {
+                try appState.undo()
+                return stateSnapshot(appState)
+            } catch {
+                return "Error: \(error.localizedDescription)"
+            }
+        }
+        if name == "redo" {
+            guard appState.commandHistory.canRedo else { return "Nothing to redo." }
+            do {
+                try appState.redo()
+                return stateSnapshot(appState)
+            } catch {
+                return "Error: \(error.localizedDescription)"
+            }
+        }
+        if name == "play_pause" {
+            let action = (arguments["action"] as? String) ?? "toggle"
+            switch action {
+            case "play":
+                if !appState.playbackEngine.isPlaying { appState.playbackEngine.togglePlayPause() }
+            case "pause":
+                if appState.playbackEngine.isPlaying { appState.playbackEngine.togglePlayPause() }
+            default:
+                appState.playbackEngine.togglePlayPause()
+            }
+            let state = appState.playbackEngine.isPlaying ? "playing" : "paused"
+            return "Playback \(state) at \(String(format: "%.1f", appState.playbackEngine.currentTime))s."
+        }
+        if name == "seek" {
+            let time: Double
+            if let t = arguments["time"] as? Double {
+                time = t
+            } else if let s = arguments["time"] as? String {
+                switch s.lowercased() {
+                case "start": time = 0
+                case "end": time = appState.timeline.duration
+                default:
+                    if let t = Double(s) { time = t }
+                    else { return "Error: Invalid time '\(s)'. Use a number or 'start'/'end'." }
+                }
+            } else {
+                return "Error: Missing time parameter."
+            }
+            appState.playbackEngine.seek(to: time)
+            return "Playhead at \(String(format: "%.1f", time))s."
+        }
+        if name == "toggle_loop" {
+            let enabled = (arguments["enabled"] as? Bool) ?? !appState.playbackEngine.loopEnabled
+            appState.playbackEngine.loopEnabled = enabled
+            return "Loop \(enabled ? "enabled" : "disabled")."
+        }
+        if name == "get_action_log" {
+            let limit = (arguments["limit"] as? Int) ?? 20
+            let events = await appState.context.actionLog.recentActions(count: limit)
+            if events.isEmpty { return "No actions recorded." }
+            let lines = events.map { "\($0.timestamp) | \($0.source.rawValue) | \($0.commandName)" }
+            return "Recent actions (\(events.count)):\n" + lines.joined(separator: "\n")
+        }
+
         let toolResolver = AIToolResolver()
         do {
             let intents = try toolResolver.resolve(toolName: name, arguments: arguments, assets: appState.assets)
