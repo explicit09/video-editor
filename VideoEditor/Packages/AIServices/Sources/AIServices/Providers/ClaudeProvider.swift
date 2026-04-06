@@ -163,6 +163,9 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         <editing_rules>
         - ALWAYS read the transcript (get_transcript or analyze_transcript) before making \
         content-based edits. Never edit blind.
+        - To find episodes in a recording, ALWAYS use analyze_transcript — it sends the full \
+        transcript to Claude for comprehension. For complex workflows, activate the \
+        podcast-episode-producer skill first.
         - NEVER run auto_cut on a raw unprocessed recording. First use analyze_transcript \
         to find episode boundaries, then trim to the episode, THEN auto_cut.
         - For podcast/long recordings: analyze_transcript FIRST to understand structure, \

@@ -62,7 +62,6 @@ public struct AIToolRegistry: Sendable {
         getFullTranscript,
         analyzeAudioEnergy,
         classifyAudio,
-        detectEpisodes,
         scoreContent,
         segmentTopics,
         verifyPlayback,

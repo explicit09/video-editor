@@ -62,9 +62,9 @@ public struct IntentRouter: Sendable {
             )
         }
 
-        // Questions / conversation → Sonnet, no tools
+        // Questions / conversation → Sonnet, full tools (model decides whether to use them)
         if matchesAny(lower, keywords: questionKeywords) {
-            return RoutingDecision(tier: .standard, toolSubset: [])
+            return RoutingDecision(tier: .standard, toolSubset: AIToolRegistry.allTools.map(\.name))
         }
 
         // Default: Sonnet with ALL tools — agent has full access

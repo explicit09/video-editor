@@ -1190,7 +1190,7 @@ struct ChatBubble: View {
 
     var body: some View {
         VStack(alignment: alignment == .trailing ? .trailing : .leading, spacing: 4) {
-            Text(message.content)
+            Text(LocalizedStringKey(message.content.replacingOccurrences(of: "%", with: "%%")))
                 .font(.cinBody)
                 .foregroundStyle(CinematicTheme.onSurface)
                 .padding(.horizontal, 12)
