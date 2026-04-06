@@ -135,6 +135,49 @@ struct AIServicesTests {
             Issue.record("remove_clip_effect should resolve to removeClipEffect")
         }
     }
+
+    @MainActor
+    @Test("Overlay presentation tools resolve correctly")
+    func overlayPresentationToolResolution() throws {
+        let resolver = AIToolResolver()
+        let clipID = UUID()
+
+        // set_clip_overlay_presentation
+        let overlayIntents = try resolver.resolve(toolName: "set_clip_overlay_presentation", arguments: [
+            "clip_id": clipID.uuidString,
+            "mode": "pip",
+            "shadow": "heavy",
+            "corner_radius": 12.0,
+            "mask_shape": "roundedRect",
+            "border_visible": true,
+            "border_width": 3.0,
+        ])
+        #expect(overlayIntents.count == 1)
+        if case .setClipOverlayPresentation(let id, let pres) = overlayIntents[0] {
+            #expect(id == clipID)
+            #expect(pres.mode == .pip)
+            #expect(pres.shadow == .heavy)
+            #expect(pres.cornerRadius == 12.0)
+            #expect(pres.maskShape == .roundedRect)
+            #expect(pres.border.isVisible == true)
+            #expect(pres.border.width == 3.0)
+        } else {
+            Issue.record("set_clip_overlay_presentation should resolve to setClipOverlayPresentation")
+        }
+
+        // apply_pip_preset
+        let pipIntents = try resolver.resolve(toolName: "apply_pip_preset", arguments: [
+            "clip_id": clipID.uuidString,
+            "preset": "bottomRight",
+        ])
+        #expect(pipIntents.count == 1)
+        if case .applyClipPiPPreset(let id, let preset) = pipIntents[0] {
+            #expect(id == clipID)
+            #expect(preset == .bottomRight)
+        } else {
+            Issue.record("apply_pip_preset should resolve to applyClipPiPPreset")
+        }
+    }
 }
 
 @Suite("Lemmatizer Tests")

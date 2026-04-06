@@ -69,6 +69,8 @@ public struct AIToolRegistry: Sendable {
         setClipCrop,
         setClipBlendMode,
         removeClipEffect,
+        setClipOverlayPresentation,
+        applyPiPPreset,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -670,6 +672,29 @@ public struct AIToolRegistry: Sendable {
             "effect_id": .init(type: "string", description: "UUID of the effect to remove"),
         ], required: ["clip_id", "effect_id"])
     )
+
+    public static let setClipOverlayPresentation = AIToolDefinition(
+        name: "set_clip_overlay_presentation",
+        description: "Configure how a clip is presented as an overlay. Set mode to 'pip' for picture-in-picture, 'inline' for normal. Control border, shadow, corner radius, and mask shape.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "mode": .init(type: "string", description: "'inline' (default) or 'pip'", enumValues: ["inline", "pip"]),
+            "border_visible": .init(type: "boolean", description: "Show border (default false)"),
+            "border_width": .init(type: "number", description: "Border width in points (default 2)"),
+            "shadow": .init(type: "string", description: "Shadow style", enumValues: ["none", "light", "medium", "heavy"]),
+            "corner_radius": .init(type: "number", description: "Corner radius 0-50 (default 0)"),
+            "mask_shape": .init(type: "string", description: "Mask shape", enumValues: ["rectangle", "roundedRect", "circle"]),
+        ], required: ["clip_id"])
+    )
+
+    public static let applyPiPPreset = AIToolDefinition(
+        name: "apply_pip_preset",
+        description: "Quick PiP positioning. Sets overlay mode to pip and snaps the clip to a corner of the frame.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "preset": .init(type: "string", description: "Corner position", enumValues: ["topLeft", "topRight", "bottomLeft", "bottomRight"]),
+        ], required: ["clip_id", "preset"])
+    )
 }
 
 // MARK: - AIToolDefinition (JSON Schema compatible)
@@ -1083,6 +1108,37 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing or invalid effect_id")
             }
             return [.removeClipEffect(clipID: clipID, effectID: effectID)]
+
+        case "set_clip_overlay_presentation":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid clip_id")
+            }
+            let modeStr = (arguments["mode"] as? String) ?? "inline"
+            let mode = OverlayPresentationMode(rawValue: modeStr) ?? .inline
+            let borderVisible = (arguments["border_visible"] as? Bool) ?? false
+            let borderWidth = (arguments["border_width"] as? Double) ?? 2.0
+            let shadowStr = (arguments["shadow"] as? String) ?? "none"
+            let shadow = OverlayShadowStyle(rawValue: shadowStr) ?? .none
+            let cornerRadius = (arguments["corner_radius"] as? Double) ?? 0
+            let maskStr = (arguments["mask_shape"] as? String) ?? "rectangle"
+            let maskShape = OverlayMaskShape(rawValue: maskStr) ?? .rectangle
+            let presentation = OverlayPresentation(
+                mode: mode,
+                border: borderVisible ? .visible(width: borderWidth) : .hidden,
+                shadow: shadow,
+                cornerRadius: cornerRadius,
+                maskShape: maskShape
+            )
+            return [.setClipOverlayPresentation(clipID: clipID, presentation: presentation)]
+
+        case "apply_pip_preset":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid clip_id")
+            }
+            guard let presetStr = arguments["preset"] as? String, let preset = OverlayPiPPreset(rawValue: presetStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid preset (topLeft, topRight, bottomLeft, bottomRight)")
+            }
+            return [.applyClipPiPPreset(clipID: clipID, preset: preset)]
 
         default:
             throw AIToolError.unknownTool(toolName)
