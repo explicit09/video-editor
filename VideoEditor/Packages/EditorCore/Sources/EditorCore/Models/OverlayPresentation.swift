@@ -2,6 +2,52 @@ import Foundation
 
 // MARK: - Overlay Presentation
 
+public enum OverlayPresentationMode: String, Codable, Sendable {
+    case inline
+    case pip
+}
+
+public struct OverlayBorderStyle: Codable, Equatable, Sendable {
+    public var isVisible: Bool
+    public var width: Double
+    public var colorHex: String
+
+    public init(isVisible: Bool = false, width: Double = 0, colorHex: String = "#FFFFFF") {
+        self.isVisible = isVisible
+        self.width = max(width, 0)
+        self.colorHex = colorHex
+    }
+
+    public static let hidden = OverlayBorderStyle()
+
+    public static func visible(width: Double = 4, colorHex: String = "#FFFFFF") -> OverlayBorderStyle {
+        OverlayBorderStyle(isVisible: true, width: width, colorHex: colorHex)
+    }
+}
+
+public enum OverlayShadowStyle: String, Codable, Sendable {
+    case none
+    case light
+    case medium
+    case heavy
+}
+
+public enum OverlayMaskShape: String, Codable, Sendable {
+    case rectangle
+    case roundedRect
+    case circle
+}
+
+public enum OverlayAnimationPreset: String, Codable, Sendable {
+    case none
+    case fadeIn
+    case fadeOut
+    case scaleIn
+    case scaleOut
+    case slideIn
+    case slideOut
+}
+
 public struct OverlayPresentation: Codable, Equatable, Sendable {
     public var mode: OverlayPresentationMode
     public var border: OverlayBorderStyle
@@ -42,48 +88,6 @@ public struct OverlayPresentation: Codable, Equatable, Sendable {
         entranceAnimation: .none,
         exitAnimation: .none
     )
-}
-
-public enum OverlayPresentationMode: String, Codable, Sendable {
-    case inline
-    case pip
-}
-
-public struct OverlayBorderStyle: Codable, Equatable, Sendable {
-    public var isVisible: Bool
-    public var width: Double
-    public var colorHex: String
-
-    public init(isVisible: Bool = false, width: Double = 0, colorHex: String = "#FFFFFF") {
-        self.isVisible = isVisible
-        self.width = max(width, 0)
-        self.colorHex = colorHex
-    }
-
-    public static let hidden = OverlayBorderStyle()
-}
-
-public enum OverlayShadowStyle: String, Codable, Sendable {
-    case none
-    case light
-    case medium
-    case heavy
-}
-
-public enum OverlayMaskShape: String, Codable, Sendable {
-    case rectangle
-    case roundedRect
-    case circle
-}
-
-public enum OverlayAnimationPreset: String, Codable, Sendable {
-    case none
-    case fadeIn
-    case fadeOut
-    case scaleIn
-    case scaleOut
-    case slideIn
-    case slideOut
 }
 
 public enum OverlayPiPPreset: String, Codable, Sendable {

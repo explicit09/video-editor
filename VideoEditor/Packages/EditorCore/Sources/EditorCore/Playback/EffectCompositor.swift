@@ -31,7 +31,15 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
     }
 
     static func orderedOverlayLayers(for instruction: OverlayInstruction) -> [OverlayLayer] {
-        instruction.layers.sorted { $0.trackOrder < $1.trackOrder }
+        instruction.layers
+            .enumerated()
+            .sorted {
+                if $0.element.trackOrder != $1.element.trackOrder {
+                    return $0.element.trackOrder < $1.element.trackOrder
+                }
+                return $0.offset < $1.offset
+            }
+            .map(\.element)
     }
 
     // MARK: - Animation Presets
@@ -649,7 +657,7 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         // Start with background color
         var composited = CIImage(color: instruction.backgroundColor).cropped(to: renderRect)
 
-        // Composite layers bottom-to-top
+        // Composite layers bottom-to-top in stable track order.
         for layer in Self.orderedOverlayLayers(for: instruction) {
             guard let sourceBuffer = request.sourceFrame(byTrackID: layer.trackID) else {
                 continue // Skip layers with no frame at this time

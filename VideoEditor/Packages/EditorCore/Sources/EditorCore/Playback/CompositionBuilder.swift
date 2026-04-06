@@ -658,8 +658,11 @@ public struct CompositionBuilder {
         backgroundColor: CIColor = .black
     ) -> [any AVVideoCompositionInstructionProtocol] {
         let ts: CMTimeScale = 600
+
+        // Build track order: lower index in timeline.tracks = bottom layer
+        let orderedVideoTracks = timeline.tracks.enumerated().filter { $0.element.type != .audio }
         let trackOrderByID: [UUID: Int] = Dictionary(
-            uniqueKeysWithValues: timeline.tracks.enumerated().map { ($1.id, $0) }
+            uniqueKeysWithValues: orderedVideoTracks.map { ($0.element.id, $0.offset) }
         )
 
         // Collect all time boundaries from every video entry

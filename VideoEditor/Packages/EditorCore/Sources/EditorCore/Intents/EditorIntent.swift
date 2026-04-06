@@ -20,6 +20,7 @@ public enum EditorIntent: Sendable {
     case setClipTransform(clipID: UUID, transform: Transform2D)
     case setClipCrop(clipID: UUID, cropRect: CropRect)
     case muteTrack(trackID: UUID, muted: Bool)
+    case soloTrack(trackID: UUID, soloed: Bool)
     case lockTrack(trackID: UUID, locked: Bool)
     case soloTrack(trackID: UUID, soloed: Bool)
     case renameTrack(trackID: UUID, name: String)
@@ -85,6 +86,8 @@ public struct IntentResolver: Sendable {
             return SetClipCropCommand(clipID: clipID, cropRect: cropRect)
         case .muteTrack(let trackID, let muted):
             return MuteTrackCommand(trackID: trackID, muted: muted)
+        case .soloTrack(let trackID, let soloed):
+            return SoloTrackCommand(trackID: trackID, soloed: soloed)
         case .lockTrack(let trackID, let locked):
             return LockTrackCommand(trackID: trackID, locked: locked)
         case .soloTrack(let trackID, let soloed):

@@ -336,7 +336,7 @@ struct CompositionBuilderTests {
         )
         let overlayPresentation = OverlayPresentation(
             mode: .pip,
-            border: .init(isVisible: true, width: 4, colorHex: "#FFFFFF"),
+            border: .visible(width: 4, colorHex: "#FFFFFF"),
             shadow: .medium,
             cornerRadius: 18,
             maskShape: .roundedRect,
