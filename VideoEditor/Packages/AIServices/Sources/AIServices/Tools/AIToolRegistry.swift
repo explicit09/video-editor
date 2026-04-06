@@ -66,6 +66,9 @@ public struct AIToolRegistry: Sendable {
         scoreContent,
         segmentTopics,
         verifyPlayback,
+        setClipCrop,
+        setClipBlendMode,
+        removeClipEffect,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -631,6 +634,42 @@ public struct AIToolRegistry: Sendable {
             "target_volume": .init(type: "number", description: "Target volume level (default 1.0)"),
         ], required: [])
     )
+
+    // MARK: - Clip property tools (parity)
+
+    public static let setClipCrop = AIToolDefinition(
+        name: "set_clip_crop",
+        description: "Set the crop region of a clip. Values are normalized 0-1 relative to source frame. Use x=0, y=0, width=1, height=1 to clear crop (full frame).",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "x": .init(type: "number", description: "Left edge (0-1)"),
+            "y": .init(type: "number", description: "Top edge (0-1)"),
+            "width": .init(type: "number", description: "Width (0-1)"),
+            "height": .init(type: "number", description: "Height (0-1)"),
+        ], required: ["clip_id", "x", "y", "width", "height"])
+    )
+
+    public static let setClipBlendMode = AIToolDefinition(
+        name: "set_clip_blend_mode",
+        description: "Set how a clip composites over clips below it.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "blend_mode": .init(type: "string", description: "Blend mode", enumValues: [
+                "normal", "multiply", "screen", "overlay", "darken", "lighten",
+                "colorDodge", "colorBurn", "softLight", "hardLight", "difference",
+                "exclusion", "hue", "saturation", "color", "luminosity", "add",
+            ]),
+        ], required: ["clip_id", "blend_mode"])
+    )
+
+    public static let removeClipEffect = AIToolDefinition(
+        name: "remove_clip_effect",
+        description: "Remove a specific effect from a clip by effect ID. Use get_state to find effect IDs.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "effect_id": .init(type: "string", description: "UUID of the effect to remove"),
+        ], required: ["clip_id", "effect_id"])
+    )
 }
 
 // MARK: - AIToolDefinition (JSON Schema compatible)
@@ -1014,6 +1053,36 @@ public struct AIToolResolver: Sendable {
         case "get_overlay_config":
             // Read-only — handled by AIChatController, not via intents
             return []
+
+        case "set_clip_crop":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid clip_id")
+            }
+            guard let x = arguments["x"] as? Double,
+                  let y = arguments["y"] as? Double,
+                  let width = arguments["width"] as? Double,
+                  let height = arguments["height"] as? Double else {
+                throw AIToolError.invalidArgument("Missing x, y, width, or height")
+            }
+            return [.setClipCrop(clipID: clipID, cropRect: CropRect(x: x, y: y, width: width, height: height))]
+
+        case "set_clip_blend_mode":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid clip_id")
+            }
+            guard let modeStr = arguments["blend_mode"] as? String, let mode = BlendMode(rawValue: modeStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid blend_mode")
+            }
+            return [.setClipBlendMode(clipID: clipID, blendMode: mode)]
+
+        case "remove_clip_effect":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid clip_id")
+            }
+            guard let effectIDStr = arguments["effect_id"] as? String, let effectID = UUID(uuidString: effectIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid effect_id")
+            }
+            return [.removeClipEffect(clipID: clipID, effectID: effectID)]
 
         default:
             throw AIToolError.unknownTool(toolName)

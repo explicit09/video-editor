@@ -83,6 +83,58 @@ struct AIServicesTests {
             Issue.record("chroma_key should resolve to replacePrimaryClipEffect")
         }
     }
+    @MainActor
+    @Test("Clip property tools resolve to correct intents")
+    func clipPropertyToolResolution() throws {
+        let resolver = AIToolResolver()
+        let clipID = UUID()
+
+        // set_clip_crop
+        let cropIntents = try resolver.resolve(toolName: "set_clip_crop", arguments: [
+            "clip_id": clipID.uuidString,
+            "x": 0.1,
+            "y": 0.2,
+            "width": 0.5,
+            "height": 0.6,
+        ])
+        #expect(cropIntents.count == 1)
+        if case .setClipCrop(let id, let crop) = cropIntents[0] {
+            #expect(id == clipID)
+            #expect(crop.x == 0.1)
+            #expect(crop.y == 0.2)
+            #expect(crop.width == 0.5)
+            #expect(crop.height == 0.6)
+        } else {
+            Issue.record("set_clip_crop should resolve to setClipCrop")
+        }
+
+        // set_clip_blend_mode
+        let blendIntents = try resolver.resolve(toolName: "set_clip_blend_mode", arguments: [
+            "clip_id": clipID.uuidString,
+            "blend_mode": "multiply",
+        ])
+        #expect(blendIntents.count == 1)
+        if case .setClipBlendMode(let id, let mode) = blendIntents[0] {
+            #expect(id == clipID)
+            #expect(mode == .multiply)
+        } else {
+            Issue.record("set_clip_blend_mode should resolve to setClipBlendMode")
+        }
+
+        // remove_clip_effect
+        let effectID = UUID()
+        let removeIntents = try resolver.resolve(toolName: "remove_clip_effect", arguments: [
+            "clip_id": clipID.uuidString,
+            "effect_id": effectID.uuidString,
+        ])
+        #expect(removeIntents.count == 1)
+        if case .removeClipEffect(let cid, let eid) = removeIntents[0] {
+            #expect(cid == clipID)
+            #expect(eid == effectID)
+        } else {
+            Issue.record("remove_clip_effect should resolve to removeClipEffect")
+        }
+    }
 }
 
 @Suite("Lemmatizer Tests")
