@@ -22,6 +22,8 @@ public struct Clip: Codable, Identifiable, Sendable {
     public var linkGroupID: UUID?
     /// Compositing blend mode for this clip.
     public var blendMode: BlendMode
+    /// Clip-owned overlay presentation state used for PiP and similar layouts.
+    public var overlayPresentation: OverlayPresentation
 
     public init(
         id: UUID = UUID(),
@@ -38,7 +40,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         speed: Double = 1.0,
         transitionIn: ClipTransition = .none,
         linkGroupID: UUID? = nil,
-        blendMode: BlendMode = .normal
+        blendMode: BlendMode = .normal,
+        overlayPresentation: OverlayPresentation = .default
     ) {
         self.id = id
         self.assetID = assetID
@@ -55,6 +58,7 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.transitionIn = transitionIn
         self.linkGroupID = linkGroupID
         self.blendMode = blendMode
+        self.overlayPresentation = overlayPresentation
     }
 }
 

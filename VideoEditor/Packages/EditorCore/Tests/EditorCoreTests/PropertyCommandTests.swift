@@ -261,6 +261,48 @@ struct PropertyCommandTests {
     }
 
     @MainActor
+    @Test("SetClipOverlayPresentation updates the clip presentation")
+    func setClipOverlayPresentation() throws {
+        let clip = Clip(assetID: UUID(), timelineRange: .init(start: 0, duration: 5), sourceRange: .init(start: 0, duration: 5))
+        let track = Track(name: "Video 1", type: .video, clips: [clip])
+        let context = EditingContext(timelineState: .init(timeline: .init(tracks: [track])))
+        let resolver = IntentResolver()
+
+        let presentation = OverlayPresentation(
+            mode: .pip,
+            border: .init(isVisible: true, width: 6, colorHex: "#FFFFFF"),
+            shadow: .medium,
+            cornerRadius: 18,
+            maskShape: .roundedRect,
+            entranceAnimation: .scaleIn,
+            exitAnimation: .fadeOut
+        )
+
+        var command = try resolver.resolve(.setClipOverlayPresentation(clipID: clip.id, presentation: presentation))
+        try command.execute(context: context)
+
+        #expect(context.timelineState.timeline.tracks[0].clips[0].overlayPresentation == presentation)
+    }
+
+    @MainActor
+    @Test("ApplyClipPiPPreset updates transform and presentation")
+    func applyClipPiPPreset() throws {
+        let clip = Clip(assetID: UUID(), timelineRange: .init(start: 0, duration: 5), sourceRange: .init(start: 0, duration: 5))
+        let track = Track(name: "Video 2", type: .video, clips: [clip])
+        let context = EditingContext(timelineState: .init(timeline: .init(tracks: [track])))
+        let resolver = IntentResolver()
+
+        var command = try resolver.resolve(.applyClipPiPPreset(clipID: clip.id, preset: .bottomRight))
+        try command.execute(context: context)
+
+        let updated = context.timelineState.timeline.tracks[0].clips[0]
+        #expect(updated.overlayPresentation.mode == .pip)
+        #expect(updated.transform.scaleX < 1.0)
+        #expect(updated.transform.positionX > 0)
+        #expect(updated.transform.positionY < 0)
+    }
+
+    @MainActor
     @Test("RenameClip changes label and undo restores")
     func renameClip() throws {
         let clip = Clip(assetID: UUID(), timelineRange: TimeRange(start: 0, end: 5), sourceRange: TimeRange(start: 0, end: 5), metadata: ClipMetadata(label: "Before"))

@@ -257,7 +257,8 @@ public struct SplitClipCommand: Command {
             speed: clip.speed,
             transitionIn: clip.transitionIn,
             linkGroupID: clip.linkGroupID,
-            blendMode: clip.blendMode
+            blendMode: clip.blendMode,
+            overlayPresentation: clip.overlayPresentation
         )
         context.timelineState.timeline.tracks[location.trackIndex].clips.insert(secondClip, at: location.clipIndex + 1)
     }
