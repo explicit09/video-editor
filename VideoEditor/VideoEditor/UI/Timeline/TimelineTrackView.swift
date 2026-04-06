@@ -24,6 +24,7 @@ struct TimelineTrackView: View {
     let onCycleHeight: () -> Void
     let onRemoveTrack: (() -> Void)?
     let onClipTap: (UUID, Bool) -> Void
+    let onDragChanged: (UUID, TimeInterval, Double) -> Void
     let onClipDrag: (UUID, TimeInterval, Double) -> Void
     let onAssetDrop: (UUID, TimeInterval) -> Void
     var onClipTrim: ((UUID, TimeInterval, TimeInterval) -> Void)?
@@ -45,18 +46,9 @@ struct TimelineTrackView: View {
     }
 
     var body: some View {
-        HStack(spacing: 0) {
-            trackLabel
-            clipArea
-        }
+        clipArea
         .frame(height: trackHeight)
         .clipped()
-        .onAppear { draftName = resolvedTrackName }
-        .onChange(of: track.name) { _, newValue in
-            if draftName != newValue {
-                draftName = newValue
-            }
-        }
     }
 
     private var clipArea: some View {
@@ -74,7 +66,7 @@ struct TimelineTrackView: View {
                     }
                 }
                 .overlay {
-                    if isDropTargeted {
+                    if isDropTargeted || viewState.effectiveTargetTrackID == track.id {
                         RoundedRectangle(cornerRadius: CinematicRadius.lg)
                             .stroke(trackAccentColor.opacity(0.85), style: StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
                             .padding(2)
@@ -121,6 +113,9 @@ struct TimelineTrackView: View {
                     waveformState: waveformStates[clip.assetID],
                     snapTime: snapTime,
                     onTap: { extend in onClipTap(clip.id, extend) },
+                    onDragChanged: { newStart, verticalOffset in
+                        onDragChanged(clip.id, newStart, verticalOffset)
+                    },
                     onDrag: { newStart, verticalOffset in onClipDrag(clip.id, newStart, verticalOffset) },
                     onTrimStart: { newSourceStart in
                         if viewState.rippleEnabled {
@@ -152,12 +147,18 @@ struct TimelineTrackView: View {
             guard isEditable else { return false }
             guard let item = items.first else { return false }
             dropX = location.x
+            viewState.updateDragTargetTrack(track.id)
             onAssetDrop(item.assetID, viewState.xToTime(location.x))
             return true
         }, isTargeted: { targeted in
             isDropTargeted = targeted && isEditable
             if !targeted || !isEditable {
                 dropX = nil
+                if viewState.dragTargetTrackID == track.id {
+                    viewState.updateDragTargetTrack(nil)
+                }
+            } else {
+                viewState.updateDragTargetTrack(track.id)
             }
         })
     }
@@ -367,6 +368,7 @@ private struct TimelineClipView: View {
     let waveformState: WaveformLoadState?
     let snapTime: (TimeInterval, Set<UUID>) -> TimeInterval
     let onTap: (Bool) -> Void
+    let onDragChanged: (TimeInterval, Double) -> Void
     let onDrag: (TimeInterval, Double) -> Void
     var onTrimStart: ((TimeInterval) -> Void)?
     var onTrimEnd: ((TimeInterval) -> Void)?
@@ -576,7 +578,11 @@ private struct TimelineClipView: View {
 
             switch waveformState ?? .loading {
             case .ready(let waveform) where !waveform.isEmpty:
-                WaveformView(amplitudes: waveform, color: audioWaveformColor)
+                WaveformView(
+                    amplitudes: waveform,
+                    color: audioWaveformColor,
+                    isSelected: isSelected
+                )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 12)
@@ -717,7 +723,7 @@ private struct TimelineClipView: View {
     }
 
     private var audioWaveformColor: Color {
-        Color(hex: 0xB8FFC5)
+        isSelected ? Color(hex: 0xD8FFE0) : Color(hex: 0x9ACFA8)
     }
 
     private func placeholderWaveform(text: String) -> some View {
@@ -743,7 +749,7 @@ private struct TimelineClipView: View {
 
     private var outlineColor: Color {
         if isSelected {
-            return CinematicTheme.primary
+            return CinematicTheme.primary.opacity(0.96)
         }
         if isHovered || isDragging {
             return clipAccentColor.opacity(0.85)
@@ -752,12 +758,12 @@ private struct TimelineClipView: View {
     }
 
     private var outlineWidth: Double {
-        isSelected ? 1.6 : (isHovered ? 1.0 : 0.6)
+        isSelected ? 1.8 : (isHovered ? 1.0 : 0.6)
     }
 
     private var shadowColor: Color {
         if isSelected || isDragging {
-            return clipAccentColor.opacity(0.24)
+            return clipAccentColor.opacity(isSelected ? 0.3 : 0.24)
         }
         return .clear
     }
@@ -812,6 +818,9 @@ private struct TimelineClipView: View {
                 guard isEditable else { return }
                 isDragging = true
                 dragOffset = value.translation.width
+                let timeDelta = value.translation.width / viewState.zoom
+                let newStart = max(0, clip.timelineRange.start + timeDelta)
+                onDragChanged(newStart, value.translation.height)
             }
             .onEnded { value in
                 guard isEditable else {

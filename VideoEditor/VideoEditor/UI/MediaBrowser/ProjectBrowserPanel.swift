@@ -40,25 +40,28 @@ struct ProjectBrowserPanel: View {
 
     private var header: some View {
         VStack(spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "WORKSPACE",
                 title: "Projects",
                 subtitle: "Switch between projects or create new ones",
-                trailingAccessory: {
+                badgeCount: 1,
+                showsPrimaryAction: true,
+                trailingAccessory: { layout in
                     HStack(spacing: 8) {
-                        CinematicStatusPill(
-                            text: "\(appState.projectIndex.index.projects.count) projects",
-                            icon: "folder",
-                            tone: CinematicTheme.aqua
-                        )
-                        CinematicToolbarButton(icon: "plus", label: "New", isActive: true) {
+                        if layout.showsSecondaryBadges {
+                            UtilityStatusBadge(
+                                text: "\(appState.projectIndex.index.projects.count) projects",
+                                icon: "folder",
+                                style: .info
+                            )
+                        }
+                        UtilityHeaderButton(icon: "plus", title: layout.showsSecondaryBadges ? "New" : nil, isProminent: true) {
                             isCreating = true
                             newProjectName = ""
                         }
                     }
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             if isCreating {
                 createProjectField
@@ -152,7 +155,7 @@ struct ProjectBrowserPanel: View {
             Spacer()
 
             if isActive {
-                CinematicStatusPill(text: "ACTIVE", tone: CinematicTheme.primary)
+                UtilityStatusBadge(text: "ACTIVE", style: .accent)
             }
         }
         .padding(8)

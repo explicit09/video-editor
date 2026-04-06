@@ -158,11 +158,40 @@ struct CompositionBuilderTests {
         #expect(resolved == sourceURL)
     }
 
-    @Test("Preview mode uses proxy media when it exists")
-    func previewUsesProxyWhenAvailable() {
+    @Test("Preview mode keeps HD and smaller sources on full-resolution media")
+    func previewKeepsHDMediaOnSource() {
         let sourceURL = URL(fileURLWithPath: "/tmp/source.mp4")
         let proxyURL = URL(fileURLWithPath: "/tmp/proxy.mov")
-        let asset = MediaAsset(name: "Demo", sourceURL: sourceURL, proxyURL: proxyURL, type: .video)
+        let asset = MediaAsset(
+            name: "Demo",
+            sourceURL: sourceURL,
+            proxyURL: proxyURL,
+            type: .video,
+            width: 1920,
+            height: 1080
+        )
+
+        let resolved = CompositionBuilder.resolvedMediaURL(
+            for: asset,
+            mode: .preview,
+            fileExists: { path in path == proxyURL.path }
+        )
+
+        #expect(resolved == sourceURL)
+    }
+
+    @Test("Preview mode uses proxy media for sources above 1080p when it exists")
+    func previewUsesProxyFor4KWhenAvailable() {
+        let sourceURL = URL(fileURLWithPath: "/tmp/source.mp4")
+        let proxyURL = URL(fileURLWithPath: "/tmp/proxy.mov")
+        let asset = MediaAsset(
+            name: "Demo 4K",
+            sourceURL: sourceURL,
+            proxyURL: proxyURL,
+            type: .video,
+            width: 3840,
+            height: 2160
+        )
 
         let resolved = CompositionBuilder.resolvedMediaURL(
             for: asset,

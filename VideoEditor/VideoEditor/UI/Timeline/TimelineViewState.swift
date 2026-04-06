@@ -9,12 +9,16 @@ final class TimelineViewState {
     var zoom: Double = 100              // pixels per second
     var selectedClipIDs: Set<UUID> = []
     var selectedTrackID: UUID?
+    var armedTrackID: UUID?
+    var dragTargetTrackID: UUID?
     var isPlaying: Bool = false
     var snapEnabled: Bool = true
     var rippleEnabled: Bool = false
     var linkedSelectionEnabled: Bool = true
+    var autoFollowPlayhead: Bool = false
     var lastSelectedClipID: UUID?
     var placementMode: PlacementMode = .overwrite
+    var trackLayoutState = TrackLayoutState()
 
     enum PlacementMode: String, CaseIterable {
         case insert = "Insert"
@@ -83,6 +87,26 @@ final class TimelineViewState {
         lastSelectedClipID = nil
     }
 
+    func armTrack(_ trackID: UUID) {
+        armedTrackID = trackID
+    }
+
+    func toggleArmedTrack(_ trackID: UUID) {
+        armedTrackID = armedTrackID == trackID ? nil : trackID
+    }
+
+    func clearArmedTrack() {
+        armedTrackID = nil
+    }
+
+    func updateDragTargetTrack(_ trackID: UUID?) {
+        dragTargetTrackID = trackID
+    }
+
+    var effectiveTargetTrackID: UUID? {
+        dragTargetTrackID ?? armedTrackID
+    }
+
     func selectClip(_ clipID: UUID, in trackID: UUID) {
         selectedTrackID = trackID
         selectedClipIDs = [clipID]
@@ -130,6 +154,21 @@ final class TimelineViewState {
         lastSelectedClipID = nil
     }
 
+    func selectedTimeRange(in timeline: Timeline) -> TimeRange? {
+        var minimumStart: TimeInterval?
+        var maximumEnd: TimeInterval?
+
+        for track in timeline.tracks {
+            for clip in track.clips where selectedClipIDs.contains(clip.id) {
+                minimumStart = min(minimumStart ?? clip.timelineRange.start, clip.timelineRange.start)
+                maximumEnd = max(maximumEnd ?? clip.timelineRange.end, clip.timelineRange.end)
+            }
+        }
+
+        guard let minimumStart, let maximumEnd else { return nil }
+        return TimeRange(start: minimumStart, end: maximumEnd)
+    }
+
     private enum ZoomDirection {
         case `in`
         case out
@@ -148,5 +187,32 @@ final class TimelineViewState {
             }
             return max(current / 1.5, Self.zoomRange.lowerBound)
         }
+    }
+}
+
+enum TimelineSelectionZoomResolver {
+    static func zoomRange(
+        selection: ClosedRange<Double>?,
+        fallbackPlayhead: Double,
+        viewportWidth: Double,
+        minimumDuration: Double
+    ) -> ClosedRange<Double> {
+        let _ = max(viewportWidth, 0)
+        let minimumSpan = max(minimumDuration, 0)
+        let baseRange = selection ?? (fallbackPlayhead...fallbackPlayhead)
+        let baseDuration = max(baseRange.upperBound - baseRange.lowerBound, 0)
+        let targetDuration = max(baseDuration, minimumSpan)
+        let center = (baseRange.lowerBound + baseRange.upperBound) / 2
+
+        let halfSpan = targetDuration / 2
+        var lower = center - halfSpan
+        var upper = center + halfSpan
+
+        if lower < 0 {
+            upper -= lower
+            lower = 0
+        }
+
+        return lower...upper
     }
 }

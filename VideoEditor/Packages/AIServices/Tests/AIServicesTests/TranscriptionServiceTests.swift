@@ -9,8 +9,9 @@ struct TranscriptionServiceTests {
     @Test("hasTranscript ignores empty in-memory transcript arrays")
     func hasTranscriptIgnoresEmptyTranscriptArrays() async {
         let service = TranscriptionService()
+        let assetName = uniqueAssetName(prefix: "Empty Audio")
         let asset = MediaAsset(
-            name: "Audio",
+            name: assetName,
             sourceURL: URL(fileURLWithPath: "/tmp/audio.m4a"),
             type: .audio,
             duration: 5,
@@ -37,8 +38,9 @@ struct TranscriptionServiceTests {
         ))
         await service.configure(provider: provider)
 
+        let assetName = uniqueAssetName(prefix: "Transcribe Audio")
         let asset = MediaAsset(
-            name: "Audio",
+            name: assetName,
             sourceURL: URL(fileURLWithPath: "/tmp/audio.m4a"),
             type: .audio,
             duration: 5
@@ -59,8 +61,8 @@ struct TranscriptionServiceTests {
         #expect(result?.language == "en")
         #expect(await provider.callCount == 1)
         #expect(statusCollector.snapshot() == [
-            "Uploading audio to Deepgram...",
-            "Transcribing with Deepgram Nova-3...",
+            "Uploading audio to Mock...",
+            "Transcribing with Mock...",
             "Processing 1 words...",
         ])
 
@@ -68,7 +70,7 @@ struct TranscriptionServiceTests {
         #expect(updatedAsset?.analysis?.transcript?.first?.lemma == "run")
         #expect(updatedAsset?.analysis?.speakerSegments?.count == 1)
 
-        let persisted = await service.loadTranscript(for: asset.id, bundleURL: bundleURL)
+        let persisted = await service.loadTranscript(for: asset, bundleURL: bundleURL)
         #expect(persisted?.words.first?.lemma == "run")
         #expect(persisted?.text == "Running fast")
     }
@@ -83,8 +85,9 @@ struct TranscriptionServiceTests {
         await service.configure(provider: provider)
 
         let cachedWords = [TranscriptWord(word: "Cached", start: 0, end: 0.5)]
+        let assetName = uniqueAssetName(prefix: "Cached Audio")
         let asset = MediaAsset(
-            name: "Audio",
+            name: assetName,
             sourceURL: URL(fileURLWithPath: "/tmp/audio.m4a"),
             type: .audio,
             duration: 5,
@@ -115,8 +118,9 @@ struct TranscriptionServiceTests {
         )
         await service.configure(provider: provider)
 
+        let assetName = uniqueAssetName(prefix: "Concurrent Audio")
         let asset = MediaAsset(
-            name: "Audio",
+            name: assetName,
             sourceURL: URL(fileURLWithPath: "/tmp/audio.m4a"),
             type: .audio,
             duration: 5
@@ -147,6 +151,10 @@ struct TranscriptionServiceTests {
     private func temporaryBundleURL() -> URL {
         FileManager.default.temporaryDirectory
             .appendingPathComponent("transcription-bundle-\(UUID().uuidString)", isDirectory: true)
+    }
+
+    private func uniqueAssetName(prefix: String) -> String {
+        "\(prefix)-\(UUID().uuidString)"
     }
 }
 

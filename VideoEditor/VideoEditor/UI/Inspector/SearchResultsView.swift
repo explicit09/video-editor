@@ -11,19 +11,20 @@ struct SearchResultsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CinematicPanelHeader(
+            UtilityPanelHeader(
                 eyebrow: "AI SEARCH",
                 title: "Search Results",
                 subtitle: "\"\(query)\"",
-                trailingAccessory: {
-                    CinematicStatusPill(
+                badgeCount: 1,
+                showsPrimaryAction: false,
+                trailingAccessory: { _ in
+                    UtilityStatusBadge(
                         text: "\(results.count) matches",
                         icon: "sparkles.rectangle.stack",
-                        tone: CinematicTheme.primary
+                        style: .info
                     )
                 }
             )
-            .background(CinematicTheme.surfaceContainerHighest.opacity(0.72))
 
             ScrollView {
                 VStack(spacing: 8) {
@@ -65,10 +66,10 @@ struct SearchResultsView: View {
                         .font(.cinTimecode)
                         .foregroundStyle(placement == nil ? CinematicTheme.onSurfaceVariant.opacity(0.45) : CinematicTheme.primary)
 
-                    CinematicStatusPill(
+                    UtilityStatusBadge(
                         text: placement == nil ? "Source Only" : "On Timeline",
                         icon: placement == nil ? "tray" : "timeline.selection",
-                        tone: placement == nil ? CinematicTheme.warning : CinematicTheme.success
+                        style: placement == nil ? .warning : .success
                     )
                 }
                 .frame(width: 88, alignment: .leading)

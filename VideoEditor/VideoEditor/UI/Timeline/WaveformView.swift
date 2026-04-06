@@ -5,6 +5,7 @@ import SwiftUI
 struct WaveformView: View {
     let amplitudes: [Float]
     var color: Color = Color(hex: 0x53E16F)
+    var isSelected: Bool = false
 
     var body: some View {
         GeometryReader { _ in
@@ -15,7 +16,11 @@ struct WaveformView: View {
 
                 let stepX = size.width / CGFloat(max(count - 1, 1))
                 let midY = size.height / 2
-                let verticalScale = midY * 0.86
+                let verticalScale = midY * (isSelected ? 0.9 : 0.82)
+                let topStrokeColor = color.opacity(isSelected ? 0.92 : 0.58)
+                let bottomStrokeColor = color.opacity(isSelected ? 0.64 : 0.28)
+                let fillLowOpacity = isSelected ? 0.18 : 0.08
+                let fillMidOpacity = isSelected ? 0.56 : 0.3
 
                 let points: [CGPoint] = sampled.enumerated().map { index, amplitude in
                     let normalized = max(CGFloat(amplitude), 0.02)
@@ -39,9 +44,9 @@ struct WaveformView: View {
                     fillPath,
                     with: .linearGradient(
                         Gradient(colors: [
-                            color.opacity(0.10),
-                            color.opacity(0.42),
-                            color.opacity(0.10),
+                            color.opacity(fillLowOpacity),
+                            color.opacity(fillMidOpacity),
+                            color.opacity(fillLowOpacity),
                         ]),
                         startPoint: CGPoint(x: size.width / 2, y: 0),
                         endPoint: CGPoint(x: size.width / 2, y: size.height)
@@ -60,11 +65,11 @@ struct WaveformView: View {
                     bottomStroke.addLine(to: CGPoint(x: point.x, y: midY + point.y))
                 }
 
-                context.stroke(topStroke, with: .color(color.opacity(0.82)), lineWidth: 1.2)
-                context.stroke(bottomStroke, with: .color(color.opacity(0.48)), lineWidth: 0.9)
+                context.stroke(topStroke, with: .color(topStrokeColor), lineWidth: isSelected ? 1.3 : 1.0)
+                context.stroke(bottomStroke, with: .color(bottomStrokeColor), lineWidth: isSelected ? 1.0 : 0.8)
 
                 let centerLine = Path(CGRect(x: 0, y: midY, width: size.width, height: 0.5))
-                context.stroke(centerLine, with: .color(color.opacity(0.18)), lineWidth: 0.5)
+                context.stroke(centerLine, with: .color(color.opacity(isSelected ? 0.24 : 0.12)), lineWidth: 0.5)
             }
         }
     }

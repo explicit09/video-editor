@@ -156,6 +156,13 @@ enum CinematicMetrics {
     static let expandedRightRailWidth: CGFloat = 360
 }
 
+enum DesignSystem {
+    static let utilityTopBarHeight = UtilityMetrics.topBarHeight
+    static let utilityPageBarHeight = UtilityMetrics.pageBarHeight
+    static let utilityPanelHeaderHeight = UtilityMetrics.panelHeaderMinHeight
+    static let utilityControlHeight = UtilityMetrics.controlHeight
+}
+
 enum CinematicPanelTone {
     case base
     case elevated
@@ -244,59 +251,6 @@ extension View {
     }
 }
 
-struct CinematicPanelHeader<LeadingAccessory: View, TrailingAccessory: View>: View {
-    let eyebrow: String?
-    let title: String
-    let subtitle: String?
-    @ViewBuilder var leadingAccessory: LeadingAccessory
-    @ViewBuilder var trailingAccessory: TrailingAccessory
-
-    init(
-        eyebrow: String? = nil,
-        title: String,
-        subtitle: String? = nil,
-        @ViewBuilder leadingAccessory: () -> LeadingAccessory = { EmptyView() },
-        @ViewBuilder trailingAccessory: () -> TrailingAccessory = { EmptyView() }
-    ) {
-        self.eyebrow = eyebrow
-        self.title = title
-        self.subtitle = subtitle
-        self.leadingAccessory = leadingAccessory()
-        self.trailingAccessory = trailingAccessory()
-    }
-
-    var body: some View {
-        HStack(spacing: CinematicSpacing.sm) {
-            leadingAccessory
-
-            VStack(alignment: .leading, spacing: 2) {
-                if let eyebrow {
-                    Text(eyebrow)
-                        .font(.cinLabel)
-                        .tracking(1.4)
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.72))
-                }
-
-                Text(title)
-                    .font(.cinTitle)
-                    .foregroundStyle(CinematicTheme.onSurface)
-
-                if let subtitle {
-                    Text(subtitle)
-                        .font(.cinLabelRegular)
-                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.68))
-                        .lineLimit(1)
-                }
-            }
-
-            Spacer(minLength: 0)
-            trailingAccessory
-        }
-        .frame(height: CinematicMetrics.panelHeaderHeight)
-        .padding(.horizontal, CinematicSpacing.md)
-    }
-}
-
 struct CinematicToolbarButton: View {
     let icon: String
     var label: String? = nil
@@ -344,29 +298,6 @@ struct CinematicToolbarButton: View {
             )
         }
         return AnyShapeStyle(CinematicTheme.surfaceContainerHighest.opacity(0.72))
-    }
-}
-
-struct CinematicStatusPill: View {
-    let text: String
-    var icon: String? = nil
-    var tone: Color = CinematicTheme.primary
-
-    var body: some View {
-        HStack(spacing: 6) {
-            if let icon {
-                Image(systemName: icon)
-                    .font(.system(size: 10, weight: .semibold))
-            }
-            Text(text)
-                .font(.cinLabel)
-                .tracking(1)
-        }
-        .foregroundStyle(tone)
-        .padding(.horizontal, 10)
-        .frame(height: 24)
-        .background(tone.opacity(0.12))
-        .clipShape(Capsule())
     }
 }
 
@@ -442,55 +373,5 @@ struct CinematicInspectorFieldRow<Value: View>: View {
                 .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.64))
             value
         }
-    }
-}
-
-struct CinematicSegmentedTabBar<Item: Hashable>: View {
-    let items: [Item]
-    @Binding var selection: Item
-    var label: (Item) -> String
-    var icon: ((Item) -> String?)? = nil
-
-    var body: some View {
-        HStack(spacing: 6) {
-            ForEach(items, id: \.self) { item in
-                let isSelected = selection == item
-                Button {
-                    selection = item
-                } label: {
-                    HStack(spacing: 6) {
-                        if let iconName = icon?(item) {
-                            Image(systemName: iconName)
-                                .font(.system(size: 11, weight: .semibold))
-                        }
-                        Text(label(item))
-                            .font(.cinLabelRegular)
-                    }
-                    .foregroundStyle(isSelected ? CinematicTheme.onPrimaryContainer : CinematicTheme.onSurfaceVariant)
-                    .padding(.horizontal, 12)
-                    .frame(height: 30)
-                    .background(
-                        isSelected
-                            ? AnyShapeStyle(
-                                LinearGradient(
-                                    colors: [CinematicTheme.primaryContainer, CinematicTheme.tertiaryContainer.opacity(0.72)],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            : AnyShapeStyle(CinematicTheme.surfaceContainerHighest.opacity(0.68))
-                    )
-                    .clipShape(Capsule())
-                }
-                .buttonStyle(.plain)
-            }
-        }
-        .padding(4)
-        .background(CinematicTheme.surfaceContainerLowest.opacity(0.9))
-        .clipShape(Capsule())
-        .overlay(
-            Capsule()
-                .strokeBorder(CinematicTheme.panelStroke.opacity(0.8), lineWidth: 1)
-        )
     }
 }

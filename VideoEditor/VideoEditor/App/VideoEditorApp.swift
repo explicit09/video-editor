@@ -80,6 +80,8 @@ struct VideoEditorApp: App {
                 }
                 .keyboardShortcut("w", modifiers: .command)
             }
+
+            WorkspaceLayoutCommands()
         }
     }
 
@@ -147,5 +149,34 @@ struct VideoEditorApp: App {
         alert.addButton(withTitle: "OK")
         NSApp.activate(ignoringOtherApps: true)
         alert.runModal()
+    }
+}
+
+private struct WorkspaceLayoutCommands: Commands {
+    @FocusedValue(\.restoreWorkspaceLayoutAction) private var restoreWorkspaceLayoutAction
+    @FocusedValue(\.resetWorkspaceLayoutsAction) private var resetWorkspaceLayoutsAction
+    @FocusedValue(\.revealAIPanelAction) private var revealAIPanelAction
+
+    var body: some Commands {
+        CommandMenu("Workspace") {
+            Button("Show AI Copilot Panel") {
+                revealAIPanelAction?()
+            }
+            .keyboardShortcut("i", modifiers: [.command, .option])
+            .disabled(revealAIPanelAction == nil)
+
+            Divider()
+
+            Button("Restore Current Workspace Layout") {
+                restoreWorkspaceLayoutAction?()
+            }
+            .keyboardShortcut("0", modifiers: [.command, .option])
+            .disabled(restoreWorkspaceLayoutAction == nil)
+
+            Button("Reset All Workspace Layouts") {
+                resetWorkspaceLayoutsAction?()
+            }
+            .disabled(resetWorkspaceLayoutsAction == nil)
+        }
     }
 }
