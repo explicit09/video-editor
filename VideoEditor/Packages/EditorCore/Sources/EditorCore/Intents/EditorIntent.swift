@@ -22,7 +22,6 @@ public enum EditorIntent: Sendable {
     case muteTrack(trackID: UUID, muted: Bool)
     case soloTrack(trackID: UUID, soloed: Bool)
     case lockTrack(trackID: UUID, locked: Bool)
-    case soloTrack(trackID: UUID, soloed: Bool)
     case renameTrack(trackID: UUID, name: String)
     case setTrackVolume(trackID: UUID, volume: Double)
     case renameClip(clipID: UUID, label: String)
@@ -90,8 +89,6 @@ public struct IntentResolver: Sendable {
             return SoloTrackCommand(trackID: trackID, soloed: soloed)
         case .lockTrack(let trackID, let locked):
             return LockTrackCommand(trackID: trackID, locked: locked)
-        case .soloTrack(let trackID, let soloed):
-            return SoloTrackCommand(trackID: trackID, soloed: soloed)
         case .renameTrack(let trackID, let name):
             return RenameTrackCommand(trackID: trackID, name: name)
         case .setTrackVolume(let trackID, let volume):

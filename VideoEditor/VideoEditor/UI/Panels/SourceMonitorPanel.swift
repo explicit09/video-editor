@@ -198,13 +198,17 @@ struct SourceMonitorPanel: View {
     }
 
     private func syncSourceMonitorTime() {
-        guard shouldShowSourcePlayer else { return }
-        let current = sourcePlayer.currentTime().seconds
-        guard current.isFinite else { return }
+        guard let currentItem = sourcePlayer.currentItem else { return }
 
-        let clamped = min(max(current, 0), max(sourceContext?.asset.duration ?? current, 0))
-        if abs(sourceCurrentTime - clamped) > 0.02 {
-            sourceCurrentTime = clamped
+        guard let resolved = MonitorPlaybackTimeResolver.resolve(
+            currentTime: sourcePlayer.currentTime().seconds,
+            duration: currentItem.duration.seconds
+        ) else {
+            return
+        }
+
+        if abs(sourceCurrentTime - resolved) > 0.02 {
+            sourceCurrentTime = resolved
         }
     }
 

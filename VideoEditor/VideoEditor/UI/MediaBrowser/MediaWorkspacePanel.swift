@@ -19,7 +19,13 @@ struct MediaWorkspacePanel: View {
     @State private var sourceCurrentTime: TimeInterval = 0
     @State private var markedInTime: TimeInterval?
     @State private var markedOutTime: TimeInterval?
+    @State private var isVisible = false
     private let sourceMonitorTimer = Timer.publish(every: 1.0 / 15.0, on: .main, in: .common).autoconnect()
+
+    /// Cached classification — recomputed from assets, avoids duplicate classify calls.
+    private var classifiedBins: [SmartBinClassifier.SmartBin] {
+        SmartBinClassifier.classify(appState.assets)
+    }
 
     enum SortOrder: String, CaseIterable {
         case dateAdded = "Date Added"
@@ -28,6 +34,7 @@ struct MediaWorkspacePanel: View {
     }
 
     var body: some View {
+        let assets = filteredAssets
         VStack(spacing: 0) {
             UtilityPanelHeader(
                 eyebrow: "MEDIA WORKSPACE",
@@ -39,7 +46,7 @@ struct MediaWorkspacePanel: View {
                     HStack(spacing: 8) {
                         if layout.showsSecondaryBadges {
                             UtilityHeaderBadge(
-                                text: "\(filteredAssets.count) visible",
+                                text: "\(assets.count) visible",
                                 systemImage: "rectangle.grid.2x2"
                             )
                         }
@@ -72,7 +79,7 @@ struct MediaWorkspacePanel: View {
                 smartBins
                     .frame(width: 220)
 
-                mediaGrid
+                mediaGrid(assets: assets)
 
                 if let assetID = selectedAssetID,
                    let asset = appState.assets.first(where: { $0.id == assetID }) {
@@ -93,7 +100,7 @@ struct MediaWorkspacePanel: View {
             Task { await handleDrop(providers) }
             return true
         }
-        .onChange(of: filteredAssets.map(\.id)) { _, visibleIDs in
+        .onChange(of: assets.map(\.id)) { _, visibleIDs in
             if let selectedAssetID, !visibleIDs.contains(selectedAssetID) {
                 self.selectedAssetID = nil
             }
@@ -102,9 +109,12 @@ struct MediaWorkspacePanel: View {
             configureSourceMonitor()
         }
         .onReceive(sourceMonitorTimer) { _ in
+            guard isVisible else { return }
             syncSourceMonitorTime()
         }
+        .onAppear { isVisible = true }
         .onDisappear {
+            isVisible = false
             sourcePlayer.pause()
             sourcePlayer.replaceCurrentItem(with: nil)
         }
@@ -113,7 +123,7 @@ struct MediaWorkspacePanel: View {
     // MARK: - Smart Bins
 
     private var smartBins: some View {
-        let bins = SmartBinClassifier.classify(appState.assets)
+        let bins = classifiedBins
         return VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 8) {
                 Text("SMART BINS")
@@ -184,7 +194,7 @@ struct MediaWorkspacePanel: View {
 
     // MARK: - Media Grid
 
-    private var mediaGrid: some View {
+    private func mediaGrid(assets: [MediaAsset]) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
                 Menu {
@@ -226,12 +236,12 @@ struct MediaWorkspacePanel: View {
             .padding(.vertical, 12)
             .background(CinematicTheme.surfaceContainer)
 
-            if filteredAssets.isEmpty {
+            if assets.isEmpty {
                 emptyGrid
             } else {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
-                        ForEach(filteredAssets) { asset in
+                        ForEach(assets) { asset in
                             mediaCard(asset)
                         }
                     }
@@ -567,8 +577,7 @@ struct MediaWorkspacePanel: View {
 
         // Filter by selected bin
         if let binID = selectedBinID {
-            let bins = SmartBinClassifier.classify(appState.assets)
-            if let bin = bins.first(where: { $0.id == binID }) {
+            if let bin = classifiedBins.first(where: { $0.id == binID }) {
                 let binIDs = Set(bin.assetIDs)
                 assets = assets.filter { binIDs.contains($0.id) }
             }
@@ -659,12 +668,15 @@ struct MediaWorkspacePanel: View {
 
     private func syncSourceMonitorTime() {
         guard let asset = selectedAsset, asset.type != .image else { return }
-        let current = sourcePlayer.currentTime().seconds
-        guard current.isFinite else { return }
+        guard let resolved = MonitorPlaybackTimeResolver.resolve(
+            currentTime: sourcePlayer.currentTime().seconds,
+            duration: asset.duration
+        ) else {
+            return
+        }
 
-        let clamped = min(max(current, 0), max(asset.duration, 0))
-        if abs(sourceCurrentTime - clamped) > 0.02 {
-            sourceCurrentTime = clamped
+        if abs(sourceCurrentTime - resolved) > 0.02 {
+            sourceCurrentTime = resolved
         }
     }
 

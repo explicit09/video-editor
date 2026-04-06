@@ -327,6 +327,60 @@ struct EditorStabilizationSupportTests {
         #expect(TranscriptAnalysisSupport.formatTimestamp(3723) == "1:02:03")
     }
 
+    @Test("Short-form conflict resolver disables active short-form layout for clip crop")
+    func shortFormConflictResolverDisablesActiveShortFormLayoutForClipCrop() {
+        #expect(
+            ShortFormConflictResolver.shouldDisableForClipCrop(
+                ShortFormConfig(
+                    isEnabled: true,
+                    outputAspect: .vertical9x16,
+                    faceTracks: [],
+                    speakerToFace: [:],
+                    layoutSegments: [LayoutSegment(startTime: 0, layout: .split)]
+                )
+            )
+        )
+        #expect(!ShortFormConflictResolver.shouldDisableForClipCrop(nil))
+        #expect(
+            !ShortFormConflictResolver.shouldDisableForClipCrop(
+                ShortFormConfig(
+                    isEnabled: false,
+                    outputAspect: .vertical9x16,
+                    faceTracks: [],
+                    speakerToFace: [:],
+                    layoutSegments: [LayoutSegment(startTime: 0, layout: .split)]
+                )
+            )
+        )
+    }
+
+    @Test("Thumbnail reload support invalidates task IDs across revisions")
+    func thumbnailReloadSupportInvalidatesTaskIDsAcrossRevisions() {
+        let assetID = UUID()
+
+        #expect(
+            ThumbnailReloadSupport.taskID(for: assetID, revision: 0)
+            != ThumbnailReloadSupport.taskID(for: assetID, revision: 1)
+        )
+        #expect(
+            ThumbnailReloadSupport.taskID(for: assetID, revision: 3)
+            == ThumbnailReloadSupport.taskID(for: assetID, revision: 3)
+        )
+    }
+
+    @Test("Thumbnail reload support prunes cached thumbnails for removed assets")
+    func thumbnailReloadSupportPrunesRemovedAssets() {
+        let keptID = UUID()
+        let removedID = UUID()
+
+        let pruned = ThumbnailReloadSupport.pruneCachedThumbnails(
+            [keptID: "kept", removedID: "removed"],
+            validAssetIDs: [keptID]
+        )
+
+        #expect(pruned == [keptID: "kept"])
+    }
+
     @Test("Transcript analysis support builds sentence transcript with timestamps")
     func transcriptAnalysisSupportBuildsSentenceTranscript() {
         let transcript = TranscriptAnalysisSupport.buildTimestampedTranscript(from: [

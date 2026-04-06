@@ -21,4 +21,13 @@ struct DockLayoutModelTests {
 
         #expect(decoded == layout)
     }
+
+    @Test("edit default layout expands program monitor without source monitor")
+    @MainActor
+    func editDefaultLayoutUsesSingleProgramMonitor() {
+        let layout = PanelRegistry.editDefaultLayout
+
+        #expect(layout.root.containsPanel(.programMonitor))
+        #expect(!layout.root.containsPanel(.sourceMonitor))
+    }
 }

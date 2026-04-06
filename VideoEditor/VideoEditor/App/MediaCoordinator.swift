@@ -1,6 +1,5 @@
 import Foundation
 import CoreGraphics
-import AVFoundation
 import EditorCore
 import AIServices
 
@@ -93,15 +92,19 @@ final class MediaCoordinator {
         }
 
         assets = await mediaManager.allAssets()
-        await reconcileWaveformStates()
+        reconcileWaveformStates()
         onAssetsChanged?()
         return asset
     }
 
     func refreshAssets() async {
         assets = await mediaManager.allAssets()
-        await reconcileWaveformStates()
+        reconcileWaveformStates()
         onAssetsChanged?()
+    }
+
+    func regenerateMissingThumbnails() async {
+        await mediaManager.regenerateMissingThumbnails()
     }
 
     /// Update the bundle URL for project switching without recreating the coordinator.
@@ -130,9 +133,10 @@ final class MediaCoordinator {
     func refreshWaveformState(for assetID: UUID) async {
         guard let asset = await mediaManager.asset(id: assetID) else {
             waveformStates.removeValue(forKey: assetID)
+            waveformTasks.removeValue(forKey: assetID)?.cancel()
             return
         }
-        await updateWaveformState(for: asset)
+        scheduleWaveformRefresh(for: asset)
     }
 
     // MARK: - Transcription
@@ -198,7 +202,7 @@ final class MediaCoordinator {
         }
     }
 
-    private func reconcileWaveformStates() async {
+    private func reconcileWaveformStates() {
         let validAssetIDs = Set(assets.map(\.id))
         waveformStates = waveformStates.filter { validAssetIDs.contains($0.key) }
         for assetID in waveformTasks.keys where !validAssetIDs.contains(assetID) {
@@ -206,51 +210,55 @@ final class MediaCoordinator {
         }
 
         for asset in assets {
-            await updateWaveformState(for: asset)
+            scheduleWaveformRefresh(for: asset)
         }
     }
 
-    private func updateWaveformState(for asset: MediaAsset) async {
-        guard asset.type != .image else {
-            waveformStates.removeValue(forKey: asset.id)
-            waveformTasks.removeValue(forKey: asset.id)?.cancel()
-            return
-        }
-
-        if let profile = asset.analysis?.loudnessProfile, !profile.isEmpty {
-            waveformStates[asset.id] = .ready(profile)
-            waveformTasks.removeValue(forKey: asset.id)?.cancel()
-            return
-        }
-
-        let hasAudioTrack = await assetHasAudioTrack(asset)
-        waveformStates[asset.id] = WaveformLoadStateResolver.resolve(
+    private func scheduleWaveformRefresh(for asset: MediaAsset) {
+        let extractionInFlight = waveformTasks[asset.id] != nil
+        let decision = WaveformRefreshPlanner.makeDecision(
             for: asset,
-            hasAudioTrack: hasAudioTrack,
-            extractionInFlight: waveformTasks[asset.id] != nil
+            extractionInFlight: extractionInFlight
         )
 
-        guard hasAudioTrack, waveformTasks[asset.id] == nil else { return }
+        waveformStates[asset.id] = decision.state
 
-        waveformStates[asset.id] = .loading
+        guard decision.needsExtraction, !extractionInFlight else { return }
 
         let task = Task {
             let waveformExtractor = WaveformExtractor()
             let profile = await waveformExtractor.extract(from: asset.sourceURL)
             guard !Task.isCancelled else { return }
 
+            if let profile, !profile.isEmpty {
+                await self.mediaManager.updateAsset(id: asset.id) { asset in
+                    var analysis = asset.analysis ?? MediaAnalysis()
+                    analysis.loudnessProfile = profile
+                    asset.analysis = analysis
+                }
+            }
+
+            let updatedAsset = await self.mediaManager.asset(id: asset.id)
+
             await MainActor.run {
                 self.waveformTasks.removeValue(forKey: asset.id)
 
-                if let profile, !profile.isEmpty {
-                    Task {
-                        await self.mediaManager.updateAsset(id: asset.id) { asset in
-                            var analysis = asset.analysis ?? MediaAnalysis()
-                            analysis.loudnessProfile = profile
-                            asset.analysis = analysis
-                        }
-                        await self.refreshAssets()
+                if let updatedAsset {
+                    if let index = self.assets.firstIndex(where: { $0.id == asset.id }) {
+                        self.assets[index] = updatedAsset
+                    }
+
+                    if profile != nil {
+                        let resolved = WaveformRefreshPlanner.makeDecision(
+                            for: updatedAsset,
+                            extractionInFlight: false
+                        )
+                        self.waveformStates[asset.id] = resolved.state
                         self.onAnalysisComplete?()
+                        self.onAssetsChanged?()
+                    } else {
+                        self.waveformStates[asset.id] = .failed
+                        self.onAssetsChanged?()
                     }
                 } else {
                     self.waveformStates[asset.id] = .failed
@@ -260,19 +268,6 @@ final class MediaCoordinator {
         }
 
         waveformTasks[asset.id] = task
-    }
-
-    private func assetHasAudioTrack(_ asset: MediaAsset) async -> Bool {
-        switch asset.type {
-        case .audio:
-            return true
-        case .image:
-            return false
-        case .video:
-            let avAsset = AVURLAsset(url: asset.sourceURL)
-            guard let tracks = try? await avAsset.loadTracks(withMediaType: .audio) else { return false }
-            return !tracks.isEmpty
-        }
     }
 
     deinit {

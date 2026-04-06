@@ -183,4 +183,32 @@ struct TimelineShellSupportTests {
 
         #expect(range == 0...8)
     }
+
+    @Test("track interaction layout reserves background hit zones only in clip gaps")
+    func trackInteractionLayoutCreatesGapHitZones() {
+        let gaps = TimelineTrackInteractionLayout.backgroundHitRects(
+            totalWidth: 300,
+            trackHeight: 80,
+            clipFrames: [
+                TimelineTrackInteractionLayout.ClipFrame(id: UUID(), minX: 20, maxX: 80),
+                TimelineTrackInteractionLayout.ClipFrame(id: UUID(), minX: 140, maxX: 220),
+            ]
+        )
+
+        #expect(gaps.count == 3)
+        #expect(gaps[0] == CGRect(x: 0, y: 0, width: 20, height: 80))
+        #expect(gaps[1] == CGRect(x: 80, y: 0, width: 60, height: 80))
+        #expect(gaps[2] == CGRect(x: 220, y: 0, width: 80, height: 80))
+    }
+
+    @Test("playhead interaction is limited to the ruler scrub strip")
+    func playheadInteractionUsesScrubStripOnly() {
+        let scrubRect = PlayheadInteractionLayout.scrubRect(
+            containerWidth: 1200,
+            containerHeight: 640,
+            scrubHeight: 32
+        )
+
+        #expect(scrubRect == CGRect(x: 0, y: 0, width: 1200, height: 32))
+    }
 }

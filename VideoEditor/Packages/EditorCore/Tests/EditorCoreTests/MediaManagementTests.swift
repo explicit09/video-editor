@@ -131,4 +131,27 @@ struct MediaManagementTests {
         #expect(fileManager.fileExists(atPath: asset.sourceURL.path))
         #expect(await manager.thumbnail(for: asset.id) != nil)
     }
+
+    @Test("MediaManager lazily generates thumbnails for loaded images")
+    func lazyThumbnailGenerationForLoadedImage() async throws {
+        let manager = MediaManager()
+        let fileManager = FileManager.default
+        let imageURL = fileManager.temporaryDirectory.appendingPathComponent("lazy-thumb-\(UUID().uuidString).png")
+        let pngData = Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9WlAbWQAAAAASUVORK5CYII=")!
+        try pngData.write(to: imageURL)
+        defer { try? fileManager.removeItem(at: imageURL) }
+
+        let asset = MediaAsset(
+            name: "Lazy Thumbnail",
+            sourceURL: imageURL,
+            type: .image,
+            duration: 0,
+            width: 1,
+            height: 1
+        )
+
+        await manager.add(asset)
+
+        #expect(await manager.thumbnail(for: asset.id) != nil)
+    }
 }

@@ -1,6 +1,106 @@
 import Foundation
 import EditorCore
 
+struct PlayheadSyncSnapshot: Equatable {
+    let playheadPosition: TimeInterval
+    let isPlaying: Bool
+}
+
+enum PlayheadSyncResolver {
+    private static let updateThreshold: TimeInterval = 0.001
+
+    static func resolve(
+        current: PlayheadSyncSnapshot,
+        playbackTime: TimeInterval,
+        playbackIsPlaying: Bool
+    ) -> PlayheadSyncSnapshot? {
+        let nextPlayheadPosition = playbackTime.isFinite
+            ? max(playbackTime, 0)
+            : current.playheadPosition
+        let positionChanged = abs(nextPlayheadPosition - current.playheadPosition) > updateThreshold
+        let playbackChanged = current.isPlaying != playbackIsPlaying
+
+        guard positionChanged || playbackChanged else { return nil }
+
+        return PlayheadSyncSnapshot(
+            playheadPosition: nextPlayheadPosition,
+            isPlaying: playbackIsPlaying
+        )
+    }
+}
+
+enum MonitorPlaybackTimeResolver {
+    static func resolve(currentTime: TimeInterval, duration: TimeInterval) -> TimeInterval? {
+        guard currentTime.isFinite else { return nil }
+
+        let normalizedTime = max(currentTime, 0)
+        guard duration.isFinite else { return normalizedTime }
+
+        return min(normalizedTime, max(duration, 0))
+    }
+}
+
+struct TimelineMediaLoadPlan: Equatable {
+    let thumbnailAssetIDs: [UUID]
+    let waveformAssetIDs: [UUID]
+}
+
+enum TimelineMediaLoadPlanner {
+    static func makePlan(
+        assetIDs: [UUID],
+        availableAssetIDs: Set<UUID>,
+        cachedThumbnailIDs: Set<UUID>,
+        waveformStates: [UUID: WaveformLoadState]
+    ) -> TimelineMediaLoadPlan {
+        var orderedUniqueAssetIDs: [UUID] = []
+        var seenAssetIDs: Set<UUID> = []
+
+        for assetID in assetIDs where availableAssetIDs.contains(assetID) {
+            if seenAssetIDs.insert(assetID).inserted {
+                orderedUniqueAssetIDs.append(assetID)
+            }
+        }
+
+        return TimelineMediaLoadPlan(
+            thumbnailAssetIDs: orderedUniqueAssetIDs.filter { !cachedThumbnailIDs.contains($0) },
+            waveformAssetIDs: orderedUniqueAssetIDs.filter { waveformStates[$0] == nil }
+        )
+    }
+}
+
+struct WaveformRefreshDecision: Equatable {
+    let state: WaveformLoadState?
+    let needsExtraction: Bool
+}
+
+enum WaveformRefreshPlanner {
+    static func makeDecision(
+        for asset: MediaAsset,
+        extractionInFlight: Bool
+    ) -> WaveformRefreshDecision {
+        switch asset.type {
+        case .image:
+            return WaveformRefreshDecision(state: nil, needsExtraction: false)
+        case .audio, .video:
+            if let profile = asset.analysis?.loudnessProfile, !profile.isEmpty {
+                return WaveformRefreshDecision(state: .ready(profile), needsExtraction: false)
+            }
+
+            guard asset.hasAudioTrack else {
+                return WaveformRefreshDecision(
+                    state: asset.type == .video ? .noAudio : .failed,
+                    needsExtraction: false
+                )
+            }
+
+            return WaveformRefreshDecision(
+                state: .loading,
+                needsExtraction: !extractionInFlight
+            )
+        }
+    }
+}
+
 enum WaveformLoadState: Equatable {
     case loading
     case ready([Float])
@@ -48,6 +148,47 @@ enum TimelineTrackDisplayStatePruner {
             trackHeights: state.trackHeights.filter { validTrackIDs.contains($0.key) },
             collapsedTrackIDs: state.collapsedTrackIDs.intersection(validTrackIDs)
         )
+    }
+}
+
+enum AudiolessClipCleanupPlanner {
+    static func candidateVideoAssetIDs(
+        in timeline: Timeline,
+        assetsByID: [UUID: MediaAsset]
+    ) -> [UUID] {
+        var orderedAssetIDs: [UUID] = []
+        var seenAssetIDs: Set<UUID> = []
+
+        for track in timeline.tracks where track.type == .audio {
+            for clip in track.clips {
+                guard let asset = assetsByID[clip.assetID], asset.type == .video else { continue }
+                if seenAssetIDs.insert(asset.id).inserted {
+                    orderedAssetIDs.append(asset.id)
+                }
+            }
+        }
+
+        return orderedAssetIDs
+    }
+}
+
+enum ThumbnailReloadSupport {
+    static func taskID(for assetID: UUID, revision: Int) -> String {
+        "\(assetID.uuidString)-\(revision)"
+    }
+
+    static func pruneCachedThumbnails<Thumbnail>(
+        _ thumbnails: [UUID: Thumbnail],
+        validAssetIDs: [UUID]
+    ) -> [UUID: Thumbnail] {
+        let validIDs = Set(validAssetIDs)
+        return thumbnails.filter { validIDs.contains($0.key) }
+    }
+}
+
+enum ShortFormConflictResolver {
+    static func shouldDisableForClipCrop(_ config: ShortFormConfig?) -> Bool {
+        config?.isEnabled == true
     }
 }
 

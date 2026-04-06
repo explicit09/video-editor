@@ -61,11 +61,13 @@ public actor MediaManager {
     public func remove(id: UUID) {
         assets.removeAll { $0.id == id }
         thumbnailCache.removeValue(forKey: id)
+        thumbnailAccessOrder.removeAll { $0 == id }
     }
 
     public func removeAll() {
         assets.removeAll()
         thumbnailCache.removeAll()
+        thumbnailAccessOrder.removeAll()
     }
 
     public func asset(id: UUID) -> MediaAsset? {
@@ -92,26 +94,36 @@ public actor MediaManager {
     public func regenerateMissingThumbnails() async {
         for asset in assets {
             if thumbnailCache[asset.id] == nil {
-                if let thumb = try? await importer.generateThumbnail(for: asset.sourceURL) {
-                    storeThumbnail(thumb, for: asset.id)
-                }
+                _ = await thumbnail(for: asset.id)
             }
         }
     }
 
-    public func thumbnail(for assetID: UUID) -> CGImage? {
+    public func thumbnail(for assetID: UUID) async -> CGImage? {
         // Move to front of access order (LRU)
         if let idx = thumbnailAccessOrder.firstIndex(of: assetID) {
             thumbnailAccessOrder.remove(at: idx)
             thumbnailAccessOrder.append(assetID)
         }
-        return thumbnailCache[assetID]
+        if let cachedThumbnail = thumbnailCache[assetID] {
+            return cachedThumbnail
+        }
+
+        guard let asset = assets.first(where: { $0.id == assetID }),
+              asset.type == .video || asset.type == .image,
+              let generatedThumbnail = try? await importer.generateThumbnail(for: asset.sourceURL) else {
+            return nil
+        }
+
+        storeThumbnail(generatedThumbnail, for: assetID)
+        return generatedThumbnail
     }
 
     private let maxThumbnailBytes: Int = 50 * 1024 * 1024 // 50MB max
 
     private func storeThumbnail(_ image: CGImage, for id: UUID) {
         thumbnailCache[id] = image
+        thumbnailAccessOrder.removeAll { $0 == id }
         thumbnailAccessOrder.append(id)
 
         // Evict oldest if over count or size limit

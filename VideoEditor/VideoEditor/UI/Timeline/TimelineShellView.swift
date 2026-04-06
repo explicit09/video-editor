@@ -90,16 +90,12 @@ struct TimelineShellView: View {
                 updateScrollRequest(containerSize: geo.size, metrics: metrics)
             }
             .onChange(of: viewState.playheadPosition) { _, _ in
-                updateScrollRequest(containerSize: geo.size, metrics: metrics)
+                guard viewState.autoFollowPlayhead else { return }
+                updatePlayheadFollowRequest(containerSize: geo.size, metrics: metrics)
             }
-            .onChange(of: viewState.autoFollowPlayhead) { _, _ in
-                updateScrollRequest(containerSize: geo.size, metrics: metrics)
-            }
-            .onChange(of: scrollCoordinator.horizontalOffset) { _, _ in
-                updateScrollRequest(containerSize: geo.size, metrics: metrics)
-            }
-            .onChange(of: scrollCoordinator.verticalOffset) { _, _ in
-                updateScrollRequest(containerSize: geo.size, metrics: metrics)
+            .onChange(of: viewState.autoFollowPlayhead) { _, newValue in
+                guard newValue else { return }
+                updatePlayheadFollowRequest(containerSize: geo.size, metrics: metrics)
             }
         }
     }
@@ -124,6 +120,23 @@ struct TimelineShellView: View {
                 .blur(radius: 70)
                 .offset(x: 90, y: -50)
         }
+    }
+
+    /// Lightweight: only checks playhead visibility, no clip scan.
+    private func updatePlayheadFollowRequest(containerSize: CGSize, metrics: TimelineShellMetrics) {
+        let visibleWidth = max(containerSize.width - metrics.headerWidth, 0)
+        let viewport = TimelineViewport(
+            visibleXRange: scrollCoordinator.horizontalOffset ... (scrollCoordinator.horizontalOffset + visibleWidth),
+            visibleYRange: 0 ... 1 // vertical irrelevant for playhead follow
+        )
+
+        let playheadRequest = TimelineScrollTargetResolver.requestToKeepPlayheadVisible(
+            playheadX: viewState.durationToWidth(viewState.playheadPosition),
+            in: viewport,
+            autoFollow: true,
+            padding: 72
+        )
+        scrollCoordinator.requestScroll(playheadRequest)
     }
 
     private func updateScrollRequest(containerSize: CGSize, metrics: TimelineShellMetrics) {

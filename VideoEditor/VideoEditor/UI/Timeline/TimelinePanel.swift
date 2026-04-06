@@ -11,19 +11,18 @@ struct TimelinePanel: View {
 
     /// Re-run media loading when the timeline changes, when assets become available,
     /// or when background analysis writes a waveform profile onto an existing asset.
-    private var mediaLoadKey: [String] {
+    private var mediaLoadKey: Int {
         let assetsByID = Dictionary(uniqueKeysWithValues: appState.assets.map { ($0.id, $0) })
+        var hasher = Hasher()
 
-        return appState.timeline.tracks
-            .flatMap(\.clips)
-            .map { clip in
-                guard let asset = assetsByID[clip.assetID] else {
-                    return "\(clip.assetID.uuidString):missing"
-                }
-
-                let waveformCount = asset.analysis?.loudnessProfile?.count ?? 0
-                return "\(clip.assetID.uuidString):present:\(waveformCount)"
+        for clip in appState.timeline.tracks.flatMap(\.clips) {
+            hasher.combine(clip.assetID)
+            if let asset = assetsByID[clip.assetID] {
+                hasher.combine(asset.analysis?.loudnessProfile?.count ?? 0)
             }
+        }
+
+        return hasher.finalize()
     }
 
     var body: some View {
@@ -80,18 +79,20 @@ struct TimelinePanel: View {
     }
 
     private func loadVisibleMedia() async {
-        for track in appState.timeline.tracks {
-            for clip in track.clips {
-                let assetID = clip.assetID
-                guard let asset = appState.assets.first(where: { $0.id == assetID }) else { continue }
+        let plan = TimelineMediaLoadPlanner.makePlan(
+            assetIDs: appState.timeline.tracks.flatMap(\.clips).map(\.assetID),
+            availableAssetIDs: Set(appState.assets.map(\.id)),
+            cachedThumbnailIDs: Set(thumbnails.keys),
+            waveformStates: appState.media.waveformStates
+        )
 
-                if thumbnails[assetID] == nil {
-                    let thumb = await appState.media.thumbnail(for: assetID)
-                    if let thumb { thumbnails[assetID] = thumb }
-                }
+        for assetID in plan.thumbnailAssetIDs {
+            let thumb = await appState.media.thumbnail(for: assetID)
+            if let thumb { thumbnails[assetID] = thumb }
+        }
 
-                await appState.media.refreshWaveformState(for: asset.id)
-            }
+        for assetID in plan.waveformAssetIDs {
+            await appState.media.refreshWaveformState(for: assetID)
         }
     }
 

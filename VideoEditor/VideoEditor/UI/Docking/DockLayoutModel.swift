@@ -67,12 +67,17 @@ enum WorkspaceDefaultLayouts {
                     ratio: 0.64,
                     leading: .split(
                         axis: .horizontal,
-                        ratio: 0.5,
+                        ratio: 0.22,
                         leading: .tabs(
-                            activePanelID: .sourceMonitor,
-                            panelIDs: [.projectBin, .sourceMonitor]
+                            activePanelID: .projectBin,
+                            panelIDs: [.projectBin, .effects]
                         ),
-                        trailing: .panel(.programMonitor)
+                        trailing: .split(
+                            axis: .horizontal,
+                            ratio: 0.78,
+                            leading: .panel(.programMonitor),
+                            trailing: .panel(.inspector)
+                        )
                     ),
                     trailing: .panel(.timeline)
                 )

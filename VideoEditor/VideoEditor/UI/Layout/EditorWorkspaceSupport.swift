@@ -69,6 +69,34 @@ struct WorkspaceDockState {
 }
 
 @MainActor
+enum WorkspaceLayoutMigration {
+    static func normalizeLoadedLayout(
+        _ layout: DockWorkspaceLayout,
+        using registry: PanelRegistry
+    ) -> DockWorkspaceLayout {
+        guard layout.workspaceID == PanelRegistry.editWorkspaceID,
+              layout.root.containsPanel(.sourceMonitor) else {
+            return layout
+        }
+
+        guard let sanitizedRoot = layout.root.removingPanel(.sourceMonitor) else {
+            return registry.defaultLayouts[layout.workspaceID] ?? layout
+        }
+
+        let sanitizedLayout = DockWorkspaceLayout(
+            workspaceID: layout.workspaceID,
+            root: sanitizedRoot
+        )
+
+        guard sanitizedLayout.root.containsPanel(.programMonitor) else {
+            return registry.defaultLayouts[layout.workspaceID] ?? sanitizedLayout
+        }
+
+        return sanitizedLayout
+    }
+}
+
+@MainActor
 enum WorkspaceDockPersistence {
     static func workspaceLayoutsBaseURL(for bundleURL: URL) -> URL {
         bundleURL.appendingPathComponent("WorkspaceLayouts", isDirectory: true)
@@ -83,9 +111,13 @@ enum WorkspaceDockPersistence {
         guard state.loadTracker.markLoadedIfNeeded(for: bundleURL) else { return }
 
         do {
-            state.layout = try registry
+            let loadedLayout = try registry
                 .makeLayoutStore(baseURL: workspaceLayoutsBaseURL(for: bundleURL))
                 .loadLayout(for: workspaceID)
+            state.layout = WorkspaceLayoutMigration.normalizeLoadedLayout(
+                loadedLayout,
+                using: registry
+            )
         } catch {
             state.layout = registry.defaultLayouts[workspaceID] ?? state.layout
         }

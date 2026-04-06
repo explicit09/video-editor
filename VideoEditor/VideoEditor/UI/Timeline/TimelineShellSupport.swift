@@ -1,4 +1,5 @@
 import Foundation
+import CoreGraphics
 import EditorCore
 
 struct TimelineShellMetrics: Sendable, Equatable {
@@ -197,5 +198,76 @@ enum TimelineSnapResolver {
             excludeClipIDs: clipIDs
         )
         return SnapUtils.snap(time: clampedTime, to: points, threshold: snapThreshold) ?? clampedTime
+    }
+}
+
+struct TimelineTrackInteractionLayout: Sendable, Equatable {
+    struct ClipFrame: Sendable, Equatable {
+        let id: UUID
+        let minX: Double
+        let maxX: Double
+
+        init(id: UUID, minX: Double, maxX: Double) {
+            self.id = id
+            self.minX = min(minX, maxX)
+            self.maxX = max(minX, maxX)
+        }
+    }
+
+    static func backgroundHitRects(
+        totalWidth: Double,
+        trackHeight: Double,
+        clipFrames: [ClipFrame]
+    ) -> [CGRect] {
+        let clampedWidth = max(totalWidth, 0)
+        let clampedHeight = max(trackHeight, 0)
+        guard clampedWidth > 0, clampedHeight > 0 else { return [] }
+
+        let sortedFrames = clipFrames
+            .map { frame in
+                ClipFrame(
+                    id: frame.id,
+                    minX: min(max(frame.minX, 0), clampedWidth),
+                    maxX: min(max(frame.maxX, 0), clampedWidth)
+                )
+            }
+            .filter { $0.maxX > $0.minX }
+            .sorted { lhs, rhs in
+                if lhs.minX == rhs.minX {
+                    return lhs.maxX < rhs.maxX
+                }
+                return lhs.minX < rhs.minX
+            }
+
+        var gaps: [CGRect] = []
+        var cursor = 0.0
+
+        for frame in sortedFrames {
+            if frame.minX > cursor {
+                gaps.append(CGRect(x: cursor, y: 0, width: frame.minX - cursor, height: clampedHeight))
+            }
+            cursor = max(cursor, frame.maxX)
+        }
+
+        if cursor < clampedWidth {
+            gaps.append(CGRect(x: cursor, y: 0, width: clampedWidth - cursor, height: clampedHeight))
+        }
+
+        return gaps.filter { $0.width > 0.5 && $0.height > 0.5 }
+    }
+}
+
+enum PlayheadInteractionLayout {
+    static func scrubRect(
+        containerWidth: Double,
+        containerHeight: Double,
+        scrubHeight: Double
+    ) -> CGRect {
+        CGRect(
+            x: 0,
+            y: 0,
+            width: max(containerWidth, 0),
+            height: min(max(scrubHeight, 0), max(containerHeight, 0))
+        )
     }
 }

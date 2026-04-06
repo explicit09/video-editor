@@ -138,12 +138,7 @@ struct PanelRegistry {
                     trailing: .split(
                         axis: .horizontal,
                         ratio: 0.78,
-                        leading: .split(
-                            axis: .horizontal,
-                            ratio: 0.5,
-                            leading: .panel(.sourceMonitor),
-                            trailing: .panel(.programMonitor)
-                        ),
+                        leading: .panel(.programMonitor),
                         trailing: .panel(.inspector)
                     )
                 ),

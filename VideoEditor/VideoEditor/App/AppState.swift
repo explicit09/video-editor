@@ -1591,6 +1591,8 @@ final class AppState {
                     }
                 }
                 await media.refreshAssets()
+                await media.regenerateMissingThumbnails()
+                await removeAudiolessVideoClips(using: loadedAssets)
             } else {
                 print("[AppState] No assets.json at \(assetsURL.path)")
             }
@@ -1858,6 +1860,17 @@ final class AppState {
     func rebuildCompositionNow() {
         compositionRebuildTask?.cancel()
         playbackEngine.buildComposition(from: timeline, assets: assets, broadcastOverlay: context.timelineState.broadcastOverlay, shortFormConfig: context.timelineState.shortFormConfig, captionStyle: context.timelineState.captionStyle, projectSettings: context.timelineState.projectSettings)
+    }
+
+    @discardableResult
+    func clearShortFormLayoutIfNeeded() -> Bool {
+        guard ShortFormConflictResolver.shouldDisableForClipCrop(context.timelineState.shortFormConfig) else {
+            return false
+        }
+
+        context.timelineState.shortFormConfig = nil
+        scheduleSave()
+        return true
     }
 
     func seekFromPlayhead() {

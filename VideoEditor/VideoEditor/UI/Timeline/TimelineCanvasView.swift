@@ -164,6 +164,7 @@ struct TimelineCanvasView: View {
             onClipUnlink: { clipID in
                 unlinkClips(for: clipID)
             },
+            horizontalOffset: coordinator.horizontalOffset,
             isCollapsed: false,
             onToggleCollapse: nil
         )
