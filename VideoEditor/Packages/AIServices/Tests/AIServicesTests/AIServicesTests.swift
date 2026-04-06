@@ -137,6 +137,49 @@ struct AIServicesTests {
     }
 
     @MainActor
+    @Test("Track management tools resolve correctly")
+    func trackManagementToolResolution() throws {
+        let resolver = AIToolResolver()
+        let trackID = UUID()
+
+        let soloIntents = try resolver.resolve(toolName: "solo_track", arguments: [
+            "track_id": trackID.uuidString,
+            "soloed": true,
+        ])
+        #expect(soloIntents.count == 1)
+        if case .soloTrack(let id, let soloed) = soloIntents[0] {
+            #expect(id == trackID)
+            #expect(soloed == true)
+        } else {
+            Issue.record("solo_track should resolve to soloTrack")
+        }
+
+        let renameIntents = try resolver.resolve(toolName: "rename_track", arguments: [
+            "track_id": trackID.uuidString,
+            "name": "Main Audio",
+        ])
+        #expect(renameIntents.count == 1)
+        if case .renameTrack(let id, let name) = renameIntents[0] {
+            #expect(id == trackID)
+            #expect(name == "Main Audio")
+        } else {
+            Issue.record("rename_track should resolve to renameTrack")
+        }
+
+        let reorderIntents = try resolver.resolve(toolName: "reorder_track", arguments: [
+            "track_id": trackID.uuidString,
+            "new_index": 2,
+        ])
+        #expect(reorderIntents.count == 1)
+        if case .reorderTrack(let id, let idx) = reorderIntents[0] {
+            #expect(id == trackID)
+            #expect(idx == 2)
+        } else {
+            Issue.record("reorder_track should resolve to reorderTrack")
+        }
+    }
+
+    @MainActor
     @Test("Overlay presentation tools resolve correctly")
     func overlayPresentationToolResolution() throws {
         let resolver = AIToolResolver()

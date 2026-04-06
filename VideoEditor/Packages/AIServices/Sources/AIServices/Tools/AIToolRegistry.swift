@@ -71,6 +71,9 @@ public struct AIToolRegistry: Sendable {
         removeClipEffect,
         setClipOverlayPresentation,
         applyPiPPreset,
+        soloTrack,
+        renameTrack,
+        reorderTrack,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -695,6 +698,35 @@ public struct AIToolRegistry: Sendable {
             "preset": .init(type: "string", description: "Corner position", enumValues: ["topLeft", "topRight", "bottomLeft", "bottomRight"]),
         ], required: ["clip_id", "preset"])
     )
+
+    // MARK: - Track management tools (parity)
+
+    public static let soloTrack = AIToolDefinition(
+        name: "solo_track",
+        description: "Solo a track (mutes all other tracks). Set soloed=false to unsolo.",
+        parameters: .object([
+            "track_id": .init(type: "string", description: "UUID of the track"),
+            "soloed": .init(type: "boolean", description: "true to solo, false to unsolo (default true)"),
+        ], required: ["track_id"])
+    )
+
+    public static let renameTrack = AIToolDefinition(
+        name: "rename_track",
+        description: "Rename a track.",
+        parameters: .object([
+            "track_id": .init(type: "string", description: "UUID of the track"),
+            "name": .init(type: "string", description: "New track name"),
+        ], required: ["track_id", "name"])
+    )
+
+    public static let reorderTrack = AIToolDefinition(
+        name: "reorder_track",
+        description: "Move a track to a new position in the stack. Index 0 = bottom of stack.",
+        parameters: .object([
+            "track_id": .init(type: "string", description: "UUID of the track"),
+            "new_index": .init(type: "number", description: "Target position (0-based)"),
+        ], required: ["track_id", "new_index"])
+    )
 }
 
 // MARK: - AIToolDefinition (JSON Schema compatible)
@@ -1139,6 +1171,31 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing or invalid preset (topLeft, topRight, bottomLeft, bottomRight)")
             }
             return [.applyClipPiPPreset(clipID: clipID, preset: preset)]
+
+        case "solo_track":
+            guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid track_id")
+            }
+            let soloed = (arguments["soloed"] as? Bool) ?? true
+            return [.soloTrack(trackID: trackID, soloed: soloed)]
+
+        case "rename_track":
+            guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid track_id")
+            }
+            guard let name = arguments["name"] as? String, !name.isEmpty else {
+                throw AIToolError.invalidArgument("Missing or empty name")
+            }
+            return [.renameTrack(trackID: trackID, name: name)]
+
+        case "reorder_track":
+            guard let trackIDStr = arguments["track_id"] as? String, let trackID = UUID(uuidString: trackIDStr) else {
+                throw AIToolError.invalidArgument("Missing or invalid track_id")
+            }
+            guard let newIndex = arguments["new_index"] as? Int else {
+                throw AIToolError.invalidArgument("Missing new_index")
+            }
+            return [.reorderTrack(trackID: trackID, newIndex: newIndex)]
 
         default:
             throw AIToolError.unknownTool(toolName)
