@@ -72,4 +72,48 @@ struct ModelTests {
         #expect(clip.transform == .identity)
         #expect(clip.effects.isEmpty)
     }
+
+    @Test("Clip decodes legacy JSON without overlay presentation")
+    func clipDecodesLegacyJSON() throws {
+        let clipID = UUID(uuidString: "22222222-2222-2222-2222-222222222222")!
+        let assetID = UUID(uuidString: "11111111-1111-1111-1111-111111111111")!
+        let legacyJSON = """
+        {
+          "id": "\(clipID.uuidString)",
+          "assetID": "\(assetID.uuidString)",
+          "timelineRange": { "start": 0, "end": 5 },
+          "sourceRange": { "start": 1, "end": 6 },
+          "transform": {
+            "positionX": 12,
+            "positionY": -8,
+            "scaleX": 0.8,
+            "scaleY": 0.8,
+            "rotation": 5,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+          },
+          "cropRect": { "x": 0.1, "y": 0.2, "width": 0.7, "height": 0.6 },
+          "opacity": 0.75,
+          "volume": 0.9,
+          "effects": [],
+          "keyframes": { "tracks": {} },
+          "metadata": {
+            "label": "Legacy Clip",
+            "tags": [],
+            "transcriptSegment": null,
+            "sceneType": null
+          },
+          "speed": 1,
+          "transitionIn": { "type": "none", "duration": 0 },
+          "linkGroupID": null,
+          "blendMode": "multiply"
+        }
+        """
+
+        let decoded = try JSONDecoder().decode(Clip.self, from: Data(legacyJSON.utf8))
+        #expect(decoded.id == clipID)
+        #expect(decoded.assetID == assetID)
+        #expect(decoded.blendMode == .multiply)
+        #expect(decoded.overlayPresentation == .default)
+    }
 }
