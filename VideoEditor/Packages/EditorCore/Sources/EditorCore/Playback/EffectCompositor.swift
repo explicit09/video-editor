@@ -30,6 +30,41 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         renderContextLock.unlock()
     }
 
+    static func orderedOverlayLayers(for instruction: OverlayInstruction) -> [OverlayLayer] {
+        instruction.layers.sorted { $0.trackOrder < $1.trackOrder }
+    }
+
+    static func applyOverlayPresentation(_ presentation: OverlayPresentation, to image: CIImage, renderSize: CGSize) -> CIImage {
+        let shouldStyle = presentation.mode == .pip
+            || presentation.border.isVisible
+            || presentation.shadow != .none
+            || presentation.cornerRadius > 0
+            || presentation.maskShape != .rectangle
+
+        guard shouldStyle else { return image }
+
+        let extent = image.extent.integral
+        guard !extent.isEmpty else { return image }
+
+        var result = image
+
+        if let maskImage = Self.presentationMaskImage(for: extent, presentation: presentation, renderSize: renderSize) {
+            let transparentBackground = CIImage(color: CIColor(red: 0, green: 0, blue: 0, alpha: 0)).cropped(to: extent)
+            if let blend = CIFilter(name: "CIBlendWithAlphaMask") {
+                blend.setValue(result, forKey: kCIInputImageKey)
+                blend.setValue(transparentBackground, forKey: kCIInputBackgroundImageKey)
+                blend.setValue(maskImage, forKey: kCIInputMaskImageKey)
+                result = blend.outputImage ?? result
+            }
+        }
+
+        if let borderImage = Self.presentationBorderImage(for: extent, presentation: presentation, renderSize: renderSize) {
+            result = borderImage.composited(over: result)
+        }
+
+        return result
+    }
+
     public func startRequest(_ request: AVAsynchronousVideoCompositionRequest) {
         // Handle transition instructions (two sources)
         if let transInstruction = request.videoCompositionInstruction as? TransitionInstruction {
@@ -291,6 +326,145 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         return scaled.transformed(by: CGAffineTransform(translationX: extent.minX, y: extent.minY))
     }
 
+    static func composite(
+        _ sourceImage: CIImage,
+        over backgroundImage: CIImage,
+        blendMode: BlendMode,
+        opacity: Float
+    ) -> CIImage {
+        let resolvedSource: CIImage
+        if opacity < 1.0 {
+            resolvedSource = sourceImage.applyingFilter("CIColorMatrix", parameters: [
+                "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(opacity)),
+            ])
+        } else {
+            resolvedSource = sourceImage
+        }
+
+        if blendMode != .normal, let blendFilter = CIFilter(name: blendMode.ciFilterName) {
+            blendFilter.setValue(backgroundImage, forKey: kCIInputBackgroundImageKey)
+            blendFilter.setValue(resolvedSource, forKey: kCIInputImageKey)
+            if let blended = blendFilter.outputImage {
+                return blended
+            }
+        }
+
+        return resolvedSource.composited(over: backgroundImage)
+    }
+
+    static func presentationMaskImage(
+        for extent: CGRect,
+        presentation: OverlayPresentation,
+        renderSize: CGSize
+    ) -> CIImage? {
+        let width = max(Int(ceil(extent.width)), 1)
+        let height = max(Int(ceil(extent.height)), 1)
+        guard let context = CGContext(
+            data: nil,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: width * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else {
+            return nil
+        }
+
+        context.clear(CGRect(x: 0, y: 0, width: width, height: height))
+        context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
+        context.addPath(Self.presentationPath(
+            for: CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height)),
+            presentation: presentation,
+            renderSize: renderSize
+        ))
+        context.fillPath()
+
+        guard let cgImage = context.makeImage() else { return nil }
+        return CIImage(cgImage: cgImage).transformed(by: CGAffineTransform(translationX: extent.minX, y: extent.minY))
+    }
+
+    static func presentationBorderImage(
+        for extent: CGRect,
+        presentation: OverlayPresentation,
+        renderSize: CGSize
+    ) -> CIImage? {
+        guard presentation.border.isVisible, presentation.border.width > 0 else { return nil }
+
+        let width = max(Int(ceil(extent.width)), 1)
+        let height = max(Int(ceil(extent.height)), 1)
+        guard let context = CGContext(
+            data: nil,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: width * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else {
+            return nil
+        }
+
+        context.clear(CGRect(x: 0, y: 0, width: width, height: height))
+
+        let borderColor = OverlayStyle.parseHex(presentation.border.colorHex)
+        context.setStrokeColor(CGColor(red: borderColor.r, green: borderColor.g, blue: borderColor.b, alpha: 1))
+        context.setLineWidth(CGFloat(presentation.border.width))
+        context.setLineJoin(.round)
+
+        let inset = CGFloat(presentation.border.width) / 2
+        let rect = CGRect(
+            x: inset,
+            y: inset,
+            width: CGFloat(width) - CGFloat(presentation.border.width),
+            height: CGFloat(height) - CGFloat(presentation.border.width)
+        )
+        context.addPath(Self.presentationPath(for: rect, presentation: presentation, renderSize: renderSize))
+        context.strokePath()
+
+        guard let cgImage = context.makeImage() else { return nil }
+        return CIImage(cgImage: cgImage).transformed(by: CGAffineTransform(translationX: extent.minX, y: extent.minY))
+    }
+
+    static func presentationPath(
+        for rect: CGRect,
+        presentation: OverlayPresentation,
+        renderSize: CGSize
+    ) -> CGPath {
+        let radius = Self.presentationCornerRadius(for: presentation, renderSize: renderSize, rect: rect)
+
+        switch presentation.maskShape {
+        case .circle:
+            return CGPath(ellipseIn: rect, transform: nil)
+        case .roundedRect:
+            return CGPath(roundedRect: rect, cornerWidth: radius, cornerHeight: radius, transform: nil)
+        case .rectangle:
+            if radius > 0 {
+                return CGPath(roundedRect: rect, cornerWidth: radius, cornerHeight: radius, transform: nil)
+            }
+            return CGPath(rect: rect, transform: nil)
+        }
+    }
+
+    static func presentationCornerRadius(
+        for presentation: OverlayPresentation,
+        renderSize: CGSize,
+        rect: CGRect
+    ) -> CGFloat {
+        let maxRadius = min(rect.width, rect.height) / 2
+
+        if presentation.cornerRadius > 0 {
+            return min(CGFloat(presentation.cornerRadius), maxRadius)
+        }
+
+        if presentation.maskShape == .roundedRect {
+            let defaultRadius = max(8, min(renderSize.width, renderSize.height) * 0.015)
+            return min(defaultRadius, maxRadius)
+        }
+
+        return 0
+    }
+
     static func applyTransform(_ transform: Transform2D, to image: CIImage, renderSize: CGSize) -> CIImage {
         guard transform != .identity else { return image }
 
@@ -440,7 +614,7 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         var composited = CIImage(color: instruction.backgroundColor).cropped(to: renderRect)
 
         // Composite layers bottom-to-top
-        for layer in instruction.layers {
+        for layer in Self.orderedOverlayLayers(for: instruction) {
             guard let sourceBuffer = request.sourceFrame(byTrackID: layer.trackID) else {
                 continue // Skip layers with no frame at this time
             }
@@ -456,12 +630,6 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             }
 
             let compositionTime = request.compositionTime.seconds
-            let resolvedOpacity = Self.resolvedOpacity(
-                baseOpacity: layer.opacity,
-                keyframes: layer.keyframes,
-                compositionTime: compositionTime,
-                clipStartTime: layer.clipStartTime
-            )
             let resolvedTransform = Self.resolvedTransform(
                 baseTransform: layer.transform,
                 keyframes: layer.keyframes,
@@ -469,32 +637,24 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
                 clipStartTime: layer.clipStartTime
             )
 
-            // Apply transform
             if resolvedTransform != .identity {
                 layerImage = Self.applyTransform(resolvedTransform, to: layerImage, renderSize: renderSize)
             }
 
-            // Apply opacity via alpha
-            if resolvedOpacity < 1.0 {
-                layerImage = layerImage.applyingFilter("CIColorMatrix", parameters: [
-                    "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(resolvedOpacity)),
-                ])
-            }
+            layerImage = Self.applyOverlayPresentation(layer.presentation, to: layerImage, renderSize: renderSize)
 
-            // Composite using blend mode
-            if layer.blendMode != .normal {
-                if let blendFilter = CIFilter(name: layer.blendMode.ciFilterName) {
-                    blendFilter.setValue(composited, forKey: kCIInputBackgroundImageKey)
-                    blendFilter.setValue(layerImage, forKey: kCIInputImageKey)
-                    if let blended = blendFilter.outputImage {
-                        composited = blended
-                        continue
-                    }
-                }
-            }
-
-            // Default: source-over compositing
-            composited = layerImage.composited(over: composited)
+            let resolvedOpacity = Self.resolvedOpacity(
+                baseOpacity: layer.opacity,
+                keyframes: layer.keyframes,
+                compositionTime: compositionTime,
+                clipStartTime: layer.clipStartTime
+            )
+            composited = Self.composite(
+                layerImage,
+                over: composited,
+                blendMode: layer.blendMode,
+                opacity: resolvedOpacity
+            )
         }
 
         // Render broadcast overlay if configured
@@ -680,6 +840,7 @@ public final class TransitionInstruction: NSObject, AVVideoCompositionInstructio
 /// Represents a single layer in a multi-track overlay composition.
 public struct OverlayLayer: Sendable {
     public let trackID: CMPersistentTrackID
+    public let trackOrder: Int
     public let opacity: Float
     public let transform: Transform2D
     public let cropRect: CropRect
@@ -687,18 +848,22 @@ public struct OverlayLayer: Sendable {
     public let effects: [EffectInstance]
     public let keyframes: KeyframeStore
     public let clipStartTime: TimeInterval
+    public let presentation: OverlayPresentation
 
     public init(
         trackID: CMPersistentTrackID,
+        trackOrder: Int = 0,
         opacity: Float = 1.0,
         transform: Transform2D = .identity,
         cropRect: CropRect = .fullFrame,
         blendMode: BlendMode = .normal,
         effects: [EffectInstance] = [],
         keyframes: KeyframeStore = KeyframeStore(),
-        clipStartTime: TimeInterval = 0
+        clipStartTime: TimeInterval = 0,
+        presentation: OverlayPresentation = .default
     ) {
         self.trackID = trackID
+        self.trackOrder = trackOrder
         self.opacity = opacity
         self.transform = transform
         self.cropRect = cropRect
@@ -706,6 +871,7 @@ public struct OverlayLayer: Sendable {
         self.effects = effects
         self.keyframes = keyframes
         self.clipStartTime = clipStartTime
+        self.presentation = presentation
     }
 }
 
