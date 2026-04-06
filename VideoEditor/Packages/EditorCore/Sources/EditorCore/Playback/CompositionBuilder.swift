@@ -747,6 +747,7 @@ public struct CompositionBuilder {
                         effects: entry.clip.effects,
                         keyframes: entry.clip.keyframes,
                         clipStartTime: entry.clip.timelineRange.start,
+                        clipDuration: entry.clip.timelineRange.duration,
                         presentation: entry.clip.overlayPresentation
                     )
                 }.sorted { $0.trackOrder < $1.trackOrder }

@@ -34,6 +34,42 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
         instruction.layers.sorted { $0.trackOrder < $1.trackOrder }
     }
 
+    // MARK: - Animation Presets
+
+    /// Animation preset duration in seconds.
+    static let animationDuration: TimeInterval = 0.4
+
+    /// Computes the effective opacity for an overlay based on entrance/exit animation presets.
+    /// Returns 1.0 when no animation applies, fades from 0-1 for entrance, 1-0 for exit.
+    static func presentationOpacity(
+        baseOpacity: Float,
+        entrance: OverlayAnimationPreset,
+        exit: OverlayAnimationPreset,
+        compositionTime: TimeInterval,
+        clipDuration: TimeInterval
+    ) -> Float {
+        guard clipDuration > 0 else { return baseOpacity }
+
+        var factor: Float = 1.0
+
+        // Entrance animation: fade in over animationDuration from clip start
+        if entrance == .fadeIn || entrance == .scaleIn || entrance == .slideIn {
+            if compositionTime < animationDuration {
+                factor = min(factor, Float(compositionTime / animationDuration))
+            }
+        }
+
+        // Exit animation: fade out over animationDuration before clip end
+        if exit == .fadeOut || exit == .scaleOut || exit == .slideOut {
+            let timeFromEnd = clipDuration - compositionTime
+            if timeFromEnd < animationDuration {
+                factor = min(factor, Float(timeFromEnd / animationDuration))
+            }
+        }
+
+        return baseOpacity * max(factor, 0)
+    }
+
     static func applyOverlayPresentation(_ presentation: OverlayPresentation, to image: CIImage, renderSize: CGSize) -> CIImage {
         let shouldStyle = presentation.mode == .pip
             || presentation.border.isVisible
@@ -643,12 +679,25 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
 
             layerImage = Self.applyOverlayPresentation(layer.presentation, to: layerImage, renderSize: renderSize)
 
-            let resolvedOpacity = Self.resolvedOpacity(
+            var resolvedOpacity = Self.resolvedOpacity(
                 baseOpacity: layer.opacity,
                 keyframes: layer.keyframes,
                 compositionTime: compositionTime,
                 clipStartTime: layer.clipStartTime
             )
+
+            // Apply entrance/exit animation presets
+            if layer.presentation.entranceAnimation != .none || layer.presentation.exitAnimation != .none {
+                let localTime = compositionTime - layer.clipStartTime
+                resolvedOpacity = Self.presentationOpacity(
+                    baseOpacity: resolvedOpacity,
+                    entrance: layer.presentation.entranceAnimation,
+                    exit: layer.presentation.exitAnimation,
+                    compositionTime: localTime,
+                    clipDuration: layer.clipDuration
+                )
+            }
+
             composited = Self.composite(
                 layerImage,
                 over: composited,
@@ -848,6 +897,7 @@ public struct OverlayLayer: Sendable {
     public let effects: [EffectInstance]
     public let keyframes: KeyframeStore
     public let clipStartTime: TimeInterval
+    public let clipDuration: TimeInterval
     public let presentation: OverlayPresentation
 
     public init(
@@ -860,6 +910,7 @@ public struct OverlayLayer: Sendable {
         effects: [EffectInstance] = [],
         keyframes: KeyframeStore = KeyframeStore(),
         clipStartTime: TimeInterval = 0,
+        clipDuration: TimeInterval = 0,
         presentation: OverlayPresentation = .default
     ) {
         self.trackID = trackID
@@ -871,6 +922,7 @@ public struct OverlayLayer: Sendable {
         self.effects = effects
         self.keyframes = keyframes
         self.clipStartTime = clipStartTime
+        self.clipDuration = clipDuration
         self.presentation = presentation
     }
 }

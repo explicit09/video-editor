@@ -20,7 +20,7 @@ struct EffectCompositorTests {
             image.cropped(to: bounds),
             toBitmap: &pixel,
             rowBytes: 4,
-            bounds: CGRect(x: 0, y: 0, width: 1, height: 1),
+            bounds: bounds,
             format: .RGBA8,
             colorSpace: CGColorSpaceCreateDeviceRGB()
         )
@@ -39,6 +39,84 @@ struct EffectCompositorTests {
         )
 
         #expect(EffectCompositor.orderedOverlayLayers(for: instruction).map(\.trackOrder) == [0, 1, 2])
+    }
+
+    // MARK: - Animation Opacity Tests
+
+    @Test("Fade in preset reduces opacity at clip start")
+    func fadeInPresetReducesOpacityAtClipStart() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .fadeIn,
+            exit: .none,
+            compositionTime: 0.05,
+            clipDuration: 5
+        )
+        #expect(value < 1)
+        #expect(value > 0)
+    }
+
+    @Test("Fade in reaches full opacity after animation duration")
+    func fadeInReachesFullOpacityAfterDuration() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .fadeIn,
+            exit: .none,
+            compositionTime: 1.0,
+            clipDuration: 5
+        )
+        #expect(value == 1.0)
+    }
+
+    @Test("Fade out reduces opacity near clip end")
+    func fadeOutReducesOpacityNearClipEnd() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .none,
+            exit: .fadeOut,
+            compositionTime: 4.9,
+            clipDuration: 5
+        )
+        #expect(value < 1)
+        #expect(value > 0)
+    }
+
+    @Test("No animation returns base opacity")
+    func noAnimationReturnsBaseOpacity() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 0.8,
+            entrance: .none,
+            exit: .none,
+            compositionTime: 2.5,
+            clipDuration: 5
+        )
+        #expect(value == 0.8)
+    }
+
+    @Test("Scale in preset also fades opacity")
+    func scaleInPresetAlsoFadesOpacity() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .scaleIn,
+            exit: .none,
+            compositionTime: 0.1,
+            clipDuration: 5
+        )
+        #expect(value < 1)
+    }
+
+    @Test("Both entrance and exit can apply simultaneously on short clips")
+    func bothEntranceAndExitOnShortClip() {
+        // Clip duration shorter than 2x animation duration — both could overlap
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .fadeIn,
+            exit: .fadeOut,
+            compositionTime: 0.2,
+            clipDuration: 0.5
+        )
+        #expect(value < 1)
+        #expect(value >= 0)
     }
 
     @Test("PiP presentation applies rounded masking to overlay layers")

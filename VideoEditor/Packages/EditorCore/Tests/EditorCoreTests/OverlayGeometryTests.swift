@@ -75,6 +75,62 @@ struct OverlayGeometryTests {
         #expect(updated.scaleY >= OverlayGeometry.minimumScale)
     }
 
+    // MARK: - Snapping Tests
+
+    @Test("Translation snaps to safe margin when enabled")
+    func translationSnapsToSafeMarginWhenEnabled() {
+        let canvas = CGSize(width: 1920, height: 1080)
+        // Place overlay so right edge is ~4px from right safe margin (1872).
+        // right edge = (960 + 1920*posX) + (1920*0.35)/2 = 960 + 1920*posX + 336
+        // Want right edge = 1876 → posX = (1876 - 336 - 960) / 1920 = 0.302
+        let transform = Transform2D(positionX: 0.302, positionY: 0, scaleX: 0.35, scaleY: 0.35)
+        let result = OverlayGeometry.snapped(transform, canvasSize: canvas, snapsToSafeMargins: true)
+        // Should snap since right edge is within threshold of right safe margin
+        #expect(result.transform.positionX != transform.positionX)
+        #expect(result.verticalGuide == canvas.width - OverlayGeometry.safeMargin)
+    }
+
+    @Test("Snapping disabled returns original transform")
+    func snappingDisabledReturnsOriginal() {
+        let transform = Transform2D(positionX: 0.46, positionY: -0.46, scaleX: 0.35, scaleY: 0.35)
+        let canvas = CGSize(width: 1920, height: 1080)
+        let result = OverlayGeometry.snapped(transform, canvasSize: canvas, snapsToSafeMargins: false)
+        #expect(result.transform == transform)
+        #expect(result.verticalGuide == nil)
+        #expect(result.horizontalGuide == nil)
+    }
+
+    @Test("Snapping to center when overlay is near center")
+    func snapsToCenter() {
+        // Position near center (small offset)
+        let transform = Transform2D(positionX: 0.002, positionY: -0.003, scaleX: 0.35, scaleY: 0.35)
+        let canvas = CGSize(width: 1920, height: 1080)
+        let result = OverlayGeometry.snapped(transform, canvasSize: canvas, snapsToSafeMargins: true)
+        // Center of overlay should snap to canvas center
+        #expect(result.verticalGuide == canvas.width / 2)
+        #expect(result.horizontalGuide == canvas.height / 2)
+    }
+
+    @Test("No snap when far from any guide")
+    func noSnapWhenFarFromGuides() {
+        // Position clearly between guides
+        let transform = Transform2D(positionX: 0.2, positionY: -0.2, scaleX: 0.2, scaleY: 0.2)
+        let canvas = CGSize(width: 1920, height: 1080)
+        let result = OverlayGeometry.snapped(transform, canvasSize: canvas, snapsToSafeMargins: true)
+        #expect(result.transform == transform)
+        #expect(result.verticalGuide == nil)
+        #expect(result.horizontalGuide == nil)
+    }
+
+    @Test("Snap result provides guide positions for UI")
+    func snapResultProvidesGuides() {
+        let canvas = CGSize(width: 1920, height: 1080)
+        // Right edge near safe margin — same as the snap-to-safe-margin test
+        let transform = Transform2D(positionX: 0.302, positionY: 0, scaleX: 0.35, scaleY: 0.35)
+        let result = OverlayGeometry.snapped(transform, canvasSize: canvas, snapsToSafeMargins: true)
+        #expect(result.verticalGuide != nil, "Guide position should be provided when snapping occurs")
+    }
+
     @Test("Display frame for pip clip uses transform position and scale")
     func displayFrameUsesTransform() {
         var clip = Clip(
