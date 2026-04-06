@@ -42,4 +42,9 @@ final class AVPlayerNSView: NSView {
         playerLayer.frame = bounds
         CATransaction.commit()
     }
+
+    /// Let mouse events pass through to SwiftUI overlays above this view.
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        nil
+    }
 }

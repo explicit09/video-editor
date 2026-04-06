@@ -60,7 +60,7 @@ public enum OverlayGeometry {
 
         return Transform2D(
             positionX: transform.positionX + normalizedDX,
-            positionY: transform.positionY + normalizedDY,
+            positionY: transform.positionY - normalizedDY,
             scaleX: transform.scaleX,
             scaleY: transform.scaleY,
             rotation: transform.rotation,

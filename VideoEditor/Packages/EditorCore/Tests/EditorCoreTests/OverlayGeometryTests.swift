@@ -46,7 +46,7 @@ struct OverlayGeometryTests {
         let canvas = CGSize(width: 1920, height: 1080)
         let updated = OverlayGeometry.transformByTranslating(initial, delta: CGSize(width: 120, height: -60), canvasSize: canvas)
         #expect(updated.positionX > initial.positionX)
-        #expect(updated.positionY < initial.positionY)
+        #expect(updated.positionY > initial.positionY)
     }
 
     @Test("Translation delta is normalized to canvas")
@@ -56,7 +56,7 @@ struct OverlayGeometryTests {
         let updated = OverlayGeometry.transformByTranslating(initial, delta: CGSize(width: 1920, height: 1080), canvasSize: canvas)
         // Moving the full canvas width should produce +1.0 normalized X
         #expect(abs(updated.positionX - 1.0) < 0.001)
-        #expect(abs(updated.positionY - 1.0) < 0.001)
+        #expect(abs(updated.positionY - (-1.0)) < 0.001)
     }
 
     @Test("Scaling changes scaleX and scaleY proportionally")

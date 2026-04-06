@@ -674,7 +674,12 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
             )
 
             if resolvedTransform != .identity {
-                layerImage = Self.applyTransform(resolvedTransform, to: layerImage, renderSize: renderSize)
+                // Overlay layers use normalized position (-0.5…0.5 of canvas).
+                // Convert to pixel offsets before the shared applyTransform path.
+                var pixelTransform = resolvedTransform
+                pixelTransform.positionX = resolvedTransform.positionX * Double(renderSize.width)
+                pixelTransform.positionY = resolvedTransform.positionY * Double(renderSize.height)
+                layerImage = Self.applyTransform(pixelTransform, to: layerImage, renderSize: renderSize)
             }
 
             layerImage = Self.applyOverlayPresentation(layer.presentation, to: layerImage, renderSize: renderSize)
