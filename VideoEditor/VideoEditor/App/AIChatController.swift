@@ -377,6 +377,12 @@ final class AIChatController {
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
 
+            // Playback & undo tools — need AppState directly
+            if let playbackResult = await handlePlaybackTool(name: toolCall.name, args: args, appState: appState) {
+                let isError = playbackResult.hasPrefix("Error:")
+                return .init(toolName: toolCall.name, success: !isError, message: playbackResult)
+            }
+
             // All other tools — route through MCPServer (single source of truth)
             // This gives the in-app agent access to ALL 90+ tools without duplicating logic
             processingStatus = "Executing \(toolCall.name)..."
@@ -502,6 +508,79 @@ final class AIChatController {
 
         default:
             return nil // Not an analysis tool
+        }
+    }
+
+    // MARK: - Playback & undo tools
+
+    @MainActor
+    private func handlePlaybackTool(name: String, args: [String: Any], appState: AppState) async -> String? {
+        switch name {
+        case "undo":
+            guard appState.commandHistory.canUndo else { return "Nothing to undo." }
+            do {
+                try appState.undo()
+                return "Undone. Timeline now has \(appState.timeline.tracks.flatMap(\.clips).count) clip(s)."
+            } catch {
+                return "Undo failed: \(error.localizedDescription)"
+            }
+
+        case "redo":
+            guard appState.commandHistory.canRedo else { return "Nothing to redo." }
+            do {
+                try appState.redo()
+                return "Redone. Timeline now has \(appState.timeline.tracks.flatMap(\.clips).count) clip(s)."
+            } catch {
+                return "Redo failed: \(error.localizedDescription)"
+            }
+
+        case "play_pause":
+            let action = (args["action"] as? String) ?? "toggle"
+            switch action {
+            case "play":
+                if !appState.playbackEngine.isPlaying { appState.playbackEngine.togglePlayPause() }
+            case "pause":
+                if appState.playbackEngine.isPlaying { appState.playbackEngine.togglePlayPause() }
+            default:
+                appState.playbackEngine.togglePlayPause()
+            }
+            let state = appState.playbackEngine.isPlaying ? "playing" : "paused"
+            return "Playback \(state) at \(String(format: "%.1f", appState.playbackEngine.currentTime))s."
+
+        case "seek":
+            let time: Double
+            if let t = args["time"] as? Double {
+                time = t
+            } else if let s = args["time"] as? String {
+                switch s.lowercased() {
+                case "start": time = 0
+                case "end": time = appState.timeline.duration
+                default:
+                    if let t = Double(s) { time = t }
+                    else { return "Error: Invalid time value '\(s)'. Use a number or 'start'/'end'." }
+                }
+            } else {
+                return "Error: Missing time parameter."
+            }
+            appState.playbackEngine.seek(to: time)
+            return "Playhead at \(String(format: "%.1f", time))s."
+
+        case "toggle_loop":
+            let enabled = (args["enabled"] as? Bool) ?? !appState.playbackEngine.loopEnabled
+            appState.playbackEngine.loopEnabled = enabled
+            return "Loop \(enabled ? "enabled" : "disabled")."
+
+        case "get_action_log":
+            let limit = (args["limit"] as? Int) ?? 20
+            let events = await appState.context.actionLog.recentActions(count: limit)
+            if events.isEmpty { return "No actions recorded yet." }
+            let lines = events.map { event in
+                "\(event.timestamp) | \(event.source.rawValue) | \(event.commandName)"
+            }
+            return "Recent actions (\(events.count)):\n" + lines.joined(separator: "\n")
+
+        default:
+            return nil
         }
     }
 
@@ -797,6 +876,16 @@ final class AIChatController {
                 return "Moved clip to \(String(format: "%.1f", clip.timelineRange.start))s-\(String(format: "%.1f", clip.timelineRange.end))s."
             }
             return "Done"
+
+        case "undo":
+            return "Undone last action. Timeline has \(timeline.tracks.flatMap(\.clips).count) clip(s)."
+        case "redo":
+            return "Redone. Timeline has \(timeline.tracks.flatMap(\.clips).count) clip(s)."
+        case "seek":
+            let time = args["time"] as? Double ?? 0
+            return "Playhead at \(String(format: "%.1f", time))s."
+        case "batch":
+            return "Executed batch operation."
 
         default:
             return "Done"
