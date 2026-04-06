@@ -76,6 +76,13 @@ public struct AIToolRegistry: Sendable {
         reorderTrack,
         linkClips,
         batch,
+        // AppState tools (handled by AIChatController/MCPServer, not AIToolResolver)
+        undo,
+        redo,
+        playPause,
+        seek,
+        toggleLoop,
+        getActionLog,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -748,6 +755,52 @@ public struct AIToolRegistry: Sendable {
             "operations": .init(type: "string", description: "JSON array of {\"tool\": \"tool_name\", \"args\": {...}} objects"),
         ], required: ["operations"])
     )
+
+    // MARK: - AppState tools (handled by AIChatController/MCPServer, not AIToolResolver)
+
+    public static let undo = AIToolDefinition(
+        name: "undo",
+        description: "Undo the last editing action. Returns what was undone.",
+        parameters: .object([:])
+    )
+
+    public static let redo = AIToolDefinition(
+        name: "redo",
+        description: "Redo the last undone editing action. Returns what was redone.",
+        parameters: .object([:])
+    )
+
+    public static let playPause = AIToolDefinition(
+        name: "play_pause",
+        description: "Control timeline playback. Returns current playback state.",
+        parameters: .object([
+            "action": .init(type: "string", description: "'play', 'pause', or 'toggle' (default 'toggle')", enumValues: ["play", "pause", "toggle"]),
+        ])
+    )
+
+    public static let seek = AIToolDefinition(
+        name: "seek",
+        description: "Move the playhead to a specific time. Accepts seconds as a number, or 'start'/'end' as aliases.",
+        parameters: .object([
+            "time": .init(type: "string", description: "Time in seconds (number) or 'start'/'end'"),
+        ], required: ["time"])
+    )
+
+    public static let toggleLoop = AIToolDefinition(
+        name: "toggle_loop",
+        description: "Enable or disable playback looping.",
+        parameters: .object([
+            "enabled": .init(type: "boolean", description: "true to enable loop, false to disable"),
+        ], required: ["enabled"])
+    )
+
+    public static let getActionLog = AIToolDefinition(
+        name: "get_action_log",
+        description: "Get recent editing actions for debugging or review. Returns timestamp, action name, source (ai/user), and affected IDs.",
+        parameters: .object([
+            "limit": .init(type: "number", description: "Max entries to return (default 20)"),
+        ])
+    )
 }
 
 // MARK: - AIToolDefinition (JSON Schema compatible)
@@ -1249,6 +1302,10 @@ public struct AIToolResolver: Sendable {
                 allIntents.append(contentsOf: intents)
             }
             return [.batch(allIntents)]
+
+        // AppState tools — handled upstream in AIChatController/MCPServer, not via intents
+        case "undo", "redo", "play_pause", "seek", "toggle_loop", "get_action_log":
+            return []
 
         default:
             throw AIToolError.unknownTool(toolName)

@@ -246,6 +246,17 @@ struct AIServicesTests {
     }
 
     @MainActor
+    @Test("AppState tools resolve to empty intents (handled upstream)")
+    func appStateToolResolution() throws {
+        let resolver = AIToolResolver()
+
+        for toolName in ["undo", "redo", "play_pause", "seek", "toggle_loop", "get_action_log"] {
+            let intents = try resolver.resolve(toolName: toolName, arguments: [:])
+            #expect(intents.isEmpty, "'\(toolName)' should resolve to empty intents (handled upstream)")
+        }
+    }
+
+    @MainActor
     @Test("Overlay presentation tools resolve correctly")
     func overlayPresentationToolResolution() throws {
         let resolver = AIToolResolver()
