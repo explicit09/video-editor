@@ -49,11 +49,19 @@ final class AIChatController {
 
     func configure(provider: any AIProvider) {
         self.provider = provider
+        updateProviderSkillCatalog()
     }
 
     /// Load editing skills from the project's .claude/skills/ directory.
     func loadSkills(from skillsDir: URL) {
         skillRegistry.loadSkills(from: skillsDir)
+        updateProviderSkillCatalog()
+    }
+
+    private func updateProviderSkillCatalog() {
+        if let claude = provider as? ClaudeProvider {
+            claude.skillCatalog = skillRegistry.skillCatalog()
+        }
     }
 
     func send(message: String, appState: AppState) async {
@@ -188,22 +196,7 @@ final class AIChatController {
                 : allAvailableTools.filter { routing.toolSubset.contains($0.name) }
             var currentModel: String? = routing.tier.rawValue
 
-            // Skill matching: check if user's message activates a skill
-            var skillPrompt: String? = nil
-            if let skill = skillRegistry.match(message) {
-                activeSkill = skill.name
-                skillPrompt = skill.content
-                // Override tools to the skill's recommended set if specified
-                if !skill.tools.isEmpty {
-                    selectedTools = allAvailableTools.filter { skill.tools.contains($0.name) }
-                }
-                // Skills always use standard model (complex workflows)
-                if skill.model == "standard" {
-                    currentModel = IntentRouter.ModelTier.standard.rawValue
-                }
-            } else {
-                activeSkill = nil
-            }
+            activeSkill = nil
 
             // Multi-turn loop: send → get response → if tools, execute and send results back → repeat
             var allToolResults: [ChatMessage.ToolResult] = []
@@ -217,8 +210,7 @@ final class AIChatController {
                 let response = try await provider.complete(
                     messages: conversation,
                     tools: selectedTools,
-                    modelOverride: currentModel,
-                    additionalSystemPrompt: turn == 0 ? skillPrompt : nil  // Only inject skill on first turn
+                    modelOverride: currentModel
                 )
 
                 if !response.content.isEmpty {
@@ -260,9 +252,10 @@ final class AIChatController {
             }
 
             processingStatus = nil
-            let responseContent = finalText.isEmpty && !allToolResults.isEmpty
+            let cleanedText = Self.stripLeakedToolXML(finalText)
+            let responseContent = cleanedText.isEmpty && !allToolResults.isEmpty
                 ? "Executed \(allToolResults.count) editing operation(s)."
-                : finalText
+                : cleanedText
             messages.append(ChatMessage(role: .assistant, content: responseContent, toolResults: allToolResults))
 
         } catch {
@@ -375,6 +368,24 @@ final class AIChatController {
                 processingStatus = "Normalizing audio..."
                 let result = try handleNormalizeAudio(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
+            }
+
+            // Skill activation — look up and return skill content
+            if toolCall.name == "activate_skill" {
+                let skillName = args["name"] as? String ?? ""
+                if let skill = skillRegistry.skill(named: skillName) {
+                    activeSkill = skill.name
+                    var result = "Skill activated: \(skill.name)\n\n"
+                    if !skill.tools.isEmpty {
+                        result += "Recommended tools for this workflow: \(skill.tools.joined(separator: ", "))\n"
+                        result += "(Additional tools beyond this list are available if needed.)\n\n"
+                    }
+                    result += "---\n\(skill.content)"
+                    return .init(toolName: toolCall.name, success: true, message: result)
+                } else {
+                    let available = skillRegistry.availableSkills.joined(separator: ", ")
+                    return .init(toolName: toolCall.name, success: false, message: "Unknown skill '\(skillName)'. Available skills: \(available)")
+                }
             }
 
             // Playback & undo tools — need AppState directly
@@ -922,6 +933,20 @@ final class AIChatController {
         }
 
         return args
+    }
+
+    /// Strip XML tool-call syntax that the model sometimes leaks into its text response.
+    private static func stripLeakedToolXML(_ text: String) -> String {
+        var result = text
+        // Remove <function_calls>...</function_calls> blocks (multiline)
+        if let regex = try? NSRegularExpression(pattern: "<function_calls>.*?</function_calls>", options: .dotMatchesLineSeparators) {
+            result = regex.stringByReplacingMatches(in: result, range: NSRange(result.startIndex..., in: result), withTemplate: "")
+        }
+        // Remove orphaned tags
+        if let regex = try? NSRegularExpression(pattern: "</?(?:function_calls|invoke|antml:[a-z_]+)[^>]*>") {
+            result = regex.stringByReplacingMatches(in: result, range: NSRange(result.startIndex..., in: result), withTemplate: "")
+        }
+        return result.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private func inferTrackType(args: [String: Any], assets: [MediaAsset]) -> TrackType {
