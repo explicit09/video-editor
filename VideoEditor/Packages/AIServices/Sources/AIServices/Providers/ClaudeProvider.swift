@@ -9,6 +9,10 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
     private let baseURL: URL
     private let session: URLSession
 
+    /// Skill catalog text to include in the system prompt.
+    /// Set by the app layer after loading skills from disk.
+    public var skillCatalog: String = ""
+
     public init(
         apiKey: String,
         model: String = "claude-sonnet-4-6",
@@ -96,8 +100,8 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
 
         // System prompt as cacheable content block
         var fullSystemPrompt = systemPrompt
-        if let skillPrompt = additionalSystemPrompt, !skillPrompt.isEmpty {
-            fullSystemPrompt += "\n\n<skill>\n\(skillPrompt)\n</skill>"
+        if let additional = additionalSystemPrompt, !additional.isEmpty {
+            fullSystemPrompt += "\n\n\(additional)"
         }
         let systemContent: [[String: Any]] = [
             [
@@ -141,7 +145,7 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
     // MARK: - System prompt
 
     private var systemPrompt: String {
-        """
+        var prompt = """
         <role>
         You are an AI editing copilot inside a native video editor. You execute real-time \
         editing operations using tools. The user sees results instantly.
@@ -178,6 +182,10 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         - Use analyze_transcript to understand content structure of long recordings.
         </context_guide>
         """
+        if !skillCatalog.isEmpty {
+            prompt += "\n\n\(skillCatalog)"
+        }
+        return prompt
     }
 
     // MARK: - Convert to Claude API format
