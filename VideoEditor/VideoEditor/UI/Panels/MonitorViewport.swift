@@ -39,6 +39,7 @@ struct MonitorViewport<OverlayContent: View>: View {
             overlayContent
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .coordinateSpace(name: "monitorViewport")
         .clipped()
     }
 }

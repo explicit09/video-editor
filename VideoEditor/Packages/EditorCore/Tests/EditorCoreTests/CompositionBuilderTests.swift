@@ -320,4 +320,66 @@ struct CompositionBuilderTests {
         let frame = try generator.copyCGImage(at: CMTime(seconds: 0.5, preferredTimescale: 600), actualTime: nil)
         #expect(meanLuminance(of: frame) > 220, "Expected cropped render to favor the bright half")
     }
+
+    @Test("Overlay instructions keep higher tracks above lower tracks and preserve clip presentation")
+    func overlayInstructionOrdersHigherTracksAboveLowerTracks() async throws {
+        let sourceURL = try await writeSplitVideo()
+        defer { try? FileManager.default.removeItem(at: sourceURL) }
+
+        let baseAssetID = UUID()
+        let overlayAssetID = UUID()
+        let baseClip = Clip(
+            assetID: baseAssetID,
+            timelineRange: TimeRange(start: 0, duration: 1),
+            sourceRange: TimeRange(start: 0, duration: 1),
+            overlayPresentation: .default
+        )
+        let overlayPresentation = OverlayPresentation(
+            mode: .pip,
+            border: .init(isVisible: true, width: 4, colorHex: "#FFFFFF"),
+            shadow: .medium,
+            cornerRadius: 18,
+            maskShape: .roundedRect,
+            snapsToSafeMargins: true,
+            entranceAnimation: .scaleIn,
+            exitAnimation: .fadeOut
+        )
+        let overlayClip = Clip(
+            assetID: overlayAssetID,
+            timelineRange: TimeRange(start: 0, duration: 1),
+            sourceRange: TimeRange(start: 0, duration: 1),
+            transform: .init(scaleX: 0.5, scaleY: 0.5),
+            overlayPresentation: overlayPresentation
+        )
+        let timeline = Timeline(tracks: [
+            Track(name: "Video 1", type: .video, clips: [baseClip]),
+            Track(name: "Video 2", type: .video, clips: [overlayClip]),
+        ])
+        let assets = [
+            MediaAsset(
+                id: baseAssetID,
+                name: "Base",
+                sourceURL: sourceURL,
+                type: .video,
+                duration: 1,
+                width: 64,
+                height: 64
+            ),
+            MediaAsset(
+                id: overlayAssetID,
+                name: "Overlay",
+                sourceURL: sourceURL,
+                type: .video,
+                duration: 1,
+                width: 64,
+                height: 64
+            ),
+        ]
+
+        let result = await CompositionBuilder().build(from: timeline, assets: assets, urlMode: .preview)
+        let instruction = try #require(result.videoComposition?.instructions.first as? OverlayInstruction)
+
+        #expect(instruction.layers.map(\.trackOrder) == [0, 1])
+        #expect(instruction.layers.map(\.presentation) == [baseClip.overlayPresentation, overlayPresentation])
+    }
 }

@@ -1,0 +1,144 @@
+import Testing
+import Foundation
+import AVFoundation
+import CoreImage
+import CoreGraphics
+@testable import EditorCore
+
+@Suite("Effect Compositor Tests")
+struct EffectCompositorTests {
+    private let ciContext = CIContext(options: [.useSoftwareRenderer: true])
+
+    private func makeSolidImage(color: CIColor, size: CGSize) -> CIImage {
+        CIImage(color: color).cropped(to: CGRect(origin: .zero, size: size))
+    }
+
+    private func rgbaAt(_ point: CGPoint, in image: CIImage) -> (r: UInt8, g: UInt8, b: UInt8, a: UInt8) {
+        var pixel = [UInt8](repeating: 0, count: 4)
+        let bounds = CGRect(x: point.x, y: point.y, width: 1, height: 1)
+        ciContext.render(
+            image.cropped(to: bounds),
+            toBitmap: &pixel,
+            rowBytes: 4,
+            bounds: bounds,
+            format: .RGBA8,
+            colorSpace: CGColorSpaceCreateDeviceRGB()
+        )
+        return (pixel[0], pixel[1], pixel[2], pixel[3])
+    }
+
+    @Test("Overlay layers are processed in stable track order")
+    func orderedOverlayLayersSortsByTrackOrder() {
+        let instruction = OverlayInstruction(
+            timeRange: CMTimeRange(start: .zero, duration: CMTime(seconds: 1, preferredTimescale: 600)),
+            layers: [
+                OverlayLayer(trackID: 3, trackOrder: 2),
+                OverlayLayer(trackID: 1, trackOrder: 0),
+                OverlayLayer(trackID: 2, trackOrder: 1),
+            ]
+        )
+
+        #expect(EffectCompositor.orderedOverlayLayers(for: instruction).map(\.trackOrder) == [0, 1, 2])
+    }
+
+    // MARK: - Animation Opacity Tests
+
+    @Test("Fade in preset reduces opacity at clip start")
+    func fadeInPresetReducesOpacityAtClipStart() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .fadeIn,
+            exit: .none,
+            compositionTime: 0.05,
+            clipDuration: 5
+        )
+        #expect(value < 1)
+        #expect(value > 0)
+    }
+
+    @Test("Fade in reaches full opacity after animation duration")
+    func fadeInReachesFullOpacityAfterDuration() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .fadeIn,
+            exit: .none,
+            compositionTime: 1.0,
+            clipDuration: 5
+        )
+        #expect(value == 1.0)
+    }
+
+    @Test("Fade out reduces opacity near clip end")
+    func fadeOutReducesOpacityNearClipEnd() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .none,
+            exit: .fadeOut,
+            compositionTime: 4.9,
+            clipDuration: 5
+        )
+        #expect(value < 1)
+        #expect(value > 0)
+    }
+
+    @Test("No animation returns base opacity")
+    func noAnimationReturnsBaseOpacity() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 0.8,
+            entrance: .none,
+            exit: .none,
+            compositionTime: 2.5,
+            clipDuration: 5
+        )
+        #expect(value == 0.8)
+    }
+
+    @Test("Scale in preset also fades opacity")
+    func scaleInPresetAlsoFadesOpacity() {
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .scaleIn,
+            exit: .none,
+            compositionTime: 0.1,
+            clipDuration: 5
+        )
+        #expect(value < 1)
+    }
+
+    @Test("Both entrance and exit can apply simultaneously on short clips")
+    func bothEntranceAndExitOnShortClip() {
+        // Clip duration shorter than 2x animation duration — both could overlap
+        let value = EffectCompositor.presentationOpacity(
+            baseOpacity: 1,
+            entrance: .fadeIn,
+            exit: .fadeOut,
+            compositionTime: 0.2,
+            clipDuration: 0.5
+        )
+        #expect(value < 1)
+        #expect(value >= 0)
+    }
+
+    @Test("PiP presentation applies rounded masking to overlay layers")
+    func applyOverlayPresentationMasksRoundedPiPLayers() {
+        let image = makeSolidImage(color: .red, size: CGSize(width: 10, height: 10))
+        let presentation = OverlayPresentation(
+            mode: .pip,
+            border: .hidden,
+            shadow: .none,
+            cornerRadius: 4,
+            maskShape: .roundedRect,
+            snapsToSafeMargins: true,
+            entranceAnimation: .none,
+            exitAnimation: .none
+        )
+
+        let rendered = EffectCompositor.applyOverlayPresentation(presentation, to: image, renderSize: CGSize(width: 10, height: 10))
+
+        let corner = rgbaAt(CGPoint(x: 0, y: 0), in: rendered)
+        let center = rgbaAt(CGPoint(x: 5, y: 5), in: rendered)
+
+        #expect(corner.a == 0)
+        #expect(center.a == 255)
+    }
+}

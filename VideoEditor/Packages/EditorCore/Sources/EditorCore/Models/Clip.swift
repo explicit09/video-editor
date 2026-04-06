@@ -22,6 +22,8 @@ public struct Clip: Codable, Identifiable, Sendable {
     public var linkGroupID: UUID?
     /// Compositing blend mode for this clip.
     public var blendMode: BlendMode
+    /// Clip-owned overlay presentation state used for PiP and similar layouts.
+    public var overlayPresentation: OverlayPresentation
 
     public init(
         id: UUID = UUID(),
@@ -38,7 +40,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         speed: Double = 1.0,
         transitionIn: ClipTransition = .none,
         linkGroupID: UUID? = nil,
-        blendMode: BlendMode = .normal
+        blendMode: BlendMode = .normal,
+        overlayPresentation: OverlayPresentation = .default
     ) {
         self.id = id
         self.assetID = assetID
@@ -55,6 +58,46 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.transitionIn = transitionIn
         self.linkGroupID = linkGroupID
         self.blendMode = blendMode
+        self.overlayPresentation = overlayPresentation
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case assetID
+        case timelineRange
+        case sourceRange
+        case transform
+        case cropRect
+        case opacity
+        case volume
+        case effects
+        case keyframes
+        case metadata
+        case speed
+        case transitionIn
+        case linkGroupID
+        case blendMode
+        case overlayPresentation
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(UUID.self, forKey: .id)
+        self.assetID = try container.decode(UUID.self, forKey: .assetID)
+        self.timelineRange = try container.decode(TimeRange.self, forKey: .timelineRange)
+        self.sourceRange = try container.decode(TimeRange.self, forKey: .sourceRange)
+        self.transform = try container.decode(Transform2D.self, forKey: .transform)
+        self.cropRect = try container.decode(CropRect.self, forKey: .cropRect).clamped
+        self.opacity = min(max(try container.decode(Double.self, forKey: .opacity), 0), 1)
+        self.volume = max(try container.decode(Double.self, forKey: .volume), 0)
+        self.effects = try container.decode([EffectInstance].self, forKey: .effects)
+        self.keyframes = try container.decode(KeyframeStore.self, forKey: .keyframes)
+        self.metadata = try container.decode(ClipMetadata.self, forKey: .metadata)
+        self.speed = max(try container.decode(Double.self, forKey: .speed), 0.1)
+        self.transitionIn = try container.decode(ClipTransition.self, forKey: .transitionIn)
+        self.linkGroupID = try container.decodeIfPresent(UUID.self, forKey: .linkGroupID)
+        self.blendMode = try container.decode(BlendMode.self, forKey: .blendMode)
+        self.overlayPresentation = try container.decodeIfPresent(OverlayPresentation.self, forKey: .overlayPresentation) ?? .default
     }
 }
 

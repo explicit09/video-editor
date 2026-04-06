@@ -629,6 +629,18 @@ struct InspectorPanel: View {
             }
 
             if track?.type != .audio {
+                OverlayPresentationSection(
+                    clip: currentClip,
+                    applyPreset: { preset in
+                        try? appState.perform(.applyClipPiPPreset(clipID: clip.id, preset: preset))
+                    },
+                    updatePresentation: { presentation in
+                        try? appState.perform(.setClipOverlayPresentation(clipID: clip.id, presentation: presentation))
+                    }
+                )
+            }
+
+            if track?.type != .audio {
                 CinematicCard {
                     VStack(alignment: .leading, spacing: CinematicSpacing.md) {
                         Text("Crop")

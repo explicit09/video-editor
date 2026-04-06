@@ -658,11 +658,9 @@ public struct CompositionBuilder {
         backgroundColor: CIColor = .black
     ) -> [any AVVideoCompositionInstructionProtocol] {
         let ts: CMTimeScale = 600
-
-        // Build track order: lower index in timeline.tracks = bottom layer
-        let trackOrder: [UUID] = timeline.tracks
-            .filter { $0.type != .audio }
-            .map(\.id)
+        let trackOrderByID: [UUID: Int] = Dictionary(
+            uniqueKeysWithValues: timeline.tracks.enumerated().map { ($1.id, $0) }
+        )
 
         // Collect all time boundaries from every video entry
         var boundarySet: Set<Int64> = [0, totalDuration.value * Int64(ts) / Int64(totalDuration.timescale)]
@@ -697,8 +695,8 @@ public struct CompositionBuilder {
                 let entryEnd = CMTimeMinimum(entry.effectiveTimeRange.end, totalDuration)
                 return CMTimeCompare(entryStart, clampedEnd) < 0 && CMTimeCompare(entryEnd, sliceStart) > 0
             }.sorted { a, b in
-                let aIdx = trackOrder.firstIndex(of: a.track.id) ?? 0
-                let bIdx = trackOrder.firstIndex(of: b.track.id) ?? 0
+                let aIdx = trackOrderByID[a.track.id] ?? 0
+                let bIdx = trackOrderByID[b.track.id] ?? 0
                 return aIdx < bIdx  // lower index = bottom layer
             }
 
@@ -741,15 +739,18 @@ public struct CompositionBuilder {
                 let layers = activeEntries.map { entry in
                     OverlayLayer(
                         trackID: entry.compositionTrack.trackID,
+                        trackOrder: trackOrderByID[entry.track.id] ?? 0,
                         opacity: Float(entry.clip.opacity * entry.track.opacity),
                         transform: entry.clip.transform,
                         cropRect: entry.clip.cropRect,
                         blendMode: entry.clip.blendMode,
                         effects: entry.clip.effects,
                         keyframes: entry.clip.keyframes,
-                        clipStartTime: entry.clip.timelineRange.start
+                        clipStartTime: entry.clip.timelineRange.start,
+                        clipDuration: entry.clip.timelineRange.duration,
+                        presentation: entry.clip.overlayPresentation
                     )
-                }
+                }.sorted { $0.trackOrder < $1.trackOrder }
                 // Merge caption words from all active entries
                 let allCaptions = activeEntries.flatMap { captionWordsByClipID[$0.clip.id] ?? [] }
                 let instruction = OverlayInstruction(

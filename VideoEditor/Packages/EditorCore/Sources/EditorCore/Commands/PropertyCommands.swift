@@ -106,6 +106,64 @@ public struct SetClipCropCommand: Command {
     }
 }
 
+/// Change a clip's overlay presentation state.
+public struct SetClipOverlayPresentationCommand: Command {
+    public let name = "Set Clip Overlay Presentation"
+    public let clipID: UUID
+    public let presentation: OverlayPresentation
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousPresentation: OverlayPresentation?
+
+    public init(clipID: UUID, presentation: OverlayPresentation) {
+        self.clipID = clipID
+        self.presentation = presentation
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            previousPresentation = clip.overlayPresentation
+            clip.overlayPresentation = presentation
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let previousPresentation else { return }
+        try modifyClip(id: clipID, context: context) { $0.overlayPresentation = previousPresentation }
+    }
+}
+
+/// Apply a simple clip-owned PiP preset.
+public struct ApplyClipPiPPresetCommand: Command {
+    public let name = "Apply Clip PiP Preset"
+    public let clipID: UUID
+    public let preset: OverlayPiPPreset
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousPresentation: OverlayPresentation?
+    private var previousTransform: Transform2D?
+
+    public init(clipID: UUID, preset: OverlayPiPPreset) {
+        self.clipID = clipID
+        self.preset = preset
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            previousPresentation = clip.overlayPresentation
+            previousTransform = clip.transform
+            clip.overlayPresentation = pipPresentation(for: preset)
+            clip.transform = pipTransform(for: preset)
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let previousPresentation, let previousTransform else { return }
+        try modifyClip(id: clipID, context: context) { clip in
+            clip.overlayPresentation = previousPresentation
+            clip.transform = previousTransform
+        }
+    }
+}
+
 /// Set track audio effect chain (EQ, compression, noise gate).
 public struct SetTrackAudioEffectsCommand: Command {
     public let name = "Set Track Audio Effects"
@@ -327,7 +385,8 @@ public struct DuplicateClipCommand: Command {
             speed: original.speed,
             transitionIn: original.transitionIn,
             linkGroupID: original.linkGroupID,
-            blendMode: original.blendMode
+            blendMode: original.blendMode,
+            overlayPresentation: original.overlayPresentation
         )
         let insertionIndex = MoveClipCommand.insertionIndex(
             for: duplicate,
@@ -743,6 +802,36 @@ private func modifyTrack(id: UUID, context: EditingContext, _ body: (inout Track
         throw CommandError.trackNotFound(id)
     }
     body(&context.timelineState.timeline.tracks[index])
+}
+
+private func pipPresentation(for preset: OverlayPiPPreset) -> OverlayPresentation {
+    switch preset {
+    case .topLeft, .topRight, .bottomLeft, .bottomRight:
+        return OverlayPresentation(
+            mode: .pip,
+            border: .init(isVisible: true, width: 4, colorHex: "#FFFFFF"),
+            shadow: .medium,
+            cornerRadius: 16,
+            maskShape: .roundedRect,
+            snapsToSafeMargins: true,
+            entranceAnimation: .scaleIn,
+            exitAnimation: .fadeOut
+        )
+    }
+}
+
+private func pipTransform(for preset: OverlayPiPPreset) -> Transform2D {
+    let scale = 0.35
+    switch preset {
+    case .topLeft:
+        return Transform2D(positionX: -0.45, positionY: 0.45, scaleX: scale, scaleY: scale)
+    case .topRight:
+        return Transform2D(positionX: 0.45, positionY: 0.45, scaleX: scale, scaleY: scale)
+    case .bottomLeft:
+        return Transform2D(positionX: -0.45, positionY: -0.45, scaleX: scale, scaleY: scale)
+    case .bottomRight:
+        return Transform2D(positionX: 0.45, positionY: -0.45, scaleX: scale, scaleY: scale)
+    }
 }
 
 // MARK: - Broadcast Overlay

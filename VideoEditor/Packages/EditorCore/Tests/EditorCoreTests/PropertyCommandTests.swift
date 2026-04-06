@@ -54,10 +54,24 @@ struct PropertyCommandTests {
     @MainActor
     @Test("SetClipTransform via intent updates the clip and undo restores")
     func setClipTransformViaIntent() throws {
-        let clip = Clip(assetID: UUID(), timelineRange: TimeRange(start: 0, end: 5), sourceRange: TimeRange(start: 0, end: 5))
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 0, end: 5),
+            sourceRange: TimeRange(start: 0, end: 5),
+            overlayPresentation: OverlayPresentation(
+                mode: .inline,
+                border: .init(isVisible: true, width: 2, colorHex: "#00FF00"),
+                shadow: .light,
+                cornerRadius: 6,
+                maskShape: .roundedRect,
+                entranceAnimation: .fadeIn,
+                exitAnimation: .fadeOut
+            )
+        )
         let context = EditingContext(timelineState: TimelineState(timeline: Timeline(tracks: [Track(name: "V", type: .video, clips: [clip])])))
         let resolver = IntentResolver()
         let transform = Transform2D(positionX: 120, positionY: -40, scaleX: 1.25, scaleY: 0.8, rotation: 15)
+        let originalPresentation = clip.overlayPresentation
 
         var cmd = try resolver.resolve(.setClipTransform(clipID: clip.id, transform: transform))
         try cmd.execute(context: context)
@@ -65,6 +79,7 @@ struct PropertyCommandTests {
 
         try cmd.undo(context: context)
         #expect(context.timelineState.timeline.tracks[0].clips[0].transform == .identity)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].overlayPresentation == originalPresentation)
     }
 
     @MainActor
@@ -216,7 +231,16 @@ struct PropertyCommandTests {
             cropRect: CropRect(x: 0.1, y: 0.2, width: 0.7, height: 0.6),
             metadata: ClipMetadata(label: "Original"),
             linkGroupID: UUID(),
-            blendMode: .screen
+            blendMode: .screen,
+            overlayPresentation: OverlayPresentation(
+                mode: .pip,
+                border: .init(isVisible: true, width: 5, colorHex: "#FFFFFF"),
+                shadow: .medium,
+                cornerRadius: 14,
+                maskShape: .roundedRect,
+                entranceAnimation: .scaleIn,
+                exitAnimation: .fadeOut
+            )
         )
         let context = EditingContext(timelineState: TimelineState(timeline: Timeline(tracks: [Track(name: "V", type: .video, clips: [clip])])))
 
@@ -231,9 +255,39 @@ struct PropertyCommandTests {
         #expect(clips[1].cropRect == clip.cropRect)
         #expect(clips[1].linkGroupID == clip.linkGroupID)
         #expect(clips[1].blendMode == clip.blendMode)
+        #expect(clips[1].overlayPresentation == clip.overlayPresentation)
 
         try cmd.undo(context: context)
         #expect(context.timelineState.timeline.tracks[0].clips.count == 1)
+    }
+
+    @MainActor
+    @Test("SplitClip preserves overlay presentation in both halves")
+    func splitClipPreservesOverlayPresentation() throws {
+        let presentation = OverlayPresentation(
+            mode: .pip,
+            border: .init(isVisible: true, width: 4, colorHex: "#FF00FF"),
+            shadow: .heavy,
+            cornerRadius: 20,
+            maskShape: .roundedRect,
+            entranceAnimation: .scaleIn,
+            exitAnimation: .fadeOut
+        )
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: TimeRange(start: 0, end: 6),
+            sourceRange: TimeRange(start: 0, end: 6),
+            overlayPresentation: presentation
+        )
+        let context = EditingContext(timelineState: TimelineState(timeline: Timeline(tracks: [Track(name: "V", type: .video, clips: [clip])])))
+
+        var cmd = try IntentResolver().resolve(.splitClip(clipID: clip.id, at: 3))
+        try cmd.execute(context: context)
+
+        let clips = context.timelineState.timeline.tracks[0].clips
+        #expect(clips.count == 2)
+        #expect(clips[0].overlayPresentation == presentation)
+        #expect(clips[1].overlayPresentation == presentation)
     }
 
     @MainActor
@@ -258,6 +312,86 @@ struct PropertyCommandTests {
 
         try cmd.undo(context: context)
         #expect(context.timelineState.timeline.tracks[0].clips[0].cropRect == .fullFrame)
+    }
+
+    @MainActor
+    @Test("SetClipOverlayPresentation updates the clip presentation")
+    func setClipOverlayPresentation() throws {
+        let initialPresentation = OverlayPresentation(
+            mode: .inline,
+            border: .init(isVisible: false, width: 0, colorHex: "#000000"),
+            shadow: .light,
+            cornerRadius: 4,
+            maskShape: .rectangle,
+            entranceAnimation: .fadeIn,
+            exitAnimation: .fadeOut
+        )
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: .init(start: 0, duration: 5),
+            sourceRange: .init(start: 0, duration: 5),
+            overlayPresentation: initialPresentation
+        )
+        let track = Track(name: "Video 1", type: .video, clips: [clip])
+        let context = EditingContext(timelineState: .init(timeline: .init(tracks: [track])))
+        let resolver = IntentResolver()
+
+        let presentation = OverlayPresentation(
+            mode: .pip,
+            border: .init(isVisible: true, width: 6, colorHex: "#FFFFFF"),
+            shadow: .medium,
+            cornerRadius: 18,
+            maskShape: .roundedRect,
+            entranceAnimation: .scaleIn,
+            exitAnimation: .fadeOut
+        )
+
+        var command = try resolver.resolve(.setClipOverlayPresentation(clipID: clip.id, presentation: presentation))
+        try command.execute(context: context)
+
+        #expect(context.timelineState.timeline.tracks[0].clips[0].overlayPresentation == presentation)
+
+        try command.undo(context: context)
+        #expect(context.timelineState.timeline.tracks[0].clips[0].overlayPresentation == initialPresentation)
+    }
+
+    @MainActor
+    @Test("ApplyClipPiPPreset updates transform and presentation")
+    func applyClipPiPPreset() throws {
+        let initialPresentation = OverlayPresentation(
+            mode: .inline,
+            border: .init(isVisible: true, width: 1, colorHex: "#123456"),
+            shadow: .light,
+            cornerRadius: 3,
+            maskShape: .rectangle,
+            entranceAnimation: .slideIn,
+            exitAnimation: .fadeOut
+        )
+        let initialTransform = Transform2D(positionX: -12, positionY: 8, scaleX: 1.1, scaleY: 0.9, rotation: 7)
+        let clip = Clip(
+            assetID: UUID(),
+            timelineRange: .init(start: 0, duration: 5),
+            sourceRange: .init(start: 0, duration: 5),
+            transform: initialTransform,
+            overlayPresentation: initialPresentation
+        )
+        let track = Track(name: "Video 2", type: .video, clips: [clip])
+        let context = EditingContext(timelineState: .init(timeline: .init(tracks: [track])))
+        let resolver = IntentResolver()
+
+        var command = try resolver.resolve(.applyClipPiPPreset(clipID: clip.id, preset: .bottomRight))
+        try command.execute(context: context)
+
+        let updated = context.timelineState.timeline.tracks[0].clips[0]
+        #expect(updated.overlayPresentation.mode == .pip)
+        #expect(updated.transform.scaleX < 1.0)
+        #expect(updated.transform.positionX > 0)
+        #expect(updated.transform.positionY < 0)
+
+        try command.undo(context: context)
+        let restored = context.timelineState.timeline.tracks[0].clips[0]
+        #expect(restored.overlayPresentation == initialPresentation)
+        #expect(restored.transform == initialTransform)
     }
 
     @MainActor

@@ -30,7 +30,7 @@ final class AppState {
     private(set) var projectBundleURL: URL
     private(set) var mcpServer: MCPServer?
 
-    private var playbackSyncTimer: Timer?
+    private var playbackSyncTask: Task<Void, Never>?
     private var saveDebounceTask: Task<Void, Never>?
     private var hasShutdown = false
 
@@ -145,6 +145,31 @@ final class AppState {
         let server = MCPServer(appState: self)
         self.mcpServer = server
         server.start()
+    }
+
+    // MARK: - Overlay Monitor Interaction
+
+    /// The currently selected clip if it is a PiP overlay on a non-primary video track.
+    var selectedVideoOverlayClip: Clip? {
+        guard timelineViewState.selectedClipIDs.count == 1,
+              let clipID = timelineViewState.selectedClipIDs.first else { return nil }
+        for (index, track) in timeline.tracks.enumerated() {
+            guard track.type == .video, index > 0 else { continue }
+            if let clip = track.clips.first(where: { $0.id == clipID }),
+               clip.overlayPresentation.mode == .pip {
+                return clip
+            }
+        }
+        return nil
+    }
+
+    private func clipByID(_ id: UUID) -> Clip? {
+        for track in timeline.tracks {
+            if let clip = track.clips.first(where: { $0.id == id }) {
+                return clip
+            }
+        }
+        return nil
     }
 
     // MARK: - Clipboard
@@ -1099,19 +1124,12 @@ final class AppState {
             return false
         case .video:
             let url = asset.sourceURL
-            let exists = FileManager.default.fileExists(atPath: url.path)
-            print("[assetHasAudio] Checking \(url.lastPathComponent), exists=\(exists)")
-            guard exists else {
-                print("[assetHasAudio] File does not exist at \(url.path)")
-                return false
-            }
+            guard FileManager.default.fileExists(atPath: url.path) else { return false }
             let avAsset = AVURLAsset(url: url)
             do {
                 let tracks = try await avAsset.loadTracks(withMediaType: .audio)
-                print("[assetHasAudio] Found \(tracks.count) audio tracks")
                 return !tracks.isEmpty
             } catch {
-                print("[assetHasAudio] Error loading audio tracks: \(error)")
                 return false
             }
         }
@@ -1119,9 +1137,16 @@ final class AppState {
 
     private func removeAudiolessVideoClips(using assets: [MediaAsset]) async {
         let assetsByID = Dictionary(uniqueKeysWithValues: assets.map { ($0.id, $0) })
+        let candidateAssetIDs = AudiolessClipCleanupPlanner.candidateVideoAssetIDs(
+            in: context.timelineState.timeline,
+            assetsByID: assetsByID
+        )
+        guard !candidateAssetIDs.isEmpty else { return }
+
         var assetsWithNoAudio = Set<UUID>()
 
-        for asset in assets where asset.type == .video {
+        for assetID in candidateAssetIDs {
+            guard let asset = assetsByID[assetID] else { continue }
             if await !assetHasAudio(asset) {
                 assetsWithNoAudio.insert(asset.id)
             }
@@ -1143,6 +1168,7 @@ final class AppState {
 
         guard removedAny else { return }
         context.timelineState.timeline = timeline
+        rebuildComposition()
         scheduleSave()
     }
 
@@ -1441,8 +1467,8 @@ final class AppState {
         saveDebounceTask = nil
         compositionRebuildTask?.cancel()
         compositionRebuildTask = nil
-        playbackSyncTimer?.invalidate()
-        playbackSyncTimer = nil
+        playbackSyncTask?.cancel()
+        playbackSyncTask = nil
         playbackEngine.pause()
 
         media.onAnalysisComplete = nil
@@ -1515,6 +1541,8 @@ final class AppState {
         guard FileManager.default.fileExists(atPath: timelinePath.path) else { return }
 
         Task {
+            var restoredAssets: [MediaAsset] = []
+
             // Load timeline and project settings
             if let loadedTimeline = try? await projectStore.load(from: projectBundleURL) {
                 context.timelineState.timeline = loadedTimeline
@@ -1540,6 +1568,7 @@ final class AppState {
             let assetsURL = projectBundleURL.appendingPathComponent("assets.json")
             if let data = try? Data(contentsOf: assetsURL),
                let loadedAssets = try? JSONDecoder().decode([MediaAsset].self, from: data) {
+                restoredAssets = loadedAssets
                 for var asset in loadedAssets {
                     // Restore transcript from disk if not in assets.json
                     if asset.analysis?.transcript == nil || asset.analysis!.transcript!.isEmpty {
@@ -1562,8 +1591,6 @@ final class AppState {
                     }
                 }
                 await media.refreshAssets()
-                await media.mediaManager.regenerateMissingThumbnails()
-                await removeAudiolessVideoClips(using: loadedAssets)
             } else {
                 print("[AppState] No assets.json at \(assetsURL.path)")
             }
@@ -1571,6 +1598,12 @@ final class AppState {
             timelineViewState.clearSelection()
             normalizeSelection()
             rebuildComposition()
+
+            if !restoredAssets.isEmpty {
+                Task(priority: .utility) { [weak self] in
+                    await self?.removeAudiolessVideoClips(using: restoredAssets)
+                }
+            }
         }
     }
 
@@ -2009,15 +2042,39 @@ final class AppState {
     }
 
     private func startPlayheadSync() {
-        playbackSyncTimer?.invalidate()
-        playbackSyncTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true) { [weak self] _ in
-            Task { @MainActor in
+        playbackSyncTask?.cancel()
+        playbackSyncTask = Task { [weak self] in
+            while !Task.isCancelled {
                 guard let self else { return }
-                if self.playbackEngine.isPlaying {
-                    self.timelineViewState.playheadPosition = self.playbackEngine.currentTime
-                    self.timelineViewState.isPlaying = true
-                } else {
-                    self.timelineViewState.isPlaying = false
+
+                // Read playback engine values inside observation tracking so we
+                // wake up only when AVPlayer's periodic time observer pushes a
+                // new currentTime or isPlaying toggles.
+                let engineTime = self.playbackEngine.currentTime
+                let enginePlaying = self.playbackEngine.isPlaying
+
+                let current = PlayheadSyncSnapshot(
+                    playheadPosition: self.timelineViewState.playheadPosition,
+                    isPlaying: self.timelineViewState.isPlaying
+                )
+
+                if let resolved = PlayheadSyncResolver.resolve(
+                    current: current,
+                    playbackTime: engineTime,
+                    playbackIsPlaying: enginePlaying
+                ) {
+                    self.timelineViewState.playheadPosition = resolved.playheadPosition
+                    self.timelineViewState.isPlaying = resolved.isPlaying
+                }
+
+                // Yield until next observation change — no polling when paused.
+                await withCheckedContinuation { continuation in
+                    withObservationTracking {
+                        _ = self.playbackEngine.currentTime
+                        _ = self.playbackEngine.isPlaying
+                    } onChange: {
+                        continuation.resume()
+                    }
                 }
             }
         }

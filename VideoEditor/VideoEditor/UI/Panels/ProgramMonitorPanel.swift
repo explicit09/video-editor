@@ -28,6 +28,15 @@ struct ProgramMonitorPanel: View {
                     )
                     : nil
             ) {
+                if let overlayClip = appState.selectedVideoOverlayClip {
+                    OverlayMonitorControls(
+                        clip: overlayClip,
+                        onTransformUpdate: { transform in
+                            try? appState.perform(.setClipTransform(clipID: overlayClip.id, transform: transform))
+                        }
+                    )
+                }
+
                 if appState.aiChat.isProcessing {
                     VStack(spacing: UtilitySpacing.sm) {
                         ProgressView()

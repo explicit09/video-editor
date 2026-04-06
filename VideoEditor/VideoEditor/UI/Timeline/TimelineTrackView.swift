@@ -34,6 +34,7 @@ struct TimelineTrackView: View {
     var onClipDuplicate: ((UUID) -> Void)?
     var onClipLink: ((UUID) -> Void)?
     var onClipUnlink: ((UUID) -> Void)?
+    var horizontalOffset: Double = 0
     var isCollapsed: Bool = false
     var onToggleCollapse: (() -> Void)?
 
@@ -41,65 +42,149 @@ struct TimelineTrackView: View {
     @State private var dropX: Double?
     @State private var draftName = ""
 
+    /// Clips whose pixel range overlaps the visible viewport, plus a buffer.
+    private var visibleClips: [Clip] {
+        let visibleWidth = viewState.visibleWidth
+        guard track.clips.count >= 50, visibleWidth > 0, viewState.zoom > 0 else {
+            return track.clips
+        }
+
+        let viewportStart = horizontalOffset - visibleWidth // 1-screen buffer left
+        let viewportEnd = horizontalOffset + visibleWidth * 2 // 1-screen buffer right
+
+        return track.clips.filter { clip in
+            let clipEnd = viewState.durationToWidth(clip.timelineRange.end)
+            let clipStart = viewState.durationToWidth(clip.timelineRange.start)
+            return clipEnd >= viewportStart && clipStart <= viewportEnd
+        }
+    }
+
     private var isEditable: Bool {
         !track.isLocked
     }
 
+    private var interactionClipFrames: [TimelineTrackInteractionLayout.ClipFrame] {
+        visibleClips.map { clip in
+            let minX = viewState.durationToWidth(clip.timelineRange.start)
+            let maxX = minX + max(viewState.durationToWidth(clip.timelineRange.duration), 8)
+            return TimelineTrackInteractionLayout.ClipFrame(
+                id: clip.id,
+                minX: minX,
+                maxX: maxX
+            )
+        }
+    }
+
+    private var backgroundHitRects: [CGRect] {
+        TimelineTrackInteractionLayout.backgroundHitRects(
+            totalWidth: totalWidth,
+            trackHeight: trackHeight,
+            clipFrames: interactionClipFrames
+        )
+    }
+
     var body: some View {
-        clipArea
+        trackShell
         .frame(height: trackHeight)
         .clipped()
     }
 
-    private var clipArea: some View {
+    private var trackShell: some View {
         ZStack(alignment: .leading) {
-            Rectangle()
-                .fill(trackBackgroundGradient)
-                .frame(width: totalWidth, height: trackHeight)
-                .opacity(track.isLocked ? 0.94 : 1)
-                .overlay(alignment: .topLeading) {
-                    if isSelectedTrack {
-                        RoundedRectangle(cornerRadius: CinematicRadius.lg)
-                            .strokeBorder(trackAccentColor.opacity(0.34), lineWidth: 1.2)
-                            .padding(.horizontal, 3)
-                            .padding(.vertical, 2)
-                    }
-                }
-                .overlay {
-                    if isDropTargeted || viewState.effectiveTargetTrackID == track.id {
-                        RoundedRectangle(cornerRadius: CinematicRadius.lg)
-                            .stroke(trackAccentColor.opacity(0.85), style: StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
-                            .padding(2)
-                    }
-                }
-                .overlay(alignment: .leading) {
-                    if let dropX, isDropTargeted {
-                        Rectangle()
-                            .fill(trackAccentColor)
-                            .frame(width: 2, height: max(trackHeight - 14, 0))
-                            .offset(x: max(dropX - 1, 0), y: 0)
-                            .padding(.vertical, 7)
-                    }
-                }
-                .overlay(alignment: .topTrailing) {
-                    if track.isLocked {
-                        Label("Locked", systemImage: "lock.fill")
-                            .font(.cinLabelRegular)
-                            .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.8))
-                            .padding(.horizontal, 8)
-                            .frame(height: 22)
-                            .background(CinematicTheme.surfaceContainerHighest.opacity(0.9))
-                            .clipShape(Capsule())
-                            .padding(8)
-                    }
-                }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    viewState.clearSelection()
-                    onTrackTap()
-                }
+            backgroundVisualLayer
+                .allowsHitTesting(false)
 
-            ForEach(track.clips) { clip in
+            backgroundHitLayer
+
+            clipsLayer
+        }
+        .frame(width: totalWidth, height: trackHeight, alignment: .leading)
+        .dropDestination(for: TimelineAssetDragPayload.self, action: { items, location in
+            guard isEditable else { return false }
+            guard let item = items.first else { return false }
+            dropX = location.x
+            viewState.updateDragTargetTrack(track.id)
+            onAssetDrop(item.assetID, viewState.xToTime(location.x))
+            return true
+        }, isTargeted: { targeted in
+            isDropTargeted = targeted && isEditable
+            if !targeted || !isEditable {
+                dropX = nil
+                if viewState.dragTargetTrackID == track.id {
+                    viewState.updateDragTargetTrack(nil)
+                }
+            } else {
+                viewState.updateDragTargetTrack(track.id)
+            }
+        })
+    }
+
+    private var backgroundVisualLayer: some View {
+        Rectangle()
+            .fill(trackBackgroundGradient)
+            .frame(width: totalWidth, height: trackHeight)
+            .opacity(track.isLocked ? 0.94 : 1)
+            .overlay(alignment: .topLeading) {
+                if isSelectedTrack {
+                    RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                        .strokeBorder(trackAccentColor.opacity(0.34), lineWidth: 1.2)
+                        .padding(.horizontal, 3)
+                        .padding(.vertical, 2)
+                }
+            }
+            .overlay {
+                if isDropTargeted || viewState.effectiveTargetTrackID == track.id {
+                    RoundedRectangle(cornerRadius: CinematicRadius.lg)
+                        .stroke(trackAccentColor.opacity(0.85), style: StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
+                        .padding(2)
+                }
+            }
+            .overlay(alignment: .leading) {
+                if let dropX, isDropTargeted {
+                    Rectangle()
+                        .fill(trackAccentColor)
+                        .frame(width: 2, height: max(trackHeight - 14, 0))
+                        .offset(x: max(dropX - 1, 0), y: 0)
+                        .padding(.vertical, 7)
+                }
+            }
+            .overlay(alignment: .topTrailing) {
+                if track.isLocked {
+                    Label("Locked", systemImage: "lock.fill")
+                        .font(.cinLabelRegular)
+                        .foregroundStyle(CinematicTheme.onSurfaceVariant.opacity(0.8))
+                        .padding(.horizontal, 8)
+                        .frame(height: 22)
+                        .background(CinematicTheme.surfaceContainerHighest.opacity(0.9))
+                        .clipShape(Capsule())
+                        .padding(8)
+                }
+            }
+    }
+
+    private var backgroundHitLayer: some View {
+        Path { path in
+            for rect in backgroundHitRects {
+                path.addRect(rect)
+            }
+        }
+        .fill(Color.clear)
+        .contentShape(
+            Path { path in
+                for rect in backgroundHitRects {
+                    path.addRect(rect)
+                }
+            }
+        )
+        .onTapGesture {
+            viewState.clearSelection()
+            onTrackTap()
+        }
+    }
+
+    private var clipsLayer: some View {
+        ZStack(alignment: .leading) {
+            ForEach(visibleClips) { clip in
                 TimelineClipView(
                     clip: clip,
                     tool: tool,
@@ -143,24 +228,6 @@ struct TimelineTrackView: View {
                 )
             }
         }
-        .dropDestination(for: TimelineAssetDragPayload.self, action: { items, location in
-            guard isEditable else { return false }
-            guard let item = items.first else { return false }
-            dropX = location.x
-            viewState.updateDragTargetTrack(track.id)
-            onAssetDrop(item.assetID, viewState.xToTime(location.x))
-            return true
-        }, isTargeted: { targeted in
-            isDropTargeted = targeted && isEditable
-            if !targeted || !isEditable {
-                dropX = nil
-                if viewState.dragTargetTrackID == track.id {
-                    viewState.updateDragTargetTrack(nil)
-                }
-            } else {
-                viewState.updateDragTargetTrack(track.id)
-            }
-        })
     }
 
     private var trackLabel: some View {
@@ -408,10 +475,10 @@ private struct TimelineClipView: View {
             } else if tool == .selection {
                 positionedClip
                     .gesture(dragGesture)
-                    .simultaneousGesture(tapGesture)
+                    .highPriorityGesture(tapGesture)
             } else {
                 positionedClip
-                    .simultaneousGesture(tapGesture)
+                    .highPriorityGesture(tapGesture)
             }
         }
         .contextMenu {
@@ -450,6 +517,14 @@ private struct TimelineClipView: View {
         .shadow(color: shadowColor, radius: isDragging ? 12 : 8, y: isDragging ? 6 : 2)
         .overlay(alignment: .topTrailing) {
             HStack(spacing: 4) {
+                if clip.overlayPresentation.mode == .pip {
+                    Image(systemName: "pip")
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundStyle(CinematicTheme.tertiary.opacity(0.9))
+                        .padding(4)
+                        .background(CinematicTheme.surfaceContainerHighest.opacity(0.85))
+                        .clipShape(Circle())
+                }
                 if clip.linkGroupID != nil {
                     Image(systemName: "link")
                         .font(.system(size: 8, weight: .bold))
@@ -468,6 +543,7 @@ private struct TimelineClipView: View {
                 }
             }
             .padding(6)
+            .allowsHitTesting(false)
         }
         .overlay(alignment: .topLeading) {
             // Transition indicator — colored wedge at left edge
@@ -489,6 +565,7 @@ private struct TimelineClipView: View {
                         .offset(x: 3, y: 3)
                 }
                 .frame(width: 24, height: 24)
+                .allowsHitTesting(false)
             }
         }
         .overlay(alignment: .leading) {
@@ -671,6 +748,7 @@ private struct TimelineClipView: View {
             .clipShape(Capsule())
             .padding(.horizontal, 6)
             .padding(.top, 6)
+            .allowsHitTesting(false)
     }
 
     private var clipFooter: some View {
@@ -684,6 +762,7 @@ private struct TimelineClipView: View {
         .foregroundStyle(CinematicTheme.onSurface.opacity(0.82))
         .padding(.horizontal, 8)
         .padding(.bottom, 6)
+        .allowsHitTesting(false)
     }
 
     private var footerIcon: String {

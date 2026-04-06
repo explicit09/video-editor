@@ -26,6 +26,8 @@ public enum EditorIntent: Sendable {
     case setTrackVolume(trackID: UUID, volume: Double)
     case renameClip(clipID: UUID, label: String)
     case duplicateClip(clipID: UUID)
+    case setClipOverlayPresentation(clipID: UUID, presentation: OverlayPresentation)
+    case applyClipPiPPreset(clipID: UUID, preset: OverlayPiPPreset)
     case setClipTransition(clipID: UUID, transition: ClipTransition)
     case setClipSpeed(clipID: UUID, speed: Double)
     case setClipEffect(clipID: UUID, effect: EffectInstance)
@@ -95,6 +97,10 @@ public struct IntentResolver: Sendable {
             return RenameClipCommand(clipID: clipID, label: label)
         case .duplicateClip(let clipID):
             return DuplicateClipCommand(clipID: clipID)
+        case .setClipOverlayPresentation(let clipID, let presentation):
+            return SetClipOverlayPresentationCommand(clipID: clipID, presentation: presentation)
+        case .applyClipPiPPreset(let clipID, let preset):
+            return ApplyClipPiPPresetCommand(clipID: clipID, preset: preset)
         case .setClipTransition(let clipID, let transition):
             return SetClipTransitionCommand(clipID: clipID, transition: transition)
         case .setClipSpeed(let clipID, let speed):
