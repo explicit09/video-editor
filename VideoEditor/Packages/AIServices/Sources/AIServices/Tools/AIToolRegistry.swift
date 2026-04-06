@@ -83,6 +83,7 @@ public struct AIToolRegistry: Sendable {
         seek,
         toggleLoop,
         getActionLog,
+        activateSkill,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -801,6 +802,14 @@ public struct AIToolRegistry: Sendable {
             "limit": .init(type: "number", description: "Max entries to return (default 20)"),
         ])
     )
+
+    public static let activateSkill = AIToolDefinition(
+        name: "activate_skill",
+        description: "Activate a workflow skill for the current task. Returns the full step-by-step workflow with tool usage rules and safety boundaries. Always activate the relevant skill before starting a complex editing workflow. Call again with a different name to switch workflows.",
+        parameters: .object([
+            "name": .init(type: "string", description: "Skill name from the available_skills list in your instructions"),
+        ], required: ["name"])
+    )
 }
 
 // MARK: - AIToolDefinition (JSON Schema compatible)
@@ -1304,7 +1313,7 @@ public struct AIToolResolver: Sendable {
             return [.batch(allIntents)]
 
         // AppState tools — handled upstream in AIChatController/MCPServer, not via intents
-        case "undo", "redo", "play_pause", "seek", "toggle_loop", "get_action_log":
+        case "undo", "redo", "play_pause", "seek", "toggle_loop", "get_action_log", "activate_skill":
             return []
 
         default:

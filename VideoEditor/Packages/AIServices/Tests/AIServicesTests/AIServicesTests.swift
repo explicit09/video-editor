@@ -257,6 +257,16 @@ struct AIServicesTests {
     }
 
     @MainActor
+    @Test("activate_skill resolves to empty intents (handled upstream)")
+    func activateSkillToolResolution() throws {
+        let resolver = AIToolResolver()
+        let intents = try resolver.resolve(toolName: "activate_skill", arguments: [
+            "name": "podcast-episode-producer",
+        ])
+        #expect(intents.isEmpty, "activate_skill should resolve to empty intents (handled upstream)")
+    }
+
+    @MainActor
     @Test("Overlay presentation tools resolve correctly")
     func overlayPresentationToolResolution() throws {
         let resolver = AIToolResolver()
@@ -507,5 +517,36 @@ struct TranscriptSearchTests {
             duration: 60,
             analysis: MediaAnalysis(transcript: words)
         )
+    }
+}
+
+@Suite("SkillRegistry Tests")
+struct SkillRegistryTests {
+
+    @Test("skillCatalog returns formatted catalog of loaded skills")
+    func skillCatalog() {
+        let registry = SkillRegistry()
+        let projectRoot = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let skillsDir = projectRoot.appendingPathComponent(".claude/skills")
+        registry.loadSkills(from: skillsDir)
+
+        let catalog = registry.skillCatalog()
+        #expect(catalog.contains("<available_skills>"))
+        #expect(catalog.contains("</available_skills>"))
+        #expect(catalog.contains("podcast-episode-producer"))
+        #expect(catalog.contains("activate_skill"))
+    }
+
+    @Test("skillCatalog returns empty string when no skills loaded")
+    func emptyCatalog() {
+        let registry = SkillRegistry()
+        let catalog = registry.skillCatalog()
+        #expect(catalog.isEmpty)
     }
 }
