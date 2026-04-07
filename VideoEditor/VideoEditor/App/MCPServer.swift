@@ -782,6 +782,9 @@ final class MCPServer {
         if name == "get_transcript" {
             return await handleGetTranscript(arguments, appState: appState)
         }
+        if name == "get_visual_scenes" {
+            return await handleGetVisualScenes(arguments, appState: appState)
+        }
         if name == "transcribe_asset" {
             return await handleTranscribeAsset(arguments, appState: appState)
         }
@@ -1799,6 +1802,38 @@ final class MCPServer {
             return "Transcript (\(result.words.count) words, \(String(format: "%.1f", result.duration))s):\n\(result.text)"
         }
         return "No transcript. Use transcribe_asset first."
+    }
+
+    private func handleGetVisualScenes(_ arguments: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = arguments["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: asset not found"
+        }
+
+        guard let scenes = asset.analysis?.sceneDescriptions, !scenes.isEmpty else {
+            return "No visual scenes available for '\(asset.name)'. Visual analysis may not have completed yet."
+        }
+
+        let startTime = arguments["start_time"] as? Double
+        let endTime = arguments["end_time"] as? Double
+
+        let filtered = scenes.filter { scene in
+            if let start = startTime, scene.range.end < start { return false }
+            if let end = endTime, scene.range.start > end { return false }
+            return true
+        }
+
+        var output = "Visual scenes for '\(asset.name)' (\(filtered.count) scenes):\n"
+        for (i, scene) in filtered.enumerated() {
+            let start = String(format: "%.1f", scene.range.start)
+            let end = String(format: "%.1f", scene.range.end)
+            let desc = scene.description.isEmpty ? "(no description — VLM unavailable)" : scene.description
+            output += "\(i+1). [\(start)s - \(end)s] \(desc)"
+            if let label = scene.label { output += " [\(label)]" }
+            output += "\n"
+        }
+        return output
     }
 
     /// In-progress background transcription tasks, keyed by asset ID.

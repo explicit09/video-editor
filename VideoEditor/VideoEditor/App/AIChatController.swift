@@ -325,6 +325,11 @@ final class AIChatController {
                 let result = try await handleGetTranscript(args: args, appState: appState)
                 return .init(toolName: toolCall.name, success: true, message: result)
             }
+            if toolCall.name == "get_visual_scenes" {
+                processingStatus = "Reading visual scenes..."
+                let result = await handleGetVisualScenes(args: args, appState: appState)
+                return .init(toolName: toolCall.name, success: true, message: result)
+            }
             if toolCall.name == "transcribe_asset" {
                 // Status updates happen inside handleTranscribeAsset
                 let result = try await handleTranscribeAsset(args: args, appState: appState)
@@ -717,6 +722,38 @@ final class AIChatController {
             return "Transcript (\(result.words.count) words): \(result.text)"
         }
         return "No transcript for this asset. Use transcribe_asset to generate one."
+    }
+
+    private func handleGetVisualScenes(args: [String: Any], appState: AppState) async -> String {
+        guard let assetIDStr = args["asset_id"] as? String,
+              let assetID = UUID(uuidString: assetIDStr),
+              let asset = appState.assets.first(where: { $0.id == assetID }) else {
+            return "Error: asset not found"
+        }
+
+        guard let scenes = asset.analysis?.sceneDescriptions, !scenes.isEmpty else {
+            return "No visual scenes available for '\(asset.name)'. Visual analysis may not have completed yet."
+        }
+
+        let startTime = args["start_time"] as? Double
+        let endTime = args["end_time"] as? Double
+
+        let filtered = scenes.filter { scene in
+            if let start = startTime, scene.range.end < start { return false }
+            if let end = endTime, scene.range.start > end { return false }
+            return true
+        }
+
+        var output = "Visual scenes for '\(asset.name)' (\(filtered.count) scenes):\n"
+        for (i, scene) in filtered.enumerated() {
+            let start = String(format: "%.1f", scene.range.start)
+            let end = String(format: "%.1f", scene.range.end)
+            let desc = scene.description.isEmpty ? "(no description — VLM unavailable)" : scene.description
+            output += "\(i+1). [\(start)s - \(end)s] \(desc)"
+            if let label = scene.label { output += " [\(label)]" }
+            output += "\n"
+        }
+        return output
     }
 
     private func handleTranscribeAsset(args: [String: Any], appState: AppState) async throws -> String {
