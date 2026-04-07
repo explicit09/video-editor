@@ -47,7 +47,8 @@ public struct AIContextBuilder: Sendable {
                 duration: asset.duration,
                 hasTranscript: asset.analysis?.transcript != nil,
                 silenceRangeCount: asset.analysis?.silenceRanges?.count ?? 0,
-                hasAnalysis: asset.analysis != nil
+                hasAnalysis: asset.analysis != nil,
+                visualSceneCount: asset.analysis?.sceneDescriptions?.count ?? 0
             )
         }
 
@@ -148,6 +149,7 @@ public struct AIContext: Codable, Sendable {
         public let hasTranscript: Bool
         public let silenceRangeCount: Int
         public let hasAnalysis: Bool
+        public let visualSceneCount: Int
     }
 
     public struct ActionSummary: Codable, Sendable {

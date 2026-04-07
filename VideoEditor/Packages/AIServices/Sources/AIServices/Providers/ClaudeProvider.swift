@@ -184,6 +184,15 @@ public final class ClaudeProvider: AIProvider, @unchecked Sendable {
         - Use get_state to see current timeline structure before editing.
         - Use analyze_transcript to understand content structure of long recordings.
         </context_guide>
+
+        <visual_context>
+        - Assets with visualSceneCount > 0 have scene-level visual descriptions available.
+        - Call get_visual_scenes to see what's happening visually at each point in the video.
+        - Use visual scenes together with transcripts for content-aware editing decisions.
+        - Prefer cutting at scene boundaries when possible — they mark natural visual transitions.
+        - When matching B-roll, consider visual mood and setting, not just transcript topic.
+        - Visual scenes describe: people (count, actions, expressions), setting, composition, mood.
+        </visual_context>
         """
         if !skillCatalog.isEmpty {
             prompt += "\n\n\(skillCatalog)"

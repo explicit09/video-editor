@@ -50,6 +50,7 @@ public struct AIToolRegistry: Sendable {
         autoDuck,
         chromaKey,
         getTranscript,
+        getVisualScenes,
         transcribeAsset,
         searchTranscript,
         deleteAsset,
@@ -92,6 +93,16 @@ public struct AIToolRegistry: Sendable {
         description: "Get the transcript text for a specific asset or clip. Call this ONLY when you need to read what's being said (e.g., finding ums, searching for topics, content-aware editing). Do NOT call for structural edits like moving/splitting/deleting clips.",
         parameters: .object([
             "asset_id": .init(type: "string", description: "UUID of the asset to get transcript for"),
+        ], required: ["asset_id"])
+    )
+
+    public static let getVisualScenes = AIToolDefinition(
+        name: "get_visual_scenes",
+        description: "Get visual scene descriptions for an asset. Returns scene boundaries with natural language descriptions of what's visually happening (people, actions, setting, mood). Only available after visual analysis completes on import.",
+        parameters: .object([
+            "asset_id": .init(type: "string", description: "UUID of the asset to get visual scenes for"),
+            "start_time": .init(type: "number", description: "Optional: only return scenes after this time (seconds)"),
+            "end_time": .init(type: "number", description: "Optional: only return scenes before this time (seconds)"),
         ], required: ["asset_id"])
     )
 
