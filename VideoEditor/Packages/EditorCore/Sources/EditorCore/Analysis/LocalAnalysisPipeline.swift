@@ -5,6 +5,7 @@ import Foundation
 public actor LocalAnalysisPipeline {
     private let silenceDetector = SilenceDetector()
     private let visualAnalyzer = VisualAnalyzer()
+    private let sceneAnalyzer = VisualSceneAnalyzer()
     private var inProgress: Set<UUID> = []
     private var paused = false
 
@@ -24,7 +25,7 @@ public actor LocalAnalysisPipeline {
         let mediaURL = asset.proxyURL ?? asset.sourceURL
 
         // 1. Silence detection
-        progress("Detecting silence...", 0.1)
+        progress("Detecting silence...", 0.05)
         let silenceRanges = (try? await silenceDetector.detect(url: mediaURL)) ?? []
 
         await mediaManager.updateAsset(id: asset.id) { asset in
@@ -32,11 +33,11 @@ public actor LocalAnalysisPipeline {
             analysis.silenceRanges = silenceRanges.map { TimeRange(start: $0.start, end: $0.end) }
             asset.analysis = analysis
         }
-        progress("Silence detected", 0.3)
+        progress("Silence detected", 0.2)
 
         // 2. Visual analysis (faces, scenes, OCR) — only for video
         if asset.type == .video {
-            progress("Analyzing video frames...", 0.4)
+            progress("Analyzing video frames...", 0.25)
             let visualResult = try? await visualAnalyzer.analyze(url: mediaURL, sampleInterval: 2.0)
 
             if let visual = visualResult {
@@ -50,7 +51,31 @@ public actor LocalAnalysisPipeline {
                 // Persist visual analysis to project bundle
                 persistVisualAnalysis(visual, assetID: asset.id, bundleURL: bundleURL)
             }
-            progress("Visual analysis complete", 0.9)
+            progress("Visual analysis complete", 0.5)
+        }
+
+        // 3. Scene-level visual understanding (VLM descriptions) — only for video
+        if asset.type == .video {
+            progress("Analyzing scenes...", 0.6)
+            let sceneCacheDir = bundleURL
+                .appendingPathComponent("analysis/visual_scenes")
+                .appendingPathComponent(asset.id.uuidString)
+
+            let scenes = try? await sceneAnalyzer.analyze(
+                url: mediaURL,
+                thumbnailCacheDir: sceneCacheDir
+            ) { p in
+                progress("Analyzing scenes...", 0.6 + 0.3 * p)
+            }
+
+            if let scenes = scenes, !scenes.isEmpty {
+                await mediaManager.updateAsset(id: asset.id) { asset in
+                    var analysis = asset.analysis ?? MediaAnalysis()
+                    analysis.sceneDescriptions = scenes
+                    asset.analysis = analysis
+                }
+            }
+            progress("Scene analysis complete", 0.95)
         }
 
         progress("Analysis complete", 1.0)
