@@ -101,10 +101,12 @@ public struct SceneSegment: Codable, Sendable {
     public var range: TimeRange
     public var description: String
     public var label: String?
+    public var thumbnailPath: String?
 
-    public init(range: TimeRange, description: String, label: String? = nil) {
+    public init(range: TimeRange, description: String, label: String? = nil, thumbnailPath: String? = nil) {
         self.range = range
         self.description = description
         self.label = label
+        self.thumbnailPath = thumbnailPath
     }
 }
