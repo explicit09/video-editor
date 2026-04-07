@@ -25,8 +25,17 @@ public struct VisualSceneAnalyzer: Sendable {
         let boundaries = try await shotDetector.detect(url: url, threshold: 0.3, sampleInterval: 0.5)
         progress(0.30)
 
-        // Build contiguous time ranges from boundaries
-        let sceneRanges = buildSceneRanges(boundaries: boundaries, duration: duration)
+        // Build contiguous time ranges from boundaries.
+        // If no boundaries detected (e.g. static talking-head podcast), fall back to
+        // fixed-interval segmentation so the VLM can still describe what's happening
+        // at regular intervals throughout the video.
+        let sceneRanges: [TimeRange]
+        if boundaries.isEmpty {
+            let interval: TimeInterval = 60.0 // one scene per minute for static content
+            sceneRanges = buildFixedIntervalRanges(duration: duration, interval: interval)
+        } else {
+            sceneRanges = buildSceneRanges(boundaries: boundaries, duration: duration)
+        }
 
         // Stage 2: Extract representative frames (30% - 50%)
         let generator = AVAssetImageGenerator(asset: asset)
@@ -86,6 +95,18 @@ public struct VisualSceneAnalyzer: Sendable {
     }
 
     // MARK: - Private
+
+    /// Fixed-interval fallback for visually static content (podcasts, talking heads).
+    private func buildFixedIntervalRanges(duration: TimeInterval, interval: TimeInterval) -> [TimeRange] {
+        var ranges: [TimeRange] = []
+        var start: TimeInterval = 0
+        while start < duration {
+            let end = min(start + interval, duration)
+            ranges.append(TimeRange(start: start, end: end))
+            start = end
+        }
+        return ranges
+    }
 
     private func buildSceneRanges(boundaries: [TimeInterval], duration: TimeInterval) -> [TimeRange] {
         var ranges: [TimeRange] = []

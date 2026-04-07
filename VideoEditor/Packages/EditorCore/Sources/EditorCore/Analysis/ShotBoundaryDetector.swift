@@ -29,8 +29,10 @@ public struct ShotBoundaryDetector: Sendable {
         generator.appliesPreferredTrackTransform = true
         // Use low resolution for speed
         generator.maximumSize = CGSize(width: 160, height: 90)
-        generator.requestedTimeToleranceBefore = CMTime(seconds: sampleInterval / 2, preferredTimescale: 600)
-        generator.requestedTimeToleranceAfter  = CMTime(seconds: sampleInterval / 2, preferredTimescale: 600)
+        // Force exact frame decoding — default tolerance snaps to nearest keyframe,
+        // which returns identical frames for long-GOP codecs (common in podcast recordings)
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter  = .zero
 
         // Build list of sample times
         var times: [CMTime] = []
