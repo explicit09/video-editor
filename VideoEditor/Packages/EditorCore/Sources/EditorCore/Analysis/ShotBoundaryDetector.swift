@@ -35,7 +35,7 @@ public struct ShotBoundaryDetector: Sendable {
         // Build list of sample times
         var times: [CMTime] = []
         var t: TimeInterval = 0
-        while t <= totalSeconds {
+        while t < totalSeconds {
             times.append(CMTime(seconds: t, preferredTimescale: 600))
             t += sampleInterval
         }
@@ -124,7 +124,7 @@ public struct ShotBoundaryDetector: Sendable {
     private func histogramDifference(_ a: [Int], _ b: [Int]) -> Double {
         let sumA = a.reduce(0, +)
         let sumB = b.reduce(0, +)
-        guard sumA > 0, sumB > 0 else { return 0 }
+        guard sumA > 0, sumB > 0 else { return 1.0 }
 
         var diff = 0.0
         for i in 0..<min(a.count, b.count) {
