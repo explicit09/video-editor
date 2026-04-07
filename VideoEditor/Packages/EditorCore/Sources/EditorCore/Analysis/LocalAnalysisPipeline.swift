@@ -54,8 +54,9 @@ public actor LocalAnalysisPipeline {
             progress("Visual analysis complete", 0.5)
         }
 
-        // 3. Scene-level visual understanding (VLM descriptions) — only for video
-        if asset.type == .video {
+        // 3. Scene-level visual understanding — only for short/medium videos (auto)
+        // For long recordings (>30min), scene analysis runs on-demand via get_visual_scenes
+        if asset.type == .video && asset.duration < 1800 {
             progress("Analyzing scenes...", 0.6)
             let sceneCacheDir = bundleURL
                 .appendingPathComponent("analysis/visual_scenes")

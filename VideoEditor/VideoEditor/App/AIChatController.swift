@@ -731,8 +731,38 @@ final class AIChatController {
             return "Error: asset not found"
         }
 
-        guard let scenes = asset.analysis?.sceneDescriptions, !scenes.isEmpty else {
-            return "No visual scenes available for '\(asset.name)'. Visual analysis may not have completed yet."
+        // If scenes not yet analyzed, run analysis on demand
+        var scenes = asset.analysis?.sceneDescriptions
+        if scenes == nil || scenes!.isEmpty {
+            if asset.type != .video {
+                return "Error: asset '\(asset.name)' is not a video"
+            }
+            processingStatus = "Analyzing visual scenes (this may take a moment)..."
+            let analyzer = VisualSceneAnalyzer()
+            let cacheDir = appState.projectBundleURL
+                .appendingPathComponent("analysis/visual_scenes")
+                .appendingPathComponent(asset.id.uuidString)
+
+            if let analyzed = try? await analyzer.analyze(
+                url: asset.proxyURL ?? asset.sourceURL,
+                thumbnailCacheDir: cacheDir
+            ) { p in
+                Task { @MainActor in self.processingStatus = "Analyzing scenes... \(Int(p * 100))%" }
+            }, !analyzed.isEmpty {
+                scenes = analyzed
+                // Store results back on the asset
+                await appState.media.mediaManager.updateAsset(id: asset.id) { asset in
+                    var analysis = asset.analysis ?? MediaAnalysis()
+                    analysis.sceneDescriptions = analyzed
+                    asset.analysis = analysis
+                }
+            } else {
+                return "Visual scene analysis failed for '\(asset.name)'."
+            }
+        }
+
+        guard let scenes = scenes, !scenes.isEmpty else {
+            return "No visual scenes detected for '\(asset.name)'."
         }
 
         let startTime = args["start_time"] as? Double

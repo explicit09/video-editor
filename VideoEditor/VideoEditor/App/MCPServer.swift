@@ -1845,8 +1845,35 @@ final class MCPServer {
             return "Error: asset not found"
         }
 
-        guard let scenes = asset.analysis?.sceneDescriptions, !scenes.isEmpty else {
-            return "No visual scenes available for '\(asset.name)'. Visual analysis may not have completed yet."
+        // If scenes not yet analyzed, run analysis on demand
+        var scenes = asset.analysis?.sceneDescriptions
+        if scenes == nil || scenes!.isEmpty {
+            if asset.type != .video {
+                return "Error: asset '\(asset.name)' is not a video"
+            }
+            let analyzer = VisualSceneAnalyzer()
+            let cacheDir = appState.projectBundleURL
+                .appendingPathComponent("analysis/visual_scenes")
+                .appendingPathComponent(asset.id.uuidString)
+
+            if let analyzed = try? await analyzer.analyze(
+                url: asset.proxyURL ?? asset.sourceURL,
+                thumbnailCacheDir: cacheDir
+            ) { _ in }, !analyzed.isEmpty {
+                scenes = analyzed
+                // Store results back on the asset
+                await appState.media.mediaManager.updateAsset(id: asset.id) { asset in
+                    var analysis = asset.analysis ?? MediaAnalysis()
+                    analysis.sceneDescriptions = analyzed
+                    asset.analysis = analysis
+                }
+            } else {
+                return "Visual scene analysis failed for '\(asset.name)'."
+            }
+        }
+
+        guard let scenes = scenes, !scenes.isEmpty else {
+            return "No visual scenes detected for '\(asset.name)'."
         }
 
         let startTime = arguments["start_time"] as? Double
