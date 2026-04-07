@@ -5453,25 +5453,63 @@ final class MCPServer {
             return .failure(.message("ANTHROPIC_API_KEY not set"))
         }
 
-        let hostsStr = hostNames.isEmpty ? "" : "Hosts: \(hostNames.joined(separator: " and "))"
+        let hostsStr = hostNames.isEmpty ? "" : "Featuring: \(hostNames.joined(separator: " and "))"
+
+        let styleGuide: String
+        switch style {
+        case "minimal":
+            styleGuide = "Clean white/light background, thin sans-serif typography, generous whitespace, muted accent color. Think Apple or Stripe design language."
+        case "dramatic":
+            styleGuide = "Dark background (#0D0D0D to #1A1A2E gradient), cinematic lighting, neon or metallic accent color. Bold contrast. Think Netflix or tech keynote."
+        case "vibrant":
+            styleGuide = "Saturated gradient backgrounds (coral-to-purple, cyan-to-magenta). Bright, energetic. Rounded elements. Think Canva trending or Gary Vee content."
+        default: // bold
+            styleGuide = "Strong solid color backgrounds alternating between slides. Heavy bold sans-serif text. High contrast white-on-dark or dark-on-bright. Think educational/authority content."
+        }
+
+        let isFirstSlide = slideNumber == 1
+        let isLastSlide = slideNumber == totalSlides
+
+        let slideRole: String
+        if isFirstSlide {
+            styleGuide + " TITLE SLIDE: Make this the hook. Biggest, boldest text. The text should stop the scroll. Add a visual element that creates curiosity."
+            slideRole = "This is the TITLE SLIDE (cover). It must stop the scroll. Use the largest, most impactful text. Create visual curiosity."
+        } else if isLastSlide {
+            slideRole = "This is the FINAL SLIDE (CTA). End with impact. If the text is a call-to-action, make it feel conclusive and actionable."
+        } else {
+            slideRole = "This is an INTERIOR SLIDE (\(slideNumber) of \(totalSlides)). Consistent style with other slides. Clear hierarchy: number/icon at top, main text centered, supporting visual below."
+        }
 
         let systemPrompt = """
-        You are an Instagram carousel designer. Write a detailed image generation prompt for one slide.
-        Output ONLY the prompt text, nothing else.
+        You are a top Instagram carousel designer creating viral, swipeable content.
+        Write a detailed image generation prompt for ONE slide. Output ONLY the prompt, nothing else.
 
-        Rules:
-        - Size: 1080x1080 square format
-        - This is slide \(slideNumber) of \(totalSlides) in a carousel titled "\(title)"
-        - Maintain consistent branding and color scheme across all slides
-        - The slide text should be prominently displayed and readable
-        - Use professional Instagram carousel aesthetics
-        - Style: \(style)
-        - Include a subtle slide indicator (e.g., dots or "slide X of Y")
+        CRITICAL RULES:
+        1. FORMAT: 1024x1024 square. Every element must be readable on mobile (Instagram feed).
+        2. CAROUSEL: "\(title)" — slide \(slideNumber) of \(totalSlides).
+        3. ROLE: \(slideRole)
+        4. TEXT LAYOUT:
+           - Display the slide text as the PRIMARY visual element
+           - Use large, bold sans-serif typography (think Inter, Montserrat weight 800+)
+           - Max 3-4 lines of text. If the text is long, extract the key phrase and make it huge
+           - Text must be readable at Instagram feed size (~350px on phone)
+           - Use text hierarchy: key number or word MASSIVE, rest smaller
+        5. STYLE: \(styleGuide)
+        6. BRANDING CONSISTENCY:
+           - Use the SAME color palette and font style across all slides
+           - Primary accent color should thread through every slide
+           - Background treatment should feel like a cohesive set
+        7. VISUAL ELEMENTS:
+           - Add a relevant icon or simple illustration supporting the text (NOT a photo unless specified)
+           - Include a subtle dot indicator at the bottom showing slide \(slideNumber) of \(totalSlides)
+           - Slide number or list number should be visually prominent if the text contains one (e.g., "1." or "#1")
+        8. NO: stock photo backgrounds, busy patterns, small text, watermarks, emojis, hashtags
+        9. The output must look like it was designed by a professional social media designer, NOT AI-generated
         """
 
-        var userMessage = "Slide text: \(slideText)"
+        var userMessage = "Slide \(slideNumber) text: \(slideText)"
         if let desc = slideImageDesc {
-            userMessage += "\nVisual description: \(desc)"
+            userMessage += "\nVisual direction: \(desc)"
         }
         if !hostsStr.isEmpty {
             userMessage += "\n\(hostsStr)"
