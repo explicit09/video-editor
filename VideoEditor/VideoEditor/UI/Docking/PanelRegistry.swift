@@ -98,6 +98,20 @@ struct PanelRegistry {
                 allowedDropBehavior: .splitOrTabs,
                 makeContent: { AnyView(DeliverPanel()) }
             ),
+            .thumbnailCompare: PanelDefinition(
+                id: .thumbnailCompare,
+                title: "Thumbnails",
+                systemImage: "photo.on.rectangle.angled",
+                allowedDropBehavior: .splitOrTabs,
+                makeContent: { AnyView(ThumbnailComparePanel()) }
+            ),
+            .carouselViewer: PanelDefinition(
+                id: .carouselViewer,
+                title: "Carousels",
+                systemImage: "rectangle.stack",
+                allowedDropBehavior: .splitOrTabs,
+                makeContent: { AnyView(CarouselViewerPanel()) }
+            ),
         ]
 
         return Self(
@@ -138,7 +152,10 @@ struct PanelRegistry {
                     trailing: .split(
                         axis: .horizontal,
                         ratio: 0.78,
-                        leading: .panel(.programMonitor),
+                        leading: .tabs(
+                            activePanelID: .programMonitor,
+                            panelIDs: [.programMonitor, .thumbnailCompare, .carouselViewer]
+                        ),
                         trailing: .panel(.inspector)
                     )
                 ),

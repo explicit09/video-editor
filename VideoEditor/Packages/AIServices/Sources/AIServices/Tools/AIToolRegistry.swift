@@ -84,6 +84,9 @@ public struct AIToolRegistry: Sendable {
         toggleLoop,
         getActionLog,
         activateSkill,
+        // Image generation tools
+        generateThumbnail,
+        generateCarousel,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -819,6 +822,37 @@ public struct AIToolRegistry: Sendable {
         parameters: .object([
             "name": .init(type: "string", description: "Skill name from the available_skills list in your instructions"),
         ], required: ["name"])
+    )
+
+    // MARK: - Image generation tools
+
+    public static let generateThumbnail = AIToolDefinition(
+        name: "generate_thumbnail",
+        description: "Generate YouTube thumbnails using AI. Composites host photos with styled text and backgrounds. Produces multiple options from different AI models (GPT Image 1.5 + Nano Banana 2). Requires OPENAI_API_KEY and/or GEMINI_API_KEY.",
+        parameters: .object([
+            "title": .init(type: "string", description: "Episode/video title text for the thumbnail"),
+            "description": .init(type: "string", description: "Episode description for AI styling context"),
+            "template": .init(type: "string", description: "Overlay template name (e.g. 'technologia_talks') for host info. Loads names, titles, photos from the template."),
+            "host_photos": .init(type: "array", description: "Override: paths to host photo files (1-4 photos). If omitted, uses template."),
+            "style": .init(type: "string", description: "Visual style: 'bold' (default), 'minimal', 'dramatic', 'vibrant'"),
+            "layout": .init(type: "string", description: "Layout: 'split_panel' (default), 'hosts_left', 'centered', 'text_heavy'"),
+            "prompt": .init(type: "string", description: "Override: skip AI prompt generation, use this prompt directly for image generation"),
+            "count": .init(type: "number", description: "Images per provider (default: 2, so 4 total with both providers)"),
+            "provider": .init(type: "string", description: "Provider: 'both' (default), 'openai', 'gemini'"),
+        ], required: ["title"])
+    )
+
+    public static let generateCarousel = AIToolDefinition(
+        name: "generate_carousel",
+        description: "Generate Instagram carousel slides (1080x1080) using AI. Each slide gets a styled image with text overlay. Uses Claude for prompt generation, then GPT Image 1.5 and/or Nano Banana 2.",
+        parameters: .object([
+            "title": .init(type: "string", description: "Carousel title (consistent branding across slides)"),
+            "slides": .init(type: "array", description: "Array of slide objects with 'text' (required) and 'image_description' (optional)"),
+            "template": .init(type: "string", description: "Overlay template name for host branding"),
+            "style": .init(type: "string", description: "Visual style: 'bold' (default), 'minimal', 'dramatic', 'vibrant'"),
+            "provider": .init(type: "string", description: "Provider: 'both' (default), 'openai', 'gemini'"),
+            "count_per_slide": .init(type: "number", description: "Images per provider per slide (default: 1)"),
+        ], required: ["title", "slides"])
     )
 }
 

@@ -21,6 +21,8 @@ struct PanelID: RawRepresentable, Hashable, Codable, Sendable, ExpressibleByStri
     static let transcript: PanelID = "transcript"
     static let aiAssistant: PanelID = "ai-assistant"
     static let deliver: PanelID = "deliver"
+    static let thumbnailCompare: PanelID = "thumbnail-compare"
+    static let carouselViewer: PanelID = "carousel-viewer"
 }
 
 enum DockAxis: String, Codable, Sendable {
@@ -97,5 +99,7 @@ enum WorkspaceDefaultLayouts {
         .transcript,
         .aiAssistant,
         .deliver,
+        .thumbnailCompare,
+        .carouselViewer,
     ]
 }

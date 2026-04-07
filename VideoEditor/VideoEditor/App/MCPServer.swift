@@ -488,6 +488,33 @@ final class MCPServer {
                         "name": ["type": "string", "description": "New project name"],
                     ], "required": ["name"]],
                 ],
+                [
+                    "name": "generate_thumbnail",
+                    "description": "Generate YouTube thumbnails using AI. Composites host photos with styled text and backgrounds. Produces multiple options from GPT Image 1.5 and Nano Banana 2. Requires OPENAI_API_KEY and/or GEMINI_API_KEY. Host photos loaded from overlay template or custom paths.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "title": ["type": "string", "description": "Episode/video title text for the thumbnail"],
+                        "description": ["type": "string", "description": "Episode description for AI styling context"],
+                        "template": ["type": "string", "description": "Overlay template name (e.g. 'technologia_talks') for host info"],
+                        "host_photos": ["type": "array", "items": ["type": "string"], "description": "Override: paths to host photo files"],
+                        "style": ["type": "string", "description": "Visual style: 'bold' (default), 'minimal', 'dramatic', 'vibrant'"],
+                        "layout": ["type": "string", "description": "Layout: 'split_panel' (default), 'hosts_left', 'centered', 'text_heavy'"],
+                        "prompt": ["type": "string", "description": "Override: skip AI prompt gen, use this prompt directly"],
+                        "count": ["type": "integer", "description": "Images per provider (default: 2)"],
+                        "provider": ["type": "string", "description": "Provider: 'both' (default), 'openai', 'gemini'"],
+                    ], "required": ["title"]],
+                ],
+                [
+                    "name": "generate_carousel",
+                    "description": "Generate Instagram carousel slides (1080x1080) using AI. Each slide gets a styled image with text. Uses Claude to write prompts, then GPT Image 1.5 and/or Nano Banana 2 to generate.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "title": ["type": "string", "description": "Carousel title (used for consistent branding across slides)"],
+                        "slides": ["type": "array", "items": ["type": "object", "properties": ["text": ["type": "string", "description": "Text content for this slide"], "image_description": ["type": "string", "description": "Optional visual description for the slide background"]], "required": ["text"]], "description": "Array of slide content. Each slide has text and optional image_description."],
+                        "template": ["type": "string", "description": "Overlay template name (e.g. 'technologia_talks') for host branding"],
+                        "style": ["type": "string", "description": "Visual style: 'bold' (default), 'minimal', 'dramatic', 'vibrant'"],
+                        "provider": ["type": "string", "description": "Provider: 'both' (default), 'openai', 'gemini'"],
+                        "count_per_slide": ["type": "integer", "description": "Images per provider per slide (default: 1)"],
+                    ], "required": ["title", "slides"]],
+                ],
             ])
             tools = deduplicatedTools(tools)
             toolListCache = tools  // Cache for in-app agent
@@ -894,6 +921,13 @@ final class MCPServer {
             if events.isEmpty { return "No actions recorded." }
             let lines = events.map { "\($0.timestamp) | \($0.source.rawValue) | \($0.commandName)" }
             return "Recent actions (\(events.count)):\n" + lines.joined(separator: "\n")
+        }
+
+        if name == "generate_thumbnail" {
+            return await handleGenerateThumbnail(arguments, appState: appState)
+        }
+        if name == "generate_carousel" {
+            return await handleGenerateCarousel(arguments, appState: appState)
         }
 
         let toolResolver = AIToolResolver()
@@ -4924,6 +4958,565 @@ final class MCPServer {
         appState.rebuildComposition()
 
         return (success: true, message: "Affected \(clipsAffected) clips across \(clipGroups.count) group(s).")
+    }
+
+    // MARK: - Thumbnail Generation
+
+    private func handleGenerateThumbnail(_ args: [String: Any], appState: AppState) async -> String {
+        let title = args["title"] as? String ?? "Untitled"
+        let description = args["description"] as? String
+        let style = args["style"] as? String ?? "bold"
+        let layout = args["layout"] as? String ?? "split_panel"
+        let promptOverride = args["prompt"] as? String
+        let count = args["count"] as? Int ?? 2
+        let providerFilter = args["provider"] as? String ?? "both"
+
+        // 1. Load host photos from template or custom paths
+        var hostPhotos: [Data] = []
+        var hostNames: [String] = []
+
+        if let customPaths = args["host_photos"] as? [String] {
+            for path in customPaths {
+                let resolvedPath = path.hasPrefix("/") ? path : resolveDocumentsPath(path)
+                if let data = FileManager.default.contents(atPath: resolvedPath) {
+                    hostPhotos.append(data)
+                    hostNames.append(URL(fileURLWithPath: resolvedPath).deletingPathExtension().lastPathComponent)
+                }
+            }
+        } else if let templateName = args["template"] as? String {
+            // Load template to get host photo paths
+            let templateResult = loadOverlayTemplatePhotos(templateName: templateName)
+            switch templateResult {
+            case .success(let (names, photos)):
+                hostNames = names
+                hostPhotos = photos
+            case .failure(let error):
+                return "Error loading template: \(error.text)"
+            }
+        }
+
+        // 2. Generate or use provided prompt
+        let imagePrompt: String
+        if let override = promptOverride {
+            imagePrompt = override
+        } else {
+            let promptResult = await generateThumbnailPrompt(
+                title: title,
+                description: description,
+                hostNames: hostNames,
+                style: style,
+                layout: layout
+            )
+            switch promptResult {
+            case .success(let prompt):
+                imagePrompt = prompt
+            case .failure(let error):
+                return "Error generating prompt: \(error.text)"
+            }
+        }
+
+        // 3. Initialize providers
+        var providers: [(String, any ImageGenProvider)] = []
+
+        if providerFilter == "both" || providerFilter == "openai" {
+            if let key = ProcessInfo.processInfo.environment["OPENAI_API_KEY"] ?? loadEnvKey("OPENAI_API_KEY") {
+                providers.append(("openai", OpenAIImageProvider(apiKey: key)))
+            } else if providerFilter == "openai" {
+                return "Error: OPENAI_API_KEY not set"
+            }
+        }
+        if providerFilter == "both" || providerFilter == "gemini" {
+            if let key = ProcessInfo.processInfo.environment["GEMINI_API_KEY"]
+                ?? ProcessInfo.processInfo.environment["GOOGLE_AI_API_KEY"]
+                ?? loadEnvKey("GEMINI_API_KEY")
+                ?? loadEnvKey("GOOGLE_AI_API_KEY") {
+                providers.append(("gemini", GeminiImageProvider(apiKey: key)))
+            } else if providerFilter == "gemini" {
+                return "Error: GEMINI_API_KEY not set"
+            }
+        }
+
+        if providers.isEmpty {
+            return "Error: No image generation API keys configured. Set OPENAI_API_KEY and/or GEMINI_API_KEY."
+        }
+
+        // 4. Create output directory
+        let thumbnailDir: URL
+        if let exportFolder = ExportFolderManager.defaultFolder {
+            thumbnailDir = exportFolder.appendingPathComponent("Thumbnails")
+        } else {
+            thumbnailDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("Thumbnails")
+        }
+        try? FileManager.default.createDirectory(at: thumbnailDir, withIntermediateDirectories: true)
+
+        // 5. Generate images in parallel
+        let sanitizedTitle = title.replacingOccurrences(of: "[^a-zA-Z0-9_-]", with: "_", options: .regularExpression)
+            .prefix(50)
+
+        var results: [(path: String, provider: String, index: Int)] = []
+        var errors: [String] = []
+
+        let photosCopy = hostPhotos
+        let promptCopy = imagePrompt
+
+        await withTaskGroup(of: (String, Int, Result<Data, Error>).self) { group in
+            for (providerName, provider) in providers {
+                for i in 0..<count {
+                    let pName = providerName
+                    let prov = provider
+                    let idx = i
+                    group.addTask {
+                        do {
+                            let data = try await prov.generateImage(
+                                prompt: promptCopy,
+                                referenceImages: photosCopy,
+                                size: .thumbnail
+                            )
+                            return (pName, idx, .success(data))
+                        } catch {
+                            return (pName, idx, .failure(error))
+                        }
+                    }
+                }
+            }
+
+            for await (providerName, index, result) in group {
+                switch result {
+                case .success(let data):
+                    let filename = "thumbnail_\(sanitizedTitle)_\(providerName)_\(index + 1).png"
+                    let fileURL = thumbnailDir.appendingPathComponent(filename)
+                    do {
+                        try data.write(to: fileURL)
+                        results.append((path: fileURL.path, provider: providerName, index: index + 1))
+                    } catch {
+                        errors.append("\(providerName) #\(index + 1): Failed to save — \(error.localizedDescription)")
+                    }
+                case .failure(let error):
+                    errors.append("\(providerName) #\(index + 1): \(error.localizedDescription)")
+                }
+            }
+        }
+
+        // 6. Build response
+        var response = "Generated \(results.count) thumbnail(s) for \"\(title)\"\n"
+        response += "Prompt: \(imagePrompt.prefix(200))...\n\n"
+
+        if !results.isEmpty {
+            response += "Files:\n"
+            for r in results.sorted(by: { ($0.provider, $0.index) < ($1.provider, $1.index) }) {
+                response += "  [\(r.provider) #\(r.index)] \(r.path)\n"
+            }
+        }
+        if !errors.isEmpty {
+            response += "\nErrors:\n"
+            for e in errors { response += "  - \(e)\n" }
+        }
+
+        return response
+    }
+
+    private enum ThumbnailError: Error {
+        case message(String)
+        var text: String {
+            switch self { case .message(let s): return s }
+        }
+    }
+
+    /// Load host names and photos from an overlay template.
+    private func loadOverlayTemplatePhotos(templateName: String) -> Result<([String], [Data]), ThumbnailError> {
+        let searchPaths = [
+            FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
+                .appendingPathComponent("overlay_templates"),
+            URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent().deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .appendingPathComponent("Tools/overlay_templates"),
+        ].compactMap { $0 }
+
+        var templateDir: URL?
+        var templateData: [String: Any] = [:]
+
+        for path in searchPaths {
+            let templateURL = path.appendingPathComponent("\(templateName).json")
+            if let data = try? Data(contentsOf: templateURL),
+               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                templateData = json
+                templateDir = path
+                break
+            }
+        }
+
+        guard !templateData.isEmpty else {
+            return .failure(.message("Template '\(templateName)' not found"))
+        }
+
+        var names: [String] = []
+        var photos: [Data] = []
+
+        for key in ["host_a", "host_b"] {
+            if let name = templateData["\(key)_name"] as? String {
+                names.append(name)
+            }
+            if let photoFile = templateData["\(key)_photo"] as? String {
+                let photoPath: String
+                if photoFile.hasPrefix("/") {
+                    photoPath = photoFile
+                } else if let dir = templateDir {
+                    photoPath = dir.appendingPathComponent(photoFile).path
+                } else {
+                    continue
+                }
+                // Also check Documents directory
+                if let data = FileManager.default.contents(atPath: photoPath) {
+                    photos.append(data)
+                } else {
+                    let docsPath = resolveDocumentsPath(photoFile)
+                    if let data = FileManager.default.contents(atPath: docsPath) {
+                        photos.append(data)
+                    }
+                }
+            }
+        }
+
+        return .success((names, photos))
+    }
+
+    /// Use Claude to generate a thumbnail image prompt.
+    private func generateThumbnailPrompt(
+        title: String,
+        description: String?,
+        hostNames: [String],
+        style: String,
+        layout: String
+    ) async -> Result<String, ThumbnailError> {
+        guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
+            return .failure(.message("ANTHROPIC_API_KEY not set — needed for prompt generation. Use 'prompt' parameter to skip."))
+        }
+
+        let layoutDesc: String
+        switch layout {
+        case "split_panel":
+            layoutDesc = "Split panel layout: Host A on the left side with their own color zone, Host B on the right side with their own color zone, episode title text centered between them"
+        case "hosts_left":
+            layoutDesc = "Both hosts positioned on the left side of the image, large bold title text on the right side"
+        case "centered":
+            layoutDesc = "Title text prominently centered at the top, both hosts below in a face-off style arrangement"
+        case "text_heavy":
+            layoutDesc = "Small host photos in the top-left corner, massive bold title text dominating the entire thumbnail"
+        default:
+            layoutDesc = "Split panel layout with hosts on each side and title centered"
+        }
+
+        let hostsStr = hostNames.isEmpty ? "the hosts" : hostNames.joined(separator: " and ")
+
+        let styleGuide: String
+        switch style {
+        case "minimal":
+            styleGuide = "Clean, modern, muted tones. Subtle gradients. Thin sans-serif font. Elegant negative space. Think Apple keynote meets YouTube."
+        case "dramatic":
+            styleGuide = "Dark moody background with dramatic rim lighting on the hosts. Deep shadows, cinematic color grading. Neon or metallic accent colors. Intense, high-stakes energy."
+        case "vibrant":
+            styleGuide = "Saturated, energetic colors. Electric gradients (purple-to-orange, cyan-to-pink). Bright lighting on hosts. Fun, high-energy, attention-grabbing. Pop art influence."
+        default: // bold
+            styleGuide = "High contrast, punchy colors. Strong color blocks behind each host. Heavy bold sans-serif text with slight 3D shadow. Maximum readability at small sizes. Classic MrBeast / podcast thumbnail energy."
+        }
+
+        let systemPrompt = """
+        You are an expert YouTube thumbnail designer who creates thumbnails that get 10%+ CTR.
+        Write a detailed image generation prompt. Output ONLY the prompt, no explanation.
+
+        CRITICAL RULES:
+        1. LAYOUT: \(layoutDesc)
+        2. HOSTS: "Preserve the exact faces, skin tone, and appearance from the reference photos. Do NOT alter, stylize, or reimagine their faces."
+        3. TEXT: Display "\(title)" as large, bold, sans-serif text. Max 6-8 words visible. Use white or bright text with a dark stroke/shadow for readability at any size. Text must be the FIRST thing a viewer reads.
+        4. SIZE: 1536x1024 landscape format (YouTube thumbnail aspect ratio)
+        5. STYLE: \(styleGuide)
+        6. COMPOSITION: Follow the rule of thirds. Hosts should fill at least 40% of the frame. Faces should be clearly visible even at 160x90px (the smallest YouTube thumbnail size).
+        7. BACKGROUND: Use gradient or solid color blocks — NEVER busy or detailed backgrounds that compete with text/faces.
+        8. NO: watermarks, borders, logos, URLs, hashtags, emojis, or small text. No cluttered elements.
+        9. LIGHTING: Studio-quality lighting on hosts. Slight warm rim light to separate from background.
+        10. The thumbnail must look professional, not AI-generated. Photorealistic hosts, clean graphic design.
+        """
+
+        let userMessage = """
+        Episode title: \(title)
+        \(description.map { "Topic: \($0)" } ?? "")
+        Hosts: \(hostsStr)
+        """
+
+        let url = URL(string: "https://api.anthropic.com/v1/messages")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+        request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
+        request.timeoutInterval = 30
+
+        let body: [String: Any] = [
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 500,
+            "system": systemPrompt,
+            "messages": [["role": "user", "content": userMessage]],
+        ]
+
+        guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
+            return .failure(.message("Failed to build prompt request"))
+        }
+        request.httpBody = bodyData
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+                return .failure(.message("Claude API error (\(status))"))
+            }
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let content = json["content"] as? [[String: Any]],
+                  let text = content.first?["text"] as? String else {
+                return .failure(.message("Invalid Claude response"))
+            }
+            return .success(text.trimmingCharacters(in: .whitespacesAndNewlines))
+        } catch {
+            return .failure(.message("Claude request failed: \(error.localizedDescription)"))
+        }
+    }
+
+    // MARK: - Carousel Generation
+
+    private func handleGenerateCarousel(_ args: [String: Any], appState: AppState) async -> String {
+        let title = args["title"] as? String ?? "Untitled"
+        let style = args["style"] as? String ?? "bold"
+        let providerFilter = args["provider"] as? String ?? "both"
+        let countPerSlide = args["count_per_slide"] as? Int ?? 1
+
+        // Parse slides array
+        var slides: [(text: String, imageDesc: String?)] = []
+        if let slideArray = args["slides"] as? [[String: Any]] {
+            for slide in slideArray {
+                let text = slide["text"] as? String ?? ""
+                let imageDesc = slide["image_description"] as? String
+                slides.append((text: text, imageDesc: imageDesc))
+            }
+        }
+
+        if slides.isEmpty {
+            return "Error: No slides provided. Pass 'slides' array with at least one entry containing 'text'."
+        }
+
+        // Load host info from template if provided
+        var hostNames: [String] = []
+        var hostPhotos: [Data] = []
+        if let templateName = args["template"] as? String {
+            let result = loadOverlayTemplatePhotos(templateName: templateName)
+            if case .success(let (names, photos)) = result {
+                hostNames = names
+                hostPhotos = photos
+            }
+        }
+
+        // Initialize providers
+        var providers: [(String, any ImageGenProvider)] = []
+        if providerFilter == "both" || providerFilter == "openai" {
+            if let key = ProcessInfo.processInfo.environment["OPENAI_API_KEY"] ?? loadEnvKey("OPENAI_API_KEY") {
+                providers.append(("openai", OpenAIImageProvider(apiKey: key)))
+            } else if providerFilter == "openai" {
+                return "Error: OPENAI_API_KEY not set"
+            }
+        }
+        if providerFilter == "both" || providerFilter == "gemini" {
+            if let key = ProcessInfo.processInfo.environment["GEMINI_API_KEY"]
+                ?? ProcessInfo.processInfo.environment["GOOGLE_AI_API_KEY"]
+                ?? loadEnvKey("GEMINI_API_KEY")
+                ?? loadEnvKey("GOOGLE_AI_API_KEY") {
+                providers.append(("gemini", GeminiImageProvider(apiKey: key)))
+            } else if providerFilter == "gemini" {
+                return "Error: GEMINI_API_KEY not set"
+            }
+        }
+
+        if providers.isEmpty {
+            return "Error: No image generation API keys configured."
+        }
+
+        // Create output directory
+        let sanitizedTitle = title.replacingOccurrences(of: "[^a-zA-Z0-9_-]", with: "_", options: .regularExpression).prefix(50)
+        let carouselDir: URL
+        if let exportFolder = ExportFolderManager.defaultFolder {
+            carouselDir = exportFolder.appendingPathComponent("Carousels").appendingPathComponent(String(sanitizedTitle))
+        } else {
+            carouselDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("Carousels").appendingPathComponent(String(sanitizedTitle))
+        }
+        try? FileManager.default.createDirectory(at: carouselDir, withIntermediateDirectories: true)
+
+        // Generate prompts for each slide
+        var results: [(slide: Int, path: String, provider: String)] = []
+        var errors: [String] = []
+        let totalSlides = slides.count
+
+        for (slideIdx, slide) in slides.enumerated() {
+            // Generate prompt for this slide
+            let slidePrompt: String
+            let promptResult = await generateCarouselSlidePrompt(
+                title: title,
+                slideText: slide.text,
+                slideImageDesc: slide.imageDesc,
+                slideNumber: slideIdx + 1,
+                totalSlides: totalSlides,
+                hostNames: hostNames,
+                style: style
+            )
+            switch promptResult {
+            case .success(let prompt):
+                slidePrompt = prompt
+            case .failure(let error):
+                errors.append("Slide \(slideIdx + 1): Prompt generation failed — \(error.text)")
+                continue
+            }
+
+            // Generate images for this slide in parallel
+            let photosCopy = hostPhotos
+            let promptCopy = slidePrompt
+
+            await withTaskGroup(of: (String, Result<Data, Error>).self) { group in
+                for (providerName, provider) in providers {
+                    for _ in 0..<countPerSlide {
+                        let pName = providerName
+                        let prov = provider
+                        group.addTask {
+                            do {
+                                let data = try await prov.generateImage(
+                                    prompt: promptCopy,
+                                    referenceImages: photosCopy,
+                                    size: .square
+                                )
+                                return (pName, .success(data))
+                            } catch {
+                                return (pName, .failure(error))
+                            }
+                        }
+                    }
+                }
+
+                var providerCounts: [String: Int] = [:]
+                for await (providerName, result) in group {
+                    let idx = (providerCounts[providerName] ?? 0) + 1
+                    providerCounts[providerName] = idx
+
+                    switch result {
+                    case .success(let data):
+                        let filename = "slide_\(slideIdx + 1)_\(providerName)_\(idx).png"
+                        let fileURL = carouselDir.appendingPathComponent(filename)
+                        do {
+                            try data.write(to: fileURL)
+                            results.append((slide: slideIdx + 1, path: fileURL.path, provider: providerName))
+                        } catch {
+                            errors.append("Slide \(slideIdx + 1) \(providerName): Save failed — \(error.localizedDescription)")
+                        }
+                    case .failure(let error):
+                        errors.append("Slide \(slideIdx + 1) \(providerName): \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+
+        // Build response
+        var response = "Generated carousel \"\(title)\" — \(results.count) image(s) across \(totalSlides) slide(s)\n"
+        response += "Output: \(carouselDir.path)\n\n"
+
+        if !results.isEmpty {
+            response += "Files:\n"
+            for r in results.sorted(by: { ($0.slide, $0.provider) < ($1.slide, $1.provider) }) {
+                response += "  [Slide \(r.slide) · \(r.provider)] \(r.path)\n"
+            }
+        }
+        if !errors.isEmpty {
+            response += "\nErrors:\n"
+            for e in errors { response += "  - \(e)\n" }
+        }
+
+        return response
+    }
+
+    /// Generate a prompt for a single carousel slide.
+    private func generateCarouselSlidePrompt(
+        title: String,
+        slideText: String,
+        slideImageDesc: String?,
+        slideNumber: Int,
+        totalSlides: Int,
+        hostNames: [String],
+        style: String
+    ) async -> Result<String, ThumbnailError> {
+        guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
+            return .failure(.message("ANTHROPIC_API_KEY not set"))
+        }
+
+        let hostsStr = hostNames.isEmpty ? "" : "Hosts: \(hostNames.joined(separator: " and "))"
+
+        let systemPrompt = """
+        You are an Instagram carousel designer. Write a detailed image generation prompt for one slide.
+        Output ONLY the prompt text, nothing else.
+
+        Rules:
+        - Size: 1080x1080 square format
+        - This is slide \(slideNumber) of \(totalSlides) in a carousel titled "\(title)"
+        - Maintain consistent branding and color scheme across all slides
+        - The slide text should be prominently displayed and readable
+        - Use professional Instagram carousel aesthetics
+        - Style: \(style)
+        - Include a subtle slide indicator (e.g., dots or "slide X of Y")
+        """
+
+        var userMessage = "Slide text: \(slideText)"
+        if let desc = slideImageDesc {
+            userMessage += "\nVisual description: \(desc)"
+        }
+        if !hostsStr.isEmpty {
+            userMessage += "\n\(hostsStr)"
+        }
+
+        let url = URL(string: "https://api.anthropic.com/v1/messages")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+        request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
+        request.timeoutInterval = 30
+
+        let body: [String: Any] = [
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 500,
+            "system": systemPrompt,
+            "messages": [["role": "user", "content": userMessage]],
+        ]
+
+        guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
+            return .failure(.message("Failed to build prompt request"))
+        }
+        request.httpBody = bodyData
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+                return .failure(.message("Claude API error (\(status))"))
+            }
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let content = json["content"] as? [[String: Any]],
+                  let text = content.first?["text"] as? String else {
+                return .failure(.message("Invalid Claude response"))
+            }
+            return .success(text.trimmingCharacters(in: .whitespacesAndNewlines))
+        } catch {
+            return .failure(.message("Claude request failed: \(error.localizedDescription)"))
+        }
+    }
+
+    private func resolveDocumentsPath(_ filename: String) -> String {
+        let docsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return docsDir.appendingPathComponent(filename).path
     }
 
     // MARK: - Helpers
