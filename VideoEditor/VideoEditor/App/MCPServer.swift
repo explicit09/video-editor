@@ -5,7 +5,6 @@ import CoreImage
 import EditorCore
 import AIServices
 import Network
-import Sentry
 
 /// MCP-compatible HTTP server for external tool access.
 /// Runs on localhost:8420. Claude Code connects via HTTP transport.
@@ -622,9 +621,7 @@ final class MCPServer {
             }
             let toolName = params["name"] as? String ?? ""
             let arguments = params["arguments"] as? [String: Any] ?? [:]
-            let result = await SentrySetup.span("mcp.tool", description: toolName) {
-                await self.executeToolCall(name: toolName, arguments: arguments, appState: appState)
-            }
+            let result = await executeToolCall(name: toolName, arguments: arguments, appState: appState)
             return successResponse(id: id, result: ["content": [["type": "text", "text": result]]])
 
         case "resources/list":
@@ -653,9 +650,7 @@ final class MCPServer {
     /// Public entry point for the in-app agent to call MCP tool handlers.
     func executeToolForAgent(name: String, arguments: [String: Any]) async -> String {
         guard let appState else { return "Error: Editor not available" }
-        return await SentrySetup.span("mcp.tool", description: name) {
-            await executeToolCall(name: name, arguments: arguments, appState: appState)
-        }
+        return await executeToolCall(name: name, arguments: arguments, appState: appState)
     }
 
     /// All MCP tool names — used by the in-app agent to know what's available.
@@ -1707,32 +1702,27 @@ final class MCPServer {
         case "podcast":
             effectChain = .podcastVoice
         case "music":
-            effectChain = AudioEffectChain(compressor: CompressorConfig(ratio: 2, attackMS: 30, releaseMS: 300, thresholdDB: -15, makeupGainDB: 3))
+            effectChain = AudioEffectChain(compressor: .music)
         case "none":
             effectChain = nil
         case "custom":
             var chain = AudioEffectChain()
             if let eqPreset = args["eq_preset"] as? String {
                 switch eqPreset {
-                case "voice_clarity":
-                    chain.eq = EQConfig(bands: [
-                        EQBand(freqHz: 80, gainDB: -6), EQBand(freqHz: 250, gainDB: -3),
-                        EQBand(freqHz: 2000, gainDB: 3), EQBand(freqHz: 4000, gainDB: 4),
-                    ])
-                default:
-                    chain.eq = EQConfig(bands: [31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000].map { EQBand(freqHz: $0) })
+                case "voice_clarity": chain.eq = .voiceClarity
+                default: chain.eq = .tenBand
                 }
             }
             if let compPreset = args["compressor_preset"] as? String {
                 switch compPreset {
-                case "voice": chain.compressor = CompressorConfig(ratio: 4, attackMS: 10, releaseMS: 100, thresholdDB: -20, makeupGainDB: 6)
-                case "music": chain.compressor = CompressorConfig(ratio: 2, attackMS: 30, releaseMS: 300, thresholdDB: -15, makeupGainDB: 3)
-                case "limiter": chain.compressor = CompressorConfig(ratio: 20, attackMS: 1, releaseMS: 50, thresholdDB: -6, makeupGainDB: 6)
+                case "voice": chain.compressor = .voice
+                case "music": chain.compressor = .music
+                case "limiter": chain.compressor = .limiter
                 default: break
                 }
             }
             if let noiseGate = args["noise_gate_db"] as? Double {
-                chain.gate = GateConfig(thresholdDB: noiseGate)
+                chain.noiseGateThreshold = noiseGate
             }
             effectChain = chain
         default:
@@ -1748,8 +1738,8 @@ final class MCPServer {
         if let chain = effectChain {
             var desc: [String] = []
             if let eq = chain.eq { desc.append("EQ (\(eq.bands.count) bands)") }
-            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.thresholdDB)dB, ratio: \(comp.ratio):1)") }
-            if let gate = chain.gate { desc.append("Noise gate (\(gate.thresholdDB)dB)") }
+            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.threshold)dB, ratio: \(comp.ratio):1)") }
+            if let gate = chain.noiseGateThreshold { desc.append("Noise gate (\(gate)dB)") }
             return "Applied audio effects to track: \(desc.joined(separator: ", ")). Effects render during export."
         }
         return "Removed audio effects from track."

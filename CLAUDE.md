@@ -41,7 +41,7 @@ App runs at `http://localhost:8420/mcp`. Use `tools/list` to see all available t
 
 ## Environment Variables
 
-API keys go in `VideoEditor/.env`. Check `.env.example` for what's needed. Sentry DSN also goes here (`SENTRY_DSN`).
+API keys go in `VideoEditor/.env`. Check that file for what's needed.
 
 ## Skills
 

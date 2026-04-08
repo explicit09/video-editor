@@ -11,9 +11,6 @@ packages:
     path: Packages/EditorCore
   AIServices:
     path: Packages/AIServices
-  Sentry:
-    url: https://github.com/getsentry/sentry-cocoa
-    from: "8.0.0"
 
 targets:
   VideoEditor:
@@ -40,8 +37,6 @@ targets:
     dependencies:
       - package: EditorCore
       - package: AIServices
-      - package: Sentry
-        product: Sentry
 
   VideoEditorTests:
     type: bundle.unit-test
