@@ -44,7 +44,7 @@ public enum AudioEffectTap {
     }
 
     private static func hasActiveEffects(_ chain: AudioEffectChain) -> Bool {
-        chain.eq != nil || chain.compressor != nil || chain.noiseGateThreshold != nil
+        chain.eq != nil || chain.compressor != nil || chain.gate != nil
     }
 }
 
@@ -139,8 +139,8 @@ private func tapProcess(
             let samples = UnsafeMutableBufferPointer(start: floatPtr, count: frameCount)
 
             // 1. Noise gate
-            if let threshold = chain.noiseGateThreshold {
-                applyNoiseGate(samples: samples, thresholdDB: threshold)
+            if let gate = chain.gate {
+                applyNoiseGate(samples: samples, thresholdDB: gate.thresholdDB)
             }
 
             // 2. EQ (via biquad cascade)
@@ -157,7 +157,7 @@ private func tapProcess(
             if let comp = chain.compressor {
                 applyCompressor(
                     samples: samples,
-                    settings: comp,
+                    config: comp,
                     sampleRate: context.sampleRate,
                     envelope: &context.envelopeLevel
                 )
@@ -184,15 +184,17 @@ private func applyNoiseGate(
 
 private func applyCompressor(
     samples: UnsafeMutableBufferPointer<Float>,
-    settings: CompressorSettings,
+    config: CompressorConfig,
     sampleRate: Double,
     envelope: inout Float
 ) {
-    let thresholdLinear = Float(pow(10.0, settings.threshold / 20.0))
-    let ratio = Float(max(settings.ratio, 1.0))
-    let makeupGain = Float(pow(10.0, settings.makeupGain / 20.0))
-    let attackCoeff = Float(exp(-1.0 / (settings.attack * sampleRate)))
-    let releaseCoeff = Float(exp(-1.0 / (settings.release * sampleRate)))
+    let thresholdLinear = Float(pow(10.0, config.thresholdDB / 20.0))
+    let ratio = Float(max(config.ratio, 1.0))
+    let makeupGain = Float(pow(10.0, config.makeupGainDB / 20.0))
+    let attackSec = config.attackMS / 1000.0
+    let releaseSec = config.releaseMS / 1000.0
+    let attackCoeff = Float(exp(-1.0 / (attackSec * sampleRate)))
+    let releaseCoeff = Float(exp(-1.0 / (releaseSec * sampleRate)))
 
     for i in 0..<samples.count {
         let inputAbs = abs(samples[i])
@@ -220,7 +222,7 @@ private func applyCompressor(
 
 /// Build a cascaded biquad filter from EQ bands using vDSP.
 private func buildBiquadCascade(
-    bands: [EqualizerSettings.EQBand],
+    bands: [EQBand],
     sampleRate: Double,
     channelCount: Int
 ) -> vDSP.Biquad<Float>? {
@@ -228,9 +230,9 @@ private func buildBiquadCascade(
     var allCoeffs: [Double] = []
     for band in bands {
         let coeffs = peakingEQCoefficients(
-            frequency: band.frequency,
-            gain: band.gain,
-            bandwidth: band.bandwidth,
+            frequency: band.freqHz,
+            gain: band.gainDB,
+            q: band.q,
             sampleRate: sampleRate
         )
         allCoeffs.append(contentsOf: coeffs)
@@ -251,14 +253,14 @@ private func buildBiquadCascade(
 private func peakingEQCoefficients(
     frequency: Double,
     gain: Double,
-    bandwidth: Double,
+    q: Double,
     sampleRate: Double
 ) -> [Double] {
     let A = pow(10.0, gain / 40.0)
     let w0 = 2.0 * Double.pi * frequency / sampleRate
     let sinW0 = sin(w0)
     let cosW0 = cos(w0)
-    let alpha = sinW0 * sinh(log(2.0) / 2.0 * bandwidth * w0 / sinW0)
+    let alpha = sinW0 / (2.0 * max(q, 0.1))
 
     let b0 = 1.0 + alpha * A
     let b1 = -2.0 * cosW0
