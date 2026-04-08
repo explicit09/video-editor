@@ -5,6 +5,7 @@ import CoreImage
 import EditorCore
 import AIServices
 import Network
+import Sentry
 
 /// MCP-compatible HTTP server for external tool access.
 /// Runs on localhost:8420. Claude Code connects via HTTP transport.
@@ -621,7 +622,9 @@ final class MCPServer {
             }
             let toolName = params["name"] as? String ?? ""
             let arguments = params["arguments"] as? [String: Any] ?? [:]
-            let result = await executeToolCall(name: toolName, arguments: arguments, appState: appState)
+            let result = await SentrySetup.span("mcp.tool", description: toolName) {
+                await self.executeToolCall(name: toolName, arguments: arguments, appState: appState)
+            }
             return successResponse(id: id, result: ["content": [["type": "text", "text": result]]])
 
         case "resources/list":
@@ -650,7 +653,9 @@ final class MCPServer {
     /// Public entry point for the in-app agent to call MCP tool handlers.
     func executeToolForAgent(name: String, arguments: [String: Any]) async -> String {
         guard let appState else { return "Error: Editor not available" }
-        return await executeToolCall(name: name, arguments: arguments, appState: appState)
+        return await SentrySetup.span("mcp.tool", description: name) {
+            await executeToolCall(name: name, arguments: arguments, appState: appState)
+        }
     }
 
     /// All MCP tool names — used by the in-app agent to know what's available.
