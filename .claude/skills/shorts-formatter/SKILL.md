@@ -8,6 +8,16 @@ allowed-tools: analyze_audio_energy get_transcript transcribe_asset split_clip t
 
 You format clips for maximum impact on vertical-first platforms.
 
+## Hook Strategy Foundation
+
+Shorts live or die on the hook—viewers decide within the first second whether to keep watching. Every hook must satisfy three simultaneous requirements:
+
+1. **Grab immediately** — Bold claim, sharp question, visual surprise, or provocative statement. Never ease in.
+2. **Work without sound** — 80%+ viewers watch muted. Visual hook must land without audio (captions will carry meaning).
+3. **Signal value** — The hook must make clear what the viewer will gain by staying (entertainment, insight, resolution, intrigue).
+
+Treat the hook as your primary design element, not an afterthought. All other decisions (pacing, composition, captions) serve the hook.
+
 ## Step 0: Verify the source is worth formatting
 
 Before any formatting work:
@@ -22,13 +32,28 @@ If source is 16:9:
 1. `auto_reframe` with aspect_ratio "9:16" — gets face-tracked crop regions
 2. `set_clip_transform` to apply: scaleX/scaleY ~1.78 to fill 9:16, positionX/Y to center speaker
 
+**Composition refinement (mandatory after auto-reframe):**
+1. Check headroom: Subject's eyes should sit on upper third of frame (not centered)
+2. Verify safe title area: Text must stay > 40px from all edges (mobile notches + OS UI)
+3. Assess subject positioning: Face and hand gestures should dominate (side-to-side movement wastes vertical space)
+4. If subject is off-center or cropped awkwardly, manually adjust positionX/Y before proceeding
+5. Consider subtle vignetting via `set_clip_effect` to isolate subject from background (especially important for weak backgrounds)
+
+**Do NOT accept auto-reframe output without verification — it's a starting point, not a final solution.**
+
 ## Step 2: Cold-open hook structure
 
 Every Short needs the hook in the first 3 seconds.
 
-**Evaluate the opening:** Does the first sentence grab attention?
-- YES (bold claim, question, surprise) → leave it
-- NO (setup, context, "so...") → apply cold open:
+**Evaluate the opening for hook strength:** Does the first sentence grab attention?
+- **Strong hooks** (KEEP): Bold claim ("This breaks physics"), sharp question ("What if you could...?"), visual shock, surprising statistic, provocative statement
+- **Weak openers** (NEEDS COLD OPEN): Setup statements ("So..."), context ("Let me tell you..."), apologies ("This is crazy but..."), gradual build-ups
+
+**For silent viewers:** If your hook is audio-dependent (subtle joke, unclear statement), it will fail. The visual and/or captions must make the hook land WITHOUT sound.
+
+**For multi-hook content:** If the clip has 2-3 strong hooks available, extend the hook slightly (up to 4-5s for YouTube Shorts, 2-3s for TikTok) to showcase them. Multiple hook points give different viewers different reasons to stay.
+
+If the opening is weak, apply cold open:
 
 **Cold open technique:**
 1. Find the most provocative sentence in the clip via `search_transcript`
@@ -39,21 +64,51 @@ Every Short needs the hook in the first 3 seconds.
 
 **Do NOT use crossDissolve for hooks — it's invisible. Use wipeLeft or wipeRight.**
 
+**Why visible transitions matter for hooks:** Invisible transitions (crossDissolve) blur the boundary between hook and content, making the hook feel like filler. Visible transitions (wipeLeft/wipeRight) create a mental reset—they signal "this was the hook, now comes the payload." This distinction helps viewers understand structure and prepares them for the body content.
+
 ## Step 3: Tighten pacing
 
-- Remove ALL silence > 0.3s — Shorts cannot have dead air
-- Speed: WPM < 140 → 1.15x, WPM 140-170 → 1.08x, WPM > 170 → no change
-- If talking head runs > 6s without visual change, consider a subtle zoom via `set_clip_transform`
+### Pacing by Platform
 
-## Step 4: Captions
+**YouTube Shorts (59s max):**
+- Remove silence > 0.3s (extremely tight; vertical space is premium)
+- Apply speed: WPM < 140 → 1.15x, WPM 140-170 → 1.08x, WPM > 170 → no change
+- Talking head runs > 6s require visual change (zoom, angle swap, graphics)
+- Music: Never exceed 20-30s without visual progression
 
-- `set_caption_style` with style "karaoke" (word-by-word highlight)
-- Mandatory — 80%+ viewers watch without sound
+**TikTok (60s max):**
+- Remove silence > 0.5s (slightly more breathing room than Shorts, still tight)
+- Match visual beats to trending audio if participating in trends
+- Talking heads benefit from faster cuts (switch every 3-5s) to maintain energy
+- Hook window: 2 seconds (tighter than Shorts)
+
+**Reels (30s max):**
+- Remove silence > 0.3s (most constrained; every second counts)
+- Pacing must be fastest of all three platforms
+- Talking heads work poorly; favor B-roll heavy content with voiceover
+- Hook window: 3 seconds
+
+**General rule:** Silence can be intentional only if it emphasizes a key moment (e.g., pause after a provocative statement). Unintentional silence always reads as dead air. When in doubt, trim it.
+
+## Step 4: Captions as Primary Information System
+
+**Captions are not an accessibility feature—they are your primary information carrier.** 80%+ of viewers watch without sound. Captions must land just as hard as audio.
+
+**Implementation:**
+1. `set_caption_style` with style "karaoke" (word-by-word highlight)
+2. Check caption timing: Each phrase should appear on-screen for at least 1.5s, with a max of 3s (faster on TikTok)
+3. Verify safe area: Captions must stay > 40px from all edges (mobile notches + interface elements)
+4. Color strategy: High contrast against background (white text for dark backgrounds, dark for light). Consider a subtle semi-transparent background bar for readability
+5. Position captions to avoid obstructing faces or key visual elements
+6. Match caption timing to audio rhythm—captions that lag behind speech feel disconnected
+
+**Caption design principle:** Treat captions like you would motion graphics. They're visible information architecture, not boring text. Strategic color, timing, and positioning transform captions from required text into a design element that enhances the hook and maintains engagement.
 
 ## Step 5: Final polish
 
 - `set_clip_effect` with colorCorrection: contrast 1.1 (slight boost for mobile screens)
 - `measure_loudness` — target -14 LUFS
+- Verify pacing alignment: Check that visual cuts and transitions sync with audio rhythm. If speech speeds up, cuts should get tighter. If speech slows, allow for more visual breathing room. Misalignment between audio and visual pacing creates cognitive dissonance.
 
 ## Step 6: Mandatory verification
 
@@ -72,6 +127,18 @@ Every Short needs the hook in the first 3 seconds.
    - Speech ratio > 80%
    - No dead zones
 
+## Why These Steps Matter for Vertical
+
+Vertical short-form content is fundamentally different from horizontal video:
+
+- **Framing is tighter:** Side-to-side movement wastes space. Face, hands, and emotional expression dominate. Auto-reframe is a starting point; manual refinement is mandatory.
+- **Silent viewing is the norm:** Design for muted playback first, then add audio as enhancement. Captions aren't optional—they're your primary narrative layer.
+- **Hooks are survival:** The first 3 seconds determine everything. Weak hooks lose viewers before the content begins.
+- **Pacing drives perception:** Tighter pacing isn't just aesthetic—it's required for the narrow vertical frame. Long shots, slow cuts, and extended silence feel like dead air in vertical.
+- **Captions are design:** Done right, they're typography, rhythm, and information architecture combined. Done wrong, they're invisible clutter.
+
+Every decision—composition, pacing, captions, transitions—must be intentional for the vertical medium. Shortcuts show immediately on mobile screens.
+
 ## Available transitions (only these exist)
 
 - `none`, `crossDissolve`, `fadeToBlack`, `fadeFromBlack`, `wipeLeft`, `wipeRight`
@@ -79,13 +146,13 @@ Every Short needs the hook in the first 3 seconds.
 - For endings: use `fadeToBlack`
 - Never use transitions that don't exist (no spin, zoom, flash, etc.)
 
-## Platform specs
+## Platform Specifications
 
-| Platform | Max duration | Loudness | Hook window |
-|----------|-------------|----------|-------------|
-| YouTube Shorts | 59s | -14 LUFS | 3 seconds |
-| TikTok | 60s | -14 LUFS | 2 seconds |
-| Reels | 30s | -14 LUFS | 3 seconds |
+| Platform | Max Duration | Loudness | Hook Window | Silence Threshold | Primary Medium |
+|----------|-------------|----------|-------------|-------------------|----------------|
+| YouTube Shorts | 59s | -14 LUFS | 3 seconds | > 0.3s (remove) | Captions (80%+ muted) |
+| TikTok | 60s | -14 LUFS | 2 seconds | > 0.5s (remove) | Captions + audio trends |
+| Reels | 30s | -14 LUFS | 3 seconds | > 0.3s (remove) | Captions (most muted) |
 
 ## What NOT to do
 
