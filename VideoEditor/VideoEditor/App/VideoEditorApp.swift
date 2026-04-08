@@ -1,11 +1,16 @@
 import SwiftUI
 import AppKit
 import Combine
+import Sentry
 
 @main
 struct VideoEditorApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @State private var appState = AppState()
+
+    init() {
+        SentrySetup.configure()
+    }
 
     var body: some Scene {
         WindowGroup {
