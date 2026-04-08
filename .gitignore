@@ -13,7 +13,6 @@ build/
 # Swift Package Manager
 .build/
 .swiftpm/
-Package.resolved
 
 # OS
 .DS_Store
