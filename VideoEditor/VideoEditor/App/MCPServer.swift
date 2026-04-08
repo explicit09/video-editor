@@ -49,9 +49,39 @@ final class MCPServer {
         nwListener = nil
     }
 
+    // MARK: - Security
+
+    /// Returns true if the remote endpoint is a loopback address (127.0.0.1 or ::1).
+    private nonisolated func isLoopback(_ endpoint: NWEndpoint) -> Bool {
+        switch endpoint {
+        case .hostPort(let host, _):
+            switch host {
+            case .ipv4(let addr):
+                return addr == IPv4Address.loopback
+            case .ipv6(let addr):
+                return addr == IPv6Address.loopback
+            default:
+                return false
+            }
+        default:
+            return false
+        }
+    }
+
     // MARK: - Connection Handling
 
     private func handleNewConnection(_ connection: NWConnection) {
+        connection.stateUpdateHandler = { [weak self] state in
+            guard let self else { return }
+            if case .ready = state {
+                if let remote = connection.currentPath?.remoteEndpoint, !self.isLoopback(remote) {
+                    print("[MCP] Rejected non-loopback connection from \(remote)")
+                    connection.cancel()
+                    return
+                }
+            }
+        }
+
         connection.start(queue: .global(qos: .utility))
         connection.receive(minimumIncompleteLength: 1, maximumLength: 65536) { [weak self] data, _, _, error in
             guard let self, let data, error == nil else {
