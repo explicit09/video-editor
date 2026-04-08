@@ -12,7 +12,7 @@ public enum EditorIntent: Sendable {
     case moveClip(clipID: UUID, newStart: TimeInterval, trackID: UUID)
     case trimClip(clipID: UUID, newSourceRange: TimeRange)
     case splitClip(clipID: UUID, at: TimeInterval)
-    case setMarker(at: TimeInterval, label: String)
+    case setMarker(at: TimeInterval, label: String, color: String = "#FF0000")
     case deleteMarker(markerID: UUID)
     // Property commands
     case setClipVolume(clipID: UUID, volume: Double)
@@ -42,6 +42,18 @@ public enum EditorIntent: Sendable {
     case setClipKeyframes(clipID: UUID, track: String, keyframes: [Keyframe])
     case slipClip(clipID: UUID, delta: TimeInterval)
     case rippleTrim(clipID: UUID, edge: TrimEdge, delta: TimeInterval)
+    // Audio effect commands
+    case applyGate(clipID: UUID, config: GateConfig)
+    case applyCompressor(clipID: UUID, config: CompressorConfig)
+    case applyDeEsser(clipID: UUID, config: DeEsserConfig)
+    case applyEQ(clipID: UUID, config: EQConfig)
+    case applyLimiter(clipID: UUID, config: LimiterConfig)
+    case normalizeLUFS(clipID: UUID, targetLUFS: Double)
+    // Non-audio visual commands
+    case addTextOverlay(clipID: UUID, overlay: TextOverlay)
+    case removeTextOverlay(clipID: UUID, overlayID: UUID)
+    case applySpeedRamp(clipID: UUID, startTime: TimeInterval, endTime: TimeInterval, speedStart: Double, speedEnd: Double, easing: KeyframeInterpolation)
+    case addZoomEffect(clipID: UUID, startTime: TimeInterval, duration: TimeInterval, zoomStart: Double, zoomEnd: Double, centerX: Double, centerY: Double)
     /// Multiple intents as a single undoable operation.
     case batch([EditorIntent])
 }
@@ -71,8 +83,8 @@ public struct IntentResolver: Sendable {
             return TrimClipCommand(clipID: clipID, newSourceRange: newSourceRange)
         case .splitClip(let clipID, let at):
             return SplitClipCommand(clipID: clipID, at: at)
-        case .setMarker(let at, let label):
-            return SetMarkerCommand(at: at, label: label)
+        case .setMarker(let at, let label, let color):
+            return SetMarkerCommand(at: at, label: label, color: color)
         case .deleteMarker(let markerID):
             return DeleteMarkerCommand(markerID: markerID)
         case .setClipVolume(let clipID, let volume):
@@ -129,6 +141,26 @@ public struct IntentResolver: Sendable {
             return SlipClipCommand(clipID: clipID, delta: delta)
         case .rippleTrim(let clipID, let edge, let delta):
             return RippleTrimCommand(clipID: clipID, edge: edge, delta: delta)
+        case .applyGate(let clipID, let config):
+            return ApplyGateCommand(clipID: clipID, config: config)
+        case .applyCompressor(let clipID, let config):
+            return ApplyCompressorCommand(clipID: clipID, config: config)
+        case .applyDeEsser(let clipID, let config):
+            return ApplyDeEsserCommand(clipID: clipID, config: config)
+        case .applyEQ(let clipID, let config):
+            return ApplyEQCommand(clipID: clipID, config: config)
+        case .applyLimiter(let clipID, let config):
+            return ApplyLimiterCommand(clipID: clipID, config: config)
+        case .normalizeLUFS(let clipID, let targetLUFS):
+            return NormalizeLUFSCommand(clipID: clipID, targetLUFS: targetLUFS)
+        case .addTextOverlay(let clipID, let overlay):
+            return AddTextOverlayCommand(clipID: clipID, overlay: overlay)
+        case .removeTextOverlay(let clipID, let overlayID):
+            return RemoveTextOverlayCommand(clipID: clipID, overlayID: overlayID)
+        case .applySpeedRamp(let clipID, let startTime, let endTime, let speedStart, let speedEnd, let easing):
+            return ApplySpeedRampCommand(clipID: clipID, startTime: startTime, endTime: endTime, speedStart: speedStart, speedEnd: speedEnd, easing: easing)
+        case .addZoomEffect(let clipID, let startTime, let duration, let zoomStart, let zoomEnd, let centerX, let centerY):
+            return AddZoomEffectCommand(clipID: clipID, startTime: startTime, duration: duration, zoomStart: zoomStart, zoomEnd: zoomEnd, centerX: centerX, centerY: centerY)
         case .batch(let intents):
             let commands = try intents.map { try resolve($0) }
             return BatchCommand(name: "Batch", commands: commands)
