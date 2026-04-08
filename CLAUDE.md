@@ -4,6 +4,10 @@
 
 Native macOS video editor. Swift + SwiftUI + AVFoundation + Metal. Full architecture in ARCHITECTURE.md.
 
+## Prerequisites
+
+XcodeGen must be installed: `brew install xcodegen`
+
 ## Build & Test
 
 All commands from `VideoEditor/` directory:
