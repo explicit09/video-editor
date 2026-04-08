@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tooling
+        run: |
+          brew install xcodegen ffmpeg
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Developer/Xcode/DerivedData
+            ~/.swiftpm
+          key: swiftpm-${{ runner.os }}-${{ hashFiles('**/Package.swift', '**/Package.resolved', 'VideoEditor/project.yml') }}
+          restore-keys: |
+            swiftpm-${{ runner.os }}-
+
+      - name: Generate Xcode project
+        working-directory: VideoEditor
+        run: xcodegen generate
+
+      - name: Build
+        working-directory: VideoEditor
+        run: |
+          xcodebuild \
+            -scheme VideoEditor \
+            -destination 'platform=macOS' \
+            -derivedDataPath ~/Library/Developer/Xcode/DerivedData \
+            build
+
+      - name: Swift package tests (EditorCore)
+        working-directory: VideoEditor/Packages/EditorCore
+        run: swift test
+
+      - name: Install Python dependencies
+        working-directory: VideoEditor/Tools
+        run: python3 -m pip install -r requirements.txt
+
+      - name: Python tests
+        working-directory: VideoEditor/Tools
+        run: python3 -m unittest discover -s tests -p "test_*.py"
