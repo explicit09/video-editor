@@ -1702,27 +1702,32 @@ final class MCPServer {
         case "podcast":
             effectChain = .podcastVoice
         case "music":
-            effectChain = AudioEffectChain(compressor: .music)
+            effectChain = AudioEffectChain(compressor: CompressorConfig(ratio: 2, attackMS: 30, releaseMS: 300, thresholdDB: -15, makeupGainDB: 3))
         case "none":
             effectChain = nil
         case "custom":
             var chain = AudioEffectChain()
             if let eqPreset = args["eq_preset"] as? String {
                 switch eqPreset {
-                case "voice_clarity": chain.eq = .voiceClarity
-                default: chain.eq = .tenBand
+                case "voice_clarity":
+                    chain.eq = EQConfig(bands: [
+                        EQBand(freqHz: 80, gainDB: -6), EQBand(freqHz: 250, gainDB: -3),
+                        EQBand(freqHz: 2000, gainDB: 3), EQBand(freqHz: 4000, gainDB: 4),
+                    ])
+                default:
+                    chain.eq = EQConfig(bands: [31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000].map { EQBand(freqHz: $0) })
                 }
             }
             if let compPreset = args["compressor_preset"] as? String {
                 switch compPreset {
-                case "voice": chain.compressor = .voice
-                case "music": chain.compressor = .music
-                case "limiter": chain.compressor = .limiter
+                case "voice": chain.compressor = CompressorConfig(ratio: 4, attackMS: 10, releaseMS: 100, thresholdDB: -20, makeupGainDB: 6)
+                case "music": chain.compressor = CompressorConfig(ratio: 2, attackMS: 30, releaseMS: 300, thresholdDB: -15, makeupGainDB: 3)
+                case "limiter": chain.compressor = CompressorConfig(ratio: 20, attackMS: 1, releaseMS: 50, thresholdDB: -6, makeupGainDB: 6)
                 default: break
                 }
             }
             if let noiseGate = args["noise_gate_db"] as? Double {
-                chain.noiseGateThreshold = noiseGate
+                chain.gate = GateConfig(thresholdDB: noiseGate)
             }
             effectChain = chain
         default:
@@ -1738,8 +1743,8 @@ final class MCPServer {
         if let chain = effectChain {
             var desc: [String] = []
             if let eq = chain.eq { desc.append("EQ (\(eq.bands.count) bands)") }
-            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.threshold)dB, ratio: \(comp.ratio):1)") }
-            if let gate = chain.noiseGateThreshold { desc.append("Noise gate (\(gate)dB)") }
+            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.thresholdDB)dB, ratio: \(comp.ratio):1)") }
+            if let gate = chain.gate { desc.append("Noise gate (\(gate.thresholdDB)dB)") }
             return "Applied audio effects to track: \(desc.joined(separator: ", ")). Effects render during export."
         }
         return "Removed audio effects from track."
