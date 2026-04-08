@@ -68,6 +68,27 @@ final class MCPServer {
         }
     }
 
+    /// Returns true if the Origin header value is from a loopback address.
+    private nonisolated func isAllowedOrigin(_ origin: String) -> Bool {
+        let allowed = ["http://127.0.0.1", "http://localhost", "http://[::1]"]
+        return allowed.contains(where: { origin.hasPrefix($0) })
+    }
+
+    /// Returns the CORS origin header value for the given request headers.
+    /// Returns the request's Origin if allowed, otherwise nil.
+    private nonisolated func corsOrigin(from headers: String) -> String? {
+        let lines = headers.components(separatedBy: "\r\n")
+        for line in lines {
+            let lower = line.lowercased()
+            if lower.hasPrefix("origin:") {
+                let origin = line.dropFirst("origin:".count).trimmingCharacters(in: .whitespaces)
+                return isAllowedOrigin(origin) ? origin : nil
+            }
+        }
+        // No Origin header — non-browser request (curl, etc.). Allow.
+        return ""
+    }
+
     // MARK: - Connection Handling
 
     private func handleNewConnection(_ connection: NWConnection) {
@@ -101,7 +122,17 @@ final class MCPServer {
 
             // CORS preflight
             if headers.hasPrefix("OPTIONS") {
-                let response = "HTTP/1.1 200 OK\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: POST\r\nAccess-Control-Allow-Headers: Content-Type\r\nContent-Length: 0\r\n\r\n"
+                let origin = corsOrigin(from: headers)
+                if origin == nil {
+                    let response = "HTTP/1.1 403 Forbidden\r\nContent-Length: 0\r\n\r\n"
+                    connection.send(content: response.data(using: .utf8), completion: .contentProcessed { _ in connection.cancel() })
+                    return
+                }
+                var corsHeader = ""
+                if !origin!.isEmpty {
+                    corsHeader = "Access-Control-Allow-Origin: \(origin!)\r\nVary: Origin\r\n"
+                }
+                let response = "HTTP/1.1 200 OK\r\n\(corsHeader)Access-Control-Allow-Methods: POST\r\nAccess-Control-Allow-Headers: Content-Type\r\nContent-Length: 0\r\n\r\n"
                 connection.send(content: response.data(using: .utf8), completion: .contentProcessed { _ in connection.cancel() })
                 return
             }
@@ -116,7 +147,12 @@ final class MCPServer {
                     responseJSON = self.errorResponse(id: nil, code: -32700, message: "Parse error")
                 }
 
-                let httpResponse = "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nAccess-Control-Allow-Origin: *\r\nContent-Length: \(responseJSON.utf8.count)\r\n\r\n\(responseJSON)"
+                let origin = self.corsOrigin(from: headers)
+                var corsHeader = ""
+                if let origin, !origin.isEmpty {
+                    corsHeader = "Access-Control-Allow-Origin: \(origin)\r\nVary: Origin\r\n"
+                }
+                let httpResponse = "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\(corsHeader)Content-Length: \(responseJSON.utf8.count)\r\n\r\n\(responseJSON)"
                 connection.send(content: httpResponse.data(using: .utf8), completion: .contentProcessed { _ in connection.cancel() })
             }
         }
