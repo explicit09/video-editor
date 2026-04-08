@@ -12,6 +12,8 @@ public struct Clip: Codable, Identifiable, Sendable {
     public var opacity: Double
     public var volume: Double
     public var effects: [EffectInstance]
+    public var audioEffects: AudioEffectChain?
+    public var textOverlays: [TextOverlay]
     public var keyframes: KeyframeStore
     public var metadata: ClipMetadata
     /// Playback speed multiplier. 1.0 = normal, 0.5 = half speed, 2.0 = double speed.
@@ -35,6 +37,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         opacity: Double = 1.0,
         volume: Double = 1.0,
         effects: [EffectInstance] = [],
+        audioEffects: AudioEffectChain? = nil,
+        textOverlays: [TextOverlay] = [],
         keyframes: KeyframeStore = KeyframeStore(),
         metadata: ClipMetadata = ClipMetadata(),
         speed: Double = 1.0,
@@ -52,6 +56,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.opacity = min(max(opacity, 0), 1)
         self.volume = max(volume, 0)
         self.effects = effects
+        self.audioEffects = audioEffects
+        self.textOverlays = textOverlays
         self.keyframes = keyframes
         self.metadata = metadata
         self.speed = max(speed, 0.1) // minimum 0.1x
@@ -71,6 +77,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         case opacity
         case volume
         case effects
+        case audioEffects
+        case textOverlays
         case keyframes
         case metadata
         case speed
@@ -91,6 +99,8 @@ public struct Clip: Codable, Identifiable, Sendable {
         self.opacity = min(max(try container.decode(Double.self, forKey: .opacity), 0), 1)
         self.volume = max(try container.decode(Double.self, forKey: .volume), 0)
         self.effects = try container.decode([EffectInstance].self, forKey: .effects)
+        self.audioEffects = try container.decodeIfPresent(AudioEffectChain.self, forKey: .audioEffects)
+        self.textOverlays = try container.decodeIfPresent([TextOverlay].self, forKey: .textOverlays) ?? []
         self.keyframes = try container.decode(KeyframeStore.self, forKey: .keyframes)
         self.metadata = try container.decode(ClipMetadata.self, forKey: .metadata)
         self.speed = max(try container.decode(Double.self, forKey: .speed), 0.1)
@@ -346,6 +356,10 @@ extension EffectInstance {
         )
     }
 
+    public static func vignette(intensity: Double = 0.5, feather: Double = 0.7) -> EffectInstance {
+        EffectInstance(type: typeVignette, parameters: ["intensity": intensity, "feather": feather])
+    }
+
     /// Known effect type constants.
     public static let typeColorCorrection = "colorCorrection"
     public static let typeLUT = "lut"
@@ -353,6 +367,7 @@ extension EffectInstance {
     public static let typeSharpen = "sharpen"
     public static let typeVideoDenoise = "videoDenoise"
     public static let typeChromaKey = "chromaKey"
+    public static let typeVignette = "vignette"
 }
 
 public struct KeyframeStore: Codable, Sendable {
