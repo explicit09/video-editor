@@ -788,6 +788,184 @@ public struct RippleTrimCommand: Command {
     }
 }
 
+// MARK: - Text Overlay Commands
+
+/// Add a text overlay to a clip.
+public struct AddTextOverlayCommand: Command {
+    public let name = "Add Text Overlay"
+    public let clipID: UUID
+    public let overlay: TextOverlay
+    public var affectedClipIDs: [UUID] { [clipID] }
+
+    public init(clipID: UUID, overlay: TextOverlay) {
+        self.clipID = clipID
+        self.overlay = overlay
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            clip.textOverlays.append(overlay)
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            clip.textOverlays.removeAll { $0.id == overlay.id }
+        }
+    }
+}
+
+/// Remove a text overlay from a clip.
+public struct RemoveTextOverlayCommand: Command {
+    public let name = "Remove Text Overlay"
+    public let clipID: UUID
+    public let overlayID: UUID
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var removedOverlay: TextOverlay?
+
+    public init(clipID: UUID, overlayID: UUID) {
+        self.clipID = clipID
+        self.overlayID = overlayID
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            if let idx = clip.textOverlays.firstIndex(where: { $0.id == overlayID }) {
+                removedOverlay = clip.textOverlays[idx]
+                clip.textOverlays.remove(at: idx)
+            }
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        guard let overlay = removedOverlay else { return }
+        try modifyClip(id: clipID, context: context) { clip in
+            clip.textOverlays.append(overlay)
+        }
+    }
+}
+
+// MARK: - Speed Ramp Command
+
+/// Apply a speed ramp by setting keyframes on the "speed" track.
+public struct ApplySpeedRampCommand: Command {
+    public let name = "Apply Speed Ramp"
+    public let clipID: UUID
+    public let startTime: TimeInterval
+    public let endTime: TimeInterval
+    public let speedStart: Double
+    public let speedEnd: Double
+    public let easing: KeyframeInterpolation
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousSpeedKeyframes: [Keyframe]?
+
+    public init(
+        clipID: UUID,
+        startTime: TimeInterval,
+        endTime: TimeInterval,
+        speedStart: Double,
+        speedEnd: Double,
+        easing: KeyframeInterpolation = .easeInOut
+    ) {
+        self.clipID = clipID
+        self.startTime = startTime
+        self.endTime = endTime
+        self.speedStart = speedStart
+        self.speedEnd = speedEnd
+        self.easing = easing
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            previousSpeedKeyframes = clip.keyframes.tracks["speed"]
+            let keyframes = [
+                Keyframe(time: startTime, value: speedStart, interpolation: easing),
+                Keyframe(time: endTime, value: speedEnd, interpolation: easing)
+            ]
+            clip.keyframes.tracks["speed"] = keyframes
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            clip.keyframes.tracks["speed"] = previousSpeedKeyframes
+        }
+    }
+}
+
+// MARK: - Zoom Effect Command
+
+/// Add a zoom effect by setting keyframes on scale, positionX, and positionY tracks.
+public struct AddZoomEffectCommand: Command {
+    public let name = "Add Zoom Effect"
+    public let clipID: UUID
+    public let startTime: TimeInterval
+    public let duration: TimeInterval
+    public let zoomStart: Double
+    public let zoomEnd: Double
+    public let centerX: Double
+    public let centerY: Double
+    public var affectedClipIDs: [UUID] { [clipID] }
+    private var previousScaleKeyframes: [Keyframe]?
+    private var previousPositionXKeyframes: [Keyframe]?
+    private var previousPositionYKeyframes: [Keyframe]?
+
+    public init(
+        clipID: UUID,
+        startTime: TimeInterval,
+        duration: TimeInterval,
+        zoomStart: Double,
+        zoomEnd: Double,
+        centerX: Double = 0.5,
+        centerY: Double = 0.5
+    ) {
+        self.clipID = clipID
+        self.startTime = startTime
+        self.duration = duration
+        self.zoomStart = zoomStart
+        self.zoomEnd = zoomEnd
+        self.centerX = centerX
+        self.centerY = centerY
+    }
+
+    public mutating func execute(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            previousScaleKeyframes = clip.keyframes.tracks["scale"]
+            previousPositionXKeyframes = clip.keyframes.tracks["positionX"]
+            previousPositionYKeyframes = clip.keyframes.tracks["positionY"]
+
+            let endTime = startTime + duration
+
+            // Scale keyframes: zoom from zoomStart to zoomEnd
+            clip.keyframes.tracks["scale"] = [
+                Keyframe(time: startTime, value: zoomStart, interpolation: .easeIn),
+                Keyframe(time: endTime, value: zoomEnd, interpolation: .easeOut)
+            ]
+
+            // Position keyframes: keep center point stable during zoom
+            // centerX/centerY are 0..1 normalized; offset from 0.5 determines pan
+            let panX = (centerX - 0.5) * (zoomEnd - 1.0)
+            let panY = (centerY - 0.5) * (zoomEnd - 1.0)
+            clip.keyframes.tracks["positionX"] = [
+                Keyframe(time: startTime, value: 0, interpolation: .easeIn),
+                Keyframe(time: endTime, value: -panX, interpolation: .easeOut)
+            ]
+            clip.keyframes.tracks["positionY"] = [
+                Keyframe(time: startTime, value: 0, interpolation: .easeIn),
+                Keyframe(time: endTime, value: -panY, interpolation: .easeOut)
+            ]
+        }
+    }
+
+    public func undo(context: EditingContext) throws {
+        try modifyClip(id: clipID, context: context) { clip in
+            clip.keyframes.tracks["scale"] = previousScaleKeyframes
+            clip.keyframes.tracks["positionX"] = previousPositionXKeyframes
+            clip.keyframes.tracks["positionY"] = previousPositionYKeyframes
+        }
+    }
+}
+
 // MARK: - Helpers
 
 @MainActor
