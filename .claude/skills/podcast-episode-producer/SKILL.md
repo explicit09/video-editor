@@ -331,6 +331,60 @@ YouTube's algorithm prioritizes watch time and click-through rate. A compelling 
 
 **Present this to the user after export. Do not skip this step.**
 
+## Step 7: Generate Thumbnail
+
+After export, generate a branded thumbnail using `generate_thumbnail`. The default provider is `"local"` — a programmatic renderer that uses real host photos with background removal, perfect text, and brand colors. No AI API calls needed.
+
+### Brand Identity (Technolgia)
+
+The brand theme is defined in the overlay template (`technologia_talks.json`) under the `brand` key. The renderer loads it automatically:
+
+- **Background:** Dark black (#000000) base with dark emerald green (#0A3D2A) gradient panels
+- **Accents:** Gold (#C8A84E) corner lines and emphasis text
+- **Text:** Title in white, subtitle in gold — rendered programmatically (no AI misspellings)
+- **Logo:** Technolgia logo composited from file
+- **Host photos:** Real photos with background removed (Vision framework) and feathered edges
+
+### Layouts
+
+- `split_panel` (default) — Two hosts side by side, title at bottom
+- `centered` — Hosts angled inward at bottom, title at top (debate/versus energy)
+- `text_heavy` — Small circular host photos, massive title dominates
+
+### How to Generate
+
+**Recommended (AI background + real photos):**
+```
+generate_thumbnail(
+  title="<short punchy title, 3-5 words>",
+  subtitle="<subtitle line>",
+  template="technologia_talks",
+  description="<topic description — drives the visual background>",
+  provider="hybrid"
+)
+```
+
+The `hybrid` provider generates a topic-relevant background with AI (Gemini), then composites real host cutout photos on top with programmatic text and brand badge. The `description` field is critical — it drives what appears in the background. Be specific about companies, technologies, people, or concepts.
+
+**Quick/instant (no AI, gradient background):**
+```
+generate_thumbnail(
+  title="<episode title>",
+  subtitle="<subtitle line>",
+  template="technologia_talks",
+  layout="split_panel"
+)
+```
+
+**Full AI generation (experimental — faces may be altered):**
+Pass `provider="flux"` or `provider="gemini"` for fully AI-generated thumbnails.
+
+### Title Strategy
+
+- First line (title): the hook — strong claim or question
+- Second line (subtitle): the payoff — context or promise
+- Keep both lines short for readability at small YouTube sizes
+
 ## What NOT to do
 
 - **Never** use `detect_episodes` for finding real episodes — use `analyze_transcript`

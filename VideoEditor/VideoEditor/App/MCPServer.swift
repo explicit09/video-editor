@@ -5192,12 +5192,13 @@ final class MCPServer {
             } else {
                 let topicDesc = description ?? title
                 bgPrompt = "A 1536x1024 cinematic background scene for a YouTube thumbnail about: \(topicDesc). "
-                    + "Show the topic visually — relevant imagery, logos, symbols, or scenes that represent the subject. "
-                    + "The topic visual should be bold and fill most of the frame. "
-                    + "Leave space in the lower-left and lower-right areas for people to be composited on top later. "
-                    + "DO NOT include any people, faces, or human figures. "
-                    + "DO NOT include any text, titles, or words. "
-                    + "Use dark moody lighting. Color palette: dark greens, blacks, and gold accents."
+                    + "Show the topic visually — relevant imagery, symbols, or scenes that represent the subject. "
+                    + "The topic visual should be bold and fill most of the frame. Keep it clean — one or two key visual elements, not a collage. "
+                    + "Leave the lower 30% of the frame darker/empty for people and text to be composited on top later. "
+                    + "ABSOLUTELY NO people, faces, human figures, or silhouettes of people. "
+                    + "ABSOLUTELY NO text, titles, words, labels, captions, or any written language anywhere in the image. "
+                    + "ABSOLUTELY NO watermarks or branded elements with writing. "
+                    + "Use dark moody cinematic lighting. Color palette: primarily dark emerald green (#0A3D2A), black (#000000), and gold (#C8A84E) accents."
             }
 
             // Use Gemini to generate background
