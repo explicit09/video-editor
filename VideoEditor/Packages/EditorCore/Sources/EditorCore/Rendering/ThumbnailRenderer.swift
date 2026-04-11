@@ -32,8 +32,17 @@ public struct ThumbnailRenderer: Sendable {
 
         let size = CGSize(width: CGFloat(w), height: CGFloat(h))
 
-        // 1. Background gradient
-        drawBackground(ctx: ctx, layout: config.layout, brand: config.brand, size: size)
+        // 1. Background: use provided image or draw gradient
+        if let bgData = config.backgroundImage,
+           let bgCIImage = CIImage(data: bgData),
+           let bgCGImage = CIContext().createCGImage(bgCIImage, from: bgCIImage.extent) {
+            // Draw background image scaled to fill canvas
+            let bgRect = CGRect(x: 0, y: 0, width: CGFloat(w), height: CGFloat(h))
+            ctx.draw(bgCGImage, in: bgRect)
+        } else {
+            // Fall back to gradient background
+            drawBackground(ctx: ctx, layout: config.layout, brand: config.brand, size: size)
+        }
 
         // 2. Gold accent corner lines
         drawAccents(ctx: ctx, layout: config.layout, brand: config.brand, size: size)
