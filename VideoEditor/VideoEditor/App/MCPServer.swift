@@ -567,7 +567,7 @@ final class MCPServer {
                         "layout": ["type": "string", "description": "Layout: 'split_panel' (default), 'hosts_left', 'centered', 'text_heavy'"],
                         "prompt": ["type": "string", "description": "Override: skip AI prompt gen, use this prompt directly"],
                         "count": ["type": "integer", "description": "Images per provider (default: 2)"],
-                        "provider": ["type": "string", "description": "Provider: 'local' (default — programmatic), 'flux', 'gemini', 'both' (flux + gemini)"],
+                        "provider": ["type": "string", "description": "Provider: 'local' (default — programmatic), 'hybrid' (AI background + real host compositing), 'flux', 'gemini', 'both' (flux + gemini)"],
                     ], "required": ["title"]],
                 ],
                 [
@@ -5181,17 +5181,95 @@ final class MCPServer {
             return "Generated thumbnail: \(filePath.path)\nLayout: \(layout)\nSize: \(ThumbnailRenderer.canvasWidth)x\(ThumbnailRenderer.canvasHeight)"
         }
 
+        // Hybrid: AI generates background, then composite real hosts + text on top
+        if providerFilter == "hybrid" {
+            let brand = loadThumbnailBrand(templateName: args["template"] as? String)
+
+            // Generate background-only prompt
+            let bgPrompt: String
+            if let override = promptOverride {
+                bgPrompt = override
+            } else {
+                let topicDesc = description ?? title
+                bgPrompt = "A 1536x1024 cinematic background scene for a YouTube thumbnail about: \(topicDesc). "
+                    + "Show the topic visually — relevant imagery, logos, symbols, or scenes that represent the subject. "
+                    + "The topic visual should be bold and fill most of the frame. "
+                    + "Leave space in the lower-left and lower-right areas for people to be composited on top later. "
+                    + "DO NOT include any people, faces, or human figures. "
+                    + "DO NOT include any text, titles, or words. "
+                    + "Use dark moody lighting. Color palette: dark greens, blacks, and gold accents."
+            }
+
+            // Use Gemini to generate background
+            var backgroundData: Data? = nil
+            if let key = ProcessInfo.processInfo.environment["GEMINI_API_KEY"]
+                ?? ProcessInfo.processInfo.environment["GOOGLE_AI_API_KEY"]
+                ?? loadEnvKey("GEMINI_API_KEY")
+                ?? loadEnvKey("GOOGLE_AI_API_KEY") {
+                let gemini = GeminiImageProvider(apiKey: key)
+                do {
+                    backgroundData = try await gemini.generateImage(
+                        prompt: bgPrompt,
+                        referenceImages: [],
+                        size: .thumbnail
+                    )
+                } catch {
+                    return "Error generating background: \(error)"
+                }
+            } else {
+                return "Error: GEMINI_API_KEY not set (needed for hybrid background generation)"
+            }
+
+            // Composite: background + real host cutouts + text + logo
+            let config = ThumbnailConfig(
+                title: title,
+                subtitle: subtitle,
+                layout: ThumbnailLayout(rawValue: layout) ?? .splitPanel,
+                hostPhotos: hostPhotos,
+                brand: brand,
+                backgroundImage: backgroundData
+            )
+
+            let renderer = ThumbnailRenderer()
+            let pngData: Data
+            do {
+                pngData = try await renderer.render(config: config)
+            } catch {
+                return "Error rendering thumbnail: \(error)"
+            }
+
+            // Save to Thumbnails directory
+            let thumbnailDir: URL
+            if let exportFolder = ExportFolderManager.defaultFolder {
+                thumbnailDir = exportFolder.appendingPathComponent("Thumbnails")
+            } else {
+                thumbnailDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                    .appendingPathComponent("Thumbnails")
+            }
+            try? FileManager.default.createDirectory(at: thumbnailDir, withIntermediateDirectories: true)
+
+            let sanitizedTitle = title.replacingOccurrences(of: "[^a-zA-Z0-9_-]", with: "_", options: .regularExpression).prefix(50)
+            let filename = "thumbnail_\(sanitizedTitle)_hybrid.png"
+            let filePath = thumbnailDir.appendingPathComponent(filename)
+            try? pngData.write(to: filePath)
+
+            return "Generated hybrid thumbnail: \(filePath.path)\nBackground: AI-generated (Gemini)\nHosts: Real photos with background removal\nText: Programmatic\nSize: \(ThumbnailRenderer.canvasWidth)x\(ThumbnailRenderer.canvasHeight)"
+        }
+
         // 2. Generate or use provided prompt
         let imagePrompt: String
         if let override = promptOverride {
             imagePrompt = override
         } else {
+            // Load brand colors for prompt generation
+            let brandForPrompt = loadThumbnailBrand(templateName: args["template"] as? String)
             let promptResult = await generateThumbnailPrompt(
                 title: title,
                 description: description,
                 hostNames: hostNames,
                 style: style,
-                layout: layout
+                layout: layout,
+                brand: brandForPrompt
             )
             switch promptResult {
             case .success(let prompt):
@@ -5436,7 +5514,8 @@ final class MCPServer {
         description: String?,
         hostNames: [String],
         style: String,
-        layout: String
+        layout: String,
+        brand: ThumbnailBrand? = nil
     ) async -> Result<String, ThumbnailError> {
         guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
             return .failure(.message("ANTHROPIC_API_KEY not set — needed for prompt generation. Use 'prompt' parameter to skip."))
@@ -5461,35 +5540,69 @@ final class MCPServer {
         let styleGuide: String
         switch style {
         case "minimal":
-            styleGuide = "Clean, modern, muted tones. Subtle gradients. Thin sans-serif font. Elegant negative space. Think Apple keynote meets YouTube."
+            styleGuide = "Clean, modern, elegant. Subtle gradients using the brand colors. Thin sans-serif font. Negative space."
         case "dramatic":
-            styleGuide = "Dark moody background with dramatic rim lighting on the hosts. Deep shadows, cinematic color grading. Neon or metallic accent colors. Intense, high-stakes energy."
+            styleGuide = "Dark moody background with dramatic rim lighting on the hosts. Deep shadows, cinematic feel. Use brand accent color for rim lighting. Intense, high-stakes energy."
         case "vibrant":
-            styleGuide = "Saturated, energetic colors. Electric gradients (purple-to-orange, cyan-to-pink). Bright lighting on hosts. Fun, high-energy, attention-grabbing. Pop art influence."
+            styleGuide = "Energetic, attention-grabbing. Bright lighting on hosts. Use brand colors with higher saturation."
         default: // bold
-            styleGuide = "High contrast, punchy colors. Strong color blocks behind each host. Heavy bold sans-serif text with slight 3D shadow. Maximum readability at small sizes. Classic MrBeast / podcast thumbnail energy."
+            styleGuide = "High contrast. Strong color blocks using brand palette. Heavy bold sans-serif text with slight shadow. Maximum readability at small sizes."
+        }
+
+        // Brand color enforcement — overrides any style guide color suggestions
+        var brandColorRule = ""
+        if let brand = brand {
+            func hexFromCGColor(_ color: CGColor) -> String {
+                guard let components = color.components, components.count >= 3 else { return "#000000" }
+                let r = Int(components[0] * 255)
+                let g = Int(components[1] * 255)
+                let b = Int(components[2] * 255)
+                return String(format: "#%02X%02X%02X", r, g, b)
+            }
+            let bg1 = hexFromCGColor(brand.primaryBackground)
+            let bg2 = hexFromCGColor(brand.secondaryBackground)
+            let gold = hexFromCGColor(brand.accentGold)
+            let textColor = hexFromCGColor(brand.textPrimary)
+            let accentText = hexFromCGColor(brand.textAccent)
+            brandColorRule = """
+
+            MANDATORY BRAND COLORS (override all other color suggestions):
+            - Primary background: \(bg1) (deep black)
+            - Secondary background: \(bg2) (dark emerald green)
+            - Accent color: \(gold) (gold — for highlights, accent lines, subtitle text)
+            - Title text: \(textColor) (white)
+            - Subtitle/emphasis text: \(accentText) (gold)
+            - ONLY use these colors. Do NOT use blue, orange, purple, cyan, red, or any other color.
+            - Background must be dark \(bg2) to \(bg1) gradient. No bright backgrounds.
+            """
         }
 
         let systemPrompt = """
-        You are an expert YouTube thumbnail designer who creates thumbnails that get 10%+ CTR.
+        You are an expert YouTube thumbnail designer studying channels like TBPN that get 10%+ CTR.
         Write a detailed image generation prompt. Output ONLY the prompt, no explanation.
 
-        CRITICAL RULES:
-        1. LAYOUT: \(layoutDesc)
-        2. HOSTS / FACE PRESERVATION: The reference images contain real people. Your prompt MUST include these exact instructions:
+        THE FORMULA (study TBPN, Diet TBPN thumbnails):
+        1. TOPIC VISUAL IS THE STAR — The topic fills 50-70% of the frame. If the episode is about OpenAI, show the OpenAI logo BIG. If about chips/semiconductors, show a chip. If about a person (Elon, Jensen), show THEIR face large. If about a country, show its flag. The topic visual IS the background — bold, dominant, unmissable. This is what makes people click.
+        2. HOST PLACEMENT — Place the host(s) from the reference images on one side (usually right or left 30-40% of frame), overlaid ON TOP of the topic visual. The host should look like they're reacting to the topic. Preserve their exact facial features, eye color, skin tone from the reference photos. Do not alter their appearance.
+        3. TEXT — Maximum 3-5 words. Short, punchy, provocative. Extract the most clickable phrase from "\(title)". Use large bold sans-serif with dark stroke/shadow. Place where it doesn't cover faces or key visuals.
+        4. SIZE: 1536x1024 landscape (YouTube thumbnail)
+        5. COMPOSITION: Topic visual dominates the frame. Host is clearly visible but secondary to the topic visual. Text is tertiary — readable but not the main attraction. The thumbnail should communicate the topic VISUALLY before anyone reads the text.
+        6. STYLE: \(styleGuide)
+        7. FACE PRESERVATION: The reference images contain real people.
            - "Preserve the exact facial features, eye color, skin tone, and facial expression of the people in the reference images"
-           - "Maintain identical subject appearance — do not alter, stylize, or reimagine the faces"
            - "The person from image 1 should appear exactly as in their reference photo"
-           - "Keep the same hairstyle, facial structure, and distinguishing features"
-           Never describe the hosts' faces in your own words — always defer to the reference photos.
-        3. TEXT: Display "\(title)" as large, bold, sans-serif text. Max 6-8 words visible. Use white or bright text with a dark stroke/shadow for readability at any size. Text must be the FIRST thing a viewer reads.
-        4. SIZE: 1536x1024 landscape format (YouTube thumbnail aspect ratio)
-        5. STYLE: \(styleGuide)
-        6. COMPOSITION: Follow the rule of thirds. Hosts should fill at least 40% of the frame. Faces should be clearly visible even at 160x90px (the smallest YouTube thumbnail size).
-        7. BACKGROUND: Use gradient or solid color blocks — NEVER busy or detailed backgrounds that compete with text/faces.
-        8. NO: watermarks, borders, logos, URLs, hashtags, emojis, or small text. No cluttered elements.
-        9. LIGHTING: Studio-quality lighting on hosts. Slight warm rim light to separate from background.
-        10. The thumbnail must look professional, not AI-generated. Photorealistic hosts, clean graphic design.
+           - Do NOT describe the hosts' faces — defer entirely to the reference photos.
+        8. NO: cluttered collages, multiple competing visuals, tiny text, watermarks, URLs. Keep it clean — one dominant topic visual, one or two hosts, short text.
+        9. LIGHTING: Cinematic. Dramatic rim lighting on hosts to separate them from the topic background.\(brandColorRule)
+
+        EXAMPLES of good topic visuals by episode subject:
+        - "AI Competition" → Anthropic or OpenAI logo filling the background
+        - "Solo Founders" → A single laptop with code, or a "1" symbol, or a lone figure silhouette
+        - "AI IPOs" → Stock chart going up/down, Wall Street imagery
+        - "Chip Manufacturing" → Close-up semiconductor chip, circuit board
+        - "Regulation" → Government building, gavel, flag
+        - "AI Curing Cancer" → DNA helix, medical imagery
+        Pick the most visually striking symbol for the topic. Make it BOLD.
         """
 
         let userMessage = """
