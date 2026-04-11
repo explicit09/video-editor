@@ -160,23 +160,23 @@ extension ThumbnailRenderer {
     private func drawHosts(ctx: CGContext, layout: ThumbnailLayout, brand: ThumbnailBrand, cutouts: [CGImage], size: CGSize) {
         switch layout {
         case .splitPanel:
-            // Host A: left side, large, from bottom up
+            // Host A: bottom-left, occupying lower 55% of frame
             if cutouts.count > 0 {
                 let hostRect = CGRect(
-                    x: size.width * 0.0,
-                    y: size.height * 0.05,
-                    width: size.width * 0.40,
-                    height: size.height * 0.80
+                    x: size.width * -0.02,
+                    y: size.height * 0.08,
+                    width: size.width * 0.38,
+                    height: size.height * 0.60
                 )
                 drawHostImage(ctx: ctx, image: cutouts[0], in: hostRect)
             }
-            // Host B: right side, large, from bottom up
+            // Host B: bottom-right, occupying lower 55% of frame
             if cutouts.count > 1 {
                 let hostRect = CGRect(
-                    x: size.width * 0.60,
-                    y: size.height * 0.05,
-                    width: size.width * 0.40,
-                    height: size.height * 0.80
+                    x: size.width * 0.64,
+                    y: size.height * 0.08,
+                    width: size.width * 0.38,
+                    height: size.height * 0.60
                 )
                 drawHostImage(ctx: ctx, image: cutouts[1], in: hostRect)
             }
@@ -267,8 +267,8 @@ extension ThumbnailRenderer {
         switch config.layout {
         case .splitPanel, .centered:
             // MASSIVE title centered, near bottom (above brand bar)
-            let titleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 96, nil)
-            let subtitleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 48, nil)
+            let titleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 110, nil)
+            let subtitleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 52, nil)
 
             // Title — auto-size to fit width
             let maxWidth = size.width * 0.85
