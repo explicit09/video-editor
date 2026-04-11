@@ -50,18 +50,21 @@ public struct ThumbnailConfig: Sendable {
     public let layout: ThumbnailLayout
     public let hostPhotos: [Data]
     public let brand: ThumbnailBrand
+    public let backgroundImage: Data?  // Optional background image data (PNG/JPEG)
 
     public init(
         title: String,
         subtitle: String? = nil,
         layout: ThumbnailLayout = .splitPanel,
         hostPhotos: [Data] = [],
-        brand: ThumbnailBrand
+        brand: ThumbnailBrand,
+        backgroundImage: Data? = nil
     ) {
         self.title = title
         self.subtitle = subtitle
         self.layout = layout
         self.hostPhotos = hostPhotos
         self.brand = brand
+        self.backgroundImage = backgroundImage
     }
 }
