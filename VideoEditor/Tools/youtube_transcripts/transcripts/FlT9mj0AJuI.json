@@ -1,0 +1,2677 @@
+[
+  {
+    "text": "What I'm about to show you isn't just",
+    "start": 0.08,
+    "duration": 4.08
+  },
+  {
+    "text": "another L. It is the single best tool",
+    "start": 1.92,
+    "duration": 3.919
+  },
+  {
+    "text": "that I can give you to start shooting",
+    "start": 4.16,
+    "duration": 4.16
+  },
+  {
+    "text": "and grading stronger images today. And",
+    "start": 5.839,
+    "duration": 4.72
+  },
+  {
+    "text": "I'm giving it away for free. If you're a",
+    "start": 8.32,
+    "duration": 3.6
+  },
+  {
+    "text": "cinematographer, this is going to give",
+    "start": 10.559,
+    "duration": 3.281
+  },
+  {
+    "text": "you the same unfair advantage used by",
+    "start": 11.92,
+    "duration": 4.0
+  },
+  {
+    "text": "legends like Roger Deakons, Lawrence",
+    "start": 13.84,
+    "duration": 4.4
+  },
+  {
+    "text": "Shear, and Steve Yedlund. And if you're",
+    "start": 15.92,
+    "duration": 3.92
+  },
+  {
+    "text": "a colorist, it's going to give you a",
+    "start": 18.24,
+    "duration": 3.68
+  },
+  {
+    "text": "stronger starting point for your work",
+    "start": 19.84,
+    "duration": 3.92
+  },
+  {
+    "text": "without the need for a big stack of",
+    "start": 21.92,
+    "duration": 4.8
+  },
+  {
+    "text": "DCTLS or plugins. This tool is called",
+    "start": 23.76,
+    "duration": 4.64
+  },
+  {
+    "text": "reference and it's a viewing transform",
+    "start": 26.72,
+    "duration": 3.36
+  },
+  {
+    "text": "that can be loaded in camera or in",
+    "start": 28.4,
+    "duration": 3.76
+  },
+  {
+    "text": "resolve that's designed to give you a",
+    "start": 30.08,
+    "duration": 4.88
+  },
+  {
+    "text": "singlestep path to a finished image",
+    "start": 32.16,
+    "duration": 4.399
+  },
+  {
+    "text": "similar to the way a film print would",
+    "start": 34.96,
+    "duration": 3.599
+  },
+  {
+    "text": "work. In fact, the inspiration for this",
+    "start": 36.559,
+    "duration": 4.481
+  },
+  {
+    "text": "tool came to me after the release of my",
+    "start": 38.559,
+    "duration": 4.481
+  },
+  {
+    "text": "film plug-in Genesis with Dr. Mitch",
+    "start": 41.04,
+    "duration": 4.08
+  },
+  {
+    "text": "Bugdanowitz. And for the first time, I",
+    "start": 43.04,
+    "duration": 4.16
+  },
+  {
+    "text": "experienced the magic of this kind of",
+    "start": 45.12,
+    "duration": 4.88
+  },
+  {
+    "text": "one-step final transform for your image.",
+    "start": 47.2,
+    "duration": 4.24
+  },
+  {
+    "text": "And I wanted to share that superpower",
+    "start": 50.0,
+    "duration": 3.12
+  },
+  {
+    "text": "with everybody. So today we're going to",
+    "start": 51.44,
+    "duration": 3.92
+  },
+  {
+    "text": "take a look at how reference works and",
+    "start": 53.12,
+    "duration": 4.16
+  },
+  {
+    "text": "how you can use it to start instantly",
+    "start": 55.36,
+    "duration": 4.4
+  },
+  {
+    "text": "getting better results in camera and in",
+    "start": 57.28,
+    "duration": 4.32
+  },
+  {
+    "text": "Resolve. So let's get started and we're",
+    "start": 59.76,
+    "duration": 3.439
+  },
+  {
+    "text": "going to be toggling today throughout",
+    "start": 61.6,
+    "duration": 3.599
+  },
+  {
+    "text": "our conversation between how this will",
+    "start": 63.199,
+    "duration": 3.6
+  },
+  {
+    "text": "work if you're doing it in camera versus",
+    "start": 65.199,
+    "duration": 2.881
+  },
+  {
+    "text": "how it will work if you're doing it in",
+    "start": 66.799,
+    "duration": 2.961
+  },
+  {
+    "text": "Resolve. Similar principles and",
+    "start": 68.08,
+    "duration": 3.2
+  },
+  {
+    "text": "observations but bit different use",
+    "start": 69.76,
+    "duration": 2.719
+  },
+  {
+    "text": "cases. So we're going to be talking",
+    "start": 71.28,
+    "duration": 2.8
+  },
+  {
+    "text": "about both of those and kind of going",
+    "start": 72.479,
+    "duration": 2.561
+  },
+  {
+    "text": "back and forth throughout the",
+    "start": 74.08,
+    "duration": 2.88
+  },
+  {
+    "text": "conversation. So, let's start by just",
+    "start": 75.04,
+    "duration": 3.28
+  },
+  {
+    "text": "unzipping the file that you're going to",
+    "start": 76.96,
+    "duration": 2.64
+  },
+  {
+    "text": "get when you click the link in the",
+    "start": 78.32,
+    "duration": 3.04
+  },
+  {
+    "text": "description for today's video to",
+    "start": 79.6,
+    "duration": 3.6
+  },
+  {
+    "text": "download reference. You'll see you're",
+    "start": 81.36,
+    "duration": 3.759
+  },
+  {
+    "text": "going to get this folder when you unzip.",
+    "start": 83.2,
+    "duration": 4.16
+  },
+  {
+    "text": "And within it are subfolders for all of",
+    "start": 85.119,
+    "duration": 3.841
+  },
+  {
+    "text": "the major cameras that you might want to",
+    "start": 87.36,
+    "duration": 3.52
+  },
+  {
+    "text": "shoot on. We even put Apple log in there",
+    "start": 88.96,
+    "duration": 3.92
+  },
+  {
+    "text": "for iPhones. And what you're going to",
+    "start": 90.88,
+    "duration": 4.72
+  },
+  {
+    "text": "find within each of those subfolders are",
+    "start": 92.88,
+    "duration": 4.879
+  },
+  {
+    "text": "cube files as well as any camera",
+    "start": 95.6,
+    "duration": 4.64
+  },
+  {
+    "text": "specific uh L formats that you might",
+    "start": 97.759,
+    "duration": 4.961
+  },
+  {
+    "text": "need to load the L into whatever camera",
+    "start": 100.24,
+    "duration": 4.08
+  },
+  {
+    "text": "you're using. So, if you're using",
+    "start": 102.72,
+    "duration": 3.52
+  },
+  {
+    "text": "reference in camera, all you need to do",
+    "start": 104.32,
+    "duration": 3.92
+  },
+  {
+    "text": "is grab the subfolder for the camera",
+    "start": 106.24,
+    "duration": 4.239
+  },
+  {
+    "text": "that you are using and drag the asset",
+    "start": 108.24,
+    "duration": 4.96
+  },
+  {
+    "text": "and load it onto your camera via a flash",
+    "start": 110.479,
+    "duration": 4.64
+  },
+  {
+    "text": "drive or however you set that up on your",
+    "start": 113.2,
+    "duration": 3.599
+  },
+  {
+    "text": "particular camera. And then simply turn",
+    "start": 115.119,
+    "duration": 3.121
+  },
+  {
+    "text": "it on when you're shooting and you're",
+    "start": 116.799,
+    "duration": 2.96
+  },
+  {
+    "text": "now going to be monitoring through",
+    "start": 118.24,
+    "duration": 3.199
+  },
+  {
+    "text": "reference. That's the camera",
+    "start": 119.759,
+    "duration": 3.441
+  },
+  {
+    "text": "application. Now, for today's",
+    "start": 121.439,
+    "duration": 3.04
+  },
+  {
+    "text": "conversation, we're going to be taking a",
+    "start": 123.2,
+    "duration": 3.279
+  },
+  {
+    "text": "look at everything inside of Resolve.",
+    "start": 124.479,
+    "duration": 4.081
+  },
+  {
+    "text": "So, I'm going to load my Da Vinci wide",
+    "start": 126.479,
+    "duration": 4.881
+  },
+  {
+    "text": "gamut variant into my LUT folder for",
+    "start": 128.56,
+    "duration": 5.039
+  },
+  {
+    "text": "Resolve. Now, you can load all of these",
+    "start": 131.36,
+    "duration": 4.0
+  },
+  {
+    "text": "LUTs or some of these LUTs into your",
+    "start": 133.599,
+    "duration": 3.921
+  },
+  {
+    "text": "Resolve L folder. It's up to you. You'll",
+    "start": 135.36,
+    "duration": 3.36
+  },
+  {
+    "text": "at least want to load the Da Vinci",
+    "start": 137.52,
+    "duration": 3.12
+  },
+  {
+    "text": "widegamut version. And regardless of",
+    "start": 138.72,
+    "duration": 3.36
+  },
+  {
+    "text": "whether you load all these or some of",
+    "start": 140.64,
+    "duration": 3.679
+  },
+  {
+    "text": "these or just the Da Vinci wide gamut",
+    "start": 142.08,
+    "duration": 4.32
+  },
+  {
+    "text": "version, as I'm doing right now, I'm",
+    "start": 144.319,
+    "duration": 5.841
+  },
+  {
+    "text": "dragging this into LUTs CKC viewing",
+    "start": 146.4,
+    "duration": 6.0
+  },
+  {
+    "text": "LUTs. Like so. Regardless of which of",
+    "start": 150.16,
+    "duration": 4.159
+  },
+  {
+    "text": "these you load in, make sure you hang on",
+    "start": 152.4,
+    "duration": 3.52
+  },
+  {
+    "text": "to all of them so that you can give them",
+    "start": 154.319,
+    "duration": 3.441
+  },
+  {
+    "text": "to people who you may be working with",
+    "start": 155.92,
+    "duration": 3.84
+  },
+  {
+    "text": "who might need the version for Canon or",
+    "start": 157.76,
+    "duration": 3.6
+  },
+  {
+    "text": "the version for an iPhone or whatever it",
+    "start": 159.76,
+    "duration": 3.68
+  },
+  {
+    "text": "may be so that you can use this tool in",
+    "start": 161.36,
+    "duration": 4.48
+  },
+  {
+    "text": "its ideal application which is end to",
+    "start": 163.44,
+    "duration": 3.36
+  },
+  {
+    "text": "end. You [clears throat] shoot through",
+    "start": 165.84,
+    "duration": 2.479
+  },
+  {
+    "text": "it, you grade through it, everyone is",
+    "start": 166.8,
+    "duration": 3.6
+  },
+  {
+    "text": "bought into and seeing that same",
+    "start": 168.319,
+    "duration": 3.841
+  },
+  {
+    "text": "rendering and is making all critical",
+    "start": 170.4,
+    "duration": 4.0
+  },
+  {
+    "text": "decisions through that rendering. Okay,",
+    "start": 172.16,
+    "duration": 3.84
+  },
+  {
+    "text": "so I've got this loaded into my Resolve",
+    "start": 174.4,
+    "duration": 3.919
+  },
+  {
+    "text": "L folder now. I can now go into Resolve",
+    "start": 176.0,
+    "duration": 4.16
+  },
+  {
+    "text": "and I'm just going to refresh here. And",
+    "start": 178.319,
+    "duration": 4.0
+  },
+  {
+    "text": "you can see it's now populated in my",
+    "start": 180.16,
+    "duration": 4.4
+  },
+  {
+    "text": "viewing LUTs here within my L folder.",
+    "start": 182.319,
+    "duration": 3.681
+  },
+  {
+    "text": "And what we're going to do here in this",
+    "start": 184.56,
+    "duration": 2.8
+  },
+  {
+    "text": "project, all I've got set up at the",
+    "start": 186.0,
+    "duration": 2.72
+  },
+  {
+    "text": "moment is color management to get",
+    "start": 187.36,
+    "duration": 3.84
+  },
+  {
+    "text": "everything into my working space of Da",
+    "start": 188.72,
+    "duration": 4.48
+  },
+  {
+    "text": "Vinci wide gamut intermediate. And we're",
+    "start": 191.2,
+    "duration": 3.52
+  },
+  {
+    "text": "going to be applying our output",
+    "start": 193.2,
+    "duration": 3.36
+  },
+  {
+    "text": "transform here at the timeline level of",
+    "start": 194.72,
+    "duration": 3.92
+  },
+  {
+    "text": "the node graph where whatever I do is",
+    "start": 196.56,
+    "duration": 4.0
+  },
+  {
+    "text": "going to affect all of the clips in the",
+    "start": 198.64,
+    "duration": 4.08
+  },
+  {
+    "text": "timeline. But before I load reference, I",
+    "start": 200.56,
+    "duration": 4.16
+  },
+  {
+    "text": "want to load a meaningful point of",
+    "start": 202.72,
+    "duration": 3.92
+  },
+  {
+    "text": "reference for what we might normally use",
+    "start": 204.72,
+    "duration": 4.08
+  },
+  {
+    "text": "when we are shooting on set, which would",
+    "start": 206.64,
+    "duration": 4.4
+  },
+  {
+    "text": "typically be a camera manufacturer L.",
+    "start": 208.8,
+    "duration": 4.88
+  },
+  {
+    "text": "So, what we're going to do is use Aries",
+    "start": 211.04,
+    "duration": 5.44
+  },
+  {
+    "text": "Reveal L, which is the uh stock L that",
+    "start": 213.68,
+    "duration": 5.199
+  },
+  {
+    "text": "they provide for their Alexa 35. It's",
+    "start": 216.48,
+    "duration": 4.16
+  },
+  {
+    "text": "actually one of the better viewing LUTs",
+    "start": 218.879,
+    "duration": 2.881
+  },
+  {
+    "text": "out there. So, it's a good point of",
+    "start": 220.64,
+    "duration": 3.12
+  },
+  {
+    "text": "reference for the differences and",
+    "start": 221.76,
+    "duration": 3.28
+  },
+  {
+    "text": "similarities we're going to see when we",
+    "start": 223.76,
+    "duration": 2.24
+  },
+  {
+    "text": "compare it with something like",
+    "start": 225.04,
+    "duration": 3.839
+  },
+  {
+    "text": "Reference. So this is the reveal",
+    "start": 226.0,
+    "duration": 5.12
+  },
+  {
+    "text": "rendering of this image and I'm now",
+    "start": 228.879,
+    "duration": 4.401
+  },
+  {
+    "text": "going to add a layer mixer here and",
+    "start": 231.12,
+    "duration": 4.32
+  },
+  {
+    "text": "we're going to apply reference in a",
+    "start": 233.28,
+    "duration": 4.64
+  },
+  {
+    "text": "layer above it so that we can easily",
+    "start": 235.44,
+    "duration": 5.76
+  },
+  {
+    "text": "compare between the two. Now we're going",
+    "start": 237.92,
+    "duration": 4.959
+  },
+  {
+    "text": "to see lots of differences here if we",
+    "start": 241.2,
+    "duration": 3.44
+  },
+  {
+    "text": "start to look at kind of our first",
+    "start": 242.879,
+    "duration": 4.64
+  },
+  {
+    "text": "comparisons. Here's reference. Here's",
+    "start": 244.64,
+    "duration": 5.2
+  },
+  {
+    "text": "manufacturer a lot.",
+    "start": 247.519,
+    "duration": 5.36
+  },
+  {
+    "text": "Manufacturer a lot reference.",
+    "start": 249.84,
+    "duration": 4.479
+  },
+  {
+    "text": "Lots of differences that we could talk",
+    "start": 252.879,
+    "duration": 2.801
+  },
+  {
+    "text": "about. We're going to talk a little bit",
+    "start": 254.319,
+    "duration": 2.64
+  },
+  {
+    "text": "more about some of the visual",
+    "start": 255.68,
+    "duration": 2.959
+  },
+  {
+    "text": "differences and some of the more nuance",
+    "start": 256.959,
+    "duration": 3.52
+  },
+  {
+    "text": "differences a little bit later on in",
+    "start": 258.639,
+    "duration": 4.081
+  },
+  {
+    "text": "this conversation, but for now what we",
+    "start": 260.479,
+    "duration": 3.601
+  },
+  {
+    "text": "can say when we're thinking about this",
+    "start": 262.72,
+    "duration": 3.199
+  },
+  {
+    "text": "in the context of our viewing transform",
+    "start": 264.08,
+    "duration": 4.24
+  },
+  {
+    "text": "for use in camera, it really cooks down",
+    "start": 265.919,
+    "duration": 5.121
+  },
+  {
+    "text": "to one major change, which is increased",
+    "start": 268.32,
+    "duration": 4.72
+  },
+  {
+    "text": "contrast. Like let's actually visualize",
+    "start": 271.04,
+    "duration": 3.84
+  },
+  {
+    "text": "this uh even beyond what we're seeing",
+    "start": 273.04,
+    "duration": 3.76
+  },
+  {
+    "text": "just in the images themselves. I'm going",
+    "start": 274.88,
+    "duration": 4.24
+  },
+  {
+    "text": "to load in a grayscale ramp here like",
+    "start": 276.8,
+    "duration": 4.56
+  },
+  {
+    "text": "so. And I'm going to set my scopes to a",
+    "start": 279.12,
+    "duration": 4.88
+  },
+  {
+    "text": "waveform. And you can actually see if",
+    "start": 281.36,
+    "duration": 6.48
+  },
+  {
+    "text": "you focus on the midtone area of what's",
+    "start": 284.0,
+    "duration": 6.88
+  },
+  {
+    "text": "happening here that compared to my",
+    "start": 287.84,
+    "duration": 5.6
+  },
+  {
+    "text": "reveal L, things are steeper here.",
+    "start": 290.88,
+    "duration": 4.0
+  },
+  {
+    "text": "What's called my slope is actually",
+    "start": 293.44,
+    "duration": 4.16
+  },
+  {
+    "text": "higher here. So I have higher contrast",
+    "start": 294.88,
+    "duration": 5.36
+  },
+  {
+    "text": "when it comes to the reference viewing",
+    "start": 297.6,
+    "duration": 4.64
+  },
+  {
+    "text": "uh of the image than I do from the",
+    "start": 300.24,
+    "duration": 4.08
+  },
+  {
+    "text": "camera manufacturer L. Now, why does",
+    "start": 302.24,
+    "duration": 3.6
+  },
+  {
+    "text": "that matter? What impact is that going",
+    "start": 304.32,
+    "duration": 3.52
+  },
+  {
+    "text": "to have on our work? There's two main",
+    "start": 305.84,
+    "duration": 3.68
+  },
+  {
+    "text": "things that this is going to impact.",
+    "start": 307.84,
+    "duration": 4.639
+  },
+  {
+    "text": "Number one, this is going to force you",
+    "start": 309.52,
+    "duration": 5.6
+  },
+  {
+    "text": "to light to a bit of a flatter ratio",
+    "start": 312.479,
+    "duration": 5.44
+  },
+  {
+    "text": "because if your eye is looking for a",
+    "start": 315.12,
+    "duration": 4.72
+  },
+  {
+    "text": "particular relationship between the key",
+    "start": 317.919,
+    "duration": 3.521
+  },
+  {
+    "text": "side and fill side of the face like we",
+    "start": 319.84,
+    "duration": 3.6
+  },
+  {
+    "text": "have here, in order to get that when you",
+    "start": 321.44,
+    "duration": 3.599
+  },
+  {
+    "text": "have a higher contrast viewing L, what",
+    "start": 323.44,
+    "duration": 2.88
+  },
+  {
+    "text": "are you going to do? Well, you're going",
+    "start": 325.039,
+    "duration": 2.641
+  },
+  {
+    "text": "to flatten things out. you're going to",
+    "start": 326.32,
+    "duration": 2.96
+  },
+  {
+    "text": "fill things in a little bit more in your",
+    "start": 327.68,
+    "duration": 3.76
+  },
+  {
+    "text": "negative, which is usually the exact",
+    "start": 329.28,
+    "duration": 4.479
+  },
+  {
+    "text": "thing you want to do because it's going",
+    "start": 331.44,
+    "duration": 4.88
+  },
+  {
+    "text": "to push the low-end portion of the image",
+    "start": 333.759,
+    "duration": 4.481
+  },
+  {
+    "text": "a little bit further off of the noise",
+    "start": 336.32,
+    "duration": 3.92
+  },
+  {
+    "text": "floor of the sensor and give you a",
+    "start": 338.24,
+    "duration": 3.6
+  },
+  {
+    "text": "cleaner, thicker negative to work with",
+    "start": 340.24,
+    "duration": 3.2
+  },
+  {
+    "text": "in your color grade. So, that's the",
+    "start": 341.84,
+    "duration": 2.88
+  },
+  {
+    "text": "first benefit you're going to see is",
+    "start": 343.44,
+    "duration": 3.199
+  },
+  {
+    "text": "it's going to bias you without you ever",
+    "start": 344.72,
+    "duration": 3.759
+  },
+  {
+    "text": "even thinking about it. It's going to",
+    "start": 346.639,
+    "duration": 4.4
+  },
+  {
+    "text": "bias you to expose a healthier negative",
+    "start": 348.479,
+    "duration": 5.201
+  },
+  {
+    "text": "in terms of your contrast ratio because",
+    "start": 351.039,
+    "duration": 4.561
+  },
+  {
+    "text": "the contrast ratio is higher of the in",
+    "start": 353.68,
+    "duration": 4.239
+  },
+  {
+    "text": "the viewing transform. you are going to",
+    "start": 355.6,
+    "duration": 4.48
+  },
+  {
+    "text": "be biased to shoot a lower contrast",
+    "start": 357.919,
+    "duration": 3.761
+  },
+  {
+    "text": "ratio in your negative which is",
+    "start": 360.08,
+    "duration": 3.76
+  },
+  {
+    "text": "generally beneficial to the strength of",
+    "start": 361.68,
+    "duration": 4.079
+  },
+  {
+    "text": "the image. Okay, that's number one. The",
+    "start": 363.84,
+    "duration": 4.079
+  },
+  {
+    "text": "second thing is slightly less obvious.",
+    "start": 365.759,
+    "duration": 3.521
+  },
+  {
+    "text": "So for this, let's bounce over here to",
+    "start": 367.919,
+    "duration": 3.601
+  },
+  {
+    "text": "shot 11 and take a look at the reveal",
+    "start": 369.28,
+    "duration": 3.84
+  },
+  {
+    "text": "rendering of the image. We can turn this",
+    "start": 371.52,
+    "duration": 4.399
+  },
+  {
+    "text": "grayscale ramp off for now. So if this",
+    "start": 373.12,
+    "duration": 4.96
+  },
+  {
+    "text": "is the image that I'm looking at on set,",
+    "start": 375.919,
+    "duration": 3.921
+  },
+  {
+    "text": "I might think, okay, this is kind of",
+    "start": 378.08,
+    "duration": 3.119
+  },
+  {
+    "text": "moody and it's flirting with",
+    "start": 379.84,
+    "duration": 3.359
+  },
+  {
+    "text": "underexposure, but it's appropriate to",
+    "start": 381.199,
+    "duration": 3.601
+  },
+  {
+    "text": "the scene, right? Like this is clearly a",
+    "start": 383.199,
+    "duration": 3.12
+  },
+  {
+    "text": "nightclub. that's clearly meant to be",
+    "start": 384.8,
+    "duration": 3.679
+  },
+  {
+    "text": "moody. I don't necessarily want or need",
+    "start": 386.319,
+    "duration": 4.241
+  },
+  {
+    "text": "a brighter image than this. I might feel",
+    "start": 388.479,
+    "duration": 3.601
+  },
+  {
+    "text": "like my exposure is sitting in a really",
+    "start": 390.56,
+    "duration": 3.28
+  },
+  {
+    "text": "good spot. But check out what happens",
+    "start": 392.08,
+    "duration": 4.72
+  },
+  {
+    "text": "when I apply reference instead of Aries.",
+    "start": 393.84,
+    "duration": 6.4
+  },
+  {
+    "text": "Look, it now feels a good bit heavier.",
+    "start": 396.8,
+    "duration": 6.72
+  },
+  {
+    "text": "Even though the actual mid-grade mapping",
+    "start": 400.24,
+    "duration": 6.0
+  },
+  {
+    "text": "of my uh image onto the screen, it's",
+    "start": 403.52,
+    "duration": 4.399
+  },
+  {
+    "text": "actually pretty similar between these",
+    "start": 406.24,
+    "duration": 3.679
+  },
+  {
+    "text": "two transforms. Mostly the difference",
+    "start": 407.919,
+    "duration": 3.681
+  },
+  {
+    "text": "that we're seeing here is due to the",
+    "start": 409.919,
+    "duration": 3.84
+  },
+  {
+    "text": "increase in contrast that we're seeing",
+    "start": 411.6,
+    "duration": 4.08
+  },
+  {
+    "text": "here in reference. So essentially what",
+    "start": 413.759,
+    "duration": 6.0
+  },
+  {
+    "text": "it's doing is it's giving me more honest",
+    "start": 415.68,
+    "duration": 6.239
+  },
+  {
+    "text": "feedback about where my exposure is",
+    "start": 419.759,
+    "duration": 4.641
+  },
+  {
+    "text": "sitting and the health of my exposure.",
+    "start": 421.919,
+    "duration": 4.641
+  },
+  {
+    "text": "My exposure here feels kind of like on",
+    "start": 424.4,
+    "duration": 3.68
+  },
+  {
+    "text": "the edge of something that I might want",
+    "start": 426.56,
+    "duration": 3.52
+  },
+  {
+    "text": "to boost up a little bit as opposed to",
+    "start": 428.08,
+    "duration": 3.839
+  },
+  {
+    "text": "here where it really feels more under",
+    "start": 430.08,
+    "duration": 3.36
+  },
+  {
+    "text": "than I would want to commit to the",
+    "start": 431.919,
+    "duration": 4.161
+  },
+  {
+    "text": "sensor. Right? So by having this type of",
+    "start": 433.44,
+    "duration": 4.479
+  },
+  {
+    "text": "viewing transform, it's going to force",
+    "start": 436.08,
+    "duration": 5.6
+  },
+  {
+    "text": "me to do something like get some more",
+    "start": 437.919,
+    "duration": 5.84
+  },
+  {
+    "text": "light onto the sensor. Maybe something",
+    "start": 441.68,
+    "duration": 4.72
+  },
+  {
+    "text": "more like this, which again is a good",
+    "start": 443.759,
+    "duration": 4.481
+  },
+  {
+    "text": "direction to go. That's going to push",
+    "start": 446.4,
+    "duration": 4.0
+  },
+  {
+    "text": "more light onto the sensor and give me a",
+    "start": 448.24,
+    "duration": 4.32
+  },
+  {
+    "text": "thicker, healthier negative to work with",
+    "start": 450.4,
+    "duration": 3.84
+  },
+  {
+    "text": "in post-prouction. And what's",
+    "start": 452.56,
+    "duration": 2.96
+  },
+  {
+    "text": "interesting is if we look at this now,",
+    "start": 454.24,
+    "duration": 2.959
+  },
+  {
+    "text": "this looks great through a reference.",
+    "start": 455.52,
+    "duration": 4.239
+  },
+  {
+    "text": "But if I turn this off, I would never",
+    "start": 457.199,
+    "duration": 5.12
+  },
+  {
+    "text": "expose that way through this reveal L",
+    "start": 459.759,
+    "duration": 4.321
+  },
+  {
+    "text": "cuz that feels too hot, right? That",
+    "start": 462.319,
+    "duration": 3.841
+  },
+  {
+    "text": "feels too open and really not consistent",
+    "start": 464.08,
+    "duration": 3.76
+  },
+  {
+    "text": "with what I would imagine to be the",
+    "start": 466.16,
+    "duration": 3.52
+  },
+  {
+    "text": "creative intent of this scene. So the",
+    "start": 467.84,
+    "duration": 3.68
+  },
+  {
+    "text": "viewing transform and the fact that it",
+    "start": 469.68,
+    "duration": 3.519
+  },
+  {
+    "text": "has a higher contrast ratio is really",
+    "start": 471.52,
+    "duration": 3.44
+  },
+  {
+    "text": "going to have those two different points",
+    "start": 473.199,
+    "duration": 3.601
+  },
+  {
+    "text": "of impact on your decision- making and",
+    "start": 474.96,
+    "duration": 4.48
+  },
+  {
+    "text": "on the image that you gather on set. You",
+    "start": 476.8,
+    "duration": 4.239
+  },
+  {
+    "text": "are going to shoot a lower contrast",
+    "start": 479.44,
+    "duration": 3.759
+  },
+  {
+    "text": "ratio. That's healthier and you're going",
+    "start": 481.039,
+    "duration": 4.72
+  },
+  {
+    "text": "to tend to get better feedback for where",
+    "start": 483.199,
+    "duration": 4.481
+  },
+  {
+    "text": "your exposure is actually sitting and",
+    "start": 485.759,
+    "duration": 3.28
+  },
+  {
+    "text": "it's going to cause you to make better",
+    "start": 487.68,
+    "duration": 3.519
+  },
+  {
+    "text": "exposure decisions. often meaning you're",
+    "start": 489.039,
+    "duration": 3.921
+  },
+  {
+    "text": "going to drive your exposure a little",
+    "start": 491.199,
+    "duration": 3.761
+  },
+  {
+    "text": "bit further up than you otherwise would",
+    "start": 492.96,
+    "duration": 3.12
+  },
+  {
+    "text": "because you're going to be getting good",
+    "start": 494.96,
+    "duration": 2.88
+  },
+  {
+    "text": "feedback that you're too far down into",
+    "start": 496.08,
+    "duration": 3.119
+  },
+  {
+    "text": "the toe of the image and you're starting",
+    "start": 497.84,
+    "duration": 3.759
+  },
+  {
+    "text": "to touch onto the noise floor with the",
+    "start": 499.199,
+    "duration": 4.4
+  },
+  {
+    "text": "exposure that you're choosing if you are",
+    "start": 501.599,
+    "duration": 3.681
+  },
+  {
+    "text": "looking through something like reveal",
+    "start": 503.599,
+    "duration": 4.241
+  },
+  {
+    "text": "and looking at a rendering more like",
+    "start": 505.28,
+    "duration": 4.56
+  },
+  {
+    "text": "this. Okay, so those are the kind of key",
+    "start": 507.84,
+    "duration": 3.6
+  },
+  {
+    "text": "things that you're going to see when you",
+    "start": 509.84,
+    "duration": 5.119
+  },
+  {
+    "text": "start using uh this L in your production",
+    "start": 511.44,
+    "duration": 5.44
+  },
+  {
+    "text": "context when you're shooting compared to",
+    "start": 514.959,
+    "duration": 3.121
+  },
+  {
+    "text": "what you would see from a camera",
+    "start": 516.88,
+    "duration": 3.76
+  },
+  {
+    "text": "manufacturer L. Let's now talk about the",
+    "start": 518.08,
+    "duration": 4.079
+  },
+  {
+    "text": "color grading side of things. I'm just",
+    "start": 520.64,
+    "duration": 2.639
+  },
+  {
+    "text": "going to go over here to kind of like a",
+    "start": 522.159,
+    "duration": 4.161
+  },
+  {
+    "text": "test image and we're going to change our",
+    "start": 523.279,
+    "duration": 4.481
+  },
+  {
+    "text": "reference point a little bit here",
+    "start": 526.32,
+    "duration": 2.959
+  },
+  {
+    "text": "because now we're talking about color",
+    "start": 527.76,
+    "duration": 3.28
+  },
+  {
+    "text": "grading. We wouldn't typically be",
+    "start": 529.279,
+    "duration": 3.921
+  },
+  {
+    "text": "grading underneath a camera lot. We",
+    "start": 531.04,
+    "duration": 3.76
+  },
+  {
+    "text": "could, but it wouldn't be very common.",
+    "start": 533.2,
+    "duration": 3.6
+  },
+  {
+    "text": "What would be much more common would be",
+    "start": 534.8,
+    "duration": 4.8
+  },
+  {
+    "text": "to be shooting under a resolve color",
+    "start": 536.8,
+    "duration": 4.64
+  },
+  {
+    "text": "space transform. So, we're going to use",
+    "start": 539.6,
+    "duration": 4.0
+  },
+  {
+    "text": "that as our point of comparison, which",
+    "start": 541.44,
+    "duration": 4.32
+  },
+  {
+    "text": "by the way actually has a similar sort",
+    "start": 543.6,
+    "duration": 4.48
+  },
+  {
+    "text": "of like low level of contrast to what we",
+    "start": 545.76,
+    "duration": 3.84
+  },
+  {
+    "text": "were just looking at, but there are some",
+    "start": 548.08,
+    "duration": 2.64
+  },
+  {
+    "text": "differences that are going to be helpful",
+    "start": 549.6,
+    "duration": 3.28
+  },
+  {
+    "text": "for us to spot as we're going through",
+    "start": 550.72,
+    "duration": 5.2
+  },
+  {
+    "text": "here. So, we now have our CST",
+    "start": 552.88,
+    "duration": 5.6
+  },
+  {
+    "text": "underneath and we're once again going to",
+    "start": 555.92,
+    "duration": 5.599
+  },
+  {
+    "text": "take a look at reference as the point of",
+    "start": 558.48,
+    "duration": 4.88
+  },
+  {
+    "text": "comparison. And some of what we've",
+    "start": 561.519,
+    "duration": 3.361
+  },
+  {
+    "text": "already seen when we were thinking about",
+    "start": 563.36,
+    "duration": 3.84
+  },
+  {
+    "text": "the camera application of this tool is",
+    "start": 564.88,
+    "duration": 4.079
+  },
+  {
+    "text": "going to hold true here. We've got",
+    "start": 567.2,
+    "duration": 3.68
+  },
+  {
+    "text": "thicker contrast here with reference",
+    "start": 568.959,
+    "duration": 3.681
+  },
+  {
+    "text": "than we do with our resolve color space",
+    "start": 570.88,
+    "duration": 3.76
+  },
+  {
+    "text": "transform. This image just in general",
+    "start": 572.64,
+    "duration": 3.28
+  },
+  {
+    "text": "feels more finished. It feels like",
+    "start": 574.64,
+    "duration": 3.44
+  },
+  {
+    "text": "there's less for me to do. This image",
+    "start": 575.92,
+    "duration": 4.8
+  },
+  {
+    "text": "here is practically begging for me to do",
+    "start": 578.08,
+    "duration": 4.4
+  },
+  {
+    "text": "what I would normally do, which is to do",
+    "start": 580.72,
+    "duration": 3.76
+  },
+  {
+    "text": "something off to the left here and start",
+    "start": 582.48,
+    "duration": 4.16
+  },
+  {
+    "text": "building a look in a series of nodes in",
+    "start": 584.48,
+    "duration": 4.24
+  },
+  {
+    "text": "order to just get the image feeling",
+    "start": 586.64,
+    "duration": 3.68
+  },
+  {
+    "text": "finished out. Like, yeah, it feels",
+    "start": 588.72,
+    "duration": 2.96
+  },
+  {
+    "text": "somewhat appropriate for the display,",
+    "start": 590.32,
+    "duration": 3.04
+  },
+  {
+    "text": "but it's not a finished grade. It feels",
+    "start": 591.68,
+    "duration": 3.92
+  },
+  {
+    "text": "sort of half done, right? as opposed to",
+    "start": 593.36,
+    "duration": 4.4
+  },
+  {
+    "text": "reference which like I may have some",
+    "start": 595.6,
+    "duration": 4.16
+  },
+  {
+    "text": "creative seasoning that I want to add on",
+    "start": 597.76,
+    "duration": 3.84
+  },
+  {
+    "text": "top of this but there's not that same",
+    "start": 599.76,
+    "duration": 3.36
+  },
+  {
+    "text": "level of like oh we just need to finish",
+    "start": 601.6,
+    "duration": 3.919
+  },
+  {
+    "text": "adding contrast to this image like this",
+    "start": 603.12,
+    "duration": 3.839
+  },
+  {
+    "text": "contrast feels finished it feels",
+    "start": 605.519,
+    "duration": 4.161
+  },
+  {
+    "text": "dimensional it's got a nice feel to it",
+    "start": 606.959,
+    "duration": 4.401
+  },
+  {
+    "text": "when I look at you know things like the",
+    "start": 609.68,
+    "duration": 4.399
+  },
+  {
+    "text": "ratio on uh my subject's face and things",
+    "start": 611.36,
+    "duration": 4.08
+  },
+  {
+    "text": "like that so that's the first thing is",
+    "start": 614.079,
+    "duration": 2.961
+  },
+  {
+    "text": "we've got that nice finished level of",
+    "start": 615.44,
+    "duration": 3.28
+  },
+  {
+    "text": "contrast we've got a very different",
+    "start": 617.04,
+    "duration": 4.08
+  },
+  {
+    "text": "rendering of skin tones here like the",
+    "start": 618.72,
+    "duration": 3.84
+  },
+  {
+    "text": "way that let's look at our vector scope",
+    "start": 621.12,
+    "duration": 3.68
+  },
+  {
+    "text": "down here to get some extra context for",
+    "start": 622.56,
+    "duration": 4.32
+  },
+  {
+    "text": "what we're seeing here. Skin tones just",
+    "start": 624.8,
+    "duration": 4.4
+  },
+  {
+    "text": "in general feel kind of flatter and",
+    "start": 626.88,
+    "duration": 4.88
+  },
+  {
+    "text": "again less finished than we see here in",
+    "start": 629.2,
+    "duration": 4.48
+  },
+  {
+    "text": "reference. And you can actually see if",
+    "start": 631.76,
+    "duration": 3.759
+  },
+  {
+    "text": "you look at the vector scope here,",
+    "start": 633.68,
+    "duration": 3.839
+  },
+  {
+    "text": "there's some significant compression",
+    "start": 635.519,
+    "duration": 4.241
+  },
+  {
+    "text": "happening with this viewing transform",
+    "start": 637.519,
+    "duration": 4.88
+  },
+  {
+    "text": "around the skin tone line. So colors",
+    "start": 639.76,
+    "duration": 4.88
+  },
+  {
+    "text": "that are near skin tone are actually",
+    "start": 642.399,
+    "duration": 4.481
+  },
+  {
+    "text": "being kind of gathered and pushed toward",
+    "start": 644.64,
+    "duration": 4.4
+  },
+  {
+    "text": "that skin tone line, which is a really",
+    "start": 646.88,
+    "duration": 4.32
+  },
+  {
+    "text": "pleasing thing in terms of just getting",
+    "start": 649.04,
+    "duration": 4.08
+  },
+  {
+    "text": "good skin rendering even out of",
+    "start": 651.2,
+    "duration": 3.68
+  },
+  {
+    "text": "imperfect scenes or scenes with mixed",
+    "start": 653.12,
+    "duration": 3.6
+  },
+  {
+    "text": "lighting or whatever the case may be. So",
+    "start": 654.88,
+    "duration": 3.36
+  },
+  {
+    "text": "it's kind of a fundamentally different",
+    "start": 656.72,
+    "duration": 3.84
+  },
+  {
+    "text": "feel to our skin tones. Even like the",
+    "start": 658.24,
+    "duration": 4.88
+  },
+  {
+    "text": "separation between lips and cheeks and",
+    "start": 660.56,
+    "duration": 4.56
+  },
+  {
+    "text": "other areas of the face feels a good bit",
+    "start": 663.12,
+    "duration": 5.279
+  },
+  {
+    "text": "higher here than it does here. So, it's",
+    "start": 665.12,
+    "duration": 4.959
+  },
+  {
+    "text": "just a different baseline and it's going",
+    "start": 668.399,
+    "duration": 4.0
+  },
+  {
+    "text": "to require less look development because",
+    "start": 670.079,
+    "duration": 4.241
+  },
+  {
+    "text": "we've already got more of a finished",
+    "start": 672.399,
+    "duration": 3.521
+  },
+  {
+    "text": "image in the case of what we're seeing",
+    "start": 674.32,
+    "duration": 3.44
+  },
+  {
+    "text": "here with reference. And I also want to",
+    "start": 675.92,
+    "duration": 3.039
+  },
+  {
+    "text": "call out what we're seeing in terms of",
+    "start": 677.76,
+    "duration": 3.04
+  },
+  {
+    "text": "our color palette here. So, since we're",
+    "start": 678.959,
+    "duration": 3.601
+  },
+  {
+    "text": "already on this image, let's take a look",
+    "start": 680.8,
+    "duration": 3.92
+  },
+  {
+    "text": "at our color checker and look at the",
+    "start": 682.56,
+    "duration": 4.08
+  },
+  {
+    "text": "very different way that these colors are",
+    "start": 684.72,
+    "duration": 3.52
+  },
+  {
+    "text": "being rendered. Like the first thing",
+    "start": 686.64,
+    "duration": 3.68
+  },
+  {
+    "text": "that stands out to me is these this",
+    "start": 688.24,
+    "duration": 3.92
+  },
+  {
+    "text": "yellow, which is feeling much more of",
+    "start": 690.32,
+    "duration": 4.079
+  },
+  {
+    "text": "kind of a greeny yellow versus here with",
+    "start": 692.16,
+    "duration": 3.76
+  },
+  {
+    "text": "reference, which is much more of like a",
+    "start": 694.399,
+    "duration": 3.12
+  },
+  {
+    "text": "warm yellow. That's something that's",
+    "start": 695.92,
+    "duration": 3.52
+  },
+  {
+    "text": "pretty consistent with a film rendering",
+    "start": 697.519,
+    "duration": 3.841
+  },
+  {
+    "text": "of colors. And a lot of what we're",
+    "start": 699.44,
+    "duration": 3.68
+  },
+  {
+    "text": "seeing here in reference, the way I like",
+    "start": 701.36,
+    "duration": 3.2
+  },
+  {
+    "text": "to think of it is it's kind of borrowing",
+    "start": 703.12,
+    "duration": 3.68
+  },
+  {
+    "text": "from the best of the film tradition",
+    "start": 704.56,
+    "duration": 4.56
+  },
+  {
+    "text": "without doing any kind of explicit film",
+    "start": 706.8,
+    "duration": 4.479
+  },
+  {
+    "text": "emulation or film look. We'll talk more",
+    "start": 709.12,
+    "duration": 3.44
+  },
+  {
+    "text": "about that in just a second, but for",
+    "start": 711.279,
+    "duration": 3.761
+  },
+  {
+    "text": "now, like I'll call out that some of the",
+    "start": 712.56,
+    "duration": 4.88
+  },
+  {
+    "text": "more subtle but really impactful aspects",
+    "start": 715.04,
+    "duration": 5.2
+  },
+  {
+    "text": "of a good film rendering are actually",
+    "start": 717.44,
+    "duration": 5.12
+  },
+  {
+    "text": "kind of lurking and low-key hiding out",
+    "start": 720.24,
+    "duration": 4.24
+  },
+  {
+    "text": "here inside of Reference. These kind of",
+    "start": 722.56,
+    "duration": 4.16
+  },
+  {
+    "text": "warmer yellows are a great example. This",
+    "start": 724.48,
+    "duration": 4.0
+  },
+  {
+    "text": "deeper red that we're seeing here right",
+    "start": 726.72,
+    "duration": 4.0
+  },
+  {
+    "text": "above the yellow. Another good example",
+    "start": 728.48,
+    "duration": 5.76
+  },
+  {
+    "text": "compared to like or a resolve CST just",
+    "start": 730.72,
+    "duration": 6.48
+  },
+  {
+    "text": "different feeling in the way that color",
+    "start": 734.24,
+    "duration": 5.92
+  },
+  {
+    "text": "is being reproduced on the screen in",
+    "start": 737.2,
+    "duration": 4.8
+  },
+  {
+    "text": "those two scenarios. And the other one",
+    "start": 740.16,
+    "duration": 4.239
+  },
+  {
+    "text": "that you'll see if we look at like I",
+    "start": 742.0,
+    "duration": 3.92
+  },
+  {
+    "text": "don't know let's find something with",
+    "start": 744.399,
+    "duration": 3.761
+  },
+  {
+    "text": "some strong blues in it. Like go back to",
+    "start": 745.92,
+    "duration": 5.039
+  },
+  {
+    "text": "this image for example. We've got blues",
+    "start": 748.16,
+    "duration": 4.32
+  },
+  {
+    "text": "that are hitting more into kind of like",
+    "start": 750.959,
+    "duration": 3.761
+  },
+  {
+    "text": "an indigo magenta region here with the",
+    "start": 752.48,
+    "duration": 5.12
+  },
+  {
+    "text": "CST versus like kind of halfway towards",
+    "start": 754.72,
+    "duration": 5.28
+  },
+  {
+    "text": "cyan uh here in this rendering which",
+    "start": 757.6,
+    "duration": 4.56
+  },
+  {
+    "text": "just in general feels nicer. These are",
+    "start": 760.0,
+    "duration": 4.079
+  },
+  {
+    "text": "all what I would call preferential",
+    "start": 762.16,
+    "duration": 3.28
+  },
+  {
+    "text": "manipulations. It's not that they're",
+    "start": 764.079,
+    "duration": 3.681
+  },
+  {
+    "text": "right or wrong, they just feel better.",
+    "start": 765.44,
+    "duration": 4.399
+  },
+  {
+    "text": "So they're it's a often a stronger",
+    "start": 767.76,
+    "duration": 3.84
+  },
+  {
+    "text": "starting point that requires look",
+    "start": 769.839,
+    "duration": 3.12
+  },
+  {
+    "text": "development. These are all things that",
+    "start": 771.6,
+    "duration": 2.64
+  },
+  {
+    "text": "are often on my short list of things",
+    "start": 772.959,
+    "duration": 2.801
+  },
+  {
+    "text": "that I end up wanting to do in look",
+    "start": 774.24,
+    "duration": 2.88
+  },
+  {
+    "text": "development that many of us end up",
+    "start": 775.76,
+    "duration": 2.879
+  },
+  {
+    "text": "wanting to do in look development that",
+    "start": 777.12,
+    "duration": 2.959
+  },
+  {
+    "text": "we now don't have to do because it's",
+    "start": 778.639,
+    "duration": 3.921
+  },
+  {
+    "text": "baked right into the output transform.",
+    "start": 780.079,
+    "duration": 3.921
+  },
+  {
+    "text": "And again, we're now in a position where",
+    "start": 782.56,
+    "duration": 3.44
+  },
+  {
+    "text": "we can just add seasoning underneath",
+    "start": 784.0,
+    "duration": 3.92
+  },
+  {
+    "text": "that as opposed to needing to basically",
+    "start": 786.0,
+    "duration": 4.32
+  },
+  {
+    "text": "finish out the image or even worse",
+    "start": 787.92,
+    "duration": 4.8
+  },
+  {
+    "text": "actually compensate or counter what's",
+    "start": 790.32,
+    "duration": 4.56
+  },
+  {
+    "text": "happening in the DRT to get something",
+    "start": 792.72,
+    "duration": 4.08
+  },
+  {
+    "text": "better that it's not able to deliver on",
+    "start": 794.88,
+    "duration": 4.16
+  },
+  {
+    "text": "its own. Okay, last thing I want to",
+    "start": 796.8,
+    "duration": 4.08
+  },
+  {
+    "text": "point out is the way that edge colors",
+    "start": 799.04,
+    "duration": 3.359
+  },
+  {
+    "text": "are going to be handled. So like super",
+    "start": 800.88,
+    "duration": 3.92
+  },
+  {
+    "text": "high saturation stuff. So a good place",
+    "start": 802.399,
+    "duration": 3.841
+  },
+  {
+    "text": "to start for this would be like shot",
+    "start": 804.8,
+    "duration": 3.599
+  },
+  {
+    "text": "number 17. So take a look at these brake",
+    "start": 806.24,
+    "duration": 4.88
+  },
+  {
+    "text": "lights here. This is kind of an a a like",
+    "start": 808.399,
+    "duration": 5.12
+  },
+  {
+    "text": "borderline case because there's nothing",
+    "start": 811.12,
+    "duration": 4.32
+  },
+  {
+    "text": "straight up broken here which many of us",
+    "start": 813.519,
+    "duration": 3.041
+  },
+  {
+    "text": "have experienced before. We're like,",
+    "start": 815.44,
+    "duration": 3.12
+  },
+  {
+    "text": "\"Oh, you get like a cop light or a",
+    "start": 816.56,
+    "duration": 3.44
+  },
+  {
+    "text": "traffic light or a neon or something",
+    "start": 818.56,
+    "duration": 3.04
+  },
+  {
+    "text": "like that and it just straight up breaks",
+    "start": 820.0,
+    "duration": 2.639
+  },
+  {
+    "text": "when it goes through your color",
+    "start": 821.6,
+    "duration": 2.239
+  },
+  {
+    "text": "management or through your look and",
+    "start": 822.639,
+    "duration": 2.64
+  },
+  {
+    "text": "you're like, \"Wow, I got to go in there",
+    "start": 823.839,
+    "duration": 3.361
+  },
+  {
+    "text": "and fix that now.\" This isn't broken.",
+    "start": 825.279,
+    "duration": 3.841
+  },
+  {
+    "text": "Like it's holding up okay. It just is",
+    "start": 827.2,
+    "duration": 4.16
+  },
+  {
+    "text": "kind of ugly, right? like I don't love",
+    "start": 829.12,
+    "duration": 4.0
+  },
+  {
+    "text": "the way that's rendering. Take a look at",
+    "start": 831.36,
+    "duration": 4.479
+  },
+  {
+    "text": "the way reference handles it. Again,",
+    "start": 833.12,
+    "duration": 4.959
+  },
+  {
+    "text": "we're sort of getting more of that filmy",
+    "start": 835.839,
+    "duration": 4.56
+  },
+  {
+    "text": "flavor or feeling, but without an",
+    "start": 838.079,
+    "duration": 5.281
+  },
+  {
+    "text": "explicit film character or emulation.",
+    "start": 840.399,
+    "duration": 4.24
+  },
+  {
+    "text": "And really, that's one of the magic",
+    "start": 843.36,
+    "duration": 3.839
+  },
+  {
+    "text": "tricks that uh is happening here in the",
+    "start": 844.639,
+    "duration": 5.281
+  },
+  {
+    "text": "DRT is we've got, for example, like that",
+    "start": 847.199,
+    "duration": 5.041
+  },
+  {
+    "text": "nice extra bit of weight in our highs",
+    "start": 849.92,
+    "duration": 3.919
+  },
+  {
+    "text": "reds that I would associate with a film",
+    "start": 852.24,
+    "duration": 3.68
+  },
+  {
+    "text": "rendering, but we don't have several",
+    "start": 853.839,
+    "duration": 4.321
+  },
+  {
+    "text": "other things that can make a film look",
+    "start": 855.92,
+    "duration": 4.24
+  },
+  {
+    "text": "feel more looky. Specifically, that",
+    "start": 858.16,
+    "duration": 4.08
+  },
+  {
+    "text": "would be things like having an elevated",
+    "start": 860.16,
+    "duration": 3.919
+  },
+  {
+    "text": "black point or a white point that",
+    "start": 862.24,
+    "duration": 4.0
+  },
+  {
+    "text": "doesn't quite reach one. Or even a",
+    "start": 864.079,
+    "duration": 3.921
+  },
+  {
+    "text": "bigger one than that would be tinting in",
+    "start": 866.24,
+    "duration": 3.279
+  },
+  {
+    "text": "our shadows and our highlights where we",
+    "start": 868.0,
+    "duration": 3.199
+  },
+  {
+    "text": "have like cooler shadows or warmer",
+    "start": 869.519,
+    "duration": 3.44
+  },
+  {
+    "text": "highlights or both of those things. Like",
+    "start": 871.199,
+    "duration": 3.041
+  },
+  {
+    "text": "you can see if we pull up our same",
+    "start": 872.959,
+    "duration": 4.0
+  },
+  {
+    "text": "grayscale ramp here again, none of those",
+    "start": 874.24,
+    "duration": 5.2
+  },
+  {
+    "text": "things are present here in reference.",
+    "start": 876.959,
+    "duration": 4.641
+  },
+  {
+    "text": "And if we compare it to actually, let's",
+    "start": 879.44,
+    "duration": 5.36
+  },
+  {
+    "text": "do the ramp. So those things, if I look",
+    "start": 881.6,
+    "duration": 5.039
+  },
+  {
+    "text": "at them here on the waveform, we're",
+    "start": 884.8,
+    "duration": 3.36
+  },
+  {
+    "text": "neutral all the way up and down. We have",
+    "start": 886.639,
+    "duration": 4.161
+  },
+  {
+    "text": "a black point. If I go full screen at",
+    "start": 888.16,
+    "duration": 4.64
+  },
+  {
+    "text": "this ramp, we have a black point that's",
+    "start": 890.8,
+    "duration": 4.32
+  },
+  {
+    "text": "hitting all the way down to zero and",
+    "start": 892.8,
+    "duration": 4.56
+  },
+  {
+    "text": "going all the way up to one. And some of",
+    "start": 895.12,
+    "duration": 4.88
+  },
+  {
+    "text": "that more explicitly filmic character or",
+    "start": 897.36,
+    "duration": 4.719
+  },
+  {
+    "text": "photochemical character, I should say,",
+    "start": 900.0,
+    "duration": 4.079
+  },
+  {
+    "text": "is intentionally missing from here.",
+    "start": 902.079,
+    "duration": 4.56
+  },
+  {
+    "text": "Like, let's just contrast it with my",
+    "start": 904.079,
+    "duration": 4.721
+  },
+  {
+    "text": "film plugin, Genesis, which I love. I",
+    "start": 906.639,
+    "duration": 4.161
+  },
+  {
+    "text": "love all these things in Genesis. But",
+    "start": 908.8,
+    "duration": 5.12
+  },
+  {
+    "text": "it's more specific to a traditional film",
+    "start": 910.8,
+    "duration": 4.8
+  },
+  {
+    "text": "rendering here where you can see the",
+    "start": 913.92,
+    "duration": 3.359
+  },
+  {
+    "text": "neutrals are no longer neutral. like we",
+    "start": 915.6,
+    "duration": 4.0
+  },
+  {
+    "text": "have a black point that",
+    "start": 917.279,
+    "duration": 5.041
+  },
+  {
+    "text": "is indeed a bit off the floor and",
+    "start": 919.6,
+    "duration": 4.0
+  },
+  {
+    "text": "depending on the way I've got Genesis",
+    "start": 922.32,
+    "duration": 3.28
+  },
+  {
+    "text": "set up, my white point might come up",
+    "start": 923.6,
+    "duration": 3.52
+  },
+  {
+    "text": "just a little bit short of hitting the",
+    "start": 925.6,
+    "duration": 3.44
+  },
+  {
+    "text": "actual ceiling. So, those are part of",
+    "start": 927.12,
+    "duration": 3.44
+  },
+  {
+    "text": "the",
+    "start": 929.04,
+    "duration": 2.72
+  },
+  {
+    "text": "attributes that are going to lead to",
+    "start": 930.56,
+    "duration": 3.12
+  },
+  {
+    "text": "more of an explicitly filmy feeling",
+    "start": 931.76,
+    "duration": 4.56
+  },
+  {
+    "text": "image as opposed to reference here which",
+    "start": 933.68,
+    "duration": 4.56
+  },
+  {
+    "text": "has a lot of that same DNA but it's",
+    "start": 936.32,
+    "duration": 3.199
+  },
+  {
+    "text": "going to be more versatile. And if you",
+    "start": 938.24,
+    "duration": 2.88
+  },
+  {
+    "text": "want to add those things, they can",
+    "start": 939.519,
+    "duration": 3.44
+  },
+  {
+    "text": "easily be added. My tool of choice for",
+    "start": 941.12,
+    "duration": 3.839
+  },
+  {
+    "text": "pairing with reference would be my look",
+    "start": 942.959,
+    "duration": 3.44
+  },
+  {
+    "text": "development plug-in contour. You could",
+    "start": 944.959,
+    "duration": 3.12
+  },
+  {
+    "text": "put it right over here to the left of",
+    "start": 946.399,
+    "duration": 3.601
+  },
+  {
+    "text": "the tool and just add that little bit of",
+    "start": 948.079,
+    "duration": 3.68
+  },
+  {
+    "text": "seasoning of cool shadows or a lifted",
+    "start": 950.0,
+    "duration": 3.279
+  },
+  {
+    "text": "black point or whatever you want, but",
+    "start": 951.759,
+    "duration": 3.44
+  },
+  {
+    "text": "you've got the versatility of a base",
+    "start": 953.279,
+    "duration": 4.0
+  },
+  {
+    "text": "transform that doesn't have those things",
+    "start": 955.199,
+    "duration": 3.44
+  },
+  {
+    "text": "cooked in there. So, you could use this",
+    "start": 957.279,
+    "duration": 3.201
+  },
+  {
+    "text": "for commercials, documentaries,",
+    "start": 958.639,
+    "duration": 3.12
+  },
+  {
+    "text": "streaming series, like whatever you want",
+    "start": 960.48,
+    "duration": 3.76
+  },
+  {
+    "text": "to use it for. It's got all the",
+    "start": 961.759,
+    "duration": 4.401
+  },
+  {
+    "text": "character and the sort of finished",
+    "start": 964.24,
+    "duration": 3.76
+  },
+  {
+    "text": "finesse to it that you would want, but",
+    "start": 966.16,
+    "duration": 3.44
+  },
+  {
+    "text": "it doesn't have anything baked in there",
+    "start": 968.0,
+    "duration": 3.12
+  },
+  {
+    "text": "that might not be appropriate or",
+    "start": 969.6,
+    "duration": 3.919
+  },
+  {
+    "text": "desirable in all circumstances. That's",
+    "start": 971.12,
+    "duration": 3.36
+  },
+  {
+    "text": "kind of the last thing that I'll call",
+    "start": 973.519,
+    "duration": 3.201
+  },
+  {
+    "text": "there is we've got like it's filmic",
+    "start": 974.48,
+    "duration": 3.919
+  },
+  {
+    "text": "without being photochemical if that",
+    "start": 976.72,
+    "duration": 3.52
+  },
+  {
+    "text": "makes sense. Uh and again if we want to",
+    "start": 978.399,
+    "duration": 4.161
+  },
+  {
+    "text": "take a look at a few more examples of",
+    "start": 980.24,
+    "duration": 4.24
+  },
+  {
+    "text": "handling of edge colors like take a look",
+    "start": 982.56,
+    "duration": 4.079
+  },
+  {
+    "text": "at the way we're doing things here in",
+    "start": 984.48,
+    "duration": 4.88
+  },
+  {
+    "text": "reference versus the reds that are",
+    "start": 986.639,
+    "duration": 5.2
+  },
+  {
+    "text": "coming out of a Resolve CST. Again I",
+    "start": 989.36,
+    "duration": 3.76
+  },
+  {
+    "text": "guess kind of borderline like",
+    "start": 991.839,
+    "duration": 4.0
+  },
+  {
+    "text": "technically not broken just super ugly",
+    "start": 993.12,
+    "duration": 4.56
+  },
+  {
+    "text": "with reference handling it in a much",
+    "start": 995.839,
+    "duration": 4.961
+  },
+  {
+    "text": "more artful much more pleasing way. Um,",
+    "start": 997.68,
+    "duration": 4.48
+  },
+  {
+    "text": "so those would be kind of the key things",
+    "start": 1000.8,
+    "duration": 3.44
+  },
+  {
+    "text": "that I would call out that are going to",
+    "start": 1002.16,
+    "duration": 3.919
+  },
+  {
+    "text": "be different when you're using reference",
+    "start": 1004.24,
+    "duration": 4.399
+  },
+  {
+    "text": "compared to literally any other output",
+    "start": 1006.079,
+    "duration": 4.961
+  },
+  {
+    "text": "transform or DRT that's out there. By",
+    "start": 1008.639,
+    "duration": 3.681
+  },
+  {
+    "text": "the way, I've got a whole dedicated",
+    "start": 1011.04,
+    "duration": 3.599
+  },
+  {
+    "text": "video on DRTS, display rendering",
+    "start": 1012.32,
+    "duration": 3.759
+  },
+  {
+    "text": "transforms, that's really what we're",
+    "start": 1014.639,
+    "duration": 3.12
+  },
+  {
+    "text": "talking about today. So, if you want to",
+    "start": 1016.079,
+    "duration": 2.961
+  },
+  {
+    "text": "get more familiar with some of the",
+    "start": 1017.759,
+    "duration": 2.961
+  },
+  {
+    "text": "concepts that I'm kind of brushing",
+    "start": 1019.04,
+    "duration": 3.44
+  },
+  {
+    "text": "through rather quickly today, definitely",
+    "start": 1020.72,
+    "duration": 3.119
+  },
+  {
+    "text": "encourage you to go check out that video",
+    "start": 1022.48,
+    "duration": 3.28
+  },
+  {
+    "text": "if you want to dive deeper on it. But",
+    "start": 1023.839,
+    "duration": 3.921
+  },
+  {
+    "text": "that's the overview of what this tool",
+    "start": 1025.76,
+    "duration": 3.76
+  },
+  {
+    "text": "is, how you can load it into your camera",
+    "start": 1027.76,
+    "duration": 3.679
+  },
+  {
+    "text": "and into Resolve, and some of the",
+    "start": 1029.52,
+    "duration": 3.039
+  },
+  {
+    "text": "differences that you're going to see,",
+    "start": 1031.439,
+    "duration": 3.12
+  },
+  {
+    "text": "and the benefit that is going to come",
+    "start": 1032.559,
+    "duration": 3.921
+  },
+  {
+    "text": "from those differences in the way that",
+    "start": 1034.559,
+    "duration": 4.081
+  },
+  {
+    "text": "reference works compared to like the",
+    "start": 1036.48,
+    "duration": 4.4
+  },
+  {
+    "text": "normal solution that you might use in",
+    "start": 1038.64,
+    "duration": 4.24
+  },
+  {
+    "text": "each of those cases. So, the link for",
+    "start": 1040.88,
+    "duration": 3.679
+  },
+  {
+    "text": "reference is in the description for this",
+    "start": 1042.88,
+    "duration": 3.52
+  },
+  {
+    "text": "video. Go grab it. Like I said, totally",
+    "start": 1044.559,
+    "duration": 3.76
+  },
+  {
+    "text": "free download. My gift to you. I really",
+    "start": 1046.4,
+    "duration": 4.08
+  },
+  {
+    "text": "want you to experience the power of this",
+    "start": 1048.319,
+    "duration": 4.72
+  },
+  {
+    "text": "kind of one-stop DRT, one-stop output",
+    "start": 1050.48,
+    "duration": 4.96
+  },
+  {
+    "text": "transform that pushes you further toward",
+    "start": 1053.039,
+    "duration": 4.561
+  },
+  {
+    "text": "a finished image than any other solution",
+    "start": 1055.44,
+    "duration": 3.92
+  },
+  {
+    "text": "that's currently out there. So, go grab",
+    "start": 1057.6,
+    "duration": 3.04
+  },
+  {
+    "text": "it, download it, load it into your",
+    "start": 1059.36,
+    "duration": 2.88
+  },
+  {
+    "text": "camera, load it into Resolve, and let me",
+    "start": 1060.64,
+    "duration": 3.279
+  },
+  {
+    "text": "know in the comments how is this",
+    "start": 1062.24,
+    "duration": 3.2
+  },
+  {
+    "text": "impacting the strength of your final",
+    "start": 1063.919,
+    "duration": 2.961
+  },
+  {
+    "text": "images and the amount of time that it",
+    "start": 1065.44,
+    "duration": 4.64
+  },
+  {
+    "text": "takes you to get there.",
+    "start": 1066.88,
+    "duration": 3.2
+  }
+]

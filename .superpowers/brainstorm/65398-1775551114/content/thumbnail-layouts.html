@@ -1,0 +1,95 @@
+<h2>Which thumbnail layout style do you gravitate toward?</h2>
+<p class="subtitle">These are the structural layouts the AI will use as guidance. Pick one or two that feel right for your channel.</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a2e;padding:20px;min-height:200px;display:flex;align-items:center;justify-content:center;">
+      <div style="display:flex;width:100%;gap:12px;align-items:center;">
+        <div style="flex:1;display:flex;gap:8px;justify-content:center;">
+          <div style="width:80px;height:100px;border-radius:12px;background:linear-gradient(135deg,#e94560,#c23152);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;">
+            <div style="width:50px;height:50px;border-radius:50%;background:#fff3;"></div>
+          </div>
+          <div style="width:80px;height:100px;border-radius:12px;background:linear-gradient(135deg,#0f3460,#16213e);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;">
+            <div style="width:50px;height:50px;border-radius:50%;background:#fff3;"></div>
+          </div>
+        </div>
+        <div style="flex:1;text-align:left;">
+          <div style="font-size:18px;font-weight:900;color:#fff;line-height:1.2;">BIG BOLD<br>TITLE TEXT</div>
+          <div style="font-size:10px;color:#fff8;margin-top:4px;">subtitle here</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Hosts Left, Text Right</h3>
+      <p>Classic podcast thumbnail. Both hosts on the left, big title text on the right. Clean separation.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);padding:20px;min-height:200px;display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;width:100%;">
+        <div style="font-size:22px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 20px #e94560;">THE TITLE</div>
+        <div style="font-size:11px;color:#e94560;margin:8px 0 16px;letter-spacing:4px;">EPISODE 42</div>
+        <div style="display:flex;justify-content:center;gap:20px;">
+          <div style="text-align:center;">
+            <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#e94560,#c23152);margin:0 auto 4px;border:2px solid #fff3;"></div>
+            <div style="font-size:9px;color:#fff8;">HOST 1</div>
+          </div>
+          <div style="font-size:20px;color:#e94560;align-self:center;">VS</div>
+          <div style="text-align:center;">
+            <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#0f3460,#16213e);margin:0 auto 4px;border:2px solid #fff3;"></div>
+            <div style="font-size:9px;color:#fff8;">HOST 2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Centered Drama</h3>
+      <p>Title top-center, hosts below in a face-off style. High energy, debate/discussion vibes.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0a;padding:20px;min-height:200px;display:flex;align-items:center;justify-content:center;">
+      <div style="display:flex;width:100%;align-items:stretch;gap:0;">
+        <div style="flex:1;background:linear-gradient(to right,#e94560,#e9456033);display:flex;align-items:flex-end;justify-content:center;padding:12px;border-radius:8px 0 0 8px;">
+          <div style="width:70px;height:90px;background:#fff2;border-radius:8px;"></div>
+        </div>
+        <div style="flex:1.2;display:flex;flex-direction:column;justify-content:center;padding:0 16px;background:#111;">
+          <div style="font-size:10px;color:#e94560;font-weight:700;letter-spacing:2px;">TECH TALK</div>
+          <div style="font-size:16px;font-weight:900;color:#fff;line-height:1.2;margin:6px 0;">Why AI Will Change Everything</div>
+          <div style="font-size:9px;color:#fff6;">with Host & Co-host</div>
+        </div>
+        <div style="flex:1;background:linear-gradient(to left,#0f3460,#0f346033);display:flex;align-items:flex-end;justify-content:center;padding:12px;border-radius:0 8px 8px 0;">
+          <div style="width:70px;height:90px;background:#fff2;border-radius:8px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Split Panel</h3>
+      <p>Host on each side, title in the center. Each host gets their own color zone. Professional look.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="d" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:linear-gradient(135deg,#667eea,#764ba2);padding:20px;min-height:200px;display:flex;align-items:center;justify-content:center;">
+      <div style="width:100%;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:50px;height:50px;border-radius:50%;background:#fff3;flex-shrink:0;"></div>
+          <div style="width:50px;height:50px;border-radius:50%;background:#fff3;flex-shrink:0;"></div>
+          <div style="font-size:10px;color:#fff8;font-weight:600;">TADIES & CO-FOUNDER</div>
+        </div>
+        <div style="font-size:24px;font-weight:900;color:#fff;line-height:1.1;">This One Thing Will 10x Your Startup</div>
+        <div style="margin-top:8px;display:flex;gap:6px;">
+          <span style="background:#fff2;color:#fff;font-size:9px;padding:3px 8px;border-radius:12px;">AI</span>
+          <span style="background:#fff2;color:#fff;font-size:9px;padding:3px 8px;border-radius:12px;">Startups</span>
+          <span style="background:#fff2;color:#fff;font-size:9px;padding:3px 8px;border-radius:12px;">Growth</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>D — Text-Heavy Editorial</h3>
+      <p>Small host photos top-left, massive title dominates. Topic tags below. Maximum click-through energy.</p>
+    </div>
+  </div>
+</div>

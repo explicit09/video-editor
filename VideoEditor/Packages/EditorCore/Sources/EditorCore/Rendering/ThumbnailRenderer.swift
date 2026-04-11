@@ -36,26 +36,23 @@ public struct ThumbnailRenderer: Sendable {
         if let bgData = config.backgroundImage,
            let bgCIImage = CIImage(data: bgData),
            let bgCGImage = CIContext().createCGImage(bgCIImage, from: bgCIImage.extent) {
-            // Draw background image scaled to fill canvas
-            let bgRect = CGRect(x: 0, y: 0, width: CGFloat(w), height: CGFloat(h))
-            ctx.draw(bgCGImage, in: bgRect)
+            ctx.draw(bgCGImage, in: CGRect(x: 0, y: 0, width: CGFloat(w), height: CGFloat(h)))
         } else {
-            // Fall back to gradient background
             drawBackground(ctx: ctx, layout: config.layout, brand: config.brand, size: size)
         }
 
-        // 2. Gold accent corner lines
-        drawAccents(ctx: ctx, layout: config.layout, brand: config.brand, size: size)
+        // 2. Dark gradient overlay at bottom for text readability
+        drawBottomGradient(ctx: ctx, size: size)
 
-        // 3. Host photo cutouts
+        // 3. Host photo cutouts — positioned to not cover center of background
         let cutouts = try generateCutouts(photos: config.hostPhotos)
         drawHosts(ctx: ctx, layout: config.layout, brand: config.brand, cutouts: cutouts, size: size)
 
-        // 4. Logo
-        drawLogo(ctx: ctx, brand: config.brand, size: size)
+        // 4. Brand badge bar at bottom
+        drawBrandBar(ctx: ctx, brand: config.brand, size: size)
 
-        // 5. Title and subtitle text
-        drawText(ctx: ctx, config: config, size: size)
+        // 5. Title text — BIG, bold, TBPN style
+        drawTitle(ctx: ctx, config: config, size: size)
 
         // 6. Export as PNG
         guard let cgImage = ctx.makeImage() else {
@@ -70,103 +67,78 @@ public struct ThumbnailRenderer: Sendable {
 extension ThumbnailRenderer {
 
     private func drawBackground(ctx: CGContext, layout: ThumbnailLayout, brand: ThumbnailBrand, size: CGSize) {
-        let primary = brand.primaryBackground
-        let black = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        let primary = brand.secondaryBackground  // dark green
+        let black = brand.primaryBackground       // black
+
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        guard let grad = CGGradient(colorsSpace: colorSpace,
+                                     colors: [primary, black] as CFArray, locations: [0, 1]) else { return }
 
         switch layout {
         case .splitPanel:
-            // Left panel: primary → black diagonal
-            let leftRect = CGRect(x: 0, y: 0, width: size.width / 2, height: size.height)
-            if let grad = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
-                                     colors: [primary, black] as CFArray, locations: [0, 1]) {
-                ctx.saveGState()
-                ctx.clip(to: leftRect)
-                ctx.drawLinearGradient(grad,
-                                       start: CGPoint(x: 0, y: size.height),
-                                       end: CGPoint(x: size.width / 2, y: 0),
-                                       options: [])
-                ctx.restoreGState()
-            }
-            // Right panel: primary → black reverse diagonal
-            let rightRect = CGRect(x: size.width / 2, y: 0, width: size.width / 2, height: size.height)
-            if let grad = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
-                                     colors: [primary, black] as CFArray, locations: [0, 1]) {
-                ctx.saveGState()
-                ctx.clip(to: rightRect)
-                ctx.drawLinearGradient(grad,
-                                       start: CGPoint(x: size.width, y: 0),
-                                       end: CGPoint(x: size.width / 2, y: size.height),
-                                       options: [])
-                ctx.restoreGState()
-            }
-
+            ctx.drawLinearGradient(grad,
+                                   start: CGPoint(x: 0, y: size.height),
+                                   end: CGPoint(x: size.width, y: 0),
+                                   options: [.drawsAfterEndLocation])
         case .centered:
-            // Radial gradient: primary center → black edges
-            if let grad = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
-                                     colors: [primary, black] as CFArray, locations: [0, 1]) {
-                let center = CGPoint(x: size.width / 2, y: size.height / 2)
-                let radius = hypot(size.width, size.height) / 2
-                ctx.drawRadialGradient(grad,
-                                       startCenter: center, startRadius: 0,
-                                       endCenter: center, endRadius: radius,
-                                       options: [])
-            }
-
+            let center = CGPoint(x: size.width / 2, y: size.height / 2)
+            let radius = hypot(size.width, size.height) / 2
+            ctx.drawRadialGradient(grad,
+                                    startCenter: center, startRadius: 0,
+                                    endCenter: center, endRadius: radius,
+                                    options: [])
         case .textHeavy:
-            // Diagonal gradient: primary → black
-            if let grad = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
-                                     colors: [primary, black] as CFArray, locations: [0, 1]) {
-                ctx.drawLinearGradient(grad,
-                                       start: CGPoint(x: 0, y: size.height),
-                                       end: CGPoint(x: size.width, y: 0),
-                                       options: [])
-            }
+            ctx.drawLinearGradient(grad,
+                                   start: CGPoint(x: 0, y: size.height),
+                                   end: CGPoint(x: size.width, y: 0),
+                                   options: [.drawsAfterEndLocation])
         }
+    }
+
+    /// Dark gradient at the bottom 40% of the frame so text is always readable
+    private func drawBottomGradient(ctx: CGContext, size: CGSize) {
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let clear = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
+        let dark = CGColor(red: 0, green: 0, blue: 0, alpha: 0.85)
+
+        guard let grad = CGGradient(colorsSpace: colorSpace,
+                                     colors: [dark, clear] as CFArray, locations: [0, 1]) else { return }
+
+        // Bottom 40% of frame
+        ctx.saveGState()
+        ctx.clip(to: CGRect(x: 0, y: 0, width: size.width, height: size.height * 0.45))
+        ctx.drawLinearGradient(grad,
+                               start: CGPoint(x: 0, y: 0),
+                               end: CGPoint(x: 0, y: size.height * 0.45),
+                               options: [])
+        ctx.restoreGState()
     }
 }
 
-// MARK: - Gold Accent Corner Lines
+// MARK: - Brand Bar
 
 extension ThumbnailRenderer {
 
-    private func drawAccents(ctx: CGContext, layout: ThumbnailLayout, brand: ThumbnailBrand, size: CGSize) {
-        let gold = brand.accentGold
-        let lineWidth: CGFloat = 3
-        let lineLen: CGFloat = 80
+    /// Green/gold brand bar at the very bottom — like TBPN's green bar
+    private func drawBrandBar(ctx: CGContext, brand: ThumbnailBrand, size: CGSize) {
+        let barHeight: CGFloat = 6
+        // Gold accent line
+        ctx.setFillColor(brand.accentGold)
+        ctx.fill(CGRect(x: 0, y: 0, width: size.width, height: barHeight))
 
-        ctx.setStrokeColor(gold)
-        ctx.setLineWidth(lineWidth)
-
-        switch layout {
-        case .splitPanel:
-            // Top-left corner
-            drawCornerLines(ctx: ctx, x: 20, y: size.height - 20, dx: 1, dy: -1, length: lineLen)
-            // Bottom-right corner
-            drawCornerLines(ctx: ctx, x: size.width - 20, y: 20, dx: -1, dy: 1, length: lineLen)
-
-        case .centered:
-            // All four corners
-            drawCornerLines(ctx: ctx, x: 20, y: size.height - 20, dx: 1, dy: -1, length: lineLen)
-            drawCornerLines(ctx: ctx, x: size.width - 20, y: size.height - 20, dx: -1, dy: -1, length: lineLen)
-            drawCornerLines(ctx: ctx, x: 20, y: 20, dx: 1, dy: 1, length: lineLen)
-            drawCornerLines(ctx: ctx, x: size.width - 20, y: 20, dx: -1, dy: 1, length: lineLen)
-
-        case .textHeavy:
-            // Top-left and bottom-right
-            drawCornerLines(ctx: ctx, x: 20, y: size.height - 20, dx: 1, dy: -1, length: lineLen)
-            drawCornerLines(ctx: ctx, x: size.width - 20, y: 20, dx: -1, dy: 1, length: lineLen)
+        // Logo in bottom-right corner, above the bar
+        if let logo = brand.logoImage {
+            let logoMaxH: CGFloat = 45
+            let logoW = CGFloat(logo.width)
+            let logoH = CGFloat(logo.height)
+            let scale = logoMaxH / logoH
+            let drawW = logoW * scale
+            let drawH = logoMaxH
+            let padding: CGFloat = 20
+            let x = size.width - drawW - padding
+            let y = barHeight + 10
+            ctx.draw(logo, in: CGRect(x: x, y: y, width: drawW, height: drawH))
         }
-    }
-
-    private func drawCornerLines(ctx: CGContext, x: CGFloat, y: CGFloat, dx: CGFloat, dy: CGFloat, length: CGFloat) {
-        // Horizontal line from corner
-        ctx.move(to: CGPoint(x: x, y: y))
-        ctx.addLine(to: CGPoint(x: x + dx * length, y: y))
-        ctx.strokePath()
-        // Vertical line from corner
-        ctx.move(to: CGPoint(x: x, y: y))
-        ctx.addLine(to: CGPoint(x: x, y: y + dy * length))
-        ctx.strokePath()
     }
 }
 
@@ -179,9 +151,7 @@ extension ThumbnailRenderer {
         var results: [CGImage] = []
         for photo in photos {
             let ciImage = try PhotoCutout.cutout(photo: photo, featherRadius: 8)
-            guard let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent) else {
-                continue
-            }
+            guard let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent) else { continue }
             results.append(cgImage)
         }
         return results
@@ -190,79 +160,74 @@ extension ThumbnailRenderer {
     private func drawHosts(ctx: CGContext, layout: ThumbnailLayout, brand: ThumbnailBrand, cutouts: [CGImage], size: CGSize) {
         switch layout {
         case .splitPanel:
-            // Host A: left panel (5-47% width), upper portion
+            // Host A: left side, large, from bottom up
             if cutouts.count > 0 {
                 let hostRect = CGRect(
-                    x: size.width * 0.05,
-                    y: size.height * 0.15,
-                    width: size.width * 0.42,
-                    height: size.height * 0.75
+                    x: size.width * 0.0,
+                    y: size.height * 0.05,
+                    width: size.width * 0.40,
+                    height: size.height * 0.80
                 )
                 drawHostImage(ctx: ctx, image: cutouts[0], in: hostRect)
             }
-            // Host B: right panel (53-95% width), upper portion
+            // Host B: right side, large, from bottom up
             if cutouts.count > 1 {
                 let hostRect = CGRect(
-                    x: size.width * 0.53,
-                    y: size.height * 0.15,
-                    width: size.width * 0.42,
-                    height: size.height * 0.75
+                    x: size.width * 0.60,
+                    y: size.height * 0.05,
+                    width: size.width * 0.40,
+                    height: size.height * 0.80
                 )
                 drawHostImage(ctx: ctx, image: cutouts[1], in: hostRect)
             }
 
         case .centered:
-            // Host A: bottom-left, slight 2 degree clockwise tilt
+            // Host A: bottom-left with tilt
             if cutouts.count > 0 {
                 let hostRect = CGRect(
-                    x: size.width * 0.05,
+                    x: size.width * 0.02,
                     y: size.height * 0.02,
                     width: size.width * 0.42,
-                    height: size.height * 0.60
+                    height: size.height * 0.65
                 )
                 ctx.saveGState()
-                let centerA = CGPoint(x: hostRect.midX, y: hostRect.midY)
-                ctx.translateBy(x: centerA.x, y: centerA.y)
-                ctx.rotate(by: -2 * .pi / 180) // 2 deg clockwise (CG is counter-clockwise positive)
-                ctx.translateBy(x: -centerA.x, y: -centerA.y)
+                let center = CGPoint(x: hostRect.midX, y: hostRect.midY)
+                ctx.translateBy(x: center.x, y: center.y)
+                ctx.rotate(by: -2 * .pi / 180)
+                ctx.translateBy(x: -center.x, y: -center.y)
                 drawHostImage(ctx: ctx, image: cutouts[0], in: hostRect)
                 ctx.restoreGState()
             }
-            // Host B: bottom-right, slight -2 degree counter-clockwise tilt
+            // Host B: bottom-right with opposite tilt
             if cutouts.count > 1 {
                 let hostRect = CGRect(
-                    x: size.width * 0.53,
+                    x: size.width * 0.56,
                     y: size.height * 0.02,
                     width: size.width * 0.42,
-                    height: size.height * 0.60
+                    height: size.height * 0.65
                 )
                 ctx.saveGState()
-                let centerB = CGPoint(x: hostRect.midX, y: hostRect.midY)
-                ctx.translateBy(x: centerB.x, y: centerB.y)
-                ctx.rotate(by: 2 * .pi / 180) // -2 deg counter-clockwise
-                ctx.translateBy(x: -centerB.x, y: -centerB.y)
+                let center = CGPoint(x: hostRect.midX, y: hostRect.midY)
+                ctx.translateBy(x: center.x, y: center.y)
+                ctx.rotate(by: 2 * .pi / 180)
+                ctx.translateBy(x: -center.x, y: -center.y)
                 drawHostImage(ctx: ctx, image: cutouts[1], in: hostRect)
                 ctx.restoreGState()
             }
 
         case .textHeavy:
-            // Small circular cutouts (~100px) with gold border, top-left
+            // Small circular cutouts, top-left
             let circleSize: CGFloat = 100
             let startX: CGFloat = 40
-            let startY: CGFloat = size.height - 140 // Near top in screen coords (CG origin bottom-left)
+            let startY: CGFloat = size.height - 140
             for (i, cutout) in cutouts.prefix(2).enumerated() {
                 let cx = startX + CGFloat(i) * (circleSize + 16)
-                let cy = startY
-                let circleRect = CGRect(x: cx, y: cy, width: circleSize, height: circleSize)
-
-                // Clip to circle and draw
+                let circleRect = CGRect(x: cx, y: startY, width: circleSize, height: circleSize)
                 ctx.saveGState()
                 ctx.addEllipse(in: circleRect)
                 ctx.clip()
                 drawHostImage(ctx: ctx, image: cutout, in: circleRect)
                 ctx.restoreGState()
-
-                // Gold circle border
                 ctx.setStrokeColor(brand.accentGold)
                 ctx.setLineWidth(3)
                 ctx.strokeEllipse(in: circleRect.insetBy(dx: 1.5, dy: 1.5))
@@ -271,7 +236,6 @@ extension ThumbnailRenderer {
     }
 
     private func drawHostImage(ctx: CGContext, image: CGImage, in rect: CGRect) {
-        // Aspect-fill the image into the rect
         let imgW = CGFloat(image.width)
         let imgH = CGFloat(image.height)
         let scale = max(rect.width / imgW, rect.height / imgH)
@@ -283,91 +247,66 @@ extension ThumbnailRenderer {
     }
 }
 
-// MARK: - Logo
+// MARK: - Title Text (TBPN Style — BIG and bold)
 
 extension ThumbnailRenderer {
 
-    private func drawLogo(ctx: CGContext, brand: ThumbnailBrand, size: CGSize) {
-        guard let logo = brand.logoImage else { return }
-        let logoMaxH: CGFloat = 60
-        let logoW = CGFloat(logo.width)
-        let logoH = CGFloat(logo.height)
-        let scale = logoMaxH / logoH
-        let drawW = logoW * scale
-        let drawH = logoMaxH
-        // Centered horizontally, near the very top
-        let x = (size.width - drawW) / 2
-        let y = size.height - drawH - 30
-        ctx.draw(logo, in: CGRect(x: x, y: y, width: drawW, height: drawH))
-    }
-}
-
-// MARK: - Text Rendering
-
-extension ThumbnailRenderer {
-
-    private func drawText(ctx: CGContext, config: ThumbnailConfig, size: CGSize) {
+    private func drawTitle(ctx: CGContext, config: ThumbnailConfig, size: CGSize) {
         let brand = config.brand
-        let titleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 72, nil)
-        let subtitleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 36, nil)
 
-        // Drop shadow for all text
         ctx.saveGState()
         ctx.setShadow(
-            offset: CGSize(width: 3, height: -3),
-            blur: 10,
-            color: CGColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+            offset: CGSize(width: 4, height: -4),
+            blur: 12,
+            color: CGColor(red: 0, green: 0, blue: 0, alpha: 0.9)
         )
 
         let titleText = config.title.uppercased()
         let subtitleText = config.subtitle?.uppercased()
 
         switch config.layout {
-        case .splitPanel:
-            // Title: centered at bottom, white
-            let titleW = measureText(titleText, font: titleFont)
-            let titleX = (size.width - titleW) / 2
-            let titleY: CGFloat = 80
-            drawCTText(ctx: ctx, text: titleText, x: titleX, y: titleY, font: titleFont, color: brand.textPrimary)
+        case .splitPanel, .centered:
+            // MASSIVE title centered, near bottom (above brand bar)
+            let titleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 96, nil)
+            let subtitleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 48, nil)
 
-            // Subtitle: centered below title (below in screen = lower y in CG)
-            if let sub = subtitleText {
-                let subW = measureText(sub, font: subtitleFont)
-                let subX = (size.width - subW) / 2
-                let subY: CGFloat = 35
-                drawCTText(ctx: ctx, text: sub, x: subX, y: subY, font: subtitleFont, color: brand.textAccent)
+            // Title — auto-size to fit width
+            let maxWidth = size.width * 0.85
+            let titleW = measureText(titleText, font: titleFont)
+            let actualTitleFont: CTFont
+            if titleW > maxWidth {
+                // Scale down to fit
+                let scaleFactor = maxWidth / titleW
+                actualTitleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 96 * scaleFactor, nil)
+            } else {
+                actualTitleFont = titleFont
             }
 
-        case .centered:
-            // Title: centered at top, white
-            let titleW = measureText(titleText, font: titleFont)
-            let titleX = (size.width - titleW) / 2
-            let titleY = size.height - 120
-            drawCTText(ctx: ctx, text: titleText, x: titleX, y: titleY, font: titleFont, color: brand.textPrimary)
+            let finalW = measureText(titleText, font: actualTitleFont)
+            let titleX = (size.width - finalW) / 2
+            let titleY: CGFloat = 75
 
-            // Subtitle: centered below title
+            drawCTText(ctx: ctx, text: titleText, x: titleX, y: titleY, font: actualTitleFont, color: brand.textPrimary)
+
+            // Subtitle below
             if let sub = subtitleText {
                 let subW = measureText(sub, font: subtitleFont)
                 let subX = (size.width - subW) / 2
-                let subY = size.height - 170
+                let subY: CGFloat = 20
                 drawCTText(ctx: ctx, text: sub, x: subX, y: subY, font: subtitleFont, color: brand.textAccent)
             }
 
         case .textHeavy:
-            // Title: large, left-aligned, middle of canvas
-            let largeTitleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 96, nil)
-            let titleY = size.height * 0.45
+            let largeTitleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 110, nil)
+            let subtitleFont = CTFontCreateWithName("Helvetica-Bold" as CFString, 56, nil)
             let titleX: CGFloat = 40
-
-            // Use CTFramesetter for multi-line wrapping
             let maxWidth = size.width * 0.85
-            drawWrappedText(ctx: ctx, text: titleText, x: titleX, y: titleY, maxWidth: maxWidth,
+
+            drawWrappedText(ctx: ctx, text: titleText, x: titleX, y: size.height * 0.50, maxWidth: maxWidth,
                            font: largeTitleFont, color: brand.textPrimary)
 
-            // Subtitle: below title, gold
             if let sub = subtitleText {
-                let subY = titleY - 120
-                drawCTText(ctx: ctx, text: sub, x: titleX, y: subY, font: subtitleFont, color: brand.textAccent)
+                drawCTText(ctx: ctx, text: sub, x: titleX, y: size.height * 0.30, font: subtitleFont, color: brand.textAccent)
             }
         }
 
@@ -393,7 +332,6 @@ extension ThumbnailRenderer {
         ]
         let attrString = CFAttributedStringCreate(nil, text as CFString, attrs as CFDictionary)!
         let framesetter = CTFramesetterCreateWithAttributedString(attrString)
-
         let framePath = CGPath(rect: CGRect(x: x, y: y - 300, width: maxWidth, height: 300), transform: nil)
         let frame = CTFramesetterCreateFrame(framesetter, CFRange(location: 0, length: 0), framePath, nil)
         CTFrameDraw(frame, ctx)

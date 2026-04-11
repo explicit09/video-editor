@@ -1,0 +1,1692 @@
+[
+  {
+    "text": "color space transforms this must be the",
+    "start": 0.179,
+    "duration": 4.261
+  },
+  {
+    "text": "most talked about subject on DaVinci",
+    "start": 2.58,
+    "duration": 3.48
+  },
+  {
+    "text": "Resolve forums that I've seen for a long",
+    "start": 4.44,
+    "duration": 3.3
+  },
+  {
+    "text": "time so in this episode I'm going to",
+    "start": 6.06,
+    "duration": 3.24
+  },
+  {
+    "text": "demystify what is a color space",
+    "start": 7.74,
+    "duration": 4.08
+  },
+  {
+    "text": "transform how does it work is it color",
+    "start": 9.3,
+    "duration": 3.959
+  },
+  {
+    "text": "management is it better than color",
+    "start": 11.82,
+    "duration": 3.239
+  },
+  {
+    "text": "management where does it go in your node",
+    "start": 13.259,
+    "duration": 3.241
+  },
+  {
+    "text": "tree all these sort of questions are",
+    "start": 15.059,
+    "duration": 3.181
+  },
+  {
+    "text": "going to answer in this episode so this",
+    "start": 16.5,
+    "duration": 3.42
+  },
+  {
+    "text": "is a really good one for beginners but",
+    "start": 18.24,
+    "duration": 2.94
+  },
+  {
+    "text": "if you're intermediate it might answer",
+    "start": 19.92,
+    "duration": 2.64
+  },
+  {
+    "text": "some of the questions that you have as",
+    "start": 21.18,
+    "duration": 3.3
+  },
+  {
+    "text": "to where it goes in your node tree for",
+    "start": 22.56,
+    "duration": 3.959
+  },
+  {
+    "text": "example so let's take a look",
+    "start": 24.48,
+    "duration": 4.26
+  },
+  {
+    "text": "so I've got some footage here this is",
+    "start": 26.519,
+    "duration": 4.5
+  },
+  {
+    "text": "some Airy footage and I've got some red",
+    "start": 28.74,
+    "duration": 3.6
+  },
+  {
+    "text": "footage here as well so I'm just going",
+    "start": 31.019,
+    "duration": 2.941
+  },
+  {
+    "text": "to show you a couple of different color",
+    "start": 32.34,
+    "duration": 4.2
+  },
+  {
+    "text": "spaces to work with so my color space",
+    "start": 33.96,
+    "duration": 4.619
+  },
+  {
+    "text": "transform is here it's in my effects and",
+    "start": 36.54,
+    "duration": 4.26
+  },
+  {
+    "text": "I literally drag and drop it onto my",
+    "start": 38.579,
+    "duration": 4.381
+  },
+  {
+    "text": "clip and nothing happens because I",
+    "start": 40.8,
+    "duration": 3.9
+  },
+  {
+    "text": "haven't actually set anything yet and",
+    "start": 42.96,
+    "duration": 4.259
+  },
+  {
+    "text": "just to show you we are in color",
+    "start": 44.7,
+    "duration": 5.1
+  },
+  {
+    "text": "management here we are in a non-color",
+    "start": 47.219,
+    "duration": 4.141
+  },
+  {
+    "text": "managed environment we're in DaVinci y",
+    "start": 49.8,
+    "duration": 2.579
+  },
+  {
+    "text": "RGB",
+    "start": 51.36,
+    "duration": 3.12
+  },
+  {
+    "text": "color managed is the next one down Okay",
+    "start": 52.379,
+    "duration": 3.961
+  },
+  {
+    "text": "so we're in just regular DaVinci ygb",
+    "start": 54.48,
+    "duration": 3.48
+  },
+  {
+    "text": "I've got my timeline color space set to",
+    "start": 56.34,
+    "duration": 3.719
+  },
+  {
+    "text": "DaVinci wide gamma intermediate and my",
+    "start": 57.96,
+    "duration": 5.04
+  },
+  {
+    "text": "output color space is Rec 709 gamma 2.4",
+    "start": 60.059,
+    "duration": 4.92
+  },
+  {
+    "text": "because I'm delivering this for",
+    "start": 63.0,
+    "duration": 4.02
+  },
+  {
+    "text": "broadcast this is for HD regular",
+    "start": 64.979,
+    "duration": 3.541
+  },
+  {
+    "text": "television if you don't understand that",
+    "start": 67.02,
+    "duration": 3.0
+  },
+  {
+    "text": "I've done an episode called are you",
+    "start": 68.52,
+    "duration": 2.76
+  },
+  {
+    "text": "color space aware and it will explain",
+    "start": 70.02,
+    "duration": 2.82
+  },
+  {
+    "text": "what those settings are doing so you",
+    "start": 71.28,
+    "duration": 2.519
+  },
+  {
+    "text": "should check that one out I'll put a",
+    "start": 72.84,
+    "duration": 2.639
+  },
+  {
+    "text": "link to that in the description",
+    "start": 73.799,
+    "duration": 4.32
+  },
+  {
+    "text": "so here is our color space transform",
+    "start": 75.479,
+    "duration": 4.68
+  },
+  {
+    "text": "what is a color space transform well a",
+    "start": 78.119,
+    "duration": 4.32
+  },
+  {
+    "text": "color space transform is a way of",
+    "start": 80.159,
+    "duration": 4.621
+  },
+  {
+    "text": "working in different color spaces on a",
+    "start": 82.439,
+    "duration": 4.86
+  },
+  {
+    "text": "node by node basis so I want to take",
+    "start": 84.78,
+    "duration": 4.92
+  },
+  {
+    "text": "this image which looks very flat from",
+    "start": 87.299,
+    "duration": 5.581
+  },
+  {
+    "text": "this Ari color space profile into Rick",
+    "start": 89.7,
+    "duration": 5.76
+  },
+  {
+    "text": "709 all right and to do that I could use",
+    "start": 92.88,
+    "duration": 4.62
+  },
+  {
+    "text": "color Management in this case I'm going",
+    "start": 95.46,
+    "duration": 4.019
+  },
+  {
+    "text": "to use a color space transform",
+    "start": 97.5,
+    "duration": 4.439
+  },
+  {
+    "text": "so there's two things that you need to",
+    "start": 99.479,
+    "duration": 4.561
+  },
+  {
+    "text": "tell DaVinci Resolve when you're working",
+    "start": 101.939,
+    "duration": 3.421
+  },
+  {
+    "text": "in color space transforms and the first",
+    "start": 104.04,
+    "duration": 3.0
+  },
+  {
+    "text": "one is what's your input and the second",
+    "start": 105.36,
+    "duration": 3.84
+  },
+  {
+    "text": "one is what's your output so our input",
+    "start": 107.04,
+    "duration": 4.68
+  },
+  {
+    "text": "is area log C okay I know this came from",
+    "start": 109.2,
+    "duration": 4.68
+  },
+  {
+    "text": "an area camera and it's Airy log C so",
+    "start": 111.72,
+    "duration": 3.899
+  },
+  {
+    "text": "I'm going to say I'm going to say here",
+    "start": 113.88,
+    "duration": 4.8
+  },
+  {
+    "text": "in the color space very wide gamut three",
+    "start": 115.619,
+    "duration": 4.981
+  },
+  {
+    "text": "and my input gamma here",
+    "start": 118.68,
+    "duration": 5.34
+  },
+  {
+    "text": "needs to be set to array log C3 and that",
+    "start": 120.6,
+    "duration": 5.04
+  },
+  {
+    "text": "should put us into a very nice starting",
+    "start": 124.02,
+    "duration": 3.84
+  },
+  {
+    "text": "position but this looks terrible okay",
+    "start": 125.64,
+    "duration": 4.2
+  },
+  {
+    "text": "and the reason for that is our output",
+    "start": 127.86,
+    "duration": 3.599
+  },
+  {
+    "text": "color space is currently set to use",
+    "start": 129.84,
+    "duration": 5.1
+  },
+  {
+    "text": "timeline and our timeline color space",
+    "start": 131.459,
+    "duration": 5.341
+  },
+  {
+    "text": "is DaVinci white gamut so it's not rec",
+    "start": 134.94,
+    "duration": 4.2
+  },
+  {
+    "text": "709 gamma 2.4 so it's not going to look",
+    "start": 136.8,
+    "duration": 4.86
+  },
+  {
+    "text": "nice the idea here remember is to color",
+    "start": 139.14,
+    "duration": 4.26
+  },
+  {
+    "text": "manage your image so you've got a really",
+    "start": 141.66,
+    "duration": 4.32
+  },
+  {
+    "text": "good starting point for your grade I",
+    "start": 143.4,
+    "duration": 5.16
+  },
+  {
+    "text": "want to get the image looking as the",
+    "start": 145.98,
+    "duration": 4.8
+  },
+  {
+    "text": "camera intended it to be",
+    "start": 148.56,
+    "duration": 3.78
+  },
+  {
+    "text": "so I'm going to change my output color",
+    "start": 150.78,
+    "duration": 3.24
+  },
+  {
+    "text": "space as well",
+    "start": 152.34,
+    "duration": 4.32
+  },
+  {
+    "text": "and get that to be Rec 709 and we're",
+    "start": 154.02,
+    "duration": 3.9
+  },
+  {
+    "text": "going to choose",
+    "start": 156.66,
+    "duration": 4.26
+  },
+  {
+    "text": "gamma 2.4 which is a broadcast standard",
+    "start": 157.92,
+    "duration": 4.74
+  },
+  {
+    "text": "and now our image looks great this is",
+    "start": 160.92,
+    "duration": 3.599
+  },
+  {
+    "text": "ready to grade all right so what I'm",
+    "start": 162.66,
+    "duration": 4.26
+  },
+  {
+    "text": "going to do is grab a still of that",
+    "start": 164.519,
+    "duration": 4.261
+  },
+  {
+    "text": "and I'm just very quickly going to prove",
+    "start": 166.92,
+    "duration": 4.38
+  },
+  {
+    "text": "to you if I reset that node I'm just",
+    "start": 168.78,
+    "duration": 3.72
+  },
+  {
+    "text": "going to show you that that's exactly",
+    "start": 171.3,
+    "duration": 3.659
+  },
+  {
+    "text": "the same as going to color manage here",
+    "start": 172.5,
+    "duration": 4.5
+  },
+  {
+    "text": "saying save and there's the same image",
+    "start": 174.959,
+    "duration": 4.92
+  },
+  {
+    "text": "so if I do a split wipe on these you'll",
+    "start": 177.0,
+    "duration": 4.92
+  },
+  {
+    "text": "see they're absolutely identical all",
+    "start": 179.879,
+    "duration": 4.741
+  },
+  {
+    "text": "right so the color Management in a CST",
+    "start": 181.92,
+    "duration": 5.16
+  },
+  {
+    "text": "is the same as the color managed however",
+    "start": 184.62,
+    "duration": 4.619
+  },
+  {
+    "text": "I have control of where it will go in",
+    "start": 187.08,
+    "duration": 4.86
+  },
+  {
+    "text": "the nodes so the next question is where",
+    "start": 189.239,
+    "duration": 4.381
+  },
+  {
+    "text": "does it go in my node tree does it go at",
+    "start": 191.94,
+    "duration": 2.76
+  },
+  {
+    "text": "the beginning do you do this to start",
+    "start": 193.62,
+    "duration": 2.759
+  },
+  {
+    "text": "with do you do it at the end you've",
+    "start": 194.7,
+    "duration": 3.899
+  },
+  {
+    "text": "probably seen in my programming and my",
+    "start": 196.379,
+    "duration": 4.981
+  },
+  {
+    "text": "no trees that I work with my CST at the",
+    "start": 198.599,
+    "duration": 4.14
+  },
+  {
+    "text": "end but I'm going to show you an extra",
+    "start": 201.36,
+    "duration": 3.06
+  },
+  {
+    "text": "little tip as well from that so stick",
+    "start": 202.739,
+    "duration": 2.881
+  },
+  {
+    "text": "with it",
+    "start": 204.42,
+    "duration": 4.88
+  },
+  {
+    "text": "right let's come out I've color managed",
+    "start": 205.62,
+    "duration": 3.68
+  },
+  {
+    "text": "and I'm going to put that back to",
+    "start": 209.34,
+    "duration": 2.7
+  },
+  {
+    "text": "DaVinci wired gamut",
+    "start": 210.54,
+    "duration": 3.54
+  },
+  {
+    "text": "and I'm going to put my app because it's",
+    "start": 212.04,
+    "duration": 5.4
+  },
+  {
+    "text": "basically Rec 709 gamma 2.4 and to get",
+    "start": 214.08,
+    "duration": 5.4
+  },
+  {
+    "text": "that CST back on there I could just drag",
+    "start": 217.44,
+    "duration": 4.26
+  },
+  {
+    "text": "from here however before I do that I'm",
+    "start": 219.48,
+    "duration": 4.8
+  },
+  {
+    "text": "going to put three nodes on here",
+    "start": 221.7,
+    "duration": 4.74
+  },
+  {
+    "text": "okay so what I'm going to do now is show",
+    "start": 224.28,
+    "duration": 5.099
+  },
+  {
+    "text": "you why I think it should go at the end",
+    "start": 226.44,
+    "duration": 4.799
+  },
+  {
+    "text": "and not the beginning all right so my",
+    "start": 229.379,
+    "duration": 3.241
+  },
+  {
+    "text": "color space transform should be at the",
+    "start": 231.239,
+    "duration": 2.761
+  },
+  {
+    "text": "end so first of all",
+    "start": 232.62,
+    "duration": 3.3
+  },
+  {
+    "text": "let's put it at the beginning all right",
+    "start": 234.0,
+    "duration": 4.019
+  },
+  {
+    "text": "so I'm going to drag from here so I've",
+    "start": 235.92,
+    "duration": 4.319
+  },
+  {
+    "text": "literally just taken that node and",
+    "start": 238.019,
+    "duration": 3.72
+  },
+  {
+    "text": "dragged it on the first node here so",
+    "start": 240.239,
+    "duration": 3.901
+  },
+  {
+    "text": "there is our setup ariwide gamut to",
+    "start": 241.739,
+    "duration": 5.58
+  },
+  {
+    "text": "aridoxy input to Rick 79 camera 2.4 and",
+    "start": 244.14,
+    "duration": 4.44
+  },
+  {
+    "text": "these two nodes are empty so they're",
+    "start": 247.319,
+    "duration": 2.761
+  },
+  {
+    "text": "effectively doing nothing so if I go",
+    "start": 248.58,
+    "duration": 3.359
+  },
+  {
+    "text": "into my second node here even though",
+    "start": 250.08,
+    "duration": 3.299
+  },
+  {
+    "text": "it's labeled node one it's actually the",
+    "start": 251.939,
+    "duration": 3.481
+  },
+  {
+    "text": "second node because my path goes from",
+    "start": 253.379,
+    "duration": 3.841
+  },
+  {
+    "text": "here to here",
+    "start": 255.42,
+    "duration": 4.02
+  },
+  {
+    "text": "and what I'm going to do if you look at",
+    "start": 257.22,
+    "duration": 3.54
+  },
+  {
+    "text": "the parade here we've got a really nice",
+    "start": 259.44,
+    "duration": 3.84
+  },
+  {
+    "text": "clean image here this is pretty good",
+    "start": 260.76,
+    "duration": 4.439
+  },
+  {
+    "text": "we've in fact we could probably not need",
+    "start": 263.28,
+    "duration": 3.72
+  },
+  {
+    "text": "to do too much to this but I'm going to",
+    "start": 265.199,
+    "duration": 3.241
+  },
+  {
+    "text": "go extreme here and just show you I'm",
+    "start": 267.0,
+    "duration": 3.24
+  },
+  {
+    "text": "going to take my offset wheel and I'm",
+    "start": 268.44,
+    "duration": 4.68
+  },
+  {
+    "text": "going to push it hard okay and you see",
+    "start": 270.24,
+    "duration": 5.82
+  },
+  {
+    "text": "when it gets to the top here it Clips so",
+    "start": 273.12,
+    "duration": 5.579
+  },
+  {
+    "text": "we'll actually start losing data off the",
+    "start": 276.06,
+    "duration": 5.28
+  },
+  {
+    "text": "image this is because at this point here",
+    "start": 278.699,
+    "duration": 6.06
+  },
+  {
+    "text": "we've taken a big large Airy color space",
+    "start": 281.34,
+    "duration": 6.48
+  },
+  {
+    "text": "and we've condensed it down into Rick",
+    "start": 284.759,
+    "duration": 5.761
+  },
+  {
+    "text": "709 so let me show you on my",
+    "start": 287.82,
+    "duration": 5.64
+  },
+  {
+    "text": "cre chart here the there's our that's",
+    "start": 290.52,
+    "duration": 4.32
+  },
+  {
+    "text": "our color space that's how large our",
+    "start": 293.46,
+    "duration": 3.9
+  },
+  {
+    "text": "color space is from the camera and this",
+    "start": 294.84,
+    "duration": 5.1
+  },
+  {
+    "text": "is Rec 709 so it's a much smaller area",
+    "start": 297.36,
+    "duration": 3.96
+  },
+  {
+    "text": "that we could work it in and what we're",
+    "start": 299.94,
+    "duration": 3.0
+  },
+  {
+    "text": "doing on the first node is putting us",
+    "start": 301.32,
+    "duration": 3.54
+  },
+  {
+    "text": "into that smaller area so when I start",
+    "start": 302.94,
+    "duration": 4.44
+  },
+  {
+    "text": "playing with all these tools here we are",
+    "start": 304.86,
+    "duration": 4.74
+  },
+  {
+    "text": "hitting the boundaries of Rec 709 very",
+    "start": 307.38,
+    "duration": 3.84
+  },
+  {
+    "text": "quickly",
+    "start": 309.6,
+    "duration": 3.659
+  },
+  {
+    "text": "so you can see my parade we've now hit",
+    "start": 311.22,
+    "duration": 4.979
+  },
+  {
+    "text": "the limit now if I undo that so let's",
+    "start": 313.259,
+    "duration": 4.921
+  },
+  {
+    "text": "just reset that okay and what we're",
+    "start": 316.199,
+    "duration": 4.081
+  },
+  {
+    "text": "going to do now is put this CST at the",
+    "start": 318.18,
+    "duration": 3.72
+  },
+  {
+    "text": "end instead of at the beginning so I'm",
+    "start": 320.28,
+    "duration": 2.759
+  },
+  {
+    "text": "going to use this trick I'm just going",
+    "start": 321.9,
+    "duration": 3.359
+  },
+  {
+    "text": "to use command and drag which will",
+    "start": 323.039,
+    "duration": 4.141
+  },
+  {
+    "text": "literally swap the node order okay so",
+    "start": 325.259,
+    "duration": 3.66
+  },
+  {
+    "text": "it's command and drag",
+    "start": 327.18,
+    "duration": 3.84
+  },
+  {
+    "text": "my CST is now on the end so we're still",
+    "start": 328.919,
+    "duration": 4.021
+  },
+  {
+    "text": "going Aries to rec 709 but I'm going to",
+    "start": 331.02,
+    "duration": 4.92
+  },
+  {
+    "text": "grade underneath that CST all right so",
+    "start": 332.94,
+    "duration": 5.52
+  },
+  {
+    "text": "in here so this is why I prefer the CST",
+    "start": 335.94,
+    "duration": 5.099
+  },
+  {
+    "text": "workflow over the color managed workflow",
+    "start": 338.46,
+    "duration": 3.84
+  },
+  {
+    "text": "because in the color managed workflow",
+    "start": 341.039,
+    "duration": 3.541
+  },
+  {
+    "text": "it's determining this order for me right",
+    "start": 342.3,
+    "duration": 3.78
+  },
+  {
+    "text": "I'm going to do exactly the same step",
+    "start": 344.58,
+    "duration": 3.36
+  },
+  {
+    "text": "I'm going to take my offset and I'm",
+    "start": 346.08,
+    "duration": 3.3
+  },
+  {
+    "text": "going to push it hard and what you see",
+    "start": 347.94,
+    "duration": 4.02
+  },
+  {
+    "text": "this time is we get a nice roll off okay",
+    "start": 349.38,
+    "duration": 4.92
+  },
+  {
+    "text": "because we're working in a much larger",
+    "start": 351.96,
+    "duration": 5.28
+  },
+  {
+    "text": "color space first and then that is being",
+    "start": 354.3,
+    "duration": 5.64
+  },
+  {
+    "text": "brought down to rec 709 not we're going",
+    "start": 357.24,
+    "duration": 5.04
+  },
+  {
+    "text": "to Rick 709 first and then we're pushing",
+    "start": 359.94,
+    "duration": 5.34
+  },
+  {
+    "text": "our levels all right so it's a much",
+    "start": 362.28,
+    "duration": 5.639
+  },
+  {
+    "text": "larger working color space that we're in",
+    "start": 365.28,
+    "duration": 5.04
+  },
+  {
+    "text": "so that hopefully proves as to why I",
+    "start": 367.919,
+    "duration": 4.261
+  },
+  {
+    "text": "know this is Extreme but I'm not losing",
+    "start": 370.32,
+    "duration": 4.02
+  },
+  {
+    "text": "the detail the detail is still there all",
+    "start": 372.18,
+    "duration": 4.019
+  },
+  {
+    "text": "right I'm going to reset that",
+    "start": 374.34,
+    "duration": 3.78
+  },
+  {
+    "text": "now the color space transforms allow us",
+    "start": 376.199,
+    "duration": 3.72
+  },
+  {
+    "text": "to go from any color space to any color",
+    "start": 378.12,
+    "duration": 4.019
+  },
+  {
+    "text": "space so what we could do is work a",
+    "start": 379.919,
+    "duration": 3.84
+  },
+  {
+    "text": "little bit smarter than this so what I'm",
+    "start": 382.139,
+    "duration": 2.881
+  },
+  {
+    "text": "going to do is take a color space",
+    "start": 383.759,
+    "duration": 2.28
+  },
+  {
+    "text": "transform",
+    "start": 385.02,
+    "duration": 2.04
+  },
+  {
+    "text": "I'm going to put that in the beginning",
+    "start": 386.039,
+    "duration": 2.701
+  },
+  {
+    "text": "I'm going to say our input color space",
+    "start": 387.06,
+    "duration": 5.419
+  },
+  {
+    "text": "is array as we already know",
+    "start": 388.74,
+    "duration": 3.739
+  },
+  {
+    "text": "input gamma is Ary Lux E3 but my output",
+    "start": 392.699,
+    "duration": 4.681
+  },
+  {
+    "text": "color space instead of sending it to rec",
+    "start": 396.0,
+    "duration": 3.539
+  },
+  {
+    "text": "709 gamma 2.4 what I'm actually going to",
+    "start": 397.38,
+    "duration": 5.879
+  },
+  {
+    "text": "do is put this into a larger color space",
+    "start": 399.539,
+    "duration": 5.28
+  },
+  {
+    "text": "so I'm going to put it into DaVinci wide",
+    "start": 403.259,
+    "duration": 2.94
+  },
+  {
+    "text": "gamut this is actually a bigger color",
+    "start": 404.819,
+    "duration": 3.781
+  },
+  {
+    "text": "space than the Airy color space but it's",
+    "start": 406.199,
+    "duration": 4.921
+  },
+  {
+    "text": "a very good intermediate working color",
+    "start": 408.6,
+    "duration": 4.319
+  },
+  {
+    "text": "space it's very good if you've got mixed",
+    "start": 411.12,
+    "duration": 4.079
+  },
+  {
+    "text": "camera formats like we have here we've",
+    "start": 412.919,
+    "duration": 4.441
+  },
+  {
+    "text": "got Airy and red so The DaVinci wide",
+    "start": 415.199,
+    "duration": 4.261
+  },
+  {
+    "text": "gamut is a good intermediate one to use",
+    "start": 417.36,
+    "duration": 5.48
+  },
+  {
+    "text": "my Apple gamma needs to also be set to",
+    "start": 419.46,
+    "duration": 6.06
+  },
+  {
+    "text": "DaVinci intermediate so what we've done",
+    "start": 422.84,
+    "duration": 4.54
+  },
+  {
+    "text": "here is take our array color space and",
+    "start": 425.52,
+    "duration": 3.84
+  },
+  {
+    "text": "we've sent it to DaVinci wide gamut",
+    "start": 427.38,
+    "duration": 4.98
+  },
+  {
+    "text": "color space now what we can do",
+    "start": 429.36,
+    "duration": 4.74
+  },
+  {
+    "text": "at the end",
+    "start": 432.36,
+    "duration": 3.3
+  },
+  {
+    "text": "let's put another color space transform",
+    "start": 434.1,
+    "duration": 3.96
+  },
+  {
+    "text": "so this is going to be our grade this",
+    "start": 435.66,
+    "duration": 3.539
+  },
+  {
+    "text": "one on the end what we're going to do is",
+    "start": 438.06,
+    "duration": 2.759
+  },
+  {
+    "text": "take our input color space and it's not",
+    "start": 439.199,
+    "duration": 3.421
+  },
+  {
+    "text": "going to be array this time because",
+    "start": 440.819,
+    "duration": 3.901
+  },
+  {
+    "text": "we've set Airy to DaVinci here so it's",
+    "start": 442.62,
+    "duration": 3.54
+  },
+  {
+    "text": "actually we need to go from DaVinci",
+    "start": 444.72,
+    "duration": 3.72
+  },
+  {
+    "text": "color space don't you write gamut Da",
+    "start": 446.16,
+    "duration": 4.08
+  },
+  {
+    "text": "Vinci intermediate and now we're going",
+    "start": 448.44,
+    "duration": 3.599
+  },
+  {
+    "text": "to send it to rec 709 so I'm going to",
+    "start": 450.24,
+    "duration": 4.679
+  },
+  {
+    "text": "say apple cut a space for x79 gamma 2.4",
+    "start": 452.039,
+    "duration": 5.821
+  },
+  {
+    "text": "okay this still looks exactly the same",
+    "start": 454.919,
+    "duration": 4.801
+  },
+  {
+    "text": "so if I double click this which was just",
+    "start": 457.86,
+    "duration": 4.2
+  },
+  {
+    "text": "our array log C to Rick 709",
+    "start": 459.72,
+    "duration": 4.86
+  },
+  {
+    "text": "and wipe you see again they're",
+    "start": 462.06,
+    "duration": 4.38
+  },
+  {
+    "text": "absolutely identical",
+    "start": 464.58,
+    "duration": 4.86
+  },
+  {
+    "text": "because what we've done is taken Arie to",
+    "start": 466.44,
+    "duration": 5.22
+  },
+  {
+    "text": "Da Vinci here we're then going to do all",
+    "start": 469.44,
+    "duration": 3.9
+  },
+  {
+    "text": "our color grading in the middle in",
+    "start": 471.66,
+    "duration": 3.599
+  },
+  {
+    "text": "DaVinci wide gamut color space and then",
+    "start": 473.34,
+    "duration": 3.18
+  },
+  {
+    "text": "we're going to go from DaVinci wide",
+    "start": 475.259,
+    "duration": 4.261
+  },
+  {
+    "text": "gamut again down to rec 709 so with the",
+    "start": 476.52,
+    "duration": 4.2
+  },
+  {
+    "text": "effects we've just built a new pipeline",
+    "start": 479.52,
+    "duration": 3.42
+  },
+  {
+    "text": "we've got our start and our end just to",
+    "start": 480.72,
+    "duration": 4.02
+  },
+  {
+    "text": "show if I push the extreme we still get",
+    "start": 482.94,
+    "duration": 3.42
+  },
+  {
+    "text": "that nice roll off we don't get any",
+    "start": 484.74,
+    "duration": 4.32
+  },
+  {
+    "text": "clipping occurring so it's a really good",
+    "start": 486.36,
+    "duration": 5.04
+  },
+  {
+    "text": "workflow okay so let's take this to the",
+    "start": 489.06,
+    "duration": 3.96
+  },
+  {
+    "text": "next level what I want to do is get a",
+    "start": 491.4,
+    "duration": 3.239
+  },
+  {
+    "text": "really efficient workflow going on here",
+    "start": 493.02,
+    "duration": 3.6
+  },
+  {
+    "text": "we've got our first node here this is",
+    "start": 494.639,
+    "duration": 3.421
+  },
+  {
+    "text": "taking us from our camera manufacturers",
+    "start": 496.62,
+    "duration": 3.96
+  },
+  {
+    "text": "color space to our chosen working color",
+    "start": 498.06,
+    "duration": 4.199
+  },
+  {
+    "text": "space in our case DaVinci wired gamut",
+    "start": 500.58,
+    "duration": 3.299
+  },
+  {
+    "text": "this could be Aces if you prefer to work",
+    "start": 502.259,
+    "duration": 3.241
+  },
+  {
+    "text": "in Aces there's absolutely no problem",
+    "start": 503.879,
+    "duration": 4.32
+  },
+  {
+    "text": "with that as long as your final CST in",
+    "start": 505.5,
+    "duration": 4.68
+  },
+  {
+    "text": "your program takes you from that same",
+    "start": 508.199,
+    "duration": 4.681
+  },
+  {
+    "text": "working color space down to rec 709 this",
+    "start": 510.18,
+    "duration": 4.799
+  },
+  {
+    "text": "is at the final bit that we want to",
+    "start": 512.88,
+    "duration": 4.98
+  },
+  {
+    "text": "funnel it down to rec 709 color space",
+    "start": 514.979,
+    "duration": 4.86
+  },
+  {
+    "text": "in the middle of that you've got your",
+    "start": 517.86,
+    "duration": 4.5
+  },
+  {
+    "text": "grade so this could be one node 20 nodes",
+    "start": 519.839,
+    "duration": 4.14
+  },
+  {
+    "text": "30 nodes doesn't really matter what's",
+    "start": 522.36,
+    "duration": 3.3
+  },
+  {
+    "text": "going on there but we're going to keep",
+    "start": 523.979,
+    "duration": 3.781
+  },
+  {
+    "text": "that as a blank node for now we're going",
+    "start": 525.66,
+    "duration": 4.619
+  },
+  {
+    "text": "to make this really efficient so the",
+    "start": 527.76,
+    "duration": 5.1
+  },
+  {
+    "text": "thing that's unified between all the",
+    "start": 530.279,
+    "duration": 5.461
+  },
+  {
+    "text": "Clips in our timeline will be our grade",
+    "start": 532.86,
+    "duration": 4.56
+  },
+  {
+    "text": "so I'm going to keep that as a blank for",
+    "start": 535.74,
+    "duration": 5.7
+  },
+  {
+    "text": "now and our final CST okay we're always",
+    "start": 537.42,
+    "duration": 6.0
+  },
+  {
+    "text": "going to go from DaVinci wide gamut to",
+    "start": 541.44,
+    "duration": 4.74
+  },
+  {
+    "text": "rec 709 so these two things are common",
+    "start": 543.42,
+    "duration": 5.16
+  },
+  {
+    "text": "the thing that changes is the first one",
+    "start": 546.18,
+    "duration": 4.2
+  },
+  {
+    "text": "because this depends on your camera",
+    "start": 548.58,
+    "duration": 3.54
+  },
+  {
+    "text": "manufacturer or indeed if you're working",
+    "start": 550.38,
+    "duration": 4.38
+  },
+  {
+    "text": "with archive footage or iPhone that",
+    "start": 552.12,
+    "duration": 4.38
+  },
+  {
+    "text": "might just be Rec 709 doesn't matter it",
+    "start": 554.76,
+    "duration": 3.24
+  },
+  {
+    "text": "still needs setting because we're going",
+    "start": 556.5,
+    "duration": 4.08
+  },
+  {
+    "text": "to send it to DaVinci wide gamut so what",
+    "start": 558.0,
+    "duration": 3.839
+  },
+  {
+    "text": "I'm going to do is I'm going to right",
+    "start": 560.58,
+    "duration": 2.879
+  },
+  {
+    "text": "and click I'm going to reset that node",
+    "start": 561.839,
+    "duration": 4.141
+  },
+  {
+    "text": "and I'm going to save this",
+    "start": 563.459,
+    "duration": 3.901
+  },
+  {
+    "text": "as",
+    "start": 565.98,
+    "duration": 3.419
+  },
+  {
+    "text": "a node tree okay so this is going to be",
+    "start": 567.36,
+    "duration": 4.08
+  },
+  {
+    "text": "my very basic fixed notary if you like",
+    "start": 569.399,
+    "duration": 5.101
+  },
+  {
+    "text": "okay so I've got two nodes and I've got",
+    "start": 571.44,
+    "duration": 5.28
+  },
+  {
+    "text": "that CST on the end settings from",
+    "start": 574.5,
+    "duration": 4.86
+  },
+  {
+    "text": "DaVinci right gamut to rec 709 now what",
+    "start": 576.72,
+    "duration": 4.92
+  },
+  {
+    "text": "I'm going to do is apply that to all the",
+    "start": 579.36,
+    "duration": 4.02
+  },
+  {
+    "text": "Clips in my timeline",
+    "start": 581.64,
+    "duration": 4.02
+  },
+  {
+    "text": "so if I select all my clips and just",
+    "start": 583.38,
+    "duration": 4.2
+  },
+  {
+    "text": "middle Mouse click this one",
+    "start": 585.66,
+    "duration": 3.78
+  },
+  {
+    "text": "so now you can see that all the Clips in",
+    "start": 587.58,
+    "duration": 4.02
+  },
+  {
+    "text": "my timeline I've got exactly the same",
+    "start": 589.44,
+    "duration": 4.26
+  },
+  {
+    "text": "node structure but they're all wrong",
+    "start": 591.6,
+    "duration": 4.02
+  },
+  {
+    "text": "because they're all starting in DaVinci",
+    "start": 593.7,
+    "duration": 3.9
+  },
+  {
+    "text": "wide gamut and going to rec 709 whereas",
+    "start": 595.62,
+    "duration": 4.8
+  },
+  {
+    "text": "these are arry and red so what we can do",
+    "start": 597.6,
+    "duration": 4.5
+  },
+  {
+    "text": "is use groups and this is really going",
+    "start": 600.42,
+    "duration": 4.08
+  },
+  {
+    "text": "to help us so I'm going to take our red",
+    "start": 602.1,
+    "duration": 4.08
+  },
+  {
+    "text": "footage I'm going to highlight it all",
+    "start": 604.5,
+    "duration": 3.3
+  },
+  {
+    "text": "I'm going to right click and I'm going",
+    "start": 606.18,
+    "duration": 3.54
+  },
+  {
+    "text": "to add it into a new group let's call",
+    "start": 607.8,
+    "duration": 4.219
+  },
+  {
+    "text": "this red",
+    "start": 609.72,
+    "duration": 2.299
+  },
+  {
+    "text": "and now because these clips are in a",
+    "start": 612.54,
+    "duration": 4.38
+  },
+  {
+    "text": "group what we can do is go to our group",
+    "start": 614.459,
+    "duration": 5.101
+  },
+  {
+    "text": "pre-clip selection and we can use a",
+    "start": 616.92,
+    "duration": 4.2
+  },
+  {
+    "text": "color space transform",
+    "start": 619.56,
+    "duration": 4.2
+  },
+  {
+    "text": "to tell it that these clips are red so",
+    "start": 621.12,
+    "duration": 4.2
+  },
+  {
+    "text": "I've only got to do this once and it",
+    "start": 623.76,
+    "duration": 3.36
+  },
+  {
+    "text": "will apply to the whole group so we go",
+    "start": 625.32,
+    "duration": 4.38
+  },
+  {
+    "text": "red white gamma RGB and we're going to",
+    "start": 627.12,
+    "duration": 6.719
+  },
+  {
+    "text": "go red log 3G 10 and we're going to tell",
+    "start": 629.7,
+    "duration": 6.0
+  },
+  {
+    "text": "it's going to go to DaVinci wide gamut",
+    "start": 633.839,
+    "duration": 4.881
+  },
+  {
+    "text": "because that's our work in color space",
+    "start": 635.7,
+    "duration": 3.02
+  },
+  {
+    "text": "so I'm just going to set that up here",
+    "start": 639.12,
+    "duration": 3.839
+  },
+  {
+    "text": "and all these clips are now set",
+    "start": 640.8,
+    "duration": 3.96
+  },
+  {
+    "text": "correctly because they're in a group so",
+    "start": 642.959,
+    "duration": 3.0
+  },
+  {
+    "text": "this is done at group level and then all",
+    "start": 644.76,
+    "duration": 3.42
+  },
+  {
+    "text": "you got to do is go onto your clip level",
+    "start": 645.959,
+    "duration": 3.661
+  },
+  {
+    "text": "and we can just start grading away",
+    "start": 648.18,
+    "duration": 2.7
+  },
+  {
+    "text": "however many nodes you've got there",
+    "start": 649.62,
+    "duration": 3.899
+  },
+  {
+    "text": "ready to grade and your final CST is",
+    "start": 650.88,
+    "duration": 3.54
+  },
+  {
+    "text": "going to take you from DaVinci wide",
+    "start": 653.519,
+    "duration": 4.26
+  },
+  {
+    "text": "gamut back to 709 so really efficient so",
+    "start": 654.42,
+    "duration": 4.919
+  },
+  {
+    "text": "let's just put our Ari Clips in a group",
+    "start": 657.779,
+    "duration": 3.18
+  },
+  {
+    "text": "and do exactly the same I'm going to say",
+    "start": 659.339,
+    "duration": 4.5
+  },
+  {
+    "text": "add new group let's call it array",
+    "start": 660.959,
+    "duration": 4.981
+  },
+  {
+    "text": "so all our Eclipse are now in a group so",
+    "start": 663.839,
+    "duration": 3.901
+  },
+  {
+    "text": "I'm going to go to group pre-clip make",
+    "start": 665.94,
+    "duration": 3.18
+  },
+  {
+    "text": "sure you choose pre-click and not post",
+    "start": 667.74,
+    "duration": 3.06
+  },
+  {
+    "text": "clip because you want to happen this",
+    "start": 669.12,
+    "duration": 3.719
+  },
+  {
+    "text": "before you start the grade I'm going to",
+    "start": 670.8,
+    "duration": 4.08
+  },
+  {
+    "text": "put my color space transform on and",
+    "start": 672.839,
+    "duration": 3.601
+  },
+  {
+    "text": "we're going to tell it it's very wide",
+    "start": 674.88,
+    "duration": 4.44
+  },
+  {
+    "text": "gamut and it's Airy look C3 again I'm",
+    "start": 676.44,
+    "duration": 4.44
+  },
+  {
+    "text": "going to send it to DaVinci ride gamut",
+    "start": 679.32,
+    "duration": 3.72
+  },
+  {
+    "text": "DaVinci intermediate",
+    "start": 680.88,
+    "duration": 4.139
+  },
+  {
+    "text": "and these clips are all now correctly",
+    "start": 683.04,
+    "duration": 3.66
+  },
+  {
+    "text": "set up ready to start grading so if we",
+    "start": 685.019,
+    "duration": 4.5
+  },
+  {
+    "text": "come out of our group into clip and",
+    "start": 686.7,
+    "duration": 4.02
+  },
+  {
+    "text": "we're good to start grading so you can",
+    "start": 689.519,
+    "duration": 2.701
+  },
+  {
+    "text": "just fire away here just to show you",
+    "start": 690.72,
+    "duration": 3.48
+  },
+  {
+    "text": "that's all nice and smooth no clipping",
+    "start": 692.22,
+    "duration": 3.78
+  },
+  {
+    "text": "occurring and we're good to go if you",
+    "start": 694.2,
+    "duration": 3.0
+  },
+  {
+    "text": "want to see how to do this in a color",
+    "start": 696.0,
+    "duration": 2.88
+  },
+  {
+    "text": "managed environment click on this video",
+    "start": 697.2,
+    "duration": 2.819
+  },
+  {
+    "text": "here",
+    "start": 698.88,
+    "duration": 2.459
+  },
+  {
+    "text": "look after yourselves and I'll see you",
+    "start": 700.019,
+    "duration": 3.741
+  },
+  {
+    "text": "in the next episode",
+    "start": 701.339,
+    "duration": 2.421
+  }
+]

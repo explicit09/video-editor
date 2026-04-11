@@ -1,0 +1,1747 @@
+[
+  {
+    "text": "In this video, I'm going to show you",
+    "start": 0.16,
+    "duration": 3.36
+  },
+  {
+    "text": "three popular grading tools that are",
+    "start": 1.52,
+    "duration": 3.839
+  },
+  {
+    "text": "quietly killing your speed, whether",
+    "start": 3.52,
+    "duration": 4.16
+  },
+  {
+    "text": "you're a pro or a beginner, and I'm",
+    "start": 5.359,
+    "duration": 4.24
+  },
+  {
+    "text": "going to show you what you can use in",
+    "start": 7.68,
+    "duration": 3.839
+  },
+  {
+    "text": "their place. Now, what we're going to",
+    "start": 9.599,
+    "duration": 3.761
+  },
+  {
+    "text": "look at today, these are just examples",
+    "start": 11.519,
+    "duration": 3.841
+  },
+  {
+    "text": "of something that I want you to have the",
+    "start": 13.36,
+    "duration": 3.6
+  },
+  {
+    "text": "ability to spot for yourself when you're",
+    "start": 15.36,
+    "duration": 2.96
+  },
+  {
+    "text": "grading. So, we're going to start with a",
+    "start": 16.96,
+    "duration": 4.079
+  },
+  {
+    "text": "question. What exactly makes a tool a",
+    "start": 18.32,
+    "duration": 4.799
+  },
+  {
+    "text": "speed killer? Well, it's pretty simple.",
+    "start": 21.039,
+    "duration": 4.961
+  },
+  {
+    "text": "A speed killer is any tool whose use",
+    "start": 23.119,
+    "duration": 4.801
+  },
+  {
+    "text": "requires some kind of compensation.",
+    "start": 26.0,
+    "duration": 3.84
+  },
+  {
+    "text": "Imagine that you had a car where every",
+    "start": 27.92,
+    "duration": 3.359
+  },
+  {
+    "text": "time you hit the accelerator, the",
+    "start": 29.84,
+    "duration": 3.52
+  },
+  {
+    "text": "steering wheel would drag off to the",
+    "start": 31.279,
+    "duration": 3.521
+  },
+  {
+    "text": "left. So, you'd have to grab it and pull",
+    "start": 33.36,
+    "duration": 3.52
+  },
+  {
+    "text": "it back to the right to keep the car on",
+    "start": 34.8,
+    "duration": 4.0
+  },
+  {
+    "text": "the road. That would be a literal speed",
+    "start": 36.88,
+    "duration": 3.519
+  },
+  {
+    "text": "killer, right? But more to the point,",
+    "start": 38.8,
+    "duration": 3.279
+  },
+  {
+    "text": "that would be an inefficient tool, and",
+    "start": 40.399,
+    "duration": 3.281
+  },
+  {
+    "text": "you'd of course be far better off with a",
+    "start": 42.079,
+    "duration": 3.361
+  },
+  {
+    "text": "car that just keeps going straight when",
+    "start": 43.68,
+    "duration": 3.6
+  },
+  {
+    "text": "you hit the gas. We're going to take a",
+    "start": 45.44,
+    "duration": 4.0
+  },
+  {
+    "text": "look now at three tools in Resolve that",
+    "start": 47.28,
+    "duration": 4.0
+  },
+  {
+    "text": "have similar behavior. They might give",
+    "start": 49.44,
+    "duration": 3.599
+  },
+  {
+    "text": "us what we want or at least some of what",
+    "start": 51.28,
+    "duration": 3.279
+  },
+  {
+    "text": "we want, but they're also going to give",
+    "start": 53.039,
+    "duration": 3.121
+  },
+  {
+    "text": "us stuff that we don't want, that we",
+    "start": 54.559,
+    "duration": 2.881
+  },
+  {
+    "text": "didn't ask for, and then we're going to",
+    "start": 56.16,
+    "duration": 4.079
+  },
+  {
+    "text": "have to compensate for if we want to use",
+    "start": 57.44,
+    "duration": 4.56
+  },
+  {
+    "text": "that tool. And we're going to start here",
+    "start": 60.239,
+    "duration": 4.0
+  },
+  {
+    "text": "in our primaries palette with one of the",
+    "start": 62.0,
+    "duration": 3.68
+  },
+  {
+    "text": "very first tools that I learned to use",
+    "start": 64.239,
+    "duration": 3.92
+  },
+  {
+    "text": "when I was grading, the offset wheel.",
+    "start": 65.68,
+    "duration": 4.56
+  },
+  {
+    "text": "Now, I'm working in a color manage setup",
+    "start": 68.159,
+    "duration": 3.601
+  },
+  {
+    "text": "here today. If you don't know what that",
+    "start": 70.24,
+    "duration": 3.04
+  },
+  {
+    "text": "is or you need to brush up on it, or you",
+    "start": 71.76,
+    "duration": 3.12
+  },
+  {
+    "text": "want to see how I set up my color",
+    "start": 73.28,
+    "duration": 3.519
+  },
+  {
+    "text": "management in my projects, I've got some",
+    "start": 74.88,
+    "duration": 3.36
+  },
+  {
+    "text": "great videos on that topic here on the",
+    "start": 76.799,
+    "duration": 2.801
+  },
+  {
+    "text": "channel. For now, I'm going to stay",
+    "start": 78.24,
+    "duration": 3.04
+  },
+  {
+    "text": "focused on the task at hand, which is",
+    "start": 79.6,
+    "duration": 3.92
+  },
+  {
+    "text": "using my offset to make an exposure",
+    "start": 81.28,
+    "duration": 3.6
+  },
+  {
+    "text": "adjustment. Because right now, we're",
+    "start": 83.52,
+    "duration": 3.68
+  },
+  {
+    "text": "sitting quite underexposed, right? So,",
+    "start": 84.88,
+    "duration": 4.64
+  },
+  {
+    "text": "let's grab this offset wheel and spin it",
+    "start": 87.2,
+    "duration": 4.559
+  },
+  {
+    "text": "to the right. And you can see as I do",
+    "start": 89.52,
+    "duration": 4.639
+  },
+  {
+    "text": "this that like by the time I get to a",
+    "start": 91.759,
+    "duration": 4.801
+  },
+  {
+    "text": "workable exposure level on my subject's",
+    "start": 94.159,
+    "duration": 5.121
+  },
+  {
+    "text": "face, my black point has gotten really",
+    "start": 96.56,
+    "duration": 4.72
+  },
+  {
+    "text": "flat and foggy, right? Like there's",
+    "start": 99.28,
+    "duration": 4.479
+  },
+  {
+    "text": "almost no contrast in the low end of",
+    "start": 101.28,
+    "duration": 5.44
+  },
+  {
+    "text": "this image. That's because offset is a",
+    "start": 103.759,
+    "duration": 4.4
+  },
+  {
+    "text": "speed killer and it requires",
+    "start": 106.72,
+    "duration": 3.52
+  },
+  {
+    "text": "compensation. And I can of course do",
+    "start": 108.159,
+    "duration": 3.361
+  },
+  {
+    "text": "that. I can compensate. I can turn off",
+    "start": 110.24,
+    "duration": 3.44
+  },
+  {
+    "text": "my offset and go to my lift here and",
+    "start": 111.52,
+    "duration": 4.239
+  },
+  {
+    "text": "pull things off to the left. Though, as",
+    "start": 113.68,
+    "duration": 3.52
+  },
+  {
+    "text": "soon as I do that, you'll notice I'm",
+    "start": 115.759,
+    "duration": 2.801
+  },
+  {
+    "text": "going to need to now go back to my",
+    "start": 117.2,
+    "duration": 4.48
+  },
+  {
+    "text": "offset and open it back up to compensate",
+    "start": 118.56,
+    "duration": 6.0
+  },
+  {
+    "text": "because spoiler alert, lift is also a",
+    "start": 121.68,
+    "duration": 4.24
+  },
+  {
+    "text": "speed killer. We're going to talk more",
+    "start": 124.56,
+    "duration": 3.12
+  },
+  {
+    "text": "about that in just a minute. But point",
+    "start": 125.92,
+    "duration": 4.0
+  },
+  {
+    "text": "being, I can absolutely get to some kind",
+    "start": 127.68,
+    "duration": 4.559
+  },
+  {
+    "text": "of workable place by playing lift and",
+    "start": 129.92,
+    "duration": 4.24
+  },
+  {
+    "text": "offset against each other. And I know",
+    "start": 132.239,
+    "duration": 4.0
+  },
+  {
+    "text": "that's true because I did it for years",
+    "start": 134.16,
+    "duration": 4.079
+  },
+  {
+    "text": "when I first began grading and I was",
+    "start": 136.239,
+    "duration": 4.08
+  },
+  {
+    "text": "able to make it work with enough effort.",
+    "start": 138.239,
+    "duration": 3.761
+  },
+  {
+    "text": "But at a certain point, I started to ask",
+    "start": 140.319,
+    "duration": 3.28
+  },
+  {
+    "text": "the question like, what if I didn't have",
+    "start": 142.0,
+    "duration": 4.0
+  },
+  {
+    "text": "to? What if there was just one tool, one",
+    "start": 143.599,
+    "duration": 4.081
+  },
+  {
+    "text": "adjustment that would give me everything",
+    "start": 146.0,
+    "duration": 3.84
+  },
+  {
+    "text": "I want and nothing that I don't so that",
+    "start": 147.68,
+    "duration": 4.24
+  },
+  {
+    "text": "I don't have to keep compensating for",
+    "start": 149.84,
+    "duration": 4.32
+  },
+  {
+    "text": "these unwanted side effects of my offset",
+    "start": 151.92,
+    "duration": 3.92
+  },
+  {
+    "text": "adjustment. Let's take a look at what",
+    "start": 154.16,
+    "duration": 3.28
+  },
+  {
+    "text": "that looks like. So, I'm going to grab a",
+    "start": 155.84,
+    "duration": 3.759
+  },
+  {
+    "text": "still of this version of things right",
+    "start": 157.44,
+    "duration": 3.92
+  },
+  {
+    "text": "here, and then we're going to reset. And",
+    "start": 159.599,
+    "duration": 4.0
+  },
+  {
+    "text": "we're now going to go over to our HDR",
+    "start": 161.36,
+    "duration": 4.239
+  },
+  {
+    "text": "palette and we're going to go to this",
+    "start": 163.599,
+    "duration": 4.561
+  },
+  {
+    "text": "exposure slider here under the global",
+    "start": 165.599,
+    "duration": 4.64
+  },
+  {
+    "text": "wheel. Okay. And what I want to do is",
+    "start": 168.16,
+    "duration": 4.56
+  },
+  {
+    "text": "wipe to the previous version that we",
+    "start": 170.239,
+    "duration": 4.161
+  },
+  {
+    "text": "just did. And I'm going to just kind of",
+    "start": 172.72,
+    "duration": 4.4
+  },
+  {
+    "text": "eyeball match to a similar exposure",
+    "start": 174.4,
+    "duration": 5.199
+  },
+  {
+    "text": "level on my subject. Like something like",
+    "start": 177.12,
+    "duration": 4.8
+  },
+  {
+    "text": "this. And if we wipe between these. So",
+    "start": 179.599,
+    "duration": 4.401
+  },
+  {
+    "text": "here's my offset. Here's the other",
+    "start": 181.92,
+    "duration": 4.0
+  },
+  {
+    "text": "version. Well, like that's not subtle,",
+    "start": 184.0,
+    "duration": 3.36
+  },
+  {
+    "text": "right? That's night and day. It's a huge",
+    "start": 185.92,
+    "duration": 3.12
+  },
+  {
+    "text": "difference. What is the difference that",
+    "start": 187.36,
+    "duration": 3.519
+  },
+  {
+    "text": "we're seeing there? It is the difference",
+    "start": 189.04,
+    "duration": 5.279
+  },
+  {
+    "text": "between using a speedkiller tool that I",
+    "start": 190.879,
+    "duration": 6.08
+  },
+  {
+    "text": "wasn't able to fully compensate for",
+    "start": 194.319,
+    "duration": 4.801
+  },
+  {
+    "text": "versus a tool that does exactly what I",
+    "start": 196.959,
+    "duration": 4.161
+  },
+  {
+    "text": "want and nothing that I don't want that",
+    "start": 199.12,
+    "duration": 3.759
+  },
+  {
+    "text": "I don't have to create any compensation",
+    "start": 201.12,
+    "duration": 3.839
+  },
+  {
+    "text": "for at all. And this really drives the",
+    "start": 202.879,
+    "duration": 4.561
+  },
+  {
+    "text": "point home that is uh worth keeping in",
+    "start": 204.959,
+    "duration": 3.521
+  },
+  {
+    "text": "mind when you're thinking about this",
+    "start": 207.44,
+    "duration": 3.28
+  },
+  {
+    "text": "speed killer topic. It's not all about",
+    "start": 208.48,
+    "duration": 3.839
+  },
+  {
+    "text": "speed. Speed and quality are so",
+    "start": 210.72,
+    "duration": 3.36
+  },
+  {
+    "text": "intertwined. Like in this case, not only",
+    "start": 212.319,
+    "duration": 3.521
+  },
+  {
+    "text": "did I get there much faster with this",
+    "start": 214.08,
+    "duration": 4.96
+  },
+  {
+    "text": "tool, I got to a much better outcome",
+    "start": 215.84,
+    "duration": 6.319
+  },
+  {
+    "text": "than I did with my offset version here.",
+    "start": 219.04,
+    "duration": 5.04
+  },
+  {
+    "text": "Could I get to something more like this",
+    "start": 222.159,
+    "duration": 4.72
+  },
+  {
+    "text": "using offset and lift? Probably. But",
+    "start": 224.08,
+    "duration": 4.48
+  },
+  {
+    "text": "would it take the same amount of time?",
+    "start": 226.879,
+    "duration": 3.28
+  },
+  {
+    "text": "Absolutely not. It would take more time",
+    "start": 228.56,
+    "duration": 3.52
+  },
+  {
+    "text": "and I would have to continue working",
+    "start": 230.159,
+    "duration": 3.36
+  },
+  {
+    "text": "those things against each other to try",
+    "start": 232.08,
+    "duration": 3.84
+  },
+  {
+    "text": "to get even close. Okay. Now, a minute",
+    "start": 233.519,
+    "duration": 4.0
+  },
+  {
+    "text": "ago, we talked about lift. Let's talk",
+    "start": 235.92,
+    "duration": 2.8
+  },
+  {
+    "text": "some more about lift. I want to go over",
+    "start": 237.519,
+    "duration": 3.041
+  },
+  {
+    "text": "here to shot number two. And if we look",
+    "start": 238.72,
+    "duration": 4.159
+  },
+  {
+    "text": "at shot number two, we're going to start",
+    "start": 240.56,
+    "duration": 4.16
+  },
+  {
+    "text": "with making a little exposure adjustment",
+    "start": 242.879,
+    "duration": 3.681
+  },
+  {
+    "text": "like we were just doing. Not much",
+    "start": 244.72,
+    "duration": 3.04
+  },
+  {
+    "text": "because I kind of like where this image",
+    "start": 246.56,
+    "duration": 2.64
+  },
+  {
+    "text": "is sitting, but let's just open it up a",
+    "start": 247.76,
+    "duration": 3.52
+  },
+  {
+    "text": "hair. And even after that adjustment,",
+    "start": 249.2,
+    "duration": 3.44
+  },
+  {
+    "text": "what I'm going to find is that in the",
+    "start": 251.28,
+    "duration": 2.959
+  },
+  {
+    "text": "low end of the image, I feel like I'd",
+    "start": 252.64,
+    "duration": 3.12
+  },
+  {
+    "text": "like to see a little bit more. It feels",
+    "start": 254.239,
+    "duration": 2.72
+  },
+  {
+    "text": "a little bit thick, a little bit",
+    "start": 255.76,
+    "duration": 3.039
+  },
+  {
+    "text": "crunchy. So, I'd like to open things up.",
+    "start": 256.959,
+    "duration": 3.761
+  },
+  {
+    "text": "And the tool that I was taught to use",
+    "start": 258.799,
+    "duration": 3.761
+  },
+  {
+    "text": "for this was lift. So, let's give it a",
+    "start": 260.72,
+    "duration": 3.12
+  },
+  {
+    "text": "try. We're going to go back over here to",
+    "start": 262.56,
+    "duration": 3.04
+  },
+  {
+    "text": "our primaries, and I'm going to grab my",
+    "start": 263.84,
+    "duration": 4.24
+  },
+  {
+    "text": "lift. And I want you to pay attention to",
+    "start": 265.6,
+    "duration": 4.48
+  },
+  {
+    "text": "what's happening in the image and in the",
+    "start": 268.08,
+    "duration": 4.0
+  },
+  {
+    "text": "histogram when I do this. Like first of",
+    "start": 270.08,
+    "duration": 4.559
+  },
+  {
+    "text": "all, I am getting what I'm looking for",
+    "start": 272.08,
+    "duration": 3.839
+  },
+  {
+    "text": "roughly speaking. Like I want to see",
+    "start": 274.639,
+    "duration": 2.801
+  },
+  {
+    "text": "more into the shadows. I'm seeing more",
+    "start": 275.919,
+    "duration": 3.201
+  },
+  {
+    "text": "into the shadows. Like that box is being",
+    "start": 277.44,
+    "duration": 3.68
+  },
+  {
+    "text": "ticked. It's just that I'm getting other",
+    "start": 279.12,
+    "duration": 3.84
+  },
+  {
+    "text": "stuff that I don't want along the way.",
+    "start": 281.12,
+    "duration": 3.92
+  },
+  {
+    "text": "That's why lift is also a speed killer.",
+    "start": 282.96,
+    "duration": 4.72
+  },
+  {
+    "text": "So as I open this up, you can see it's",
+    "start": 285.04,
+    "duration": 5.04
+  },
+  {
+    "text": "not just the low end of the image. It's",
+    "start": 287.68,
+    "duration": 4.48
+  },
+  {
+    "text": "every pixel in the image that's being",
+    "start": 290.08,
+    "duration": 3.76
+  },
+  {
+    "text": "moved. It's just that some pixels are",
+    "start": 292.16,
+    "duration": 3.28
+  },
+  {
+    "text": "moving more than others. So the idea",
+    "start": 293.84,
+    "duration": 4.24
+  },
+  {
+    "text": "that lift is a shadow adjustment, it",
+    "start": 295.44,
+    "duration": 4.8
+  },
+  {
+    "text": "just doesn't hold in the way that it",
+    "start": 298.08,
+    "duration": 3.839
+  },
+  {
+    "text": "feels like it should. It really does",
+    "start": 300.24,
+    "duration": 4.0
+  },
+  {
+    "text": "affect most of the pixels in most",
+    "start": 301.919,
+    "duration": 4.241
+  },
+  {
+    "text": "images. It just affects some of them a",
+    "start": 304.24,
+    "duration": 3.92
+  },
+  {
+    "text": "bit more than others. So as I open this",
+    "start": 306.16,
+    "duration": 3.599
+  },
+  {
+    "text": "up, what's going to most commonly happen",
+    "start": 308.16,
+    "duration": 3.52
+  },
+  {
+    "text": "if you're working in this way is you're",
+    "start": 309.759,
+    "duration": 3.361
+  },
+  {
+    "text": "going to go, okay, I got what I want,",
+    "start": 311.68,
+    "duration": 3.519
+  },
+  {
+    "text": "but now I want to maintain some contrast",
+    "start": 313.12,
+    "duration": 4.079
+  },
+  {
+    "text": "in the middle and some weight in the",
+    "start": 315.199,
+    "duration": 3.521
+  },
+  {
+    "text": "bottom. So I'm going to grab my gamma",
+    "start": 317.199,
+    "duration": 4.641
+  },
+  {
+    "text": "wheel and turn that to the left. Okay.",
+    "start": 318.72,
+    "duration": 6.0
+  },
+  {
+    "text": "and kind of like trap that uh adjustment",
+    "start": 321.84,
+    "duration": 4.4
+  },
+  {
+    "text": "just into the lower end of the image so",
+    "start": 324.72,
+    "duration": 3.68
+  },
+  {
+    "text": "it's not reaching quite so far up into",
+    "start": 326.24,
+    "duration": 4.16
+  },
+  {
+    "text": "the mid tones and highlights. Okay. But",
+    "start": 328.4,
+    "duration": 4.16
+  },
+  {
+    "text": "what happens now because gamma is also",
+    "start": 330.4,
+    "duration": 4.4
+  },
+  {
+    "text": "kind of a speed killer, gamma is going",
+    "start": 332.56,
+    "duration": 4.0
+  },
+  {
+    "text": "to start to drag down the brighter",
+    "start": 334.8,
+    "duration": 3.44
+  },
+  {
+    "text": "values, the highlights in the image. And",
+    "start": 336.56,
+    "duration": 3.44
+  },
+  {
+    "text": "before I know it, I'm going to probably",
+    "start": 338.24,
+    "duration": 4.56
+  },
+  {
+    "text": "have to go into my gain and open the",
+    "start": 340.0,
+    "duration": 4.639
+  },
+  {
+    "text": "gain up a little bit in order to",
+    "start": 342.8,
+    "duration": 3.52
+  },
+  {
+    "text": "compensate for what the gamma was doing",
+    "start": 344.639,
+    "duration": 4.56
+  },
+  {
+    "text": "that I didn't want. Okay. So you end up",
+    "start": 346.32,
+    "duration": 5.28
+  },
+  {
+    "text": "kind of chasing things and working your",
+    "start": 349.199,
+    "duration": 5.28
+  },
+  {
+    "text": "way through serial compensations once",
+    "start": 351.6,
+    "duration": 5.76
+  },
+  {
+    "text": "you get off onto this pattern and you",
+    "start": 354.479,
+    "duration": 4.401
+  },
+  {
+    "text": "end up really chasing your own tail",
+    "start": 357.36,
+    "duration": 3.839
+  },
+  {
+    "text": "quite quickly. Now with enough practice,",
+    "start": 358.88,
+    "duration": 4.319
+  },
+  {
+    "text": "you can get good at this and especially",
+    "start": 361.199,
+    "duration": 3.28
+  },
+  {
+    "text": "if you have a control surface, you can",
+    "start": 363.199,
+    "duration": 3.761
+  },
+  {
+    "text": "even get pretty fast at it. But again,",
+    "start": 364.479,
+    "duration": 4.16
+  },
+  {
+    "text": "the question that came up for me along",
+    "start": 366.96,
+    "duration": 3.12
+  },
+  {
+    "text": "my color grading journey was like, what",
+    "start": 368.639,
+    "duration": 2.961
+  },
+  {
+    "text": "if I didn't have to? What if there was a",
+    "start": 370.08,
+    "duration": 3.2
+  },
+  {
+    "text": "different way of going about this that",
+    "start": 371.6,
+    "duration": 3.84
+  },
+  {
+    "text": "didn't require these compensations and",
+    "start": 373.28,
+    "duration": 3.84
+  },
+  {
+    "text": "this tail chasing? So, let's grab a",
+    "start": 375.44,
+    "duration": 3.52
+  },
+  {
+    "text": "still of what we just did here and see",
+    "start": 377.12,
+    "duration": 4.24
+  },
+  {
+    "text": "if we can audition something like that.",
+    "start": 378.96,
+    "duration": 4.16
+  },
+  {
+    "text": "So, I'm going to go over here to my",
+    "start": 381.36,
+    "duration": 3.76
+  },
+  {
+    "text": "custom curves where I already have a",
+    "start": 383.12,
+    "duration": 4.24
+  },
+  {
+    "text": "preset anchor point which happens to",
+    "start": 385.12,
+    "duration": 4.88
+  },
+  {
+    "text": "rest right at middle exposure for the",
+    "start": 387.36,
+    "duration": 4.08
+  },
+  {
+    "text": "color space that I'm working in right",
+    "start": 390.0,
+    "duration": 2.96
+  },
+  {
+    "text": "now, which is Da Vinci widegamut",
+    "start": 391.44,
+    "duration": 3.599
+  },
+  {
+    "text": "intermediate. That means that as long as",
+    "start": 392.96,
+    "duration": 4.16
+  },
+  {
+    "text": "I don't move this anchor point, I will",
+    "start": 395.039,
+    "duration": 4.16
+  },
+  {
+    "text": "not be moving middle exposures. I will",
+    "start": 397.12,
+    "duration": 4.48
+  },
+  {
+    "text": "be moving things around middle exposure.",
+    "start": 399.199,
+    "duration": 3.921
+  },
+  {
+    "text": "And that's going to allow me to make a",
+    "start": 401.6,
+    "duration": 4.0
+  },
+  {
+    "text": "more localized shadow adjustment than",
+    "start": 403.12,
+    "duration": 4.88
+  },
+  {
+    "text": "lift does. Now, just for sort of",
+    "start": 405.6,
+    "duration": 3.92
+  },
+  {
+    "text": "comparison, take a look here in a",
+    "start": 408.0,
+    "duration": 3.28
+  },
+  {
+    "text": "separate node. If I want to see what the",
+    "start": 409.52,
+    "duration": 3.84
+  },
+  {
+    "text": "equivalent of lift is in custom curves,",
+    "start": 411.28,
+    "duration": 4.56
+  },
+  {
+    "text": "that would be this. And you can now see",
+    "start": 413.36,
+    "duration": 4.8
+  },
+  {
+    "text": "why it kind of makes sense that you",
+    "start": 415.84,
+    "duration": 3.52
+  },
+  {
+    "text": "wouldn't get anything great out of the",
+    "start": 418.16,
+    "duration": 2.4
+  },
+  {
+    "text": "image. Because look at what we're doing",
+    "start": 419.36,
+    "duration": 3.679
+  },
+  {
+    "text": "here. We're altering the contrast and",
+    "start": 420.56,
+    "duration": 4.96
+  },
+  {
+    "text": "the character of the entire image when",
+    "start": 423.039,
+    "duration": 4.241
+  },
+  {
+    "text": "we make a lift adjustment. we need to do",
+    "start": 425.52,
+    "duration": 4.079
+  },
+  {
+    "text": "something more localized that does the",
+    "start": 427.28,
+    "duration": 4.08
+  },
+  {
+    "text": "stuff that we want without also doing",
+    "start": 429.599,
+    "duration": 4.32
+  },
+  {
+    "text": "stuff that we don't want. Okay. So, what",
+    "start": 431.36,
+    "duration": 5.04
+  },
+  {
+    "text": "we can do here in node number one is I",
+    "start": 433.919,
+    "duration": 4.481
+  },
+  {
+    "text": "can go and just grab my black point, my",
+    "start": 436.4,
+    "duration": 4.239
+  },
+  {
+    "text": "lowest point, and start to scoop that up",
+    "start": 438.4,
+    "duration": 4.639
+  },
+  {
+    "text": "a little bit. And if I want to, if I",
+    "start": 440.639,
+    "duration": 5.68
+  },
+  {
+    "text": "need to, I can draw one more control",
+    "start": 443.039,
+    "duration": 5.361
+  },
+  {
+    "text": "point here, and just create a little bit",
+    "start": 446.319,
+    "duration": 4.88
+  },
+  {
+    "text": "of compression. Okay. Now, if we wipe",
+    "start": 448.4,
+    "duration": 5.359
+  },
+  {
+    "text": "between these two, I've ended up in a",
+    "start": 451.199,
+    "duration": 4.801
+  },
+  {
+    "text": "really similar spot. And if I wanted to",
+    "start": 453.759,
+    "duration": 4.641
+  },
+  {
+    "text": "get even closer, I totally could just by",
+    "start": 456.0,
+    "duration": 6.16
+  },
+  {
+    "text": "walking this black point adjustment back",
+    "start": 458.4,
+    "duration": 6.88
+  },
+  {
+    "text": "down. Okay? Or by going a little bit",
+    "start": 462.16,
+    "duration": 6.24
+  },
+  {
+    "text": "deeper with my compression if I wanted",
+    "start": 465.28,
+    "duration": 5.6
+  },
+  {
+    "text": "to. It's easier to create and it's",
+    "start": 468.4,
+    "duration": 6.32
+  },
+  {
+    "text": "easier to revise once we have uh the",
+    "start": 470.88,
+    "duration": 6.24
+  },
+  {
+    "text": "right tool for the job and we're not",
+    "start": 474.72,
+    "duration": 4.8
+  },
+  {
+    "text": "chasing things with speed killers that",
+    "start": 477.12,
+    "duration": 4.24
+  },
+  {
+    "text": "require compensation after compensation",
+    "start": 479.52,
+    "duration": 3.76
+  },
+  {
+    "text": "after compensation. So, another great",
+    "start": 481.36,
+    "duration": 3.36
+  },
+  {
+    "text": "example there of having the right tool",
+    "start": 483.28,
+    "duration": 3.599
+  },
+  {
+    "text": "in place and how quickly you can get to",
+    "start": 484.72,
+    "duration": 3.919
+  },
+  {
+    "text": "what you're looking for compared to",
+    "start": 486.879,
+    "duration": 3.6
+  },
+  {
+    "text": "using a speed killer that requires a",
+    "start": 488.639,
+    "duration": 4.081
+  },
+  {
+    "text": "compensation and so on and so forth.",
+    "start": 490.479,
+    "duration": 3.601
+  },
+  {
+    "text": "Okay, let's take a look at one more",
+    "start": 492.72,
+    "duration": 3.44
+  },
+  {
+    "text": "example. We've taken a look at two kind",
+    "start": 494.08,
+    "duration": 3.6
+  },
+  {
+    "text": "of tonal adjustments thus far. We looked",
+    "start": 496.16,
+    "duration": 2.8
+  },
+  {
+    "text": "at an exposure and now we're looking at",
+    "start": 497.68,
+    "duration": 2.959
+  },
+  {
+    "text": "a lift or a shadow adjustment, which is",
+    "start": 498.96,
+    "duration": 3.679
+  },
+  {
+    "text": "a contrast thing. Let's take a look at",
+    "start": 500.639,
+    "duration": 4.161
+  },
+  {
+    "text": "some color stuff. So here in shot number",
+    "start": 502.639,
+    "duration": 4.0
+  },
+  {
+    "text": "four,",
+    "start": 504.8,
+    "duration": 4.72
+  },
+  {
+    "text": "what my note is, what I would like to do",
+    "start": 506.639,
+    "duration": 4.161
+  },
+  {
+    "text": "is I'd like to get a little more",
+    "start": 509.52,
+    "duration": 5.04
+  },
+  {
+    "text": "saturation on my subject here. And the",
+    "start": 510.8,
+    "duration": 5.359
+  },
+  {
+    "text": "obvious tool for that, the first tool",
+    "start": 514.56,
+    "duration": 3.279
+  },
+  {
+    "text": "that most of us would intuitively think",
+    "start": 516.159,
+    "duration": 4.32
+  },
+  {
+    "text": "of would be our saturation knob here in",
+    "start": 517.839,
+    "duration": 4.88
+  },
+  {
+    "text": "our primaries palette. And check out",
+    "start": 520.479,
+    "duration": 3.761
+  },
+  {
+    "text": "what happens if I grab for this and I",
+    "start": 522.719,
+    "duration": 4.721
+  },
+  {
+    "text": "turn it to the right. I can use it to",
+    "start": 524.24,
+    "duration": 5.36
+  },
+  {
+    "text": "get to a good spot with my subject's",
+    "start": 527.44,
+    "duration": 4.56
+  },
+  {
+    "text": "skin. But if I pop back out here, take a",
+    "start": 529.6,
+    "duration": 4.08
+  },
+  {
+    "text": "look at these tomatoes and like whatever",
+    "start": 532.0,
+    "duration": 3.44
+  },
+  {
+    "text": "this paper lantern thing is here in the",
+    "start": 533.68,
+    "duration": 4.0
+  },
+  {
+    "text": "frame. They've gotten really, really",
+    "start": 535.44,
+    "duration": 4.959
+  },
+  {
+    "text": "electric by the time I get to some kind",
+    "start": 537.68,
+    "duration": 4.8
+  },
+  {
+    "text": "of change in my skin tone that I want to",
+    "start": 540.399,
+    "duration": 5.041
+  },
+  {
+    "text": "see. Now, again, we can compensate. And",
+    "start": 542.48,
+    "duration": 5.84
+  },
+  {
+    "text": "I also got good at this in my earlier",
+    "start": 545.44,
+    "duration": 4.48
+  },
+  {
+    "text": "years of grading. Like, all right, I",
+    "start": 548.32,
+    "duration": 3.04
+  },
+  {
+    "text": "guess that's just what saturation does.",
+    "start": 549.92,
+    "duration": 2.64
+  },
+  {
+    "text": "So, I'm going to learn to manage it and",
+    "start": 551.36,
+    "duration": 3.36
+  },
+  {
+    "text": "compensate for it with things like going",
+    "start": 552.56,
+    "duration": 4.88
+  },
+  {
+    "text": "to my hue versus sat curves and grabbing",
+    "start": 554.72,
+    "duration": 5.36
+  },
+  {
+    "text": "my red and dropping that down. Like",
+    "start": 557.44,
+    "duration": 4.16
+  },
+  {
+    "text": "that's making it a little bit better.",
+    "start": 560.08,
+    "duration": 3.04
+  },
+  {
+    "text": "More recently, you could go to something",
+    "start": 561.6,
+    "duration": 4.0
+  },
+  {
+    "text": "like the color slice tool and grab for",
+    "start": 563.12,
+    "duration": 4.08
+  },
+  {
+    "text": "your density. And that's going to add a",
+    "start": 565.6,
+    "duration": 3.6
+  },
+  {
+    "text": "little bit of weight to your more",
+    "start": 567.2,
+    "duration": 4.24
+  },
+  {
+    "text": "saturated colors. And by the time I kind",
+    "start": 569.2,
+    "duration": 4.4
+  },
+  {
+    "text": "of stack those things up, I've got a",
+    "start": 571.44,
+    "duration": 4.32
+  },
+  {
+    "text": "pretty decent looking net saturation",
+    "start": 573.6,
+    "duration": 4.4
+  },
+  {
+    "text": "change, right? Let's grab a still of",
+    "start": 575.76,
+    "duration": 4.56
+  },
+  {
+    "text": "this and see if it's possible to get to",
+    "start": 578.0,
+    "duration": 5.12
+  },
+  {
+    "text": "a similar place with a different tool,",
+    "start": 580.32,
+    "duration": 4.56
+  },
+  {
+    "text": "with the right tool in the first place",
+    "start": 583.12,
+    "duration": 3.6
+  },
+  {
+    "text": "that doesn't have to get me the result",
+    "start": 584.88,
+    "duration": 3.76
+  },
+  {
+    "text": "I'm after by being stacked with a bunch",
+    "start": 586.72,
+    "duration": 4.08
+  },
+  {
+    "text": "of other tools. So, let's reset this.",
+    "start": 588.64,
+    "duration": 3.6
+  },
+  {
+    "text": "And I'm going to stay right here in my",
+    "start": 590.8,
+    "duration": 2.96
+  },
+  {
+    "text": "color slice tool and instead of working",
+    "start": 592.24,
+    "duration": 3.279
+  },
+  {
+    "text": "the density, I'm just going to hit the",
+    "start": 593.76,
+    "duration": 3.84
+  },
+  {
+    "text": "saturation",
+    "start": 595.519,
+    "duration": 4.081
+  },
+  {
+    "text": "and start working that to the right like",
+    "start": 597.6,
+    "duration": 5.84
+  },
+  {
+    "text": "so. And if I wipe between these two,",
+    "start": 599.6,
+    "duration": 5.76
+  },
+  {
+    "text": "it's not identical, but it's a pretty",
+    "start": 603.44,
+    "duration": 4.48
+  },
+  {
+    "text": "similar result. and I got there with one",
+    "start": 605.36,
+    "duration": 4.56
+  },
+  {
+    "text": "single adjustment that I'm not having to",
+    "start": 607.92,
+    "duration": 3.84
+  },
+  {
+    "text": "calibrate against two other adjustments",
+    "start": 609.92,
+    "duration": 4.72
+  },
+  {
+    "text": "in order to get to a workable solution.",
+    "start": 611.76,
+    "duration": 4.96
+  },
+  {
+    "text": "It's a great final example of the power",
+    "start": 614.64,
+    "duration": 4.8
+  },
+  {
+    "text": "of having the right tool and choosing to",
+    "start": 616.72,
+    "duration": 5.119
+  },
+  {
+    "text": "forego a speed killer that you're going",
+    "start": 619.44,
+    "duration": 4.56
+  },
+  {
+    "text": "to have to create compensations against",
+    "start": 621.839,
+    "duration": 4.0
+  },
+  {
+    "text": "and often end up just chasing your tail",
+    "start": 624.0,
+    "duration": 3.519
+  },
+  {
+    "text": "with. So, there you have it. That's",
+    "start": 625.839,
+    "duration": 4.641
+  },
+  {
+    "text": "three examples of the danger and the",
+    "start": 627.519,
+    "duration": 4.961
+  },
+  {
+    "text": "hazards of a speed killer, as well as",
+    "start": 630.48,
+    "duration": 3.84
+  },
+  {
+    "text": "the power of having the right tool in",
+    "start": 632.48,
+    "duration": 3.599
+  },
+  {
+    "text": "place that's going to get you everything",
+    "start": 634.32,
+    "duration": 3.44
+  },
+  {
+    "text": "you want and nothing that you don't. And",
+    "start": 636.079,
+    "duration": 2.801
+  },
+  {
+    "text": "the thing that I want to leave you with",
+    "start": 637.76,
+    "duration": 4.0
+  },
+  {
+    "text": "is this. Finding that right tool, that",
+    "start": 638.88,
+    "duration": 4.959
+  },
+  {
+    "text": "itself takes effort. That's not always",
+    "start": 641.76,
+    "duration": 4.079
+  },
+  {
+    "text": "free. I just gave you three really good",
+    "start": 643.839,
+    "duration": 3.761
+  },
+  {
+    "text": "alternatives to three really common",
+    "start": 645.839,
+    "duration": 4.161
+  },
+  {
+    "text": "speed killers. But now that you're uh",
+    "start": 647.6,
+    "duration": 3.84
+  },
+  {
+    "text": "thinking about the idea of speed",
+    "start": 650.0,
+    "duration": 3.36
+  },
+  {
+    "text": "killers, you may discover others when",
+    "start": 651.44,
+    "duration": 3.76
+  },
+  {
+    "text": "you're grading. And you may then have to",
+    "start": 653.36,
+    "duration": 3.599
+  },
+  {
+    "text": "figure out like, okay, I know it's a",
+    "start": 655.2,
+    "duration": 3.28
+  },
+  {
+    "text": "speed killer. I can tell cuz I'm having",
+    "start": 656.959,
+    "duration": 3.521
+  },
+  {
+    "text": "to compensate for it, but what am I",
+    "start": 658.48,
+    "duration": 3.68
+  },
+  {
+    "text": "going to use instead? That in and of",
+    "start": 660.48,
+    "duration": 3.52
+  },
+  {
+    "text": "itself can take some exploration and",
+    "start": 662.16,
+    "duration": 4.239
+  },
+  {
+    "text": "some diligence and some time before you",
+    "start": 664.0,
+    "duration": 3.92
+  },
+  {
+    "text": "find it. But I want to encourage you as",
+    "start": 666.399,
+    "duration": 3.521
+  },
+  {
+    "text": "we wrap up today that it's worth the",
+    "start": 667.92,
+    "duration": 3.68
+  },
+  {
+    "text": "search because just take the first",
+    "start": 669.92,
+    "duration": 3.52
+  },
+  {
+    "text": "example we looked at uh here on shot",
+    "start": 671.6,
+    "duration": 4.88
+  },
+  {
+    "text": "number one. Once you do find that better",
+    "start": 673.44,
+    "duration": 5.36
+  },
+  {
+    "text": "approach for exposure, that's going to",
+    "start": 676.48,
+    "duration": 4.08
+  },
+  {
+    "text": "improve your results and improve your",
+    "start": 678.8,
+    "duration": 5.039
+  },
+  {
+    "text": "time to result for every single shot in",
+    "start": 680.56,
+    "duration": 5.36
+  },
+  {
+    "text": "every single project that you grade from",
+    "start": 683.839,
+    "duration": 4.161
+  },
+  {
+    "text": "that point forward. So, it takes effort.",
+    "start": 685.92,
+    "duration": 3.52
+  },
+  {
+    "text": "It takes a little bit of poking around.",
+    "start": 688.0,
+    "duration": 3.6
+  },
+  {
+    "text": "It can even take trial and error before",
+    "start": 689.44,
+    "duration": 4.88
+  },
+  {
+    "text": "you really land on the ideal alternative",
+    "start": 691.6,
+    "duration": 4.96
+  },
+  {
+    "text": "to a speed killer, but it's time really",
+    "start": 694.32,
+    "duration": 4.24
+  },
+  {
+    "text": "well spent. And when you get to a point",
+    "start": 696.56,
+    "duration": 3.36
+  },
+  {
+    "text": "where you've got a toolkit that's built",
+    "start": 698.56,
+    "duration": 3.44
+  },
+  {
+    "text": "of nothing but these really well",
+    "start": 699.92,
+    "duration": 4.08
+  },
+  {
+    "text": "selected tools, that's going to have a",
+    "start": 702.0,
+    "duration": 4.32
+  },
+  {
+    "text": "huge impact on your speed, on your",
+    "start": 704.0,
+    "duration": 3.519
+  },
+  {
+    "text": "quality of outcome, and on your",
+    "start": 706.32,
+    "duration": 2.24
+  },
+  {
+    "text": "confidence when you're grading. Thank",
+    "start": 707.519,
+    "duration": 3.281
+  },
+  {
+    "text": "you.",
+    "start": 708.56,
+    "duration": 2.24
+  }
+]

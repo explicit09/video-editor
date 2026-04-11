@@ -1,0 +1,251 @@
+[music]
+[music]
+Welcome back to episode two of fixing
+your grade. And in this particular one,
+I'm going to talk about why you must
+direct your audience's eye to whatever
+that thing is that we want them to see.
+A lot of people kind of drop the ball on
+this. So, if you have [music] a shot you
+want me to fix, at the end of the video,
+I'm going to show you how to exactly do
+that. There's also a link in the
+description. For those that don't know
+me, my name is Kazzy. I've worked with
+brands like Adidas, Amazon Prime,
+Universal Studios, and I make no
+straightforward color grading tutorials
+so you can work with your dream clients.
+By the way, I'm giving away seven of my
+all-time favorite looks. This is over
+$150 value. You can get it for
+absolutely free if you want to learn
+how. Link is in the description. Let's
+get back to the video. taking examples
+from Richard uh from our Cosverse. And
+first of all, let's just give him his
+flowers. Amazing looks. Look at this.
+All three of these looks created using
+Kazzy's toolkit. So, he mentioned it in
+here. Uh he's looking for feedback. So,
+let's give them feedback. This shot
+right here, the first thing that jumps
+out to me, I don't know where to look.
+My eye goes right here. My eye goes
+right here. Like everywhere but here.
+Okay. Okay, so let's fix that. Easiest
+way to fix it, I mean there's multiple
+different ways to do it. I mean you can
+do the window way. I don't recommend it.
+It's getting too legacy, too old school.
+Don't do that. Another way people will
+go to magic mask. Also not necessary
+because it's too resource inensive and
+it can break apart. So the most natural
+way to attack something like this, we
+basically want to pull our subject out
+and take everything else in the back and
+pull it down a little bit. I'm going to
+use my depth map. I'm going to drop that
+on. I'm going to show you exactly how
+I'm going to use it. I'm going to turn
+this guy on. And I'm going to go right
+here. I'm going to turn this guy on.
+Okay. And then let's uh invert it. Let's
+take our near limit. Bring it close to
+something like
+this. Looks good. Okay. Invert it. Now,
+just select this. All right. That's
+exactly what we want. Do we want to blur
+it out? We'll see once we start making
+changes to it. So, let's just come out
+of here. I'm going to go to my HDR
+palette offset.
+That's the easiest way to basically just
+give it like extra light, you know, in
+the most natural way possible. So, let's
+just pull it up 3/4 of a stop. Big
+difference, right? Like now we're really
+really seeing what's happening. I mean,
+it's looking so good. We don't even need
+to do anything in the background. like
+we just like lifted our uh subject by
+3/4 of a stop. That's pretty good. What
+we can do is outside node select
+everything behind her and now drop that
+down by like half a stop.
+Okay. And everything is looking good.
+Everything is like really tight. It's
+super clean. And obviously this is a
+image. It's not a video. But it will
+latch on. It will be very very good. I
+mean the only thing that we need to look
+for is like you know get super super
+granular here and see if you're finding
+something like edges. Edges are really
+clean because don't look at this right
+because this was there before. This is
+before. Look at edges here. They're
+super clean. Look at these edges right
+here. They're super clean. But what we
+can do is we can go under blur and we
+can like start messing with it a little
+bit to see
+if it does make it better or worse. And
+I think the blur does like just
+the right amount. See, to like just like
+blend everything in. So look at the
+amount of difference that we made. Okay,
+if I turn this off, we started here,
+pulled our actress out by 3/4 of a stop.
+blends in so much nicer because the
+overall image has like this very light
+feel and this is kind of crunchy. So,
+this puts her in that light feel and
+then we go and select our background and
+drop it by quarter or half a stop and
+that just puts the right amount of
+emphasis and it directs our viewer's eye
+to where we want it to go. Okay, so that
+would be done like that. Very similar
+thing will happen here. So, we will now
+just copy this and bring it over and use
+it. But this time, we just want to
+invert it. Why? Because the rest is like
+really good. She's looking perfect. So,
+I don't want to mess with it. And now,
+let's just go in and just make sure that
+we finesse it.
+This right here come out. I only want to
+affect the background, but I want to do
+the opposite. I want to drop it down.
+Okay. So, let's just drop it by 3/4 of a
+stop. Okay. And it makes it even moodier
+than what it is. It's already so moody,
+but now it's like like it just looks and
+feels so good. Like look at this. And
+just pops her out cuz she was looking
+perfect. So I don't want to mess with
+it, right? Like no two situations are
+going to be the same. So let's not treat
+them as such. Perfect. We're done. This
+is going to look great. Like you want me
+to zoom in like this and show you how
+good this is? Let's do it. Let's do it.
+Like even the hair. Let's do it. It's
+perfect. It's perfect. Let's not hide
+anything. Let's just show it. It's that
+good. It's perfect. So, that would be
+the way I would approach these specific
+problems. This one is very unique. Okay.
+So, this one jumped out to me because
+the skin is um not the same color. The a
+lot of yellow down here and then a lot
+of magenta down here. Like too much
+magenta. Cuz like look at where the skin
+tone is sitting. Like if I go right
+here, it's like just it's going too
+magenta, right? And it just popped out
+and it's just a little too saturated. So
+sometimes too much attention is a bad
+thing. Now, here we're just drawing way
+too much attention and we're just like
+overexaggerating like the skin tones. So
+let's control that. Multiple different
+ways to do it. You do it however you
+want to do it. I'm going to do it by
+using Rapid Grade. Link is in the
+description if you want to try out a
+trial or go ahead purchase it. It comes
+with a 7-day money back guarantee, so
+you're not losing anything. So, as soon
+as we drop it on, first of all, what we
+need to do is turn this into Rex 79. All
+right? Because this is a Rex 79 shot.
+So, you want to give it the right color
+space. Now, let's turn this on. And if I
+take my rotate skin and start doing
+this,
+you're seeing like how this still has a
+lot of red, but then this is just going
+crazy. Now, I can close this gap if I
+want to by using even skin. And like
+look at this. Now I'm like see this is
+before this is after I am closing that
+gap but even then you can see that this
+is like more on the yellow side. This is
+getting too magenta. So in this
+particular case we have to garbage matt
+it. Okay. So we just have to go like
+this. We have to go like this. Tracking
+in resolve is second to none. Okay. So
+this is like don't even worry about it.
+Don't go like Kazzy you're just like
+working on a single frame blah blah blah
+blah blah. Trust me, it's very, very
+simple. You just go here, hit this
+button, and you're done. All right. So,
+now what we're going to do is this. So,
+I'm going to just unselect my window so
+we don't focus on that. And let's go
+back here. And what I want to do is a
+couple of different things. Okay. So, I
+want to take my rotate skin and I want
+to see bring it closer to this. Then I
+want to go under saturation skin and I
+want to pull it back to something like
+that. I want to take my rotate skin and
+move it further closer to this. Right.
+And now I want to take my pop.
+Maybe just add a little bit more pop.
+Like that. And now look at how much more
+natural and clean this looks. We can
+even use like radiant which actually
+just like see just adds more life to the
+skin tones. Like look at this right? It
+just brings it out so much. And now if
+we see this to this like it is so much
+better. Um we can go back and just close
+the gap a little bit like you know add
+maybe a little bit more magenta like not
+right. Take the saturation pull it back
+just like that. See like world of a
+difference. Okay. So that is the way
+that I would attack it and just make it
+super super clean and you're pretty much
+done with this shot. We can see take it
+a little bit more there. And again, if
+we just want to kind of pull back on the
+radiant, we can if we want to. So that's
+the way I would approach that. If you
+guys want to submit your entries, super
+super simple. Go right here. Link is
+going to be in the description. Drop
+your log image, explain your log
+profile, and just go through like the
+instructions are right here. Drop the
+rec 709 in here. Your final grade. If
+you're using a reference, drop the
+reference in here, your note tree, so I
+can actually help you with that. Like
+find maybe some mistakes or like if
+there is something that we can do to
+streamline your process, I'll help you
+with that. Give me one line description
+of like what kind of look you were going
+for. Drop your handle that you would
+want me to use when I refer to you in
+the video. And then finally, drop a link
+where you want the traffic to go because
+I want to send some love your way. So
+I'm going to be giving you a shout out.
+So, whatever that link is, if it's to
+your Instagram, YouTube, or your
+website, drop it in here. If you guys
+have any other content suggestions, let
+me know. If you guys want to try out any
+of my tools or my courses, links to
+everything is in the description. Check
+it out. I will see you guys in [music]
+the next one. Peace.
+>> [music]

@@ -1,0 +1,801 @@
+Today, I'm going to show you five of my
+favorite ways to get a bleach bypass
+look in Resolve. But before we dive in,
+we need to understand what this look is
+and where it comes from. So, I'm going
+to give you a quick breakdown of the
+actual film chemistry behind the
+original bleach bypass process that was
+developed in film labs. So, to do that,
+we're going to imagine an unexposed
+piece of film. This can actually be a
+piece of film negative or film print
+material because as we'll talk about in
+a little bit, you can actually subject
+either one of these to a bleach bypass
+process. In either case, we've got this
+unexposed piece of film with silver
+crystals living on it that when we
+expose it to light are going to be
+exposed or activated. Then when we get
+into the development process with that
+exposed piece of film, there's a step of
+that process known as the bleach step
+where we are essentially going to rinse
+away any of that unexposed silver that
+is still living on the film. So a bleach
+bypass or what's sometimes called a skip
+bleach process is essentially skipping
+some or all of that step of development.
+Well, why would we want to do that?
+Well, what's going to happen when we do
+that is we are going to end up with a
+final image with significantly stronger
+contrast and lower saturation than we
+would have otherwise gotten. So, bleach
+bypass historically, photochemically is
+essentially developing the film wrong on
+purpose for a specific aesthetic reason
+of wanting to get that snappier contrast
+and lower saturation level. It's a very
+bold look, but when it's done right, it
+can look awesome. Maybe the most famous
+example is Saving Private Ryan, but
+there's also really great bleach bypass
+done in so many other movies. Some of my
+favorites include Seven uh as well as
+1984 shot by Roger Deakons ASC. That's
+actually one of the earlier examples of
+Bleach bypass when it was really first
+being pioneered. But it's a really cool
+aesthetic. And in this video, we're
+going to talk through how we can
+recreate this aesthetic inside of
+Resolve. So, let's get started. Let's
+take a look. So, where we're at
+currently is I've got my project all set
+up and I've set up my color management
+in nodes. I've got my kind of normal
+setup going on here. I've got a great
+video on color management if you want to
+brush up on that. And I've selected for
+my output transform or what's called my
+DRT sometimes something called open DRT.
+This is a free resource. I did a whole
+video on it because I'm such a fan of
+it. But essentially I'm using it in
+place of where I might normally use
+something like a resolve color space
+transform. And I'm using it today really
+for two reasons. One, it's just a great
+DRT. It's a great baseline rendering of
+our image and a great thing to grade
+under. I would choose this, as I said,
+over a Resolve color space transform for
+getting out to my display any day of the
+week. But there's also something cool
+about it for our application today,
+which is that if you look at the way my
+images are currently being rendered,
+which again, I've got my color
+management fully set up, but I haven't
+done really any grading or look
+development yet on top of this, you can
+see I've got like pretty moderate to low
+contrast right now for my base
+rendering. And that's perfect for what I
+want to do today because we've already
+identified the two key things we're
+going to be doing with this bleach
+bypass look are increasing contrast and
+decreasing saturation. So, what I want
+with my baseline rendering is a certain
+amount of room to introduce that
+contrast. Cuz what can happen if you
+have too contrasty of a baseline
+rendering is there's kind of nowhere to
+go. There's no room to work, no room to
+build the look. So, I really like where
+I'm at in terms of my baseline here just
+in general with open DRT and
+specifically the amount of contrast that
+I have left to work with as I'm adding
+this high contrast bleach bleach bypass
+look. And I do want to emphasize what
+we're building today is a look. This is
+not just a per shot grade that we are
+going to tune and adjust per shot. This
+is a look which to me has a specific
+definition. So, sometimes you'll hear
+filmmakers talking about look as kind of
+a catch-all for the way the image
+appears on the screen. When I say look,
+I mean something a little more specific.
+What I mean is a set of creative
+manipulations to our overall project
+that do not change per shot or per
+scene. So they stay the same across the
+entire timeline. For that reason, as you
+can see, I've already got my output
+transform, my open DRT happening here at
+the timeline level of my node graph,
+which means that this adjustment is
+going to affect not one but all the
+shots in the timeline. And for that
+reason, we're going to build our bleach
+bypass look right here immediately to
+the left of that final output transform
+at this timeline level so that as we get
+a good look dialed in, it's actually
+going to satisfy giving a nice bleach
+bypass rendering not just to one or two
+images, but to all the images. We're
+going to be bouncing between these and
+refining the look so that it serves all
+the images in the timeline. So, let's
+get started here. And we're going to
+start as simple as possible. So, again,
+what do we say? We're trying to pump
+contrast and control saturation. What's
+the easiest way that we can think of to
+add contrast into the image? That's
+usually a good place to start with
+anything we're trying to do is like,
+hey, what's the simplest, dumbest, like
+easiest way I can think of to do that
+thing? Because if it does it
+effectively, then I shouldn't do
+anything more complicated or
+timeconuming, right? So in this case,
+the simplest thing I can think of would
+just be to apply some lift, gamma, and
+gain to the image. You can see like as
+I'm dropping my lift and stretching out
+my gain and playing with my gamma, I'm
+getting that extra contrast in there,
+right? So, we're off to a good start.
+How far do I want to go? I don't know.
+This is where having reference images or
+a reference point, which we will also
+talk about in a little bit, can come in
+handy. But for now, I'm just kind of
+freestyling and turning the knobs until
+I'm getting something that I like in
+terms of contrast. But let's take a look
+at what we're also getting. If I go off
+and then on, I'm getting a lot more
+color out of the deal, right? like
+there's saturation increasing visually
+and also if you look at like the vector
+scope here my signal mass is really
+exploding outward with this change in uh
+contrast right so we're kind of getting
+more contrast like we want but along for
+the ride we're getting a increase in
+saturation as well which we don't want
+so if I wanted to I could fight this by
+pulling back on my saturation but I'm
+going to show you the trick that I
+really like to use to get a better
+baseline behavior out of this contrast
+operation all I'm going to do is right
+click on this node and set my composite
+mode to luminosity. Watch what happens
+when I click this.
+Contrast stays the exact same, but now
+my saturation is getting really steely.
+And even though in the vector scope it
+looks like it's kind of holding,
+visually it looks like we're really
+losing color, right? So, that's a great
+simple tweak to get a bleach bypass look
+just by working your primaries and then
+making that small adjustment to your
+composite mode, flipping it over into
+luminosity so that as that contrast is
+being increased, you are actually
+maintaining or visually decreasing your
+saturation. And again, like I said,
+we're going to kind of climb a ladder
+today. So, I'm going to show you some
+ascending levels of complexity and
+control in adding a bleach bypass look
+to your images, but you should feel free
+to like take the exit off of the freeway
+at any point. Like, if the technique is
+satisfying what you need, the simplest
+is always the best way to go. You really
+will only want to add complexity as you
+need in terms of getting more control or
+getting something specific that you're
+not able to get with a simpler
+technique. So, this can work great in
+some situations, and if it works great
+for you, you can bail on this video 20
+minutes earlier, however long we're
+going to end up going today. This is a
+great foundational principle, but
+there's some more control and some
+additional visual benefit that we can
+get by pushing things a little bit
+further and by adding some additional
+techniques and ideas into the mix. So,
+maybe worth hanging out. So, check this
+out. What I've got right now is I've got
+this increase contrast, decrease
+saturation. But what I do not have with
+this technique is the ability to control
+that relationship between contrast
+increase and saturation decrease. They
+have a fixed relationship. It's either
+this composite mode normal that I had
+before or this luminosity mode that I'm
+in now, which is much better. But I
+don't have any control over anything in
+between those points, if that makes
+sense. It's just A or B. So what I'm
+going to show you now is a way to get
+control so that you can actually mix in
+between those two renderings of image.
+So, here's what we're going to do. I'm
+going to tap on node number two and hit
+command C. Then I'm going to hit option
+L to create a layer mixer. And then I'm
+going to hit commandV. Now, when I do
+that, we're essentially going to be like
+right back where we started where we've
+got all this contrast change coming from
+our lift, gamma, and gain. But we've
+also got this uh net increase in
+saturation that we don't want that we
+just uh worked our way out of a moment
+ago. But stick with it. This gets kind
+of cool. So, we're going to do two
+things. First of all, just for diligence
+sake, we're going to set the composite
+mode on node number four here back to
+normal. even though it's really not
+going to do anything here, I just don't
+want to forget about it and have it do
+something weird uh in whatever unlikely
+event at some other point in my grade.
+So now I've got these stacked on top of
+each other. And remember with Resolve,
+with layer mixers, everything is upside
+down. If you're coming from like a
+Photoshop or an After Effects world like
+I am, you're used to like the topmost
+layer being the highest in visual
+priority, right? For whatever reason, it
+works the opposite way in Resolve. So
+four is the lowest node in the stack,
+which means it actually has the highest
+visual priority. So, right now it's
+completely stacking on top of node
+number two, and I'm not seeing node
+number two at all. But check this out.
+If I ever go if I go to my key tab here,
+and I go to my key output gain, which
+I'm going to work from my control
+surface here, and start to pull that
+back. Now, I can mix between the two.
+So, key output gain at zero. That means
+this topmost node, node number four, is
+now completely transparent, and I'm
+looking right through it down to node
+number two. If I set that key output
+gain to one, it's now fully opaque, and
+I'm not even seeing to uh node number
+two at all. It's just node number four.
+But the real magic is everywhere in
+between. Let's go back over here to node
+number four. So, I'm going to back this
+down to zero and just slowly start to
+add some color in. Like maybe a 2 or a 3
+feels like a nice little extra bit of
+saturation than I was getting before.
+And more to the point, this gives me the
+ability to control that relationship
+between increased contrast and decreased
+saturation. So that's a nice level up
+from where we were a moment ago where we
+can really exert a little bit more
+control over the way we are introducing
+this aesthetic into our image. But let's
+keep climbing. There's actually more we
+can do from here. So if we think about
+the way we're introducing contrast into
+the image currently, we're doing it with
+lift, gamma, and gain, which are like
+two of the most or the three rather like
+of the most old school tools that we
+have available in color grading. Doesn't
+make them good or bad. They've just been
+around for a long time. They're pretty
+simple in terms of what they're actually
+doing. Take a look at like I don't know,
+let's go over here to shot number 10.
+Yeah, that's a good example. So like
+here's the thing with bleach bypass. You
+have to be okay with pumping contrast
+into the image because if you're not,
+you're going to end up with this kind of
+like weak and like somewhere in the
+middle, like somewhere in the in between
+type of aesthetic that really isn't
+going to land. So, you got to be okay
+with pumping contrast. But when we're
+doing bleach bypass, we want to try to
+be mindful of how we're treating very
+dark and very bright things so that they
+are not unnecessarily clumping or
+clamping or getting like too dark to see
+or too bright to even be sort of
+palatable to our eyes. And for me, we're
+kind of dancing with that edge now, like
+with our subject's forehead here. Like,
+I definitely expect that to get
+brighter, and I expect to lose a little
+bit of detail, but with what we got
+going on right now, I'm completely
+losing any tonal discrimination in this
+little like whatever this medallion
+thing is. And any variance in her skin,
+any color in her skin, it's really going
+away, too. And again, like that's not
+totally unreasonable and some of that's
+to be expected, but we want to try to be
+mindful with the way we're adding our
+strong contrast of our bleach bypass
+look that we are un we're not
+unnecessarily
+clipping out things in the very bright
+end of the image or in the very low end
+of the image like areas like her eye
+sockets or her hair or other like really
+dark areas. We want to feel like we're
+being as gentle to those areas as we can
+while still introducing that strong
+contrast. So, I'm going to show you a
+way to uh go about that uh with a bit
+more finesse. So, we're going to delete
+these two nodes for now. Actually,
+actually, before we do that, let's let's
+just wipe out our top node here and go
+with our base bleach bypass look from
+the one node. I'm going to grab a still
+of that. And we're going to leave this
+node active. I'm just going to reset my
+lift, gamma, and gain. And what I'm
+going to do now instead of lift, gamut,
+and gain is I'm going to use contrast
+and pivot. Why am I going to use
+contrast and pivot? because they have
+kinder behavior on the tones in the
+image at the very bottom and at the very
+top. They're actually going to apply
+what's called compression or roll in
+those areas. So that instead of hard
+clipping things and smashing them onto
+the zero floor or the pure one 100%
+ceiling, we're actually compressing and
+softening contrast as our tones are
+approaching that area, which can be a
+really nice thing for sort of
+maintaining a little bit of feeling of
+tonality or detail in the very dark and
+very bright areas of the image. So
+before we pump this in, I'm just going
+to make one change. I'm going to go to
+my pivot control here, and I'm going to
+enter in a magic number. Here's the
+magic number 336. Well, why is that a
+magic number? What's so special about
+that? 336 is a magic number because
+right now I'm working in Da Vinci
+widegamut intermediate. And in Da Vinci
+widegamut intermediate, the the position
+for 18% gray in that curve is.336.
+So what does this mean? This means that
+as I am adding contrast, I'm essentially
+going to be adding exposure neutral
+contrast. And I'm really not going to be
+shifting exposure without noticing or
+without realizing it as I add contrast.
+This is a really helpful thing when
+you're doing look development. A really
+good constraint to impose is to say,
+"Hey, I'm going to set my pivot at the
+mid-grade of my working space." And I'm
+only going to move it if I really intend
+to and I'm looking to change the
+exposure of my incoming image. And
+remember, we're doing look development
+right now. So, we are working backwards
+from final image being put on the
+screen, look being built here, and
+what's going to happen before this point
+in the sequence of operations. Well,
+we're going to do our color grade,
+right? Theoretically, we're going to be
+setting our exposure and we're going to
+be doing our balance and all that stuff.
+So, we want to make sure that our look
+is not actually creating more work for
+us when we get into the grading portion
+of things. That's why it's generally a
+really good practice to be aware of
+whether you are moving mid-grade or not.
+And if you are moving midray to know by
+how much and to be doing so like with
+full consciousness and full intention as
+opposed to it just moving like kind of
+incidentally as you make adjustments
+which with what we were just doing with
+lift gamma gain I guarantee you was
+happening in some direction without me
+even realizing it because the tools that
+I chose were not guaranteeing some kind
+of fixed outcome for my middle
+exposures. Okay, now that we've got our
+magic value in place for contrast, we
+can just turn that contrast to the
+right. Remember, I've still got my
+composite mode set to luminosity. So,
+I'm still getting that nice base
+behavior. And all I'm going to do is
+wipe to our
+other version of the image that we did
+with gamma and gain and see if we can
+get kind of somewhere in the ballpark.
+It's not going to be exact because, as I
+said, I was likely moving exposure
+without even realizing it. But if you
+take a look at what we're starting to
+get here, I'm getting a similar level of
+contrast in my image, but I'm getting a
+little softer, I'd say, specifically in
+the low end of the image. And if I want
+to like get kind of a tighter match just
+to sort of like demonstrate what we are
+seeing with the uh changes in the
+highlight, like check this out. This is
+now a quite similar contrast level
+between the two, but we've just got a
+little bit more detail up here in the
+top than we did before. You see what I
+mean there? And that is because of the
+way the contrast pivot tool is working.
+It's softening or compressing or rolling
+contrast as we approach zero black and
+as we approach 100% white. And it can be
+a really nice way to finesse things
+without having to compromise on the
+overall contrast of the image. So, you
+can take this idea and run with it. You
+can do the exact same thing that we did
+a moment ago with our lift gamma gain
+adjustment. Copy this node. Create your
+layer mixer. Paste that node. Make sure
+you turn that composite mode back to
+normal here. And then we're going to go
+to our key output gain and tune that to
+taste and say I like the full level of
+bleach that I'm getting here. Or I'm
+just going to add back a little bit of
+the color that I would have gotten if my
+composite mode were still set to normal.
+So you can kind of take the same idea
+and run with it using a better tool for
+actually adding contrast into your
+image. That's going to help you preserve
+middle gray and just as importantly is
+going to protect your darkest shadows
+and your brightest highlights from
+getting too clippy and nuclear and harsh
+feeling. Okay. All right. From here,
+we're going to climb the ladder again
+and we're going to do something else
+kind of cool. For now, I'm going to say
+this base layer is looking really good
+for me. And actually, what I would like
+to do is desaturate a little bit further
+from here. But I want to desaturate in a
+particular way because here's where some
+of our knowledge of the film chemistry
+that we started this conversation with
+is going to be helpful to us because now
+that we understand there's an actual
+photochemical source for all of this
+stuff and it's not just a general hand
+wavy like oh contrast up saturation down
+type of thing like that can be a totally
+fine naive way to approach it but
+because we now understand a little bit
+more about the photochemical process we
+can seek to mimic it with a little bit
+more detail than we otherwise would be
+able to. So, here's uh the observation
+or the thing that we're now going to
+bring into the dish or into the flavors
+that we're cooking up. We are going to
+desaturate our image a bit more, but
+we're not just going to globally
+desaturate everything. We're going to
+desaturate specifically the way that
+things desaturate when we are running a
+bleach bypass on our print. Remember how
+we talked about right at the beginning
+of this conversation that you can
+actually do a bleach bypass on a
+negative or on a print? In this case,
+we're going to model what would happen
+on a print because that's really the
+more common way to run bleach bypass.
+Like Saving Private Ryan, for example,
+that's a movie that uh did a skip bleach
+on the print and not on the negative.
+So, we're going to go with that for now.
+So, here's what happens with saturation
+when you run bleach bypass on a print.
+Your primaries are going to desaturate
+faster than your secondaries. So, that
+means red, green, and blue are going to
+get less colorful faster than cyan,
+magenta, and yellow. So, what we're
+going to do is actually mimic that
+behavior here in Resolve. So, check this
+out. I'm going to go to my hue versus
+sat curves here. These would not
+normally be my first choice for
+controlling saturation at particular
+hues, but because we're going negative,
+because we're desaturating, I actually
+really like the way this tool behaves
+when you're working in this direction.
+So, here's what we can do. I'm going to
+go in and just select my presets for
+red, green, and blue, like so. And for
+me, I'm going to work my control surface
+and drop these down to about 50%. So,
+I've got my red. Do the same thing with
+my green. And then I'm going to do the
+same thing with my blue. So, effectively
+what I have now is a ratio of 50%
+saturation in my red, green, and blue
+compared to my cyan, magenta, and
+yellow. Or or effectively I have a 2:1
+desaturation. like my red, green, and
+blue are half the saturation as my cyan,
+magenta, and yellow with the way that
+I've set things up here. And you can see
+like it's having a dramatic effect on
+the image, but it's having a different
+effect than if I were just to pull my
+global saturation down by a certain
+amount. And what I'm going to do here is
+actually work this in tandem with my
+saturation knob. Because now that I've
+got that ratio in place, I can pull
+everything in or everything up based on
+uh what I did on my hue versus sat. And
+that relationship between red, green,
+blue versus cyan, magenta, yellow is
+going to hold because I've set it up.
+Okay. So, I'm just going to kind of go
+by eye and say, hey, I think we could
+even globally pull back a little bit
+more from here. Maybe that's getting too
+far. I'm starting to get like fully
+monochromeed out. Like maybe it's fine
+here. But this is the other variable I
+would use. is just like pulling back on
+saturation uh on a global basis as well
+once I've got this relationship
+established over here with my hue versus
+saturation. By the way, if you wanted to
+do the opposite, if you wanted to model
+more of a negative bleach bypass
+aesthetic, you would do the opposite
+thing. Instead of uh desaturating your
+red, green, and blue over your cyan,
+magenta, and yellow, you would
+desaturate cyan, magenta, and yellow,
+and let red, green, and blue stay where
+they are starting. Okay? So, that's like
+the next rung of the ladder. Now, we're
+not just desaturating. We're not just
+desaturating in tandem with a nice uh
+contrast increase tool that's preserving
+exposure and being nice to our really
+dark and really bright stuff. We're
+desaturating certain colors more than
+others in the same way that the actual
+photochemical bleach bypass process does
+or in a similar way anyway. Okay, so
+that was our next rung and we're now
+going to go to the final rung, my
+favorite rung of the ladder. This is how
+I absolutely love to do bleach bypass.
+It is my first choice without a doubt.
+We're going to use my film emulation
+plugin, Genesis, because Genesis is the
+only option we are going to look at
+today that actually models that
+chemistry that we've been talking about
+throughout this conversation today. So,
+let's pull up Genesis here. And what
+we're going to get at a baseline is just
+a baseline rendering. Like you can see,
+if you're not familiar with this plugin
+at all, there's way more to go over than
+uh we could cover today. But
+fundamentally, we are going to pick an
+input space, which is already set
+correctly, an output space, which is
+also set correctly at its default. And
+then we're going to pick out our
+negative stock and our print stock. And
+then basically from there, we got lots
+of other cool photochemical stuff we can
+do on top of that foundation. In this
+case, we're not going to worry about any
+of these other settings except for our
+bleach bypass. So, we're going to go in
+and as we uh did with our Q versus SAT,
+we're going to model a uh print bleach
+bypass process. Okay. So watch what
+happens. What I love about this is we
+are actually seeing chemistry in action.
+We are seeing the chemistry being
+applied to this image. And you can see
+everything that we have been we've been
+talking about in action. Increased
+contrast, decrease saturation, decrease
+saturation more in certain colors than
+in others. We can see it all coming to
+life here. So, for me, for anything
+involving any kind of robust and
+faithful film modeling or film
+reproduction, Genesis is my go-to
+without a doubt. It is an amazing tool.
+It will absolutely transform the way
+that you grade because it allows you to
+perform your look development like we've
+been doing for this whole conversation
+in a photochemical mode in the same way
+that filmmakers did their look
+development back before we had digital
+cameras and digital reproduction. Super,
+super powerful tool. But here's the
+thing. I'm going to let you in on a
+secret. Whether or not you own Genesis,
+whether or not you decide today or
+tomorrow or in a year to go buy a copy
+of Genesis, because I'll shoot straight
+with you. It's a big investment. Whether
+or not you choose to make that
+investment today or tomorrow or ever,
+you can still get all kinds of great
+benefit out of Genesis. Want to know
+how? Check this out. All you have to do
+is use the trial. You can go download
+the trial for free. Cost literally $0.
+It will still render your image with a
+watermark. And you can use it as
+something that is maybe the single most
+important ingredient to bring into
+building something like a bleach bypass
+look which is a reference point like I
+mentioned earlier today like having that
+reference point of like all right here's
+what I'm trying to do that changes
+everything because now you have a target
+to aim at. If you're just aiming at a
+generic target of like more contrast,
+less saturation, if you've got a good
+eye, you can get somewhere interesting.
+But that's very different than saying
+like, "Hey, I would like to do a true
+robust photochemical bleach bypass and
+get that look that I love in 1984 or 7
+or whatever it is." If you can use
+Genesis as your reference point, you can
+get somewhere pretty close just because
+you have that good snapshot of what the
+real film material, what the film
+chemistry would do in this exact
+situation on your exact image. So, check
+this out. If I like grab a still of
+this, I've got my print bleach bypass.
+Let's back it off just a little bit.
+I'll set it to like an even.5. We'll
+grab a still of it. I will disable this
+node for now. And then I'm literally
+just going to use it as my reference
+point. So, let's like wipe between the
+two. Contrastwise, I feel like that's
+actually pretty close what I'm already
+doing here. And what I'm seeing if I
+look over here at my desaturation and if
+I look at my vectors scope, I actually
+overshot the desaturation. I desaturated
+more than I needed to when I was
+building out this look. And it's real
+obvious now that I have the actual film
+reference here in front of me. Right?
+So, all I'm going to do at this point is
+break out that key output gain that
+we've deployed a couple times already
+today. and just back that off a little
+bit
+like so until I feel like I've got a
+tighter alignment between the two. And I
+actually feel like now that we've got
+those colors a little better aligned, I
+actually don't even need as much
+contrast as I currently have in this
+image. So, let's start to pull back on
+that contrast just a little bit till
+it's feeling a little bit more in
+alignment. Now, here's another area
+where you can do something interesting
+again that gets so much easier when you
+have a really good reference point to go
+off of. So, check this out. Like the
+contrast level, I would say between
+these two, it's now pretty similar. It's
+just that my what I could call my
+display exposure or the way that this
+image is actually coming onto the screen
+exposure- wise, it's a little bit more
+up in my rendering than what I'm getting
+through Genesis. So, this might be a
+situation where I want to go back to my
+magic pivot number and intentionally
+move that number because it is
+explicitly my goal to dampen the
+exposure of this image on its way out
+the door. So, here's what that would
+look like. I'm going to take this pivot
+and start turning it to the right. And
+again, continue to wipe to Genesis and
+see how close I can get my match. Like
+so. And I'm now just going to kind of
+freehand and work both my contrast and
+pivot until I'm getting to something
+that I feel like is similar. Now, these
+are never going to be identical because
+there's robust chemistry actually being
+modeled by Genesis. But having that
+reference point is an amazing advantage
+in and of itself whether or not you're
+actually using Genesis to build your
+bleach bypass looks. So, I hope in this
+conversation you've gotten a much better
+sense of what bleach bypass actually is
+photochemically and what we can learn
+from the photochemical process when we
+are trying to mimic it or capture some
+of its aesthetics when we're working
+digitally in the box. And you've got a
+nice kind of ascending ladder of
+different techniques that you can throw
+at building out a bleach bypass look,
+including the premium like kickass
+option of Genesis. But again, whether or
+not you're actually using Genesis, you
+now have the ability to use it as a
+reference point for building your own
+look, even if you never choose to buy it
+or you buy it in a month or a year or
+whatever it is, it's a really good way
+just to reference and get a compass
+bearing on what it is that you're trying
+to achieve. When you say, I want to get
+that saving private Ryan or that seven
+look or whatever it might be, now you've
+got a really accurate reference point
+for it. And you've got quite a few tools
+uh that you can use in service of
+achieving that particular aesthetic.

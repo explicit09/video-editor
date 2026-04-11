@@ -1,0 +1,1401 @@
+all right so I've been a Creator in
+video form for like 15 years and if
+there's one thing I know about making
+higher quality videos is that a lot of
+it is in the details you get the
+fundamentals early but the details make
+it better now what if you run out of
+time for details like you spend 24 hours
+let's say on a video and then put it out
+but you want to do even better than that
+sometimes adding help with parts of the
+video can take it to the next level
+let's say you spend 24 hours on a video
+and you spend that last hour on the
+thumbnail for example well what if while
+you were spending those 24 hours on the
+video someone else was spending 24 hours
+on the thumbnail think of how much
+better that thumbnail and all of its
+details would be and so I've told this
+octopus analogy many times in my history
+of a Creator which is basically when you
+start you've got all these arms doing
+all these things and all of them have
+like a brain attached to them
+essentially but as you build a team you
+kind of cut off one of the arms and hand
+it to someone for them to do fulltime
+and they can do it way better than you
+ever could it's such a great unlocker so
+in this video we're going to be meeting
+all the different pieces of the team
+that take us from scripting all the way
+till the end and you'll actually meet
+the newest addition the newest arm of
+the team uh but there's also something
+you should know about the octopus so
+octopi are already pretty weird but they
+also have three hearts and this is a
+part of the analogy because that's the
+part that's core to what the Creator is
+so they can't cut them off they can't be
+delegated that's different for every
+Creator my advice is always to find what
+that is as soon as you possibly can but
+here for example it's things like being
+on camera in the reviews it's it's
+actually reviewing the tech and testing
+and trying things out and it's also it's
+the editorial decision about what we
+make videos about like making a channel
+that I would want to subscribe to and
+making videos that I would want to watch
+that sort of overhead creative look so
+so even though I'm always going to be
+working on that stuff the first part of
+any video is naturally a lot of the
+writing and brainstorming and research
+so let's pass to David he can tell us
+more about storytelling okay so I get a
+lot of emails from people asking how can
+I make a better script or how can I
+write a better story and really no
+matter the kind of video you're trying
+to make whether it's I don't know a
+review maybe a retrospective video essay
+or like a long form video there are two
+or three things that you want to keep in
+mind number one have a thesis number two
+learn the context and number three
+unearth all the details so let's go
+ahead and break down three different
+types of videos so you can see how to
+apply these techniques to all different
+types of stories let's start with
+something that we do really often here
+at
+MKBHD the review now a review has a few
+very specific elements that it's got to
+hit so the point of a review is to test
+the company's claims right can it do the
+things that the company said it could do
+what are the glaring issues that you
+might want to be aware of and where does
+it fit inside the rest of the market
+let's take the Humane AI pin review as a
+fairly extreme example here so with the
+Humane AI pin there was all this hype
+that was built up around it right there
+was this mysterious company that had
+been building this product for a long
+time that was launching they finally
+announced the products and there's
+people who are really excited for the AI
+features and there's people that are
+really excited for the hardware features
+but our job when we're delivering a
+review is to cut through all of that
+noise and actually let you know is it
+any good can actually do any of the
+things that they just promised like you
+could make a video that says oh this is
+the engineering of the Humane AI pin
+which was really interesting in its own
+right you could make a video about the
+AI model that runs the Humane AI pin but
+that's not a review the point of a
+review is to focus on does this deliver
+on what it says it is and is it worth
+your money now you can wrap up all of
+that information into a thesis and
+that's what you kind of have to do to
+keep a video engaging right like so the
+thesis of the AIP pin review was
+well none of these AI Hardware products
+are even really working yet so no
+they're not really worth buying now once
+you have that thesis of AI products not
+being ready yet you can kind of like
+Center your review around that right you
+have your thesis and then you give a
+bunch of different points that prove
+that thesis now having a thesis or a
+story or a point to your video doesn't
+just apply to reviews it actually
+applies to pretty much any kind of video
+you want to make like take for example
+the video essay a very popular Style
+video on YouTube right now there's a lot
+of different really creative ways to do
+a video essay but something that I
+personally like to do is to give the
+audience a ton of context for everything
+that's leading up to this point that I'm
+trying to make so that maybe you can
+care about this as much as I do so let's
+use this video I wrote with Marquez as
+an example this video was called Apple
+versus the Paradox of choice and it came
+out pretty much right after the air tags
+came out to someone who's not like super
+plugged into the tech space you might
+have just seen that Apple just decided
+to released these tracking tags called
+air tags and then some other Tracking
+Company got kind of upset at them and
+decided to sue them for it but it's only
+when you understand the context of
+exactly what happened and what this
+space looks like that you can actually
+start to unravel the story you can go
+watch that video to kind of get the
+whole story but this is my segment so I
+get to talk about the context so
+basically what happened is Apple
+releases the air tags tile had already
+had this ecosystem of tile tags and that
+ecosystem relies on tile tags in order
+to actually make the tracking system
+work but Apple who has the iPhone that
+the tile connects to just decided that
+they were going to release the air tags
+into the find my ecosystem but only when
+you really understand this ecosystem and
+also the context of what's Happening
+Here do you understand the Paradox and
+the Paradox is that if tile joins fine
+my they are diminishing their own
+ecosystem but if they don't join FM then
+Apple wins there are a ton of little
+stories kind of baked in here and those
+are all articles that probably got
+written but really understanding the
+entire story by consuming as much
+information about a subject as you can
+do you really start to see The Wider
+story that might not be as obvious now I
+do generally consider the video essay
+kind of the hardest style of video to
+make because you have to come up with
+really unique ideas and having a unique
+idea is probably the hardest thing you
+can possibly do but the best way to
+train yourself to come up with these
+UniQue Ideas is just to immerse yourself
+in that kind of content look for
+different stories talk to your friends
+about this kind of stuff talk to your
+parents just rant as much as you can and
+consume as much as you can about a
+specific subject and get to know it
+inside and out and that's when some of
+those bigger stories will kind of like
+light up in your brain the last style of
+content we're going to look at is those
+like documentary style over one hour
+kind of videos and it seems really scary
+because they're really big but it's
+actually not as complicated as you think
+all right for this one we're going to
+use our boosted to busted the rise and
+fall of boosted boards episode that we
+did on waveform a couple years ago it's
+audio only if you haven't listened to it
+yet make sure you go listen to it kind
+of similar to the video essay you
+already know where the story is going
+right so a lot of that story is actually
+going to come out in the research
+process for this project we already know
+where we ended up right boosted boards
+went out of business and what we're
+trying to figure out is why now you
+could just Google these questions and
+kind of get broad Strokes answers but
+the storytelling the thing that really
+keeps you engrossed in the story is in
+the details and in order to get those
+details you want to talk to as many
+primary sources as he can so I started
+reaching out via Twitter DM via email
+via Instagram DM to as many people as I
+could possibly find that were involved
+with these projects right 80% of these
+scripts is honestly just Gathering the
+information and talking to people and
+it's only that point that you can
+actually take all that information that
+you learned and start putting together
+the story something that I find tends to
+happen pretty frequently is that those
+first round of interviews are kind of
+just about like educating myself about
+the story of what happened what's going
+on just learning more about the space
+then I try to put the video together and
+I realize that I I know a lot more now
+and I need to really dig into those
+details so that's when I call those
+people back and really start putting the
+meat on those stories for projects like
+this it's really helpful to have
+software that can transcribe these
+interviews because then you can search
+different keywords and when you're
+putting together the story you can know
+oh this person said this specific thing
+and I would really love to highlight it
+here so you can search those words and
+throw it right in so to tell those like
+long form docummentary style stories
+you've already kind of got your box of
+where the story starts and where the
+story ends you really just have to fill
+it with detail to tell an engaging
+narrative okay so three things one have
+a point know what you want to talk about
+revolve all of the content around that
+point because that video needs to be
+going somewhere two understand the
+context immerse yourself in as much
+detail as physically possible about what
+you're trying to talk about do research
+search talk to friends explain it to
+family understand the context in the
+detail and three have a passion that you
+want to chase if you're excited about
+that dive deeper and deeper into that
+passion about that project and
+eventually you'll end up with something
+[Music]
+good we should probably have a set for
+this
+[Music]
+video and hey if you've watched this far
+might as well
+subscribe you know we're actually about
+to celebrate an anniversary mhm almost a
+decade of knowing him and working with
+him and uh and we still hate each other
+it's
+crazy I think the vast majority of our
+jobs is uh we kind of like to create
+consistency across the brand like you
+know in Minecraft how you play Creative
+Mode we're that there's no survival mode
+like unlimited lives you know you just
+retry again and you just keep on
+experimenting when you look back at six
+plus years it's a big difference so you
+want to look at some fun sets that we've
+made uh that's a yes
+[Music]
+yeah so the the backstory to this video
+this is the pixel 3 review and this was
+the first video that we ever shot in 2
+to one mhm which uh I think we we fought
+tooth and nail Marquez found out that 2
+to one uses the full sensor size so he
+was like oh okay so that was our in and
+also a lot of phones at that time were
+coming out in a 2 to1 aspect ratio so it
+it was kind of satisfying to see your
+video in full screen and not have it
+like cut off mhm this this nice little
+warm bit here that's traveling downwards
+um that's from a westcot which is
+probably one of my favorite lights it
+has a really good CRI so like it looks
+really natural just soft by default and
+by color mhm make it cool make it
+warm ah with lights there is a rating
+that is used uh based on the actual
+quality of the light for cameras and the
+higher the CRI number uh the better
+quality that light is for film yeah we
+don't know what it stands for so we're
+not going to say it color no no don't
+try so I felt like this was kind of
+important to us cuz this was the first
+time that we really cooked on a set that
+doesn't look like a regular office yeah
+one of the big things that we kind of
+found here was uh bow house coloring
+design and so what they do a lot is
+their primaries red blue and yellow and
+so you can see here we've got red our
+blue here our red here and our yellow
+here it's kind of based off of marquez's
+Old Top Downs where he had the blue
+yellow and red books Marquez has these
+books over here which are the three
+primary colors your red yellow blue you
+got your blue and red right here a
+little bit yellow right
+here so we just got done with possibly
+one of the biggest apple WWDC Keynotes
+of all time maybe just because usually
+when we go out for events like we're in
+hotels um or just like you know random
+Courtyards that kind of thing uh with
+this it was getting like if you look
+through the progression of the video you
+see the light just fully disappear in
+the background yeah so like here like
+you see just full sunset at the end um
+so this was shot very late at night um
+after the whole event had wrapped after
+briefings after Marquez had written um
+and you can actually see in the
+reflection so right here is the Mini
+Dome from aperture which is very easy to
+travel with because it's teeny um but
+also I mean as far as a soft box goes
+it's just the right amount of softness
+um and we had a some some amaran light
+but um besides that like most of this
+was all pretty much just ambient Hotel
+lighting for the most part like this
+here thankfully was there like they had
+that rigged up we didn't bring quazars
+and then um basically like the the only
+other augmented light really was the
+softbox and I think a reflector but um
+yeah I mean in general traveling sets
+are really difficult yeah yeah we got to
+work with what we're given so Marquez
+doesn't usually like warm lighting but
+in this case it being practical it kind
+of works in the set yeah do you have
+like a travel story that stands out to
+you most when it comes to building
+something last minute o there's a
+podcast episode with Austin Evans for
+CES I had to put my bed cot next to the
+to the set table to like be a a sound
+blanket essentially oh yeah oh that's
+funny and it kind of helped with fill
+and the lighting cuz it was a white bed
+so Dual Purpose all right welcome to the
+definitive iPhone versus Android video
+this set is a little bit more RGB
+without the r part just the GB and as
+you can tell this is an iMac for Apple
+can you draw me an Apple logo real quick
+God right and this as you can tell is
+Android that's a PC and so we tried to
+put the Android User in mind on this
+side and the iPhone user on this side
+we've been getting better at keeping the
+colors from hitting Marquez cuz we don't
+want RGB Marquez and we have a flag on
+this side on the right and left to kind
+of cut away from too much spilling a
+flag look up
+is a dark
+surface that you use to take away
+Reflections yeah well that but also I
+mean in this case helping to control
+light I'd say we kind of go for a
+checkerboard effect in exposure hot spot
+right here hot spot right here and you
+have your dark
+zones kind of sprinkled throughout a
+good mixture of exposures to kind of
+catch her eye in different spots if we
+showed this to Marquez 6 years ago he
+would have thought we lost our minds but
+I think like over time we've all kind of
+grown to be really comfortable with this
+like this this median if if you want to
+call it that um where like you have a
+very natural neutral subject and we we
+leave the neutral quality to it all um
+but we do really lean into a
+style hi my name is Marquez brownley and
+I have not paid for
+electricity in a year oh so this is my
+favorite video we wanted to play with
+this idea of the sun coming through the
+wind like this is a really good example
+of like subject matter of video applying
+to set um so this window right here was
+sort of the the center point like the
+motivation of the set if you will and
+then you know from here we shined a
+bunch of Lights through it so we have
+like a a general colorcast light that's
+going through it um so like a a big key
+basically that we made super warm um and
+then in addition we have this uh we call
+it the turret it's basically like a gobo
+uh projector light and it looks like a
+weapon Canon give me one second Goos I
+can do the drawing for you you just do
+the Goos are these little metal things
+that have prints that are stamped into
+them so for this we had a goo um so it's
+kind of like a a window and it uh
+basically projects that shape onto the
+wall yeah this was shot at nighttime I
+believe like the sun was not out cuz we
+blacked out the complete other side
+which there actually are windows mhm
+this left side over here does not get
+any sunlight at all so this is
+completely fake sunlight so to bring it
+all back we used to do the bow house
+kind of colors and you can still see it
+today with right here you have your
+blue you got your blue red and yellow
+and your
+red blue and then yellow so we still
+carry a lot of Core Concepts that we
+started back in the day I remember
+starting and like knowing
+absolutely bleep this all about anything
+to do with film um and I was just using
+random lights like light bulbs anything
+that I could find but it's like you know
+now yeah we have all this great cool
+stuff but ultimately like you still have
+to be inventive and creative and that's
+the thing that matters most now this is
+all good and all but all this footage is
+really
+useless unless you have someone to edit
+it so let's talk about that we're going
+to double it and pass it
+to
+Mariah I'm Mariah and today we're going
+to be breaking down three edits that I
+did for the main Channel and one of them
+follows the typical kind of formula that
+we all know and love and the other two
+are a little bit different so we'll talk
+about it so there's really three things
+that I think of when I think of a
+Marquez video and it's that it's very
+distraction free it's very light on the
+music not a lot of like retention
+editing he has really crisp and clean
+b-roll and also just a really simple but
+effective talking head video so it's
+nice to know that these are kind of the
+things to keep in mind when I'm editing
+but then it's also nice to think of when
+we want to break out of this box so we
+know really what he's known for but then
+we can play with that and we can take it
+a little step further so the first video
+I'm going to break down is the pixel 9
+Impressions video so there's several
+phones there's the pixel 9 pixel 9 Pro
+then the pixel 9 Pro XL and then a pixel
+9 Pro fold so this one was weird because
+when I was editing I could not tell the
+difference between the pixel Pro and the
+pixel Pro XL because they look the same
+why would you do this Google and so with
+that I didn't want to change the whole
+scheme of this but I still still wanted
+to include some kind of title so I just
+had the XEL pop up in this instance and
+change one of the shots but visually you
+wouldn't know a difference so it was
+nice to have just have three main title
+cards just boom boom boom get into the
+video these videos are very easy to do
+quickly because of the formula and it's
+something that we can really heavily
+rely on when we have a time crunch which
+is nice the biggest challenge for this
+video was truly probably the color more
+than anything a lot of the footage was
+getting back was very green um a lot
+this window here if you can see it I
+don't know if it was tinted or something
+something in the Google offices made
+everything on this other half of the
+room tinted completely green luckily
+we're able to overcorrect for that um
+because we have all the raw settings
+from the camera and so we can change the
+Kelvin we can change the tint this video
+comes together mostly in the script and
+so for the other videos we're going to
+talk about those definitely came
+together in Final Cut like we didn't
+know what they would look like until we
+got in the edit and we saw everything so
+the next video I'm going to break down
+is the 20,000 versus $2 million hybrid
+car video maybe for most people a hybrid
+is actually the best option
+interesting this might have been an
+Ellis choice for the music or it might
+have been a mi choice to kind of like
+dial it back and then punch it up as
+soon as he gets in the car I think
+normally we're used to the autofocus
+videos and the car videos we do being
+really cool really like in your face it
+just felt weird to do that for this so I
+wanted to have like a little bit of fun
+with
+[Music]
+it and so the music kicks in as soon as
+he closes the door and we get these
+really fun shots of all the b-roll of
+the car and we treat all the cars the
+same we'll get an interior we'll get the
+exterior and you'll get like a Vibe of
+the car the juxtaposition of the really
+cheap like everyday car versus the
+superar was just so funny to me and
+thinking of Marquez who's also like
+really tall in such a tiny little like
+almost clown car um I just wanted to
+kind of emphasize just how fun it
+[Music]
+was so this look right here uh of his
+little tiny smile it's really easy to be
+excited about a super expensive like
+really cool sports car but it's hard to
+get you and the audience excited about
+just like an average like normal priced
+car like what's special about this car
+and so I think having him like a little
+excited you know just like ready to get
+into it I just thought was a fun little
+moment so I don't think anyone's buying
+the Corola for Speed or power so what
+was really great there was a natural
+break in chapters for this video and so
+I had Tim make up these beautiful little
+animations for the text um for each car
+my myself as an audience member I always
+want to have chapters because I like to
+be able to skip through things and find
+like very specific things that I'm
+interested in but I also think it makes
+it more digestible if you're watching it
+all the way through to know that like
+there's a clean defined you know chapter
+and you know what's coming I think
+setting up audience expectations is
+really important so then another pattern
+I was doing is every time we end a scene
+you can even see on the chapter marker
+that like this scene is almost over um
+for each time we leave and we exit with
+a car I literally have the car drive out
+of frame and it's a very subliminal
+thing but I want to signify to your
+brain that something is over so we see
+it progress left to right and leaves the
+frame so the last video I'm going to
+talk about is the I said yes to every
+email for a month video and I think this
+was the most fun video to edit and also
+I think the most fun to shoot that we've
+all had this video breaks everything it
+breaks every rule that we have it's
+unscripted you know we had no idea what
+products we were going to have we didn't
+know what we were going to be saying
+about them um there's a casket in this
+video like why a couple weeks ago I got
+an email asking to review a literal
+casket kind of ridiculous yeah but the
+point is I get all kinds of crazy stuff
+in my inbox all the time some of it's
+Tech but some of it's not even Tech I
+say no to literally 99% of the things I
+get asked I don't know whose idea it was
+but him popping up in the casket in the
+beginning I've seen so many gifts of
+this since it's happened and it's so
+funny every time I just like see it's
+like a jump scare the music choice for
+this um was really important I wanted
+the tone to be a little ominous like why
+does he have the casket why is he inside
+of the casket and like what other weird
+things are going to be in this video
+that are also like kind of ominous but
+what if just for fun I said said
+yes to everything and this is where the
+music starts to actually pick up it
+shifts in tone in the song like it is a
+little somber and then it starts to get
+like a little upbeat as we're going into
+the Taylor Swift b-roll um I also want
+it to be known that these are actually
+my flowers that I got for Valentine's
+Day and I just thought we needed flowers
+to go with the casket so I thought just
+that's a setpiece choice of mine when it
+comes to text I think less is more I
+personally don't love videos that have a
+ton of text all over and they're
+constantly changing flashing whatever I
+think when you keep it to a minimum it
+holds a lot more weight and so obviously
+the emphasis for this intro is him
+saying yes another unusual thing is that
+we're not getting any Cuts probably for
+the first 30 seconds Mr Beast is quaking
+somewhere he's very upset by this he'd
+probably find a way to optimize the
+first 30 seconds but honestly it did
+really well on its own and the idea of
+the topic of this is so so enticing that
+it's the natural hook we don't need to
+hook you because you've already been
+hooked by clicking on it so I did for a
+whole month I said yes to everything in
+my inbox including this beautiful casket
+I also wanted to be known I added this
+really terrible like Bloom effect um
+because I wanted the white to be so
+overwhelming as we go into the
+transition for the Taylor Swift thing
+it's like you're seeing God like he just
+died and Taylor Swift is for some reason
+in heaven now um don't tell Andrew it
+was so funny because we literally ate
+lunch next to this casket for like 2
+months before we recorded the video cuz
+we were waiting for the rest of the
+products to come so not only did I have
+to stare at this casket for like 5
+months before we moved it like it was
+all my brain could think of like it's in
+my face every day I'm editing this video
+for like a couple weeks my life was the
+casket so I I say yes to a lot of phones
+right I review a lot of phones on this
+channel I you know there's only so many
+things we can possibly cover and
+actually use so there's plenty that we
+also say no to this one it's a it's a
+real me phone you've seen real me phones
+before but as you can tell by this
+absurd looking box it's a bit of a
+collab the rest of this video 99% of
+this video is like a traditional like
+unboxing video and product test video
+where he has the product he has in this
+case a phone that we're going to see is
+very un usual and this was a two camera
+setup so we' cut between the wide and
+the close angle camera and so we didn't
+have anything we wanted to say
+specifically about them we just wanted
+to get a first impression of these
+products straight from the companies so
+what have we learned well I I actually
+have some learnings from all of the
+saying yes to pass along to you and for
+myself something that breaks the formula
+also is this is one of the few times
+that you won't see him cover the lens
+with his hand at the end because he
+can't reach it uh so instead you'll get
+him actually laying down and sealing the
+casket closed so the part that people
+don't always talk about is how big some
+of these projects can be um especially
+when we're handling multi camera 8K all
+that kind of jazz and so this pixel
+video specifically was only about 1.3
+tabt but it can range from 1 to five you
+know depending on how many cameras we
+have and so I'm not a storage expert but
+we're going to go ahead and cut to the
+producers for the studio Channel and
+they're going to talk a little more
+about
+storage all right so we couldn't have
+made this monstrous big big video in the
+amount of time that we did if it was not
+for today's sponsor sonology all right
+so for some context this video is about
+7 tby and our current run time is about
+an hour long so we have 4 weeks to edit
+this entire video and we have two people
+to chew through all of that footage the
+only way that we could get it done was
+if we could both edit off of all of that
+footage at the same time sonology sent
+over their DS
+3622 XS plus which other than the
+terrible name is a really really great
+piece of hardware and so the server has
+12 hard drive Bays each with 16 tby of
+storage per hard drive and we've got it
+set up in raid 6 yeah raid 6 is just a
+fancy way of saying that we have some
+redundancy so if anything happened to a
+lot of the footage we shot we'd be okay
+so we're both able to edit off of it at
+the same time because we're both
+connected via 10 gig ethernet another
+company called ubiquity sent over some
+networking gear that made those 10 gig
+connections possible so thank you to
+them and I have to address something if
+you're a smaller Creator and you're
+telling yourself yo I don't need 140
+tabt of footage I don't need to edit
+with someone else there are other
+solutions from sonology for you before
+we were using this server array we were
+using Sony's DS 923 plus to back up
+different assets it is never too early
+to start building out infrastructure so
+that you don't lose all the footage you
+work so hard to put together so no
+matter where you are as a Creator the
+beautiful thing about sonology is that
+its Storage Solutions can grow with you
+yeah so if you're interested in checking
+out more check out the link in the
+description down below we're actually
+going to break down a few details about
+this ad deal later in the video but
+first we got to talk about
+[Music]
+something hey Ellis here sound guy and
+uh you guys are always asking me Ellis
+how do I make the audio in my own videos
+better well I have to know a thing or
+two about audio and uh maybe I can help
+you answer that
+question all right insert chair squish
+sound right
+here oh yeah all right so first question
+I always get asked is Ellis how do I
+choose a microphone and I know this
+isn't an awesome answer but the answer
+is sort of
+it doesn't matter and I know that sounds
+crazy right there's all these expensive
+microphones we here at the studio use
+very expensive microphones but you can
+get decent audio out of like 90% of
+microphones that are on the market the
+trick is especially when you're
+recording dialogue there are some
+microphones you can choose that are the
+wrong choice and let me explain what I
+mean by that almost any mic that you're
+going to see in 2024 in this beginner
+price range is going to be in one of two
+polar patterns and don't get freaked out
+by that word polar patterns is just how
+we describe the direction that a
+microphone can hear in the first polar
+pattern that you're going to see a lot
+of is called cardioid this is a cardioid
+mic right here this is a Shure
+sm7b and what's cool about cardioid mics
+is that they listen from the front but
+the more you rotate the mic away the
+more you find that they reject sound
+from the back can't hear me and now you
+get more and more and more and more and
+now I'm back baby the second polar
+pattern that you're going to see a lot
+of in this sort of budget range is
+called Omni like this sanken cosos 11d
+this sanken because it's an omni can be
+rotated any degree I can point it at
+Rich behind the camera I can point it at
+me with sounds coming out of my mouth I
+can rotate it however I wish and you get
+a beautiful even unchanging audio signal
+there's a lot more polar patterns out
+there there's figure8 there's Super and
+Hyper cardioid there's bunch of stuff
+for what we're doing which is dialogue
+and a YouTube video on a budget you're
+mostly going to see these two now if
+you've never done audio stuff before you
+might be wondering why would I use a
+cardioid mic when I could just use an
+omni mic and it records more well good
+question when you speak sound comes out
+of your mouth in all directions it
+bounces off the room in all directions
+and then it hits the microphone in all
+directions and generally when we're
+recording someone we want to hear their
+voice and not the room so the more
+rejection we can get on a microphone the
+clearer and more direct and more
+distinct that person will sound and that
+is why you see shotgun mics so
+frequently on set because they just
+reject so much more than a normal
+cardioid mic so if you're trying to make
+a video that's very similar to what we
+do in the main Channel like one person
+sitting in a chair looking at the camera
+chances are an omn mic is not the right
+choice for you the other thing that you
+want to keep an eye out for is that if
+you're just recording dialogue you're
+doing it in mono lots of things sound
+great in Stereo dialogue is not one of
+them and trust me I spent so much time
+here trying to make stereo dialogue work
+I couldn't figure it out if you want to
+give it a crack go for it but just trust
+me when I say it's it sounds weird and
+if you really don't believe me
+doesn't this sound weird aren't you
+uncomfortable right now hearing me in
+Stereo isn't your brain wandering
+wondering where do I focus on this weird
+reflectionyoutube
+hopefully by now you have a rough idea
+of what mic you want to use on set but
+there's something important to know and
+that's even a god tier microphone when
+placed in the wrong position is going to
+sound like Garbo and if you don't
+believe me then check this out okay when
+I'm speaking this mic over here sounds
+way different than that mic over there
+which sounds way different than that mic
+up there even though they're all
+Sennheiser 416s running into the same
+preamp with the same gain settings
+that's right same mic three different
+sounds so how do you know where to put
+it there's two big things to consider
+and the first one is distance how far
+away from your mouth does the microphone
+go the most basic answer to that
+question is the farther away from your
+mouth the microphone is the more of the
+room you're going to hear you're going
+to have to turn your microphone up more
+it makes the microphone more sensitive
+and thus it is more sensitive to the
+reflections bouncing all around the room
+the whole time you are speaking if
+you're using a cardioid microphone
+there's another thing you have to
+consider and that other thing is called
+the proximity effect the proximity
+effect is a phenomenon on cardioid mics
+that gives you more base the closer you
+are to a source so when my mic is far
+back over here you're going to get a lot
+less base than when it's up here and
+close to my mouth if you ever listen to
+NPR they love this mic the sure sm7b
+right up on people's faces so that
+things are Bassy and warm and smooth and
+it sounds like NPR that's just the NPR
+sound the other thing is that omnics the
+other polar pattern we talked about in
+this video completely immune from the
+proximity effect you're not going to
+hear it on the other thing you want to
+think about when placing your mic in a
+room is what it's actually pointed at if
+a mic is pointed directly at the Sound
+Source we call that an on access micing
+if it's pointed away from The Sound
+Source we call that an off AIS micing
+and I know it might make sense to do
+everything on AIS but there is a way you
+can use this to your advantage this is
+an unbelievably complicated subject and
+I know every acoustician in the comments
+is getting their Pitchfork ready to just
+skewer me so I'm sorry we don't have
+more time to discuss you know dispersion
+patterns but for the most part you can
+get by by remembering this high
+frequencies be
+low frequencies spread high frequencies
+are going to tend to move out in One
+Direction maybe they'll spread out like
+a cone a little bit nothing is pure but
+they're going to go directionally low
+frequencies spread like butter how do
+you use this to your advantage well if
+you have a sound that's way too bright
+and you're picking up way too much
+siblin and too much harshness and you
+want to fix that just move your mic a
+little bit off AIS all of a sudden
+you're going to be picking up more of
+those low frequencies that are spreading
+than and the high frequencies that are
+beaming if you're having the opposite
+problem with your dialogue where
+everything is too muddy and too dark and
+too Bassy you probably need to move a
+little bit more on AIS and you'll get
+more of those high frequency sibilant
+Clarity beautiful sounds beautiful
+sounds you've recorded your video you've
+recorded your audio you're feeling good
+about it I hope it's time for post-
+production post- production is my
+favorite part of the audio ball game
+it's the part that I love so much I
+wrote pages and pages and pages of stuff
+we had to cut about uh K weighted
+loudness units relative to full scale
+and which compressors to use and and all
+of this stuff that I just don't think it
+makes sense for a beginner right because
+at the end of the day if you followed
+all the micing steps that I brought up
+in this and you got good stuff with good
+techniques at the mic stage post
+production should be almost an thought
+right like when we're doing post-
+production here and we're using like AI
+tools and all this other stuff we're
+really only getting the dialogue that
+last like 10% of the way there so if
+you're interested in AI audio workflow
+stuff uh go check out the video that we
+shot a little bit ago but if you're
+interested in seeing what I would look
+like if I was from Ohio and completely
+yolked then uh you might want to check
+out
+this hey everyone my name is him I'm the
+graphic designer for the channel and
+today I'm going to walk you through some
+drafts of some successful thumbnails
+we've done over the last couple months
+first up here we've got the boooks
+thumbnail so you'll see the final and
+initial image aren't terribly different
+really the only difference between these
+two things these two frames is the
+screen but there's other things in here
+so from this to this what happens is
+that his hand is cut out twisted and
+then punched up so we make the phone
+about 10 to 15% bigger which helps with
+legibility it's small scales that's the
+first thing second thing was changing
+the screen to be a little bit better at
+smaller scales so we did things like
+changed the um artwork for the music we
+blew up the apps we got rid of the like
+the labels underneath just things that
+gave the eye a little bit more breathing
+space and negative space so you could
+kind of move around and then we made all
+the lines thicker again so that it would
+help just punch up and read at smaller
+scales all right so the next one here we
+have is the Dyson headphones so we're
+using this example because it was one of
+our most successful AB comparisons where
+the Delta between the winner and the
+loser was actually pretty significant
+this one is very much a lesson in simple
+is better so a you'll see the draft from
+before it's a simple shot of Marquez
+holding the cup out from the headphones
+just shot on a gray background with a
+little bit of vignetting the only thing
+that we did different to it was to try
+and punch up what the focal point was
+we want to try and get the product in
+the center if we can it's either in the
+thirds or the center Center is nice
+because it just makes less effort for
+the eye to move around the frame so
+we've already got in the middle how can
+we highlight it even more the cup is
+yellow what complement yellow violet or
+purple or whatever you want to call it
+another thing that we added was the
+price point they work really well if
+it's priced really low or priced really
+high those tend to do better in
+thumbnails and one more thing that we
+added which you know as a designer can
+be pretty obnoxious because it's just
+you know one more thing but arrows
+arrows work really well um you kind of
+can't beat them they just do they just
+do well going over B I'll just touch on
+quickly what we went through with the
+drafts we shot two versions of Marquez
+here and here they were the same size
+but we wanted to try and draw the eye to
+one of them right cuz one of them is
+more important than the other we looked
+at it and thought what if we could try
+something else which was maybe uh fading
+him a little bit so I added like a 30%
+fade and it's kind of like wearing belt
+and suspenders you only pick one and so
+this is just too much if he's already
+smaller he doesn't need to be faded as
+well so we got rid of that idea we kept
+him at full opacity and then trying to
+do the same thing as this thumbnail
+playing with a simple color palette a
+limited color palette and even though
+it's you know we have all these things
+working for it um when you compare it to
+this this is doing the same things with
+the limited color palette but but in a
+more effective manner we're telling
+people exactly where they need to look
+which is the new feature of the
+headphones I feel like there's just a
+lot of things happening here which is
+why I think that one did so much better
+in the ab test so simple as better this
+one's pretty different so most of the
+thumbnails we do in our channel are
+consumer based this is a product from
+Disney called the holti which is a 360°
+treadmill so there's motion involved in
+it so what was difficult about this one
+is that the assets that we had to work
+with with were just some footage that
+Marquez shot by himself and as you can
+kind of tell on this Frame it wasn't a
+professionally lit environment so we had
+to do a lot of retouching with it so we
+took two frames from the video one of
+his back leg moving and then one where
+his front leg is static and I just
+stitched those two together we tried to
+as you can see our abs are like very
+similar they both have arrows they both
+have text I think the reason a did
+better than b is because the weight it
+moves your eye through the
+composition you start here at the Anchor
+Point which is the arrow cuz it's one of
+the bigger things in the composition you
+move down to the foot the foot throws
+you to the text the text throws you
+across lands on that foot it just has
+really nice flow to it and that's really
+important in the thumbnail as well is
+that it's not as much effort to get your
+eye to move through the pieces that you
+need to see it feels good when the video
+performs really well I think this video
+did like 7.5 7. 6 million which is
+awesome unlike the one before where it
+was a delight in how the audience
+responded to the thumbnail this is kind
+of the opposite side of that coin this
+is one where we put a lot of time and
+effort and love into and we had to flip
+to an ALT almost immediately so the
+story behind this one was the F1 video
+that we did um the team had a lot of fun
+getting coverage on it the only problem
+is that we were limited on the amount of
+footage that we could get from that
+coverage certain assets had to be
+approved yada yada the lesson learned in
+this one is to get Scrappy if you don't
+have all the puzzle pieces sometimes you
+have to make puzzle pieces so we bought
+the F1 video game and took screen grabs
+from the replay footage on the racetrack
+and use that to match perspective to
+this shot which is actually footage of
+Marquez getting a tour of the F1 Ferrari
+facility on the track the important
+thing about these two images here is
+that they have the same perspective if
+the perspectives between these don't
+match the comp obviously looks wrong
+it's like when you watch a movie with
+bad CGI you don't have to know about CGI
+to know it's bad CGI you're just like
+that doesn't feel like it's based in
+reality this one was trying to do a lot
+of colors to try and get that Vegas
+appeal the a version was trying to play
+with that limited color palette again
+like we did in Dyson where everything
+around is black red and white and he is
+the only thing that is blue kind of
+where the lights are too so your eye has
+a focal point along with all of these
+this is red but all of these leading
+lines that are pointing to Marquez the
+reason that I think this didn't work as
+a thumb a successful thumbnail and the
+reason we had to track to something else
+like an alternative it's really hard to
+discern objects from one another and
+tell what is what cuz it's not like
+where you have in the boots you have in
+the Dyson there's really clear lines of
+contrast between foreground background
+subject it's all kind of blurred here
+and the visual complexity is a bit too
+much there's a lot of visual noise so
+the alternate that we explored and the
+one you see in the channel now does a
+really good job of separating it into
+different distinct pieces that the eye
+can digest and be more accessible in a
+frame okay and one last fun fact for
+this Frame is that if you notice on all
+of these side panels you know how when
+you watch F1 races it's all sponsors
+logos we actually added our sponsor for
+the video into that uh into that spot
+and if you want to learn more about how
+we handle sponsors on this channel I'm
+going to send it over to
+[Music]
+joho hi my name is jonno and I do all
+the business stuff here and also kind of
+special projects and today Eric is going
+to tell me some deals that are possibly
+good possibly bad he's going to get my
+reactions and maybe he might get fired
+who knows we want to pay you for a
+review good deal bad deal whatever a
+Marquez says is based on what he thinks
+of the product and you're going to pay
+for a review that kind of really
+violates all the journalistic Integrity
+you have so no it's a bad deal and it
+ruins your integrity it's just not great
+a brand sends you a product for review
+consideration
+after you've been testing it for a week
+they ask you where the review is and
+then they offer to pay you to produce
+your review good deal bad deal if you're
+doing kind of like editorial content you
+should never promise a review for
+anything sent so that's kind of like the
+number one rule here then gting paid is
+kind of violation of rule number one
+well the thing first thing I said you
+should never take money to review a
+product so it is obviously a bad deal
+all right a brand partner wants to use
+clips from your content on TV in paid
+advertising and on their social channels
+good deal bad deal so the one thing is
+that you have to be really worry about
+audience fatigue if they use your
+likeness for the next 8 months and post
+it everywhere people might get tired of
+seeing your face so I would say look at
+the details of the deal where they're
+going to post it how long they're going
+to be using it for and also make sure
+you get the rights of telling them that
+they have to cut a pause stop or remove
+some items so it could be a really good
+deal for you but look at the details
+first all right so you have stopped
+using a product from a company that
+still sponsors you and you like the
+product but you just don't need it
+anymore so the brand reaches out they
+offer you a big brand new flashy brand
+deal good deal bad
+deal really depends did you find a
+product that is better than the thing
+that you used to use then it's a bad de
+deal because you should really only be
+sponsored by items or brands that you
+use actively day by day if you found
+something better therefore it's not good
+anymore but if you didn't find something
+better then oh if you if you didn't find
+anything better definitely just take the
+money money a brand asks you to make
+content for their social channels
+instead of posting an integration onto
+your personal following good deal bad
+deal if you're at a 10 plus million
+subscriber Channel it could be possibly
+good because you're not really in that
+realm of needing to grow at least that
+drastically if compared to if you're
+100,000 uh subscriber Channel cuz you
+should be really concentr on growing
+your stuff than someone else's or
+they're paying you a lot of money like
+probably six figure deal for them to
+have you take over their channels that's
+not bad as well so just kind of make
+sure of what they're trying to do what
+Their objectives are and make sure It
+lines up with what you're trying to do
+so a company offers you shares in their
+company instead of just cash so if the
+company's ever sold you can make a ton
+of money more than just doing brand
+deals but you're taking on risk good
+deal bad deal I'm going to bring up an
+example of our Ridge deal that we have
+with them they did offer a x amount of
+dollars plus equity and it worked out
+really well because we don't review
+everyday carry like wallets backpacks
+that deal worked out really well for us
+are there other times like
+companies that want us to make a
+smartphone or design a smartphone for
+them terrible idea because of the fact
+that we view smartphones all the time it
+just won't work Optics are bad you the
+behind the scenes and sub channel for a
+big Tech YouTuber and you want to make a
+video about how your team makes videos
+so you ask your business guy if there
+are any brands that want to Target
+creators that could sponsor that project
+then the brand guy says wow you are so
+smart and cool Eric hahahahaha ha haa I
+wish I thought of that
+he ha you are the best good deal B bad
+bad bad deal who who wrote this Eric did
+you know what I'm gonna just change
+gears here um this video is sponsored by
+sonology but hey people from indeed or
+zip recruiter want to help us find a new
+producer on the studio
+Channel hit me up
+why was the sponsorship on this YouTube
+video a good idea why was it fair to
+them we strive to actually have sponsors
+that we use on a daily basis but also
+fits well with the content because if
+the content doesn't match a sponsors
+people are going to skip and we don't
+want people to skip because it hurts the
+overall value of the video and the brand
+doesn't get anything out of it too so
+this kind of video with how syal is
+working with us It just fits really well
+because this is behind the scenes and
+they get content out of it we get a
+really cool server uh to sore our files
+and we also get paid to so since we just
+fired our studio producer let's actually
+introduce you to our new producer on the
+main Channel
+Harper what's up guys I'm Harper the new
+head producer here at MKBHD a question I
+get asked a lot is how do you work for a
+YouTuber well there isn't really One
+path to get here but I'll answer by
+telling you mine this is the last 10
+years of my career in 3 minutes College
+I studied Psychology and Neuroscience
+and did Research into online
+communication straight out of school I
+was an MBC page yes like Kenneth I led
+lots of Tours got my first fan at the
+Today Show and then went to SNL I
+appeared in 3 seconds of a digital short
+and red lines with Kate McKinnon mostly
+answering a lot of phones and running
+lots of errands I was there for the SNL
+40th which was a lot of fun Miley Cyrus
+sing about all of her dead pets and
+Prince performed that was crazy Prince
+reformed and Beyonce danced and that was
+a very fun night but I basically found
+that I wasn't as interested in being
+adjacent to the creative process I
+wanted to dive into it so fast forward I
+was MTV and MTV News uh I rampid socials
+I did audience analytics and insights
+for our different digital teams and then
+one day my boss came over to me and he
+was like things have changed moving over
+to YouTube now and I said okay great
+let's jump into it I learned how to use
+Photoshop optimize the backend create a
+posting schedule engage with an audience
+and
+then layoffs I uh I got laid off on my
+26th
+birthday I was between jobs I got super
+into making slime I worked at a
+nonprofit took a directing class I
+wanted to just start making things not
+just be working in the back end so I
+reached out to friends started editing
+scripts gave notes on writing packets
+and ended up producing two shorts and
+one featur Lan film but the freelance
+lifestyle is just not sustainable for me
+after 9 months I was hired by SiriusXM
+to produce digital content on my first
+day I said your YouTube page sucks can I
+fix it and they were like sure whatever
+and in under 2 years we had a gold play
+button after a few years it became
+pretty clear that YouTube really needed
+to be its own job and its own Focus so I
+went to the CEO and laid out my plan for
+how we could expand into the platform
+and told her that we needed a team and
+that I should lead it and she agreed so
+I became the head of YouTube for serus
+XM and all the subsidiaries I was
+getting much more detached from the
+creative collaboration and production
+and was much more so moving up the
+corporate ladder and then layoffs again
+but this time being let go felt like
+being given an opportunity to go find
+something new that I was excited about I
+played a bunch of Elden ring updated my
+LinkedIn and was recruited to be a
+producer for a massive YouTuber I slept
+very little and learned a ton I
+negotiated contracts hired vendors
+scattered locations built a Laser Maze
+and buried my boss alive after years of
+having to defend the importance of this
+platform I finally made the jump from
+working on YouTube to working in the
+Creator economy so now the question was
+what Creator do I want to work for um
+and while I was doing that a head hunter
+reached out and asked my resume which I
+sent over and before I knew it I was on
+a zoom with Marquez there's no way to
+predict where your career will take you
+and this this industry is really
+volatile so there's no set path to
+follow I always wanted to work somewhere
+where I could lead production
+collaborate on strategy contribute ideas
+and work with awesome people and don't
+tell anyone here but they're all pretty
+great they do they are obsessed with
+pingpong but this is a really great
+place to
+[Music]
+work get it it's an octopus

@@ -1,0 +1,332 @@
+All right, so you watch some random
+tutorial on YouTube and all of a sudden
+you think you can retouch skin tones.
+And this is what you end up with, right?
+How many times did we see that? And you
+just cannot put a finger on it. Like why
+does it look so fake, [music] dude? How
+do people get those perfect retouching
+done to their skin tones cuz this
+doesn't look like that and it doesn't.
+And let me show you why. Let's go
+through that really quickly. Because
+first of all, it's a global change. It
+is affecting everything. It's affecting
+my car, it's affecting her clothes, it's
+affecting all the details on her
+jewelry, her hair. When our brain sees
+that, it just triggers this is fake. It
+doesn't look right. Something is off.
+Plus like this glowy effect is just so
+much from the early 90s wedding videos.
+Don't do that. [music] So what do we do
+instead? Well, I'm going to show you.
+But wait for a second. There's about
+half of you that are not subscribed to
+this channel. So I hope you're on cloud.
+Smash the like button and subscribe to
+the channel. Hit the bell icon so you
+can be notified about one reel per day
+and two YouTube videos every week. That
+is the promise. And I'm only going to
+keep it if you guys are nice to Uncle
+Kazi. So go ahead, do that and let's
+jump right in. For those that don't know
+me, my name is Kazi. I work with brands
+like Adidas, Amazon Prime, Universal
+Studios and I make no
+straightforward color [music] grading
+tutorials so you can work with your
+dream clients.
+All right, let's reset that. Now we're
+inside Resolve and just uh side note pro
+tip, every grade is built of this right
+here, okay? And the reason why I keep it
+in these stages is because it's easy for
+my brain to understand. So information
+is coming in from the camera, we're
+converting it to our working color
+space. So that is through the top,
+right? That's where that lives. Then the
+next step right away is to balance our
+shot and that's exactly what we did
+here, okay? So we're doing our balancing
+here. The corrector nodes are right
+here. So they're one step below the
+balancing cuz the balancing needs to
+happen before we correct our stuff. So
+we have a window to keep our focus on
+her. So we're going to touch our skin in
+this node, corrector node, and then
+finally we have a look node. So this is
+where we make magic. And then right here
+we are outputting it. So it's taking
+that working color space, converting it
+to whatever that is. It could be HDR, it
+could be for the web, it could be you
+know, what we're doing Rec. 709 2.4. All
+right, let's come to the skin tones and
+look at what's happening. So let's just
+say the client our model comes to us and
+says, "I'm not happy with this. It's
+like everything is looking too glossy,
+too shiny and the focus is too much on
+the blemishes and pimples. Can we dial
+that back?" Anytime when a client or a
+creative director tells you that, that
+doesn't mean absolutely remove it.
+Again, that's very early 90s. We don't
+want to do that. So what we want to do
+is we want to find the right tool for
+the job. Midtone detail is good, but
+again, it's very general, okay? It's
+applying that change to everything. We
+don't want that. So what do we need to
+do instead? There's a tool called
+contrast pop. Drop that on.
+And I'm going to give you the why behind
+the how on each parameter here. So it's
+going to make a lot more sense than just
+me moving things around to my abilities
+and just show you how I can perfect it
+in under 30 seconds. So what is
+happening with all of these right here?
+Detail amount is basically our local
+contrast on this image. So if I take it
+to the left, I soften that image. If I
+take it to the right, I just add that
+grungy think of like war movies. Like
+that sort of crazy Saving Private Ryan
+look, right? So if you're working on a
+car commercial or if you're working on a
+gym promo, you probably want to crank it
+to the right a little bit, right? You
+want to give them that like detail to
+each muscle. So in our case, obviously
+we want to soften it. So we're going to
+go to the left. So that's the first
+thing, okay? So let's just say we go all
+the way here. And that's super
+unrealistic, looks fake. Let's just keep
+it there. So we can make sense of all
+the other parameters.
+Detail sizing is basically the size of
+the pixel that we want to affect. So
+again, if it's something that where the
+texture is very smooth, you probably
+want to go to the right and you want to
+grab like really big chunks to affect.
+But in our case, we want to affect the
+pores. We want to affect the smallest
+detail. So we want to go all the way to
+the right. And as soon as we do that,
+see? Now it is not affecting anything
+and then we can start going to the right
+and like look what's happening. We're
+really targeting those small pores,
+those small details. So let's just say
+we park it somewhere around here and
+that's where we're at so far. Still does
+not look right at all. That's okay
+because this is where the next thing
+comes in, low threshold. That is
+basically the darkest part of the areas
+that are being affected. So eyebrows,
+eyes, edges of the eye shape, we want to
+keep those crisp, right? And that's what
+gives the illusion that nothing has
+happened to this image. So when the
+digital makeup happens, it looks very
+real. So we're going to take our low
+threshold, start moving it to the right.
+And look what happens. If I do before
+and after, start pulling it back, you're
+seeing like now the effect is so
+granular. So I'm just going to keep an
+eye on like her eyebrows. I'm going to
+go all the way back and then I'm going
+to keep moving it to the right. I want
+to make sure I just grab like
+See? So now we're affecting everything
+else.
+We're leaving the eyes and we're leaving
+the eyebrows. We can even go a little
+bit more to the right. Now, since this
+image, if I were to go and look at my
+scopes,
+does not have like a lot of highlights,
+we don't necessarily need to worry about
+the high threshold. Basically, it's the
+same as the low threshold but in
+reverse. So if we want to protect our
+highlights, we want to pull that back a
+little bit. So like I'm just going to do
+this and I'm going to set it to 0.7 and
+it usually does a pretty good job. Now
+the final thing here is our softening.
+So softness is basically where the
+effect is kicking in to what was there
+before and what's the blend? What's the
+feathering like? And right now it's set
+to 50% right in the middle, which is
+pretty good. I usually go even a little
+bit further. So like almost like a 3/4,
+right? So like even if we do something
+like that, it looks pretty good. Now
+what do we need to do? Okay, we're
+looking at this image and we're going,
+is the detail too much? We can start
+pulling back the detail a little bit if
+we want to. Or we can leave it to
+something like that. What about the
+detail size? Do we want to like
+keep it that aggressive? I say yes.
+I say yes, we want to keep it that
+aggressive. So Kazi, it looks pretty
+fake, dude. It's not looking good. If I
+go to shift H and if I look at AB, it
+gets to tell us all the area that we're
+affecting and we're affecting a lot.
+That is not a good sign. Cuz that's how
+is that different than what we were
+doing with our midtone detail? So first
+of all, it is way better than what we
+were doing with our midtone detail
+because the midtone detail was just
+affecting everything. As a matter of
+fact, what we can do is we can add a new
+version. We can reset this and we can go
+to our midtone detail and crank it all
+the way. And like look at how much that
+is affecting compared to what we're
+doing here because we've made all these
+granular changes because it's at 0.57,
+right? So let's remember that. Even if I
+go all the way back, like look at how
+much it's affecting compared to
+when I put it at 0.570.
+Okay? So how little that change is. Or
+how about if we go to detail size? So
+it's 0.036. If I go right here, I mean
+look at how much we're affecting that.
+But if we go back to 0.036,
+we're only affecting this much. So it is
+very controlled compared to what's
+happening here or what could happen here
+if we don't have this set up. But let's
+make it even better. So how can we do
+that? Well, it's pretty simple. We're
+going to go in our qualifier. We're
+going to do this. Kazi, what are you
+doing? Abomination. You're using
+qualifiers? Like I thought the whole
+idea is not to use qualifiers. Listen,
+calm down. What we're going to do is
+this. We want to keep it very broad so
+we can apply it to an entire project of
+700 shots and not worry about it. What
+am I talking about? We just want to
+control our hue. We don't want to grab
+these greens, right? So we're going to
+control that. We're going to move this
+to something like that.
+And what do we want to do?
+We want to just leave it very loose like
+that. And then at this point, I want to
+go in my D noise.
+Do I want to take my lows and kind of
+close it, too?
+For a simple reason. We don't want to
+affect the eyebrows and the eyeballs,
+right? Now, let's just go to D noise and
+I like to keep it. This is the sweet
+spot, okay? In the 40s. And then blur in
+the 10s a little bit higher. That's it.
+This will never break. And as soon as we
+do that, now look at how much we
+controlled. Like boom, everything is
+gone. Now the focus is literally these
+exact tones, which we do want to affect.
+So if I come
+down to this and now look at the skin
+tones, where we were to where we are
+now,
+it's looking way better. Like it's
+looking it's very smooth and it's
+actually believable. Personally, I think
+we need to come up on the detail size a
+little bit just because we do want to
+like Basically, I'm looking at this,
+right? I don't want to completely hide
+that information, but at the same time,
+I really want to smooth out like all of
+this, right? So I think this is much
+better. If we want to hide a little bit
+more, we can go here.
+And then like let's just say if we go
+here,
+and then we just control it with how
+much
+um contrast we want to pull or bring
+back.
+So now
+it's even a a bit more, right?
+But,
+I'm buying it. I'm buying all of it.
+Okay? This is really, really smooth. And
+then at this point, correction,
+balancing is one thing. What is the next
+step? The next step is look building,
+and that's probably the hardest part of
+color grading. And for that,
+Uncle Kazi got you. We created a tool
+called Rapid Grade. You can start a
+trial for absolutely free, and it's full
+access. No watermarks. You can test out
+the entire thing. Actually, work on a
+client project, get paid. So, then this
+tool is absolutely free. That's the
+entire idea.
+Our one-click look system, we create 52
+bespoke looks per year. So, I hire
+colorists, including myself, and we
+create one look per week, and it's fully
+customizable. So, let me show you that.
+I want to show you some of my favorite
+ones that will work perfectly on this.
+Warm Kiss, 321. Look at the skin tones.
+Look at how magical this looks. Look at
+the grain. Look at the texture. 100%
+customizable. Okay? And basically,
+you're done. This is not 90% there. This
+is 200% there. How about uh Soft Rose?
+If you like that magenta in the skin
+tones, I mean, oh my god, this is to die
+for.
+Or my personal favorite, Retro Chrome.
+Gives it a little bit of punch. Keeps
+that yellow that we would get in Asian
+skin tones, that warmth, and like just
+pops these colors so much and creates
+like so much drama without making your
+footage look cheap. And again, this is
+useless. This tool is useless if you
+don't know how to do all of this. So,
+this is I'm not saying this bypasses not
+having any fundamentals. That is very
+important. So, if you want to try it,
+you can start at $0 with the annual
+plan. Link is in the description. Check
+it out. And on that note, if you enjoyed
+this video, smash the like button,
+subscribe to the channel, hit the bell,
+so you can watch our next video that
+will probably drop in three or four
+days. If you have any content
+suggestions, we're always looking for
+new, fresh content as specific to what
+your guys' issues are. Drop that in the
+comment section. I will see you guys in
+the next one. Love you guys. Peace.
+>> [music]
+[music]

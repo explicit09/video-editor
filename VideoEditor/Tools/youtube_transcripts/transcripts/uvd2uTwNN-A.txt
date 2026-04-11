@@ -1,0 +1,448 @@
+All
+>> [music]
+[music]
+>> right. So, I hope you guys are pumped
+after seeing like the results we're
+going to be achieving in this tutorial.
+My name is Kazzy. Welcome back to
+another video. Now, you guys already
+know my style. I mostly do videos on
+topics that were challenging for me when
+I started grading. And this was one of
+the hardest things to do. So, in this
+video, I want to point out those blind
+spots and how we can go about fixing it.
+How can I completely shift your mindset
+when you're working with darker [music]
+skin tones and go from spending eight
+hours on a project to maybe 3 hours? And
+we're going to be sticking with
+everything that we have inside Resolve.
+As a matter of fact, we're going to be
+using very basic tools. So then anybody
+and everybody can apply it right away
+after watching the tutorial. For those
+that don't know me, my name is Kazzy.
+I've worked with brands like Adidas,
+Amazon Prime, Universal Studios, and I
+make no straightforward color grading
+tutorials so you can work with your
+dream clients. So, let's start with this
+shot on Ari Alexa. And this is how it
+is. Okay, this is where we're at. That's
+the exposure. This is just a pure
+conversion. And this is where we end up
+with. So, what are we seeing when we
+look at a shot like this? And pretty
+simple. The first thing that my brain
+goes to when it comes to working with
+darker skin tones. And that's the order
+that you want to put these in. Exposure
+is number one. Not balance. Exposure is
+number one. All right. You got to set
+that baseline. How do we know what that
+baseline is? Well, how about we go to
+our main man, Anel Adams, and see what
+he said. So, this is our middle gray.
+All right. And then our dark skin tones
+will fall under one to two stops, maybe
+three stops under depending on the type
+of skin that we're working with, what
+kind of complexion we're working with.
+So, now if we come out of there and we
+look at where we're at, let's go to
+qualifier, hover over. I mean, we're
+just all the way down. There's like no
+information there. So, the first step,
+we got to pull it up. What is my weapon
+of choice when it comes to that? HDR
+offset. Go there. Works like literally
+stops uh in your camera.
+Guys, pro tip, side note, always go
+crazy with the like anything that you're
+using, go crazy so you can like see what
+is the one extreme and then just go down
+and go. I mean, you don't have to make
+the face that I'm making, but you can
+just go.
+This looks good. All right. So, this is
+like one and 3/4 of a stop. Like, all of
+a sudden, it's looking pretty good. You
+see how I did that? Like, always go too
+far, pull it back, right? Just go far.
+Like, just rubber band effect. Like, you
+know, how much can you stretch that?
+That's the That's like a huge pro tip
+that I can give you right now. Now the
+second thing that I'm going to do, you
+can basically let's balance the shot. So
+that's number two. Number one was
+exposure. We got to dial in our
+exposure. Now we actually can see some
+detail. All right, we can see our
+beautiful girl right here. We can see
+our beautiful boy right here. We can see
+a little bit of detail right here um you
+know in his dad. And then obviously our
+main subject we can see him. Okay,
+number one exposure. Number two,
+balance. Then balance comes in. Now you
+can do it with your HDR offset.
+Absolutely. Go for it. Do it. I prefer
+my printer lights. Printer lights are
+going to be sitting right here. If you
+go under color, full half quarter,
+that's how they're broken up. Printer
+lights right here. So, I'm going to be
+hitting those buttons and I'm going to
+be telling you how I'm going to use
+them. Once again, same idea what we did
+with our exposure, how we just cranked
+it and then brought it back. I'm going
+to go my half printer lights. All right.
+And watch what I do. Okay. So, first
+thing that I'm seeing, too much cyan,
+right? So, let's go in the opposite
+direction. So, like maybe we start
+adding red. So, look what I'm doing.
+Just going too far and then I'm going uh
+the rocks in the back
+are not looking bad. Okay, this is kind
+of fine. Now, I'm seeing maybe we add a
+little bit more yellow. All right, so I
+go yellow. Too much. Come back. I'm
+looking at my boy.
+He's looking good. [music] Looking
+pretty neutral. I mean, it's looking
+pretty good. All right. Like all of a
+sudden, like, you know, we can see
+something. You see how easy it was? Like
+I just went too far. I pulled it back.
+Rubber man, just constantly think about
+that. Like what we're doing. I don't
+know. I think it's looking pretty good.
+Like we brought it up. Two simple
+changes. All right. We still have our
+last fix, but you understand like how
+I'm approaching these. Like this is the
+entire mindset when you're working with
+stuff like this. Now, correcting your
+skin tones is one thing, but building a
+look on top of it that keeps your skin
+tones looking juicy AF, you cannot avoid
+but to try Rapid Grid. Just check this
+out. Our one-click look system. If I
+just go and scroll down and select
+retrochrome, our community's favorite.
+Look at this. How it's locked in.
+Working under Da Vinci wide gamut. So,
+you're futurep proofing your image.
+[music] 100% customizable. How about we
+just go something crazy cinematic and we
+pick children of men. Look at how good
+this looks. Try to recreate this look. I
+challenge you and it's going to take you
+hours. Here it's a single click. We add
+52 plus looks every year. So if you want
+to try Rapid Grade comes with a 7-day
+money back guarantee. You can start for
+as low as $37 a month. So link is in the
+description. Check it out. You got
+absolutely nothing to lose. Let's get
+back to the video. Another huge mistake
+that people make, let's just say we go
+into actually creating our look. What
+people do is this, right? They'll go
+cinematic look. Even if they're using a
+lot, the L is doing the same thing what
+I'm about to show you. Silky blacks,
+right? That are very much like Vogue,
+like very lifted blacks. Well, the
+problem with lifted blacks is that it's
+going to rob something from these guys,
+[music] from our dark skins. Let's try
+it. Pull this up. Right.
+Do this. Oh my god, it looks gorgeous.
+It looks so good, right? It does look
+really good. Grab this. Pull this up.
+Make it super clean. Give it that punch.
+Whatever we want to do here,
+right? I look at it, man. Like, it's
+just really getting in there. Okay. The
+problem with that, if I keep going, the
+problem with that I'm stealing.
+I'm stealing from right here. Okay, this
+is where I'm taking that away from.
+I'm stealing from here. You see what I
+mean? Like that information is just
+basically gone. All right, be very
+careful with that. I mean, obviously in
+this example, it's kind of working, but
+still be very careful with that. So, I
+suggest you don't lift because just
+watch what happens when I start pulling
+that down. How much information we're
+going to buy back. Like, keep an eye
+right here.
+I'm going to go right here. I'm going to
+start pulling it down. You see how much
+information I'm like buying back?
+I can even leave it here. It's fine. But
+like we bought so much information back.
+Another thing that I'm going to tell
+you. Okay. A lot of people teal and
+orange, right? Like I got to have teal
+in my in my uh undertones. Okay, cool.
+Let's try that. Let's go to our red.
+Let's grab our teal. Let's pull it down.
+Look what you're doing. Okay. Not with
+this footage. Not with dark skin tones.
+Cuz like look what you're doing, man.
+Look at how dirty you're making it and
+how nasty you're making it. This is not
+appealing at all. This is not appealing
+at all. Don't do it. This is a huge
+mistake people make. This is the grade
+where you do something different. Let's
+just say if I pull it down a little bit
+because I want just a little bit of that
+teal. Fine. You got to counter that. Now
+you're going to go in your green. You're
+going to drop that down. What is that
+going to do? When you subtract green,
+you add magenta. Look how beautiful
+that's going to be. Let's lift it up a
+little bit. Look at the neck right here.
+I'm going to come in here and I'm just
+going to do this. See that?
+Not too much.
+That right there. And now if I come
+back. Oh my god. Like look at how his
+skin tone. If I do before, uh, kind of
+just like, you know, leaning toward like
+the yellowish color. But as soon as we
+do that, oh my god, it becomes so rich.
+Like look at right here. So rich. As I'm
+there, I'm looking at them with my own
+eyes. Okay, such a nice little subtle
+change. And you see like the things that
+we did here. Just don't be crazy. Now, I
+want to give you a bonus one. Not even
+necessarily a bonus one. That's sort of
+like necessary, especially when you're
+working with darker skin tones, but you
+know, your boy likes to give, you know,
+more game. So, I already talked about
+three fixes. This is a bonus fourth one,
+but again, I wouldn't even call it
+bonus. I mean, really, really use it.
+So, we're going to go here, type in
+depth map, drop that puppy on. Okay. Why
+did I put it here? Let's talk about
+like, you know, the node sequence, too.
+Uh, for a simple reason, because I like
+to do my actual grading on the tail end,
+and then I like to make all my other
+manipulations up here. Now, we're going
+to invert it. Uh, we're going to pop
+open two things, post-processing here
+and this. And I'm going to take my near
+limit and I'm going to start going back
+to like where we're not grabbing him.
+And then just blur it a little bit. All
+right. Not too much.
+Something like that. Let's come out of
+it. I my weapon of choice. You can try
+whatever you want. I just go with my
+gamma. Very natural, very realistic. And
+I'm going to drop it. Okay. Drop it to
+something like this. And now if I take
+these three and if we do before and
+after. I mean come on just look at this
+what we created. Clean crisp all natural
+using primaries HDR pallet offset and
+our custom curves. That's it. Simple
+will always win. Best part about it.
+Let's go to this shot. Let's start
+borrowing that. Let's start bringing
+that in. So obviously we can easily
+[music] bring this in. Paste it right
+and then just basically not apply it.
+[music] and then bring this in and paste
+it. And that's okay. We can keep it off.
+And now all we have to do, I mean, I've
+already done the conversion, so that's
+done. But it's too dark again. We're
+seeing the same exact problem, right? So
+squinty eyes, HDR offset,
+go too far. Bring it back.
+Where am I at? Half [music] a stop.
+Okay,
+good enough. We also have to stay
+realistic, right? You do this, you made
+the skin tones too thin. You don't want
+to do that. Okay, this is rich. This is
+rich. Now, how does it play out with our
+actual look? Turn it on and find out.
+But before we do that, let's balance it
+while we're at it. Right, let's balance
+it. We're going to do the same exact
+thing. What am I seeing? I'm seeing
+like, you know, maybe there's not enough
+red in there. Start with that too far.
+Come back.
+Not bad. Uh, what else? Okay, cyan.
+Pull it back. Maybe around here. Not
+bad. I mean, kind of started to look
+like a sunset. Like this is kind of
+doing it for me. Green. Nope. Pull it
+back. Maybe something like that. Maybe
+pull back from the red a little bit.
+What about yellow? Nope.
+Okay. Okay. This is looking pretty good.
+Now, do we want to go in our offset?
+Raise it up a little bit. I don't know,
+man. Like, this is not bad. This is
+pretty good. Okay. Now, let's go and
+turn on our actual grade. Now, when we
+turn on our grade here, it's not
+working. Okay. Now, we have to make some
+changes. Let's go in the Y channel
+because now we're just doing it too
+much. So go here.
+Okay, it had nothing to do with that.
+We're going to have to raise this a
+little bit. We're going to have to do
+it. Okay,
+and
+maybe we pull this down to give it a
+little bit more punch. Go all the way
+down.
+Keep it somewhere around here. Okay,
+there's still like a nice curve. See,
+it's softening up everything up top,
+compressing the highlights. You can see
+it here. It's good. Okay, and now here
+we are. If we think that, you know,
+maybe the magenta is a little bit too
+aggressive, we can close it down.
+Something like that. Okay, very, very
+gentle. Super subtle. Turn this on.
+Let's see what it's doing. Depth map.
+Obviously, we need to make some changes.
+pull it to something [music] like
+this.
+Everything else should lock in. Let's go
+in our primaries. Gamma, drop it.
+We move it. Everything locks in. Of
+course, it locks in. Everything is super
+good. Let's bring it here. What does it
+look like? Let's take these three before
+and after. I mean, come on.
+Look at the difference. Look at how much
+he's popping. Okay, before and after.
+Now, are we taking our boy? No, we're
+not. Good. We're good. See how much of a
+difference that's making? Okay, let's
+park it here. Bring it all up. Before
+and after. How much we popped them and
+how easy it was. Now, let's go here.
+Okay, what are we seeing?
+Feeling a little too green. Everything.
+Okay, so what do we do? We go in our
+green and we start reversing it. Let's
+go too far. I'm looking at the shirt.
+I mean, just look at that. You see like
+when you're just like organically moving
+so fast up and down and [music] you just
+go, "Oh, that looks really good." HDR
+offset. Let's pull it up.
+Pull it up.
+I [music] want to keep him
+somewhere around here. Okay, very good.
+Let's go here. Um, we're going to go and
+borrow our
+work that we already did. The hard work
+we already did. Pull that
+near.
+Keep it somewhere around here. Pull it
+back.
+Gamma. How aggressive do we want to be?
+Totally up to us. Make it realistic.
+Leave it here.
+I mean, come on. before and after. See
+that? How crisp and clean everything is.
+[music] How much we respected like
+everything else. Look at the skin tones.
+And come on. This is Rex 709. We're
+working with Rex 709 and we were able to
+pull this. Let's go revisit that one
+more time. Okay? Like how much we pulled
+from just exposure. Number one,
+exposure. Just remember now, let's go
+through the list. Number one, exposure.
+Then we do our balance. Okay? Then we do
+our look. We stay very respectful to
+what we want to do with it. Be very,
+very careful what you do with your tail
+end, your blacks right here, and where
+you keep them. Be very careful what what
+you do with your undertones. Don't go
+too crazy. But this was just the right
+amount. Then anytime you're going to do
+a little bit of teal, you have to offset
+that [music] with your greens, meaning
+subtracting your greens, adding magenta
+to like give that punch to your skin
+tones. And then we went and we just
+grabbed the background, pulled it down
+in the best way possible. Uh, don't use
+magic mask. What are you going to do?
+You're going to pull everybody's skin
+tones. Like, now you're creating so much
+extra work for yourself. Imagine the
+heavy lifting we did with just three
+nodes. If you're working on a long
+project, how easy that is going to be.
+[music] And then here, we just corrected
+it. Always go too far. Pull it back. All
+right. Rubber band effect. Now,
+everything here that I showed you was
+about basically working on our skin
+tones and dialing everything in. But if
+you really want to create those high-end
+commercial or movie looks, then you have
+to try Rapid Grade. Let me just show you
+this. When you drop it on, even if
+you're working with REC 79 footage, look
+what we can do. We can just go select
+our essentials pack, one-click looks,
+and all of these are 100% customizable.
+Okay? And just watch this. I'm going to
+give you a demo for a few looks. Look at
+this vintage hint. Look at warm kiss.
+Just look at this. How beautiful it
+makes his skin tone. I mean, just look
+at that. Okay. What about something
+really extreme? How cool is this? Once
+again, 100% customizable. Or what if
+soft rose? We go in this direction.
+Before and after. Like look at what's
+happening to his lips. Like what's
+happening to his highlights and his skin
+tones right here. Or how about something
+kind of uh crazy like high gloss. Like
+we really push it and make it look
+classy. I mean, look at the shirt. Like
+what just happened to it. And it's that
+easy. And again, you can go in and you
+can customize it 100% however you like.
+This product is out of this world. And
+you can start with Rapid Grade for as
+low as $37 a month. Best part, 7-day
+money back guarantee if you don't like
+it. So, there's absolutely nothing to
+lose. Link is in the description. Check
+it out. I'll see you guys in the next
+video. If you have any questions, drop
+them down below. Peace, fam. [music]

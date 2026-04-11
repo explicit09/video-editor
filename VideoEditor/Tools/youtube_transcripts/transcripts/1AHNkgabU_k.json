@@ -1,0 +1,7257 @@
+[
+  {
+    "text": "I see this way too often. People will",
+    "start": 0.08,
+    "duration": 5.36
+  },
+  {
+    "text": "get excited, get a new tool, drop it on,",
+    "start": 2.56,
+    "duration": 6.079
+  },
+  {
+    "text": "do this, and then they'll go, \"This is",
+    "start": 5.44,
+    "duration": 5.36
+  },
+  {
+    "text": "absolutely awful. Nobody should be using",
+    "start": 8.639,
+    "duration": 3.92
+  },
+  {
+    "text": "it.\" The problem is not the tool. The",
+    "start": 10.8,
+    "duration": 4.16
+  },
+  {
+    "text": "problem is you. Listen, if you feel",
+    "start": 12.559,
+    "duration": 3.921
+  },
+  {
+    "text": "offended, that's on you. I'm not",
+    "start": 14.96,
+    "duration": 3.2
+  },
+  {
+    "text": "offended. So, in this video, I'm going",
+    "start": 16.48,
+    "duration": 3.84
+  },
+  {
+    "text": "to give you the why behind each",
+    "start": 18.16,
+    "duration": 4.959
+  },
+  {
+    "text": "parameter inside Film Look Creator. So,",
+    "start": 20.32,
+    "duration": 5.199
+  },
+  {
+    "text": "we can take this hot mess of an image",
+    "start": 23.119,
+    "duration": 4.961
+  },
+  {
+    "text": "and turn it into that. We have multiple",
+    "start": 25.519,
+    "duration": 4.0
+  },
+  {
+    "text": "shots that we're going to work on and",
+    "start": 28.08,
+    "duration": 2.8
+  },
+  {
+    "text": "we're going to create completely",
+    "start": 29.519,
+    "duration": 4.241
+  },
+  {
+    "text": "different looks. And after you have a",
+    "start": 30.88,
+    "duration": 4.4
+  },
+  {
+    "text": "little bit of this knowledge that I'm",
+    "start": 33.76,
+    "duration": 3.52
+  },
+  {
+    "text": "going to share with you, you will",
+    "start": 35.28,
+    "duration": 4.56
+  },
+  {
+    "text": "unleash your full potential from this",
+    "start": 37.28,
+    "duration": 4.24
+  },
+  {
+    "text": "particular tool, which I have to say,",
+    "start": 39.84,
+    "duration": 3.84
+  },
+  {
+    "text": "Blackmagic freaking cooked with this",
+    "start": 41.52,
+    "duration": 4.08
+  },
+  {
+    "text": "tool. So, if you guys are as pumped as I",
+    "start": 43.68,
+    "duration": 3.92
+  },
+  {
+    "text": "am, do me a favor. Let's take a pause,",
+    "start": 45.6,
+    "duration": 3.52
+  },
+  {
+    "text": "smash the like button, subscribe to the",
+    "start": 47.6,
+    "duration": 3.84
+  },
+  {
+    "text": "channel. There's about 47% of you that",
+    "start": 49.12,
+    "duration": 4.079
+  },
+  {
+    "text": "are still not subscribed. And that said,",
+    "start": 51.44,
+    "duration": 3.04
+  },
+  {
+    "text": "let's get into it. For those that don't",
+    "start": 53.199,
+    "duration": 2.721
+  },
+  {
+    "text": "know me, my name is Kazzy. I've worked",
+    "start": 54.48,
+    "duration": 3.759
+  },
+  {
+    "text": "with brands like Adidas, Amazon Prime,",
+    "start": 55.92,
+    "duration": 4.72
+  },
+  {
+    "text": "Universal Studios, and I make no just",
+    "start": 58.239,
+    "duration": 3.84
+  },
+  {
+    "text": "straightforward color grading tutorials",
+    "start": 60.64,
+    "duration": 4.239
+  },
+  {
+    "text": "so you can work with your dream clients.",
+    "start": 62.079,
+    "duration": 5.201
+  },
+  {
+    "text": "All right, so let's go ahead and reset",
+    "start": 64.879,
+    "duration": 4.641
+  },
+  {
+    "text": "this and just get rid of it. And let me",
+    "start": 67.28,
+    "duration": 3.68
+  },
+  {
+    "text": "just show you first of all what kind of",
+    "start": 69.52,
+    "duration": 3.279
+  },
+  {
+    "text": "concoction I got going on here. Very,",
+    "start": 70.96,
+    "duration": 4.24
+  },
+  {
+    "text": "very simple. Okay, we have our input",
+    "start": 72.799,
+    "duration": 4.96
+  },
+  {
+    "text": "device transform. This is REC 79. So",
+    "start": 75.2,
+    "duration": 4.239
+  },
+  {
+    "text": "we're taking Rec 79. We're going to be",
+    "start": 77.759,
+    "duration": 3.04
+  },
+  {
+    "text": "working in Da Vinci wide gamut. We're",
+    "start": 79.439,
+    "duration": 2.881
+  },
+  {
+    "text": "converting it to that and then Da Vinci",
+    "start": 80.799,
+    "duration": 3.441
+  },
+  {
+    "text": "wide gamut to rec 709. This is just how",
+    "start": 82.32,
+    "duration": 3.68
+  },
+  {
+    "text": "I roll. This is how I work on every",
+    "start": 84.24,
+    "duration": 3.36
+  },
+  {
+    "text": "single project and it's a muscle memory",
+    "start": 86.0,
+    "duration": 4.479
+  },
+  {
+    "text": "now. So, always stick with your process.",
+    "start": 87.6,
+    "duration": 4.0
+  },
+  {
+    "text": "You're just going to keep getting so",
+    "start": 90.479,
+    "duration": 3.041
+  },
+  {
+    "text": "much faster along the way. Balance is",
+    "start": 91.6,
+    "duration": 3.519
+  },
+  {
+    "text": "going to happen here. Something else is",
+    "start": 93.52,
+    "duration": 2.639
+  },
+  {
+    "text": "going to happen here that I'm going to",
+    "start": 95.119,
+    "duration": 2.881
+  },
+  {
+    "text": "share with you in a second. And then,",
+    "start": 96.159,
+    "duration": 3.6
+  },
+  {
+    "text": "uh, film look creator is going to happen",
+    "start": 98.0,
+    "duration": 4.159
+  },
+  {
+    "text": "here. Looks always happen right before",
+    "start": 99.759,
+    "duration": 5.121
+  },
+  {
+    "text": "ODT. Okay? And then we have these two",
+    "start": 102.159,
+    "duration": 4.561
+  },
+  {
+    "text": "shots. So, basically what we're going to",
+    "start": 104.88,
+    "duration": 5.12
+  },
+  {
+    "text": "do is this. We're going to create a very",
+    "start": 106.72,
+    "duration": 6.399
+  },
+  {
+    "text": "clean poppy as much punch as we can add",
+    "start": 110.0,
+    "duration": 5.2
+  },
+  {
+    "text": "to this image and just make it feel like",
+    "start": 113.119,
+    "duration": 4.081
+  },
+  {
+    "text": "we need to be there from this shot. So",
+    "start": 115.2,
+    "duration": 3.279
+  },
+  {
+    "text": "that's the look we're going to create",
+    "start": 117.2,
+    "duration": 3.36
+  },
+  {
+    "text": "here. We are going to create a",
+    "start": 118.479,
+    "duration": 4.161
+  },
+  {
+    "text": "quintessential teal and orange look",
+    "start": 120.56,
+    "duration": 4.96
+  },
+  {
+    "text": "cinematic here and we're going to create",
+    "start": 122.64,
+    "duration": 6.16
+  },
+  {
+    "text": "a postcard vintage look right here. So",
+    "start": 125.52,
+    "duration": 4.879
+  },
+  {
+    "text": "those are the three looks that we're",
+    "start": 128.8,
+    "duration": 4.079
+  },
+  {
+    "text": "going to create. See very distinct, very",
+    "start": 130.399,
+    "duration": 5.681
+  },
+  {
+    "text": "different shots. So, let's jump right in",
+    "start": 132.879,
+    "duration": 5.761
+  },
+  {
+    "text": "and start with this one. First rule, a",
+    "start": 136.08,
+    "duration": 3.92
+  },
+  {
+    "text": "lot of people make this mistake. So,",
+    "start": 138.64,
+    "duration": 3.679
+  },
+  {
+    "text": "let's start with that. Always balance",
+    "start": 140.0,
+    "duration": 4.319
+  },
+  {
+    "text": "your footage first. Please do me a",
+    "start": 142.319,
+    "duration": 4.0
+  },
+  {
+    "text": "favor. Like, you can't just drop on a",
+    "start": 144.319,
+    "duration": 3.521
+  },
+  {
+    "text": "look because you found something",
+    "start": 146.319,
+    "duration": 3.441
+  },
+  {
+    "text": "exciting and something new and then you",
+    "start": 147.84,
+    "duration": 4.32
+  },
+  {
+    "text": "just go, why is it not working? Because",
+    "start": 149.76,
+    "duration": 5.68
+  },
+  {
+    "text": "you have to do the dirty work first. You",
+    "start": 152.16,
+    "duration": 5.2
+  },
+  {
+    "text": "have to balance your image. This one",
+    "start": 155.44,
+    "duration": 3.36
+  },
+  {
+    "text": "looks pretty good, right? Like, look at",
+    "start": 157.36,
+    "duration": 3.12
+  },
+  {
+    "text": "the vectors scope. It's right in the",
+    "start": 158.8,
+    "duration": 3.92
+  },
+  {
+    "text": "dead smack center. Looks pretty balanced",
+    "start": 160.48,
+    "duration": 4.64
+  },
+  {
+    "text": "to me. Like this one, we might be okay.",
+    "start": 162.72,
+    "duration": 3.92
+  },
+  {
+    "text": "This one, not so much. I mean, it's",
+    "start": 165.12,
+    "duration": 3.28
+  },
+  {
+    "text": "leaning very much toward that yellow. I",
+    "start": 166.64,
+    "duration": 3.84
+  },
+  {
+    "text": "mean, look at the colorized waveform.",
+    "start": 168.4,
+    "duration": 4.479
+  },
+  {
+    "text": "It's just so dingy. So, we have to pull",
+    "start": 170.48,
+    "duration": 3.759
+  },
+  {
+    "text": "that out. So, I'm going to go right",
+    "start": 172.879,
+    "duration": 2.72
+  },
+  {
+    "text": "here. I'm going to use my printer",
+    "start": 174.239,
+    "duration": 3.121
+  },
+  {
+    "text": "lights. Okay. So, printer lights live",
+    "start": 175.599,
+    "duration": 3.201
+  },
+  {
+    "text": "right here. So, I'm going to be hitting",
+    "start": 177.36,
+    "duration": 2.56
+  },
+  {
+    "text": "these buttons and I'm going to be",
+    "start": 178.8,
+    "duration": 2.88
+  },
+  {
+    "text": "calling it out what I'm doing to get",
+    "start": 179.92,
+    "duration": 3.52
+  },
+  {
+    "text": "this out. So, I said like there is like",
+    "start": 181.68,
+    "duration": 4.0
+  },
+  {
+    "text": "some yellow. So, how about we subtract",
+    "start": 183.44,
+    "duration": 4.32
+  },
+  {
+    "text": "yellow? And to subtract yellow, we have",
+    "start": 185.68,
+    "duration": 3.919
+  },
+  {
+    "text": "to add blue, right? So, I'm just going",
+    "start": 187.76,
+    "duration": 4.559
+  },
+  {
+    "text": "to go full blue. So that's one full",
+    "start": 189.599,
+    "duration": 5.441
+  },
+  {
+    "text": "blue. That's two full blue. Uh maybe we",
+    "start": 192.319,
+    "duration": 6.161
+  },
+  {
+    "text": "do quarter blue. Okay. And then we go",
+    "start": 195.04,
+    "duration": 6.32
+  },
+  {
+    "text": "dial back one blue. And now I want to",
+    "start": 198.48,
+    "duration": 6.8
+  },
+  {
+    "text": "add cyan. Couple of cyan.",
+    "start": 201.36,
+    "duration": 6.56
+  },
+  {
+    "text": "Go. Always go too far. And then go.",
+    "start": 205.28,
+    "duration": 5.44
+  },
+  {
+    "text": "Okay, that was a bit much. Maybe we can",
+    "start": 207.92,
+    "duration": 4.64
+  },
+  {
+    "text": "come back like that. Maybe pull out some",
+    "start": 210.72,
+    "duration": 4.72
+  },
+  {
+    "text": "blue. Maybe cut back on the cyan just a",
+    "start": 212.56,
+    "duration": 5.759
+  },
+  {
+    "text": "little bit. And then add a red or two. I",
+    "start": 215.44,
+    "duration": 4.32
+  },
+  {
+    "text": "mean, this is looking much better than",
+    "start": 218.319,
+    "duration": 4.401
+  },
+  {
+    "text": "before. One more cyan. Okay, this is not",
+    "start": 219.76,
+    "duration": 5.36
+  },
+  {
+    "text": "bad. All right, so now like I would say,",
+    "start": 222.72,
+    "duration": 5.04
+  },
+  {
+    "text": "okay, we can lock it in right here. I",
+    "start": 225.12,
+    "duration": 4.479
+  },
+  {
+    "text": "will be happy. Like if I'm seeing this,",
+    "start": 227.76,
+    "duration": 3.68
+  },
+  {
+    "text": "I'm going Yeah, I'm going this is not",
+    "start": 229.599,
+    "duration": 3.841
+  },
+  {
+    "text": "bad. This could be our balance. Okay,",
+    "start": 231.44,
+    "duration": 3.76
+  },
+  {
+    "text": "what do we want to do with the exposure?",
+    "start": 233.44,
+    "duration": 5.2
+  },
+  {
+    "text": "Play with it. Right,",
+    "start": 235.2,
+    "duration": 5.52
+  },
+  {
+    "text": "this looks good. It's a bright sunny",
+    "start": 238.64,
+    "duration": 4.4
+  },
+  {
+    "text": "day, so this is good. So the first thing",
+    "start": 240.72,
+    "duration": 3.68
+  },
+  {
+    "text": "that I want to do anytime you're",
+    "start": 243.04,
+    "duration": 3.04
+  },
+  {
+    "text": "building a look, you can use whatever",
+    "start": 244.4,
+    "duration": 3.6
+  },
+  {
+    "text": "you want to use, but have some sort of",
+    "start": 246.08,
+    "duration": 4.4
+  },
+  {
+    "text": "chart in place. false color, things like",
+    "start": 248.0,
+    "duration": 4.799
+  },
+  {
+    "text": "that. Utility tools like where you can",
+    "start": 250.48,
+    "duration": 4.64
+  },
+  {
+    "text": "actually see what you're changing, like",
+    "start": 252.799,
+    "duration": 4.241
+  },
+  {
+    "text": "what are you manipulating in your image.",
+    "start": 255.12,
+    "duration": 3.44
+  },
+  {
+    "text": "And what I'm going to be using, and this",
+    "start": 257.04,
+    "duration": 3.039
+  },
+  {
+    "text": "is not a plug, by the way, okay? I mean,",
+    "start": 258.56,
+    "duration": 2.959
+  },
+  {
+    "text": "you guys can just literally go use",
+    "start": 260.079,
+    "duration": 3.361
+  },
+  {
+    "text": "somebody else's stuff, but this is just",
+    "start": 261.519,
+    "duration": 4.001
+  },
+  {
+    "text": "what I do from day to day. So, I'm going",
+    "start": 263.44,
+    "duration": 4.0
+  },
+  {
+    "text": "to be using Rapid Grade, which is my",
+    "start": 265.52,
+    "duration": 3.52
+  },
+  {
+    "text": "tool, but I'm just going to go ahead.",
+    "start": 267.44,
+    "duration": 3.12
+  },
+  {
+    "text": "I'm going to turn this on. The tutorial",
+    "start": 269.04,
+    "duration": 3.28
+  },
+  {
+    "text": "is not about this. So, we're just not",
+    "start": 270.56,
+    "duration": 3.359
+  },
+  {
+    "text": "going to pretend like, oh, Kazzy's going",
+    "start": 272.32,
+    "duration": 3.68
+  },
+  {
+    "text": "to turn this into one of those videos.",
+    "start": 273.919,
+    "duration": 3.28
+  },
+  {
+    "text": "So, we're going to turn this on and",
+    "start": 276.0,
+    "duration": 2.8
+  },
+  {
+    "text": "leave it to that. Okay. So basically",
+    "start": 277.199,
+    "duration": 3.681
+  },
+  {
+    "text": "what I have turned on is my color chart",
+    "start": 278.8,
+    "duration": 4.8
+  },
+  {
+    "text": "and my exposure ramp. This is all I need",
+    "start": 280.88,
+    "duration": 4.8
+  },
+  {
+    "text": "because this is like anything that I do",
+    "start": 283.6,
+    "duration": 4.96
+  },
+  {
+    "text": "afterwards to my image, right? It's",
+    "start": 285.68,
+    "duration": 4.48
+  },
+  {
+    "text": "telling me right here what's being",
+    "start": 288.56,
+    "duration": 3.6
+  },
+  {
+    "text": "manipulated. Like all the colors,",
+    "start": 290.16,
+    "duration": 4.64
+  },
+  {
+    "text": "everything, right? Like if I go do this,",
+    "start": 292.16,
+    "duration": 5.36
+  },
+  {
+    "text": "like if I if I add like everything is",
+    "start": 294.8,
+    "duration": 4.56
+  },
+  {
+    "text": "just being told to me what is happening",
+    "start": 297.52,
+    "duration": 4.08
+  },
+  {
+    "text": "and I'm seeing that change like in real",
+    "start": 299.36,
+    "duration": 4.48
+  },
+  {
+    "text": "time. We needed that. Okay. So now what",
+    "start": 301.6,
+    "duration": 3.44
+  },
+  {
+    "text": "I'm going to do is this. And that's why",
+    "start": 303.84,
+    "duration": 2.88
+  },
+  {
+    "text": "you have to balance your shot first cuz",
+    "start": 305.04,
+    "duration": 3.28
+  },
+  {
+    "text": "if you don't balance your shot, you're",
+    "start": 306.72,
+    "duration": 3.28
+  },
+  {
+    "text": "going to be like feeding wrong",
+    "start": 308.32,
+    "duration": 3.599
+  },
+  {
+    "text": "information to this like these charts",
+    "start": 310.0,
+    "duration": 3.039
+  },
+  {
+    "text": "and then everything is going to be",
+    "start": 311.919,
+    "duration": 4.321
+  },
+  {
+    "text": "broken. So now that we have that, we are",
+    "start": 313.039,
+    "duration": 5.44
+  },
+  {
+    "text": "primed and we are ready to go for film",
+    "start": 316.24,
+    "duration": 4.32
+  },
+  {
+    "text": "look creator. Drop it on. You drop it",
+    "start": 318.479,
+    "duration": 3.761
+  },
+  {
+    "text": "on. I mean, I'm not going to lie. I",
+    "start": 320.56,
+    "duration": 3.199
+  },
+  {
+    "text": "mean, you drop it on it and starts off",
+    "start": 322.24,
+    "duration": 3.28
+  },
+  {
+    "text": "like right out the gate. Like I mean, it",
+    "start": 323.759,
+    "duration": 3.361
+  },
+  {
+    "text": "starts off with a pretty good look.",
+    "start": 325.52,
+    "duration": 3.119
+  },
+  {
+    "text": "Let's buy some real estate. Let's cut",
+    "start": 327.12,
+    "duration": 3.359
+  },
+  {
+    "text": "that out. Not bad. Okay. When you drop",
+    "start": 328.639,
+    "duration": 4.801
+  },
+  {
+    "text": "it on. But sometimes this is not a good",
+    "start": 330.479,
+    "duration": 4.961
+  },
+  {
+    "text": "thing when you drop on a plugin and all",
+    "start": 333.44,
+    "duration": 3.36
+  },
+  {
+    "text": "of a sudden it's doing something. You're",
+    "start": 335.44,
+    "duration": 3.759
+  },
+  {
+    "text": "just like whoa. Like take it easy. Like",
+    "start": 336.8,
+    "duration": 5.28
+  },
+  {
+    "text": "let me start from somewhere. But I have",
+    "start": 339.199,
+    "duration": 5.28
+  },
+  {
+    "text": "to say this is a good thing what they're",
+    "start": 342.08,
+    "duration": 4.399
+  },
+  {
+    "text": "doing. So click on preset. I'm going to",
+    "start": 344.479,
+    "duration": 3.521
+  },
+  {
+    "text": "take you through like everything from",
+    "start": 346.479,
+    "duration": 3.201
+  },
+  {
+    "text": "top to bottom. All right? And how",
+    "start": 348.0,
+    "duration": 3.68
+  },
+  {
+    "text": "everything is laid out. Presets. I mean",
+    "start": 349.68,
+    "duration": 4.16
+  },
+  {
+    "text": "these are super super useful how they",
+    "start": 351.68,
+    "duration": 3.92
+  },
+  {
+    "text": "have these set up. Okay? I have to tell",
+    "start": 353.84,
+    "duration": 3.6
+  },
+  {
+    "text": "you. So we're starting off with default",
+    "start": 355.6,
+    "duration": 4.08
+  },
+  {
+    "text": "65 which is pretty laidback. Then we go",
+    "start": 357.44,
+    "duration": 4.24
+  },
+  {
+    "text": "to default 35 and all of a sudden",
+    "start": 359.68,
+    "duration": 3.84
+  },
+  {
+    "text": "there's a little bit more personality, a",
+    "start": 361.68,
+    "duration": 3.44
+  },
+  {
+    "text": "little bit heavier grain, a little bit",
+    "start": 363.52,
+    "duration": 3.36
+  },
+  {
+    "text": "heavier vignette. Then we go to",
+    "start": 365.12,
+    "duration": 3.68
+  },
+  {
+    "text": "cinematic. This is where it just becomes",
+    "start": 366.88,
+    "duration": 4.24
+  },
+  {
+    "text": "like more artsy. Like this is not",
+    "start": 368.8,
+    "duration": 5.2
+  },
+  {
+    "text": "necessarily following Kodak or Fujifilm",
+    "start": 371.12,
+    "duration": 4.799
+  },
+  {
+    "text": "or anything specific like film print",
+    "start": 374.0,
+    "duration": 3.52
+  },
+  {
+    "text": "emulation or anything like that. It's",
+    "start": 375.919,
+    "duration": 3.601
+  },
+  {
+    "text": "just like kind of doing its own thing.",
+    "start": 377.52,
+    "duration": 3.92
+  },
+  {
+    "text": "All right. And then bleach bypass,",
+    "start": 379.52,
+    "duration": 4.32
+  },
+  {
+    "text": "similar idea like but it's just really",
+    "start": 381.44,
+    "duration": 5.12
+  },
+  {
+    "text": "giving you those silver highlights up",
+    "start": 383.84,
+    "duration": 5.52
+  },
+  {
+    "text": "top and like adding a lot of punch down",
+    "start": 386.56,
+    "duration": 4.56
+  },
+  {
+    "text": "below and you're ending up with an image",
+    "start": 389.36,
+    "duration": 3.679
+  },
+  {
+    "text": "like that. And obviously everything is",
+    "start": 391.12,
+    "duration": 3.68
+  },
+  {
+    "text": "fully customizable. Like look at right",
+    "start": 393.039,
+    "duration": 3.28
+  },
+  {
+    "text": "here. Okay, so this is something that I",
+    "start": 394.8,
+    "duration": 3.2
+  },
+  {
+    "text": "really like. Like each one that we're",
+    "start": 396.319,
+    "duration": 3.521
+  },
+  {
+    "text": "changing, we're seeing the change right",
+    "start": 398.0,
+    "duration": 3.919
+  },
+  {
+    "text": "here. So like what's actually happening",
+    "start": 399.84,
+    "duration": 5.28
+  },
+  {
+    "text": "to our image? And then nostalgic is one",
+    "start": 401.919,
+    "duration": 5.28
+  },
+  {
+    "text": "of my favorites. I mean come on, this is",
+    "start": 405.12,
+    "duration": 3.44
+  },
+  {
+    "text": "actually really cool. Like this is what",
+    "start": 407.199,
+    "duration": 3.361
+  },
+  {
+    "text": "I'm saying. like bro like black magic",
+    "start": 408.56,
+    "duration": 3.759
+  },
+  {
+    "text": "cooked. So that's really cool. And then",
+    "start": 410.56,
+    "duration": 4.4
+  },
+  {
+    "text": "these are super useful. Okay, so default",
+    "start": 412.319,
+    "duration": 4.561
+  },
+  {
+    "text": "no effects. What does that mean? All the",
+    "start": 414.96,
+    "duration": 4.48
+  },
+  {
+    "text": "color changes usually get translated",
+    "start": 416.88,
+    "duration": 4.719
+  },
+  {
+    "text": "when you export it as a L. So basically",
+    "start": 419.44,
+    "duration": 3.759
+  },
+  {
+    "text": "what this is saying right here is that",
+    "start": 421.599,
+    "duration": 3.521
+  },
+  {
+    "text": "yo, you are ready to go. We're not",
+    "start": 423.199,
+    "duration": 4.321
+  },
+  {
+    "text": "applying any texture based changes that",
+    "start": 425.12,
+    "duration": 4.72
+  },
+  {
+    "text": "are spatial changes that do not get",
+    "start": 427.52,
+    "duration": 4.64
+  },
+  {
+    "text": "translated into a L. They don't get",
+    "start": 429.84,
+    "duration": 4.479
+  },
+  {
+    "text": "baked into a L. So they're saying you",
+    "start": 432.16,
+    "duration": 4.64
+  },
+  {
+    "text": "can do this and just like not bother",
+    "start": 434.319,
+    "duration": 5.201
+  },
+  {
+    "text": "with any of these texturebased tools",
+    "start": 436.8,
+    "duration": 4.959
+  },
+  {
+    "text": "that they have here or you can go to",
+    "start": 439.52,
+    "duration": 4.959
+  },
+  {
+    "text": "clean slate and then nothing is applied.",
+    "start": 441.759,
+    "duration": 4.321
+  },
+  {
+    "text": "If I do before and after, nothing is",
+    "start": 444.479,
+    "duration": 3.761
+  },
+  {
+    "text": "applied. You're just starting from a",
+    "start": 446.08,
+    "duration": 3.6
+  },
+  {
+    "text": "clean slate. So this is what I'm saying.",
+    "start": 448.24,
+    "duration": 3.44
+  },
+  {
+    "text": "They did a good job. Let's just give",
+    "start": 449.68,
+    "duration": 3.68
+  },
+  {
+    "text": "credit where the credit is due. All",
+    "start": 451.68,
+    "duration": 3.68
+  },
+  {
+    "text": "right. So what I'm going to do is like",
+    "start": 453.36,
+    "duration": 4.88
+  },
+  {
+    "text": "let's just start as everybody else",
+    "start": 455.36,
+    "duration": 4.72
+  },
+  {
+    "text": "would. Why not? Let's just start from",
+    "start": 458.24,
+    "duration": 4.64
+  },
+  {
+    "text": "here. Okay? Like that's fine. And uh we",
+    "start": 460.08,
+    "duration": 4.64
+  },
+  {
+    "text": "did say that we wanted to create clean",
+    "start": 462.88,
+    "duration": 3.759
+  },
+  {
+    "text": "look. So it makes sense. Default 65",
+    "start": 464.72,
+    "duration": 3.36
+  },
+  {
+    "text": "makes the most sense. Like it's going to",
+    "start": 466.639,
+    "duration": 4.241
+  },
+  {
+    "text": "be a 65mm grain like super light. It",
+    "start": 468.08,
+    "duration": 4.559
+  },
+  {
+    "text": "makes a lot of sense. Okay. What is",
+    "start": 470.88,
+    "duration": 2.96
+  },
+  {
+    "text": "happening with color blend? What is",
+    "start": 472.639,
+    "duration": 3.361
+  },
+  {
+    "text": "that? All these color changes like right",
+    "start": 473.84,
+    "duration": 5.12
+  },
+  {
+    "text": "here film look split tone all these",
+    "start": 476.0,
+    "duration": 5.68
+  },
+  {
+    "text": "changes live in color blend. So when I",
+    "start": 478.96,
+    "duration": 5.04
+  },
+  {
+    "text": "go forward and back like look at that.",
+    "start": 481.68,
+    "duration": 4.079
+  },
+  {
+    "text": "That's what I'm controlling here. Okay.",
+    "start": 484.0,
+    "duration": 3.68
+  },
+  {
+    "text": "So this is at full effect right now.",
+    "start": 485.759,
+    "duration": 3.681
+  },
+  {
+    "text": "This is also a pretty good thing. Like",
+    "start": 487.68,
+    "duration": 3.84
+  },
+  {
+    "text": "you can go really hard, push the look,",
+    "start": 489.44,
+    "duration": 3.52
+  },
+  {
+    "text": "create whatever you want to create, and",
+    "start": 491.52,
+    "duration": 3.28
+  },
+  {
+    "text": "then you can just come back and dial",
+    "start": 492.96,
+    "duration": 4.56
+  },
+  {
+    "text": "that back and like leave your effects,",
+    "start": 494.8,
+    "duration": 5.6
+  },
+  {
+    "text": "like all of your textural stuff like as",
+    "start": 497.52,
+    "duration": 6.079
+  },
+  {
+    "text": "is. This is your texture. Okay? And",
+    "start": 500.4,
+    "duration": 5.199
+  },
+  {
+    "text": "we're seeing that.",
+    "start": 503.599,
+    "duration": 3.841
+  },
+  {
+    "text": "See, like, and that's why these charts",
+    "start": 505.599,
+    "duration": 3.201
+  },
+  {
+    "text": "are so important. You you see the",
+    "start": 507.44,
+    "duration": 3.599
+  },
+  {
+    "text": "halation right here, like just keep an",
+    "start": 508.8,
+    "duration": 5.28
+  },
+  {
+    "text": "eye like right here. And like this",
+    "start": 511.039,
+    "duration": 5.201
+  },
+  {
+    "text": "halation effect that's happening, that's",
+    "start": 514.08,
+    "duration": 4.16
+  },
+  {
+    "text": "like really hard to see with a naked",
+    "start": 516.24,
+    "duration": 3.44
+  },
+  {
+    "text": "eye. like if you're just looking at the",
+    "start": 518.24,
+    "duration": 2.799
+  },
+  {
+    "text": "image and having a chart, that's why",
+    "start": 519.68,
+    "duration": 3.2
+  },
+  {
+    "text": "it's super super important to have that",
+    "start": 521.039,
+    "duration": 3.441
+  },
+  {
+    "text": "and they're clever with what they're",
+    "start": 522.88,
+    "duration": 3.04
+  },
+  {
+    "text": "doing, what they're leaving open, what",
+    "start": 524.48,
+    "duration": 4.24
+  },
+  {
+    "text": "they're uh closing um down. So, if you",
+    "start": 525.92,
+    "duration": 5.599
+  },
+  {
+    "text": "twirl that open, color space overrides,",
+    "start": 528.72,
+    "duration": 4.96
+  },
+  {
+    "text": "amazing. If you are, you know, setting",
+    "start": 531.519,
+    "duration": 3.681
+  },
+  {
+    "text": "up your color management, doing your",
+    "start": 533.68,
+    "duration": 3.279
+  },
+  {
+    "text": "color management a different way, you",
+    "start": 535.2,
+    "duration": 3.84
+  },
+  {
+    "text": "can set everything up here. You have",
+    "start": 536.959,
+    "duration": 3.761
+  },
+  {
+    "text": "full control. I don't recommend it.",
+    "start": 539.04,
+    "duration": 4.32
+  },
+  {
+    "text": "Don't do that. Like, just again, always",
+    "start": 540.72,
+    "duration": 5.119
+  },
+  {
+    "text": "have like a process locked in and don't",
+    "start": 543.36,
+    "duration": 4.96
+  },
+  {
+    "text": "just change it project by project. Don't",
+    "start": 545.839,
+    "duration": 5.281
+  },
+  {
+    "text": "do that. So we already have our color",
+    "start": 548.32,
+    "duration": 4.72
+  },
+  {
+    "text": "management done through our node",
+    "start": 551.12,
+    "duration": 3.839
+  },
+  {
+    "text": "management right here. So everything is",
+    "start": 553.04,
+    "duration": 3.84
+  },
+  {
+    "text": "properly set up. So then here we can",
+    "start": 554.959,
+    "duration": 3.841
+  },
+  {
+    "text": "just like leave this as is. Okay. All",
+    "start": 556.88,
+    "duration": 3.28
+  },
+  {
+    "text": "right. Let's start with the most",
+    "start": 558.8,
+    "duration": 3.84
+  },
+  {
+    "text": "important section right here. Film look.",
+    "start": 560.16,
+    "duration": 4.56
+  },
+  {
+    "text": "And film look is divided like it's its",
+    "start": 562.64,
+    "duration": 3.6
+  },
+  {
+    "text": "own thing. You see this? And then color",
+    "start": 564.72,
+    "duration": 3.36
+  },
+  {
+    "text": "settings are down here. So film look is",
+    "start": 566.24,
+    "duration": 4.159
+  },
+  {
+    "text": "its own thing. Now that is one of the",
+    "start": 568.08,
+    "duration": 4.08
+  },
+  {
+    "text": "things like that. Let's just go through",
+    "start": 570.399,
+    "duration": 2.961
+  },
+  {
+    "text": "it and try to understand what's",
+    "start": 572.16,
+    "duration": 3.44
+  },
+  {
+    "text": "happening here. So film look blend. All",
+    "start": 573.36,
+    "duration": 4.0
+  },
+  {
+    "text": "right. What is that? When I pull it",
+    "start": 575.6,
+    "duration": 3.52
+  },
+  {
+    "text": "back, it goes like this. And when I move",
+    "start": 577.36,
+    "duration": 3.12
+  },
+  {
+    "text": "forward, it does that. What is that?",
+    "start": 579.12,
+    "duration": 4.399
+  },
+  {
+    "text": "Kazzy core look is basically their",
+    "start": 580.48,
+    "duration": 6.72
+  },
+  {
+    "text": "interpretation of just a look DNA that",
+    "start": 583.519,
+    "duration": 6.481
+  },
+  {
+    "text": "is kind of dialed back and then it's",
+    "start": 587.2,
+    "duration": 5.12
+  },
+  {
+    "text": "like living underneath your entire",
+    "start": 590.0,
+    "duration": 4.0
+  },
+  {
+    "text": "plugin. So, it's kind of like sitting",
+    "start": 592.32,
+    "duration": 4.4
+  },
+  {
+    "text": "underneath your plugin. And the the",
+    "start": 594.0,
+    "duration": 5.519
+  },
+  {
+    "text": "trippy thing here is that whatever I do,",
+    "start": 596.72,
+    "duration": 5.28
+  },
+  {
+    "text": "nothing else changes. Look at this.",
+    "start": 599.519,
+    "duration": 4.241
+  },
+  {
+    "text": "Nothing else is changing, but a lot is",
+    "start": 602.0,
+    "duration": 3.12
+  },
+  {
+    "text": "changing on the image. I mean, look at",
+    "start": 603.76,
+    "duration": 2.48
+  },
+  {
+    "text": "like what's happening here. and the",
+    "start": 605.12,
+    "duration": 3.36
+  },
+  {
+    "text": "color chart and then down here exposure",
+    "start": 606.24,
+    "duration": 4.08
+  },
+  {
+    "text": "ramp like look at that. So that all is",
+    "start": 608.48,
+    "duration": 3.44
+  },
+  {
+    "text": "changing but nothing is happening here.",
+    "start": 610.32,
+    "duration": 3.199
+  },
+  {
+    "text": "So it is kind of trippy I got to tell",
+    "start": 611.92,
+    "duration": 4.32
+  },
+  {
+    "text": "you but let me fill you in on what is",
+    "start": 613.519,
+    "duration": 4.32
+  },
+  {
+    "text": "happening with these. What are they",
+    "start": 616.24,
+    "duration": 4.08
+  },
+  {
+    "text": "actually doing if these are like show",
+    "start": 617.839,
+    "duration": 4.161
+  },
+  {
+    "text": "lots or whatever that are sitting",
+    "start": 620.32,
+    "duration": 4.4
+  },
+  {
+    "text": "underneath your overall plugin. So",
+    "start": 622.0,
+    "duration": 5.519
+  },
+  {
+    "text": "cinematic is starting off point and",
+    "start": 624.72,
+    "duration": 5.04
+  },
+  {
+    "text": "basically what it's doing is keeping",
+    "start": 627.519,
+    "duration": 4.161
+  },
+  {
+    "text": "majority of the image pretty neutral and",
+    "start": 629.76,
+    "duration": 4.24
+  },
+  {
+    "text": "we can again see it in the color chart.",
+    "start": 631.68,
+    "duration": 4.56
+  },
+  {
+    "text": "It's keeping everything pretty neutral",
+    "start": 634.0,
+    "duration": 4.24
+  },
+  {
+    "text": "and then it's just like dialing back the",
+    "start": 636.24,
+    "duration": 4.719
+  },
+  {
+    "text": "colors because muted colors, you know,",
+    "start": 638.24,
+    "duration": 5.52
+  },
+  {
+    "text": "equal cinematic like not in my",
+    "start": 640.959,
+    "duration": 5.681
+  },
+  {
+    "text": "necessarily my world but in in general.",
+    "start": 643.76,
+    "duration": 4.4
+  },
+  {
+    "text": "So then it's doing a little bit of that",
+    "start": 646.64,
+    "duration": 3.04
+  },
+  {
+    "text": "and then it's also doing something",
+    "start": 648.16,
+    "duration": 3.359
+  },
+  {
+    "text": "interesting. So it's adding a little bit",
+    "start": 649.68,
+    "duration": 5.04
+  },
+  {
+    "text": "of warmth up top. Okay, let's go here.",
+    "start": 651.519,
+    "duration": 5.601
+  },
+  {
+    "text": "It's adding a little bit of warmth up",
+    "start": 654.72,
+    "duration": 4.32
+  },
+  {
+    "text": "top. I mean, why don't we just like look",
+    "start": 657.12,
+    "duration": 4.8
+  },
+  {
+    "text": "at our charts? So",
+    "start": 659.04,
+    "duration": 5.84
+  },
+  {
+    "text": "warmth is going up top. And then cooler",
+    "start": 661.92,
+    "duration": 5.68
+  },
+  {
+    "text": "tones down below, right? It's cooling it",
+    "start": 664.88,
+    "duration": 4.56
+  },
+  {
+    "text": "off like a little bit like let's see",
+    "start": 667.6,
+    "duration": 4.56
+  },
+  {
+    "text": "that. You see? So this is totally",
+    "start": 669.44,
+    "duration": 5.68
+  },
+  {
+    "text": "neutral and then it cools it off just a",
+    "start": 672.16,
+    "duration": 6.32
+  },
+  {
+    "text": "hint a kiss. Okay. Up top",
+    "start": 675.12,
+    "duration": 5.36
+  },
+  {
+    "text": "neutral",
+    "start": 678.48,
+    "duration": 4.16
+  },
+  {
+    "text": "just a hint of yellow. Just a little bit",
+    "start": 680.48,
+    "duration": 3.84
+  },
+  {
+    "text": "of warmth. So that's cinematic. All",
+    "start": 682.64,
+    "duration": 3.6
+  },
+  {
+    "text": "right. It's okay. I mean it's not my",
+    "start": 684.32,
+    "duration": 5.28
+  },
+  {
+    "text": "favorite. My favorite is this Rochester.",
+    "start": 686.24,
+    "duration": 6.159
+  },
+  {
+    "text": "This right here is inspired by Kodak. It",
+    "start": 689.6,
+    "duration": 4.72
+  },
+  {
+    "text": "has that Kodak color science cuz like",
+    "start": 692.399,
+    "duration": 4.241
+  },
+  {
+    "text": "start looking at uh the main things skin",
+    "start": 694.32,
+    "duration": 6.24
+  },
+  {
+    "text": "tones the sky and like this right here",
+    "start": 696.64,
+    "duration": 7.28
+  },
+  {
+    "text": "these colors and then if I go before and",
+    "start": 700.56,
+    "duration": 4.959
+  },
+  {
+    "text": "after how they're coming in let's",
+    "start": 703.92,
+    "duration": 2.88
+  },
+  {
+    "text": "actually compare it to cinematic",
+    "start": 705.519,
+    "duration": 3.601
+  },
+  {
+    "text": "cinematic.",
+    "start": 706.8,
+    "duration": 5.039
+  },
+  {
+    "text": "Okay, let's see this. And then we go to",
+    "start": 709.12,
+    "duration": 5.12
+  },
+  {
+    "text": "Rochester and like how it's adding depth",
+    "start": 711.839,
+    "duration": 4.801
+  },
+  {
+    "text": "to the things that actually matter like",
+    "start": 714.24,
+    "duration": 6.32
+  },
+  {
+    "text": "cyan, reds, skin tones pops them and",
+    "start": 716.64,
+    "duration": 5.6
+  },
+  {
+    "text": "then controls everything else. Whereas",
+    "start": 720.56,
+    "duration": 3.36
+  },
+  {
+    "text": "here there's like a lot of other colors",
+    "start": 722.24,
+    "duration": 4.0
+  },
+  {
+    "text": "that are getting a lot of love. But like",
+    "start": 723.92,
+    "duration": 4.24
+  },
+  {
+    "text": "dude, all we care about is this right",
+    "start": 726.24,
+    "duration": 4.24
+  },
+  {
+    "text": "here. That is the real juice. So for me,",
+    "start": 728.16,
+    "duration": 4.96
+  },
+  {
+    "text": "I like this a lot. All right. And then",
+    "start": 730.48,
+    "duration": 5.919
+  },
+  {
+    "text": "Akasaka. Akasaka. I mean, if you guys",
+    "start": 733.12,
+    "duration": 5.04
+  },
+  {
+    "text": "know how to pronounce that, let me know.",
+    "start": 736.399,
+    "duration": 4.321
+  },
+  {
+    "text": "This is uh inspired by Fujifilm color",
+    "start": 738.16,
+    "duration": 5.119
+  },
+  {
+    "text": "science. Okay. Rochester Kodak, you",
+    "start": 740.72,
+    "duration": 4.48
+  },
+  {
+    "text": "know, little bit warmer up top still",
+    "start": 743.279,
+    "duration": 3.761
+  },
+  {
+    "text": "like look at the sky and then the skin",
+    "start": 745.2,
+    "duration": 4.0
+  },
+  {
+    "text": "tones get a lot of love. Whereas",
+    "start": 747.04,
+    "duration": 5.2
+  },
+  {
+    "text": "Fujifilm focuses a lot on that cyan up",
+    "start": 749.2,
+    "duration": 5.52
+  },
+  {
+    "text": "top and creates like and the greens and",
+    "start": 752.24,
+    "duration": 4.88
+  },
+  {
+    "text": "then it just kind of like just leans the",
+    "start": 754.72,
+    "duration": 4.799
+  },
+  {
+    "text": "skin tones toward like yellow uh more",
+    "start": 757.12,
+    "duration": 4.32
+  },
+  {
+    "text": "than orange. So that's the difference",
+    "start": 759.519,
+    "duration": 4.081
+  },
+  {
+    "text": "between the two. Again, we can just see",
+    "start": 761.44,
+    "duration": 4.639
+  },
+  {
+    "text": "it right here. So Rochester, right? Like",
+    "start": 763.6,
+    "duration": 4.64
+  },
+  {
+    "text": "look at the blues. Uh opens it up a",
+    "start": 766.079,
+    "duration": 4.0
+  },
+  {
+    "text": "little bit and then this tightens it up",
+    "start": 768.24,
+    "duration": 4.48
+  },
+  {
+    "text": "quite a bit. Okay. Look at the skin",
+    "start": 770.079,
+    "duration": 4.961
+  },
+  {
+    "text": "tones here. Like they're breathing and",
+    "start": 772.72,
+    "duration": 4.32
+  },
+  {
+    "text": "then it just tightens up that too. So",
+    "start": 775.04,
+    "duration": 4.479
+  },
+  {
+    "text": "totally up to you. For me it's",
+    "start": 777.04,
+    "duration": 5.28
+  },
+  {
+    "text": "Rochester. Let's look at elated. Elated",
+    "start": 779.519,
+    "duration": 4.161
+  },
+  {
+    "text": "is just like everything is kind of",
+    "start": 782.32,
+    "duration": 3.68
+  },
+  {
+    "text": "lifted. And now this one is not based",
+    "start": 783.68,
+    "duration": 4.48
+  },
+  {
+    "text": "off of Kodak or Fujifilm. So then I'm",
+    "start": 786.0,
+    "duration": 4.32
+  },
+  {
+    "text": "out. Like I I'm I'm not really buying",
+    "start": 788.16,
+    "duration": 4.479
+  },
+  {
+    "text": "it. And it's just uh I mean what is",
+    "start": 790.32,
+    "duration": 4.48
+  },
+  {
+    "text": "that? Like I I don't know. I I I think",
+    "start": 792.639,
+    "duration": 4.081
+  },
+  {
+    "text": "it's not that great. Vintage is really",
+    "start": 794.8,
+    "duration": 4.719
+  },
+  {
+    "text": "good. Vintage I like because I feel like",
+    "start": 796.72,
+    "duration": 4.72
+  },
+  {
+    "text": "there's a lot of like right stuff",
+    "start": 799.519,
+    "duration": 3.841
+  },
+  {
+    "text": "happening here to be honest with you.",
+    "start": 801.44,
+    "duration": 4.0
+  },
+  {
+    "text": "Like these like green highlights like",
+    "start": 803.36,
+    "duration": 4.32
+  },
+  {
+    "text": "look at this right like stay right here",
+    "start": 805.44,
+    "duration": 4.399
+  },
+  {
+    "text": "and then we do before and then we do",
+    "start": 807.68,
+    "duration": 5.04
+  },
+  {
+    "text": "after. You see this I like that. I like",
+    "start": 809.839,
+    "duration": 6.56
+  },
+  {
+    "text": "that. I like that. Okay. So here neutral",
+    "start": 812.72,
+    "duration": 5.52
+  },
+  {
+    "text": "these three patches. Look at that. And",
+    "start": 816.399,
+    "duration": 3.68
+  },
+  {
+    "text": "then after and it's just bringing in",
+    "start": 818.24,
+    "duration": 4.48
+  },
+  {
+    "text": "like some just a hint of those cooler",
+    "start": 820.079,
+    "duration": 4.961
+  },
+  {
+    "text": "tones. I think it's kind of cool, man.",
+    "start": 822.72,
+    "duration": 4.32
+  },
+  {
+    "text": "Like, okay, so let's go here before and",
+    "start": 825.04,
+    "duration": 4.4
+  },
+  {
+    "text": "after. And how like I mean, look at this",
+    "start": 827.04,
+    "duration": 4.239
+  },
+  {
+    "text": "right here",
+    "start": 829.44,
+    "duration": 3.76
+  },
+  {
+    "text": "and how it just pulled it back. And then",
+    "start": 831.279,
+    "duration": 3.601
+  },
+  {
+    "text": "once again, we can we can kind of meet",
+    "start": 833.2,
+    "duration": 3.92
+  },
+  {
+    "text": "in the middle if we want to. But dude,",
+    "start": 834.88,
+    "duration": 4.0
+  },
+  {
+    "text": "vintage is kind of cool, but that's not",
+    "start": 837.12,
+    "duration": 3.76
+  },
+  {
+    "text": "what we're going for here because",
+    "start": 838.88,
+    "duration": 4.72
+  },
+  {
+    "text": "remember, clean, crisp look. Like, I",
+    "start": 840.88,
+    "duration": 4.16
+  },
+  {
+    "text": "want to put you there. I want to put",
+    "start": 843.6,
+    "duration": 3.28
+  },
+  {
+    "text": "myself there. We want to go there. So,",
+    "start": 845.04,
+    "duration": 3.84
+  },
+  {
+    "text": "Rochester is what we're going to pick",
+    "start": 846.88,
+    "duration": 4.48
+  },
+  {
+    "text": "for this. Okay. Oh, the sky is looking",
+    "start": 848.88,
+    "duration": 4.0
+  },
+  {
+    "text": "great. Like look at how the clouds just",
+    "start": 851.36,
+    "duration": 3.279
+  },
+  {
+    "text": "popped. Like all of a sudden it just",
+    "start": 852.88,
+    "duration": 3.68
+  },
+  {
+    "text": "turned into a threedimensional image. I",
+    "start": 854.639,
+    "duration": 4.161
+  },
+  {
+    "text": "like it. I like it. Okay. So this is",
+    "start": 856.56,
+    "duration": 4.639
+  },
+  {
+    "text": "what we're going to do here. So again,",
+    "start": 858.8,
+    "duration": 4.56
+  },
+  {
+    "text": "the thing that is just a little bit",
+    "start": 861.199,
+    "duration": 4.561
+  },
+  {
+    "text": "trippy is that you know it is like",
+    "start": 863.36,
+    "duration": 4.159
+  },
+  {
+    "text": "there's there's no option to kind of see",
+    "start": 865.76,
+    "duration": 3.439
+  },
+  {
+    "text": "what is being manipulated so you can",
+    "start": 867.519,
+    "duration": 3.601
+  },
+  {
+    "text": "control it. Like I mean the only slider",
+    "start": 869.199,
+    "duration": 3.76
+  },
+  {
+    "text": "you got is like on and off and in",
+    "start": 871.12,
+    "duration": 5.12
+  },
+  {
+    "text": "between. So I don't know. I've I've just",
+    "start": 872.959,
+    "duration": 5.841
+  },
+  {
+    "text": "never been a fan of like throwing on a L",
+    "start": 876.24,
+    "duration": 3.839
+  },
+  {
+    "text": "and then dialing it back. I've never",
+    "start": 878.8,
+    "duration": 2.88
+  },
+  {
+    "text": "been that guy. I know a lot of people",
+    "start": 880.079,
+    "duration": 3.521
+  },
+  {
+    "text": "are that guy that they will have like",
+    "start": 881.68,
+    "duration": 3.36
+  },
+  {
+    "text": "four different LS going on and they're",
+    "start": 883.6,
+    "duration": 3.039
+  },
+  {
+    "text": "controlling the opacity. I've just never",
+    "start": 885.04,
+    "duration": 4.96
+  },
+  {
+    "text": "done that. So, I mean, if you are into",
+    "start": 886.639,
+    "duration": 4.961
+  },
+  {
+    "text": "that kind of stuff, then this will be a",
+    "start": 890.0,
+    "duration": 3.839
+  },
+  {
+    "text": "no-brainer for you. Okay, let's come",
+    "start": 891.6,
+    "duration": 3.919
+  },
+  {
+    "text": "down. Color settings. So, what's going",
+    "start": 893.839,
+    "duration": 4.641
+  },
+  {
+    "text": "on? Exposure, contrast. Our exposure is",
+    "start": 895.519,
+    "duration": 5.521
+  },
+  {
+    "text": "handled in stops. So, basically, this is",
+    "start": 898.48,
+    "duration": 4.88
+  },
+  {
+    "text": "like in linear, which is great. Uh, so",
+    "start": 901.04,
+    "duration": 4.239
+  },
+  {
+    "text": "that's really good. Your contrast is",
+    "start": 903.36,
+    "duration": 4.56
+  },
+  {
+    "text": "built off of S-curve. So it's like very",
+    "start": 905.279,
+    "duration": 4.8
+  },
+  {
+    "text": "very clean if you want to punch it like",
+    "start": 907.92,
+    "duration": 4.24
+  },
+  {
+    "text": "or if you want to bring it back. And",
+    "start": 910.079,
+    "duration": 3.841
+  },
+  {
+    "text": "then okay another thing that I really",
+    "start": 912.16,
+    "duration": 3.84
+  },
+  {
+    "text": "like once you select a preset up here",
+    "start": 913.92,
+    "duration": 3.68
+  },
+  {
+    "text": "and then you come down here no matter",
+    "start": 916.0,
+    "duration": 3.92
+  },
+  {
+    "text": "where you go and when you like undo it",
+    "start": 917.6,
+    "duration": 4.4
+  },
+  {
+    "text": "it comes to like that value and that's",
+    "start": 919.92,
+    "duration": 3.68
+  },
+  {
+    "text": "kind of cool. It doesn't just default to",
+    "start": 922.0,
+    "duration": 4.0
+  },
+  {
+    "text": "zero or one. So that's really cool.",
+    "start": 923.6,
+    "duration": 4.56
+  },
+  {
+    "text": "Highlights obviously like if you want to",
+    "start": 926.0,
+    "duration": 6.079
+  },
+  {
+    "text": "punch your highlights we can do that.",
+    "start": 928.16,
+    "duration": 5.679
+  },
+  {
+    "text": "And if we want to pull it back we can do",
+    "start": 932.079,
+    "duration": 4.081
+  },
+  {
+    "text": "that. Once again, the better way to just",
+    "start": 933.839,
+    "duration": 4.24
+  },
+  {
+    "text": "look at these is like right here. These",
+    "start": 936.16,
+    "duration": 3.679
+  },
+  {
+    "text": "are all of our highlights, right? So,",
+    "start": 938.079,
+    "duration": 4.401
+  },
+  {
+    "text": "what are we doing? Cranking them up. But",
+    "start": 939.839,
+    "duration": 4.081
+  },
+  {
+    "text": "we're actually opening it up. Like I",
+    "start": 942.48,
+    "duration": 2.88
+  },
+  {
+    "text": "mean, so I mean again, this is why the",
+    "start": 943.92,
+    "duration": 2.8
+  },
+  {
+    "text": "chart is so important because like look",
+    "start": 945.36,
+    "duration": 3.52
+  },
+  {
+    "text": "at this. So when I'm pulling this up,",
+    "start": 946.72,
+    "duration": 4.72
+  },
+  {
+    "text": "right? I'm actually buying more like",
+    "start": 948.88,
+    "duration": 4.319
+  },
+  {
+    "text": "dynamic range. When I'm pulling it down,",
+    "start": 951.44,
+    "duration": 3.12
+  },
+  {
+    "text": "I'm just kind of like choking like",
+    "start": 953.199,
+    "duration": 3.041
+  },
+  {
+    "text": "couple of stops up top. That's another",
+    "start": 954.56,
+    "duration": 3.92
+  },
+  {
+    "text": "topic that I'm going to do a video on.",
+    "start": 956.24,
+    "duration": 4.08
+  },
+  {
+    "text": "Just stay tuned. Maybe like next video",
+    "start": 958.48,
+    "duration": 3.44
+  },
+  {
+    "text": "could be on that. But I think that's",
+    "start": 960.32,
+    "duration": 3.519
+  },
+  {
+    "text": "like a very important topic to to",
+    "start": 961.92,
+    "duration": 4.08
+  },
+  {
+    "text": "discuss, especially with what people do",
+    "start": 963.839,
+    "duration": 4.081
+  },
+  {
+    "text": "when they're creating looks. All right,",
+    "start": 966.0,
+    "duration": 3.759
+  },
+  {
+    "text": "what else is going on? So, let's come",
+    "start": 967.92,
+    "duration": 3.68
+  },
+  {
+    "text": "down. Let's look at the fade. So, fade",
+    "start": 969.759,
+    "duration": 3.52
+  },
+  {
+    "text": "is doing that thing. It's just like",
+    "start": 971.6,
+    "duration": 2.88
+  },
+  {
+    "text": "basically the opposite of what",
+    "start": 973.279,
+    "duration": 2.721
+  },
+  {
+    "text": "highlights is doing. It's compressing",
+    "start": 974.48,
+    "duration": 3.84
+  },
+  {
+    "text": "your uh your shadows and lifting them up",
+    "start": 976.0,
+    "duration": 4.639
+  },
+  {
+    "text": "and and giving you a very much like a",
+    "start": 978.32,
+    "duration": 4.4
+  },
+  {
+    "text": "film contrast if you will on the bottom",
+    "start": 980.639,
+    "duration": 4.0
+  },
+  {
+    "text": "end, right? So, like if we come down, if",
+    "start": 982.72,
+    "duration": 4.16
+  },
+  {
+    "text": "you've ever used like Visco, the the",
+    "start": 984.639,
+    "duration": 4.481
+  },
+  {
+    "text": "photo app, like it has that, right? Like",
+    "start": 986.88,
+    "duration": 3.759
+  },
+  {
+    "text": "it does that. Like look at this. like it",
+    "start": 989.12,
+    "duration": 3.839
+  },
+  {
+    "text": "just makes the the gray or the blacks",
+    "start": 990.639,
+    "duration": 4.481
+  },
+  {
+    "text": "like full-on gray. So, it does that",
+    "start": 992.959,
+    "duration": 4.32
+  },
+  {
+    "text": "thing. Um, you can even see it on the",
+    "start": 995.12,
+    "duration": 4.159
+  },
+  {
+    "text": "top, like the bottom end like what we're",
+    "start": 997.279,
+    "duration": 4.0
+  },
+  {
+    "text": "doing. So, we're kind of like buying",
+    "start": 999.279,
+    "duration": 4.0
+  },
+  {
+    "text": "dynamic range, not going to lie. So, if",
+    "start": 1001.279,
+    "duration": 3.601
+  },
+  {
+    "text": "you go here, like I mean, we bought like",
+    "start": 1003.279,
+    "duration": 3.521
+  },
+  {
+    "text": "a few stops down here. This is actually",
+    "start": 1004.88,
+    "duration": 4.8
+  },
+  {
+    "text": "not bad. So, if I do this, we can just",
+    "start": 1006.8,
+    "duration": 4.64
+  },
+  {
+    "text": "kill it. All right, so that's what we",
+    "start": 1009.68,
+    "duration": 4.079
+  },
+  {
+    "text": "got going on over here. White balance is",
+    "start": 1011.44,
+    "duration": 4.48
+  },
+  {
+    "text": "also in linear. So, this is way better",
+    "start": 1013.759,
+    "duration": 4.481
+  },
+  {
+    "text": "than like what happens here if you uh if",
+    "start": 1015.92,
+    "duration": 5.039
+  },
+  {
+    "text": "you're in your primaries. So, love that.",
+    "start": 1018.24,
+    "duration": 5.2
+  },
+  {
+    "text": "Good job, Blackmagic. Tint is also in",
+    "start": 1020.959,
+    "duration": 4.641
+  },
+  {
+    "text": "linear. Very, very good. Like, look at",
+    "start": 1023.44,
+    "duration": 4.16
+  },
+  {
+    "text": "that. Very realistic. Very usable. Love",
+    "start": 1025.6,
+    "duration": 5.52
+  },
+  {
+    "text": "that. Okay. The holy trinity. This right",
+    "start": 1027.6,
+    "duration": 6.0
+  },
+  {
+    "text": "here, subtractive sat, richness, and",
+    "start": 1031.12,
+    "duration": 6.0
+  },
+  {
+    "text": "bleach bypass. This is where Blackmagic",
+    "start": 1033.6,
+    "duration": 7.599
+  },
+  {
+    "text": "just went off. Okay, this is what you",
+    "start": 1037.12,
+    "duration": 6.719
+  },
+  {
+    "text": "should pay $300 and buy the studio",
+    "start": 1041.199,
+    "duration": 4.801
+  },
+  {
+    "text": "version so you have access to film look",
+    "start": 1043.839,
+    "duration": 4.24
+  },
+  {
+    "text": "creator then using their free version",
+    "start": 1046.0,
+    "duration": 3.84
+  },
+  {
+    "text": "which I'm assuming that look film create",
+    "start": 1048.079,
+    "duration": 3.6
+  },
+  {
+    "text": "or film look creator is not available",
+    "start": 1049.84,
+    "duration": 3.199
+  },
+  {
+    "text": "with the free version I mean you can",
+    "start": 1051.679,
+    "duration": 2.88
+  },
+  {
+    "text": "comment below and correct me if I'm",
+    "start": 1053.039,
+    "duration": 4.401
+  },
+  {
+    "text": "wrong but subtractive sat what is",
+    "start": 1054.559,
+    "duration": 4.561
+  },
+  {
+    "text": "subtractive saturation we hear it all",
+    "start": 1057.44,
+    "duration": 4.16
+  },
+  {
+    "text": "the time subtractive saturation and",
+    "start": 1059.12,
+    "duration": 5.04
+  },
+  {
+    "text": "normal saturation I'm actually going to",
+    "start": 1061.6,
+    "duration": 5.28
+  },
+  {
+    "text": "demonstrate it for you so usually here's",
+    "start": 1064.16,
+    "duration": 4.48
+  },
+  {
+    "text": "our primary saturation And if I just",
+    "start": 1066.88,
+    "duration": 3.76
+  },
+  {
+    "text": "click here and go to 100, crank it all",
+    "start": 1068.64,
+    "duration": 4.0
+  },
+  {
+    "text": "the way, you're going to see something.",
+    "start": 1070.64,
+    "duration": 5.039
+  },
+  {
+    "text": "Okay. So, if I do before and if I do",
+    "start": 1072.64,
+    "duration": 4.64
+  },
+  {
+    "text": "after,",
+    "start": 1075.679,
+    "duration": 3.601
+  },
+  {
+    "text": "what happens is that when it's adding",
+    "start": 1077.28,
+    "duration": 4.96
+  },
+  {
+    "text": "saturation in this in these uh different",
+    "start": 1079.28,
+    "duration": 5.68
+  },
+  {
+    "text": "hues, it's doing it evenly and it's",
+    "start": 1082.24,
+    "duration": 4.48
+  },
+  {
+    "text": "actually expanding them. So, it's",
+    "start": 1084.96,
+    "duration": 4.24
+  },
+  {
+    "text": "bringing up the luminance value of each",
+    "start": 1086.72,
+    "duration": 5.6
+  },
+  {
+    "text": "hue. All right? Each channel. and they",
+    "start": 1089.2,
+    "duration": 5.2
+  },
+  {
+    "text": "just become fluorescent and they just",
+    "start": 1092.32,
+    "duration": 4.479
+  },
+  {
+    "text": "like look super bright which is very",
+    "start": 1094.4,
+    "duration": 5.6
+  },
+  {
+    "text": "unnatural compared to how film respond",
+    "start": 1096.799,
+    "duration": 5.041
+  },
+  {
+    "text": "to saturation. So what we're going to do",
+    "start": 1100.0,
+    "duration": 3.84
+  },
+  {
+    "text": "is this. I'm going to save this version.",
+    "start": 1101.84,
+    "duration": 3.6
+  },
+  {
+    "text": "I'm going to go to a new version. So",
+    "start": 1103.84,
+    "duration": 3.12
+  },
+  {
+    "text": "let's go to this version. I'm going to",
+    "start": 1105.44,
+    "duration": 3.92
+  },
+  {
+    "text": "undo this. And this time I'm going to",
+    "start": 1106.96,
+    "duration": 4.4
+  },
+  {
+    "text": "take our subtractive saturation and I'm",
+    "start": 1109.36,
+    "duration": 4.08
+  },
+  {
+    "text": "going to crank it all the way. And look",
+    "start": 1111.36,
+    "duration": 4.0
+  },
+  {
+    "text": "what just happened. And we can see it on",
+    "start": 1113.44,
+    "duration": 3.76
+  },
+  {
+    "text": "the chart too. Actually let's use the",
+    "start": 1115.36,
+    "duration": 3.76
+  },
+  {
+    "text": "chart to see what's going on. Okay. Look",
+    "start": 1117.2,
+    "duration": 5.28
+  },
+  {
+    "text": "it. Look it. So normal saturation",
+    "start": 1119.12,
+    "duration": 6.559
+  },
+  {
+    "text": "everything goes fluorescent right it",
+    "start": 1122.48,
+    "duration": 5.12
+  },
+  {
+    "text": "brightens everything and that's digital",
+    "start": 1125.679,
+    "duration": 4.801
+  },
+  {
+    "text": "saturation as garbage and now we have",
+    "start": 1127.6,
+    "duration": 4.56
+  },
+  {
+    "text": "subtractive saturation. So what",
+    "start": 1130.48,
+    "duration": 4.96
+  },
+  {
+    "text": "subtractive saturation does is it makes",
+    "start": 1132.16,
+    "duration": 6.72
+  },
+  {
+    "text": "each hue as you pump saturation into it",
+    "start": 1135.44,
+    "duration": 6.08
+  },
+  {
+    "text": "denser instead of brighter. So it's",
+    "start": 1138.88,
+    "duration": 5.52
+  },
+  {
+    "text": "actually doing the opposite subtraction",
+    "start": 1141.52,
+    "duration": 5.68
+  },
+  {
+    "text": "right instead of like adding to it. And",
+    "start": 1144.4,
+    "duration": 4.96
+  },
+  {
+    "text": "that's what's happening here. This is",
+    "start": 1147.2,
+    "duration": 5.92
+  },
+  {
+    "text": "your digital saturation using primaries.",
+    "start": 1149.36,
+    "duration": 6.319
+  },
+  {
+    "text": "This is your subtractive saturation",
+    "start": 1153.12,
+    "duration": 7.439
+  },
+  {
+    "text": "using film look creator. Wow. Wow. They",
+    "start": 1155.679,
+    "duration": 7.12
+  },
+  {
+    "text": "executed it so well. So that's what's",
+    "start": 1160.559,
+    "duration": 5.441
+  },
+  {
+    "text": "happening here. So richness is basically",
+    "start": 1162.799,
+    "duration": 5.921
+  },
+  {
+    "text": "adding density, but listen, adding",
+    "start": 1166.0,
+    "duration": 4.88
+  },
+  {
+    "text": "density to the colors that are already",
+    "start": 1168.72,
+    "duration": 4.16
+  },
+  {
+    "text": "popping. So it's just basically getting",
+    "start": 1170.88,
+    "duration": 4.08
+  },
+  {
+    "text": "into the midtones like where there's",
+    "start": 1172.88,
+    "duration": 3.919
+  },
+  {
+    "text": "already weight and then it's just",
+    "start": 1174.96,
+    "duration": 3.92
+  },
+  {
+    "text": "expanding on that. So, like if you have",
+    "start": 1176.799,
+    "duration": 3.601
+  },
+  {
+    "text": "skin tones, right, like in a shot and",
+    "start": 1178.88,
+    "duration": 2.72
+  },
+  {
+    "text": "they're properly exposed, they're",
+    "start": 1180.4,
+    "duration": 3.68
+  },
+  {
+    "text": "already have like good tone. You take",
+    "start": 1181.6,
+    "duration": 4.16
+  },
+  {
+    "text": "richness and you crank it and all of a",
+    "start": 1184.08,
+    "duration": 4.0
+  },
+  {
+    "text": "sudden the the person pops out of the",
+    "start": 1185.76,
+    "duration": 3.6
+  },
+  {
+    "text": "screen. That's what it does. I mean,",
+    "start": 1188.08,
+    "duration": 2.719
+  },
+  {
+    "text": "let's just try it. Like, look at what",
+    "start": 1189.36,
+    "duration": 3.04
+  },
+  {
+    "text": "it's doing. Like, look at this right",
+    "start": 1190.799,
+    "duration": 5.12
+  },
+  {
+    "text": "here. It's just taking those tones that",
+    "start": 1192.4,
+    "duration": 5.44
+  },
+  {
+    "text": "already have juice and it's just",
+    "start": 1195.919,
+    "duration": 4.241
+  },
+  {
+    "text": "expanding on it. So, Kazzy, how is that",
+    "start": 1197.84,
+    "duration": 3.92
+  },
+  {
+    "text": "different than like subtractive",
+    "start": 1200.16,
+    "duration": 3.84
+  },
+  {
+    "text": "saturation? Subtractive saturation is",
+    "start": 1201.76,
+    "duration": 4.48
+  },
+  {
+    "text": "being applied still to like the whole",
+    "start": 1204.0,
+    "duration": 5.12
+  },
+  {
+    "text": "thing whereas richness is being applied",
+    "start": 1206.24,
+    "duration": 4.96
+  },
+  {
+    "text": "to the middle portion of it and kind of",
+    "start": 1209.12,
+    "duration": 5.439
+  },
+  {
+    "text": "leaving the the desaturated areas and",
+    "start": 1211.2,
+    "duration": 6.64
+  },
+  {
+    "text": "like the top end kind of as is. So what",
+    "start": 1214.559,
+    "duration": 5.281
+  },
+  {
+    "text": "does that translate to and what why am I",
+    "start": 1217.84,
+    "duration": 3.76
+  },
+  {
+    "text": "calling these three like the holy",
+    "start": 1219.84,
+    "duration": 5.68
+  },
+  {
+    "text": "trinity? Because it is crazy when you",
+    "start": 1221.6,
+    "duration": 6.16
+  },
+  {
+    "text": "create a concoction using all three.",
+    "start": 1225.52,
+    "duration": 4.0
+  },
+  {
+    "text": "We're about to do it right now. Okay.",
+    "start": 1227.76,
+    "duration": 4.08
+  },
+  {
+    "text": "Bleach bypass. This is the process that",
+    "start": 1229.52,
+    "duration": 4.639
+  },
+  {
+    "text": "film process like where you get the",
+    "start": 1231.84,
+    "duration": 5.92
+  },
+  {
+    "text": "silverish highlights into your top end",
+    "start": 1234.159,
+    "duration": 7.201
+  },
+  {
+    "text": "and then as you push it your bottom gets",
+    "start": 1237.76,
+    "duration": 6.48
+  },
+  {
+    "text": "like this punchy punchy contrast",
+    "start": 1241.36,
+    "duration": 4.72
+  },
+  {
+    "text": "injected into your image and like look",
+    "start": 1244.24,
+    "duration": 4.0
+  },
+  {
+    "text": "at this. This is saving private Ryan.",
+    "start": 1246.08,
+    "duration": 5.04
+  },
+  {
+    "text": "This is the movie 7. Like wow. But",
+    "start": 1248.24,
+    "duration": 5.04
+  },
+  {
+    "text": "anytime you do bleach bypass normally",
+    "start": 1251.12,
+    "duration": 4.16
+  },
+  {
+    "text": "you end up with this. And you don't want",
+    "start": 1253.28,
+    "duration": 3.36
+  },
+  {
+    "text": "that because if you think about the",
+    "start": 1255.28,
+    "duration": 3.84
+  },
+  {
+    "text": "movie 7 there was still a lot of film",
+    "start": 1256.64,
+    "duration": 4.399
+  },
+  {
+    "text": "density. There was still a lot of like",
+    "start": 1259.12,
+    "duration": 4.32
+  },
+  {
+    "text": "that pop. Well, this is where this",
+    "start": 1261.039,
+    "duration": 4.801
+  },
+  {
+    "text": "happens. You go to film saturation and",
+    "start": 1263.44,
+    "duration": 5.04
+  },
+  {
+    "text": "you just do that and you bring out some",
+    "start": 1265.84,
+    "duration": 5.44
+  },
+  {
+    "text": "of those areas, right? And now watch.",
+    "start": 1268.48,
+    "duration": 5.12
+  },
+  {
+    "text": "You go to richness and then this is",
+    "start": 1271.28,
+    "duration": 6.0
+  },
+  {
+    "text": "where you get the depth. I mean, look at",
+    "start": 1273.6,
+    "duration": 6.72
+  },
+  {
+    "text": "this right here. The skin tones. How I",
+    "start": 1277.28,
+    "duration": 6.56
+  },
+  {
+    "text": "pulled that. I mean, holy,",
+    "start": 1280.32,
+    "duration": 6.4
+  },
+  {
+    "text": "come on. So, look at this that we just",
+    "start": 1283.84,
+    "duration": 5.12
+  },
+  {
+    "text": "created between the three. This is the",
+    "start": 1286.72,
+    "duration": 4.0
+  },
+  {
+    "text": "concoction. This is how you got to work",
+    "start": 1288.96,
+    "duration": 3.52
+  },
+  {
+    "text": "it. Why was it important? Well, let me",
+    "start": 1290.72,
+    "duration": 3.12
+  },
+  {
+    "text": "show you why it was important. I mean,",
+    "start": 1292.48,
+    "duration": 3.199
+  },
+  {
+    "text": "look at how gunky the sky is looking",
+    "start": 1293.84,
+    "duration": 3.76
+  },
+  {
+    "text": "right now. And then we created this",
+    "start": 1295.679,
+    "duration": 5.041
+  },
+  {
+    "text": "look. And what?",
+    "start": 1297.6,
+    "duration": 4.72
+  },
+  {
+    "text": "Sorry.",
+    "start": 1300.72,
+    "duration": 5.6
+  },
+  {
+    "text": "But what? This is insane, dude. Like",
+    "start": 1302.32,
+    "duration": 6.239
+  },
+  {
+    "text": "this is before, this is after. Dude,",
+    "start": 1306.32,
+    "duration": 5.68
+  },
+  {
+    "text": "I've never seen like a cleaner sky.",
+    "start": 1308.559,
+    "duration": 4.961
+  },
+  {
+    "text": "This is what I'm saying. They cooked",
+    "start": 1312.0,
+    "duration": 5.12
+  },
+  {
+    "text": "with these three parameters. Like,",
+    "start": 1313.52,
+    "duration": 7.279
+  },
+  {
+    "text": "yes. I mean, I have my own plugin and",
+    "start": 1317.12,
+    "duration": 5.52
+  },
+  {
+    "text": "I'm like loving their plugin. It's like",
+    "start": 1320.799,
+    "duration": 4.161
+  },
+  {
+    "text": "I'm cutting sales off of my plugin, but",
+    "start": 1322.64,
+    "duration": 3.519
+  },
+  {
+    "text": "I'm just I mean, I'm going to give",
+    "start": 1324.96,
+    "duration": 3.04
+  },
+  {
+    "text": "flowers where the flowers are due. This",
+    "start": 1326.159,
+    "duration": 3.601
+  },
+  {
+    "text": "is this is good. This is great",
+    "start": 1328.0,
+    "duration": 3.919
+  },
+  {
+    "text": "execution. Okay, so this is where we're",
+    "start": 1329.76,
+    "duration": 5.76
+  },
+  {
+    "text": "at so far. And the image is it's getting",
+    "start": 1331.919,
+    "duration": 5.041
+  },
+  {
+    "text": "it's going there where I want to take",
+    "start": 1335.52,
+    "duration": 3.84
+  },
+  {
+    "text": "it. So now you're understanding why it's",
+    "start": 1336.96,
+    "duration": 5.28
+  },
+  {
+    "text": "so important to know what is it, what",
+    "start": 1339.36,
+    "duration": 6.559
+  },
+  {
+    "text": "does it do, and why should we use it to",
+    "start": 1342.24,
+    "duration": 5.919
+  },
+  {
+    "text": "achieve a certain result. Because if you",
+    "start": 1345.919,
+    "duration": 3.681
+  },
+  {
+    "text": "just have no understanding and you just",
+    "start": 1348.159,
+    "duration": 3.121
+  },
+  {
+    "text": "jump in and start moving these things",
+    "start": 1349.6,
+    "duration": 3.76
+  },
+  {
+    "text": "around, you'll never stumble upon like",
+    "start": 1351.28,
+    "duration": 4.32
+  },
+  {
+    "text": "how to use these three until you have a",
+    "start": 1353.36,
+    "duration": 4.559
+  },
+  {
+    "text": "deeper understanding of like what each",
+    "start": 1355.6,
+    "duration": 5.04
+  },
+  {
+    "text": "one is doing. Now let's get into split",
+    "start": 1357.919,
+    "duration": 5.201
+  },
+  {
+    "text": "tone. So under split tone, we have two",
+    "start": 1360.64,
+    "duration": 4.56
+  },
+  {
+    "text": "modes right here. We have natural and we",
+    "start": 1363.12,
+    "duration": 4.4
+  },
+  {
+    "text": "have strong. Natural is like just what",
+    "start": 1365.2,
+    "duration": 5.28
+  },
+  {
+    "text": "most people are used to. So the idea",
+    "start": 1367.52,
+    "duration": 4.72
+  },
+  {
+    "text": "behind split toning is like, hey, we're",
+    "start": 1370.48,
+    "duration": 3.6
+  },
+  {
+    "text": "we're splitting the tone. Like usually",
+    "start": 1372.24,
+    "duration": 3.919
+  },
+  {
+    "text": "when something is shot on film, you",
+    "start": 1374.08,
+    "duration": 4.079
+  },
+  {
+    "text": "never have like absolutely neutral",
+    "start": 1376.159,
+    "duration": 3.841
+  },
+  {
+    "text": "highlights and shadows. You always have",
+    "start": 1378.159,
+    "duration": 3.841
+  },
+  {
+    "text": "like, you know, some color up top and at",
+    "start": 1380.0,
+    "duration": 3.679
+  },
+  {
+    "text": "the bottom. And that's split toning most",
+    "start": 1382.0,
+    "duration": 4.0
+  },
+  {
+    "text": "of the time. And that's why we just",
+    "start": 1383.679,
+    "duration": 5.281
+  },
+  {
+    "text": "associate film with split toning for",
+    "start": 1386.0,
+    "duration": 5.44
+  },
+  {
+    "text": "that particular reason. So let's just uh",
+    "start": 1388.96,
+    "duration": 4.079
+  },
+  {
+    "text": "to start off, let's just crank it all",
+    "start": 1391.44,
+    "duration": 3.359
+  },
+  {
+    "text": "the way so we can at least start",
+    "start": 1393.039,
+    "duration": 3.281
+  },
+  {
+    "text": "visualizing like what is really",
+    "start": 1394.799,
+    "duration": 3.041
+  },
+  {
+    "text": "happening. So down here, keep an eye",
+    "start": 1396.32,
+    "duration": 3.599
+  },
+  {
+    "text": "right here in the vectorscope. When I",
+    "start": 1397.84,
+    "duration": 4.319
+  },
+  {
+    "text": "take the viewing angle and start moving",
+    "start": 1399.919,
+    "duration": 4.561
+  },
+  {
+    "text": "it around, this is what's telling us",
+    "start": 1402.159,
+    "duration": 3.76
+  },
+  {
+    "text": "what is happening. I mean, we can just",
+    "start": 1404.48,
+    "duration": 3.04
+  },
+  {
+    "text": "come here and like look at what we're",
+    "start": 1405.919,
+    "duration": 3.681
+  },
+  {
+    "text": "doing because the the main thing is",
+    "start": 1407.52,
+    "duration": 4.32
+  },
+  {
+    "text": "going to be this right here. All right,",
+    "start": 1409.6,
+    "duration": 5.12
+  },
+  {
+    "text": "which color are we adding up top? Which",
+    "start": 1411.84,
+    "duration": 4.719
+  },
+  {
+    "text": "color are we adding at the bottom?",
+    "start": 1414.72,
+    "duration": 3.199
+  },
+  {
+    "text": "That's just what's happening. So like",
+    "start": 1416.559,
+    "duration": 2.801
+  },
+  {
+    "text": "look at these angles, right? Like what",
+    "start": 1417.919,
+    "duration": 3.921
+  },
+  {
+    "text": "do we want to do? Do we want to go the",
+    "start": 1419.36,
+    "duration": 5.92
+  },
+  {
+    "text": "clean route? We can go here and then we",
+    "start": 1421.84,
+    "duration": 5.839
+  },
+  {
+    "text": "add this color down here. So see I mean",
+    "start": 1425.28,
+    "duration": 4.0
+  },
+  {
+    "text": "all of a sudden see I didn't even have",
+    "start": 1427.679,
+    "duration": 3.12
+  },
+  {
+    "text": "to look. I was just like paying",
+    "start": 1429.28,
+    "duration": 2.879
+  },
+  {
+    "text": "attention to this. And this is why",
+    "start": 1430.799,
+    "duration": 3.12
+  },
+  {
+    "text": "charts are so important and we ended up",
+    "start": 1432.159,
+    "duration": 4.481
+  },
+  {
+    "text": "with I mean what dude? Like what just",
+    "start": 1433.919,
+    "duration": 5.041
+  },
+  {
+    "text": "happened? You kidding me? Look at this.",
+    "start": 1436.64,
+    "duration": 4.96
+  },
+  {
+    "text": "And we thought this was clean. Like",
+    "start": 1438.96,
+    "duration": 5.04
+  },
+  {
+    "text": "what? And all I was doing was just like",
+    "start": 1441.6,
+    "duration": 4.48
+  },
+  {
+    "text": "paying attention to this. Like I just",
+    "start": 1444.0,
+    "duration": 3.36
+  },
+  {
+    "text": "wanted to get the colors right right",
+    "start": 1446.08,
+    "duration": 2.959
+  },
+  {
+    "text": "here. That's why these things are so",
+    "start": 1447.36,
+    "duration": 4.88
+  },
+  {
+    "text": "important. Okay. So now pivot when are",
+    "start": 1449.039,
+    "duration": 5.921
+  },
+  {
+    "text": "we introducing the seessaw? Where are",
+    "start": 1452.24,
+    "duration": 5.039
+  },
+  {
+    "text": "the warm tones coming in and then the",
+    "start": 1454.96,
+    "duration": 3.839
+  },
+  {
+    "text": "cooler tones? What's the weight",
+    "start": 1457.279,
+    "duration": 3.441
+  },
+  {
+    "text": "distribution like? That's the pivot. So",
+    "start": 1458.799,
+    "duration": 7.36
+  },
+  {
+    "text": "if I am like uh I want to bring in",
+    "start": 1460.72,
+    "duration": 7.199
+  },
+  {
+    "text": "like this. I want to keep it somewhere",
+    "start": 1466.159,
+    "duration": 3.52
+  },
+  {
+    "text": "around here. I'm I'm just like making",
+    "start": 1467.919,
+    "duration": 4.64
+  },
+  {
+    "text": "some you know up. But like we can",
+    "start": 1469.679,
+    "duration": 4.641
+  },
+  {
+    "text": "just like re like I mean I'm just",
+    "start": 1472.559,
+    "duration": 3.12
+  },
+  {
+    "text": "looking at it down here, right? like",
+    "start": 1474.32,
+    "duration": 3.2
+  },
+  {
+    "text": "where do I want to bring this in? So",
+    "start": 1475.679,
+    "duration": 3.681
+  },
+  {
+    "text": "even if I do before I mean it was like",
+    "start": 1477.52,
+    "duration": 3.519
+  },
+  {
+    "text": "basically around where I want it to be.",
+    "start": 1479.36,
+    "duration": 3.439
+  },
+  {
+    "text": "So we're like somewhere somewhere like",
+    "start": 1481.039,
+    "duration": 5.441
+  },
+  {
+    "text": "that. Okay. So protect your neutrals or",
+    "start": 1482.799,
+    "duration": 6.48
+  },
+  {
+    "text": "basically like any like lowsaturated",
+    "start": 1486.48,
+    "duration": 5.12
+  },
+  {
+    "text": "colors is just going to protect them and",
+    "start": 1489.279,
+    "duration": 4.241
+  },
+  {
+    "text": "leave them as is. You might think that's",
+    "start": 1491.6,
+    "duration": 4.4
+  },
+  {
+    "text": "a great idea. Don't do that. Don't do",
+    "start": 1493.52,
+    "duration": 4.32
+  },
+  {
+    "text": "that because if you actually look at",
+    "start": 1496.0,
+    "duration": 4.0
+  },
+  {
+    "text": "what split tone does on a chart like",
+    "start": 1497.84,
+    "duration": 4.24
+  },
+  {
+    "text": "there's a lot of manipulation that is",
+    "start": 1500.0,
+    "duration": 3.6
+  },
+  {
+    "text": "happening and push and pull that is",
+    "start": 1502.08,
+    "duration": 4.64
+  },
+  {
+    "text": "happening by using protect neutrals. You",
+    "start": 1503.6,
+    "duration": 4.72
+  },
+  {
+    "text": "just you're asking for it. You're",
+    "start": 1506.72,
+    "duration": 3.199
+  },
+  {
+    "text": "begging for it. Your image is going to",
+    "start": 1508.32,
+    "duration": 3.28
+  },
+  {
+    "text": "break. So don't do it. I wouldn't",
+    "start": 1509.919,
+    "duration": 3.76
+  },
+  {
+    "text": "recommend it. I would just like let let",
+    "start": 1511.6,
+    "duration": 4.48
+  },
+  {
+    "text": "it seep in. Let it bleed in. That's the",
+    "start": 1513.679,
+    "duration": 4.88
+  },
+  {
+    "text": "that's the nice like envelope that like",
+    "start": 1516.08,
+    "duration": 4.24
+  },
+  {
+    "text": "brings everything together. We kind of",
+    "start": 1518.559,
+    "duration": 5.201
+  },
+  {
+    "text": "want that honestly. So now we can just",
+    "start": 1520.32,
+    "duration": 5.76
+  },
+  {
+    "text": "go under the amount and kind of dial it",
+    "start": 1523.76,
+    "duration": 3.76
+  },
+  {
+    "text": "back like you know where do we want to",
+    "start": 1526.08,
+    "duration": 3.52
+  },
+  {
+    "text": "bring it in because we just wanted to",
+    "start": 1527.52,
+    "duration": 4.72
+  },
+  {
+    "text": "like really just again all these things",
+    "start": 1529.6,
+    "duration": 4.16
+  },
+  {
+    "text": "are just cleaning up the image just",
+    "start": 1532.24,
+    "duration": 4.799
+  },
+  {
+    "text": "taking us there guys like you see",
+    "start": 1533.76,
+    "duration": 5.76
+  },
+  {
+    "text": "understanding it and then just going in",
+    "start": 1537.039,
+    "duration": 4.401
+  },
+  {
+    "text": "and getting it like instead of just like",
+    "start": 1539.52,
+    "duration": 3.519
+  },
+  {
+    "text": "you know trial and error and getting",
+    "start": 1541.44,
+    "duration": 3.2
+  },
+  {
+    "text": "frustrated like oh my god I'm not",
+    "start": 1543.039,
+    "duration": 3.041
+  },
+  {
+    "text": "getting like what I'm looking for. So",
+    "start": 1544.64,
+    "duration": 3.76
+  },
+  {
+    "text": "imagine when I started the tutorial",
+    "start": 1546.08,
+    "duration": 5.04
+  },
+  {
+    "text": "where we were to like where we are now.",
+    "start": 1548.4,
+    "duration": 4.56
+  },
+  {
+    "text": "Um, obviously I'm commentating. I'm",
+    "start": 1551.12,
+    "duration": 3.2
+  },
+  {
+    "text": "taking you through this. Like, but when",
+    "start": 1552.96,
+    "duration": 2.959
+  },
+  {
+    "text": "I personally did this, it took me like,",
+    "start": 1554.32,
+    "duration": 3.68
+  },
+  {
+    "text": "you know, 45 seconds and I was there.",
+    "start": 1555.919,
+    "duration": 3.441
+  },
+  {
+    "text": "So, we're done with this. We're done",
+    "start": 1558.0,
+    "duration": 3.679
+  },
+  {
+    "text": "with split toning. Okay. Now, the rest",
+    "start": 1559.36,
+    "duration": 6.559
+  },
+  {
+    "text": "of it is also done beautifully because",
+    "start": 1561.679,
+    "duration": 5.681
+  },
+  {
+    "text": "look at this. Okay. So, this is our",
+    "start": 1565.919,
+    "duration": 3.36
+  },
+  {
+    "text": "vignette. I can crank it all the way and",
+    "start": 1567.36,
+    "duration": 3.439
+  },
+  {
+    "text": "it's very controlled and that's a good",
+    "start": 1569.279,
+    "duration": 3.121
+  },
+  {
+    "text": "thing. That's not a bad thing. This is",
+    "start": 1570.799,
+    "duration": 4.401
+  },
+  {
+    "text": "like the first time I'm seeing an OFX",
+    "start": 1572.4,
+    "duration": 5.04
+  },
+  {
+    "text": "like where it is controlled. Usually,",
+    "start": 1575.2,
+    "duration": 4.959
+  },
+  {
+    "text": "it's like just too much or not enough.",
+    "start": 1577.44,
+    "duration": 4.56
+  },
+  {
+    "text": "This is like good where it's just like",
+    "start": 1580.159,
+    "duration": 4.0
+  },
+  {
+    "text": "hey we're putting some guard rails",
+    "start": 1582.0,
+    "duration": 3.6
+  },
+  {
+    "text": "around this. Same thing is happening",
+    "start": 1584.159,
+    "duration": 3.361
+  },
+  {
+    "text": "with halation. Like look at this dude.",
+    "start": 1585.6,
+    "duration": 4.079
+  },
+  {
+    "text": "There's guard rails. I mean halation is",
+    "start": 1587.52,
+    "duration": 3.36
+  },
+  {
+    "text": "tell like it's telling you what's",
+    "start": 1589.679,
+    "duration": 2.961
+  },
+  {
+    "text": "happening right here. Right. We can even",
+    "start": 1590.88,
+    "duration": 3.84
+  },
+  {
+    "text": "take the hue and like see this is why",
+    "start": 1592.64,
+    "duration": 3.919
+  },
+  {
+    "text": "it's so important. I'm telling you",
+    "start": 1594.72,
+    "duration": 4.4
+  },
+  {
+    "text": "that's why it's so important all of this",
+    "start": 1596.559,
+    "duration": 5.041
+  },
+  {
+    "text": "right. It's all good. It's all really",
+    "start": 1599.12,
+    "duration": 4.48
+  },
+  {
+    "text": "good. And then we can just like reset",
+    "start": 1601.6,
+    "duration": 4.079
+  },
+  {
+    "text": "it. Reset. Reset. Reset if we just want",
+    "start": 1603.6,
+    "duration": 4.64
+  },
+  {
+    "text": "to kind of like let it do its thing. So",
+    "start": 1605.679,
+    "duration": 4.721
+  },
+  {
+    "text": "we can just like leave it there. Okay.",
+    "start": 1608.24,
+    "duration": 4.88
+  },
+  {
+    "text": "So we have hation vignette bloom. Bloom",
+    "start": 1610.4,
+    "duration": 4.399
+  },
+  {
+    "text": "is just such a good thing to have",
+    "start": 1613.12,
+    "duration": 4.559
+  },
+  {
+    "text": "especially like just giving the image a",
+    "start": 1614.799,
+    "duration": 4.161
+  },
+  {
+    "text": "little bit of a breathing room and",
+    "start": 1617.679,
+    "duration": 3.201
+  },
+  {
+    "text": "opening it up. It it's just so important",
+    "start": 1618.96,
+    "duration": 4.8
+  },
+  {
+    "text": "and especially if we had like lamp or",
+    "start": 1620.88,
+    "duration": 4.399
+  },
+  {
+    "text": "something like that. So you know on this",
+    "start": 1623.76,
+    "duration": 3.279
+  },
+  {
+    "text": "shot it'll probably be just like more",
+    "start": 1625.279,
+    "duration": 4.161
+  },
+  {
+    "text": "useful when we get there. But for here",
+    "start": 1627.039,
+    "duration": 4.081
+  },
+  {
+    "text": "I'll just leave it on default. Super",
+    "start": 1629.44,
+    "duration": 3.599
+  },
+  {
+    "text": "impressed. When you pick a a specific",
+    "start": 1631.12,
+    "duration": 4.559
+  },
+  {
+    "text": "preset up top and you come down it does",
+    "start": 1633.039,
+    "duration": 4.88
+  },
+  {
+    "text": "give you a very good base. So, in this",
+    "start": 1635.679,
+    "duration": 3.761
+  },
+  {
+    "text": "case, we wanted to go for the clean",
+    "start": 1637.919,
+    "duration": 3.041
+  },
+  {
+    "text": "look. So, we started with the right",
+    "start": 1639.44,
+    "duration": 3.599
+  },
+  {
+    "text": "preset and then it kind of set us up for",
+    "start": 1640.96,
+    "duration": 4.0
+  },
+  {
+    "text": "success, and I'm happy about that. I",
+    "start": 1643.039,
+    "duration": 3.52
+  },
+  {
+    "text": "think they did a really good job. In",
+    "start": 1644.96,
+    "duration": 3.76
+  },
+  {
+    "text": "terms of the grain, we're leaving it to",
+    "start": 1646.559,
+    "duration": 5.681
+  },
+  {
+    "text": "60 mm. Okay. So, this is going to help",
+    "start": 1648.72,
+    "duration": 6.24
+  },
+  {
+    "text": "with that clean image because if I go",
+    "start": 1652.24,
+    "duration": 4.96
+  },
+  {
+    "text": "and make it eight, like this is not",
+    "start": 1654.96,
+    "duration": 4.4
+  },
+  {
+    "text": "helping with what we want to do. That is",
+    "start": 1657.2,
+    "duration": 3.599
+  },
+  {
+    "text": "going to happen on a different shot.",
+    "start": 1659.36,
+    "duration": 2.799
+  },
+  {
+    "text": "We're going to try that for sure. So,",
+    "start": 1660.799,
+    "duration": 2.721
+  },
+  {
+    "text": "for this one, we're just going to leave",
+    "start": 1662.159,
+    "duration": 4.241
+  },
+  {
+    "text": "it at 65 mm. Okay? And this is what we",
+    "start": 1663.52,
+    "duration": 5.279
+  },
+  {
+    "text": "end up with. And this is really good,",
+    "start": 1666.4,
+    "duration": 5.279
+  },
+  {
+    "text": "guys. Oh my god, this is really good.",
+    "start": 1668.799,
+    "duration": 4.961
+  },
+  {
+    "text": "Okay, so what is flicker? Flicker is",
+    "start": 1671.679,
+    "duration": 3.681
+  },
+  {
+    "text": "basically the fluctuation that is",
+    "start": 1673.76,
+    "duration": 3.919
+  },
+  {
+    "text": "happening with the projector lamp when",
+    "start": 1675.36,
+    "duration": 4.0
+  },
+  {
+    "text": "the film is going through it and that's",
+    "start": 1677.679,
+    "duration": 3.6
+  },
+  {
+    "text": "what creates that little effect. So like",
+    "start": 1679.36,
+    "duration": 3.52
+  },
+  {
+    "text": "for us, we're just going to leave it to",
+    "start": 1681.279,
+    "duration": 3.201
+  },
+  {
+    "text": "like the default that they have, which",
+    "start": 1682.88,
+    "duration": 3.6
+  },
+  {
+    "text": "is going to be very much dialed back.",
+    "start": 1684.48,
+    "duration": 4.319
+  },
+  {
+    "text": "Gate weave is like when the film is",
+    "start": 1686.48,
+    "duration": 4.319
+  },
+  {
+    "text": "actually going through what is the",
+    "start": 1688.799,
+    "duration": 3.441
+  },
+  {
+    "text": "housing called like when it's going",
+    "start": 1690.799,
+    "duration": 3.6
+  },
+  {
+    "text": "through it inside the projector moving",
+    "start": 1692.24,
+    "duration": 4.159
+  },
+  {
+    "text": "up and down a little bit and that's what",
+    "start": 1694.399,
+    "duration": 3.601
+  },
+  {
+    "text": "you're feeling here. So if we like",
+    "start": 1696.399,
+    "duration": 3.361
+  },
+  {
+    "text": "really turn up the amount we should be",
+    "start": 1698.0,
+    "duration": 3.84
+  },
+  {
+    "text": "able to see it a little bit more. I had",
+    "start": 1699.76,
+    "duration": 4.799
+  },
+  {
+    "text": "to take a break. My camera overheated",
+    "start": 1701.84,
+    "duration": 4.88
+  },
+  {
+    "text": "man. Sony just needs to fix this",
+    "start": 1704.559,
+    "duration": 4.801
+  },
+  {
+    "text": "problem. It's so freaking frustrating.",
+    "start": 1706.72,
+    "duration": 5.199
+  },
+  {
+    "text": "All right guys so the last thing here",
+    "start": 1709.36,
+    "duration": 4.88
+  },
+  {
+    "text": "that we want to go through is film gate.",
+    "start": 1711.919,
+    "duration": 4.24
+  },
+  {
+    "text": "This is basically just like different",
+    "start": 1714.24,
+    "duration": 4.64
+  },
+  {
+    "text": "aspect ratios and they're a lot of fun.",
+    "start": 1716.159,
+    "duration": 5.281
+  },
+  {
+    "text": "I'm not gonna lie. Like I just rolled my",
+    "start": 1718.88,
+    "duration": 4.56
+  },
+  {
+    "text": "eyes when I saw that first like this",
+    "start": 1721.44,
+    "duration": 4.719
+  },
+  {
+    "text": "feature, but I'm surprisingly loving it.",
+    "start": 1723.44,
+    "duration": 4.479
+  },
+  {
+    "text": "And look at this. Like how cool is that?",
+    "start": 1726.159,
+    "duration": 3.601
+  },
+  {
+    "text": "Because now we can turn this off and now",
+    "start": 1727.919,
+    "duration": 4.081
+  },
+  {
+    "text": "we're left with this. It's just such a",
+    "start": 1729.76,
+    "duration": 4.0
+  },
+  {
+    "text": "beautiful postcard. And then you can",
+    "start": 1732.0,
+    "duration": 4.159
+  },
+  {
+    "text": "just go there and like uh get rid of",
+    "start": 1733.76,
+    "duration": 5.6
+  },
+  {
+    "text": "enable curvature. So everything is like",
+    "start": 1736.159,
+    "duration": 6.4
+  },
+  {
+    "text": "very like welllaid out and just makes so",
+    "start": 1739.36,
+    "duration": 5.6
+  },
+  {
+    "text": "much sense. So from all of that",
+    "start": 1742.559,
+    "duration": 4.72
+  },
+  {
+    "text": "perspective, I'm I'm very impressed. So",
+    "start": 1744.96,
+    "duration": 4.4
+  },
+  {
+    "text": "let's just say that here um we built",
+    "start": 1747.279,
+    "duration": 4.321
+  },
+  {
+    "text": "this look. This is a super clean look",
+    "start": 1749.36,
+    "duration": 5.12
+  },
+  {
+    "text": "and we're very happy with it. So in this",
+    "start": 1751.6,
+    "duration": 4.4
+  },
+  {
+    "text": "particular case, I don't want to apply",
+    "start": 1754.48,
+    "duration": 3.76
+  },
+  {
+    "text": "this because uh again, we're creating",
+    "start": 1756.0,
+    "duration": 5.2
+  },
+  {
+    "text": "very different u looks. So for this one,",
+    "start": 1758.24,
+    "duration": 5.76
+  },
+  {
+    "text": "this is great. Now let's uh go to this",
+    "start": 1761.2,
+    "duration": 5.12
+  },
+  {
+    "text": "shot. And now we want to do a teal and",
+    "start": 1764.0,
+    "duration": 3.6
+  },
+  {
+    "text": "orange look and we want to do a",
+    "start": 1766.32,
+    "duration": 3.599
+  },
+  {
+    "text": "cinematic look. So let's just uh drop",
+    "start": 1767.6,
+    "duration": 4.799
+  },
+  {
+    "text": "that on again. And first, let's just",
+    "start": 1769.919,
+    "duration": 4.401
+  },
+  {
+    "text": "make sure that it's balanced. So, I see",
+    "start": 1772.399,
+    "duration": 3.76
+  },
+  {
+    "text": "it's a little bit more on the warmer",
+    "start": 1774.32,
+    "duration": 3.2
+  },
+  {
+    "text": "side. So, let's just cool it off a",
+    "start": 1776.159,
+    "duration": 2.561
+  },
+  {
+    "text": "little bit. So, I'm going to do teal,",
+    "start": 1777.52,
+    "duration": 4.399
+  },
+  {
+    "text": "teal, and I'm going to do blue. Blue.",
+    "start": 1778.72,
+    "duration": 5.12
+  },
+  {
+    "text": "So, now we're already see like this is",
+    "start": 1781.919,
+    "duration": 3.921
+  },
+  {
+    "text": "why just a little bit of balancing goes",
+    "start": 1783.84,
+    "duration": 4.4
+  },
+  {
+    "text": "a long way. Like, look at how much uh",
+    "start": 1785.84,
+    "duration": 4.319
+  },
+  {
+    "text": "color depth we created just by doing",
+    "start": 1788.24,
+    "duration": 3.6
+  },
+  {
+    "text": "that. See, before it was just seeping",
+    "start": 1790.159,
+    "duration": 3.441
+  },
+  {
+    "text": "into like this warm tones and we can",
+    "start": 1791.84,
+    "duration": 3.76
+  },
+  {
+    "text": "even see it in our uh waveform. And I'm",
+    "start": 1793.6,
+    "duration": 3.28
+  },
+  {
+    "text": "going to do this so you guys can really",
+    "start": 1795.6,
+    "duration": 3.6
+  },
+  {
+    "text": "see it. And then after, see, like now,",
+    "start": 1796.88,
+    "duration": 4.24
+  },
+  {
+    "text": "like look at this. It just created like",
+    "start": 1799.2,
+    "duration": 3.76
+  },
+  {
+    "text": "so much color depth automatically just",
+    "start": 1801.12,
+    "duration": 4.799
+  },
+  {
+    "text": "by doing simple things. Okay, so now",
+    "start": 1802.96,
+    "duration": 5.04
+  },
+  {
+    "text": "we're done with our balance. Rust looks",
+    "start": 1805.919,
+    "duration": 5.441
+  },
+  {
+    "text": "good. So now we dropped our uh film look",
+    "start": 1808.0,
+    "duration": 6.559
+  },
+  {
+    "text": "creator. Let's undo that. And uh let's",
+    "start": 1811.36,
+    "duration": 7.12
+  },
+  {
+    "text": "go to default 35. Okay. And it gives you",
+    "start": 1814.559,
+    "duration": 6.321
+  },
+  {
+    "text": "this. Um and I like that a little bit",
+    "start": 1818.48,
+    "duration": 4.64
+  },
+  {
+    "text": "more grunge, a little bit more grain. Um",
+    "start": 1820.88,
+    "duration": 3.76
+  },
+  {
+    "text": "I don't necessarily want to do like",
+    "start": 1823.12,
+    "duration": 3.76
+  },
+  {
+    "text": "cinematic cuz uh like I just think it's",
+    "start": 1824.64,
+    "duration": 3.519
+  },
+  {
+    "text": "kind of ugly. So we're going to build",
+    "start": 1826.88,
+    "duration": 3.279
+  },
+  {
+    "text": "off of this. Okay. and then come down",
+    "start": 1828.159,
+    "duration": 3.76
+  },
+  {
+    "text": "here. And this time we actually will",
+    "start": 1830.159,
+    "duration": 4.721
+  },
+  {
+    "text": "choose Akasaka uh the Fujifilm because",
+    "start": 1831.919,
+    "duration": 4.48
+  },
+  {
+    "text": "it's going to have a little bit of like",
+    "start": 1834.88,
+    "duration": 4.159
+  },
+  {
+    "text": "that uh cyan seeping into it and then",
+    "start": 1836.399,
+    "duration": 4.801
+  },
+  {
+    "text": "warmer tones. So it's kind of nice. And",
+    "start": 1839.039,
+    "duration": 3.76
+  },
+  {
+    "text": "then again, let's just do the same",
+    "start": 1841.2,
+    "duration": 3.839
+  },
+  {
+    "text": "thing. Drop this on. And then we're",
+    "start": 1842.799,
+    "duration": 4.24
+  },
+  {
+    "text": "going to turn on our chart so we can see",
+    "start": 1845.039,
+    "duration": 3.841
+  },
+  {
+    "text": "what we're doing. Let's come here and do",
+    "start": 1847.039,
+    "duration": 3.76
+  },
+  {
+    "text": "before and after. Actually, there's one",
+    "start": 1848.88,
+    "duration": 3.84
+  },
+  {
+    "text": "thing that I want to do here. So if I go",
+    "start": 1850.799,
+    "duration": 4.081
+  },
+  {
+    "text": "down here",
+    "start": 1852.72,
+    "duration": 4.319
+  },
+  {
+    "text": "and if I just check this on, it will",
+    "start": 1854.88,
+    "duration": 4.799
+  },
+  {
+    "text": "like give us this right here, which is",
+    "start": 1857.039,
+    "duration": 4.721
+  },
+  {
+    "text": "exactly what we need. So aspect ratio is",
+    "start": 1859.679,
+    "duration": 4.401
+  },
+  {
+    "text": "dialed in now. So let's come here and do",
+    "start": 1861.76,
+    "duration": 4.88
+  },
+  {
+    "text": "before and after. And when we do that,",
+    "start": 1864.08,
+    "duration": 5.199
+  },
+  {
+    "text": "we're seeing the changes that we're",
+    "start": 1866.64,
+    "duration": 4.88
+  },
+  {
+    "text": "making, which is fine. Good start for",
+    "start": 1869.279,
+    "duration": 5.52
+  },
+  {
+    "text": "now, but we want to build more uh into",
+    "start": 1871.52,
+    "duration": 5.44
+  },
+  {
+    "text": "that look that we really want. So we can",
+    "start": 1874.799,
+    "duration": 4.48
+  },
+  {
+    "text": "just leave a lot of these as is. One",
+    "start": 1876.96,
+    "duration": 4.0
+  },
+  {
+    "text": "thing that we can do is we can just go",
+    "start": 1879.279,
+    "duration": 4.081
+  },
+  {
+    "text": "in our tint and we can kind of like add",
+    "start": 1880.96,
+    "duration": 5.68
+  },
+  {
+    "text": "that green right like that uh John Wick",
+    "start": 1883.36,
+    "duration": 5.76
+  },
+  {
+    "text": "right thing going on. Then we can go in",
+    "start": 1886.64,
+    "duration": 4.639
+  },
+  {
+    "text": "our white balance and we can like either",
+    "start": 1889.12,
+    "duration": 4.32
+  },
+  {
+    "text": "warm it up or we can like you know go a",
+    "start": 1891.279,
+    "duration": 5.361
+  },
+  {
+    "text": "little bit more on the transformers teal",
+    "start": 1893.44,
+    "duration": 5.44
+  },
+  {
+    "text": "and orange and you're seeing the kind of",
+    "start": 1896.64,
+    "duration": 3.759
+  },
+  {
+    "text": "personality that we're getting out of",
+    "start": 1898.88,
+    "duration": 3.039
+  },
+  {
+    "text": "this image just by doing that because",
+    "start": 1900.399,
+    "duration": 3.361
+  },
+  {
+    "text": "again they're using the right",
+    "start": 1901.919,
+    "duration": 3.521
+  },
+  {
+    "text": "parameters. This is why we need to know",
+    "start": 1903.76,
+    "duration": 4.399
+  },
+  {
+    "text": "the why like how is it actually set up?",
+    "start": 1905.44,
+    "duration": 6.239
+  },
+  {
+    "text": "I mean why and what is happening under",
+    "start": 1908.159,
+    "duration": 5.841
+  },
+  {
+    "text": "the hood. And the what is the white",
+    "start": 1911.679,
+    "duration": 4.561
+  },
+  {
+    "text": "balance is linear and it's not like your",
+    "start": 1914.0,
+    "duration": 4.24
+  },
+  {
+    "text": "primary white balance. So that's why it",
+    "start": 1916.24,
+    "duration": 3.679
+  },
+  {
+    "text": "is a lot cleaner. I mean like look at",
+    "start": 1918.24,
+    "duration": 3.039
+  },
+  {
+    "text": "what we're doing right here. It's",
+    "start": 1919.919,
+    "duration": 2.88
+  },
+  {
+    "text": "beautiful. And this just happened with",
+    "start": 1921.279,
+    "duration": 3.601
+  },
+  {
+    "text": "temp and tint. We haven't even touched",
+    "start": 1922.799,
+    "duration": 4.88
+  },
+  {
+    "text": "our split toning yet. I mean what? This",
+    "start": 1924.88,
+    "duration": 6.399
+  },
+  {
+    "text": "is clean. This is good. And now what we",
+    "start": 1927.679,
+    "duration": 5.761
+  },
+  {
+    "text": "want to do is jump into our main thing",
+    "start": 1931.279,
+    "duration": 4.961
+  },
+  {
+    "text": "our holy trinity. So here we don't want",
+    "start": 1933.44,
+    "duration": 4.719
+  },
+  {
+    "text": "to do this because we don't necessarily",
+    "start": 1936.24,
+    "duration": 4.4
+  },
+  {
+    "text": "I mean we can do a little bit of it cuz",
+    "start": 1938.159,
+    "duration": 4.321
+  },
+  {
+    "text": "it makes it look so cinematic. Like look",
+    "start": 1940.64,
+    "duration": 3.6
+  },
+  {
+    "text": "at this. It's just making it look so",
+    "start": 1942.48,
+    "duration": 4.72
+  },
+  {
+    "text": "freaking good. And then we can go in our",
+    "start": 1944.24,
+    "duration": 5.679
+  },
+  {
+    "text": "subtractive set and we can push it a",
+    "start": 1947.2,
+    "duration": 4.8
+  },
+  {
+    "text": "little bit. But then richness is like",
+    "start": 1949.919,
+    "duration": 4.561
+  },
+  {
+    "text": "what we want to like really play with.",
+    "start": 1952.0,
+    "duration": 4.88
+  },
+  {
+    "text": "We don't want to overdo it either. So",
+    "start": 1954.48,
+    "duration": 4.4
+  },
+  {
+    "text": "let's uh pull it back a little bit. And",
+    "start": 1956.88,
+    "duration": 4.88
+  },
+  {
+    "text": "then what do we want to do?",
+    "start": 1958.88,
+    "duration": 5.279
+  },
+  {
+    "text": "Keep that somewhere around here. This is",
+    "start": 1961.76,
+    "duration": 4.48
+  },
+  {
+    "text": "a very sophisticated look, guys, what",
+    "start": 1964.159,
+    "duration": 3.441
+  },
+  {
+    "text": "we're creating. I mean, like, look at",
+    "start": 1966.24,
+    "duration": 4.24
+  },
+  {
+    "text": "this. This is really, really good. So,",
+    "start": 1967.6,
+    "duration": 6.079
+  },
+  {
+    "text": "so far so good. Let's go to split tone.",
+    "start": 1970.48,
+    "duration": 5.6
+  },
+  {
+    "text": "Let's turn this on. And there's a couple",
+    "start": 1973.679,
+    "duration": 3.921
+  },
+  {
+    "text": "of things that we can do. Can we try",
+    "start": 1976.08,
+    "duration": 3.439
+  },
+  {
+    "text": "strong and let's just see what happens.",
+    "start": 1977.6,
+    "duration": 3.84
+  },
+  {
+    "text": "So, same again. Same thing. Let's just",
+    "start": 1979.519,
+    "duration": 4.16
+  },
+  {
+    "text": "crank this all the way and start seeing",
+    "start": 1981.44,
+    "duration": 3.52
+  },
+  {
+    "text": "what's really happening. And it's",
+    "start": 1983.679,
+    "duration": 2.961
+  },
+  {
+    "text": "telling us exactly what's happening.",
+    "start": 1984.96,
+    "duration": 3.92
+  },
+  {
+    "text": "Like right here, it's telling us what's",
+    "start": 1986.64,
+    "duration": 5.759
+  },
+  {
+    "text": "happening. So hue angle",
+    "start": 1988.88,
+    "duration": 5.519
+  },
+  {
+    "text": "like this is so funny. If we just want",
+    "start": 1992.399,
+    "duration": 4.88
+  },
+  {
+    "text": "to create like a",
+    "start": 1994.399,
+    "duration": 5.28
+  },
+  {
+    "text": "this is crazy. And then we can just like",
+    "start": 1997.279,
+    "duration": 5.361
+  },
+  {
+    "text": "take this and dial it back and like this",
+    "start": 1999.679,
+    "duration": 5.201
+  },
+  {
+    "text": "is a very very extreme like thing",
+    "start": 2002.64,
+    "duration": 5.44
+  },
+  {
+    "text": "happening here. And even then like I",
+    "start": 2004.88,
+    "duration": 6.399
+  },
+  {
+    "text": "think it's just it's it's not bad. But",
+    "start": 2008.08,
+    "duration": 5.28
+  },
+  {
+    "text": "okay, let's go to natural. And maybe",
+    "start": 2011.279,
+    "duration": 3.441
+  },
+  {
+    "text": "natural is going to work a little bit",
+    "start": 2013.36,
+    "duration": 3.199
+  },
+  {
+    "text": "better. Who knows? Let's just give it a",
+    "start": 2014.72,
+    "duration": 4.079
+  },
+  {
+    "text": "shot. So we'll go here. We we'll reset",
+    "start": 2016.559,
+    "duration": 5.6
+  },
+  {
+    "text": "these and we'll crank this to see what's",
+    "start": 2018.799,
+    "duration": 4.801
+  },
+  {
+    "text": "really happening. And then let's start",
+    "start": 2022.159,
+    "duration": 3.281
+  },
+  {
+    "text": "moving this.",
+    "start": 2023.6,
+    "duration": 4.079
+  },
+  {
+    "text": "So basically the default is like the",
+    "start": 2025.44,
+    "duration": 4.64
+  },
+  {
+    "text": "typical transformers teal and orange. So",
+    "start": 2027.679,
+    "duration": 3.84
+  },
+  {
+    "text": "you're seeing like you know the warmer",
+    "start": 2030.08,
+    "duration": 2.88
+  },
+  {
+    "text": "tones right here, right? Like the",
+    "start": 2031.519,
+    "duration": 3.441
+  },
+  {
+    "text": "greenish warm tones and then like the",
+    "start": 2032.96,
+    "duration": 3.68
+  },
+  {
+    "text": "teal down here. So that's what it's",
+    "start": 2034.96,
+    "duration": 3.439
+  },
+  {
+    "text": "giving us. So basically that's what it's",
+    "start": 2036.64,
+    "duration": 3.279
+  },
+  {
+    "text": "doing, right? So like then we just get",
+    "start": 2038.399,
+    "duration": 3.921
+  },
+  {
+    "text": "to pick like how much we want to go. And",
+    "start": 2039.919,
+    "duration": 3.6
+  },
+  {
+    "text": "then if we want to protect our",
+    "start": 2042.32,
+    "duration": 2.88
+  },
+  {
+    "text": "highlights, again like I mentioned, I",
+    "start": 2043.519,
+    "duration": 3.04
+  },
+  {
+    "text": "wouldn't recommend it. So, if I do",
+    "start": 2045.2,
+    "duration": 2.64
+  },
+  {
+    "text": "before and after, I mean, it's doing",
+    "start": 2046.559,
+    "duration": 3.52
+  },
+  {
+    "text": "something. I don't know if I love it, to",
+    "start": 2047.84,
+    "duration": 3.519
+  },
+  {
+    "text": "be honest with you. I think it just kind",
+    "start": 2050.079,
+    "duration": 2.641
+  },
+  {
+    "text": "of makes it look fake, but it does",
+    "start": 2051.359,
+    "duration": 3.52
+  },
+  {
+    "text": "create some separation because then we",
+    "start": 2052.72,
+    "duration": 4.32
+  },
+  {
+    "text": "can actually go back to our uh",
+    "start": 2054.879,
+    "duration": 4.321
+  },
+  {
+    "text": "subtractive sat and we can like dial it",
+    "start": 2057.04,
+    "duration": 4.4
+  },
+  {
+    "text": "back and see",
+    "start": 2059.2,
+    "duration": 6.399
+  },
+  {
+    "text": "if that does anything or even if we want",
+    "start": 2061.44,
+    "duration": 6.88
+  },
+  {
+    "text": "to take our bleach bypass and like crank",
+    "start": 2065.599,
+    "duration": 4.32
+  },
+  {
+    "text": "it a little bit more. So, this is where",
+    "start": 2068.32,
+    "duration": 4.16
+  },
+  {
+    "text": "we're at with these. Now, if we go under",
+    "start": 2069.919,
+    "duration": 5.68
+  },
+  {
+    "text": "halation, uh, we can like really see if",
+    "start": 2072.48,
+    "duration": 5.439
+  },
+  {
+    "text": "it's actually making it's very, very",
+    "start": 2075.599,
+    "duration": 4.48
+  },
+  {
+    "text": "tight. Like the way they did it, I like",
+    "start": 2077.919,
+    "duration": 4.321
+  },
+  {
+    "text": "it. I like it a lot. Like how it's just",
+    "start": 2080.079,
+    "duration": 4.401
+  },
+  {
+    "text": "so freaking tight. And then the bloom",
+    "start": 2082.24,
+    "duration": 3.919
+  },
+  {
+    "text": "effect, right? So, like now we get to",
+    "start": 2084.48,
+    "duration": 3.199
+  },
+  {
+    "text": "see it. We have a bulb right here. So,",
+    "start": 2086.159,
+    "duration": 3.601
+  },
+  {
+    "text": "if I do before and if I do after, but",
+    "start": 2087.679,
+    "duration": 4.081
+  },
+  {
+    "text": "again, very, very subtle, right? Like",
+    "start": 2089.76,
+    "duration": 3.919
+  },
+  {
+    "text": "very, very subtle like how it's doing",
+    "start": 2091.76,
+    "duration": 4.079
+  },
+  {
+    "text": "it. If anything, this is going to tell",
+    "start": 2093.679,
+    "duration": 4.081
+  },
+  {
+    "text": "you more of the story of like what's",
+    "start": 2095.839,
+    "duration": 4.081
+  },
+  {
+    "text": "really h No, my bad. What's really",
+    "start": 2097.76,
+    "duration": 3.839
+  },
+  {
+    "text": "happening with that? Okay. So, we'll",
+    "start": 2099.92,
+    "duration": 4.56
+  },
+  {
+    "text": "just do before. So, it's like when you",
+    "start": 2101.599,
+    "duration": 4.561
+  },
+  {
+    "text": "when you drop it on, it's very very",
+    "start": 2104.48,
+    "duration": 3.599
+  },
+  {
+    "text": "tight. If you want to like open it up,",
+    "start": 2106.16,
+    "duration": 3.679
+  },
+  {
+    "text": "you have to look at it right here to",
+    "start": 2108.079,
+    "duration": 3.28
+  },
+  {
+    "text": "like really know if we're adding",
+    "start": 2109.839,
+    "duration": 4.161
+  },
+  {
+    "text": "anything. In terms of the grain, we can",
+    "start": 2111.359,
+    "duration": 4.801
+  },
+  {
+    "text": "leave it at 35. I think that's totally",
+    "start": 2114.0,
+    "duration": 5.359
+  },
+  {
+    "text": "fine. And then for the film gate, I",
+    "start": 2116.16,
+    "duration": 6.4
+  },
+  {
+    "text": "think we like I want to do uh 2. Yeah, I",
+    "start": 2119.359,
+    "duration": 6.48
+  },
+  {
+    "text": "want to I want to do like 241. And then",
+    "start": 2122.56,
+    "duration": 5.92
+  },
+  {
+    "text": "at that point, uh, that's our, let's",
+    "start": 2125.839,
+    "duration": 4.081
+  },
+  {
+    "text": "just say this is our teal and orange",
+    "start": 2128.48,
+    "duration": 3.28
+  },
+  {
+    "text": "look, right? So that's what we ended up",
+    "start": 2129.92,
+    "duration": 4.4
+  },
+  {
+    "text": "with. So if I just like go from where we",
+    "start": 2131.76,
+    "duration": 4.56
+  },
+  {
+    "text": "started to where we ended up. This is",
+    "start": 2134.32,
+    "duration": 4.16
+  },
+  {
+    "text": "kind of cool. I mean, we we've come a",
+    "start": 2136.32,
+    "duration": 4.4
+  },
+  {
+    "text": "long way, guys. Like look at this. We've",
+    "start": 2138.48,
+    "duration": 4.639
+  },
+  {
+    "text": "done a lot with this shot. So this looks",
+    "start": 2140.72,
+    "duration": 5.2
+  },
+  {
+    "text": "pretty good. All right, final shot.",
+    "start": 2143.119,
+    "duration": 4.641
+  },
+  {
+    "text": "We're going to go here. And this is",
+    "start": 2145.92,
+    "duration": 3.919
+  },
+  {
+    "text": "going to be a postcard. So we actually",
+    "start": 2147.76,
+    "duration": 5.52
+  },
+  {
+    "text": "are going to start uh with the easiest",
+    "start": 2149.839,
+    "duration": 5.121
+  },
+  {
+    "text": "thing that we can do. So, this is",
+    "start": 2153.28,
+    "duration": 3.2
+  },
+  {
+    "text": "already balanced. I'm not touching that.",
+    "start": 2154.96,
+    "duration": 2.8
+  },
+  {
+    "text": "This is great. So, what I'm going to do",
+    "start": 2156.48,
+    "duration": 3.44
+  },
+  {
+    "text": "is this. We're going to drop it on. And",
+    "start": 2157.76,
+    "duration": 4.319
+  },
+  {
+    "text": "I'm just going to do the lazy way. Okay.",
+    "start": 2159.92,
+    "duration": 4.0
+  },
+  {
+    "text": "So, we're going to do nostalgic. And all",
+    "start": 2162.079,
+    "duration": 4.161
+  },
+  {
+    "text": "of a sudden, we got this. So, this is",
+    "start": 2163.92,
+    "duration": 5.76
+  },
+  {
+    "text": "kind of cool. Uh oh, hold on. How is",
+    "start": 2166.24,
+    "duration": 5.52
+  },
+  {
+    "text": "this going to work, bro? Actually don't",
+    "start": 2169.68,
+    "duration": 4.08
+  },
+  {
+    "text": "know it's going to work on that. Yeah.",
+    "start": 2171.76,
+    "duration": 4.0
+  },
+  {
+    "text": "Yeah. Yeah. So, I mean, the best thing",
+    "start": 2173.76,
+    "duration": 3.68
+  },
+  {
+    "text": "about it is like we can just do this.",
+    "start": 2175.76,
+    "duration": 3.359
+  },
+  {
+    "text": "Like, there's so much customizability",
+    "start": 2177.44,
+    "duration": 4.399
+  },
+  {
+    "text": "that we have with um everything in Rapid",
+    "start": 2179.119,
+    "duration": 4.641
+  },
+  {
+    "text": "Grade. So, we can even do something like",
+    "start": 2181.839,
+    "duration": 4.161
+  },
+  {
+    "text": "that, right? Something like this. So,",
+    "start": 2183.76,
+    "duration": 4.16
+  },
+  {
+    "text": "now we have it and let's see what's",
+    "start": 2186.0,
+    "duration": 3.839
+  },
+  {
+    "text": "going on. Let's just kind of go through",
+    "start": 2187.92,
+    "duration": 3.84
+  },
+  {
+    "text": "it. Let's just figure it out like what's",
+    "start": 2189.839,
+    "duration": 3.681
+  },
+  {
+    "text": "happening here. Uh, let's park it",
+    "start": 2191.76,
+    "duration": 4.48
+  },
+  {
+    "text": "somewhere around here. Okay. So, what",
+    "start": 2193.52,
+    "duration": 5.12
+  },
+  {
+    "text": "are you giving me here? Cinematic. I",
+    "start": 2196.24,
+    "duration": 4.16
+  },
+  {
+    "text": "don't know, man. We got to do vintage,",
+    "start": 2198.64,
+    "duration": 3.36
+  },
+  {
+    "text": "bro. What kind of vintage setup was",
+    "start": 2200.4,
+    "duration": 3.04
+  },
+  {
+    "text": "that? Like where they didn't even select",
+    "start": 2202.0,
+    "duration": 3.359
+  },
+  {
+    "text": "vintage. That makes no freaking sense.",
+    "start": 2203.44,
+    "duration": 3.919
+  },
+  {
+    "text": "So, this is like way better in terms of",
+    "start": 2205.359,
+    "duration": 4.881
+  },
+  {
+    "text": "like the white balance. Like, what do we",
+    "start": 2207.359,
+    "duration": 4.72
+  },
+  {
+    "text": "want to do? We can just like leave it to",
+    "start": 2210.24,
+    "duration": 4.64
+  },
+  {
+    "text": "what they had. I just usually picture",
+    "start": 2212.079,
+    "duration": 4.961
+  },
+  {
+    "text": "like a little bit more like this kind of",
+    "start": 2214.88,
+    "duration": 4.56
+  },
+  {
+    "text": "thing. Like this is clean. Like look at",
+    "start": 2217.04,
+    "duration": 5.039
+  },
+  {
+    "text": "my actual my charts. Like they're",
+    "start": 2219.44,
+    "duration": 4.639
+  },
+  {
+    "text": "looking clean. Okay. So what's happening",
+    "start": 2222.079,
+    "duration": 4.801
+  },
+  {
+    "text": "here? Do we want to do something in the",
+    "start": 2224.079,
+    "duration": 4.401
+  },
+  {
+    "text": "Do we want to like Yeah, man. I want to",
+    "start": 2226.88,
+    "duration": 3.36
+  },
+  {
+    "text": "add a little bit of color, dude. So see",
+    "start": 2228.48,
+    "duration": 4.16
+  },
+  {
+    "text": "this is like adding that punch into",
+    "start": 2230.24,
+    "duration": 4.4
+  },
+  {
+    "text": "those tones. Can dial it back a little",
+    "start": 2232.64,
+    "duration": 4.16
+  },
+  {
+    "text": "bit. Bleach bypass. Like do we want",
+    "start": 2234.64,
+    "duration": 3.68
+  },
+  {
+    "text": "bleach bypass? Because what bleach",
+    "start": 2236.8,
+    "duration": 2.96
+  },
+  {
+    "text": "bypass is going to do is that it's going",
+    "start": 2238.32,
+    "duration": 3.519
+  },
+  {
+    "text": "to give us the clean thing that we do",
+    "start": 2239.76,
+    "duration": 4.48
+  },
+  {
+    "text": "need and then still leave some color in",
+    "start": 2241.839,
+    "duration": 4.801
+  },
+  {
+    "text": "there because now the richness. See? So",
+    "start": 2244.24,
+    "duration": 4.24
+  },
+  {
+    "text": "see how it builds on top of each other.",
+    "start": 2246.64,
+    "duration": 3.52
+  },
+  {
+    "text": "We got the clean whites and now we're",
+    "start": 2248.48,
+    "duration": 4.16
+  },
+  {
+    "text": "digging in and like getting more punch",
+    "start": 2250.16,
+    "duration": 4.24
+  },
+  {
+    "text": "out of it cuz before it's just making",
+    "start": 2252.64,
+    "duration": 5.6
+  },
+  {
+    "text": "it's flatlining uh those specific hues.",
+    "start": 2254.4,
+    "duration": 6.4
+  },
+  {
+    "text": "So split toning. Do we Oh, okay. It",
+    "start": 2258.24,
+    "duration": 4.24
+  },
+  {
+    "text": "already applied it. So we didn't even",
+    "start": 2260.8,
+    "duration": 4.0
+  },
+  {
+    "text": "have to worry about that. What just",
+    "start": 2262.48,
+    "duration": 5.2
+  },
+  {
+    "text": "happened? Hold on. split tone.",
+    "start": 2264.8,
+    "duration": 5.52
+  },
+  {
+    "text": "Do we want to go more? We can go more if",
+    "start": 2267.68,
+    "duration": 4.32
+  },
+  {
+    "text": "we want to. So, see, like this was a",
+    "start": 2270.32,
+    "duration": 3.759
+  },
+  {
+    "text": "preset and it was already kind of just",
+    "start": 2272.0,
+    "duration": 4.72
+  },
+  {
+    "text": "like dialed in with these parameters and",
+    "start": 2274.079,
+    "duration": 4.961
+  },
+  {
+    "text": "this is this is super helpful, man. This",
+    "start": 2276.72,
+    "duration": 3.92
+  },
+  {
+    "text": "like super helpful and you can really",
+    "start": 2279.04,
+    "duration": 3.92
+  },
+  {
+    "text": "see what it's doing. So, even if we",
+    "start": 2280.64,
+    "duration": 3.76
+  },
+  {
+    "text": "leave it somewhere around here, which is",
+    "start": 2282.96,
+    "duration": 4.0
+  },
+  {
+    "text": "cool. Okay, I want to show you one thing",
+    "start": 2284.4,
+    "duration": 4.16
+  },
+  {
+    "text": "which is going to blow your mind. I kept",
+    "start": 2286.96,
+    "duration": 4.48
+  },
+  {
+    "text": "it uh until now because this is like",
+    "start": 2288.56,
+    "duration": 4.559
+  },
+  {
+    "text": "super super useful. Okay. So, first of",
+    "start": 2291.44,
+    "duration": 3.52
+  },
+  {
+    "text": "all, like this sort of halation, uh, you",
+    "start": 2293.119,
+    "duration": 3.441
+  },
+  {
+    "text": "guys know I'm not a massive fan of like",
+    "start": 2294.96,
+    "duration": 3.6
+  },
+  {
+    "text": "that kind of halation. It just like I",
+    "start": 2296.56,
+    "duration": 4.32
+  },
+  {
+    "text": "don't know, man. So, for that, I'm going",
+    "start": 2298.56,
+    "duration": 4.72
+  },
+  {
+    "text": "to pull it back a little bit. And then I",
+    "start": 2300.88,
+    "duration": 5.76
+  },
+  {
+    "text": "just like a little bit more red in mine.",
+    "start": 2303.28,
+    "duration": 5.6
+  },
+  {
+    "text": "And then, um, we'll just leave it to",
+    "start": 2306.64,
+    "duration": 4.16
+  },
+  {
+    "text": "that. So, this is like a little bit",
+    "start": 2308.88,
+    "duration": 3.68
+  },
+  {
+    "text": "better. It's still there cuz like this",
+    "start": 2310.8,
+    "duration": 2.96
+  },
+  {
+    "text": "is before, this is after. It's still",
+    "start": 2312.56,
+    "duration": 2.64
+  },
+  {
+    "text": "there, but kind of just dialed back.",
+    "start": 2313.76,
+    "duration": 3.04
+  },
+  {
+    "text": "But, let me just show you something",
+    "start": 2315.2,
+    "duration": 4.32
+  },
+  {
+    "text": "very, very special about Film Look",
+    "start": 2316.8,
+    "duration": 5.76
+  },
+  {
+    "text": "Creator. The grain here is a billion",
+    "start": 2319.52,
+    "duration": 5.36
+  },
+  {
+    "text": "times better than your regular uh grain",
+    "start": 2322.56,
+    "duration": 4.16
+  },
+  {
+    "text": "ox. And I'll I'll prove it to you",
+    "start": 2324.88,
+    "duration": 3.6
+  },
+  {
+    "text": "because this is what happens. As the",
+    "start": 2326.72,
+    "duration": 4.08
+  },
+  {
+    "text": "grain gets thicker, the actual film",
+    "start": 2328.48,
+    "duration": 4.72
+  },
+  {
+    "text": "process adds a little bit of diffusion",
+    "start": 2330.8,
+    "duration": 4.08
+  },
+  {
+    "text": "on the actual negative, right? So",
+    "start": 2333.2,
+    "duration": 3.52
+  },
+  {
+    "text": "there's little bit of diffusion that is",
+    "start": 2334.88,
+    "duration": 4.959
+  },
+  {
+    "text": "being applied which gives it this right",
+    "start": 2336.72,
+    "duration": 5.359
+  },
+  {
+    "text": "here that you're feeling like if I do",
+    "start": 2339.839,
+    "duration": 4.481
+  },
+  {
+    "text": "before and how like sharp everything is",
+    "start": 2342.079,
+    "duration": 4.321
+  },
+  {
+    "text": "and then after and it just becomes",
+    "start": 2344.32,
+    "duration": 4.4
+  },
+  {
+    "text": "pretty soft. Okay, let me show you this",
+    "start": 2346.4,
+    "duration": 8.08
+  },
+  {
+    "text": "65 mm super sharp. Okay, 8 mm like all",
+    "start": 2348.72,
+    "duration": 9.84
+  },
+  {
+    "text": "of a sudden very like soft. That usually",
+    "start": 2354.48,
+    "duration": 6.24
+  },
+  {
+    "text": "does not happen with a regular grain.",
+    "start": 2358.56,
+    "duration": 4.48
+  },
+  {
+    "text": "And that's why normal digital grain",
+    "start": 2360.72,
+    "duration": 4.32
+  },
+  {
+    "text": "sucks. I'm going to do a full video on",
+    "start": 2363.04,
+    "duration": 3.52
+  },
+  {
+    "text": "that and I'm going to prove that to you.",
+    "start": 2365.04,
+    "duration": 4.559
+  },
+  {
+    "text": "Like the difference is night and day.",
+    "start": 2366.56,
+    "duration": 4.72
+  },
+  {
+    "text": "Okay. And this is what's happening.",
+    "start": 2369.599,
+    "duration": 4.401
+  },
+  {
+    "text": "Image defocus. Okay. So this is the",
+    "start": 2371.28,
+    "duration": 4.319
+  },
+  {
+    "text": "softening that's happening. You can even",
+    "start": 2374.0,
+    "duration": 3.68
+  },
+  {
+    "text": "do more softening or less softening or",
+    "start": 2375.599,
+    "duration": 5.841
+  },
+  {
+    "text": "you can just like basically default to",
+    "start": 2377.68,
+    "duration": 6.96
+  },
+  {
+    "text": "16 mm and then it's this much and then",
+    "start": 2381.44,
+    "duration": 5.28
+  },
+  {
+    "text": "that's where we are. Do we want 16 mm or",
+    "start": 2384.64,
+    "duration": 5.04
+  },
+  {
+    "text": "8 mm? We'll just go eight. We'll go",
+    "start": 2386.72,
+    "duration": 5.04
+  },
+  {
+    "text": "really really hardcore. And then what's",
+    "start": 2389.68,
+    "duration": 5.52
+  },
+  {
+    "text": "happening with film gate 35 and super",
+    "start": 2391.76,
+    "duration": 6.16
+  },
+  {
+    "text": "eight? Yeah, we'll do super eight, bro.",
+    "start": 2395.2,
+    "duration": 5.04
+  },
+  {
+    "text": "And then here we can just basically go",
+    "start": 2397.92,
+    "duration": 7.679
+  },
+  {
+    "text": "back and aspect ratio and we can",
+    "start": 2400.24,
+    "duration": 8.0
+  },
+  {
+    "text": "There we go. Okay. So now if we come",
+    "start": 2405.599,
+    "duration": 5.76
+  },
+  {
+    "text": "back and we look at it what we created",
+    "start": 2408.24,
+    "duration": 5.28
+  },
+  {
+    "text": "like look at the colors and everything",
+    "start": 2411.359,
+    "duration": 4.72
+  },
+  {
+    "text": "and like look at oh man look at the sky",
+    "start": 2413.52,
+    "duration": 5.52
+  },
+  {
+    "text": "to this. This looks so believable and",
+    "start": 2416.079,
+    "duration": 4.561
+  },
+  {
+    "text": "good.",
+    "start": 2419.04,
+    "duration": 3.76
+  },
+  {
+    "text": "Look at this.",
+    "start": 2420.64,
+    "duration": 5.84
+  },
+  {
+    "text": "Oh, so you see the",
+    "start": 2422.8,
+    "duration": 6.64
+  },
+  {
+    "text": "look at how good the flicker is, man.",
+    "start": 2426.48,
+    "duration": 6.639
+  },
+  {
+    "text": "This is crazy. Just just like genuinely",
+    "start": 2429.44,
+    "duration": 6.88
+  },
+  {
+    "text": "transform the entire shot. The gate",
+    "start": 2433.119,
+    "duration": 5.921
+  },
+  {
+    "text": "weave is great. This is so good. All",
+    "start": 2436.32,
+    "duration": 4.0
+  },
+  {
+    "text": "right, so now I'm going to go through",
+    "start": 2439.04,
+    "duration": 3.52
+  },
+  {
+    "text": "some of my likes and dislikes of this",
+    "start": 2440.32,
+    "duration": 4.56
+  },
+  {
+    "text": "OFX. So, the first dislike that I have",
+    "start": 2442.56,
+    "duration": 4.72
+  },
+  {
+    "text": "is that it doesn't let you save your",
+    "start": 2444.88,
+    "duration": 5.04
+  },
+  {
+    "text": "presets. it. You can just like look at",
+    "start": 2447.28,
+    "duration": 4.72
+  },
+  {
+    "text": "it and it becomes custom the second you",
+    "start": 2449.92,
+    "duration": 4.24
+  },
+  {
+    "text": "make a change, but you can't save it.",
+    "start": 2452.0,
+    "duration": 3.44
+  },
+  {
+    "text": "And I don't like that. I mean, of",
+    "start": 2454.16,
+    "duration": 3.199
+  },
+  {
+    "text": "course, you can save it. You can save it",
+    "start": 2455.44,
+    "duration": 4.159
+  },
+  {
+    "text": "as like a power grade, but still like",
+    "start": 2457.359,
+    "duration": 4.0
+  },
+  {
+    "text": "there should be an option for you to",
+    "start": 2459.599,
+    "duration": 4.0
+  },
+  {
+    "text": "create your own concoction, name them,",
+    "start": 2461.359,
+    "duration": 4.801
+  },
+  {
+    "text": "and save them. So, you can't really do",
+    "start": 2463.599,
+    "duration": 4.961
+  },
+  {
+    "text": "that. Something that in Rapid Grade you",
+    "start": 2466.16,
+    "duration": 3.919
+  },
+  {
+    "text": "can easily do. You can create your",
+    "start": 2468.56,
+    "duration": 3.2
+  },
+  {
+    "text": "concoction, you can save it, you can",
+    "start": 2470.079,
+    "duration": 3.681
+  },
+  {
+    "text": "manage your looks, and you can put them",
+    "start": 2471.76,
+    "duration": 4.0
+  },
+  {
+    "text": "in your own pack. And then you can just",
+    "start": 2473.76,
+    "duration": 3.68
+  },
+  {
+    "text": "start building your own library. and",
+    "start": 2475.76,
+    "duration": 2.96
+  },
+  {
+    "text": "then when you're working on a certain",
+    "start": 2477.44,
+    "duration": 3.36
+  },
+  {
+    "text": "project, damn, you slap it and you're",
+    "start": 2478.72,
+    "duration": 3.84
+  },
+  {
+    "text": "done. You can't really do that here. So,",
+    "start": 2480.8,
+    "duration": 4.4
+  },
+  {
+    "text": "that is a big drawback. The second",
+    "start": 2482.56,
+    "duration": 4.96
+  },
+  {
+    "text": "dislike that I have with this tool is",
+    "start": 2485.2,
+    "duration": 4.879
+  },
+  {
+    "text": "this right here. Like, I just don't know",
+    "start": 2487.52,
+    "duration": 4.4
+  },
+  {
+    "text": "what is going on on the back end. And",
+    "start": 2490.079,
+    "duration": 3.76
+  },
+  {
+    "text": "that is a very unsettling feeling. I",
+    "start": 2491.92,
+    "duration": 4.32
+  },
+  {
+    "text": "don't like this. Like, I need to know",
+    "start": 2493.839,
+    "duration": 4.401
+  },
+  {
+    "text": "what is that concoction and can I",
+    "start": 2496.24,
+    "duration": 4.48
+  },
+  {
+    "text": "control that? Because if I were to uh",
+    "start": 2498.24,
+    "duration": 4.079
+  },
+  {
+    "text": "take you here, let's just say we undo",
+    "start": 2500.72,
+    "duration": 4.0
+  },
+  {
+    "text": "this and we build a look using rapid",
+    "start": 2502.319,
+    "duration": 4.321
+  },
+  {
+    "text": "grade really fast. If we want to apply",
+    "start": 2504.72,
+    "duration": 4.24
+  },
+  {
+    "text": "our base look, we go to curves and then",
+    "start": 2506.64,
+    "duration": 4.64
+  },
+  {
+    "text": "we click on this film look preset. Very",
+    "start": 2508.96,
+    "duration": 4.08
+  },
+  {
+    "text": "similar to what they're doing, but here",
+    "start": 2511.28,
+    "duration": 3.68
+  },
+  {
+    "text": "we get to see everything. So, which",
+    "start": 2513.04,
+    "duration": 3.84
+  },
+  {
+    "text": "concoction do we want to apply? And we",
+    "start": 2514.96,
+    "duration": 4.96
+  },
+  {
+    "text": "have all the popular ones. 2383, 3513,",
+    "start": 2516.88,
+    "duration": 4.88
+  },
+  {
+    "text": "or we can even like do a concoction",
+    "start": 2519.92,
+    "duration": 4.159
+  },
+  {
+    "text": "between a negative and a film print. So,",
+    "start": 2521.76,
+    "duration": 6.72
+  },
+  {
+    "text": "let's do 5217 plus 2383. Okay, so we did",
+    "start": 2524.079,
+    "duration": 5.76
+  },
+  {
+    "text": "that, right? First, we're seeing",
+    "start": 2528.48,
+    "duration": 2.8
+  },
+  {
+    "text": "everything all the changes that are",
+    "start": 2529.839,
+    "duration": 4.0
+  },
+  {
+    "text": "being made here. Secondly, we have our",
+    "start": 2531.28,
+    "duration": 4.64
+  },
+  {
+    "text": "curves that are telling us how this is",
+    "start": 2533.839,
+    "duration": 4.561
+  },
+  {
+    "text": "being built. And third of all, all these",
+    "start": 2535.92,
+    "duration": 4.399
+  },
+  {
+    "text": "changes are happening right here because",
+    "start": 2538.4,
+    "duration": 3.679
+  },
+  {
+    "text": "now if I go select something else or",
+    "start": 2540.319,
+    "duration": 4.321
+  },
+  {
+    "text": "neutral, like see, it's just all changed",
+    "start": 2542.079,
+    "duration": 5.04
+  },
+  {
+    "text": "back to what it is. And now I can",
+    "start": 2544.64,
+    "duration": 4.719
+  },
+  {
+    "text": "manipulate each one. I can just go in",
+    "start": 2547.119,
+    "duration": 4.401
+  },
+  {
+    "text": "here and I can just do whatever I want.",
+    "start": 2549.359,
+    "duration": 5.841
+  },
+  {
+    "text": "I want a little bit more green in my sky",
+    "start": 2551.52,
+    "duration": 7.36
+  },
+  {
+    "text": "while still keeping the main DNA",
+    "start": 2555.2,
+    "duration": 6.72
+  },
+  {
+    "text": "embedded into my look. still keeping",
+    "start": 2558.88,
+    "duration": 7.28
+  },
+  {
+    "text": "5217 and 2383 but just shifting just a",
+    "start": 2561.92,
+    "duration": 6.159
+  },
+  {
+    "text": "touch. So that is something that's very",
+    "start": 2566.16,
+    "duration": 3.919
+  },
+  {
+    "text": "unique and especially when it comes to",
+    "start": 2568.079,
+    "duration": 3.441
+  },
+  {
+    "text": "look building you need things like that",
+    "start": 2570.079,
+    "duration": 3.76
+  },
+  {
+    "text": "that you just do not get here. So the",
+    "start": 2571.52,
+    "duration": 5.28
+  },
+  {
+    "text": "next negative has to be skin bias. This",
+    "start": 2573.839,
+    "duration": 5.681
+  },
+  {
+    "text": "thing right here breaks so fast. The",
+    "start": 2576.8,
+    "duration": 5.36
+  },
+  {
+    "text": "second you move it around it just cracks",
+    "start": 2579.52,
+    "duration": 4.72
+  },
+  {
+    "text": "and it doesn't really do what it's",
+    "start": 2582.16,
+    "duration": 4.32
+  },
+  {
+    "text": "supposed to do. basically is supposed to",
+    "start": 2584.24,
+    "duration": 4.48
+  },
+  {
+    "text": "give your skin tones like depth when you",
+    "start": 2586.48,
+    "duration": 4.32
+  },
+  {
+    "text": "move it to the left and make it uh it",
+    "start": 2588.72,
+    "duration": 4.16
+  },
+  {
+    "text": "makes it like warmer tones. And we can",
+    "start": 2590.8,
+    "duration": 3.84
+  },
+  {
+    "text": "even see it right here what it's doing.",
+    "start": 2592.88,
+    "duration": 3.6
+  },
+  {
+    "text": "And then we go to the right and it makes",
+    "start": 2594.64,
+    "duration": 3.92
+  },
+  {
+    "text": "it rosy. Like look at this right here",
+    "start": 2596.48,
+    "duration": 4.639
+  },
+  {
+    "text": "how that palette goes from brown to like",
+    "start": 2598.56,
+    "duration": 4.32
+  },
+  {
+    "text": "you know salmon. So that's what it's",
+    "start": 2601.119,
+    "duration": 3.281
+  },
+  {
+    "text": "supposed to do. So it's supposed to like",
+    "start": 2602.88,
+    "duration": 4.719
+  },
+  {
+    "text": "no matter how hardcore your look is here",
+    "start": 2604.4,
+    "duration": 5.439
+  },
+  {
+    "text": "like this is going to like give you what",
+    "start": 2607.599,
+    "duration": 4.24
+  },
+  {
+    "text": "you want with your skin tones. But",
+    "start": 2609.839,
+    "duration": 5.601
+  },
+  {
+    "text": "again, it's not the same control that if",
+    "start": 2611.839,
+    "duration": 6.161
+  },
+  {
+    "text": "I go here back to rapid grade and if we",
+    "start": 2615.44,
+    "duration": 5.2
+  },
+  {
+    "text": "go in our skin tones, we have a whole",
+    "start": 2618.0,
+    "duration": 5.2
+  },
+  {
+    "text": "freaking tab here that gives us all of",
+    "start": 2620.64,
+    "duration": 4.88
+  },
+  {
+    "text": "these controls. So let's just say if I",
+    "start": 2623.2,
+    "duration": 5.119
+  },
+  {
+    "text": "kill this so I have like I can see more.",
+    "start": 2625.52,
+    "duration": 5.12
+  },
+  {
+    "text": "So here we can make our skin tones like",
+    "start": 2628.319,
+    "duration": 4.321
+  },
+  {
+    "text": "look at this. We can make it radiant,",
+    "start": 2630.64,
+    "duration": 4.16
+  },
+  {
+    "text": "control the contrast, right? We can make",
+    "start": 2632.64,
+    "duration": 4.719
+  },
+  {
+    "text": "it rosy if we want. Okay, we can make it",
+    "start": 2634.8,
+    "duration": 4.799
+  },
+  {
+    "text": "even. So like if there is like some sort",
+    "start": 2637.359,
+    "duration": 3.681
+  },
+  {
+    "text": "of discoloration, we can control it",
+    "start": 2639.599,
+    "duration": 3.361
+  },
+  {
+    "text": "there. We can control the saturation of",
+    "start": 2641.04,
+    "duration": 4.319
+  },
+  {
+    "text": "our skin tones just like right here. We",
+    "start": 2642.96,
+    "duration": 4.56
+  },
+  {
+    "text": "can swing the hue of our skin tones",
+    "start": 2645.359,
+    "duration": 4.72
+  },
+  {
+    "text": "separate. Okay? We can add pop to our",
+    "start": 2647.52,
+    "duration": 3.76
+  },
+  {
+    "text": "skin tones. Like look at how",
+    "start": 2650.079,
+    "duration": 3.52
+  },
+  {
+    "text": "three-dimensional that is. So we have so",
+    "start": 2651.28,
+    "duration": 4.88
+  },
+  {
+    "text": "much more control here compared to like",
+    "start": 2653.599,
+    "duration": 3.841
+  },
+  {
+    "text": "what do you want to do with your skin?",
+    "start": 2656.16,
+    "duration": 2.24
+  },
+  {
+    "text": "You want to take it here, you want to",
+    "start": 2657.44,
+    "duration": 2.8
+  },
+  {
+    "text": "take it there. And neither of them are",
+    "start": 2658.4,
+    "duration": 3.679
+  },
+  {
+    "text": "like really good options. So that's a",
+    "start": 2660.24,
+    "duration": 3.76
+  },
+  {
+    "text": "big negative. And then the third",
+    "start": 2662.079,
+    "duration": 5.121
+  },
+  {
+    "text": "negative here has to be split tone. That",
+    "start": 2664.0,
+    "duration": 5.119
+  },
+  {
+    "text": "also cracks very easily. If I didn't",
+    "start": 2667.2,
+    "duration": 4.32
+  },
+  {
+    "text": "have my bleach bypass going on and if I",
+    "start": 2669.119,
+    "duration": 4.641
+  },
+  {
+    "text": "just do this right here and if I just",
+    "start": 2671.52,
+    "duration": 4.24
+  },
+  {
+    "text": "start pushing it, like look at how it's",
+    "start": 2673.76,
+    "duration": 4.16
+  },
+  {
+    "text": "cracking and what it's doing. It becomes",
+    "start": 2675.76,
+    "duration": 4.48
+  },
+  {
+    "text": "so nasty so fast. Like look at this.",
+    "start": 2677.92,
+    "duration": 4.56
+  },
+  {
+    "text": "There's actually not a lot of give to",
+    "start": 2680.24,
+    "duration": 3.839
+  },
+  {
+    "text": "like what you can do. And plus, it's",
+    "start": 2682.48,
+    "duration": 3.92
+  },
+  {
+    "text": "very unintuitive. Like it's just it",
+    "start": 2684.079,
+    "duration": 4.161
+  },
+  {
+    "text": "doesn't really work how your brain will",
+    "start": 2686.4,
+    "duration": 4.08
+  },
+  {
+    "text": "function and you would want it to work.",
+    "start": 2688.24,
+    "duration": 4.8
+  },
+  {
+    "text": "And if I take you here and show you our",
+    "start": 2690.48,
+    "duration": 4.639
+  },
+  {
+    "text": "split tone and if I just go right here",
+    "start": 2693.04,
+    "duration": 3.6
+  },
+  {
+    "text": "and if I turn it on, first of all, you",
+    "start": 2695.119,
+    "duration": 3.521
+  },
+  {
+    "text": "turn it on and like what a huge",
+    "start": 2696.64,
+    "duration": 3.84
+  },
+  {
+    "text": "difference that it's making because it's",
+    "start": 2698.64,
+    "duration": 4.4
+  },
+  {
+    "text": "already dialed in to those colors that",
+    "start": 2700.48,
+    "duration": 4.72
+  },
+  {
+    "text": "one would want for split toning. Just",
+    "start": 2703.04,
+    "duration": 3.76
+  },
+  {
+    "text": "like look at what we're doing right",
+    "start": 2705.2,
+    "duration": 4.0
+  },
+  {
+    "text": "here. And then like just look at how",
+    "start": 2706.8,
+    "duration": 4.72
+  },
+  {
+    "text": "it's set up. So you want more of that",
+    "start": 2709.2,
+    "duration": 4.399
+  },
+  {
+    "text": "separation, go to the right or go to the",
+    "start": 2711.52,
+    "duration": 4.4
+  },
+  {
+    "text": "left if you want less of it. Balance",
+    "start": 2713.599,
+    "duration": 4.401
+  },
+  {
+    "text": "pretty simple. Which way do you want it",
+    "start": 2715.92,
+    "duration": 4.399
+  },
+  {
+    "text": "to lean? When do you want this? like",
+    "start": 2718.0,
+    "duration": 4.96
+  },
+  {
+    "text": "split tone to come in. Okay, just that",
+    "start": 2720.319,
+    "duration": 4.8
+  },
+  {
+    "text": "easy. What do you want your hues to be?",
+    "start": 2722.96,
+    "duration": 3.92
+  },
+  {
+    "text": "And like look at our hues are like",
+    "start": 2725.119,
+    "duration": 4.24
+  },
+  {
+    "text": "swinging in so much more control. And",
+    "start": 2726.88,
+    "duration": 6.08
+  },
+  {
+    "text": "then finally, we can control our skin",
+    "start": 2729.359,
+    "duration": 6.401
+  },
+  {
+    "text": "adjustments right in here. So we can",
+    "start": 2732.96,
+    "duration": 5.359
+  },
+  {
+    "text": "basically swing whatever we want for",
+    "start": 2735.76,
+    "duration": 4.8
+  },
+  {
+    "text": "split toning and then go individually",
+    "start": 2738.319,
+    "duration": 4.481
+  },
+  {
+    "text": "into our skin hue and control it. Not to",
+    "start": 2740.56,
+    "duration": 4.32
+  },
+  {
+    "text": "mention that you have way more controls",
+    "start": 2742.8,
+    "duration": 4.24
+  },
+  {
+    "text": "under custom that are tucked away. And",
+    "start": 2744.88,
+    "duration": 4.16
+  },
+  {
+    "text": "then you can just control how much of",
+    "start": 2747.04,
+    "duration": 4.799
+  },
+  {
+    "text": "that change you want to have on your",
+    "start": 2749.04,
+    "duration": 4.319
+  },
+  {
+    "text": "image. And then we can just like pull it",
+    "start": 2751.839,
+    "duration": 3.041
+  },
+  {
+    "text": "back to something like that. And once",
+    "start": 2753.359,
+    "duration": 3.921
+  },
+  {
+    "text": "again here like it just it's not as",
+    "start": 2754.88,
+    "duration": 4.4
+  },
+  {
+    "text": "simple as that. And then having like no",
+    "start": 2757.28,
+    "duration": 5.52
+  },
+  {
+    "text": "L export option is sort of a trip for me",
+    "start": 2759.28,
+    "duration": 5.68
+  },
+  {
+    "text": "because you're letting us create all of",
+    "start": 2762.8,
+    "duration": 4.48
+  },
+  {
+    "text": "this, right? And you even have like a 3D",
+    "start": 2764.96,
+    "duration": 4.48
+  },
+  {
+    "text": "L compatible thing here that like",
+    "start": 2767.28,
+    "duration": 4.319
+  },
+  {
+    "text": "basically will make sure that we can see",
+    "start": 2769.44,
+    "duration": 4.24
+  },
+  {
+    "text": "what our L will look like because right",
+    "start": 2771.599,
+    "duration": 3.681
+  },
+  {
+    "text": "now there's all these effects applied,",
+    "start": 2773.68,
+    "duration": 2.88
+  },
+  {
+    "text": "right? Like so let's just say if I",
+    "start": 2775.28,
+    "duration": 3.44
+  },
+  {
+    "text": "change this to 8 mm and it looks like",
+    "start": 2776.56,
+    "duration": 4.24
+  },
+  {
+    "text": "this. Well, if we click on 3D L",
+    "start": 2778.72,
+    "duration": 3.84
+  },
+  {
+    "text": "compatible, it will get rid of it",
+    "start": 2780.8,
+    "duration": 4.4
+  },
+  {
+    "text": "because that is a texturebased effect,",
+    "start": 2782.56,
+    "duration": 4.32
+  },
+  {
+    "text": "right? Spatial effect that is not going",
+    "start": 2785.2,
+    "duration": 3.68
+  },
+  {
+    "text": "to get translated when you export a L.",
+    "start": 2786.88,
+    "duration": 3.76
+  },
+  {
+    "text": "So it's basically removing that, right?",
+    "start": 2788.88,
+    "duration": 3.36
+  },
+  {
+    "text": "But then where's the button to export",
+    "start": 2790.64,
+    "duration": 4.4
+  },
+  {
+    "text": "the L? like we should just have it here.",
+    "start": 2792.24,
+    "duration": 5.28
+  },
+  {
+    "text": "Once again, if we go here, let's say we",
+    "start": 2795.04,
+    "duration": 4.64
+  },
+  {
+    "text": "do all kinds of concoctions and we just",
+    "start": 2797.52,
+    "duration": 4.0
+  },
+  {
+    "text": "build our look. We go all the way down",
+    "start": 2799.68,
+    "duration": 4.72
+  },
+  {
+    "text": "here. Not only we have 33 point L, we",
+    "start": 2801.52,
+    "duration": 5.92
+  },
+  {
+    "text": "have 65 point L. We even have 129 point",
+    "start": 2804.4,
+    "duration": 4.959
+  },
+  {
+    "text": "L. I mean, I've never seen that before.",
+    "start": 2807.44,
+    "duration": 3.84
+  },
+  {
+    "text": "And we have it because there are some",
+    "start": 2809.359,
+    "duration": 3.921
+  },
+  {
+    "text": "crazy users that we have that were",
+    "start": 2811.28,
+    "duration": 3.44
+  },
+  {
+    "text": "building lots and they were breaking.",
+    "start": 2813.28,
+    "duration": 2.72
+  },
+  {
+    "text": "They were building looks and they were",
+    "start": 2814.72,
+    "duration": 4.16
+  },
+  {
+    "text": "cracking. So we had to create this",
+    "start": 2816.0,
+    "duration": 6.96
+  },
+  {
+    "text": "option 129 point L that can handle all",
+    "start": 2818.88,
+    "duration": 6.88
+  },
+  {
+    "text": "the changes that are offered in here. So",
+    "start": 2822.96,
+    "duration": 4.399
+  },
+  {
+    "text": "uh we don't have that option here which",
+    "start": 2825.76,
+    "duration": 3.92
+  },
+  {
+    "text": "is again just like a big L. And in",
+    "start": 2827.359,
+    "duration": 4.161
+  },
+  {
+    "text": "general I feel like for a look",
+    "start": 2829.68,
+    "duration": 4.639
+  },
+  {
+    "text": "development tool you should just have a",
+    "start": 2831.52,
+    "duration": 5.04
+  },
+  {
+    "text": "lot more flexibility to what you can do.",
+    "start": 2834.319,
+    "duration": 5.121
+  },
+  {
+    "text": "And I feel like yes, like I it does",
+    "start": 2836.56,
+    "duration": 4.72
+  },
+  {
+    "text": "things, but it does things in a very",
+    "start": 2839.44,
+    "duration": 3.679
+  },
+  {
+    "text": "straight jacket manner. And like it",
+    "start": 2841.28,
+    "duration": 4.16
+  },
+  {
+    "text": "doesn't really give you a lot of control",
+    "start": 2843.119,
+    "duration": 5.2
+  },
+  {
+    "text": "to like make those granular changes just",
+    "start": 2845.44,
+    "duration": 5.2
+  },
+  {
+    "text": "like how I showed you here. If we go in",
+    "start": 2848.319,
+    "duration": 4.081
+  },
+  {
+    "text": "our curves and if we want to like string",
+    "start": 2850.64,
+    "duration": 4.32
+  },
+  {
+    "text": "some things uh individually and if we",
+    "start": 2852.4,
+    "duration": 4.4
+  },
+  {
+    "text": "want to control it, if I go in my whites",
+    "start": 2854.96,
+    "duration": 3.84
+  },
+  {
+    "text": "and I go, well, I want to just drop my",
+    "start": 2856.8,
+    "duration": 4.0
+  },
+  {
+    "text": "whites, right? Like if I go in my curves",
+    "start": 2858.8,
+    "duration": 3.519
+  },
+  {
+    "text": "and you can like really see how I'm",
+    "start": 2860.8,
+    "duration": 3.279
+  },
+  {
+    "text": "controlling that and I just want to do",
+    "start": 2862.319,
+    "duration": 4.321
+  },
+  {
+    "text": "that and I just want to add, you know,",
+    "start": 2864.079,
+    "duration": 4.641
+  },
+  {
+    "text": "maybe like more of this film look. So I",
+    "start": 2866.64,
+    "duration": 3.92
+  },
+  {
+    "text": "want to add more green in my midtones",
+    "start": 2868.72,
+    "duration": 4.48
+  },
+  {
+    "text": "and then magenta in my shadows. So I",
+    "start": 2870.56,
+    "duration": 4.72
+  },
+  {
+    "text": "just like was able to do that and I have",
+    "start": 2873.2,
+    "duration": 4.32
+  },
+  {
+    "text": "so much granular control and that's just",
+    "start": 2875.28,
+    "duration": 4.64
+  },
+  {
+    "text": "one aspect of it. And then I showed you",
+    "start": 2877.52,
+    "duration": 4.319
+  },
+  {
+    "text": "like my split toning which is another",
+    "start": 2879.92,
+    "duration": 4.159
+  },
+  {
+    "text": "aspect of it. But like okay, we go under",
+    "start": 2881.839,
+    "duration": 4.881
+  },
+  {
+    "text": "sky and now we can control like the like",
+    "start": 2884.079,
+    "duration": 5.04
+  },
+  {
+    "text": "look at this. We can control how much",
+    "start": 2886.72,
+    "duration": 4.08
+  },
+  {
+    "text": "punch we want in our sky. Do we want to",
+    "start": 2889.119,
+    "duration": 3.441
+  },
+  {
+    "text": "saturate it, pull back the saturation?",
+    "start": 2890.8,
+    "duration": 4.08
+  },
+  {
+    "text": "Do we want to add more depth into it? Do",
+    "start": 2892.56,
+    "duration": 3.92
+  },
+  {
+    "text": "we want to swing the hue? Do we want to",
+    "start": 2894.88,
+    "duration": 3.04
+  },
+  {
+    "text": "take it somewhere else? Do we want to",
+    "start": 2896.48,
+    "duration": 3.04
+  },
+  {
+    "text": "add a little bit more contrast or take",
+    "start": 2897.92,
+    "duration": 4.56
+  },
+  {
+    "text": "it away? Like look at all this that we",
+    "start": 2899.52,
+    "duration": 4.96
+  },
+  {
+    "text": "can just do this easily. And we're",
+    "start": 2902.48,
+    "duration": 3.68
+  },
+  {
+    "text": "seeing the difference that is being made",
+    "start": 2904.48,
+    "duration": 3.2
+  },
+  {
+    "text": "right here. Okay, come out of it. Let's",
+    "start": 2906.16,
+    "duration": 3.199
+  },
+  {
+    "text": "go to foliage. What do we want to do",
+    "start": 2907.68,
+    "duration": 4.48
+  },
+  {
+    "text": "here? Like look at this.",
+    "start": 2909.359,
+    "duration": 4.641
+  },
+  {
+    "text": "Okay, do we want to burn this grass?",
+    "start": 2912.16,
+    "duration": 3.52
+  },
+  {
+    "text": "Like we can just burn it and then we can",
+    "start": 2914.0,
+    "duration": 4.0
+  },
+  {
+    "text": "add a lot more depth into it and burn it",
+    "start": 2915.68,
+    "duration": 4.56
+  },
+  {
+    "text": "a little bit more and like keep it",
+    "start": 2918.0,
+    "duration": 4.48
+  },
+  {
+    "text": "somewhere around here. And like look at",
+    "start": 2920.24,
+    "duration": 4.4
+  },
+  {
+    "text": "our color charts how we're getting",
+    "start": 2922.48,
+    "duration": 4.48
+  },
+  {
+    "text": "inside the bones of our look and",
+    "start": 2924.64,
+    "duration": 4.08
+  },
+  {
+    "text": "building that. Like this is like all",
+    "start": 2926.96,
+    "duration": 3.599
+  },
+  {
+    "text": "shot correction. Like look at how big of",
+    "start": 2928.72,
+    "duration": 4.24
+  },
+  {
+    "text": "a change we made just right here. That's",
+    "start": 2930.559,
+    "duration": 4.321
+  },
+  {
+    "text": "something that we just cannot do with",
+    "start": 2932.96,
+    "duration": 3.76
+  },
+  {
+    "text": "film look creator. It's just very",
+    "start": 2934.88,
+    "duration": 4.56
+  },
+  {
+    "text": "restricted. Okay. Right here in our film",
+    "start": 2936.72,
+    "duration": 4.639
+  },
+  {
+    "text": "traits. We can come in here and we can",
+    "start": 2939.44,
+    "duration": 3.679
+  },
+  {
+    "text": "just start doing so much more. We have",
+    "start": 2941.359,
+    "duration": 3.921
+  },
+  {
+    "text": "bleach bypass. We have film grain. But",
+    "start": 2943.119,
+    "duration": 4.321
+  },
+  {
+    "text": "we have film density, right? Like right",
+    "start": 2945.28,
+    "duration": 3.6
+  },
+  {
+    "text": "here. And like look at the change it's",
+    "start": 2947.44,
+    "duration": 3.04
+  },
+  {
+    "text": "going to make. Like look at right here.",
+    "start": 2948.88,
+    "duration": 3.679
+  },
+  {
+    "text": "The kind of change that we're making by",
+    "start": 2950.48,
+    "duration": 4.639
+  },
+  {
+    "text": "pushing these. Okay. Like look at this.",
+    "start": 2952.559,
+    "duration": 5.04
+  },
+  {
+    "text": "It and it's so robust. I'm pushing it so",
+    "start": 2955.119,
+    "duration": 4.641
+  },
+  {
+    "text": "much and it's holding it. It's just it's",
+    "start": 2957.599,
+    "duration": 5.201
+  },
+  {
+    "text": "just locking it in. It's not breaking at",
+    "start": 2959.76,
+    "duration": 5.359
+  },
+  {
+    "text": "all. And then I can take all of this",
+    "start": 2962.8,
+    "duration": 4.24
+  },
+  {
+    "text": "like this now go before and after the",
+    "start": 2965.119,
+    "duration": 4.321
+  },
+  {
+    "text": "kind of freaking change that we made and",
+    "start": 2967.04,
+    "duration": 4.48
+  },
+  {
+    "text": "we can just easily go and export it.",
+    "start": 2969.44,
+    "duration": 4.08
+  },
+  {
+    "text": "Once again, we can just cook it up now,",
+    "start": 2971.52,
+    "duration": 3.76
+  },
+  {
+    "text": "like if that's what we want. And that's",
+    "start": 2973.52,
+    "duration": 4.4
+  },
+  {
+    "text": "just something like that is just lacking",
+    "start": 2975.28,
+    "duration": 4.72
+  },
+  {
+    "text": "with this tool. Like we don't have that",
+    "start": 2977.92,
+    "duration": 4.399
+  },
+  {
+    "text": "many granular controls if we just want",
+    "start": 2980.0,
+    "duration": 4.16
+  },
+  {
+    "text": "to go in and if we want to manipulate",
+    "start": 2982.319,
+    "duration": 4.24
+  },
+  {
+    "text": "like the main main things like skin",
+    "start": 2984.16,
+    "duration": 4.88
+  },
+  {
+    "text": "tones, the foliage, the sky, like these",
+    "start": 2986.559,
+    "duration": 4.961
+  },
+  {
+    "text": "are all very like basic rudimentary",
+    "start": 2989.04,
+    "duration": 5.6
+  },
+  {
+    "text": "things that you need to develop a very",
+    "start": 2991.52,
+    "duration": 5.28
+  },
+  {
+    "text": "sophisticated look. All right, so it's",
+    "start": 2994.64,
+    "duration": 4.32
+  },
+  {
+    "text": "not only all bad stuff. Now we're moving",
+    "start": 2996.8,
+    "duration": 4.08
+  },
+  {
+    "text": "on to the good parts. And first thing",
+    "start": 2998.96,
+    "duration": 3.359
+  },
+  {
+    "text": "that I'm going to say is this right",
+    "start": 3000.88,
+    "duration": 4.16
+  },
+  {
+    "text": "here. They did a really really good job",
+    "start": 3002.319,
+    "duration": 5.121
+  },
+  {
+    "text": "breaking this up. And it it these are",
+    "start": 3005.04,
+    "duration": 4.88
+  },
+  {
+    "text": "genuinely helpful starting points. I",
+    "start": 3007.44,
+    "duration": 5.679
+  },
+  {
+    "text": "mean, you saw default 65 was perfect to",
+    "start": 3009.92,
+    "duration": 5.76
+  },
+  {
+    "text": "create this look. You saw that default",
+    "start": 3013.119,
+    "duration": 5.2
+  },
+  {
+    "text": "35 was perfect to create this look and",
+    "start": 3015.68,
+    "duration": 5.84
+  },
+  {
+    "text": "you saw that nostalgic was perfect to",
+    "start": 3018.319,
+    "duration": 5.441
+  },
+  {
+    "text": "create this look. And this is amazing.",
+    "start": 3021.52,
+    "duration": 5.28
+  },
+  {
+    "text": "This is they did a crazy good job with",
+    "start": 3023.76,
+    "duration": 5.52
+  },
+  {
+    "text": "that. And then the second part, which is",
+    "start": 3026.8,
+    "duration": 4.96
+  },
+  {
+    "text": "my all-time favorite part about this",
+    "start": 3029.28,
+    "duration": 4.559
+  },
+  {
+    "text": "plugin, is this right here, the holy",
+    "start": 3031.76,
+    "duration": 5.2
+  },
+  {
+    "text": "trinity. These three things are just",
+    "start": 3033.839,
+    "duration": 5.921
+  },
+  {
+    "text": "absolutely a killer combo. Like when and",
+    "start": 3036.96,
+    "duration": 4.879
+  },
+  {
+    "text": "you saw how we used it. We wielded that",
+    "start": 3039.76,
+    "duration": 5.12
+  },
+  {
+    "text": "sword in every single look. And that's",
+    "start": 3041.839,
+    "duration": 6.161
+  },
+  {
+    "text": "what gave us like that unique look for",
+    "start": 3044.88,
+    "duration": 5.439
+  },
+  {
+    "text": "each one. And the characteristics of",
+    "start": 3048.0,
+    "duration": 4.72
+  },
+  {
+    "text": "each look is so different. And it's all",
+    "start": 3050.319,
+    "duration": 4.561
+  },
+  {
+    "text": "created with the same tool. And that",
+    "start": 3052.72,
+    "duration": 4.08
+  },
+  {
+    "text": "right there was the main player that",
+    "start": 3054.88,
+    "duration": 4.4
+  },
+  {
+    "text": "made it happen. And now film grain. I",
+    "start": 3056.8,
+    "duration": 4.16
+  },
+  {
+    "text": "already talked about it in this shot.",
+    "start": 3059.28,
+    "duration": 4.4
+  },
+  {
+    "text": "Like how this right here, what the grain",
+    "start": 3060.96,
+    "duration": 5.119
+  },
+  {
+    "text": "is doing, how it's adding that softness,",
+    "start": 3063.68,
+    "duration": 4.399
+  },
+  {
+    "text": "which actually happens to the physical",
+    "start": 3066.079,
+    "duration": 4.401
+  },
+  {
+    "text": "film. And we get to have that here,",
+    "start": 3068.079,
+    "duration": 4.721
+  },
+  {
+    "text": "which was just not available before. Or",
+    "start": 3070.48,
+    "duration": 4.4
+  },
+  {
+    "text": "you had to spend thousands of dollars to",
+    "start": 3072.8,
+    "duration": 3.92
+  },
+  {
+    "text": "actually send your footage out to have",
+    "start": 3074.88,
+    "duration": 5.439
+  },
+  {
+    "text": "the grain applied that looked natural or",
+    "start": 3076.72,
+    "duration": 6.48
+  },
+  {
+    "text": "realistic film grain. And now you can",
+    "start": 3080.319,
+    "duration": 5.441
+  },
+  {
+    "text": "just get that right inside of this",
+    "start": 3083.2,
+    "duration": 4.24
+  },
+  {
+    "text": "plugin. And they did an absolutely",
+    "start": 3085.76,
+    "duration": 4.079
+  },
+  {
+    "text": "killer job. And my last but not least",
+    "start": 3087.44,
+    "duration": 4.639
+  },
+  {
+    "text": "favorite thing about Filmlook Creator is",
+    "start": 3089.839,
+    "duration": 3.921
+  },
+  {
+    "text": "Filmgate. I just thought that this is",
+    "start": 3092.079,
+    "duration": 3.52
+  },
+  {
+    "text": "cringey and this is kind of like a weird",
+    "start": 3093.76,
+    "duration": 3.92
+  },
+  {
+    "text": "thing and who's going to use it? And I'm",
+    "start": 3095.599,
+    "duration": 4.801
+  },
+  {
+    "text": "telling you right now, I am loving it.",
+    "start": 3097.68,
+    "duration": 4.32
+  },
+  {
+    "text": "Like I started playing with it and I'm",
+    "start": 3100.4,
+    "duration": 4.08
+  },
+  {
+    "text": "just like, dude, this is so cool. This",
+    "start": 3102.0,
+    "duration": 4.96
+  },
+  {
+    "text": "is really fun. All right, so what's my",
+    "start": 3104.48,
+    "duration": 6.24
+  },
+  {
+    "text": "verdict then? I say that this is an",
+    "start": 3106.96,
+    "duration": 6.56
+  },
+  {
+    "text": "absolute epic product if you want to",
+    "start": 3110.72,
+    "duration": 5.359
+  },
+  {
+    "text": "create casual content for Instagram",
+    "start": 3113.52,
+    "duration": 5.92
+  },
+  {
+    "text": "stuff and just for the web. It is great.",
+    "start": 3116.079,
+    "duration": 6.081
+  },
+  {
+    "text": "I personally would not use it for the",
+    "start": 3119.44,
+    "duration": 4.8
+  },
+  {
+    "text": "caliber of gigs that I work on for",
+    "start": 3122.16,
+    "duration": 4.08
+  },
+  {
+    "text": "professional work. I will be sticking",
+    "start": 3124.24,
+    "duration": 5.44
+  },
+  {
+    "text": "with Rapid Grade cuz there are just so",
+    "start": 3126.24,
+    "duration": 6.0
+  },
+  {
+    "text": "many more advanced features and how much",
+    "start": 3129.68,
+    "duration": 5.04
+  },
+  {
+    "text": "more sophisticated it is as a product",
+    "start": 3132.24,
+    "duration": 4.96
+  },
+  {
+    "text": "overall compared to Film Look Creator. I",
+    "start": 3134.72,
+    "duration": 4.8
+  },
+  {
+    "text": "feel like there's a lot of beta things",
+    "start": 3137.2,
+    "duration": 4.0
+  },
+  {
+    "text": "that are happening here that just need",
+    "start": 3139.52,
+    "duration": 3.68
+  },
+  {
+    "text": "to work out, which is going to happen",
+    "start": 3141.2,
+    "duration": 4.32
+  },
+  {
+    "text": "obviously with like future updates. But",
+    "start": 3143.2,
+    "duration": 4.08
+  },
+  {
+    "text": "I just think like it's not ready for",
+    "start": 3145.52,
+    "duration": 4.16
+  },
+  {
+    "text": "prime time, at least for me. But",
+    "start": 3147.28,
+    "duration": 4.88
+  },
+  {
+    "text": "regardless of that, now you know how to",
+    "start": 3149.68,
+    "duration": 5.6
+  },
+  {
+    "text": "use film look creator like a pro and get",
+    "start": 3152.16,
+    "duration": 5.36
+  },
+  {
+    "text": "the most out of it cuz ultimately that",
+    "start": 3155.28,
+    "duration": 5.2
+  },
+  {
+    "text": "is the entire idea. This is still way",
+    "start": 3157.52,
+    "duration": 4.72
+  },
+  {
+    "text": "better than building everything from",
+    "start": 3160.48,
+    "duration": 4.4
+  },
+  {
+    "text": "scratch. It really is. So what is it",
+    "start": 3162.24,
+    "duration": 5.359
+  },
+  {
+    "text": "doing? It's taking all the grunt work",
+    "start": 3164.88,
+    "duration": 6.239
+  },
+  {
+    "text": "away from you so you can spend that time",
+    "start": 3167.599,
+    "duration": 6.161
+  },
+  {
+    "text": "focusing on creating art because that's",
+    "start": 3171.119,
+    "duration": 4.72
+  },
+  {
+    "text": "what separates the people that get paid",
+    "start": 3173.76,
+    "duration": 4.559
+  },
+  {
+    "text": "the big bucks and the ones that are",
+    "start": 3175.839,
+    "duration": 4.72
+  },
+  {
+    "text": "afraid that AI will replace them.",
+    "start": 3178.319,
+    "duration": 4.641
+  },
+  {
+    "text": "Because if you are a trends setter, if",
+    "start": 3180.559,
+    "duration": 4.481
+  },
+  {
+    "text": "you are a taste maker, nobody's taking",
+    "start": 3182.96,
+    "duration": 4.0
+  },
+  {
+    "text": "your job. And on that note, make sure to",
+    "start": 3185.04,
+    "duration": 3.44
+  },
+  {
+    "text": "smash the like button, subscribe to the",
+    "start": 3186.96,
+    "duration": 3.359
+  },
+  {
+    "text": "channel, hit the bell icon so you can be",
+    "start": 3188.48,
+    "duration": 3.92
+  },
+  {
+    "text": "notified about our future content. Love",
+    "start": 3190.319,
+    "duration": 5.921
+  },
+  {
+    "text": "you guys. I'll see you in the next one.",
+    "start": 3192.4,
+    "duration": 3.84
+  }
+]

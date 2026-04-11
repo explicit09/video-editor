@@ -1,0 +1,593 @@
+Today I'm going to show you how you can
+edit [music] viral podcast clips in Da
+Vinci Resolve and I'm going to go over a
+in realtime example. I'm going to show
+you how I get the clips and how I
+actually can cut the clips and find the
+clips as well and then most importantly
+how to edit the clips in Da Vinci
+Resolve. So let's hop straight into this
+video and let's get started. All right,
+so the very first thing that I do is I
+literally need to find the podcast clip
+that I want. So I really like this
+Pastor Anthony Mitchell guy and I really
+like his clips. So I literally just
+search for clips for him and I'm going
+to find the clip that I want and I'm
+kind of going to go off of a reference
+from that. So, let's say I want this
+clip right here. Okay. But the thing is
+is this clip is going to be an hour.
+That's the problem with podcasts is
+they're going to be about an hour long.
+Now, this is where my secret sauce comes
+into play. Most people actually don't
+know about this, but this feature is
+hidden in plain sight. So, thank you
+YouTube for this feature. You come down
+to the description and you hit show
+transcript. So, as you can see up here
+in the top right, you're going to have
+transcripts with literal timestamps.
+This is why YouTube is goated. So, I'm
+going to come here, copy every single
+timestamp in this. I'm going to hit
+command C, and I'm going to head over to
+Chad GBT. Now, we're going to type in
+this exact prompt. Find me the best
+clips based off the energy you can
+[music] sense in this podcast.
+Essentially, we're looking for high
+energy clips that are going to reach the
+people and preach the message, which is
+the point of this podcast clip is to
+preach the message to people who's never
+heard the good news of Jesus. Then,
+we're going to say, "Give me
+timestamps." Catchy is literally going
+to give us the best clips and you could
+see. So, look here. Right here, you're
+just going to swipe down. top high
+energy moment clips and it's going to
+give us the time stamps. Right? So then
+we're going to go get those timestamps
+and then we're going to bring it into Da
+Vinci Resolve. I have the clip now in Da
+Vinci Resolve and as you can see he's
+moving around a lot and in this this is
+going to be my example where he's moving
+around podcast will pretty much be
+stationary the whole time but this is
+still going to be a trick. We're going
+to zoom in. We're going to go over to
+the position. We're going to open up AI
+smart refframe and we're going to go to
+a reference point. We are then going to
+reference him as the point and we're
+going to hit auto refframe. Perfect. Now
+you literally already have your clip
+basically done. Um, now we have our clip
+already done and it follows him all
+around. Now we just have to edit it. And
+I already found the good clip. Chad JPT
+already found me the good clip. The only
+other thing that I will will do most
+likely is I'm going to come in here and
+I'm going to make a new node on the
+color corrector page. And this is to get
+the virality um kind of like look. We're
+going to look for viral. We're going to
+look for film look creator. And we're
+going to apply that onto our image. And
+we're going to go to default 35 mm. And
+we're going to turn the color blend
+down. And then we're going to turn the
+film look blend down. Then we're going
+to come to all of these effects. We're
+going to turn off the Well, we could
+keep vignetting just depending on how
+you're what it looks like. But for mine,
+I'm going to turn off the hueization
+off. I'm going to keep the bloom on. I'm
+just going to turn it down just a little
+bit. This is the big one. Grain. We're
+going to crank this puppy up to make it
+look really crispy because this is what
+this is what all the people are doing
+right now. I'm going to probably pull it
+up to like 0.6 no troll. And when you
+play this through, it has this virality.
+Now, if you want it to get even more in
+depth, you can go to the other node and
+we can come to the colors wheel and we
+can just turn the saturation down. That
+way, when we play this through, now it's
+like really has that viral look. And if
+you guys know what I'm talking about,
+you guys know what I'm talking about.
+So, guys, I actually ended up finding a
+really fire audio. And so, I will be
+linking this audio down below. Um, you
+can find free assets down below. I'll be
+linking this audio. But anyways, it
+really goes good with the video. So, if
+we play this
+his perfectous.
+>> And then we're going to bring in the
+beat right when he does that. So like
+you got to just like really come with
+the good part. So like for me like I'm
+really trying to figure out the parts.
+So like this goes good together right
+here. Boom.
+Then it stops.
+>> So also like the reason why I like
+hyperfixating on the audio first is
+because if without a good audio like
+you're not going to get a any sort of a
+video to reach souls, right? So, my I'm
+going to add some risers in, which you
+guys can check my risers down below. I
+have a a nice asset pack that you guys
+can check out. I'm going to add like
+just a bunch of risers that way it
+doesn't sound off. Um, and we're going
+to see what it sounds like. I added
+three different risers and then
+obviously not overpowering them. Now
+that we have the audio complete, we need
+to get the captions going. So, I'm going
+to show you guys exactly how I do my
+captions and how I actually speed up my
+workflow. That way, I can bang these
+clips out really easily. So the very
+first the very first thing I'm going to
+do is actually add a zoom out. So one
+way you could do this is I actually have
+everything like made for you. So I will
+say this once everything that I am going
+to be using today um will be down below.
+Um there are some presets and asset
+packs that you can use down below.
+They're going to be absolute game
+changers. So I have these auto zoom
+outs, but I'm going to show you guys how
+to do this. You're going to grab an
+adjustment clip and then grab down one
+of the transform nodes. And we're going
+to zoom in like this. And then we're
+going to hit a key frame. And we're
+going to come to about frame 50. And
+we're going to bring it back to one.
+Okay. Now, we're going to head over to
+the spline page and check mark the
+transform. And then we're going to hit
+command A. And then right click and go
+to ease and out cubic. Now, remember
+this exact sequence that I just showed
+you cuz we're going to be using that
+sequence a lot today. Well, you guys
+might if you don't get the presets, but
+boom. It's going to zoom out just like
+that. So, we're going to actually put a
+we're going to put this all above
+everything cuz we're going to put some
+captions there first, too. So, how I
+would personally do it is I have these
+fat this fat preset text animation bin,
+which like I said, you can find down
+below. Um, and so if I wanted to, I can
+grab these presets and use them. So,
+so then and then dot dot dot, right? And
+then obviously we'd probably make this
+like some some yellow or something,
+right? So, but I'm going to show you
+guys how you can do these animations.
+I'm going to show you guys how to do
+these animations because they're really
+useful and you guys can save them as
+presets, too. So, we're going to grab
+down a text plus. I'm gonna grab Apple
+Garmin, which in my pack I give you all
+the guys, all the fonts too that you
+need. And then let's just say this is up
+animation, right? So, we're going to
+label that as up animation. Come to the
+Fusion page, hit shift space for a
+transform node. Now, there are a few
+different animations we can do. So,
+we're only going to be using this
+transform node basically essentially the
+whole time. I'm going to show you guys
+some other tricks and tips, too. But
+anyways, we're going to swipe down and
+we're going to hit a key frame. We're
+going to the same thing. We're going to
+go about frame 50 and hit 0.5. We're
+going to go to the spline page. We're
+going to hit zoom to fit. Right click,
+which highlights both the points, and
+then go to ease and then go to out
+cubic. We're going to bring this arrow
+about up here. That way it like zooms in
+nice and crispy. And then play around
+with it for your liking. So, I kind of
+like it right here where it goes like
+that. And then make sure you're applying
+the motion blur. Now, here's another
+tip. Shift space blur before the
+transform node [music] and add in that
+blur. Okay? And what you're going to do
+is you're going to add an ellipse tool
+and you're going to put it to the right
+of this and we're going to crank up that
+soft edge. Now, what this is going to do
+is it's going to make it look really
+crispy. So, like you could see that it's
+a really viral style. Now, another viral
+style is if you head over to settings
+and you go to the composite mode and you
+hit difference, this is going to give it
+that that um see-through vibe type of
+deal. And this also is pretty pretty
+viral right now, too. Now, to be honest,
+it's kind of tricky because his his his
+whole image is black and white. So,
+>> and then
+>> so then we would start by saying
+and then
+>> and then we cut that and say from the
+and if you want to get
+and if you want to get really in detail,
+you guys can also grab some assets. So,
+I actually have a cross right here that
+I I might want to use for today's video.
+Um, the only thing is is it's kind of
+out of place, right? Because it is
+literally um very, you know, it's it's
+not it's it's it's it's not of it has
+color in it. And so, the only way to
+change that is to come in here and
+actually go ahead to the color page and
+then just turn down the saturation of
+that one, too. So, we would just
+basically boom. And then with this cross
+right here, I'm gonna head over to my
+effects and I'm going to go to viral
+effects.
+And I'm just going to drag and drop
+smooth up in
+>> and then this is also my viral
+transitions a pack which you can find
+down below. So boom. And then you add in
+that zoom out. Boom. So
+>> from the he
+want to capitalize he cuz it's Jesus
+we're talking about. And then we're
+going to cut this out. I'm actually just
+going to use that cuz I think it looks
+really good. But in my text animations,
+um I'm think I'm going to do this
+continuous uh right slide. I think it
+looks really clean.
+>> His perfect
+righteousness.
+Now, if you don't know how to spell the
+word, just go to Google and literally
+just copy and paste it. It'll correct it
+for you. Copy [music] it. Go back in
+here and copy it back in. That's for
+people who are dumb like me. Then I'm
+gonna add in delay up
+so that those
+we're gonna add another one. I'm gonna
+make this this one yellow. So boom,
+yellow. Just like that.
+>> Who place? Now, like I said, if you guys
+really want to get into it, you can grab
+a picture of Jesus or like whatever type
+of podcast you're editing. So I'm going
+to grab this one in right here. I'm
+going to place this one. And it has to
+make sense. So like right here, this
+does make sense. Okay. Okay. So, what
+I'm going to do is I'm going to make
+this as a compound clip. Now, the reason
+I'm going to do that is because I'm
+actually going to come in here and I'm
+going to add a blur node and I'm just
+going to crank it up. And then I'm going
+to do the same thing. I'm just going to
+add this ellipse tool. I'm going to put
+it around his body like this. Right?
+That way it looks clean. And then we're
+going to turn up the soft edge. Okay.
+Now, we have this clip of him Jesus. And
+we're going to grab up the smooth up
+smooth and we're going to place that on
+our timeline.
+And then we're going to also just lowkey
+change this. And then we're going to cut
+this up. So now that we changed those
+clips, we have something like this.
+>> So we have Christ right here.
+>> Then for here with the big buildup, I'm
+thinking we literally cut to like a
+crispy black screen, right? And how
+we're going to do that is I'm going to
+make a background. So we have this
+background right here. It's a black gray
+gradient. Now, how I was able to do this
+was very simple, actually. You're going
+to take a background. So, if I grab down
+a crispy fresh background right here,
+instead of solid color, we're going to
+do a gradient. And instead of the linear
+type, we're going to do radial. And then
+make your gradient look like this. So,
+by doing that, you're going to make this
+first one a nice dark gray. Then you're
+going to add another point and make it
+just a little bit darker. And then
+you're going to add your third point and
+make it just a tad bit darker. And then
+that's it. Now you have this crispy
+background. And now we're going to add
+some Knuckles Knuckles
+caption. So, this is probably one of my
+favorite captions right here. It's going
+to be the blur slide up, the partial
+blur, just like this. And I'm going to
+be like,
+>> then we're going to just do justified.
+And we're going to size it up. And I'm
+actually just going to make it a nice
+Apple Garmin look. Do the bold itallic.
+Size it up just like so. Bring it right
+here.
+Have been made justified. Like, this
+looks so fire, bro. like have been made
+justified. And these animations are
+super easy because you just literally
+they're drag and drops, bro. So like
+then we're going to cut this all right
+here. And then I'm actually going to go
+ahead and regrab this zoom out right
+here. And I'm going to put this right
+here. That
+and then honestly, if we want, we can
+also grab like some overlays, too. So
+basically, like the whole point of like
+this this video, right, is to make it
+look as good as possible. So boom.
+Replay this. This is looking so fire.
+>> Christ alone have been made justified in
+the sight of God.
+>> Like dude, this is so fire. Like I was
+literally able to create this. This is
+why I just love being able to be a
+creator, bro. Like being able to put
+this in my software and just make
+something that I personally would watch
+and like that is that could potentially
+reach many many souls, bro, is honestly
+the best part about editing in my
+opinion. Like genuinely, I just I just
+love that. Like that's like one of my
+favorite parts. So if you guys are ever
+creating and you want to know why I
+create, that's why I create because I
+just love creating cool stuff like this.
+And so I'm going to show you guys really
+quickly how we are able to do that
+really cool, clean, crispy animation.
+So, the crispy animation that you guys
+have probably been wanting to do is like
+the the one that's called continuous
+zoom. So, I'm just going to do right,
+left, yes,
+easy. I don't know. Just as an example,
+I'm going to use the font Helvitica for
+simple terms. And then we're just going
+to do a bold. We're going to size this
+up, right? So, you're going to head into
+the fusion page with this puppy here.
+When you head in the fusion page, after
+the template, you're going to hit shift
+space for a transform node. Now, what
+you're going to do is you're going to
+come all the way over to the right and
+you're going to hit a key frame. and
+you're gonna come over to where it's
+like in the frame, you know, by like
+frame 20. So, we want to come over and
+then it's in the frame right here. And
+then we want to then zoom it out all the
+way to frame 65. And then we just want
+to get it
+get it out of there. Basically, that's
+the whole point of the animation.
+[music] And so, it going to go like boom
+boom. And then we got to smooth out
+these animations. So, for the first one,
+we're going to hit [music] an ease. And
+honestly, we could probably just hit S.
+And then we could zoom in like right
+here. Boom. Come here. And then it's
+going to look something like this. So
+when we zoom it in,
+boom. And then we're going to do the
+same thing for this one. So we're going
+to highlight both of these points and
+hit S. And then do like a really similar
+thing. So bring this point like this. So
+that way it's like boom.
+But we don't want it to really stop like
+that. So to keep it continuous, we're
+kind of going to hold it hold it up like
+that. Maybe take it out like just like
+that. Maybe a little bit. Bring this one
+over just a little bit. Bring this one
+like this. Make sure it's a continuous
+zoom at all times. So, boom.
+And then all you have to do to make it
+look extra crispy is add the motion
+blur. Boom. Boom. Dude, this is so hard.
+So, like
+>> So, I'm actually going to use this
+because like that's that's I know how to
+do it.
+So, I'm going to do in the site.
+And then if you want to make it extra
+crispy, like I said, we can do that same
+thing where we add the blur. And so, if
+you really want to like do like if you
+really want to level up as an editor,
+this is what you're going to do. You're
+going to add the blur node. You're gonna
+hit a key frame and you're gonna go
+forward and you're going to
+crank up your blur on frame zero. And
+then as you come in, it's gonna be
+really blurred. And then as it comes in,
+you're going to turn your blur down like
+that. Okay. Uncheck mark this transform
+node and we're just going to smooth all
+of this out. So boom,
+boom. And then on the way out, we're
+going to reblur it. So we're going to go
+boom. And then on the way out, we're
+going to crank that blur back up. zoom
+to fit and we're going to highlight it
+and smooth that puppy out. So, boom.
+Like, that's so hard. Like, I don't
+think you guys understand how fire that
+is. And uh if we want to change some of
+the lettering, we can come to template,
+right click, go to character level
+stylings, go to modifiers, and we can
+highlight God, and we can emphasize this
+word by changing the color and then even
+making it atalicized. So, doing that,
+changing the font. So, boom.
+Like this is fire. Like you guys can
+easily do this stuff in Da Vinci
+Resolve. I'm just going to do settings
+on this one and do difference on this
+one. So boom.
+>> I'm actually probably just going to size
+this one up. Not because of
+>> And then we're kind of running out of
+room here. So I'm just going to hold
+these like this.
+>> So we're kind of running out of room.
+So, I'm going to highlight all of these
+and actually even highlight this overlay
+because we lowkey need that. We're just
+going to go up one frame or one track.
+And then we're going to bring this one.
+We're going to copy this one down by
+holding option.
+Make it see-through. So, boom. Not
+because of behavior. Delay up. We're
+going to do because of the
+>> And then we're actually going to just
+like bring the like sometimes like the
+delay up. The one that I have is like a
+little bit too slow. So, I'm going to
+speed this up.
+>> Speed that up right there. Um, right
+here, we're going to add back in this
+black gradient. So, boom. Then for
+righteousness of Christ, we're going to
+do the same thing because we want to
+keep it consistent. So then we're going
+to do the same thing.
+We're going to add blur up slide just
+like this
+of Christ.
+Then if you ever want to add a tag so
+that no one steals your work, this is a
+great way to add a tag. So grab your
+text plus. I'm going to do at Ryan Heric
+and I'm going to do a signature font
+just like a Helvitica, you know, nothing
+crazy. Go ahead and do bold. Size it
+down. And we're going to place it like
+right here. And then what I'm going to
+do is I'm actually just going to create
+this as a new compound clip. I'm going
+to deactivate this and I'm going to come
+up on my timeline. I'm going to hit
+shift space for another transform node.
+This time we're going to do it a little
+differently. We're going to bring it out
+of frame and we're going to key frame.
+I'm going to go to frame like 45. I'm
+going to go 0.5. And then we're just
+going to hit command A. This time we're
+going to hit e out cubic and just leave
+it.
+And then what I'm going to do
+differently this time is I'm actually
+going to use the opacity. So basically I
+want to keep the opacity low. So I'm
+going to key frame it. One, two. Bring
+it up. One, two. Bring it down. One,
+two, bring it up. One, two, bring it
+down. One, two, bring it up. Bring it
+down. And then one, two, bring it up.
+One, one, bring it down. And leave it
+there.
+That way you have your own tag. And if
+you think that it's it's going to mix
+with his shirt right there, I'm just
+going to bring it down a little bit. So,
+boom.
+So, now if we play this through, it is
+looking really intensely fire. And we
+just made a podcast clip, church clip,
+whatever you guys want to call them in
+what, 20 minutes. So after looking at
+this, I do want to add a shake effect. I
+want to add a shake. So I'm going to
+right when it says justify, the beat
+comes in. It's really hype. I think it's
+it's unmatched if we don't add a shake.
+So I'm going to add in what's called a
+camera shake right here. And we're just
+going to key frame everything to be
+perfect and just how we want it. So if
+we turn down everything, literally
+everything, and we key frame all the
+stuff that we want to use. Even if we
+don't plan on using it, just go ahead
+and key frame it. [music]
+Then come up
+>> right when we want it's a heavy hit.
+Turn up this. Turn up the Y. Turn up the
+rotation just a little bit. Turn up the
+randomness just a little bit. And then
+the overall strength's got to go all the
+way up. Then the speed's got to go all
+the way up. So boom. So we're going to
+make like a cone. So it comes up and
+then it goes like that. Then we're going
+to hold all of these and then hit S on
+our keyboard. So boom. Yeah, guys.
+That's pretty much how I edit podcast
+clips or just church clips, whatever you
+want to call it. But this thing, these
+are the type of things that are going to
+get you eyes. And this is exactly how I
+do it. Um, if you guys learned
+something, let me know down in the
+comments below. I taught you guys all
+the sauce. And also, don't forget to
+check out viral effects, all my camera
+transitions, everything down below cuz
+you can literally edit just like me
+within a blink of an eye. So, I'll see
+you guys in the next video. See you
+tomorrow.

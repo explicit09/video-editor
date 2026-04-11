@@ -1,0 +1,238 @@
+You don't have to use color management,
+okay?
+>> [laughter]
+>> Now, if you're a color nerd or if you've
+watched a bunch of color grading
+tutorials, you might be like, "Casey's
+lost his mind." But, it's true. You do
+not have to use color management in
+order to get good color grades. In fact,
+there are a lot of people who don't.
+But, I'm going to show you in this video
+why you might want to color manage
+anyway. Okay, so here's a shot from a
+video that I posted a couple of days ago
+and I asked you to guess which one was
+using color management, which one
+wasn't. And honestly,
+I don't think you could do it. In fact,
+I kind of forgot which one it is. Now,
+you'll notice that these are a little
+different, all right? I could have
+matched this maybe a little better,
+worked on it a little longer, but you
+know what? It's not the point to totally
+match these. The truth is, like I
+discussed the other day, the only thing
+that really matters is does your image
+look good? Does it feel the way that you
+want? And both of these could certainly
+give the viewer a certain feeling that
+you would like. Now, maybe you would
+color grade this differently, that's not
+the point either. But, let's roll the
+time back to the before times.
+The log signal. All right? This is
+footage that was shot on the Blackmagic
+6K Pocket in Blackmagic Film Gen 5. And
+so, it comes in kind of gray,
+desaturated, nasty log footage. And part
+of our job dealing with log footage in
+the color page is to make this footage
+actually look good on the screen. And
+there's pretty much two ways that you
+can do that. You can use color
+management or you can kind of tweak the
+colors yourself. So, first of all, what
+the heck is color management and why
+would we care about any of that? Well,
+color management, what that does is that
+takes this log signal and you tell it
+what kind of log footage this is. It
+kind of reverses the image magic that
+the camera does when it's shooting an
+image. It pretty much does the reverse
+of making things gray and taking down
+the contrast and taking down the
+saturation. And it turns it into an
+image that looks more normal on your
+screen. And you do this with an exciting
+thing called menus. From a menu of some
+kind, whether it's in a color space
+transform node or whether it's in your
+project color management settings, there
+are a series of drop-downs with little
+options that you select. And if you
+select the options that make sense for
+the camera that you used and the type of
+log that you're shooting, and you set
+your output color space to something
+like Rec. 709, it's going to make it
+look good on your screen, then color
+management takes that log shot and it
+makes it look good on your screen. Now,
+something to notice here is that there's
+no creativity. There is no choices.
+There's nothing that depends on me as a
+colorist or a video editor, it's just
+literally selecting the right things
+from a menu. It's about as much
+creativity as hitting the right button
+on an elevator so that you can go up to
+your floor. You can mess it up, but only
+if you hit the wrong button. But, let's
+just take that metaphor for a second.
+What if you needed to go to the third
+floor and instead of going into the
+elevator and hitting three, you decided
+that you would climb up the stairs and
+then go outside the window and you would
+climb up the fire escape and there you
+could get to the third floor yourself in
+all kinds of creative ways. Both of
+these approaches, whether you get on the
+elevator and just hit three or whether
+you Spider-Man up the outside of the
+building, you can get to the third
+floor. But, one of them, the elevator,
+is going to be a lot more direct and a
+lot less work and you have a much higher
+likelihood of not falling off of a
+building. And so, the reason why we use
+color management is just that. I can go
+from this to this zero thinking.
+Literally just selecting the right
+settings on a menu. And this gives me a
+great starting point when it comes to
+color grading. Now, I can look at this
+image and go, "Okay, the image looks
+pretty good. What do I want to change
+about it?" And then I can get into
+creative mode. Okay? Now, if I don't
+have any color management, I'm kind of
+left on my own. I still have a lot of
+control and a lot of things that I can
+do to this image to make it look good on
+the screen. One of them being, well,
+"Dang, this definitely needs more
+contrast." I can push this contrast up.
+I can change the pivot around. I can
+maybe push some color boost in there.
+And I can get a pretty good looking
+image with not tons and tons of work,
+especially if I'm familiar with the
+color tools and what I'm doing. It's
+kind of the same idea. I go from this to
+this. The difference is that I've
+decided how bright things should be.
+I've decided how dark things should be.
+I've decided how much saturation should
+be in this grass back here. I've decided
+what color this car should be and what
+color her dress should be and how bright
+the sunlight should be on her face. I
+did that all even though it didn't take
+very long for me to do it, I made a
+series of a whole bunch of choices
+creatively without even realizing it,
+which is fine. But, it's important that
+we note that you did make those choices
+and you put creativity into this image
+when you didn't even necessarily mean
+to. And so, even though we were just
+kind of fixing problems, we fixed some
+problems and put our own spin on it.
+Does this matter in the great big scope
+of things? Not [snorts] really, because
+the only thing that's important is does
+the image look the way you want it to
+look? We've gotten to the third floor by
+Spider-Manning up the building. So, you
+may be asking, "Well, then what's the
+deal with color management? Why is that
+such a big thing?" Two reasons. One,
+we're trying to kind of isolate a
+technical thing from a creative thing,
+all right? This is really a technical
+problem, not a creative problem. So, a
+technical problem we want to fix with a
+technical solution, which would be color
+management. A creative problem, like,
+"Ooh, I feel like this should feel
+warmer." That's a creative problem. We
+want to fix that with a creative
+solution. And so, it's kind of the right
+tools for the right job. The other big
+thing is that color management is a more
+direct path, which means that it's going
+to save you time because you don't have
+to decide how much contrast and how much
+saturation to add to an image. And it's
+also overall going to give you a better
+result because your image is going to
+look a lot more like how it looked in
+real life when you shot real life
+things. And so, an image of a person and
+their skin tone is going to more easily
+look more natural when you're using
+color management because it just puts
+the skin back where it's supposed to be.
+When we're manually messing around with
+this image, we're changing this contrast
+around and everything and we just don't
+give a heck and a half what this skin is
+supposed to look like. We're just kind
+of trying to willy-nilly put some put
+some contrast in here and make it look
+good. Color management is a more direct
+route to a better result. So, does this
+mean that you can just slap color
+management on an image and you don't
+have to touch it? Does it take away all
+that creativity? No. In fact, look at
+this image. This is just our color
+management. And honestly, there's some
+stuff that I would change with this.
+Like, it doesn't necessarily mean that
+it's going to look exactly how you want
+it to look, it means that it's going to
+look as close as possible to how this
+looked when you shot it. Which, if you
+absolutely [clears throat] nailed
+everything in camera, might be exactly
+what you want. But, at this point, we're
+freed up to do some creative stuff and
+make this image feel the way we want it
+to feel. And we don't have to climb over
+all of the technical stuff first. It's
+already done for us. And so, I can add
+these tweaks for these other nodes that
+I think will make this look better in
+addition to my color management. That's
+really the big deal. Now, if you find
+yourself kind of confused and frustrated
+with color grading on a regular basis,
+you need to take our 5-day simple color
+workflow challenge. It's a live coaching
+experience with me. It's 5 days long. We
+meet every morning and I'll walk you
+through my perfect color workflow. This
+is a no stress way to color grade your
+videos without getting overwhelmed. And
+I've seen it time and time again take
+somebody who's kind of frustrated about
+color grading and free them up to be
+creative and excited and confident in
+their color. There's a link down in the
+description below. I want you to sign up
+for that, all right? Other than that, I
+hope this helped a lot. Hope that clears
+things up because you don't have to
+color manage, but it does help and it
+does make things a lot easier, okay? If
+you want to learn more about how the
+heck color management works at all,
+well, I have a big old round up on what
+the heck that is right there. Okay?
+Okay.
+Bye.

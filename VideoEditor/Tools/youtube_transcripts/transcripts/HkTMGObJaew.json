@@ -1,0 +1,1067 @@
+[
+  {
+    "text": "I've spent the last five years creating",
+    "start": 0.08,
+    "duration": 3.28
+  },
+  {
+    "text": "presets and plugins for Da Vinci",
+    "start": 1.76,
+    "duration": 3.44
+  },
+  {
+    "text": "Resolve, including some really, really",
+    "start": 3.36,
+    "duration": 4.479
+  },
+  {
+    "text": "cool stuff like Proto V3, but I don't",
+    "start": 5.2,
+    "duration": 5.28
+  },
+  {
+    "text": "think anything I've done so far comes",
+    "start": 7.839,
+    "duration": 5.281
+  },
+  {
+    "text": "close to what I'm building next. Macro",
+    "start": 10.48,
+    "duration": 4.8
+  },
+  {
+    "text": "Machine. Watch this. So, you've got a",
+    "start": 13.12,
+    "duration": 3.44
+  },
+  {
+    "text": "basic lower third you've built in",
+    "start": 15.28,
+    "duration": 2.8
+  },
+  {
+    "text": "Fusion, and you also have a Google doc",
+    "start": 16.56,
+    "duration": 3.28
+  },
+  {
+    "text": "sheet with a whole bunch of names and",
+    "start": 18.08,
+    "duration": 4.16
+  },
+  {
+    "text": "other data. Why not copy those nodes,",
+    "start": 19.84,
+    "duration": 5.199
+  },
+  {
+    "text": "paste them into macro machine, select",
+    "start": 22.24,
+    "duration": 4.879
+  },
+  {
+    "text": "the controls you want to publish? I'll",
+    "start": 25.039,
+    "duration": 5.521
+  },
+  {
+    "text": "do these two uh names and then come down",
+    "start": 27.119,
+    "duration": 5.44
+  },
+  {
+    "text": "to this background node. Select the",
+    "start": 30.56,
+    "duration": 4.159
+  },
+  {
+    "text": "color for that and then come to data",
+    "start": 32.559,
+    "duration": 4.641
+  },
+  {
+    "text": "import Google sheet on the doc you want",
+    "start": 34.719,
+    "duration": 5.201
+  },
+  {
+    "text": "to link to. Come to share. Just make",
+    "start": 37.2,
+    "duration": 4.08
+  },
+  {
+    "text": "sure this is set to anyone with the",
+    "start": 39.92,
+    "duration": 3.68
+  },
+  {
+    "text": "link. Copy that link. Paste it into",
+    "start": 41.28,
+    "duration": 4.4
+  },
+  {
+    "text": "macro machine. Click import. And then on",
+    "start": 43.6,
+    "duration": 4.32
+  },
+  {
+    "text": "this first text, you can connect to the",
+    "start": 45.68,
+    "duration": 5.28
+  },
+  {
+    "text": "first name field. Other text connect to",
+    "start": 47.92,
+    "duration": 5.36
+  },
+  {
+    "text": "the last name field. And even on this",
+    "start": 50.96,
+    "duration": 5.279
+  },
+  {
+    "text": "color group where we have this hex code,",
+    "start": 53.28,
+    "duration": 5.2
+  },
+  {
+    "text": "we can connect to this other column here",
+    "start": 56.239,
+    "duration": 3.521
+  },
+  {
+    "text": "on the Google sheet that has different",
+    "start": 58.48,
+    "duration": 5.28
+  },
+  {
+    "text": "hex color values. And then I going to",
+    "start": 59.76,
+    "duration": 6.48
+  },
+  {
+    "text": "come to data insert update data button.",
+    "start": 63.76,
+    "duration": 3.92
+  },
+  {
+    "text": "Well, you we will get back to that",
+    "start": 66.24,
+    "duration": 3.68
+  },
+  {
+    "text": "later. Um let's just make sure that is",
+    "start": 67.68,
+    "duration": 5.36
+  },
+  {
+    "text": "uh on the bottom of this list. And then",
+    "start": 69.92,
+    "duration": 6.32
+  },
+  {
+    "text": "I am going to data generate from CSV",
+    "start": 73.04,
+    "duration": 5.04
+  },
+  {
+    "text": "based on the first name. When I click",
+    "start": 76.24,
+    "duration": 3.76
+  },
+  {
+    "text": "continue, it will create four different",
+    "start": 78.08,
+    "duration": 4.0
+  },
+  {
+    "text": "presets for me because we have four",
+    "start": 80.0,
+    "duration": 4.72
+  },
+  {
+    "text": "entries on this doc. I'm going to come",
+    "start": 82.08,
+    "duration": 4.48
+  },
+  {
+    "text": "select all for export minus that first",
+    "start": 84.72,
+    "duration": 3.84
+  },
+  {
+    "text": "one we were working in. Make sure I am",
+    "start": 86.56,
+    "duration": 4.32
+  },
+  {
+    "text": "exporting to the edit page in generators",
+    "start": 88.56,
+    "duration": 4.4
+  },
+  {
+    "text": "test folder. I will select that and",
+    "start": 90.88,
+    "duration": 4.96
+  },
+  {
+    "text": "export to the edit page. Click okay. Hop",
+    "start": 92.96,
+    "duration": 4.4
+  },
+  {
+    "text": "back to Resolve. Sometimes it has to",
+    "start": 95.84,
+    "duration": 3.2
+  },
+  {
+    "text": "think for a second. Back on the edit",
+    "start": 97.36,
+    "duration": 3.92
+  },
+  {
+    "text": "page. Now, inside that test folder, I",
+    "start": 99.04,
+    "duration": 4.399
+  },
+  {
+    "text": "have all those presets with those data",
+    "start": 101.28,
+    "duration": 4.24
+  },
+  {
+    "text": "correctly pulled in those names and even",
+    "start": 103.439,
+    "duration": 4.401
+  },
+  {
+    "text": "the different color values we linked off",
+    "start": 105.52,
+    "duration": 4.8
+  },
+  {
+    "text": "that hex object. But we have this Dan",
+    "start": 107.84,
+    "duration": 5.12
+  },
+  {
+    "text": "David's uh lower third here. But what if",
+    "start": 110.32,
+    "duration": 4.24
+  },
+  {
+    "text": "there was a mistake and his name isn't",
+    "start": 112.96,
+    "duration": 4.08
+  },
+  {
+    "text": "Dan Davids, it's Dan Davidson? Of",
+    "start": 114.56,
+    "duration": 3.44
+  },
+  {
+    "text": "course, you could change this in",
+    "start": 117.04,
+    "duration": 2.56
+  },
+  {
+    "text": "Resolve, but what if you wanted to make",
+    "start": 118.0,
+    "duration": 3.04
+  },
+  {
+    "text": "that a permanent update? Or what if",
+    "start": 119.6,
+    "duration": 3.119
+  },
+  {
+    "text": "there was some other data that needed to",
+    "start": 121.04,
+    "duration": 4.399
+  },
+  {
+    "text": "change regularly? Well, just come back",
+    "start": 122.719,
+    "duration": 4.801
+  },
+  {
+    "text": "to that Google sheet and where it says",
+    "start": 125.439,
+    "duration": 5.201
+  },
+  {
+    "text": "David's, make it Davidson Sin, hop back",
+    "start": 127.52,
+    "duration": 5.359
+  },
+  {
+    "text": "to Resolve, I can click this update data",
+    "start": 130.64,
+    "duration": 4.0
+  },
+  {
+    "text": "button. If I click that, it will load",
+    "start": 132.879,
+    "duration": 3.921
+  },
+  {
+    "text": "that preset into macro machine. Ask me",
+    "start": 134.64,
+    "duration": 4.0
+  },
+  {
+    "text": "if I want to update that from David's to",
+    "start": 136.8,
+    "duration": 4.079
+  },
+  {
+    "text": "Davidson. I will click overwrite that",
+    "start": 138.64,
+    "duration": 3.92
+  },
+  {
+    "text": "updates and exports. And back in",
+    "start": 140.879,
+    "duration": 4.0
+  },
+  {
+    "text": "Resolve, if I drag that Dan uh preset",
+    "start": 142.56,
+    "duration": 3.92
+  },
+  {
+    "text": "back down to my timeline, now it's",
+    "start": 144.879,
+    "duration": 4.161
+  },
+  {
+    "text": "DanDavidson. Now, that small teaser has",
+    "start": 146.48,
+    "duration": 5.119
+  },
+  {
+    "text": "a lot packed into it, but that is not",
+    "start": 149.04,
+    "duration": 4.16
+  },
+  {
+    "text": "even all of it. Not close to all of it.",
+    "start": 151.599,
+    "duration": 3.761
+  },
+  {
+    "text": "I have added completely new features",
+    "start": 153.2,
+    "duration": 4.319
+  },
+  {
+    "text": "since I recorded that video that I think",
+    "start": 155.36,
+    "duration": 5.2
+  },
+  {
+    "text": "are super cool, super valuable. But to",
+    "start": 157.519,
+    "duration": 4.641
+  },
+  {
+    "text": "continue, I need your help. You can help",
+    "start": 160.56,
+    "duration": 3.28
+  },
+  {
+    "text": "me out here in a few different ways.",
+    "start": 162.16,
+    "duration": 3.2
+  },
+  {
+    "text": "First, big picture supporting the",
+    "start": 163.84,
+    "duration": 3.44
+  },
+  {
+    "text": "development of Macro Machine right now",
+    "start": 165.36,
+    "duration": 4.08
+  },
+  {
+    "text": "just means like supporting me. But good",
+    "start": 167.28,
+    "duration": 4.239
+  },
+  {
+    "text": "news, um, all those presets I've",
+    "start": 169.44,
+    "duration": 3.36
+  },
+  {
+    "text": "mentioned, if you head over to",
+    "start": 171.519,
+    "duration": 4.0
+  },
+  {
+    "text": "sterlingupply.co, you can see dozens of",
+    "start": 172.8,
+    "duration": 4.079
+  },
+  {
+    "text": "presets and plugins for Da Vinci",
+    "start": 175.519,
+    "duration": 3.841
+  },
+  {
+    "text": "Resolve. Lots of those free, a handful",
+    "start": 176.879,
+    "duration": 4.801
+  },
+  {
+    "text": "paid. Some that have free light versions",
+    "start": 179.36,
+    "duration": 4.32
+  },
+  {
+    "text": "and then paid full versions. Something",
+    "start": 181.68,
+    "duration": 4.88
+  },
+  {
+    "text": "like my uh autoeing animation plugin has",
+    "start": 183.68,
+    "duration": 5.12
+  },
+  {
+    "text": "a free version and then like a $5 paid",
+    "start": 186.56,
+    "duration": 3.92
+  },
+  {
+    "text": "version. And then there's something like",
+    "start": 188.8,
+    "duration": 4.4
+  },
+  {
+    "text": "Protov3 which has a free version that's",
+    "start": 190.48,
+    "duration": 5.039
+  },
+  {
+    "text": "a little more constrained to uh like",
+    "start": 193.2,
+    "duration": 4.8
+  },
+  {
+    "text": "text or titles and then the paid version",
+    "start": 195.519,
+    "duration": 4.8
+  },
+  {
+    "text": "unlocks a whole bunch of stuff. I'll",
+    "start": 198.0,
+    "duration": 4.48
+  },
+  {
+    "text": "link in the description to uh an",
+    "start": 200.319,
+    "duration": 5.361
+  },
+  {
+    "text": "overview of Proto in less than a minute.",
+    "start": 202.48,
+    "duration": 5.52
+  },
+  {
+    "text": "Proto is cool. I've been pouring a lot",
+    "start": 205.68,
+    "duration": 4.32
+  },
+  {
+    "text": "of work into Macro Machine and if you've",
+    "start": 208.0,
+    "duration": 3.84
+  },
+  {
+    "text": "seen on the channel, there have been",
+    "start": 210.0,
+    "duration": 3.92
+  },
+  {
+    "text": "less videos because of that. And videos",
+    "start": 211.84,
+    "duration": 4.64
+  },
+  {
+    "text": "are the main traffic generator that then",
+    "start": 213.92,
+    "duration": 4.48
+  },
+  {
+    "text": "pushes people to my store and then",
+    "start": 216.48,
+    "duration": 3.759
+  },
+  {
+    "text": "occasionally they buy something. So",
+    "start": 218.4,
+    "duration": 3.199
+  },
+  {
+    "text": "whether you've been following for a",
+    "start": 220.239,
+    "duration": 3.201
+  },
+  {
+    "text": "while or not, if you go over there,",
+    "start": 221.599,
+    "duration": 3.601
+  },
+  {
+    "text": "browse around, or click through the",
+    "start": 223.44,
+    "duration": 4.0
+  },
+  {
+    "text": "channel, I will also link um a video I",
+    "start": 225.2,
+    "duration": 4.48
+  },
+  {
+    "text": "did covering my top 10 free plugins I've",
+    "start": 227.44,
+    "duration": 4.4
+  },
+  {
+    "text": "made and top 10 paid plugins I've made.",
+    "start": 229.68,
+    "duration": 4.08
+  },
+  {
+    "text": "That's super cool. If you purchase a",
+    "start": 231.84,
+    "duration": 3.6
+  },
+  {
+    "text": "product that you think you will use,",
+    "start": 233.76,
+    "duration": 4.0
+  },
+  {
+    "text": "you'll get that product and then I will",
+    "start": 235.44,
+    "duration": 3.84
+  },
+  {
+    "text": "be able to think a little bit less about",
+    "start": 237.76,
+    "duration": 3.44
+  },
+  {
+    "text": "YouTube for a while and focus on macro",
+    "start": 239.28,
+    "duration": 3.599
+  },
+  {
+    "text": "machine. Ways you can help with macro",
+    "start": 241.2,
+    "duration": 4.48
+  },
+  {
+    "text": "machine. Number two, just drop all your",
+    "start": 242.879,
+    "duration": 4.961
+  },
+  {
+    "text": "ideas in the comments. What would appeal",
+    "start": 245.68,
+    "duration": 5.04
+  },
+  {
+    "text": "to you in this sort of macro generator",
+    "start": 247.84,
+    "duration": 5.119
+  },
+  {
+    "text": "creator utility? Side note to talk about",
+    "start": 250.72,
+    "duration": 4.48
+  },
+  {
+    "text": "other cool functionality in Macro",
+    "start": 252.959,
+    "duration": 4.161
+  },
+  {
+    "text": "Machine. There is a little browser",
+    "start": 255.2,
+    "duration": 3.439
+  },
+  {
+    "text": "window that I'm calling the macro",
+    "start": 257.12,
+    "duration": 3.44
+  },
+  {
+    "text": "explorer. It's helpful because like I",
+    "start": 258.639,
+    "duration": 3.761
+  },
+  {
+    "text": "showed in that video, you can choose a",
+    "start": 260.56,
+    "duration": 4.32
+  },
+  {
+    "text": "destination to export and export right",
+    "start": 262.4,
+    "duration": 5.359
+  },
+  {
+    "text": "to uh the edit page in Da Vinci Resolve.",
+    "start": 264.88,
+    "duration": 5.12
+  },
+  {
+    "text": "But if you open that full macro",
+    "start": 267.759,
+    "duration": 4.88
+  },
+  {
+    "text": "explorer, you can also see all the DRFX",
+    "start": 270.0,
+    "duration": 5.199
+  },
+  {
+    "text": "packs you have currently installed. You",
+    "start": 272.639,
+    "duration": 4.321
+  },
+  {
+    "text": "can disable any of those packs if you",
+    "start": 275.199,
+    "duration": 3.201
+  },
+  {
+    "text": "don't want to fully delete them, but you",
+    "start": 276.96,
+    "duration": 2.88
+  },
+  {
+    "text": "just don't want to see them in Resolve.",
+    "start": 278.4,
+    "duration": 4.72
+  },
+  {
+    "text": "Or you can open them in that window and",
+    "start": 279.84,
+    "duration": 5.919
+  },
+  {
+    "text": "selectively disable individual presets",
+    "start": 283.12,
+    "duration": 5.68
+  },
+  {
+    "text": "inside that pack. super valuable if you",
+    "start": 285.759,
+    "duration": 4.72
+  },
+  {
+    "text": "download, you know, one of these packs",
+    "start": 288.8,
+    "duration": 3.52
+  },
+  {
+    "text": "with like, you know, dozens or hundreds",
+    "start": 290.479,
+    "duration": 4.0
+  },
+  {
+    "text": "or I I know it gets crazy, but if you",
+    "start": 292.32,
+    "duration": 4.72
+  },
+  {
+    "text": "have any DRFX with lots of controls, but",
+    "start": 294.479,
+    "duration": 4.16
+  },
+  {
+    "text": "you really only want to see a few in",
+    "start": 297.04,
+    "duration": 4.879
+  },
+  {
+    "text": "Resolve, you can selectively uh disable",
+    "start": 298.639,
+    "duration": 5.361
+  },
+  {
+    "text": "the rest of them. Only see what you want",
+    "start": 301.919,
+    "duration": 4.0
+  },
+  {
+    "text": "in Resolve, take a lot more ownership",
+    "start": 304.0,
+    "duration": 4.24
+  },
+  {
+    "text": "over your effects library. I think that",
+    "start": 305.919,
+    "duration": 4.0
+  },
+  {
+    "text": "is super cool. Any sort of like",
+    "start": 308.24,
+    "duration": 3.679
+  },
+  {
+    "text": "roundabout uh effect or preset",
+    "start": 309.919,
+    "duration": 3.921
+  },
+  {
+    "text": "functionality like that, um, leave that",
+    "start": 311.919,
+    "duration": 3.761
+  },
+  {
+    "text": "in the comments. Absolutely. I'm already",
+    "start": 313.84,
+    "duration": 4.079
+  },
+  {
+    "text": "doing uh I'm so excited to talk more",
+    "start": 315.68,
+    "duration": 3.6
+  },
+  {
+    "text": "about Macro Machine. I'm already doing",
+    "start": 317.919,
+    "duration": 4.241
+  },
+  {
+    "text": "some cool stuff with like presets.",
+    "start": 319.28,
+    "duration": 4.8
+  },
+  {
+    "text": "Uh stick around. And the big way you can",
+    "start": 322.16,
+    "duration": 3.52
+  },
+  {
+    "text": "help. Number three is that I am",
+    "start": 324.08,
+    "duration": 4.399
+  },
+  {
+    "text": "currently testing Macro Machine. Right",
+    "start": 325.68,
+    "duration": 5.6
+  },
+  {
+    "text": "now, I am limiting that to members over",
+    "start": 328.479,
+    "duration": 5.121
+  },
+  {
+    "text": "at the website strollingsupply.co.",
+    "start": 331.28,
+    "duration": 4.24
+  },
+  {
+    "text": "That's not YouTube members, although if",
+    "start": 333.6,
+    "duration": 3.76
+  },
+  {
+    "text": "there's a way to expand to that, I might",
+    "start": 335.52,
+    "duration": 3.519
+  },
+  {
+    "text": "do that sometime. Although I really like",
+    "start": 337.36,
+    "duration": 3.679
+  },
+  {
+    "text": "the tracking I have um through",
+    "start": 339.039,
+    "duration": 4.16
+  },
+  {
+    "text": "memberships with something complicated",
+    "start": 341.039,
+    "duration": 4.241
+  },
+  {
+    "text": "like macro machine working with this",
+    "start": 343.199,
+    "duration": 5.761
+  },
+  {
+    "text": "complicated macro system in resolve um",
+    "start": 345.28,
+    "duration": 5.359
+  },
+  {
+    "text": "there's you know all of these controls",
+    "start": 348.96,
+    "duration": 3.519
+  },
+  {
+    "text": "it can get complicated. I am in a period",
+    "start": 350.639,
+    "duration": 3.521
+  },
+  {
+    "text": "of development where I am actively",
+    "start": 352.479,
+    "duration": 4.081
+  },
+  {
+    "text": "trying to you know squash a lot of bugs.",
+    "start": 354.16,
+    "duration": 5.039
+  },
+  {
+    "text": "So I really need people testing in a",
+    "start": 356.56,
+    "duration": 4.8
+  },
+  {
+    "text": "variety of circumstances with a variety",
+    "start": 359.199,
+    "duration": 4.56
+  },
+  {
+    "text": "of presets so they can let me know what",
+    "start": 361.36,
+    "duration": 4.16
+  },
+  {
+    "text": "works, what's broken, what they want",
+    "start": 363.759,
+    "duration": 3.041
+  },
+  {
+    "text": "changed. So if you head over to",
+    "start": 365.52,
+    "duration": 3.28
+  },
+  {
+    "text": "stroningsupply.co co. Um, there's a",
+    "start": 366.8,
+    "duration": 4.08
+  },
+  {
+    "text": "membership little page button. Um, there",
+    "start": 368.8,
+    "duration": 3.36
+  },
+  {
+    "text": "are some other perks you get with that.",
+    "start": 370.88,
+    "duration": 3.599
+  },
+  {
+    "text": "I haven't been as on top of videos and",
+    "start": 372.16,
+    "duration": 4.319
+  },
+  {
+    "text": "other things for that as I would like,",
+    "start": 374.479,
+    "duration": 3.601
+  },
+  {
+    "text": "but you get, you know, a handful of my",
+    "start": 376.479,
+    "duration": 3.44
+  },
+  {
+    "text": "paid deluxe plugins for free if you want",
+    "start": 378.08,
+    "duration": 3.839
+  },
+  {
+    "text": "to go that way instead. And, uh, you get",
+    "start": 379.919,
+    "duration": 4.161
+  },
+  {
+    "text": "this early access to Macro Machine. I'm",
+    "start": 381.919,
+    "duration": 4.881
+  },
+  {
+    "text": "not entirely sure what the full release",
+    "start": 384.08,
+    "duration": 4.48
+  },
+  {
+    "text": "of Macro Machine will look like,",
+    "start": 386.8,
+    "duration": 4.48
+  },
+  {
+    "text": "especially how I'm going to monetize",
+    "start": 388.56,
+    "duration": 4.88
+  },
+  {
+    "text": "that or what I'm going to do. I had",
+    "start": 391.28,
+    "duration": 4.16
+  },
+  {
+    "text": "other plans for a course. I'm not sure",
+    "start": 393.44,
+    "duration": 4.08
+  },
+  {
+    "text": "how those will go. Lots of things are",
+    "start": 395.44,
+    "duration": 4.4
+  },
+  {
+    "text": "still up in the air, but uh you know,",
+    "start": 397.52,
+    "duration": 4.48
+  },
+  {
+    "text": "Macro Machine exists now and I want to",
+    "start": 399.84,
+    "duration": 4.639
+  },
+  {
+    "text": "get it to more people after I make sure",
+    "start": 402.0,
+    "duration": 4.319
+  },
+  {
+    "text": "it's in a solid spot and right now",
+    "start": 404.479,
+    "duration": 4.401
+  },
+  {
+    "text": "memberships are where I am setting that",
+    "start": 406.319,
+    "duration": 4.401
+  },
+  {
+    "text": "solid spot. If things go well, hopefully",
+    "start": 408.88,
+    "duration": 3.759
+  },
+  {
+    "text": "I'll have more information on a",
+    "start": 410.72,
+    "duration": 5.36
+  },
+  {
+    "text": "progressively wider release soon. But um",
+    "start": 412.639,
+    "duration": 5.601
+  },
+  {
+    "text": "I I've posted about Macro Machine on",
+    "start": 416.08,
+    "duration": 4.0
+  },
+  {
+    "text": "like Twitter and a few other places and",
+    "start": 418.24,
+    "duration": 3.6
+  },
+  {
+    "text": "I've talked about it on live streams. Um",
+    "start": 420.08,
+    "duration": 3.36
+  },
+  {
+    "text": "but other than a small tease, I haven't",
+    "start": 421.84,
+    "duration": 3.52
+  },
+  {
+    "text": "done just a main video about it. So, I",
+    "start": 423.44,
+    "duration": 4.159
+  },
+  {
+    "text": "think macro machine is very cool. There",
+    "start": 425.36,
+    "duration": 4.559
+  },
+  {
+    "text": "are some other tools already out there",
+    "start": 427.599,
+    "duration": 5.6
+  },
+  {
+    "text": "um like macro lab um from Matt Mcool.",
+    "start": 429.919,
+    "duration": 4.641
+  },
+  {
+    "text": "It's a little little bit of a tongue",
+    "start": 433.199,
+    "duration": 2.881
+  },
+  {
+    "text": "twister, but that's available for free.",
+    "start": 434.56,
+    "duration": 2.72
+  },
+  {
+    "text": "I will also link that in the description",
+    "start": 436.08,
+    "duration": 3.36
+  },
+  {
+    "text": "as well as other like community macro",
+    "start": 437.28,
+    "duration": 4.24
+  },
+  {
+    "text": "tools, but mostly I thought it was time",
+    "start": 439.44,
+    "duration": 4.4
+  },
+  {
+    "text": "for this video. Macro Machine is coming",
+    "start": 441.52,
+    "duration": 5.679
+  },
+  {
+    "text": "and I need your help. Um however you",
+    "start": 443.84,
+    "duration": 5.84
+  },
+  {
+    "text": "choose to help me out with this goal, I",
+    "start": 447.199,
+    "duration": 4.081
+  },
+  {
+    "text": "think we are building something really,",
+    "start": 449.68,
+    "duration": 3.2
+  },
+  {
+    "text": "really exciting for the broader Dinci",
+    "start": 451.28,
+    "duration": 3.6
+  },
+  {
+    "text": "Resolve community. Thanks for watching",
+    "start": 452.88,
+    "duration": 4.8
+  },
+  {
+    "text": "and I'll see you next",
+    "start": 454.88,
+    "duration": 2.8
+  }
+]

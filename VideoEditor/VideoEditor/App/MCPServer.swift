@@ -568,6 +568,7 @@ final class MCPServer {
                         "prompt": ["type": "string", "description": "Override: skip AI prompt gen, use this prompt directly"],
                         "count": ["type": "integer", "description": "Images per provider (default: 2)"],
                         "provider": ["type": "string", "description": "Provider: 'local' (default — programmatic), 'hybrid' (AI background + real host compositing), 'flux', 'gemini', 'both' (flux + gemini)"],
+                        "background_image": ["type": "string", "description": "Path to a background image file (for local/hybrid provider). Relative paths resolved from app Documents."],
                     ], "required": ["title"]],
                 ],
                 [
@@ -5119,6 +5120,13 @@ final class MCPServer {
         let providerFilter = args["provider"] as? String ?? "local"
         let subtitle = args["subtitle"] as? String
 
+        // Load background image if provided
+        var backgroundImageData: Data? = nil
+        if let bgPath = args["background_image"] as? String {
+            let resolvedBgPath = bgPath.hasPrefix("/") ? bgPath : resolveDocumentsPath(bgPath)
+            backgroundImageData = FileManager.default.contents(atPath: resolvedBgPath)
+        }
+
         // 1. Load host photos from template or custom paths
         var hostPhotos: [Data] = []
         var hostNames: [String] = []
@@ -5152,7 +5160,8 @@ final class MCPServer {
                 subtitle: subtitle,
                 layout: ThumbnailLayout(rawValue: layout) ?? .splitPanel,
                 hostPhotos: hostPhotos,
-                brand: brand
+                brand: brand,
+                backgroundImage: backgroundImageData
             )
 
             let renderer = ThumbnailRenderer()

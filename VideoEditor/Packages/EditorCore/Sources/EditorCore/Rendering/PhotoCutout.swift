@@ -2,12 +2,14 @@
 import Foundation
 import CoreImage
 import CoreGraphics
+import Vision
 
 public struct PhotoCutout: Sendable {
 
-    /// Remove background from a photo and feather the edges.
-    /// Returns a CIImage of the person with transparent background and soft edges.
-    public static func cutout(photo: Data, featherRadius: CGFloat = 8) throws -> CIImage {
+    /// Remove background from a photo with high-quality segmentation and feathered edges.
+    /// Uses Vision's .accurate quality level for clean edges suitable for thumbnails/export.
+    /// Returns a CIImage of the person with transparent background and soft edge blend.
+    public static func cutout(photo: Data, featherRadius: CGFloat = 6) throws -> CIImage {
         guard let ciPhoto = CIImage(data: photo) else {
             throw PhotoCutoutError.invalidImageData
         }
@@ -15,37 +17,43 @@ public struct PhotoCutout: Sendable {
             throw PhotoCutoutError.invalidImageData
         }
 
-        // Generate person mask using Vision framework
-        guard let mask = PersonMasker.generateMask(for: cgPhoto) else {
+        // Generate high-quality person mask using Vision framework
+        let request = VNGeneratePersonSegmentationRequest()
+        request.qualityLevel = .accurate  // Highest quality for export/thumbnails
+        request.outputPixelFormat = kCVPixelFormatType_OneComponent8
+
+        let handler = VNImageRequestHandler(cgImage: cgPhoto, options: [:])
+        try handler.perform([request])
+
+        guard let result = request.results?.first else {
             throw PhotoCutoutError.maskGenerationFailed
         }
 
-        // Feather the mask edges with gaussian blur
-        let featheredMask: CIImage
-        if featherRadius > 0 {
-            let blurred = mask.applyingGaussianBlur(sigma: Double(featherRadius))
-            // Crop back to original extent (blur expands the image)
-            featheredMask = blurred.cropped(to: mask.extent)
-        } else {
-            featheredMask = mask
-        }
+        var mask = CIImage(cvPixelBuffer: result.pixelBuffer)
 
-        // Scale mask to match photo dimensions if needed
+        // Scale mask to match photo dimensions
         let photoExtent = ciPhoto.extent
-        let maskExtent = featheredMask.extent
+        let maskExtent = mask.extent
         let scaleX = photoExtent.width / maskExtent.width
         let scaleY = photoExtent.height / maskExtent.height
-        let scaledMask = featheredMask
+        mask = mask
             .transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
             .transformed(by: CGAffineTransform(translationX: photoExtent.origin.x, y: photoExtent.origin.y))
 
-        // Apply mask to photo: blend photo over transparent background using mask
-        let result = ciPhoto.applyingFilter("CIBlendWithMask", parameters: [
+        // Feather: slight gaussian blur on the mask edges for natural blend
+        // This softens only the boundary, not the whole mask
+        if featherRadius > 0 {
+            mask = mask.applyingGaussianBlur(sigma: Double(featherRadius))
+                .cropped(to: photoExtent)
+        }
+
+        // Apply mask: person on transparent background
+        let result2 = ciPhoto.applyingFilter("CIBlendWithMask", parameters: [
             "inputBackgroundImage": CIImage(color: .clear).cropped(to: photoExtent),
-            "inputMaskImage": scaledMask,
+            "inputMaskImage": mask,
         ])
 
-        return result.cropped(to: photoExtent)
+        return result2.cropped(to: photoExtent)
     }
 }
 

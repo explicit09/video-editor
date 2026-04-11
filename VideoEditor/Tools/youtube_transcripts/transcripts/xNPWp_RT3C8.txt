@@ -1,0 +1,42 @@
+Ding ding ding
+[Music]
+one.
+[Music]
+Adding these titles is just like adding
+any other title from the effects
+library. We'll select which one we want,
+drag it onto our timeline. From here, we
+can go into our inspector and make all
+of the customizations that we need to.
+Let's change the secondary color here.
+All of the controls here are set up from
+top to bottom how you see them on
+screen. We'll go down to the bottom here
+to logos. We can change the size
+position of the logos as well as what
+the logo is. There's 28 built-in logos
+as well as the ability to add in your
+own custom logo. You can also change the
+color of the logo to match the project.
+Since this pack allows for full
+customization, let's go ahead and change
+the color of the names within this
+section. We'll click on the template
+fusion button. Now, this is where we can
+see the group that has all of the nodes
+that build this template. And let's find
+the node that's responsible for this
+body of text. Here it is. Jumping over
+to modifiers, we can see that this is
+the character level styling modifier.
+And let's give ourselves a little bit of
+space here. And we'll just simply
+highlight the names and change the
+color.
+As simple as it was to change text
+color, you can also change all of the
+other parameters. We took advantage of
+text size as well as font style. And
+from here, all we need to do is jump
+over to the edit page and we're good to
+go.

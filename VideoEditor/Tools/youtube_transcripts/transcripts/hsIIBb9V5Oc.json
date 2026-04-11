@@ -1,0 +1,1192 @@
+[
+  {
+    "text": "You don't have to use color management,",
+    "start": 0.0,
+    "duration": 3.929
+  },
+  {
+    "text": "okay?",
+    "start": 2.88,
+    "duration": 1.72
+  },
+  {
+    "text": ">> [laughter]",
+    "start": 3.929,
+    "duration": 2.511
+  },
+  {
+    "text": ">> Now, if you're a color nerd or if you've",
+    "start": 4.6,
+    "duration": 3.44
+  },
+  {
+    "text": "watched a bunch of color grading",
+    "start": 6.44,
+    "duration": 3.72
+  },
+  {
+    "text": "tutorials, you might be like, \"Casey's",
+    "start": 8.04,
+    "duration": 4.16
+  },
+  {
+    "text": "lost his mind.\" But, it's true. You do",
+    "start": 10.16,
+    "duration": 4.08
+  },
+  {
+    "text": "not have to use color management in",
+    "start": 12.2,
+    "duration": 4.12
+  },
+  {
+    "text": "order to get good color grades. In fact,",
+    "start": 14.24,
+    "duration": 3.48
+  },
+  {
+    "text": "there are a lot of people who don't.",
+    "start": 16.32,
+    "duration": 3.08
+  },
+  {
+    "text": "But, I'm going to show you in this video",
+    "start": 17.72,
+    "duration": 3.28
+  },
+  {
+    "text": "why you might want to color manage",
+    "start": 19.4,
+    "duration": 3.72
+  },
+  {
+    "text": "anyway. Okay, so here's a shot from a",
+    "start": 21.0,
+    "duration": 4.08
+  },
+  {
+    "text": "video that I posted a couple of days ago",
+    "start": 23.12,
+    "duration": 4.52
+  },
+  {
+    "text": "and I asked you to guess which one was",
+    "start": 25.08,
+    "duration": 4.04
+  },
+  {
+    "text": "using color management, which one",
+    "start": 27.64,
+    "duration": 3.2
+  },
+  {
+    "text": "wasn't. And honestly,",
+    "start": 29.12,
+    "duration": 3.36
+  },
+  {
+    "text": "I don't think you could do it. In fact,",
+    "start": 30.84,
+    "duration": 3.8
+  },
+  {
+    "text": "I kind of forgot which one it is. Now,",
+    "start": 32.48,
+    "duration": 3.36
+  },
+  {
+    "text": "you'll notice that these are a little",
+    "start": 34.64,
+    "duration": 2.48
+  },
+  {
+    "text": "different, all right? I could have",
+    "start": 35.84,
+    "duration": 2.64
+  },
+  {
+    "text": "matched this maybe a little better,",
+    "start": 37.12,
+    "duration": 2.72
+  },
+  {
+    "text": "worked on it a little longer, but you",
+    "start": 38.48,
+    "duration": 3.0
+  },
+  {
+    "text": "know what? It's not the point to totally",
+    "start": 39.84,
+    "duration": 3.04
+  },
+  {
+    "text": "match these. The truth is, like I",
+    "start": 41.48,
+    "duration": 3.0
+  },
+  {
+    "text": "discussed the other day, the only thing",
+    "start": 42.88,
+    "duration": 3.44
+  },
+  {
+    "text": "that really matters is does your image",
+    "start": 44.48,
+    "duration": 3.56
+  },
+  {
+    "text": "look good? Does it feel the way that you",
+    "start": 46.32,
+    "duration": 3.6
+  },
+  {
+    "text": "want? And both of these could certainly",
+    "start": 48.04,
+    "duration": 3.84
+  },
+  {
+    "text": "give the viewer a certain feeling that",
+    "start": 49.92,
+    "duration": 3.36
+  },
+  {
+    "text": "you would like. Now, maybe you would",
+    "start": 51.88,
+    "duration": 2.72
+  },
+  {
+    "text": "color grade this differently, that's not",
+    "start": 53.28,
+    "duration": 2.96
+  },
+  {
+    "text": "the point either. But, let's roll the",
+    "start": 54.6,
+    "duration": 4.32
+  },
+  {
+    "text": "time back to the before times.",
+    "start": 56.24,
+    "duration": 5.0
+  },
+  {
+    "text": "The log signal. All right? This is",
+    "start": 58.92,
+    "duration": 3.6
+  },
+  {
+    "text": "footage that was shot on the Blackmagic",
+    "start": 61.24,
+    "duration": 3.68
+  },
+  {
+    "text": "6K Pocket in Blackmagic Film Gen 5. And",
+    "start": 62.52,
+    "duration": 3.76
+  },
+  {
+    "text": "so, it comes in kind of gray,",
+    "start": 64.92,
+    "duration": 4.36
+  },
+  {
+    "text": "desaturated, nasty log footage. And part",
+    "start": 66.28,
+    "duration": 4.96
+  },
+  {
+    "text": "of our job dealing with log footage in",
+    "start": 69.28,
+    "duration": 3.88
+  },
+  {
+    "text": "the color page is to make this footage",
+    "start": 71.24,
+    "duration": 4.04
+  },
+  {
+    "text": "actually look good on the screen. And",
+    "start": 73.16,
+    "duration": 3.28
+  },
+  {
+    "text": "there's pretty much two ways that you",
+    "start": 75.28,
+    "duration": 2.8
+  },
+  {
+    "text": "can do that. You can use color",
+    "start": 76.44,
+    "duration": 3.56
+  },
+  {
+    "text": "management or you can kind of tweak the",
+    "start": 78.08,
+    "duration": 3.76
+  },
+  {
+    "text": "colors yourself. So, first of all, what",
+    "start": 80.0,
+    "duration": 3.08
+  },
+  {
+    "text": "the heck is color management and why",
+    "start": 81.84,
+    "duration": 3.0
+  },
+  {
+    "text": "would we care about any of that? Well,",
+    "start": 83.08,
+    "duration": 3.64
+  },
+  {
+    "text": "color management, what that does is that",
+    "start": 84.84,
+    "duration": 4.96
+  },
+  {
+    "text": "takes this log signal and you tell it",
+    "start": 86.72,
+    "duration": 5.24
+  },
+  {
+    "text": "what kind of log footage this is. It",
+    "start": 89.8,
+    "duration": 4.76
+  },
+  {
+    "text": "kind of reverses the image magic that",
+    "start": 91.96,
+    "duration": 4.4
+  },
+  {
+    "text": "the camera does when it's shooting an",
+    "start": 94.56,
+    "duration": 3.88
+  },
+  {
+    "text": "image. It pretty much does the reverse",
+    "start": 96.36,
+    "duration": 4.28
+  },
+  {
+    "text": "of making things gray and taking down",
+    "start": 98.44,
+    "duration": 3.6
+  },
+  {
+    "text": "the contrast and taking down the",
+    "start": 100.64,
+    "duration": 3.4
+  },
+  {
+    "text": "saturation. And it turns it into an",
+    "start": 102.04,
+    "duration": 4.2
+  },
+  {
+    "text": "image that looks more normal on your",
+    "start": 104.04,
+    "duration": 4.36
+  },
+  {
+    "text": "screen. And you do this with an exciting",
+    "start": 106.24,
+    "duration": 4.64
+  },
+  {
+    "text": "thing called menus. From a menu of some",
+    "start": 108.4,
+    "duration": 4.48
+  },
+  {
+    "text": "kind, whether it's in a color space",
+    "start": 110.88,
+    "duration": 3.8
+  },
+  {
+    "text": "transform node or whether it's in your",
+    "start": 112.88,
+    "duration": 3.92
+  },
+  {
+    "text": "project color management settings, there",
+    "start": 114.68,
+    "duration": 4.76
+  },
+  {
+    "text": "are a series of drop-downs with little",
+    "start": 116.8,
+    "duration": 4.64
+  },
+  {
+    "text": "options that you select. And if you",
+    "start": 119.44,
+    "duration": 4.28
+  },
+  {
+    "text": "select the options that make sense for",
+    "start": 121.44,
+    "duration": 4.32
+  },
+  {
+    "text": "the camera that you used and the type of",
+    "start": 123.72,
+    "duration": 3.88
+  },
+  {
+    "text": "log that you're shooting, and you set",
+    "start": 125.76,
+    "duration": 3.52
+  },
+  {
+    "text": "your output color space to something",
+    "start": 127.6,
+    "duration": 3.6
+  },
+  {
+    "text": "like Rec. 709, it's going to make it",
+    "start": 129.28,
+    "duration": 3.6
+  },
+  {
+    "text": "look good on your screen, then color",
+    "start": 131.2,
+    "duration": 4.2
+  },
+  {
+    "text": "management takes that log shot and it",
+    "start": 132.88,
+    "duration": 4.32
+  },
+  {
+    "text": "makes it look good on your screen. Now,",
+    "start": 135.4,
+    "duration": 3.24
+  },
+  {
+    "text": "something to notice here is that there's",
+    "start": 137.2,
+    "duration": 4.48
+  },
+  {
+    "text": "no creativity. There is no choices.",
+    "start": 138.64,
+    "duration": 5.72
+  },
+  {
+    "text": "There's nothing that depends on me as a",
+    "start": 141.68,
+    "duration": 4.96
+  },
+  {
+    "text": "colorist or a video editor, it's just",
+    "start": 144.36,
+    "duration": 4.72
+  },
+  {
+    "text": "literally selecting the right things",
+    "start": 146.64,
+    "duration": 3.92
+  },
+  {
+    "text": "from a menu. It's about as much",
+    "start": 149.08,
+    "duration": 2.88
+  },
+  {
+    "text": "creativity as hitting the right button",
+    "start": 150.56,
+    "duration": 3.24
+  },
+  {
+    "text": "on an elevator so that you can go up to",
+    "start": 151.96,
+    "duration": 3.8
+  },
+  {
+    "text": "your floor. You can mess it up, but only",
+    "start": 153.8,
+    "duration": 3.4
+  },
+  {
+    "text": "if you hit the wrong button. But, let's",
+    "start": 155.76,
+    "duration": 3.12
+  },
+  {
+    "text": "just take that metaphor for a second.",
+    "start": 157.2,
+    "duration": 3.28
+  },
+  {
+    "text": "What if you needed to go to the third",
+    "start": 158.88,
+    "duration": 3.08
+  },
+  {
+    "text": "floor and instead of going into the",
+    "start": 160.48,
+    "duration": 3.64
+  },
+  {
+    "text": "elevator and hitting three, you decided",
+    "start": 161.96,
+    "duration": 3.96
+  },
+  {
+    "text": "that you would climb up the stairs and",
+    "start": 164.12,
+    "duration": 4.04
+  },
+  {
+    "text": "then go outside the window and you would",
+    "start": 165.92,
+    "duration": 3.96
+  },
+  {
+    "text": "climb up the fire escape and there you",
+    "start": 168.16,
+    "duration": 4.24
+  },
+  {
+    "text": "could get to the third floor yourself in",
+    "start": 169.88,
+    "duration": 5.0
+  },
+  {
+    "text": "all kinds of creative ways. Both of",
+    "start": 172.4,
+    "duration": 3.92
+  },
+  {
+    "text": "these approaches, whether you get on the",
+    "start": 174.88,
+    "duration": 3.12
+  },
+  {
+    "text": "elevator and just hit three or whether",
+    "start": 176.32,
+    "duration": 3.64
+  },
+  {
+    "text": "you Spider-Man up the outside of the",
+    "start": 178.0,
+    "duration": 3.72
+  },
+  {
+    "text": "building, you can get to the third",
+    "start": 179.96,
+    "duration": 3.92
+  },
+  {
+    "text": "floor. But, one of them, the elevator,",
+    "start": 181.72,
+    "duration": 4.08
+  },
+  {
+    "text": "is going to be a lot more direct and a",
+    "start": 183.88,
+    "duration": 4.08
+  },
+  {
+    "text": "lot less work and you have a much higher",
+    "start": 185.8,
+    "duration": 3.84
+  },
+  {
+    "text": "likelihood of not falling off of a",
+    "start": 187.96,
+    "duration": 3.32
+  },
+  {
+    "text": "building. And so, the reason why we use",
+    "start": 189.64,
+    "duration": 3.76
+  },
+  {
+    "text": "color management is just that. I can go",
+    "start": 191.28,
+    "duration": 5.28
+  },
+  {
+    "text": "from this to this zero thinking.",
+    "start": 193.4,
+    "duration": 4.56
+  },
+  {
+    "text": "Literally just selecting the right",
+    "start": 196.56,
+    "duration": 3.28
+  },
+  {
+    "text": "settings on a menu. And this gives me a",
+    "start": 197.96,
+    "duration": 3.76
+  },
+  {
+    "text": "great starting point when it comes to",
+    "start": 199.84,
+    "duration": 3.92
+  },
+  {
+    "text": "color grading. Now, I can look at this",
+    "start": 201.72,
+    "duration": 3.88
+  },
+  {
+    "text": "image and go, \"Okay, the image looks",
+    "start": 203.76,
+    "duration": 3.6
+  },
+  {
+    "text": "pretty good. What do I want to change",
+    "start": 205.6,
+    "duration": 3.12
+  },
+  {
+    "text": "about it?\" And then I can get into",
+    "start": 207.36,
+    "duration": 4.16
+  },
+  {
+    "text": "creative mode. Okay? Now, if I don't",
+    "start": 208.72,
+    "duration": 4.92
+  },
+  {
+    "text": "have any color management, I'm kind of",
+    "start": 211.52,
+    "duration": 4.04
+  },
+  {
+    "text": "left on my own. I still have a lot of",
+    "start": 213.64,
+    "duration": 3.28
+  },
+  {
+    "text": "control and a lot of things that I can",
+    "start": 215.56,
+    "duration": 3.52
+  },
+  {
+    "text": "do to this image to make it look good on",
+    "start": 216.92,
+    "duration": 4.16
+  },
+  {
+    "text": "the screen. One of them being, well,",
+    "start": 219.08,
+    "duration": 3.44
+  },
+  {
+    "text": "\"Dang, this definitely needs more",
+    "start": 221.08,
+    "duration": 3.88
+  },
+  {
+    "text": "contrast.\" I can push this contrast up.",
+    "start": 222.52,
+    "duration": 4.52
+  },
+  {
+    "text": "I can change the pivot around. I can",
+    "start": 224.96,
+    "duration": 4.16
+  },
+  {
+    "text": "maybe push some color boost in there.",
+    "start": 227.04,
+    "duration": 3.92
+  },
+  {
+    "text": "And I can get a pretty good looking",
+    "start": 229.12,
+    "duration": 4.28
+  },
+  {
+    "text": "image with not tons and tons of work,",
+    "start": 230.96,
+    "duration": 3.64
+  },
+  {
+    "text": "especially if I'm familiar with the",
+    "start": 233.4,
+    "duration": 2.76
+  },
+  {
+    "text": "color tools and what I'm doing. It's",
+    "start": 234.6,
+    "duration": 4.6
+  },
+  {
+    "text": "kind of the same idea. I go from this to",
+    "start": 236.16,
+    "duration": 5.52
+  },
+  {
+    "text": "this. The difference is that I've",
+    "start": 239.2,
+    "duration": 5.04
+  },
+  {
+    "text": "decided how bright things should be.",
+    "start": 241.68,
+    "duration": 5.56
+  },
+  {
+    "text": "I've decided how dark things should be.",
+    "start": 244.24,
+    "duration": 5.84
+  },
+  {
+    "text": "I've decided how much saturation should",
+    "start": 247.24,
+    "duration": 6.12
+  },
+  {
+    "text": "be in this grass back here. I've decided",
+    "start": 250.08,
+    "duration": 5.04
+  },
+  {
+    "text": "what color this car should be and what",
+    "start": 253.36,
+    "duration": 3.84
+  },
+  {
+    "text": "color her dress should be and how bright",
+    "start": 255.12,
+    "duration": 3.88
+  },
+  {
+    "text": "the sunlight should be on her face. I",
+    "start": 257.2,
+    "duration": 4.319
+  },
+  {
+    "text": "did that all even though it didn't take",
+    "start": 259.0,
+    "duration": 4.88
+  },
+  {
+    "text": "very long for me to do it, I made a",
+    "start": 261.519,
+    "duration": 4.401
+  },
+  {
+    "text": "series of a whole bunch of choices",
+    "start": 263.88,
+    "duration": 4.4
+  },
+  {
+    "text": "creatively without even realizing it,",
+    "start": 265.92,
+    "duration": 4.8
+  },
+  {
+    "text": "which is fine. But, it's important that",
+    "start": 268.28,
+    "duration": 5.0
+  },
+  {
+    "text": "we note that you did make those choices",
+    "start": 270.72,
+    "duration": 4.64
+  },
+  {
+    "text": "and you put creativity into this image",
+    "start": 273.28,
+    "duration": 3.6
+  },
+  {
+    "text": "when you didn't even necessarily mean",
+    "start": 275.36,
+    "duration": 3.0
+  },
+  {
+    "text": "to. And so, even though we were just",
+    "start": 276.88,
+    "duration": 3.72
+  },
+  {
+    "text": "kind of fixing problems, we fixed some",
+    "start": 278.36,
+    "duration": 4.32
+  },
+  {
+    "text": "problems and put our own spin on it.",
+    "start": 280.6,
+    "duration": 3.68
+  },
+  {
+    "text": "Does this matter in the great big scope",
+    "start": 282.68,
+    "duration": 4.12
+  },
+  {
+    "text": "of things? Not [snorts] really, because",
+    "start": 284.28,
+    "duration": 4.76
+  },
+  {
+    "text": "the only thing that's important is does",
+    "start": 286.8,
+    "duration": 3.52
+  },
+  {
+    "text": "the image look the way you want it to",
+    "start": 289.04,
+    "duration": 3.32
+  },
+  {
+    "text": "look? We've gotten to the third floor by",
+    "start": 290.32,
+    "duration": 3.6
+  },
+  {
+    "text": "Spider-Manning up the building. So, you",
+    "start": 292.36,
+    "duration": 3.16
+  },
+  {
+    "text": "may be asking, \"Well, then what's the",
+    "start": 293.92,
+    "duration": 3.36
+  },
+  {
+    "text": "deal with color management? Why is that",
+    "start": 295.52,
+    "duration": 5.08
+  },
+  {
+    "text": "such a big thing?\" Two reasons. One,",
+    "start": 297.28,
+    "duration": 4.6
+  },
+  {
+    "text": "we're trying to kind of isolate a",
+    "start": 300.6,
+    "duration": 3.4
+  },
+  {
+    "text": "technical thing from a creative thing,",
+    "start": 301.88,
+    "duration": 3.72
+  },
+  {
+    "text": "all right? This is really a technical",
+    "start": 304.0,
+    "duration": 3.8
+  },
+  {
+    "text": "problem, not a creative problem. So, a",
+    "start": 305.6,
+    "duration": 3.96
+  },
+  {
+    "text": "technical problem we want to fix with a",
+    "start": 307.8,
+    "duration": 3.76
+  },
+  {
+    "text": "technical solution, which would be color",
+    "start": 309.56,
+    "duration": 4.28
+  },
+  {
+    "text": "management. A creative problem, like,",
+    "start": 311.56,
+    "duration": 4.0
+  },
+  {
+    "text": "\"Ooh, I feel like this should feel",
+    "start": 313.84,
+    "duration": 4.52
+  },
+  {
+    "text": "warmer.\" That's a creative problem. We",
+    "start": 315.56,
+    "duration": 4.52
+  },
+  {
+    "text": "want to fix that with a creative",
+    "start": 318.36,
+    "duration": 3.52
+  },
+  {
+    "text": "solution. And so, it's kind of the right",
+    "start": 320.08,
+    "duration": 3.56
+  },
+  {
+    "text": "tools for the right job. The other big",
+    "start": 321.88,
+    "duration": 3.6
+  },
+  {
+    "text": "thing is that color management is a more",
+    "start": 323.64,
+    "duration": 3.56
+  },
+  {
+    "text": "direct path, which means that it's going",
+    "start": 325.48,
+    "duration": 3.52
+  },
+  {
+    "text": "to save you time because you don't have",
+    "start": 327.2,
+    "duration": 4.56
+  },
+  {
+    "text": "to decide how much contrast and how much",
+    "start": 329.0,
+    "duration": 4.84
+  },
+  {
+    "text": "saturation to add to an image. And it's",
+    "start": 331.76,
+    "duration": 3.72
+  },
+  {
+    "text": "also overall going to give you a better",
+    "start": 333.84,
+    "duration": 3.16
+  },
+  {
+    "text": "result because your image is going to",
+    "start": 335.48,
+    "duration": 3.68
+  },
+  {
+    "text": "look a lot more like how it looked in",
+    "start": 337.0,
+    "duration": 3.8
+  },
+  {
+    "text": "real life when you shot real life",
+    "start": 339.16,
+    "duration": 3.88
+  },
+  {
+    "text": "things. And so, an image of a person and",
+    "start": 340.8,
+    "duration": 4.6
+  },
+  {
+    "text": "their skin tone is going to more easily",
+    "start": 343.04,
+    "duration": 4.64
+  },
+  {
+    "text": "look more natural when you're using",
+    "start": 345.4,
+    "duration": 3.96
+  },
+  {
+    "text": "color management because it just puts",
+    "start": 347.68,
+    "duration": 3.2
+  },
+  {
+    "text": "the skin back where it's supposed to be.",
+    "start": 349.36,
+    "duration": 3.16
+  },
+  {
+    "text": "When we're manually messing around with",
+    "start": 350.88,
+    "duration": 3.68
+  },
+  {
+    "text": "this image, we're changing this contrast",
+    "start": 352.52,
+    "duration": 4.08
+  },
+  {
+    "text": "around and everything and we just don't",
+    "start": 354.56,
+    "duration": 4.4
+  },
+  {
+    "text": "give a heck and a half what this skin is",
+    "start": 356.6,
+    "duration": 4.08
+  },
+  {
+    "text": "supposed to look like. We're just kind",
+    "start": 358.96,
+    "duration": 3.96
+  },
+  {
+    "text": "of trying to willy-nilly put some put",
+    "start": 360.68,
+    "duration": 3.72
+  },
+  {
+    "text": "some contrast in here and make it look",
+    "start": 362.92,
+    "duration": 3.56
+  },
+  {
+    "text": "good. Color management is a more direct",
+    "start": 364.4,
+    "duration": 4.48
+  },
+  {
+    "text": "route to a better result. So, does this",
+    "start": 366.48,
+    "duration": 3.84
+  },
+  {
+    "text": "mean that you can just slap color",
+    "start": 368.88,
+    "duration": 2.84
+  },
+  {
+    "text": "management on an image and you don't",
+    "start": 370.32,
+    "duration": 3.08
+  },
+  {
+    "text": "have to touch it? Does it take away all",
+    "start": 371.72,
+    "duration": 3.96
+  },
+  {
+    "text": "that creativity? No. In fact, look at",
+    "start": 373.4,
+    "duration": 4.4
+  },
+  {
+    "text": "this image. This is just our color",
+    "start": 375.68,
+    "duration": 3.88
+  },
+  {
+    "text": "management. And honestly, there's some",
+    "start": 377.8,
+    "duration": 3.16
+  },
+  {
+    "text": "stuff that I would change with this.",
+    "start": 379.56,
+    "duration": 2.96
+  },
+  {
+    "text": "Like, it doesn't necessarily mean that",
+    "start": 380.96,
+    "duration": 3.04
+  },
+  {
+    "text": "it's going to look exactly how you want",
+    "start": 382.52,
+    "duration": 3.64
+  },
+  {
+    "text": "it to look, it means that it's going to",
+    "start": 384.0,
+    "duration": 4.8
+  },
+  {
+    "text": "look as close as possible to how this",
+    "start": 386.16,
+    "duration": 4.36
+  },
+  {
+    "text": "looked when you shot it. Which, if you",
+    "start": 388.8,
+    "duration": 2.76
+  },
+  {
+    "text": "absolutely [clears throat] nailed",
+    "start": 390.52,
+    "duration": 3.08
+  },
+  {
+    "text": "everything in camera, might be exactly",
+    "start": 391.56,
+    "duration": 3.96
+  },
+  {
+    "text": "what you want. But, at this point, we're",
+    "start": 393.6,
+    "duration": 4.2
+  },
+  {
+    "text": "freed up to do some creative stuff and",
+    "start": 395.52,
+    "duration": 3.92
+  },
+  {
+    "text": "make this image feel the way we want it",
+    "start": 397.8,
+    "duration": 4.16
+  },
+  {
+    "text": "to feel. And we don't have to climb over",
+    "start": 399.44,
+    "duration": 4.88
+  },
+  {
+    "text": "all of the technical stuff first. It's",
+    "start": 401.96,
+    "duration": 4.08
+  },
+  {
+    "text": "already done for us. And so, I can add",
+    "start": 404.32,
+    "duration": 3.6
+  },
+  {
+    "text": "these tweaks for these other nodes that",
+    "start": 406.04,
+    "duration": 3.56
+  },
+  {
+    "text": "I think will make this look better in",
+    "start": 407.92,
+    "duration": 3.68
+  },
+  {
+    "text": "addition to my color management. That's",
+    "start": 409.6,
+    "duration": 3.36
+  },
+  {
+    "text": "really the big deal. Now, if you find",
+    "start": 411.6,
+    "duration": 3.16
+  },
+  {
+    "text": "yourself kind of confused and frustrated",
+    "start": 412.96,
+    "duration": 3.72
+  },
+  {
+    "text": "with color grading on a regular basis,",
+    "start": 414.76,
+    "duration": 4.08
+  },
+  {
+    "text": "you need to take our 5-day simple color",
+    "start": 416.68,
+    "duration": 4.16
+  },
+  {
+    "text": "workflow challenge. It's a live coaching",
+    "start": 418.84,
+    "duration": 4.56
+  },
+  {
+    "text": "experience with me. It's 5 days long. We",
+    "start": 420.84,
+    "duration": 4.2
+  },
+  {
+    "text": "meet every morning and I'll walk you",
+    "start": 423.4,
+    "duration": 4.0
+  },
+  {
+    "text": "through my perfect color workflow. This",
+    "start": 425.04,
+    "duration": 4.36
+  },
+  {
+    "text": "is a no stress way to color grade your",
+    "start": 427.4,
+    "duration": 3.84
+  },
+  {
+    "text": "videos without getting overwhelmed. And",
+    "start": 429.4,
+    "duration": 3.6
+  },
+  {
+    "text": "I've seen it time and time again take",
+    "start": 431.24,
+    "duration": 3.92
+  },
+  {
+    "text": "somebody who's kind of frustrated about",
+    "start": 433.0,
+    "duration": 4.4
+  },
+  {
+    "text": "color grading and free them up to be",
+    "start": 435.16,
+    "duration": 4.56
+  },
+  {
+    "text": "creative and excited and confident in",
+    "start": 437.4,
+    "duration": 3.8
+  },
+  {
+    "text": "their color. There's a link down in the",
+    "start": 439.72,
+    "duration": 3.16
+  },
+  {
+    "text": "description below. I want you to sign up",
+    "start": 441.2,
+    "duration": 3.2
+  },
+  {
+    "text": "for that, all right? Other than that, I",
+    "start": 442.88,
+    "duration": 3.92
+  },
+  {
+    "text": "hope this helped a lot. Hope that clears",
+    "start": 444.4,
+    "duration": 4.04
+  },
+  {
+    "text": "things up because you don't have to",
+    "start": 446.8,
+    "duration": 3.72
+  },
+  {
+    "text": "color manage, but it does help and it",
+    "start": 448.44,
+    "duration": 4.0
+  },
+  {
+    "text": "does make things a lot easier, okay? If",
+    "start": 450.52,
+    "duration": 3.08
+  },
+  {
+    "text": "you want to learn more about how the",
+    "start": 452.44,
+    "duration": 2.64
+  },
+  {
+    "text": "heck color management works at all,",
+    "start": 453.6,
+    "duration": 3.8
+  },
+  {
+    "text": "well, I have a big old round up on what",
+    "start": 455.08,
+    "duration": 4.8
+  },
+  {
+    "text": "the heck that is right there. Okay?",
+    "start": 457.4,
+    "duration": 3.8
+  },
+  {
+    "text": "Okay.",
+    "start": 459.88,
+    "duration": 3.76
+  },
+  {
+    "text": "Bye.",
+    "start": 461.2,
+    "duration": 2.44
+  }
+]

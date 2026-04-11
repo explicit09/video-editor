@@ -1,0 +1,2957 @@
+[
+  {
+    "text": "So, in this episode, we're taking a deep",
+    "start": 0.24,
+    "duration": 3.52
+  },
+  {
+    "text": "dive into Power Windows. I use Power",
+    "start": 1.92,
+    "duration": 3.52
+  },
+  {
+    "text": "Windows all the time. I'm going to share",
+    "start": 3.76,
+    "duration": 3.44
+  },
+  {
+    "text": "with you my tips and tricks that I've",
+    "start": 5.44,
+    "duration": 3.28
+  },
+  {
+    "text": "built up over the years. I'm going to",
+    "start": 7.2,
+    "duration": 2.96
+  },
+  {
+    "text": "teach you the basics. I'm going to show",
+    "start": 8.72,
+    "duration": 3.44
+  },
+  {
+    "text": "you some more advanced techniques. And",
+    "start": 10.16,
+    "duration": 3.68
+  },
+  {
+    "text": "then I'm going to show you a Netflix",
+    "start": 12.16,
+    "duration": 3.359
+  },
+  {
+    "text": "show that I graded. I've got the actual",
+    "start": 13.84,
+    "duration": 3.12
+  },
+  {
+    "text": "grade here. I'm going to show you",
+    "start": 15.519,
+    "duration": 3.52
+  },
+  {
+    "text": "exactly what I did to relight the scene.",
+    "start": 16.96,
+    "duration": 3.92
+  },
+  {
+    "text": "So, let's go and take a look. So, we're",
+    "start": 19.039,
+    "duration": 3.921
+  },
+  {
+    "text": "in the color page. I've got three clips",
+    "start": 20.88,
+    "duration": 3.76
+  },
+  {
+    "text": "ready to go to show you everything I can",
+    "start": 22.96,
+    "duration": 3.2
+  },
+  {
+    "text": "about Power Windows. Now, this first",
+    "start": 24.64,
+    "duration": 2.959
+  },
+  {
+    "text": "one, I'm going to show you the very",
+    "start": 26.16,
+    "duration": 3.279
+  },
+  {
+    "text": "basics. So, if you do know a fair bit",
+    "start": 27.599,
+    "duration": 3.201
+  },
+  {
+    "text": "about Power Windows and you want to look",
+    "start": 29.439,
+    "duration": 3.521
+  },
+  {
+    "text": "at how I do it with my broadcast work,",
+    "start": 30.8,
+    "duration": 4.0
+  },
+  {
+    "text": "use the timestamps below and just jump",
+    "start": 32.96,
+    "duration": 3.279
+  },
+  {
+    "text": "ahead a little bit. But this is for",
+    "start": 34.8,
+    "duration": 3.04
+  },
+  {
+    "text": "absolute beginners. All right, we've got",
+    "start": 36.239,
+    "duration": 3.441
+  },
+  {
+    "text": "a shot here. I've got a few nodes on",
+    "start": 37.84,
+    "duration": 3.52
+  },
+  {
+    "text": "here. I've done some very basic color",
+    "start": 39.68,
+    "duration": 3.6
+  },
+  {
+    "text": "management. I've got episodes on color",
+    "start": 41.36,
+    "duration": 3.199
+  },
+  {
+    "text": "management. I'll put links to that in",
+    "start": 43.28,
+    "duration": 3.36
+  },
+  {
+    "text": "the description. But I've basically done",
+    "start": 44.559,
+    "duration": 4.241
+  },
+  {
+    "text": "a basic grade on this shot. Now, what",
+    "start": 46.64,
+    "duration": 4.48
+  },
+  {
+    "text": "I'm going to do is go to an empty node",
+    "start": 48.8,
+    "duration": 4.0
+  },
+  {
+    "text": "here, and I'm going to start putting",
+    "start": 51.12,
+    "duration": 3.119
+  },
+  {
+    "text": "some power windows on it. You'll find",
+    "start": 52.8,
+    "duration": 3.68
+  },
+  {
+    "text": "power windows down in this section here.",
+    "start": 54.239,
+    "duration": 4.241
+  },
+  {
+    "text": "And this one here is the power window",
+    "start": 56.48,
+    "duration": 3.68
+  },
+  {
+    "text": "icon. And you can select various",
+    "start": 58.48,
+    "duration": 3.919
+  },
+  {
+    "text": "different types. So you've got a linear",
+    "start": 60.16,
+    "duration": 4.16
+  },
+  {
+    "text": "one here. You've got a circle one.",
+    "start": 62.399,
+    "duration": 3.681
+  },
+  {
+    "text": "You've got a polygon shape here. You've",
+    "start": 64.32,
+    "duration": 3.6
+  },
+  {
+    "text": "got a curve where you can draw your own.",
+    "start": 66.08,
+    "duration": 4.24
+  },
+  {
+    "text": "And this bottom one is for gradients. So",
+    "start": 67.92,
+    "duration": 4.239
+  },
+  {
+    "text": "I'm going to slowly use each of these",
+    "start": 70.32,
+    "duration": 3.76
+  },
+  {
+    "text": "throughout this episode. Let's see what",
+    "start": 72.159,
+    "duration": 3.921
+  },
+  {
+    "text": "it's actually doing first. So if I",
+    "start": 74.08,
+    "duration": 4.399
+  },
+  {
+    "text": "select a circle power window here. All",
+    "start": 76.08,
+    "duration": 4.079
+  },
+  {
+    "text": "right. What it's done is drawn up a",
+    "start": 78.479,
+    "duration": 5.68
+  },
+  {
+    "text": "preset shape. And the green area here is",
+    "start": 80.159,
+    "duration": 6.161
+  },
+  {
+    "text": "the physical shape that it is. You can",
+    "start": 84.159,
+    "duration": 3.361
+  },
+  {
+    "text": "change that obviously by just pulling",
+    "start": 86.32,
+    "duration": 2.88
+  },
+  {
+    "text": "these handles. Okay, I can make that as",
+    "start": 87.52,
+    "duration": 4.48
+  },
+  {
+    "text": "small, large as I want. And the yellow",
+    "start": 89.2,
+    "duration": 5.279
+  },
+  {
+    "text": "inside and outside is softness. Okay, so",
+    "start": 92.0,
+    "duration": 4.32
+  },
+  {
+    "text": "let's start off without much softness.",
+    "start": 94.479,
+    "duration": 4.32
+  },
+  {
+    "text": "I'm going to put that over that taxi. By",
+    "start": 96.32,
+    "duration": 4.08
+  },
+  {
+    "text": "the way, mine are green and yellow",
+    "start": 98.799,
+    "duration": 3.761
+  },
+  {
+    "text": "because in my preferences here, I've",
+    "start": 100.4,
+    "duration": 4.0
+  },
+  {
+    "text": "changed the default color to be high",
+    "start": 102.56,
+    "duration": 3.839
+  },
+  {
+    "text": "visibility power window outlines. That's",
+    "start": 104.4,
+    "duration": 4.32
+  },
+  {
+    "text": "in user and color. I do that because",
+    "start": 106.399,
+    "duration": 4.321
+  },
+  {
+    "text": "it's easier for you to see on YouTube",
+    "start": 108.72,
+    "duration": 4.079
+  },
+  {
+    "text": "what I'm doing. All right, so we've got",
+    "start": 110.72,
+    "duration": 3.52
+  },
+  {
+    "text": "this shape, but nothing's happening.",
+    "start": 112.799,
+    "duration": 2.96
+  },
+  {
+    "text": "What is actually going on? So, what we",
+    "start": 114.24,
+    "duration": 3.519
+  },
+  {
+    "text": "want to do is brighten this taxi up. So,",
+    "start": 115.759,
+    "duration": 3.601
+  },
+  {
+    "text": "I'm going to use offset here and I'm",
+    "start": 117.759,
+    "duration": 3.201
+  },
+  {
+    "text": "just going to increase brightness. And",
+    "start": 119.36,
+    "duration": 3.119
+  },
+  {
+    "text": "I'm going to go quite extreme. But you",
+    "start": 120.96,
+    "duration": 2.96
+  },
+  {
+    "text": "see what's happening is it's only",
+    "start": 122.479,
+    "duration": 3.6
+  },
+  {
+    "text": "happening inside that window. The window",
+    "start": 123.92,
+    "duration": 5.119
+  },
+  {
+    "text": "is creating a secondary grade. We're",
+    "start": 126.079,
+    "duration": 6.16
+  },
+  {
+    "text": "isolating a section of video to actually",
+    "start": 129.039,
+    "duration": 5.361
+  },
+  {
+    "text": "do the grade on. Now, you can actually",
+    "start": 132.239,
+    "duration": 4.08
+  },
+  {
+    "text": "invert that. If I click here, I can",
+    "start": 134.4,
+    "duration": 3.199
+  },
+  {
+    "text": "actually do the opposite. So, I'm",
+    "start": 136.319,
+    "duration": 3.521
+  },
+  {
+    "text": "actually now the taxi stayed as it was",
+    "start": 137.599,
+    "duration": 3.841
+  },
+  {
+    "text": "and I've graded the outside of that",
+    "start": 139.84,
+    "duration": 3.28
+  },
+  {
+    "text": "window. So, you can choose inside or",
+    "start": 141.44,
+    "duration": 3.28
+  },
+  {
+    "text": "outside the window. So, it's really",
+    "start": 143.12,
+    "duration": 3.28
+  },
+  {
+    "text": "effective. All right, that's obviously",
+    "start": 144.72,
+    "duration": 3.2
+  },
+  {
+    "text": "quite extreme. So, let's just pull that",
+    "start": 146.4,
+    "duration": 4.32
+  },
+  {
+    "text": "back a little bit. Now, if I want to see",
+    "start": 147.92,
+    "duration": 5.039
+  },
+  {
+    "text": "what that looks like, you can click here",
+    "start": 150.72,
+    "duration": 4.159
+  },
+  {
+    "text": "and just switch that off. And I can now",
+    "start": 152.959,
+    "duration": 3.841
+  },
+  {
+    "text": "switch this node on and off. If I just",
+    "start": 154.879,
+    "duration": 4.321
+  },
+  {
+    "text": "press the little number six here, or I",
+    "start": 156.8,
+    "duration": 4.88
+  },
+  {
+    "text": "can press command D on my keyboard, I",
+    "start": 159.2,
+    "duration": 3.36
+  },
+  {
+    "text": "can see what's happening with that",
+    "start": 161.68,
+    "duration": 3.44
+  },
+  {
+    "text": "window. One of the first things that is",
+    "start": 162.56,
+    "duration": 4.16
+  },
+  {
+    "text": "good to know with Power Windows is B",
+    "start": 165.12,
+    "duration": 3.36
+  },
+  {
+    "text": "subtle. Okay, so I can see the outline",
+    "start": 166.72,
+    "duration": 3.28
+  },
+  {
+    "text": "of that. So, that's not a very good",
+    "start": 168.48,
+    "duration": 3.119
+  },
+  {
+    "text": "grade. So, we've got two options here.",
+    "start": 170.0,
+    "duration": 3.519
+  },
+  {
+    "text": "What we could do is go to our softness",
+    "start": 171.599,
+    "duration": 3.92
+  },
+  {
+    "text": "tool and just increase the softness.",
+    "start": 173.519,
+    "duration": 4.401
+  },
+  {
+    "text": "Now, I can't see the outline shape. So,",
+    "start": 175.519,
+    "duration": 3.521
+  },
+  {
+    "text": "what you need to do is just switch that",
+    "start": 177.92,
+    "duration": 4.16
+  },
+  {
+    "text": "back on. Go to power window here. And I",
+    "start": 179.04,
+    "duration": 4.32
+  },
+  {
+    "text": "can now see the shape. And I can move",
+    "start": 182.08,
+    "duration": 2.4
+  },
+  {
+    "text": "that around. You can do whatever you",
+    "start": 183.36,
+    "duration": 3.28
+  },
+  {
+    "text": "want with it. All right. So, that's just",
+    "start": 184.48,
+    "duration": 4.399
+  },
+  {
+    "text": "using the circle power window. What I",
+    "start": 186.64,
+    "duration": 4.0
+  },
+  {
+    "text": "want to do now is let's get rid of that",
+    "start": 188.879,
+    "duration": 3.121
+  },
+  {
+    "text": "one. You can switch it on and off like",
+    "start": 190.64,
+    "duration": 3.599
+  },
+  {
+    "text": "this. Okay. You can even name them. If I",
+    "start": 192.0,
+    "duration": 5.28
+  },
+  {
+    "text": "click on here, I could say taxi. So, let",
+    "start": 194.239,
+    "duration": 4.961
+  },
+  {
+    "text": "me quickly just show you the other ones.",
+    "start": 197.28,
+    "duration": 4.239
+  },
+  {
+    "text": "I don't use this one a lot, but it's",
+    "start": 199.2,
+    "duration": 4.72
+  },
+  {
+    "text": "basically a linear tool. So, it's",
+    "start": 201.519,
+    "duration": 4.481
+  },
+  {
+    "text": "already got a softness on it, and you",
+    "start": 203.92,
+    "duration": 3.52
+  },
+  {
+    "text": "can control the individual edges",
+    "start": 206.0,
+    "duration": 4.08
+  },
+  {
+    "text": "softness independently. All right, the",
+    "start": 207.44,
+    "duration": 4.24
+  },
+  {
+    "text": "next one down here is a linear tool.",
+    "start": 210.08,
+    "duration": 3.519
+  },
+  {
+    "text": "Now, this looks like it hasn't got",
+    "start": 211.68,
+    "duration": 3.44
+  },
+  {
+    "text": "softness on it, but it has. But it's",
+    "start": 213.599,
+    "duration": 3.121
+  },
+  {
+    "text": "inside and outside, so it's a bit more",
+    "start": 215.12,
+    "duration": 4.0
+  },
+  {
+    "text": "global. And let me just show you if I do",
+    "start": 216.72,
+    "duration": 4.239
+  },
+  {
+    "text": "something extreme in there, and I'll",
+    "start": 219.12,
+    "duration": 3.52
+  },
+  {
+    "text": "just show you that that is in fact",
+    "start": 220.959,
+    "duration": 2.881
+  },
+  {
+    "text": "softening off. I hope you can see that.",
+    "start": 222.64,
+    "duration": 2.8
+  },
+  {
+    "text": "Yeah, you should be able to see that on",
+    "start": 223.84,
+    "duration": 3.52
+  },
+  {
+    "text": "YouTube. This one is one that I use a",
+    "start": 225.44,
+    "duration": 3.76
+  },
+  {
+    "text": "lot. I tend to use the circle one and",
+    "start": 227.36,
+    "duration": 3.92
+  },
+  {
+    "text": "this one which is a curve tool. And this",
+    "start": 229.2,
+    "duration": 3.84
+  },
+  {
+    "text": "allows me to get a much more accurate",
+    "start": 231.28,
+    "duration": 3.2
+  },
+  {
+    "text": "shape. So I can now draw around this",
+    "start": 233.04,
+    "duration": 3.04
+  },
+  {
+    "text": "taxi.",
+    "start": 234.48,
+    "duration": 3.039
+  },
+  {
+    "text": "You see I'm doing it quite loose. I'm",
+    "start": 236.08,
+    "duration": 3.439
+  },
+  {
+    "text": "not being too tight. I tend to put more",
+    "start": 237.519,
+    "duration": 3.681
+  },
+  {
+    "text": "points on than I need. It's I think it's",
+    "start": 239.519,
+    "duration": 3.601
+  },
+  {
+    "text": "because I'm using a pen and tablet. Um",
+    "start": 241.2,
+    "duration": 2.959
+  },
+  {
+    "text": "you don't need to put as many as that",
+    "start": 243.12,
+    "duration": 2.96
+  },
+  {
+    "text": "on, but as long as they join up, it will",
+    "start": 244.159,
+    "duration": 4.241
+  },
+  {
+    "text": "complete the shape. I'm going to put a",
+    "start": 246.08,
+    "duration": 3.6
+  },
+  {
+    "text": "little bit of outside softness on there",
+    "start": 248.4,
+    "duration": 2.8
+  },
+  {
+    "text": "and a little bit inside softness. One",
+    "start": 249.68,
+    "duration": 3.04
+  },
+  {
+    "text": "thing to be careful of is if you make",
+    "start": 251.2,
+    "duration": 3.679
+  },
+  {
+    "text": "your angles too tight, what can happen",
+    "start": 252.72,
+    "duration": 4.72
+  },
+  {
+    "text": "is you can go inside out with your",
+    "start": 254.879,
+    "duration": 4.001
+  },
+  {
+    "text": "softness. So, just be careful of that.",
+    "start": 257.44,
+    "duration": 3.6
+  },
+  {
+    "text": "It doesn't look pretty. So, I'm going to",
+    "start": 258.88,
+    "duration": 3.92
+  },
+  {
+    "text": "undo that. And now, if I increase that",
+    "start": 261.04,
+    "duration": 4.24
+  },
+  {
+    "text": "offset, there we go. We pop in the taxi.",
+    "start": 262.8,
+    "duration": 4.08
+  },
+  {
+    "text": "Again, I'm just doing this for effect to",
+    "start": 265.28,
+    "duration": 3.28
+  },
+  {
+    "text": "show you. I'm not saying that's a good",
+    "start": 266.88,
+    "duration": 3.759
+  },
+  {
+    "text": "grade. Or I can do the inverse of that",
+    "start": 268.56,
+    "duration": 4.0
+  },
+  {
+    "text": "by clicking on there. So, that's what",
+    "start": 270.639,
+    "duration": 3.201
+  },
+  {
+    "text": "these are doing. This one here, by the",
+    "start": 272.56,
+    "duration": 3.199
+  },
+  {
+    "text": "way, this is a gradient. So, if I just",
+    "start": 273.84,
+    "duration": 4.4
+  },
+  {
+    "text": "click on here, I don't use this to be",
+    "start": 275.759,
+    "duration": 4.241
+  },
+  {
+    "text": "honest, but this gives you a gradient",
+    "start": 278.24,
+    "duration": 3.2
+  },
+  {
+    "text": "tool. And you can position where the",
+    "start": 280.0,
+    "duration": 3.68
+  },
+  {
+    "text": "gradient starts and how the longer this",
+    "start": 281.44,
+    "duration": 4.16
+  },
+  {
+    "text": "line is, the softer that gradient",
+    "start": 283.68,
+    "duration": 5.36
+  },
+  {
+    "text": "appears. Okay? So, it's like that.",
+    "start": 285.6,
+    "duration": 5.12
+  },
+  {
+    "text": "And another trick you can do, if I click",
+    "start": 289.04,
+    "duration": 6.24
+  },
+  {
+    "text": "here and do something like so in here,",
+    "start": 290.72,
+    "duration": 6.0
+  },
+  {
+    "text": "but let's say you want to make a bit",
+    "start": 295.28,
+    "duration": 2.639
+  },
+  {
+    "text": "more of a point in here. You don't want",
+    "start": 296.72,
+    "duration": 2.96
+  },
+  {
+    "text": "to be a complete circle. Instead of",
+    "start": 297.919,
+    "duration": 3.441
+  },
+  {
+    "text": "getting rid of it and going to the curve",
+    "start": 299.68,
+    "duration": 2.959
+  },
+  {
+    "text": "tool, what you can actually do is click",
+    "start": 301.36,
+    "duration": 4.0
+  },
+  {
+    "text": "here and say convert to bezier. And now",
+    "start": 302.639,
+    "duration": 4.961
+  },
+  {
+    "text": "what I can do is add extra points in",
+    "start": 305.36,
+    "duration": 5.119
+  },
+  {
+    "text": "here. And then you can use your inside",
+    "start": 307.6,
+    "duration": 5.2
+  },
+  {
+    "text": "and outside softness independently. So",
+    "start": 310.479,
+    "duration": 4.0
+  },
+  {
+    "text": "that's another little trick. So that's",
+    "start": 312.8,
+    "duration": 4.08
+  },
+  {
+    "text": "one example of where a window works. But",
+    "start": 314.479,
+    "duration": 4.081
+  },
+  {
+    "text": "this window is static now. Okay, we've",
+    "start": 316.88,
+    "duration": 3.039
+  },
+  {
+    "text": "got quite a lot going on in this scene.",
+    "start": 318.56,
+    "duration": 2.56
+  },
+  {
+    "text": "Let me show you what actually happened",
+    "start": 319.919,
+    "duration": 2.72
+  },
+  {
+    "text": "in this. This is a commercial I created",
+    "start": 321.12,
+    "duration": 3.359
+  },
+  {
+    "text": "years ago. And as we move through this",
+    "start": 322.639,
+    "duration": 3.361
+  },
+  {
+    "text": "scene, you'll see that this character",
+    "start": 324.479,
+    "duration": 4.16
+  },
+  {
+    "text": "here has a red tail on their coat. This",
+    "start": 326.0,
+    "duration": 4.4
+  },
+  {
+    "text": "was for the branding. So the branding of",
+    "start": 328.639,
+    "duration": 3.921
+  },
+  {
+    "text": "the commercial that we did was this red.",
+    "start": 330.4,
+    "duration": 3.12
+  },
+  {
+    "text": "And they thought it'd be nice to have",
+    "start": 332.56,
+    "duration": 3.04
+  },
+  {
+    "text": "the red pillar box in here and red in",
+    "start": 333.52,
+    "duration": 3.36
+  },
+  {
+    "text": "her coat. but it actually became a",
+    "start": 335.6,
+    "duration": 2.56
+  },
+  {
+    "text": "little bit distracting when she walked",
+    "start": 336.88,
+    "duration": 2.48
+  },
+  {
+    "text": "down the street. So, what we did was",
+    "start": 338.16,
+    "duration": 2.64
+  },
+  {
+    "text": "change the hue of it. Now, I'm going to",
+    "start": 339.36,
+    "duration": 2.72
+  },
+  {
+    "text": "show you a really good technique with",
+    "start": 340.8,
+    "duration": 3.44
+  },
+  {
+    "text": "power windows here. Let's take this coat",
+    "start": 342.08,
+    "duration": 4.16
+  },
+  {
+    "text": "here and what I'm going to do is I'm",
+    "start": 344.24,
+    "duration": 4.48
+  },
+  {
+    "text": "going to select it with let's use a",
+    "start": 346.24,
+    "duration": 4.56
+  },
+  {
+    "text": "curve. I'm going to go up to here. I'm",
+    "start": 348.72,
+    "duration": 5.12
+  },
+  {
+    "text": "going to say hue versus hue. I'm going",
+    "start": 350.8,
+    "duration": 6.48
+  },
+  {
+    "text": "to select that red and I'm just going to",
+    "start": 353.84,
+    "duration": 5.44
+  },
+  {
+    "text": "cycle through. And we actually made it",
+    "start": 357.28,
+    "duration": 3.84
+  },
+  {
+    "text": "blue. So, let me just make it actually",
+    "start": 359.28,
+    "duration": 3.44
+  },
+  {
+    "text": "blue. I'm going to stretch that out a",
+    "start": 361.12,
+    "duration": 4.0
+  },
+  {
+    "text": "little bit so it's a bit nicer.",
+    "start": 362.72,
+    "duration": 4.64
+  },
+  {
+    "text": "It wasn't quite as strong blue as that.",
+    "start": 365.12,
+    "duration": 3.44
+  },
+  {
+    "text": "Something more like that. There we go.",
+    "start": 367.36,
+    "duration": 3.2
+  },
+  {
+    "text": "That's that's exactly what it was. Now,",
+    "start": 368.56,
+    "duration": 3.759
+  },
+  {
+    "text": "the issue we've got here is it's changed",
+    "start": 370.56,
+    "duration": 3.759
+  },
+  {
+    "text": "the taxi and the pillar box. So, what's",
+    "start": 372.319,
+    "duration": 4.081
+  },
+  {
+    "text": "good to do here is to use a power",
+    "start": 374.319,
+    "duration": 3.521
+  },
+  {
+    "text": "window. So, I'm going to go to my window",
+    "start": 376.4,
+    "duration": 3.76
+  },
+  {
+    "text": "here. I've got a whole episode on how to",
+    "start": 377.84,
+    "duration": 4.0
+  },
+  {
+    "text": "do everything I'm about to show you as",
+    "start": 380.16,
+    "duration": 2.96
+  },
+  {
+    "text": "well. I'll put a link to that in the",
+    "start": 381.84,
+    "duration": 2.56
+  },
+  {
+    "text": "description. But, effectively, I'm going",
+    "start": 383.12,
+    "duration": 3.12
+  },
+  {
+    "text": "to draw a window around her and track",
+    "start": 384.4,
+    "duration": 5.28
+  },
+  {
+    "text": "it. So, we isolate just this section to",
+    "start": 386.24,
+    "duration": 5.36
+  },
+  {
+    "text": "be blue. So, I'm gonna take my little",
+    "start": 389.68,
+    "duration": 3.76
+  },
+  {
+    "text": "curve here. There's the preset shape",
+    "start": 391.6,
+    "duration": 4.0
+  },
+  {
+    "text": "from before. Now, what I could do is",
+    "start": 393.44,
+    "duration": 3.84
+  },
+  {
+    "text": "ignore that one. We can actually go up",
+    "start": 395.6,
+    "duration": 3.439
+  },
+  {
+    "text": "here and add a new one. You can have as",
+    "start": 397.28,
+    "duration": 2.8
+  },
+  {
+    "text": "many of these as you like. So, I'm going",
+    "start": 399.039,
+    "duration": 2.961
+  },
+  {
+    "text": "to add a new curve that's appearing",
+    "start": 400.08,
+    "duration": 3.839
+  },
+  {
+    "text": "here. And I'm just going to draw instead",
+    "start": 402.0,
+    "duration": 3.28
+  },
+  {
+    "text": "of rebuilding that one. It's easier for",
+    "start": 403.919,
+    "duration": 2.4
+  },
+  {
+    "text": "me to just do this. I'm just going to",
+    "start": 405.28,
+    "duration": 3.039
+  },
+  {
+    "text": "draw loosely around that shape. And you",
+    "start": 406.319,
+    "duration": 2.801
+  },
+  {
+    "text": "can see what's happening now because",
+    "start": 408.319,
+    "duration": 3.681
+  },
+  {
+    "text": "we're on inside and not outside. We've",
+    "start": 409.12,
+    "duration": 5.76
+  },
+  {
+    "text": "isolated that whole huge shift that we",
+    "start": 412.0,
+    "duration": 5.12
+  },
+  {
+    "text": "did for the whole image is now isolated",
+    "start": 414.88,
+    "duration": 3.84
+  },
+  {
+    "text": "within this power window. And what I'm",
+    "start": 417.12,
+    "duration": 3.28
+  },
+  {
+    "text": "going to do is track this. because I've",
+    "start": 418.72,
+    "duration": 3.919
+  },
+  {
+    "text": "got a window live. All you got to do is",
+    "start": 420.4,
+    "duration": 4.799
+  },
+  {
+    "text": "go into the tracker. Okay. And literally",
+    "start": 422.639,
+    "duration": 4.0
+  },
+  {
+    "text": "just press track. So I'm going to track",
+    "start": 425.199,
+    "duration": 4.481
+  },
+  {
+    "text": "forwards and backwards. And it's done.",
+    "start": 426.639,
+    "duration": 5.601
+  },
+  {
+    "text": "So if we just play that through, I just",
+    "start": 429.68,
+    "duration": 6.04
+  },
+  {
+    "text": "put my loop on.",
+    "start": 432.24,
+    "duration": 3.48
+  },
+  {
+    "text": "And she comes. And there we've got a",
+    "start": 435.759,
+    "duration": 4.0
+  },
+  {
+    "text": "perfect track of that code. Now, in this",
+    "start": 437.44,
+    "duration": 4.0
+  },
+  {
+    "text": "episode that I'm going to put a link to,",
+    "start": 439.759,
+    "duration": 3.521
+  },
+  {
+    "text": "I show you how to fix bad tracking, how",
+    "start": 441.44,
+    "duration": 3.52
+  },
+  {
+    "text": "to use Windows more advanced in",
+    "start": 443.28,
+    "duration": 3.199
+  },
+  {
+    "text": "tracking. So check that one out if you",
+    "start": 444.96,
+    "duration": 3.359
+  },
+  {
+    "text": "haven't seen it already. So before we",
+    "start": 446.479,
+    "duration": 3.601
+  },
+  {
+    "text": "move on to the full relighting that I'm",
+    "start": 448.319,
+    "duration": 3.201
+  },
+  {
+    "text": "going to show you on the actual",
+    "start": 450.08,
+    "duration": 3.119
+  },
+  {
+    "text": "broadcast job that I worked on, let's",
+    "start": 451.52,
+    "duration": 2.799
+  },
+  {
+    "text": "just take a quick look at this shot",
+    "start": 453.199,
+    "duration": 2.4
+  },
+  {
+    "text": "here. I've done some basic color",
+    "start": 454.319,
+    "duration": 3.121
+  },
+  {
+    "text": "management on this. Again, this is shot",
+    "start": 455.599,
+    "duration": 4.32
+  },
+  {
+    "text": "on uh Blackmagic camera. And what I'm",
+    "start": 457.44,
+    "duration": 4.159
+  },
+  {
+    "text": "using here is my fixed notary. This is",
+    "start": 459.919,
+    "duration": 3.201
+  },
+  {
+    "text": "freely available. There's a link in the",
+    "start": 461.599,
+    "duration": 3.681
+  },
+  {
+    "text": "description. You can download this and",
+    "start": 463.12,
+    "duration": 4.4
+  },
+  {
+    "text": "use it for free. And I've got an episode",
+    "start": 465.28,
+    "duration": 4.16
+  },
+  {
+    "text": "on how I use this note tree. I'll put a",
+    "start": 467.52,
+    "duration": 4.079
+  },
+  {
+    "text": "link to that in the description as well.",
+    "start": 469.44,
+    "duration": 3.44
+  },
+  {
+    "text": "And I've done the color management on",
+    "start": 471.599,
+    "duration": 2.72
+  },
+  {
+    "text": "here. And I've done some very basic",
+    "start": 472.88,
+    "duration": 3.759
+  },
+  {
+    "text": "color grading on here as well. Now, in",
+    "start": 474.319,
+    "duration": 4.32
+  },
+  {
+    "text": "reality on my fixed notary, my power",
+    "start": 476.639,
+    "duration": 4.641
+  },
+  {
+    "text": "windows go in some parallels down here.",
+    "start": 478.639,
+    "duration": 4.721
+  },
+  {
+    "text": "And the reason they go in parallels is",
+    "start": 481.28,
+    "duration": 4.08
+  },
+  {
+    "text": "so that I'm blending them together and",
+    "start": 483.36,
+    "duration": 3.6
+  },
+  {
+    "text": "they're not each power window is not",
+    "start": 485.36,
+    "duration": 3.04
+  },
+  {
+    "text": "then feeding the next power window. So,",
+    "start": 486.96,
+    "duration": 3.12
+  },
+  {
+    "text": "it's nice to have them in parallels.",
+    "start": 488.4,
+    "duration": 3.44
+  },
+  {
+    "text": "It's a good rule to follow. So, if",
+    "start": 490.08,
+    "duration": 3.119
+  },
+  {
+    "text": "you're enjoying this episode so far,",
+    "start": 491.84,
+    "duration": 2.72
+  },
+  {
+    "text": "drop me a comment and let me know what",
+    "start": 493.199,
+    "duration": 3.041
+  },
+  {
+    "text": "you'd like to see in future episodes.",
+    "start": 494.56,
+    "duration": 3.199
+  },
+  {
+    "text": "Also, think about subscribing if you",
+    "start": 496.24,
+    "duration": 3.12
+  },
+  {
+    "text": "haven't done so already. I don't ask",
+    "start": 497.759,
+    "duration": 3.601
+  },
+  {
+    "text": "very often. I do work hard to get these",
+    "start": 499.36,
+    "duration": 4.32
+  },
+  {
+    "text": "episodes as good as I can for you. and I",
+    "start": 501.36,
+    "duration": 3.92
+  },
+  {
+    "text": "would love it if you hit the like button",
+    "start": 503.68,
+    "duration": 3.84
+  },
+  {
+    "text": "for me. All right, let's take a look at",
+    "start": 505.28,
+    "duration": 3.359
+  },
+  {
+    "text": "what we're going to do on this one. Now,",
+    "start": 507.52,
+    "duration": 3.84
+  },
+  {
+    "text": "what often gets done and a quite a",
+    "start": 508.639,
+    "duration": 4.161
+  },
+  {
+    "text": "common technique is to use power windows",
+    "start": 511.36,
+    "duration": 3.039
+  },
+  {
+    "text": "to make a vignette. So, let me show you",
+    "start": 512.8,
+    "duration": 3.52
+  },
+  {
+    "text": "exactly how to do that. If you take a",
+    "start": 514.399,
+    "duration": 3.681
+  },
+  {
+    "text": "power window here, we're going to take a",
+    "start": 516.32,
+    "duration": 3.839
+  },
+  {
+    "text": "circle power window. And the first thing",
+    "start": 518.08,
+    "duration": 3.839
+  },
+  {
+    "text": "we do is soften off the edges. You want",
+    "start": 520.159,
+    "duration": 4.0
+  },
+  {
+    "text": "really, really soft edges on this. I'm",
+    "start": 521.919,
+    "duration": 4.001
+  },
+  {
+    "text": "going to bring that up to here.",
+    "start": 524.159,
+    "duration": 3.041
+  },
+  {
+    "text": "Sometimes I don't always have the",
+    "start": 525.92,
+    "duration": 3.44
+  },
+  {
+    "text": "vignettes out in the middle, but what",
+    "start": 527.2,
+    "duration": 3.92
+  },
+  {
+    "text": "I'd like to use for mine, I'm going to",
+    "start": 529.36,
+    "duration": 3.039
+  },
+  {
+    "text": "invert it obviously, or else it's going",
+    "start": 531.12,
+    "duration": 3.68
+  },
+  {
+    "text": "to grade inside that shape, but I use",
+    "start": 532.399,
+    "duration": 4.161
+  },
+  {
+    "text": "two different methods of doing it. The",
+    "start": 534.8,
+    "duration": 3.44
+  },
+  {
+    "text": "first one is just using gamma in the",
+    "start": 536.56,
+    "duration": 3.44
+  },
+  {
+    "text": "primary wheels. So, if I just bring that",
+    "start": 538.24,
+    "duration": 3.36
+  },
+  {
+    "text": "down, I'm going quite extreme here, but",
+    "start": 540.0,
+    "duration": 3.04
+  },
+  {
+    "text": "you can see we're getting that really",
+    "start": 541.6,
+    "duration": 3.28
+  },
+  {
+    "text": "nice sort of vignetting feel on the",
+    "start": 543.04,
+    "duration": 4.88
+  },
+  {
+    "text": "edge. Or the other trick that I use is I",
+    "start": 544.88,
+    "duration": 5.84
+  },
+  {
+    "text": "go to HDR and I just bring down exposure",
+    "start": 547.92,
+    "duration": 4.72
+  },
+  {
+    "text": "slightly.",
+    "start": 550.72,
+    "duration": 3.119
+  },
+  {
+    "text": "Okay, you got to be careful with this",
+    "start": 552.64,
+    "duration": 2.8
+  },
+  {
+    "text": "one because you are actually affecting",
+    "start": 553.839,
+    "duration": 3.761
+  },
+  {
+    "text": "your blacks and whites as well. So, I",
+    "start": 555.44,
+    "duration": 4.8
+  },
+  {
+    "text": "tend to use gamma more than I use global",
+    "start": 557.6,
+    "duration": 5.52
+  },
+  {
+    "text": "offset, but it would depend on the shot.",
+    "start": 560.24,
+    "duration": 4.56
+  },
+  {
+    "text": "So, that's how you get a basic vignette.",
+    "start": 563.12,
+    "duration": 3.2
+  },
+  {
+    "text": "Now, what you can do is then click on",
+    "start": 564.8,
+    "duration": 3.599
+  },
+  {
+    "text": "here and you can save that as a new",
+    "start": 566.32,
+    "duration": 3.6
+  },
+  {
+    "text": "preset. And I'm going to call that",
+    "start": 568.399,
+    "duration": 3.921
+  },
+  {
+    "text": "vignette.",
+    "start": 569.92,
+    "duration": 4.4
+  },
+  {
+    "text": "Or you can save it as a shared node or",
+    "start": 572.32,
+    "duration": 4.079
+  },
+  {
+    "text": "you can save as a still in your gallery.",
+    "start": 574.32,
+    "duration": 4.24
+  },
+  {
+    "text": "But I like to put it in there. Now, if I",
+    "start": 576.399,
+    "duration": 4.56
+  },
+  {
+    "text": "wanted to get that and put it on this",
+    "start": 578.56,
+    "duration": 4.88
+  },
+  {
+    "text": "shot, I can select this shot here and I",
+    "start": 580.959,
+    "duration": 4.481
+  },
+  {
+    "text": "can click on here and say vignette. And",
+    "start": 583.44,
+    "duration": 3.36
+  },
+  {
+    "text": "there it is. There's the shape ready for",
+    "start": 585.44,
+    "duration": 3.12
+  },
+  {
+    "text": "me to go. So, that's a really good tip",
+    "start": 586.8,
+    "duration": 3.68
+  },
+  {
+    "text": "as well. So, let's take a look at a real",
+    "start": 588.56,
+    "duration": 3.2
+  },
+  {
+    "text": "world example. I want to show you an",
+    "start": 590.48,
+    "duration": 2.479
+  },
+  {
+    "text": "actual job that I worked. I'm going to",
+    "start": 591.76,
+    "duration": 2.96
+  },
+  {
+    "text": "show you just how I use power windows",
+    "start": 592.959,
+    "duration": 3.681
+  },
+  {
+    "text": "and how subtle they can be, but I'm",
+    "start": 594.72,
+    "duration": 3.52
+  },
+  {
+    "text": "going to show you what a huge difference",
+    "start": 596.64,
+    "duration": 4.4
+  },
+  {
+    "text": "they really make. So, this shot here,",
+    "start": 598.24,
+    "duration": 7.039
+  },
+  {
+    "text": "this is from a Netflix show and this is",
+    "start": 601.04,
+    "duration": 6.32
+  },
+  {
+    "text": "the actual grade. So you see it's very",
+    "start": 605.279,
+    "duration": 3.68
+  },
+  {
+    "text": "similar to my fixed notary that you",
+    "start": 607.36,
+    "duration": 3.28
+  },
+  {
+    "text": "download, but it's got a little bit more",
+    "start": 608.959,
+    "duration": 3.041
+  },
+  {
+    "text": "going on in it. So it's just an",
+    "start": 610.64,
+    "duration": 3.6
+  },
+  {
+    "text": "extension of that. So this is the actual",
+    "start": 612.0,
+    "duration": 4.56
+  },
+  {
+    "text": "finished shot. I've got various things",
+    "start": 614.24,
+    "duration": 3.279
+  },
+  {
+    "text": "going on here. We've got our color",
+    "start": 616.56,
+    "duration": 2.24
+  },
+  {
+    "text": "balance going on here. There's a bit of",
+    "start": 617.519,
+    "duration": 3.281
+  },
+  {
+    "text": "temperature control. There's various",
+    "start": 618.8,
+    "duration": 3.599
+  },
+  {
+    "text": "things, but you see here I've got a",
+    "start": 620.8,
+    "duration": 4.4
+  },
+  {
+    "text": "whole section of windows. Now this",
+    "start": 622.399,
+    "duration": 5.68
+  },
+  {
+    "text": "started life as this. This is in recx",
+    "start": 625.2,
+    "duration": 4.319
+  },
+  {
+    "text": "709. There's no point me showing you",
+    "start": 628.079,
+    "duration": 4.0
+  },
+  {
+    "text": "log. Well, here's the log. This is rec",
+    "start": 629.519,
+    "duration": 6.0
+  },
+  {
+    "text": "709. And then we came to this. This is",
+    "start": 632.079,
+    "duration": 5.44
+  },
+  {
+    "text": "the grade but without any power window.",
+    "start": 635.519,
+    "duration": 3.841
+  },
+  {
+    "text": "So I want to show you exactly how I've",
+    "start": 637.519,
+    "duration": 3.121
+  },
+  {
+    "text": "used them. I'm going to do this. I'm",
+    "start": 639.36,
+    "duration": 3.36
+  },
+  {
+    "text": "going to rebuild it from scratch. So",
+    "start": 640.64,
+    "duration": 3.6
+  },
+  {
+    "text": "this shot is taken from a documentary",
+    "start": 642.72,
+    "duration": 3.76
+  },
+  {
+    "text": "that is factual crime. And we thought",
+    "start": 644.24,
+    "duration": 3.92
+  },
+  {
+    "text": "that the scene here just looks a little",
+    "start": 646.48,
+    "duration": 4.0
+  },
+  {
+    "text": "bit too bright for the subject that's",
+    "start": 648.16,
+    "duration": 3.919
+  },
+  {
+    "text": "actually being spoken about. So the",
+    "start": 650.48,
+    "duration": 3.039
+  },
+  {
+    "text": "director decided that he wanted the",
+    "start": 652.079,
+    "duration": 4.081
+  },
+  {
+    "text": "background to be set back a little bit.",
+    "start": 653.519,
+    "duration": 3.921
+  },
+  {
+    "text": "So I've got a node here called",
+    "start": 656.16,
+    "duration": 2.799
+  },
+  {
+    "text": "background. And let me show you",
+    "start": 657.44,
+    "duration": 3.12
+  },
+  {
+    "text": "traditionally how this would be done.",
+    "start": 658.959,
+    "duration": 4.481
+  },
+  {
+    "text": "I'm going to go into here. I'm going to",
+    "start": 660.56,
+    "duration": 4.399
+  },
+  {
+    "text": "do a shape. Now, what I need to do is",
+    "start": 663.44,
+    "duration": 4.079
+  },
+  {
+    "text": "get outside of the image here. So, what",
+    "start": 664.959,
+    "duration": 4.56
+  },
+  {
+    "text": "I'm going to do is go up to here. I'm",
+    "start": 667.519,
+    "duration": 3.921
+  },
+  {
+    "text": "just going to roll this back to be about",
+    "start": 669.519,
+    "duration": 5.361
+  },
+  {
+    "text": "75%. I've actually got this mapped to a",
+    "start": 671.44,
+    "duration": 6.0
+  },
+  {
+    "text": "wheel that sits on my Zenti Labs tablet",
+    "start": 674.88,
+    "duration": 3.92
+  },
+  {
+    "text": "and pen. So, that's really useful. I can",
+    "start": 677.44,
+    "duration": 3.519
+  },
+  {
+    "text": "just grab that at any point. So, what I'",
+    "start": 678.8,
+    "duration": 4.56
+  },
+  {
+    "text": "do is if we want to make her pop and the",
+    "start": 680.959,
+    "duration": 4.161
+  },
+  {
+    "text": "background darker, what I would do",
+    "start": 683.36,
+    "duration": 3.84
+  },
+  {
+    "text": "traditionally is just draw a nice loose",
+    "start": 685.12,
+    "duration": 6.6
+  },
+  {
+    "text": "shape around her",
+    "start": 687.2,
+    "duration": 4.52
+  },
+  {
+    "text": "and add plenty of softness, of course,",
+    "start": 692.88,
+    "duration": 5.04
+  },
+  {
+    "text": "as I always do. Always plenty of",
+    "start": 696.24,
+    "duration": 3.12
+  },
+  {
+    "text": "softness. I don't think I've ever done a",
+    "start": 697.92,
+    "duration": 3.039
+  },
+  {
+    "text": "power window without softness on it,",
+    "start": 699.36,
+    "duration": 3.599
+  },
+  {
+    "text": "unless even if I'm drawing around a",
+    "start": 700.959,
+    "duration": 3.841
+  },
+  {
+    "text": "laptop screen, I'd even have a couple of",
+    "start": 702.959,
+    "duration": 4.32
+  },
+  {
+    "text": "pixels. And then what we do is invert",
+    "start": 704.8,
+    "duration": 5.44
+  },
+  {
+    "text": "that. And then I'm just going to take my",
+    "start": 707.279,
+    "duration": 6.401
+  },
+  {
+    "text": "exposure here and my HDR.",
+    "start": 710.24,
+    "duration": 5.12
+  },
+  {
+    "text": "And I'm just going to drop that back",
+    "start": 713.68,
+    "duration": 3.52
+  },
+  {
+    "text": "slightly. So it looks something like",
+    "start": 715.36,
+    "duration": 3.2
+  },
+  {
+    "text": "that. Now let's just go and switch that",
+    "start": 717.2,
+    "duration": 3.199
+  },
+  {
+    "text": "window off. In fact, I don't need to do",
+    "start": 718.56,
+    "duration": 4.399
+  },
+  {
+    "text": "that here because I've got other nodes",
+    "start": 720.399,
+    "duration": 3.601
+  },
+  {
+    "text": "here with nothing on. I can just",
+    "start": 722.959,
+    "duration": 2.721
+  },
+  {
+    "text": "literally switch on another node. And",
+    "start": 724.0,
+    "duration": 3.44
+  },
+  {
+    "text": "you see that looks pretty good. But the",
+    "start": 725.68,
+    "duration": 3.44
+  },
+  {
+    "text": "problem I've got, in fact, if I just",
+    "start": 727.44,
+    "duration": 3.12
+  },
+  {
+    "text": "highlight that, you can see if I enable",
+    "start": 729.12,
+    "duration": 3.519
+  },
+  {
+    "text": "and disable. But the problem I've got is",
+    "start": 730.56,
+    "duration": 3.92
+  },
+  {
+    "text": "you can see this edging. And I want they",
+    "start": 732.639,
+    "duration": 4.64
+  },
+  {
+    "text": "wanted it quite dark back. So, this is",
+    "start": 734.48,
+    "duration": 4.4
+  },
+  {
+    "text": "not going to work in that instance. This",
+    "start": 737.279,
+    "duration": 3.201
+  },
+  {
+    "text": "is an example of when not to use a power",
+    "start": 738.88,
+    "duration": 3.44
+  },
+  {
+    "text": "window, but I still want that effect to",
+    "start": 740.48,
+    "duration": 3.76
+  },
+  {
+    "text": "happen. Now, with version 20, we've got",
+    "start": 742.32,
+    "duration": 3.84
+  },
+  {
+    "text": "this fantastic magic mask. I actually",
+    "start": 744.24,
+    "duration": 3.599
+  },
+  {
+    "text": "use magic mask on the original one, but",
+    "start": 746.16,
+    "duration": 3.84
+  },
+  {
+    "text": "that wasn't on version 20. So, I'm going",
+    "start": 747.839,
+    "duration": 3.601
+  },
+  {
+    "text": "to get rid of the power window in this",
+    "start": 750.0,
+    "duration": 3.2
+  },
+  {
+    "text": "instance. And the reason I'm putting",
+    "start": 751.44,
+    "duration": 2.959
+  },
+  {
+    "text": "this on is because I need to show you",
+    "start": 753.2,
+    "duration": 2.319
+  },
+  {
+    "text": "other things I'm doing with the power",
+    "start": 754.399,
+    "duration": 2.801
+  },
+  {
+    "text": "windows that might explain why they're",
+    "start": 755.519,
+    "duration": 3.601
+  },
+  {
+    "text": "in parallel as well. So, I'm going to",
+    "start": 757.2,
+    "duration": 4.0
+  },
+  {
+    "text": "take my background. What we did was we",
+    "start": 759.12,
+    "duration": 4.959
+  },
+  {
+    "text": "used the magic mask here, and I'm going",
+    "start": 761.2,
+    "duration": 4.079
+  },
+  {
+    "text": "to go to better mode. I'm going to do",
+    "start": 764.079,
+    "duration": 2.241
+  },
+  {
+    "text": "this properly. I'm going to do it",
+    "start": 765.279,
+    "duration": 2.641
+  },
+  {
+    "text": "exactly how I would do it in broadcast",
+    "start": 766.32,
+    "duration": 3.84
+  },
+  {
+    "text": "situation. And what we do is highlight",
+    "start": 767.92,
+    "duration": 3.919
+  },
+  {
+    "text": "her.",
+    "start": 770.16,
+    "duration": 3.119
+  },
+  {
+    "text": "Now, the reason I can't use the depth",
+    "start": 771.839,
+    "duration": 3.68
+  },
+  {
+    "text": "control is because this cushion and this",
+    "start": 773.279,
+    "duration": 5.521
+  },
+  {
+    "text": "armchair here are on the same depth as",
+    "start": 775.519,
+    "duration": 5.361
+  },
+  {
+    "text": "her. So, I'd have to use maybe depth map",
+    "start": 778.8,
+    "duration": 3.839
+  },
+  {
+    "text": "and a window, but I found it easier to",
+    "start": 780.88,
+    "duration": 3.28
+  },
+  {
+    "text": "just go straight for the magic mask. So,",
+    "start": 782.639,
+    "duration": 4.961
+  },
+  {
+    "text": "if I put my highlight tool on up here,",
+    "start": 784.16,
+    "duration": 5.04
+  },
+  {
+    "text": "you can see what's going on. It's done a",
+    "start": 787.6,
+    "duration": 3.679
+  },
+  {
+    "text": "fantastic job of getting her exactly in",
+    "start": 789.2,
+    "duration": 3.28
+  },
+  {
+    "text": "there. So, what we can do now is take",
+    "start": 791.279,
+    "duration": 3.281
+  },
+  {
+    "text": "that off. Let's invert it because I",
+    "start": 792.48,
+    "duration": 3.76
+  },
+  {
+    "text": "don't want her to be affected. And we're",
+    "start": 794.56,
+    "duration": 2.719
+  },
+  {
+    "text": "going to do that exact same move. I'm",
+    "start": 796.24,
+    "duration": 3.839
+  },
+  {
+    "text": "just going to bring down my exposure",
+    "start": 797.279,
+    "duration": 6.081
+  },
+  {
+    "text": "and drop it down something like that. I",
+    "start": 800.079,
+    "duration": 4.641
+  },
+  {
+    "text": "think we went to I can't remember the",
+    "start": 803.36,
+    "duration": 2.719
+  },
+  {
+    "text": "exact number we went to, but it was",
+    "start": 804.72,
+    "duration": 2.88
+  },
+  {
+    "text": "something around about there. Now,",
+    "start": 806.079,
+    "duration": 2.721
+  },
+  {
+    "text": "that's looking good. She's really",
+    "start": 807.6,
+    "duration": 2.96
+  },
+  {
+    "text": "popping in there, but it looks a bit",
+    "start": 808.8,
+    "duration": 3.76
+  },
+  {
+    "text": "weird. She looks still a bit too lit. In",
+    "start": 810.56,
+    "duration": 3.6
+  },
+  {
+    "text": "fact, if anything, that's probably a bit",
+    "start": 812.56,
+    "duration": 2.88
+  },
+  {
+    "text": "strong. Let's just knock it back a",
+    "start": 814.16,
+    "duration": 3.919
+  },
+  {
+    "text": "little bit.",
+    "start": 815.44,
+    "duration": 4.48
+  },
+  {
+    "text": "There we go. Right. So, she's now",
+    "start": 818.079,
+    "duration": 3.2
+  },
+  {
+    "text": "looking good. She's we've got that",
+    "start": 819.92,
+    "duration": 3.2
+  },
+  {
+    "text": "background set, but it's starting to",
+    "start": 821.279,
+    "duration": 4.081
+  },
+  {
+    "text": "look a bit dull. Now, the next thing I",
+    "start": 823.12,
+    "duration": 7.12
+  },
+  {
+    "text": "did was click on here, and this area is",
+    "start": 825.36,
+    "duration": 6.24
+  },
+  {
+    "text": "it's just a bit dead. There's nothing",
+    "start": 830.24,
+    "duration": 2.719
+  },
+  {
+    "text": "really going on there. Here, we've got a",
+    "start": 831.6,
+    "duration": 3.12
+  },
+  {
+    "text": "nice practical. We've got some photos.",
+    "start": 832.959,
+    "duration": 3.281
+  },
+  {
+    "text": "We've got the chairs, but there's not a",
+    "start": 834.72,
+    "duration": 3.119
+  },
+  {
+    "text": "lot actually going on on here. So, what",
+    "start": 836.24,
+    "duration": 3.76
+  },
+  {
+    "text": "I decided to do was take a power window",
+    "start": 837.839,
+    "duration": 4.881
+  },
+  {
+    "text": "and I did a circle power window on it",
+    "start": 840.0,
+    "duration": 6.32
+  },
+  {
+    "text": "just for speed, lots of softness, and",
+    "start": 842.72,
+    "duration": 6.72
+  },
+  {
+    "text": "pulled it out like this. But what I did",
+    "start": 846.32,
+    "duration": 6.16
+  },
+  {
+    "text": "was make it quite long.",
+    "start": 849.44,
+    "duration": 5.12
+  },
+  {
+    "text": "In fact, I made it more than that. Even",
+    "start": 852.48,
+    "duration": 3.84
+  },
+  {
+    "text": "if I just change my aspect, something",
+    "start": 854.56,
+    "duration": 4.32
+  },
+  {
+    "text": "like that. And this side, you literally",
+    "start": 856.32,
+    "duration": 3.759
+  },
+  {
+    "text": "couldn't see it. So, it did something",
+    "start": 858.88,
+    "duration": 3.84
+  },
+  {
+    "text": "like that. I'm going to invert it. And",
+    "start": 860.079,
+    "duration": 6.801
+  },
+  {
+    "text": "I'm going to bring down gamma here.",
+    "start": 862.72,
+    "duration": 5.52
+  },
+  {
+    "text": "And we're just dropping that side down.",
+    "start": 866.88,
+    "duration": 2.24
+  },
+  {
+    "text": "So, you see what's happening. If I",
+    "start": 868.24,
+    "duration": 2.08
+  },
+  {
+    "text": "switch that on and off, we're just",
+    "start": 869.12,
+    "duration": 2.48
+  },
+  {
+    "text": "dropping that side, but nothing over",
+    "start": 870.32,
+    "duration": 2.639
+  },
+  {
+    "text": "here is being affected. So, that's a",
+    "start": 871.6,
+    "duration": 2.239
+  },
+  {
+    "text": "really good way of doing. I could have",
+    "start": 872.959,
+    "duration": 2.961
+  },
+  {
+    "text": "just done that with a window drawn",
+    "start": 873.839,
+    "duration": 3.761
+  },
+  {
+    "text": "something like this, but I quite like",
+    "start": 875.92,
+    "duration": 4.24
+  },
+  {
+    "text": "using circle power windows. All right,",
+    "start": 877.6,
+    "duration": 4.32
+  },
+  {
+    "text": "the next thing I noticed if we click on",
+    "start": 880.16,
+    "duration": 4.16
+  },
+  {
+    "text": "this next node is that this lamp here.",
+    "start": 881.92,
+    "duration": 4.24
+  },
+  {
+    "text": "So, so far what we've got, if I just",
+    "start": 884.32,
+    "duration": 4.319
+  },
+  {
+    "text": "show you the windows we've done so far,",
+    "start": 886.16,
+    "duration": 3.84
+  },
+  {
+    "text": "we're dropping that background down.",
+    "start": 888.639,
+    "duration": 3.281
+  },
+  {
+    "text": "We've dropped the left side down even",
+    "start": 890.0,
+    "duration": 4.079
+  },
+  {
+    "text": "more, but this lamp here is getting",
+    "start": 891.92,
+    "duration": 4.32
+  },
+  {
+    "text": "affected by that as well. So, let's just",
+    "start": 894.079,
+    "duration": 4.161
+  },
+  {
+    "text": "adjust that. What I'll do is another",
+    "start": 896.24,
+    "duration": 4.719
+  },
+  {
+    "text": "little circle pal window. And you see",
+    "start": 898.24,
+    "duration": 4.88
+  },
+  {
+    "text": "how subtle I'm being with all these. I'm",
+    "start": 900.959,
+    "duration": 3.281
+  },
+  {
+    "text": "going to bring that down and we're going",
+    "start": 903.12,
+    "duration": 4.079
+  },
+  {
+    "text": "to just put that over here.",
+    "start": 904.24,
+    "duration": 4.24
+  },
+  {
+    "text": "I'm going to add a little bit more",
+    "start": 907.199,
+    "duration": 3.121
+  },
+  {
+    "text": "softness to it. Okay. And what I'm going",
+    "start": 908.48,
+    "duration": 4.719
+  },
+  {
+    "text": "to do is just bring up the exposure on",
+    "start": 910.32,
+    "duration": 5.199
+  },
+  {
+    "text": "that.",
+    "start": 913.199,
+    "duration": 4.32
+  },
+  {
+    "text": "Just slightly. Not I mean, look how",
+    "start": 915.519,
+    "duration": 3.521
+  },
+  {
+    "text": "little I'm bringing it up. Okay. This is",
+    "start": 917.519,
+    "duration": 3.201
+  },
+  {
+    "text": "how you're doing it when you're doing it",
+    "start": 919.04,
+    "duration": 3.359
+  },
+  {
+    "text": "for real broadcast. You don't want",
+    "start": 920.72,
+    "duration": 3.44
+  },
+  {
+    "text": "anyone to see these windows. That's the",
+    "start": 922.399,
+    "duration": 3.521
+  },
+  {
+    "text": "key of getting it right. I'm then going",
+    "start": 924.16,
+    "duration": 3.6
+  },
+  {
+    "text": "to bring up my saturation just a little",
+    "start": 925.92,
+    "duration": 5.44
+  },
+  {
+    "text": "bit. Okay. And just want to see now how",
+    "start": 927.76,
+    "duration": 4.879
+  },
+  {
+    "text": "much of a difference that's made. So,",
+    "start": 931.36,
+    "duration": 3.12
+  },
+  {
+    "text": "I'm not changing the lights coming out",
+    "start": 932.639,
+    "duration": 4.081
+  },
+  {
+    "text": "of it. I'm not making it look silly, but",
+    "start": 934.48,
+    "duration": 3.52
+  },
+  {
+    "text": "what I'm doing is just giving it a",
+    "start": 936.72,
+    "duration": 2.799
+  },
+  {
+    "text": "little bit of an edge. So, we've now got",
+    "start": 938.0,
+    "duration": 3.199
+  },
+  {
+    "text": "background, left side, and that",
+    "start": 939.519,
+    "duration": 3.601
+  },
+  {
+    "text": "practical lamp being lifted. Okay. So,",
+    "start": 941.199,
+    "duration": 3.921
+  },
+  {
+    "text": "that's all great, but what I felt was",
+    "start": 943.12,
+    "duration": 3.92
+  },
+  {
+    "text": "missing. Now, if I just click on here,",
+    "start": 945.12,
+    "duration": 3.36
+  },
+  {
+    "text": "is the room starting to look a little",
+    "start": 947.04,
+    "duration": 4.08
+  },
+  {
+    "text": "bit flat. So, she's quite lit still",
+    "start": 948.48,
+    "duration": 4.799
+  },
+  {
+    "text": "because if you remember, the room is",
+    "start": 951.12,
+    "duration": 5.519
+  },
+  {
+    "text": "actually lit like this, but it's",
+    "start": 953.279,
+    "duration": 4.881
+  },
+  {
+    "text": "starting to look a bit flat. So, what I",
+    "start": 956.639,
+    "duration": 3.681
+  },
+  {
+    "text": "did was do a final power window. I'm",
+    "start": 958.16,
+    "duration": 4.32
+  },
+  {
+    "text": "just going to draw it in. And I just",
+    "start": 960.32,
+    "duration": 3.84
+  },
+  {
+    "text": "need to come out a little bit more of",
+    "start": 962.48,
+    "duration": 3.84
+  },
+  {
+    "text": "this. And I'm going to enhance the",
+    "start": 964.16,
+    "duration": 3.359
+  },
+  {
+    "text": "lights coming in through this window.",
+    "start": 966.32,
+    "duration": 6.6
+  },
+  {
+    "text": "So, I'm going to do something like this.",
+    "start": 967.519,
+    "duration": 5.401
+  },
+  {
+    "text": "Again, I don't need to draw as many",
+    "start": 974.24,
+    "duration": 2.88
+  },
+  {
+    "text": "points as this. It's just a habit that I",
+    "start": 975.44,
+    "duration": 4.16
+  },
+  {
+    "text": "do from many, many years of doing this.",
+    "start": 977.12,
+    "duration": 4.0
+  },
+  {
+    "text": "Uh, I've not quite join the dots up",
+    "start": 979.6,
+    "duration": 2.56
+  },
+  {
+    "text": "there. There you go. Now, they're",
+    "start": 981.12,
+    "duration": 3.12
+  },
+  {
+    "text": "joined. Okay. So, now plenty of outside",
+    "start": 982.16,
+    "duration": 3.919
+  },
+  {
+    "text": "softness. I really can't stress that",
+    "start": 984.24,
+    "duration": 3.76
+  },
+  {
+    "text": "enough on this.",
+    "start": 986.079,
+    "duration": 3.281
+  },
+  {
+    "text": "Okay. Okay. I just need to be careful",
+    "start": 988.0,
+    "duration": 5.04
+  },
+  {
+    "text": "there that I don't go inside out.",
+    "start": 989.36,
+    "duration": 4.8
+  },
+  {
+    "text": "All right. Something like that. Now,",
+    "start": 993.04,
+    "duration": 3.359
+  },
+  {
+    "text": "what I'm going to do is I'm going to go",
+    "start": 994.16,
+    "duration": 4.32
+  },
+  {
+    "text": "to my tool here. I'm going to add a",
+    "start": 996.399,
+    "duration": 4.321
+  },
+  {
+    "text": "little bit of gamma.",
+    "start": 998.48,
+    "duration": 4.479
+  },
+  {
+    "text": "Let's add a bit more. Something like",
+    "start": 1000.72,
+    "duration": 3.6
+  },
+  {
+    "text": "that. So, we're still getting the",
+    "start": 1002.959,
+    "duration": 3.601
+  },
+  {
+    "text": "background looking dark, but we've got",
+    "start": 1004.32,
+    "duration": 3.68
+  },
+  {
+    "text": "just a little bit more life coming into",
+    "start": 1006.56,
+    "duration": 3.76
+  },
+  {
+    "text": "it. All right. Let's go something like",
+    "start": 1008.0,
+    "duration": 4.72
+  },
+  {
+    "text": "that. Now, the issue we've got here is",
+    "start": 1010.32,
+    "duration": 5.6
+  },
+  {
+    "text": "if I just take that window off",
+    "start": 1012.72,
+    "duration": 5.6
+  },
+  {
+    "text": "is it doesn't look right because if I",
+    "start": 1015.92,
+    "duration": 4.8
+  },
+  {
+    "text": "command D again because the light is",
+    "start": 1018.32,
+    "duration": 3.199
+  },
+  {
+    "text": "actually coming in front of it. I'm",
+    "start": 1020.72,
+    "duration": 1.76
+  },
+  {
+    "text": "going to you know what? I'm going to add",
+    "start": 1021.519,
+    "duration": 2.641
+  },
+  {
+    "text": "a bit more into this just to exaggerate",
+    "start": 1022.48,
+    "duration": 3.12
+  },
+  {
+    "text": "it just so you can see what's going on.",
+    "start": 1024.16,
+    "duration": 4.799
+  },
+  {
+    "text": "And let's put that back to best fit. But",
+    "start": 1025.6,
+    "duration": 5.439
+  },
+  {
+    "text": "it's a bit too strong. Sorry. I can't",
+    "start": 1028.959,
+    "duration": 4.48
+  },
+  {
+    "text": "leave it like that. Um so there's the",
+    "start": 1031.039,
+    "duration": 3.681
+  },
+  {
+    "text": "light coming in. Now what we need to do",
+    "start": 1033.439,
+    "duration": 4.321
+  },
+  {
+    "text": "is block her from that light being",
+    "start": 1034.72,
+    "duration": 4.4
+  },
+  {
+    "text": "affected through that window. All right.",
+    "start": 1037.76,
+    "duration": 3.36
+  },
+  {
+    "text": "Again, we could use depth map here, but",
+    "start": 1039.12,
+    "duration": 3.839
+  },
+  {
+    "text": "because I've already magic masked her,",
+    "start": 1041.12,
+    "duration": 3.36
+  },
+  {
+    "text": "which is going to track all her",
+    "start": 1042.959,
+    "duration": 3.761
+  },
+  {
+    "text": "movements, she lifts her hands up soon.",
+    "start": 1044.48,
+    "duration": 4.8
+  },
+  {
+    "text": "I can take the magic mask that I did,",
+    "start": 1046.72,
+    "duration": 5.52
+  },
+  {
+    "text": "and I can take the feed, the key from it",
+    "start": 1049.28,
+    "duration": 5.92
+  },
+  {
+    "text": "into this window shot. And what happens",
+    "start": 1052.24,
+    "duration": 4.96
+  },
+  {
+    "text": "now is you see we've got the light",
+    "start": 1055.2,
+    "duration": 3.359
+  },
+  {
+    "text": "coming in through the window, but it's",
+    "start": 1057.2,
+    "duration": 3.599
+  },
+  {
+    "text": "all going behind her. So, that is now a",
+    "start": 1058.559,
+    "duration": 4.321
+  },
+  {
+    "text": "convincing effect. So, let's take a look",
+    "start": 1060.799,
+    "duration": 5.921
+  },
+  {
+    "text": "at all four of those lights together.",
+    "start": 1062.88,
+    "duration": 5.2
+  },
+  {
+    "text": "Now, when you're doing this amount of",
+    "start": 1066.72,
+    "duration": 2.88
+  },
+  {
+    "text": "relighting work, you really want to play",
+    "start": 1068.08,
+    "duration": 3.36
+  },
+  {
+    "text": "the clip back, especially as we've used",
+    "start": 1069.6,
+    "duration": 4.0
+  },
+  {
+    "text": "magic mask. Now, on the actual grade, I",
+    "start": 1071.44,
+    "duration": 3.68
+  },
+  {
+    "text": "checked that render first just to check",
+    "start": 1073.6,
+    "duration": 3.199
+  },
+  {
+    "text": "that I wasn't getting into trouble. But",
+    "start": 1075.12,
+    "duration": 3.6
+  },
+  {
+    "text": "let's play this clip back. So, on the",
+    "start": 1076.799,
+    "duration": 3.041
+  },
+  {
+    "text": "left hand side, you've got the full",
+    "start": 1078.72,
+    "duration": 2.4
+  },
+  {
+    "text": "grade, but without any of the power",
+    "start": 1079.84,
+    "duration": 2.959
+  },
+  {
+    "text": "window work, and the right hand side is",
+    "start": 1081.12,
+    "duration": 3.28
+  },
+  {
+    "text": "all that work that we did on those four",
+    "start": 1082.799,
+    "duration": 3.041
+  },
+  {
+    "text": "power windows. So, we've got our base",
+    "start": 1084.4,
+    "duration": 3.04
+  },
+  {
+    "text": "shot, then we darken the background,",
+    "start": 1085.84,
+    "duration": 3.36
+  },
+  {
+    "text": "darken the left hand side, lifted up",
+    "start": 1087.44,
+    "duration": 4.0
+  },
+  {
+    "text": "that practical light, and then we added",
+    "start": 1089.2,
+    "duration": 3.92
+  },
+  {
+    "text": "that window light, but keeping our",
+    "start": 1091.44,
+    "duration": 4.239
+  },
+  {
+    "text": "subject blocked. and that has",
+    "start": 1093.12,
+    "duration": 4.32
+  },
+  {
+    "text": "dramatically changed that scene. So,",
+    "start": 1095.679,
+    "duration": 3.441
+  },
+  {
+    "text": "that is a true real world example. You",
+    "start": 1097.44,
+    "duration": 3.119
+  },
+  {
+    "text": "can see how subtle I am with those power",
+    "start": 1099.12,
+    "duration": 3.04
+  },
+  {
+    "text": "windows. This is a really good practical",
+    "start": 1100.559,
+    "duration": 3.281
+  },
+  {
+    "text": "example of how that works. Now, I've had",
+    "start": 1102.16,
+    "duration": 3.759
+  },
+  {
+    "text": "a few comments recently in my other",
+    "start": 1103.84,
+    "duration": 4.0
+  },
+  {
+    "text": "episodes just saying, \"Where are you?",
+    "start": 1105.919,
+    "duration": 3.601
+  },
+  {
+    "text": "Why are you not recording? Why have you",
+    "start": 1107.84,
+    "duration": 3.28
+  },
+  {
+    "text": "posted so infrequently?\" This year has",
+    "start": 1109.52,
+    "duration": 4.24
+  },
+  {
+    "text": "been particularly busy, but I am a real",
+    "start": 1111.12,
+    "duration": 4.799
+  },
+  {
+    "text": "working colorist. This is my day job is",
+    "start": 1113.76,
+    "duration": 4.32
+  },
+  {
+    "text": "as a broadcast colorist. That's how I",
+    "start": 1115.919,
+    "duration": 4.161
+  },
+  {
+    "text": "can give you insights like this. These",
+    "start": 1118.08,
+    "duration": 4.64
+  },
+  {
+    "text": "are real world examples. I am back on",
+    "start": 1120.08,
+    "duration": 4.4
+  },
+  {
+    "text": "YouTube now. I intend to get another",
+    "start": 1122.72,
+    "duration": 4.48
+  },
+  {
+    "text": "episode out next week. So, I am doing a",
+    "start": 1124.48,
+    "duration": 4.0
+  },
+  {
+    "text": "little window where I'm going to get as",
+    "start": 1127.2,
+    "duration": 3.44
+  },
+  {
+    "text": "many out as I can, but I try my best,",
+    "start": 1128.48,
+    "duration": 4.079
+  },
+  {
+    "text": "okay? But I am a real full-time",
+    "start": 1130.64,
+    "duration": 4.48
+  },
+  {
+    "text": "colorist. That is my job. So, I hope you",
+    "start": 1132.559,
+    "duration": 3.761
+  },
+  {
+    "text": "enjoyed this. If you have, think about",
+    "start": 1135.12,
+    "duration": 3.12
+  },
+  {
+    "text": "subscribing as well. It's really good",
+    "start": 1136.32,
+    "duration": 3.599
+  },
+  {
+    "text": "for me to see that. I know most of you",
+    "start": 1138.24,
+    "duration": 3.52
+  },
+  {
+    "text": "don't subscribe. I get it, but I really",
+    "start": 1139.919,
+    "duration": 3.12
+  },
+  {
+    "text": "do appreciate it, especially when I'm",
+    "start": 1141.76,
+    "duration": 3.12
+  },
+  {
+    "text": "not posting as much as I want to. Just",
+    "start": 1143.039,
+    "duration": 3.361
+  },
+  {
+    "text": "give me a bit of encouragement. Look",
+    "start": 1144.88,
+    "duration": 2.64
+  },
+  {
+    "text": "after yourselves and I'll see you in the",
+    "start": 1146.4,
+    "duration": 3.84
+  },
+  {
+    "text": "next episode.",
+    "start": 1147.52,
+    "duration": 2.72
+  }
+]

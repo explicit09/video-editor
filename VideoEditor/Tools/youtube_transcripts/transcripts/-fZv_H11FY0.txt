@@ -1,0 +1,2326 @@
+All right. What's going on, Eric? Glad
+to have you on the show, man.
+>> Thanks for having me.
+>> Yeah. Glad you're here. So, Eric Whip,
+supervising colorist at Alter Ego.
+Partner at Alter Ego, right?
+>> Yep. Been around now for
+jeez, 19 years at Alter Ego. Yeah.
+>> Yeah. Okay. You You've uh Yeah. You've
+been around. You got some stuff. We got
+some stuff we're going to geek out about
+today.
+>> Okay.
+>> All right, man. I I don't even know
+where to begin. I mean, let's start with
+I guess like one of the things that I
+noticed when I look at all your work
+from and and it's cool because you
+really do bounce between movies and
+commercials a lot and those things are
+out there and we can see them. And one
+of the things that I really appreciate
+about your work is it all feels like
+very contemporary. Like you're not
+trying to live in the past or do a thing
+that's worked in the past. like every
+project feels fresh and it feels like
+you're trying to push the medium and do
+new and interesting and exciting things
+like color-wise, contrast-wise, like
+texture. I'd love to like dive deep on
+that, but like I don't know, like this
+is a a broad question, but like how do
+you how do you think about color and how
+do you approach each project when it
+comes in? Uh geez that's a hard question
+to answer but you know I I think first
+and foremost it's usually story driven
+first you know especially in long format
+work or features or anything like that
+it's usually all about story
+>> uh what is the tone of the piece what's
+the idea behind it la that that
+automatically answers questions although
+sometimes it does take you in a place
+you don't think you're going to go you
+know a good example of that is
+>> you know on like Fury Road I went in
+there thinking okay let's make this like
+gritty and a little desaturated and
+whatever.
+George the director is like, "No, no,
+no, no. That's been done a million
+times. I want something colorful." And
+I'm like, "Oh god." And I just finished
+Happy Feet with him, right? Happy Feet
+one and two. And I'm like, "Oh, no. We
+can't have Mad Max looking like a
+cartoon. This is terrible."
+>> So, I got to find a way to make it
+colorful that isn't horrible, right?
+because I we had seen dailies come
+through and someone had cranked the
+saturation button cuz George wanted it
+more saturated and it it looked like a
+1980s music video gone wrong. You know,
+it was like, oh, this is video sat
+thing.
+>> So then it's like exploring looks,
+finding ways to, you know, to make that
+interesting. So, and the same goes in
+commercials, you know, if you've got a
+bank commercial with two people sitting
+talking about their mortgage or
+something, you know, maybe that's not
+the spot to put the high contrast blue
+green look on, you know? So, it's
+usually story driven first and then uh
+and then you
+>> then you move forward from there and
+find different ways.
+>> Yeah, that makes perfect sense. So, I
+and what's interesting to me though is
+that you have the versatility as an
+artist to do the like hypersaturated
+world of like the Mad Max universe,
+which we got to talk more about, but
+also to toggle over to like the ad or
+the commercial that needs different
+things. And you clearly have like
+granular tools and like techniques at
+your disposal for getting to those
+places.
+>> Yeah, you learn. I mean, I've been oh
+god, I'm going to sound really old here,
+but I've been doing this for close to 30
+years, right? So you you learn very
+especially in commercials because that's
+really been my bread and butter for most
+of my career. Uh you learn very quickly
+to to you have to come up with a look
+incredibly quickly. Like sometimes
+you're being a commercial, you only have
+four hours
+>> and I haven't even seen the footage
+until I walk into it and then they're
+like, "And be creative now."
+>> Ah, okay. So, you have to find a look
+very quickly. You have to match
+everything very quickly. You've got to
+do all the extra things they want. They
+want to lift up the face and roto the
+eyes and do this and render it within
+four hours, right? So, it's it's tight.
+You've got to be fast. So yeah, that I
+think that experience of going through
+that over years and years and years, you
+you have this repertoire of little
+tricks up your sleeve that you know like
+you know, okay, I've got really boring
+footage here. Let's come back to that
+idea of the bank commercial. You got
+that boring bank commercial with two
+people up against a white drywall and
+you're like, oh god, am I good? All
+right, I know I can if I vignette the
+side here and I put a little color here.
+You you know that that will work for
+that type of job, right? So you can find
+fast ways of getting through it. Okay.
+So, let's let's double click on the
+commercial workflow for a second. So,
+like you mentioned like you got to find
+a look fast and you got to get all
+matched in fast. Like what does that
+look like for you? Like first couple
+steps, are you doing for a short form
+thing? Are you doing like a macrolevel
+thing that sits on top of everything
+like a layer that's going to hit all of
+your shots
+>> or is it more something that you're
+going to paste from shot to shot? And
+you're on a baseline by the way for
+everyone.
+>> I'm on a Yeah, I I do use baselite. Um
+you know, we were talking before I I'm
+trying to learn Resolve. Yeah, this is
+this was one of our first connections
+like we've got a resolve curious and a
+base light curious colorist here. Um so
+uh you know understanding both I mean I
+started on uh well actually god I
+started even earlier before that but I
+did do a lot of my early career was on
+you know old film telescinis with da
+vinci so which is you know so I know a
+lot of the tools from resolve and how it
+works and everything obviously it's
+changed as it's moved onto a digital
+thing
+>> but essentially the tools are the same
+right so I always start with a balance
+first you know I just want to get the
+overall picture balanced and then I will
+look through, you know, a little
+repertoire or of look strips or things
+that I might have or some other you'll
+kind of find something that gives me an
+overall look.
+>> And I think the big trick for me anyway
+that I learned very early on in my
+career is not to get bogged down on one
+shot.
+>> And a lot of uh like junior colorists
+coming up, I see them stuck on a shot.
+They they sit on the wide shot trying to
+come up with a look and they're they're
+there for four hours and then they move
+on to the close-up and realize that that
+look is not going to work.
+>> Doesn't travel. Yeah.
+>> So, don't waste your time.
+>> I try to get an overall look very
+quickly. Uh and then try it on every
+shot and see if it's working.
+>> Um if that's working well, then I I kind
+of work quickly through I get a balance
+and a grade and an overall look across
+the entire thing really quickly. And
+then I just keep looping back and
+refining and refining and refining. And
+um I mean that for me was like one of
+the biggest revolutions in color grading
+when you know I I used to work in you
+know for those of you who don't know the
+the old way of working you know in in
+commercials and stuff like that was you
+would have a telescin with a roll of
+film and you would lace up the film and
+you would fast forward to the take that
+they chose in the edit and you would
+balance that out and then you could save
+a still frame of it. That's all you
+could do. So you could go, okay, that's
+what that looks like. Then you have to
+rewind that film and wait 10 minutes and
+then load up the next roll and fast
+forward to the next shot and then look
+at your still you saved and balance the
+next shot
+>> and then just keep working your way
+through it. But then usually around the
+fourth or fifth shot, you would find a
+better look.
+>> Mhm. And then I would be like, I'm going
+to have to go back one
+>> and you would have to, you know, and
+then when we moved to nonlinear and you
+could just scrub through your shots, it
+was like, god, this is like a dream for
+a colorist, you know, if when you've
+been stuck in that old way of working.
+This was amazing.
+>> So I I embrace that fully and I love
+just quickly, you know, quickly running
+through it, looking at it, seeing if it
+works. No, it's not quite it's not quite
+what I'm looking for. It works well on
+the wide, doesn't work as well in the
+close-up. whatever the situation might
+be, right? And just keep refining. And
+then I I've been doing this for so long,
+but I still
+>> have those happy accidents where you get
+to the fourth shot and you go, "Oh,
+there it is. That's that's what I want."
+Right. And then I got to quickly put
+that back on every
+>> But now you can bounce back to shot one
+without a cost of uh
+>> Exactly. It's not going to take me three
+hours of rewinding film again. Yeah.
+>> Yeah. Okay, cool. So, like, let's take
+this hypothetical 4-hour session. I love
+this. So, I feel like like I know I've
+been in those sessions before and I'm
+sure some of the people listening have
+as well. So, like that first pass you're
+talking about like all right, we're
+balanced and we've got a look that's
+kind of working for everything. If it's
+a 4-hour session, what does how how deep
+into it are you by that point?
+>> I'm, you know, the the overall look
+we're probably done in the first 15
+minutes. I'm I'm working fast. It's
+balanced. has looked I could take
+especially in a commercial like you know
+if it's a 30 second or 60sec commercial
+I've generally got a balance in the
+first 10 minutes.
+>> Got it. Um,
+and in commercials it's funny. It's like
+people come to you with these crazy
+requests that happen, you know, because
+you'll have a client or an agency person
+that, you know, before you've even
+started, they'll be like, "Her dress
+should be more red and you're okay," you
+know, and we have this phrase which is
+like, you know, color grading. This
+works in a lot of um crafts and stuff
+like that, but in color grading, it's
+like building a house. You got to put
+the the framework up and then you've got
+to uh you can put your drywall up and
+then you can start adding paint and then
+you can add the pictures, right? You got
+to get that foundation right first. And
+uh but it's funny, but clients don't
+think like that. They just walk into a
+session and start talking about the red
+dress or something and you're like,
+well, okay, well, if's going to be blue,
+it's not going to be a red dress
+anymore. Like, let's just get to that in
+a minute. Y
+>> uh so you you know you have a list of
+things from your clients usually of like
+you know the pack doesn't look good or
+the the dress is the wrong color or I
+don't that person's skin needs work or
+something. You will have this list of
+things that I've got to get through as
+well. But I've also got to get the look
+and it's got to work for the spot. It's
+got to work for the story. It's got to
+do its thing. So then you're just
+refining and you I kind of quickly
+prioritize those things. You know, it's
+like, okay, there's pimples on the
+actor's face. It doesn't have to be me.
+That could be VFX later if it had to be,
+but you know, if I can get to it, I'll
+get to it. That goes down on the
+priority because we've got to get the
+red dress fixed or we've got to. So, you
+have to quickly prioritize what your
+main things are in a session and you're
+just going. You don't leave that chair
+for four hours and you just go go.
+That's such a skill, like identifying
+and guiding priority in a winning way,
+especially in those tight turnaround
+situations.
+>> It's funny, it's something that I've
+always done in most of my career, and I
+wasn't really aware that I was even
+doing it until actually, I think I was
+working with a director one time, and
+they pointed it out to me, and I was
+like, "Oh, yeah." And then I had the um
+and what I'm really talking about here
+is the the managing the room and
+managing people in a session because it
+can get very confusing for people
+because they don't know how you want to
+work or how fast things take or when to
+call out that I want that red ch red
+dress fixed or you know they don't know
+right and
+>> and you know as colorists we know that
+okay well I'm not going to get to that
+till I've done this or or whatever. Um,
+but I remember I don't know about 15
+years ago I got put into a position
+where I had to sit and be the colorist,
+their client basically in another
+colorist session. And as colorists, we
+don't, you know, we don't sit in each
+other's sessions very often. It's very
+rare,
+>> but I had done a grade and then someone
+was doing something to that grade,
+another pass on it, and I wasn't allowed
+to be the the colorist on it. I just had
+to supervise it, right, and sit there.
+uh and
+this particular colorist just was very
+quiet and I had no idea what was
+happening in the session and I was
+frustrated as hell in the session and I
+was like why why is this so confusing
+what is happening here and I realize
+that one of the things I just do
+naturally is I always will
+>> you're like basically narrating as you
+go
+>> and it's so important in a session to go
+okay you guys were you thinking maybe a
+little bluer here's where we were here's
+a bluer. What do you think? You're just
+talking through it as you go. If you
+just sit there and move it and make it a
+bit bluer and then just start hitting
+play again, everyone's like, "What?
+What's happening? Is it is it bluer? I
+don't know. I don't know what's
+>> I don't know where we are." Absolutely.
+>> You've got to talk through it, I think.
+Yeah.
+>> Yeah. I mean, I I always say like it's
+it's so funny like in our craft, you
+could have two colorists deliver like
+forensically identical outcomes of the
+same project for the same client. And
+for one client, they could be like, "Oh,
+I will never work with another colorist
+again." And for the other, they'll be
+like, I will never work with that
+colorist again just because of the
+journey that you take them on or don't
+take them on.
+>> Yeah. It's always interesting in a
+craftbased
+avenue like we work in here because
+you're uh your job as a colorist is, you
+know, is to balance things out, give it
+a look, do what we need to do. But at
+the same time, you're also um you're
+basically
+it's your job to come up with the ideas
+and bring things forward as well. There
+are I've definitely worked on excuse me,
+I've definitely worked on uh commercials
+uh where you have a a director or an
+agency person that is very very
+strongheaded in what they want and
+they'll come to you go, "No, that's not
+what I want. I want it this this this
+and this."
+>> And that can be great because they've
+got a very strong vision of what they
+want. It's great. I find that probably,
+you know, 90% of things people are
+looking to you to come
+>> Yeah.
+>> bring something to the table. Right. And
+uh and so it's knowing when to do that
+and and when to speak up and when to
+say, "Hey, I know you wanted it blue,
+but this looks kind of crap. You know,
+let's find another way."
+>> Yeah. And that's hard to do when you're
+in a situation where you've, you know,
+if you've got a lot of heavy hitters
+leaning over your shoulder, you've got
+to kind of
+politely tell them their idea sucks, you
+know.
+>> Yeah.
+>> You know, it it can be hard sometimes.
+>> Yeah. That's that's that's the pro stuff
+at least as much as you know, your
+hands-on, you know, like craft um and
+the stuff that you actually do. So, I'm
+interested when we were talking about uh
+establishing a look just a second ago, I
+thought it was interesting that almost
+immediately you started talking about
+spatial stuff. You're like, "Oh, maybe
+we'll do a vignette to control the walls
+for our our bank commercial that
+apparently we're grading this morning."
+Um, I thought that was interesting
+because that's something I see so
+strongly in all of your work is a real
+attention to like texture and spatial
+stuff in your image. Is that something
+you're aware of that is that you feel
+maybe different from other colorists
+with?
+>> Possibly. Yes. Uh
+I'm not overly aware of it because I
+just do what I do is what it is.
+>> But I definitely I've always thought
+that my job is to try to craft that
+image to be as good as it possibly can.
+You know, the DP's already done their
+job and crafted it as best they can. And
+we're all aware that there's time
+restraints on set and you can't always
+get every frame exactly the way you want
+it. And I want to be there their right
+hand and pick it up and continue on. And
+then I've also got the, you know, the
+the other side is like you got to tell
+the story. You got to draw the eye to
+what you need to do and all, you know.
+So I'm trying to shape things and make
+it as good as it can. So I've always
+loved basically any new technology and
+tool that's out there in color grading.
+I was like, "Okay, what else can I use
+in my repertoire to
+get this image to where I want it to
+get?" You know, and a lot of colorists
+are very afraid of, you know, sometimes
+my work I think ends up being
+essentially VFX work
+>> and they're very afraid of jumping into
+that world where I really embrace it
+because if I a good example of that is a
+sky replacement. If we have a shot of
+someone standing outside talking to
+camera and it was a cloudy overcast day
+and the sky is just white, it's it's now
+the brightest thing in the frame and
+it's not drawing my attention to the
+actor's face and it's also white and
+ugly and gray or whatever. Why if I
+could replace the sky with my tool set,
+why wouldn't I? Because now the image is
+going to be a more pleasing. I could
+have, you know, if maybe we want a sort
+of a cyan kind of sky that blends in
+with the colors of the thing or
+something. And now I'm actually able to
+shape that whole image into something
+else and really draw your eye to the
+what is important in the thing, which
+might be the actor talking to camera.
+So, every time any of these advancements
+have come into color grading, I've been
+like, "Yes, bring it on." I was like,
+"This is great. I can finally fix that."
+I mean, we've all been in situations
+where you get overcast, rainy footage
+and you get told it has to look sunny.
+Yeah.
+>> What are you going to do, you know? Oh,
+great. Now there's a lens flare. Now
+there's this or now I can draw sun
+shadows or now I can, you know, there's
+all these things I can do. Why not do
+them?
+>> Yeah. Yeah. I mean, it's so funny
+because I've seen your sky replacements
+with like both long form and short form.
+And like you put that up against the
+average like, you know, the stuff that I
+learned when I was first creating like,
+all right, let's like pull a loom key on
+that like blown out sky and like, you
+know, put a cheesy blue grad in there or
+something to try to get a feeling of sky
+in there. It's like the sky replacement
+wins every single time.
+>> Yeah.
+>> But you're right, like assuming it's a
+well done sky replacement with a good
+asset and all that stuff, but like
+you're right. We are, and I'm put myself
+in this camp too as colorists, like
+we're very averse and fearful of like
+stepping into that territory of like
+comping elements out.
+>> It can be. And the thing is that you
+have to be very sure and confident of
+your ability of how far you can go when
+you draw that line. Because there's
+definitely times in grading where I will
+try something and I'll go, "Okay, it's
+not going to work. this is like a visual
+effects shot now, right? It's too
+complicated or whatever. The lens is too
+warped. It's got problems. It's going to
+be too hard, right? There are definitely
+times where I know that I can't handle
+that.
+>> And but there's definitely times where
+you go, that's fine. You can do it easy.
+>> Yeah.
+>> You know, another funny story. I'll come
+back to Mad Max again. Uh so when I
+started the original uh the Fury Road
+film, I I grabbed about I don't know 50
+shots from the film to start with to
+start doing look development on while
+they were still editing. So we didn't
+know what shots were even going to be in
+the film, but I just grabbed about a
+range across the film.
+And I notice it like so they shot in
+Namibia in Africa and it's a bit like LA
+where you have fog comes in off the
+ocean in the morning and it's all gray
+and foggy and then the sun beams here in
+the afternoon and the skies are rich
+blue after that or and then over
+different shooting days you'd have
+clouds in the sky, you would have no
+clouds in the sky, you would have fog,
+you would have dust, you it was all over
+the shop, right? So I knew balancing
+this film was going to be a massive
+problem and I had already done some
+sessions with George and George was very
+into the idea of like you know he wants
+you know there's not a lot of color in
+in the film every you've got desert
+color you've got skin color which is
+basically sand and desert color you've
+got the wardrobe which was basically the
+same color you've got a lot of beige
+>> and the only other thing we had was sky
+so that's a great complimentary color
+let's put the blue sky against the warm
+sand and skin and everything like that,
+right? So, and then when we didn't have
+a blue sky, it really looked a bit blah.
+So, George is like, "Let's put some blue
+sky in."
+>> And so, they were already by the time
+where I was starting to experimenting,
+they were already talking to visual
+effects about trying to create mats to
+to put skies in and stuff like that. And
+I was like, "Oh." And some of the tests
+weren't looking very good. They look
+like bad sky replacements
+>> even from like VFX. from VFX because
+it's unnatural when you put a dark sky
+and something that's really blown out
+and it looks weird.
+>> Yeah.
+>> So, uh anyway, I had my 50 shots that
+I'm doing my set looks and and look
+development on and I'm playing around
+and I had this one shot of uh a car
+driving towards camera and it was foggy
+in the background and the cars picking
+up dust in the background and I thought
+this needs a sky replacement. This the
+shot is basically gray. Once I get a sky
+replacement in there, it's going to it's
+going to sink. I couldn't track it
+>> and I there's nothing to track. It's
+like a moving a moving camera with a
+moving car with sand and fog and it was
+like how am I going to track?
+>> Yeah, there's no common stable feature
+to bite into,
+>> you know. I mean, the base light had an
+okay tracker, but it was not an amazing
+it's not like a full three-dimensional
+tracker that can handle, you know,
+everything. So I tried I did I did about
+30 tracks and I eventually I gave up and
+I I had so I had this mental note of
+like okay don't offer up sky
+replacements to George when I go into
+the session because I don't think I can
+do this on this film. It's going to be
+really hard. Cut to a month later I'm
+sitting down with George and we're
+grading the movie and he's like oh can
+we get some blue sky in there? And I'm
+like, and this was an easy shot that I
+was on. And I was like,
+"All right, okay. Well, I could just sky
+replace." So I did a sky replacement on
+that shot. And then George was like,
+"Ah, this is great."
+>> And it was better than the visual
+effects work that was happening of that
+attempt. So suddenly we're in we found
+something that worked. And so for the
+rest of that scene was fine. Now I've
+opened that Pandora's box of sky
+replacement.
+>> Yeah, we can do this now.
+>> So now it's like do this, do do more.
+And I think by the end, by the time we
+finished Fury Road, we did something
+like 800 sky replacements.
+>> But I do remember there was a point one
+day where that shot that I struggled
+with actually made it into the film. And
+here I am now properly grading the film
+with the same shot.
+>> But I managed to uh I don't even know
+how we how I ended up doing, but I after
+another 30 attempts, I found one speck
+of sand or something that I could track
+and I managed to get that shot tracked
+and it was like, "Thank God.
+But it changed the way we grade that
+film because
+you finally had some complimentary
+colors in the shot which completely
+changed the look.
+>> Well, and I mean like that workflow that
+you guys have taken together, that
+approach with, you know, both of those
+movies and your other collaborations,
+it's so unique. Not just the process,
+but like the outcomes you guys achieve.
+It's so unique because you're willing to
+go there and like I mean I think it's a
+great example that you're like even some
+of the V effects, you know, like first
+cracks at this thing weren't quite doing
+it. I I'm going to guess it's because
+you bring maybe a bit more of a
+photographic eye or a bit more of an eye
+for integration than is necessarily
+going to come from any VFX vendor doing
+an average comp. like you you bring a
+real photographic integrity to the way
+you marry these things and your
+>> Yeah, I I definitely I try to and you
+know I you know I my passion for years
+was still photography and I would go out
+and take photographs and everything and
+you get a sense I mean if you've ever
+taken your own photograph and tried to
+change the sky
+>> it might not work for certain reasons
+right there's ways that you got to you
+need to know the difference between what
+a backlit cloud would look like versus a
+front lit cloud and if you've got a shot
+that's been very backlit and it's all
+white and blown out. You can't put a
+front lit, it's it's it's technically
+wrong and it's going to look weird. And
+I see it in commercials all the time.
+You got these weirdly dark purpley blue
+skies in a shot that should really be
+back lit and more of a brighter cyanic
+sky or whatever with a cloud with a rim
+light instead of the other way. You
+know,
+>> it's weird that the things in color that
+that bump even a layman's eye versus the
+things that you can kind of skate by.
+But like the sky replacement, it's like
+such a thing like when it is when it
+isn't physically plausible, even lay
+people seem to spot it. Like it bumps
+the eye.
+>> Yeah. And you could tell, you know,
+there's often you'll get like there's a
+lighting source. The lights coming in on
+a certain side and then your clouds that
+you put in are lit from the other side.
+Simple. Simple as making sure you're
+you've got to look at the direction of
+the light in your sky that you're going
+to put in. And a lot of people don't.
+They go, "Oh, blue sky clouds. Great.
+>> We got it."
+>> It's it's wrong. Well, and this is you
+were telling me you've got a very
+comprehensive library of skies at this
+point.
+>> You should see my holiday photos. They
+are the most amazing, exciting holiday
+photos. I go on vacation, I go, "Oh,
+look. There's a clear." Usually, it's
+when you get to like the ocean
+somewhere, right? Where you don't have
+any buildings. It's great. And you have
+a clean horizon. That's where I want my
+sky because I I need the clouds to touch
+the horizon and I need no obstacles in
+the way. So if I've ever been on a boat
+or on a rooftop, it's like, "Oh, great.
+Click, click, click, click." And so I
+just I take them all the time wherever I
+am. And it's great now that you know
+your phones have good enough cameras.
+Like they weren't that great before. I
+had to carry around a you know a
+ridiculous
+>> camera setup with me everywhere I went
+on vacation just to take photographs.
+>> Sky library cooking,
+>> you know. But now I can do it with my
+phone and I'll often I'll often just
+take multiple photos and stitch it into
+a larger like you know 8K photo or
+something that I can use and you know
+>> that's amazing that you're out there
+grabbing skies for your library. You
+know, there was a film I worked on uh a
+couple of years ago called 3,000 Years
+of Longing, and there's this scene at
+the end of the film uh where they're
+walking the car Tilda Swinton and um
+Idris Alber meeting in this park. And
+unfortunately, when they shot it, it was
+kind of for one of better word, it was
+kind of more like midday light. And it
+was a very white blown out sky and this
+the sunlight was very like
+>> the shadows were very down, very toppy.
+So, it would have been great to have it
+almost like a sunset scene. Yeah.
+>> But it just we tried it, but again, it's
+that classic thing where it looks wrong
+because you're putting a sunset and the
+lights coming down, the sun's coming
+down from above and the shadows don't
+match and it's not working.
+>> So, we we we auditioned, we call it
+auditioning skies, you know, it was kind
+of funny. We auditioned so many skies
+and we basically knew that what we
+wanted to have was this sense of like
+clouds either side an opening of blue
+with some layering of some puffy clouds
+but not it wasn't going to be a
+afternoon sky but it was a I don't know
+I can't even describe it had to be a
+very specific sky and so I was on this
+film for you know eight months or
+something like that just like working on
+it here and there and I went away uh for
+a weekend to a cottage and I'm sitting
+on the dock at a cottage on a lake and
+I'm going ah there's a nice nice guy
+right that's that's the sky
+>> that's my sky
+>> and I suddenly realized that I was like
+where where's my pulled out cameras got
+the photo and 100% that's the sky that's
+the sky in the film
+>> oh my god what an incredible story
+>> you got to just like be prepared I think
+>> oh man you are in it my friend you're
+you're you're in it for the for the long
+haul with your craft
+>> I to uh get more sleep. Um
+>> well, I mean, so here's something that I
+think is really interesting that you
+shared a moment ago about like whether
+it's from like your first sort of like
+adjustment that George gave like, no,
+we're not going to do like this bleachy,
+you know, kind of gritty thing that you
+were maybe thinking we're going to go. I
+want to do this popping saturated thing.
+I feel like there's like levels with
+colorists. So, like when you're first
+working as a colorist, you kind of say
+yes to everything the client asks for
+cuz you don't know how to guide the room
+or guide the intent or help get to a
+good outcome. And you're like, "Yeah,
+okay, sure." And you really let them
+drive. And then you get to a point where
+you learn how to push back and be like,
+"Well, that's interesting, but what if
+we tried this?" But then you get to a
+really advanced level that I only see
+like complete like elite operators at
+like you where you're like, "Let's try
+it." Like I the sky replacement thing. I
+don't know if we can do this on every
+shot. this hyper saturated thing you're
+going for. I don't know what that looks
+like yet, but like let's try it. I I you
+have the courage and the confidence to
+know that even though you haven't done
+that before, you don't know exactly how
+it's going to work or whether it's going
+to work, there's still like a
+willingness to like I don't know, like
+vulnerability sounds like the wrong
+word, but to like look dumb or like look
+wrong while you're figuring stuff out.
+>> Yeah. I mean, I will often say in a
+session, I have no idea if this is going
+to work, but let's try it. I will
+literally say those words. I mean,
+that's like there's a whole band of like
+professional good colorists that won't
+do that. They will stick to what's safe.
+They will use like whatever mechanisms
+they can to like keep themselves like
+with a playing field that they're
+comfortable on.
+>> Yeah, I think it is. I mean, if I
+thought I knew everything about color
+and I was the best at anything that I
+did, then I should hang up my hat now
+and I'm done, right? You I I have to
+keep learning every day. I have to keep
+finding new ideas and new techniques and
+I'm constantly trying to look for
+different ideas and I look at other
+people's work and you go, how did they
+do that? It feels, you know,
+>> you know, I want to get a hold of that
+footage and try it. You know,
+>> you want to just know how things were
+done and
+>> um so yeah, constantly evolving and and
+trying to find things. that same film
+with the the sky that was the 3,000
+years of longing. I I do remember
+distinctly George said to me at the
+beginning of that film, we sat down on a
+Zoom call and he said to me, um, I think
+there's an opportunity on this film to
+do things that you've never done before.
+And he was right. There was stuff I've
+never done before. But it that's great.
+>> Yeah, you learn and you push yourself.
+And I pushed I pushed actually that film
+we pushed technology to an absolute
+breaking point. Um I I remember we had a
+uh there's a scene in that movie. It's
+kind of like a sort of like this love
+making scene where uh it's it's a bit of
+a what's the word? I can't think of the
+word but it's
+um like an abstract shot. So you have uh
+Idrris sort of wrapping his arms around
+Tilda, but he it's also almost like
+snake light parts of his body and moving
+around like it's a very it's a
+complicated visual effect shot that and
+it it goes outside a window and into
+space and come it's this ridiculous shot
+that goes off and then it goes into a
+mirror and all this kind of stuff.
+Anyway, at the very it was going to just
+in the original edit was just going to
+fade to black at the end as the shot as
+the camera pushes in and uh visual
+effects spent close to a year working on
+that shot because it was a massive shot.
+Um but there was just something missing
+from it that didn't quite seem right and
+so we ended up adding in color we added
+like vapor coming off the um off Idris,
+you know. So, we had this sort of
+chromatic vapor that's sort of like
+steam almost coming off him. I had no
+idea how I was going to do that, but you
+know, I found I had filmed I shot my own
+elements and stuff and I had like, you
+know, I'd run around with a kettle
+moving around and I had all the steam
+and I had these elements that I could
+use to create the vapor. And so, we we
+did all that. That was fine. But then at
+the last minute, Margi, who was the
+editor on that film, came in and said
+that uh instead of fading to black, they
+want to actually fade to white because
+we wanted to actually make it almost
+seem like the next scene, Tilda opens
+her eye and wakes up. And you want to
+kind of make it seem like was did that
+happen or was that a dream? So, white
+seemed like a better fade option. This
+is a very long story. I'm sorry. Um
+awesome.
+And then I stupidly, or maybe not
+stupidly, thought, well, instead of
+fading to white, what if we've got all
+this steam and vapor, what if like white
+smoke starts coming out from behind them
+and starts to kind of encase and envelop
+the entire room and we fade to white
+using white smoke.
+>> Mhm.
+>> Anyway, that became now like a very
+complicated transition to do in the
+color suite, you know, essentially, you
+know. So now I've got another 16 layers
+of smoke to move around and track with
+this moving camera and develop into
+white and everything like that. Uh
+anyway, cutting a long story short,
+Baselite's an amazing tool uh and does
+great. You can do amazing compositing
+work with it, but even that I think it
+just reached a breaking point for
+baseline. So I end up having to break
+the shot into three different passes and
+render it three stages because I just
+couldn't. We're the film is in 4K and
+I've got like, you know, 48 layers of 4K
+smoke tracking onto each. It just
+couldn't process. I couldn't do the shot
+without breaking it down. But you you
+find a solution. You work through it.
+And, you know, and you push the
+boundaries of what I pushed the
+boundaries of what I thought I could do.
+And and I love that. I just love, you
+know, and I knew in my head exactly what
+I wanted it to look like. It just became
+painful getting there. But you work it
+out, right? It's fun. That is cool, man.
+Do you play any instruments, by the way?
+>> No, not really. I I I learned a little
+bit of guitar in my 20s and 30s and I
+had a bit of an epiphany where I had too
+many interests
+>> and I I loved photography and I love
+doing color and I love doing this and I
+realized that I haven't got time to do
+them all and I made the decision to
+literally I remember selling the guitar
+feeling terrible but I was like I can't
+do this. I can't learn this. I have not
+got enough time. Well, we're gonna
+you're going to break the guitar back
+out and we're going to start a band just
+so we can use the name you came up with.
+Chromatic Vapor.
+>> Chromatic Vapor.
+>> That'd be a really good band name,
+especially for colorists.
+>> That's right.
+>> Um I mean, dude, that's that's like so
+much interesting stuff in there. feels
+like that's that has to be a big part of
+what drives your collaborations with
+George Miller over and over again is
+that he knows you're willing to try
+things and you have the craft and the
+like tenacity of like sure we'll just
+render. We'll pre-render and then we'll
+stack on the next 24 layers or whatever
+it is. Like you got the tenacity and
+like the willingness to try that stuff
+that he wants to go for.
+>> Yeah. And that's part of the fun and the
+excitement. He loves coming into the the
+suite because we're going to transform
+these images into something even more
+special and and sometimes more special
+than even he imagines, which is great.
+And I don't even know where it's going
+half the time, which is fun. I mean,
+yeah, it's I'm I feel like I'm I'm like
+like underlining the same point, but
+this is just so magical to me because I
+feel like he's a great example of like
+at his level of filmmaker and at the
+level of movie he's making, he's the
+most likely to encounter that other
+colorist that I'm talking about who's
+going to be like, "That's not what I
+do." Like, we're going to do this in a
+certain way. It will look good. It will
+look polished. It will like have a vibe
+and a feel and it'll be up to a certain
+level, but it's not going to be what
+he's asking for. Like that you have to
+do that for him. Like I don't think
+there's another colorist in the world
+who could do what you have done for him
+on his movies.
+>> Right. Maybe. Um yeah, I mean it's
+interesting the collaboration with
+George specifically has actually stemmed
+a lot from
+uh
+the VFX.
+And I I'm I want to make sure I'm clear
+here. I'm not saying that VFX the VFX
+process sucks or anything or there is
+anything VFX teams are amazing and I
+think the collaboration between color
+and VFX is so important.
+>> But what I have noticed and and even
+George would say this is that it becomes
+incredibly frustrating as a filmmaker to
+nothing's interactive and live with VFX.
+you have to give notes to a VFX
+supervisor
+>> on a shot and they'll, you know, they'll
+have a, let's say they have a shot and
+they
+>> whatever. Someone's in a truck driving
+or whatever and they're like, I think
+there should be a little bit more dust
+in the back of the wheel and there
+should be a bit more this or whatever.
+So, he'll give notes then he has to wait
+two days for a turnaround.
+>> So, the VFX artist goes, they add the
+more dust, they bring it back and he
+goes, "No, no, that that's too much of a
+cloud of dust. I didn't want it there. I
+wanted it more here. Can we Okay.
+suddenly he has to wait two days and
+it's like making a film in incredibly
+slow motion and it's frustrating where
+you know if you're on set you could have
+someone you know move that actor a
+little bit yeah that's where I want them
+perfect right
+>> you can't do that in visual effects
+interactively that quickly whereas just
+the nature of the way the color grading
+suites have been built and the the speed
+and the interactivity of it and the fact
+that we can do you know I call it like
+it's VFX light but it's like sometimes
+is not so light. It's VFX, you know, we
+can get that little puff of smoke and
+go, do you want it here or here? Move it
+up and down interactively with him and
+he goes, "Yeah, yeah, that's it." Right.
+And now we've done the same thing that
+they would have done in VFX if it was a
+simple enough process to do. I'm not
+saying we're going to take on the big
+heavy visual effects work. But if it's a
+simple VFX thing, like a puff of smoke
+or something like that, why not do in
+the color suite? Because he he gets the
+gratification of going, "Yes,
+>> yeah,
+>> that's where I wanted it. Thank god." or
+can you just move it over a little bit
+or something? So, the collaboration then
+has evolved over years and the tools in
+the color grading have evolved over the
+years to the point where George doesn't
+even ask visual effects anymore. He just
+comes to me and goes, "Right, let's go."
+And I'm like, "Oh my god, I can't do
+this." Right.
+>> But you find a way. And that's the
+challenge. And the challenge is fun.
+>> Yeah. I mean, that's of course what's
+interesting about our craft is like the
+tools compared to when you started, you
+know, a couple decades ago, night and
+day. But the demand like the bar that
+your clients have for you and your bar
+that you have for you is like also
+increased by the same amount.
+>> Yeah. I'll tell you another funny story
+if you if you want to hear it. But uh so
+on uh Furiosa, more recently when we did
+Furiosa,
+>> there was a dream sequence scene where
+it started with a wide shot of the
+Citadel and there was a like a a starry
+night sky with a like a Milky Way kind
+of thing in there. And the brief was,
+okay, there's that shot. Then there's
+like a closeup of uh Furiosa rubbing
+some um ink on her her head or whatever.
+And then I can't remember there was a
+couple of other shots of some some some
+things in the film. And then uh we have
+a shot of Dementis has to kind of fade
+in and then ultimately ends up with
+Furiosa lining up a gun and and then we
+come out of the dream sequence. And the
+brief from George was like, "Okay, I
+want to see this the starfield like it's
+rotating almost like a a time-lapse shot
+of the, you know, when you're you see
+those shots where the camera is still
+but the stars are moving."
+>> So, we see the stars moving and then the
+next shot still have the stars moving in
+the background of the shot somehow just
+like soft mix them in or whatever. And
+then there was a shot of the there was a
+shot of her arm where she looks at she's
+got tattoos on her arm. So we see the
+arm and then uh and in the background
+should be the stars still moving but the
+stars he wanted to get progressively
+faster and faster and faster and then by
+the end he wanted them to be circular
+trails around her as she does the um
+pulls the gun out at the end. And
+this really is a complicated, very, very
+complicated sequence of dissolves and
+blending and thing that really should
+almost be like a design piece or a
+visual effects piece because it's so
+complicated in the timing. But George
+just knew that it's like if I do it in
+the color suite and I sit there, I can
+do it interactively and I can move
+things around. If I do it with a with a
+VFX team, it's going to take me months
+to get what I want.
+>> Yeah. So I got tasked with it and again
+it was like yeah just do that. I'll see
+you in a couple of days. I was like
+what?
+So I I was like okay but I love the
+challenge. So we took it on and and then
+that's where the collaboration comes in
+because then you know you start to work
+it out and I had to work out it was very
+complicated to work out. I had to almost
+start with a starfield and then layer it
+over all of the whole sequence and work
+out just the timing of the starfield to
+begin with cuz that was the other thing.
+He wanted the Milky Way to line up
+perfectly with Dementis' eyebrow at one
+point. You know, there's all these crazy
+things that had to line up in time.
+>> Yeah.
+>> Then uh but then I added other things
+like, okay, we see her show her star
+tattoos. What if the tattoos twinkle and
+then when that shot fades out, those
+tattoos remain and then become part of
+that starfield that keep moving with the
+shot? So now I've got to add those
+twinkly stars that then have to keep
+tracking with the starfield. Like
+everything got harder and harder and
+harder. And I finally, you know, I
+pulled it off in a couple of days and
+presented and he was he was over the
+moon. He loved it. Uh but then there's
+that that process where he's like, "What
+if we just move that shot back a little
+bit and have a bit more dementas now?
+This is really good." And you're like,
+"Yeah, that would that would be that
+would be really good. Uh that's going to
+be two days to move everything."
+>> We get right on that.
+>> But it's again, it's the challenge and
+the excitement of trying to make it work
+that you know you want to do it. I'm
+toggling as you're telling that story in
+between like thinking, "Oh my god,
+that's so cool and visionary. What an
+amazing like, you know, like idea for a
+filmmaker to have." And then going into
+the colorist mode of like, "How am I
+going to pull that off?" Like that's
+>> it's hard. It's really hard.
+>> That is demented itself.
+>> It is. Um but but it's great. And I
+love, you know, it's funny that the the
+crazier the requests in the color suite
+now, the more I get excited because
+you're just like, I wonder if I can do
+it.
+>> Yeah. And often it's no, I can't.
+>> Do you do you feel like you get like is
+that a client that comes looking for you
+at this point in your career? They're
+like, we want to do this, you know, like
+unconventional or or like complex thing.
+>> Um, sometimes I definitely have certain
+clients that just rely on me now to do
+basic sort of VFX work. They just know
+they can do it,
+>> right? And
+>> you know, and it can be like simple
+things like you just want to remove a
+plug from a wall or something like that.
+You're like, "Yeah, it's it's 3 seconds.
+I'll do it now." Quickly done.
+>> Y
+>> um
+>> but they just sort of rely on that now.
+But then they don't know how complex
+things are sometimes. Oh yeah, that
+shaky steady cam weird moving rotating
+shot. Just remove all the the lights
+from the ceiling and you're like, "Oh my
+god, this is really hard."
+>> Yeah, that's not so easy.
+>> Uh but you you know, you find ways work
+it out.
+>> Yeah. Okay. So, I'm curious to pick your
+brain like about the tool set side of
+things. So, like we talked about, you're
+on the baseline and I guess first
+question if we start broad like pipeline
+wise, are you do you have like a
+framework you like to use? Are you like
+an aces or like the like a baselite tcam
+thing? Do you mix it up?
+>> We uh we we do mix it up a little bit,
+but predominantly we we switched to aces
+a couple of years ago
+>> uh in in the company. Uh and it was
+mainly actually because of some of the
+films we were doing. Uh it was such a
+great workflow especially on the back
+end when you finish grading a film and
+you've got okay here's your P3 version
+now you need your rec 709 version now
+you need your HDR version and ASUS just
+did a great job of managing all of you
+only did one grade and everything just
+fell through through that if you had
+worked in an unconventional kind of I
+had a rec 70 lot well it's not going to
+work in HDR you're going to have to
+start again you're going to you know so
+we we went through a process of
+basically converting all of our favorite
+lots
+>> into basite has a thing called a look
+strip which is basically a lot, but it's
+not doing conversions.
+>> Yeah, it's it's like a log to log thing
+like in the working space, right?
+>> I can take the beauty of that lot and
+strip the conversion part out of it and
+then use it as a look strip. So, I can
+you can still got the same tonalities
+and the color changes and things that
+you like.
+>> Yeah.
+>> And it's dialable. I can slide it in and
+out and everything, which is great. So,
+we went through this painful process of
+kind of converting all of our favorite
+little
+>> Is that all you? I don't think you have
+like Do you have color science people?
+No, we're we're still a relatively, you
+know, tight small company. I mean,
+somewhat small. We've got like 50 60
+people or whatever, but we don't
+necessarily have a color scientist, but
+that's
+>> got a bunch of smart
+>> a lot of smart. We do have a bunch of
+definitely some smart people that play
+that role, you know.
+>> Yeah. Sure.
+>> But we don't have the we're not like the
+company 3 picture shop people who have
+the luxury of all that.
+>> Yeah. Interesting. Okay. So, you've
+you're on ASUS primarily. Have you uh
+played around with ASUS 2.0? know yet.
+Have you switched over to that?
+>> I haven't switched over to it yet. Uh we
+were playing with it. I found that there
+was a couple of things. I don't know if
+it's changed since I started using it. I
+I I got an earlier version and there was
+some issues I found in the blues that I
+didn't love. Um
+>> it's a very different rendering than
+>> Yeah.
+>> the 1.0 or the 1.x, whatever they moved
+up from.
+>> Yeah. So, I need to uh I need to get
+back into that. But we've, you know,
+we're so, we've been on aces now for
+quite a few years and so you get used
+to, you know, the natural output of aces
+sometimes can be way too contrasty and
+and you but we have all our tricks now
+of like, oh yeah, you know, the first
+thing we do is wind that down, do the
+>> you have your little things that you do.
+>> Yeah.
+>> Um, which I I think ASUS 2.0 kind of
+fixed that side, but I think it also
+I've got to see it again. I've got to
+look at it in more detail, but there was
+something that came in in the in the
+blue channels that
+>> Yeah. I I lost the ability to get a rich
+blue somehow.
+>> Yeah. Well, because it is they they
+totally overhauled that side of it. It's
+like you fix one thing, but they may not
+have gotten everything that was working
+really well or working well for one
+colorist's eye in the prior version
+represented in the new one. At least not
+initially.
+>> Yeah. The previous aces
+had a blue issue and you know, we
+actually have a couple of lots we use
+that fix that issue.
+>> Yeah. Sure. specifically. That's all it
+does is clamp and and shift the blues
+into position to stop them from
+inverting and
+>> Yeah. from getting artifacty and weird.
+>> Yeah.
+>> Yeah.
+>> Which is one of my pet peeves. I see
+stuff on TV all the time where people
+have graded stuff and there's tail
+lights on cars or or neon lights that
+have all inverted and gone and there's a
+gamut issue that hasn't been addressed.
+And it's like it's like who who didn't
+fix that? I'm so glad you brought this
+up because like I this is something that
+I always like to ask guests about, but
+like with you specifically because I've
+been, you know, like checking out your
+work like and refreshing myself on and
+it's something that even really good
+colorists, you can look at their work
+and be like, "Yeah, you missed that tail
+light of that neon sign." Like it got a
+little it's not necessarily like nuclear
+like flipped upside down bizarre, but
+it's like it's not very artfully
+rendered in those areas like probably
+due to your pipeline or just an
+oversight in the grade.
+>> Like how do you handle that stuff? Yeah,
+I I keep a strong eye for it and you
+know there's definitely times you
+sometimes we get given a lot too like
+you you'll be given a lot by a director
+and it says can you use this lot and
+you're like okay and you put it on
+you're like
+>> okay but your lot is breaking but we
+have ways of repairing that so I'll go
+into uh like we use it's similar to
+color warper I think on resolve or we
+have xgrade where you can drag from
+outside and clamp certain colors in and
+we'll come in and like repair some of
+the the uh outer gamut colors fit within
+the lot. So now the lot works but I've
+sort of fixed it for you and
+>> so we do things like that all the time
+just to make sure that it's all going to
+work. Yeah.
+>> Yeah. Interesting.
+>> Um but it's something I keep an eye out
+for because you know I I and again
+that's sort of part of that process. You
+know we talk about that 4hour
+commercial. I would grade it. I would do
+things you know okay what the red dress
+the thing you know and then you're like
+okay can we do we need to do anything
+with the eyes? Do we need to bright?
+Okay we do an eye pass. We do. And then
+you also do like, okay, have I got
+anything wrong now? Is there too much
+grain? Does it need to be repaired? Is
+there a gamut issue? Is that you? I
+start looking for error passes and
+stuff. Interesting. You know, it's like
+QCing your work to make sure that it's
+polished at at the end and you're not
+just like, "Yeah, I got to look. It's
+great." Yeah. But it your key is
+terrible and it's noisy. You're like,
+you got to fix that, you know?
+>> So, you got to go back and and QC it and
+check it and
+>> Yeah. That's
+>> hard to do in four hours. Yeah.
+>> Yeah. It's I mean, it's a that's a lot
+to get done.
+>> Yeah. Okay, cool. So that that gives me
+a bit of the picture like pipeline wise
+and letw wise and kind of how you tune
+some of those things. So now tool set
+too because you know baselite similar to
+resolve like there's a lot of different
+there's like at least four or five tool
+sets that you could like mix and match
+or you could just exclusively use one
+like are you like I I I think I'm
+getting all the terms correctly like are
+you more of like a video grade guy like
+a base grade like what's your what's
+your tool set? So uh on on baselite we
+have a thing called uh base grade. Then
+you have uh a film grade which is like a
+printer light type thing. And then we
+have video grade which is your standard
+primary grade or whatever. Um base grade
+in baselite is essentially like a
+souped-up curves on the panel
+>> you know is what is really what it is.
+But what's great about base grade is uh
+one of the tools is exposure and color
+balance. So the first thing
+>> we'll do is just, you know, sometimes
+you get footage where it's just a bit
+yellow for whatever reason or whatever
+it might be
+>> or a bit blue, whatever it is. So you
+can just use your overall balance
+quickly to fix the color temperature
+problem and fix the exposure problem. So
+sometimes just one, it's just one knob
+and it's just like drip drip done. That
+shots balance as far as we need to go.
+And I would I would you start with like
+a base grade. The other great thing
+about base grade is it has a um
+uh I'm sure there's a similar to on
+resolve uh but it similar to curves. You
+can roll off your highlights really well
+or your shadows or and pull up
+information in certain areas and you can
+control that pivot point of where it so
+sometimes that's sort of part of my
+initial base grade. If you get very
+contrasty footage that you need to tone
+in a little bit more, you might use a
+little bit of that highlight shadow roll
+off a little bit more.
+>> Mhm. Uh, and then I I often use I then
+step over I kind of have them in one
+layer. I have like my base grade, my
+film grade, and my video grade all in
+one layer. And I'll kind of work my way
+through the stages. So then I'll go over
+to film grade. And sometimes,
+>> you know, sometimes we do work with film
+and you got film scans. And I still like
+using film grade as a proper film
+balance. Um, you know, when I when we
+first started, we first opened Alter
+Ego, we had our own film scanner.
+everything was shot film still and we
+would have our own film. You know, the
+scans would come in and the first
+balance pass there was was film grade
+balancing. So, I would always do that.
+>> So, sometimes I might do a bit of film
+grade stuff. I find the the contrast in
+there is nice to it's just nice to
+separate contrast and saturation I'll
+often do in film grade mainly because
+it's sort of in the middle of my base
+grade and my video grade and I can kind
+of keep it in a separate item which is
+nice.
+>> Interesting. And then the creative stuff
+where you put a bit more like blue in
+the shadows or warmth and you know I
+then moving into the primary side which
+is the video grade for that. So I'll
+kind of have all three in one layer
+often.
+>> Interesting.
+>> Which is I know a little different in in
+resolve where you generally do a node
+for each one but you can with basite you
+can do multiple things in one layer
+which is just great way of keeping your
+workflow clean. And um that's just the
+way I work but some I mean there's
+definitely times I'll separate it. I'll
+just do my base grade in one layer and
+then I'll have another layer for the
+look and other things and you know it
+just depends on the job and what you're
+doing.
+>> That's a really interesting structure
+that I hadn't thought about before of
+like you know because that that's really
+your the net of those things is your
+your primary or your foundational grade,
+right? Yeah. Like if if the term wasn't
+already taken up by one of the tools
+we're talking about, it would be like
+your base grade for lack of better term.
+Right.
+>> Exactly. I'll try and avoid in that
+initial layer. I will try and avoid like
+too much of a look per se.
+>> I'm not generally going to push like a
+lot of blue in the blacks or something
+like that in that layer. That will go in
+another look so that in another layer I
+should say so that you can always tone
+that so everyone goes, "Yeah, yeah, it's
+just a bit too strong in the I don't
+have to go back and rebalance every shot
+again. I don't want to ruin my balance."
+So I will keep that stuff in a separate
+layer to,
+>> you know, control. And that maybe would
+even come from some of those like
+pre-inverted uh like scene space lots
+that you were talking about before.
+>> Yeah. Sometimes it's a combo of that.
+You'd have like your look strip and a
+layer and a key or something. And that
+those combination of three or four
+things might be the overall kind of
+creative look for that job.
+>> But there's also that initial base
+that's balancing everything. And if you
+do it right,
+then you can copy those little look
+strips that you've put on and just put
+them on everything and it looks right.
+It looks pretty good. Yeah.
+>> You know, if you balance well, right,
+>> that's super cool.
+>> Yeah.
+>> All right. So, like what about on like
+the the texture side? Coming back to
+that, whether it's I don't know like
+grain or like I mean do you do like a
+lot of like MTF type stuff where you're
+like softening certain frequencies or
+sharpening certain parts of the image?
+Um, not generally overall. We definitely
+use that. I use that tool a lot for
+specific things like, you know, we'll do
+like beauty work on skin and stuff like
+that's great for that. You can remove
+unwanted frequencies of the skin which
+is fantastic.
+>> Um, but yeah, I kind of leave that
+alone. But we do definitely do, you
+know, we've got all the usual plugins
+that everybody's using now and all the,
+you know, the film looks and the grains
+and the hellation and all that kind of
+stuff. So, we definitely use a lot of
+that. Um, and it's great some of those.
+Like, honestly, they're amazing. Um,
+>> are you a grain afficionado? You're
+like, "Oh, that grain's okay, but this
+grain is really
+>> No, I don't I'm not too fussed by by
+grain." I I think also the other problem
+with I know we're in this we're in this
+weird phase right now where film's
+making that comeback and everybody wants
+their film look and everything's grainy
+again. And
+>> uh I don't mind that and depending on
+the job, I think it can be really useful
+and really good. But we're also in a
+world where everything is compressed
+into terrible quick times and the hard
+just looks terrible chunks up and looks
+weird.
+>> So I'm always afraid to go to you
+knowing where like I'll often ask on a
+job like where is this being played and
+where is this heading cuz it's going to
+look terrible, you know,
+>> and I've watched shows on TV where I'm
+like what is going on? It's just a
+compressed mess. It's like it's just too
+grainy. Well, now there's this moving
+target now of like, you know, Netflix
+will like strip off and then like
+replplate grain on top like as part of
+their processing stack. Are you familiar
+with this? Yeah. to what effect and like
+what shows I can observe that in or or
+not observe that in, I'm not exactly
+like clear on, but I know it's a
+patented thing they've been doing for a
+minute now where they will actually
+intentionally strip off a a you know
+like measured grain structure and then
+reimpose it after compression and stuff
+like that,
+>> right? To help with the the compression
+problem, I guess.
+>> Yeah. And and with the issue of like
+Yeah. Like typically grain doesn't ever
+make it onto you know Netflix like a
+streamer feed is so so compressed.
+>> Yeah. I I don't know. I don't know the
+answer to that but I always you know I
+generally don't try to go too heavy
+unless the the story or the idea behind
+it really calls for that.
+>> Yeah.
+>> Um
+>> yeah. So I mean other than that you know
+I pay attention to the sharpness of the
+image. Some jobs are like they want a
+nice clean sharp thing. Other times
+you're like hey you want this to look
+more vintage. Well, the first thing we
+do is really soften the hell out of this
+thing cuz the new cameras are so good
+>> that it doesn't work. In fact, we did
+this commercial a few years ago that was
+>> we had some uh archive stock footage. It
+was like some 16 mil footage from like
+the 80s or something of some famous
+person saying something or doing
+something and then they they shot like
+another part as if this was going to
+continue as one take and we had to match
+the new stuff to the old stuff. And so
+you get the the footage in, you're like,
+"Okay, well, I'll just soften a little
+bit. Put a bit of grain on." And then
+you actually compare and you go,
+>> "Yeah, that archive footage is really
+soft.
+>> You don't realize how soft to the point
+where you're like, I'm destroying this
+footage that we've got." But by the time
+you finished and they got the right
+grain on it, you're like, "Yeah, it
+actually matches now." Like that works.
+>> Yeah. So sometimes that's the a great
+trick is taking sharpness out of an
+image and really degrading it a little
+bit
+>> um
+>> just to help that look. I I do a little
+trick all the time when I have to do
+that.
+>> It's not even for a film look, but they
+want that old video look or something
+like that. Sometimes my first go-to
+there is just blur the image a little
+bit and then put a a sharpness with a
+really thick radius over it because all
+the old telescinis in the day had
+terrible sharpening things and that's
+how the footage and then it's been
+upresed and all this kind all these
+processes have happened to get to that
+point and you see the sort of black and
+white edge around everybody's shoulders
+and everything and
+>> you can recreate that pretty easily just
+with a couple of layers. Yeah, those are
+fun fun briefs when you're like, oh,
+this has got to look very like pointedly
+video. Yeah, like or like vintage video
+as you're saying. That's cool.
+>> I Yeah, it's funny. Those those are
+sometimes the hardest things to get
+right. And I kind of secretly hate it
+though when someone says, "This has to
+look like a '9s TV show or something,
+and you're like, "Oh my god, that's a
+weird obscure reference. What is What
+does a '90s TV show look like?"
+>> Well, I've seen your IMDb. You did those
+shows in the '9s. Like, you did some of
+that stuff.
+I did a commercial recently that was
+really fun. We did this uh thing. It's a
+company called uh Skip in Canada and we
+did this thing with Seth Rogan.
+>> Oh my dude, that is what a like
+beautiful grade you did and what a fun
+grade.
+>> Yeah, it was really fun. So, we're
+basically, you know, riffing off the
+success of the studio that they just had
+with all the different looks and things.
+And uh the commercial is basically that
+and but it was fun to like you know we
+took images from the Godfather and from
+uh Good Fellas and stuff and we
+comparing I mean there two different
+periods of time and different films but
+we were kind of going for something in
+the middle there. So, we're we were
+studying those images and looking at
+what was going on and then looking at
+our grade and okay, this looks like it
+was more like a maybe there was a
+pushpull process in the lab and the
+blacks have gone milky but they've been
+lifted and we're like we're really
+analyzing everything to try and get the
+similar look across there. It was really
+fun.
+>> I mean, yeah, you you you must genre hop
+or like you know quote like six or seven
+movies in that spot.
+>> Yeah.
+>> Like cuz you got the horror thing going
+on. There's like the Good Fellas bit.
+There was like a we had a reference of
+like kind of knocked up was one of them
+which was interesting and it's funny a
+lot of films you'd reference you'd pull
+up some of these films and I couldn't
+believe how magenta they all were.
+>> Isn't that weird? Isn't it weird like
+even like I feel like specifically like
+you know like Knocked Up or like any of
+those as movies like we're now far
+enough away from them that I can look at
+them like wow like that particular thing
+of like probably shooting NEG and then
+processing through like a pretty
+primitive you know like digital pipeline
+like that's a very particular
+>> Yeah. And I think some of them I mean
+some of the movies we were referencing
+too some of the 80s films and stuff you
+know they didn't even go through a
+digital pipeline they were just
+optically and they were probably like it
+needs to look warmer crank okay it's
+magenta that's that's your film look.
+Yeah, that's what we got for you.
+>> So, we match that. You know, it was it
+was it felt kind of dirty and wrong
+doing it going, "This feels really not
+right, but it's matching the look."
+>> Yeah. I I I can't remember which one of
+those it is, but I actually remember
+seeing like, "Okay, yeah, you're clearly
+going for like in, you know, like the
+language of this type of film or the
+reference that you're doing, like there
+just is that magenta bias or whatever it
+is in there."
+>> One of them we had was like La La Land
+was a reference, right? And it's weird
+if you actually watch, we looked over so
+much of La La Land to look at how it
+looks and and it's a greatl looking
+film, but I think the memory people have
+of that film is different to what when
+you actually look at the film, it might
+not be what your memory is. And so
+people have the memory, I think, of the
+the kind of the dawn or sunset kind of
+thing on top of the Hollywood sign over
+with the pinky sky and the blue. That's
+what you remember from the film. Not all
+the film is like that, you know. So,
+you've got to
+>> So, then we're like, okay, how do we Our
+our scene was shot at night in pitch
+black, you know, on a street. How do you
+get
+>> How do you do that vibe?
+>> So, then it was like, all right, well,
+we're going to sky replace and put that
+dusky sky into the scene with Eric's
+vacation sky.
+>> My boring vacation sky. Yeah. So, so
+then we had that pinky dusty thing. And
+now, as soon as you get that wide shot,
+you go, "Oh, it feels like La La Land."
+You get that memory kicks in.
+>> Yeah, dude. High five on that spot. And
+of like the baseline like the world of
+like the writer room that it's in with
+uh you know Seth and the other
+character. It's like such a great quote
+of the studio itself like
+>> Yeah. And that we you know that had to
+be relatively neutral so that the film
+looks can be stronger.
+>> They can feel like you're being pulled
+in a different direction.
+>> Yeah. It was fun.
+>> Cool. Okay. I've got I swear I've only
+got 500 more questions for you. I'm
+joking. I've got I've got a couple more
+for you. One of them you mentioned
+really early on when you were talking
+about like Okay.
+what you saw like the the onset or like
+the DIT grade coming in for this was for
+the original Fury Road. I think you were
+saying like someone had just overcranked
+the sat because George wanted sat
+just been something that they did in the
+Avid or something like that just like
+George is like make it more saturated.
+>> Yeah.
+>> Yeah. Okay. So, I'm curious like I'm
+that colorist or that you know editor
+whomever was doing that and like I need
+you to explain to me how to fix it and
+how to go about it in the better way
+that you did. Like what's the difference
+in broad strokes between that and what
+you did?
+>> I don't know how to answer that
+>> too much.
+>> I didn't know how to answer that
+>> because you got like there's so much
+color in those movies, you know, but you
+did it in such a different way than
+>> cranking a knob.
+>> You know, we I went through quite the
+exploration process on that to find it.
+But really what it came down to I found
+is that if you have an image that is
+kind of just normal and you just crank
+saturation, saturation I find,
+you know, increases more in areas where
+you might not want it before it reaches
+the bits that you do want it. You that's
+the better way of probably describing
+it. So for example, you want, you know,
+if your sand I mean the desert in in uh
+Namibia wasn't overly golden, but it's
+pretty golden in the movie. So, you want
+to get that you want to get more of a
+golden look on the on the sand,
+but if you saturate the overall picture
+to the point that the sand gets to the
+color you want, people's faces are just
+beat red and terrible, right? And they
+look like So, so you've got to then work
+out how to break those things up and and
+come up with it. And, you know, shadows
+will go very red and saturated. So,
+maybe we want to actually slightly cool
+off all the shadows.
+>> And then when you saturate it, it's not
+as bad. And so there's all these little
+techniques and little keys and little
+things happening and uh just to try to
+get the color where you want it as
+opposed to just overall. You can't just
+wind a knob.
+>> I mean, there's so much in in both of
+the those movies uh and in um 3,000
+Years of Long. I'm getting that title
+right.
+>> Like a very different looking movie, but
+also like very colorful in a lot of
+ways.
+>> That film we I discovered this uh again
+it's just the learning process you go
+through. you want to learn. You know, I
+did I was bored. I think it was just
+over co so everybody went every I was in
+my basement. I had my base light in my
+basement. I called it my basement light.
+Um but I was stuck in my basement.
+>> You know, there wasn't a lot of work
+going on because it was the beginning of
+COVID and everything. So, you start
+looking for other things to keep
+yourself busy. And I did an online
+photography course.
+>> I know it sounds really lame and weird,
+but I was like, I'm going to go do this.
+And one of the courses went into how
+they did their Photoshop retouching. And
+you know, I know Photoshop reasonably
+well, but there are a million ways to do
+things in Photoshop, and you can never
+know it all. Right. So, I I went in and
+I was and they did something in one of
+these courses where I was like, "Ah,
+that's cool." They did like a they
+blurred the image and blended it back
+using a soft light blend, and I hadn't
+really done that in the grade before.
+So, then I was like, "I wonder what that
+looks like." So I went back onto the
+baseline and okay what if you do the
+same thing and then you got this sort of
+soft inkier black going on and I was
+like that might be good for this film
+that we you know because we need like a
+bit more of a softer storytelling look
+compared to the hotel room and you know
+so it's you just find techniques
+wherever you can find them
+>> at least when you're when you're
+obsessed like the the happiest artists I
+know tend to be.
+>> Yeah. Yeah. Exactly.
+>> That's cool. All right. So I want to hit
+you with a couple other questions. I let
+my my Discord community know that we
+were going to be chatting today and they
+have a lot of questions for you, but I
+want to just hit you with one or two
+here. So, uh, Juan wants to know, "How
+much has the process for the look
+changed between Fury Road and Furiosa in
+terms of like HDR and the look itself?"
+>> That's a good question. So, uh,
+technology changed dramatically. It was
+almost 10 years between those films. So,
+that changed a lot. Uh
+uh the big thing that was more difficult
+on I mean the overall way we approach
+color is essentially the same. Uh I
+didn't have to do as many sky
+replacements on Furiosa because what a
+lot of people might not know is that
+Furiosa is almost an it's basically like
+a almost a V VFX film. M
+>> so the way they shot it in they were in
+Australia is they would shoot the
+vehicle and a bit of road but all of the
+backgrounds are CG.
+Um, and the reason for that is is
+Furiosa the story takes place over uh
+multiple over like 10 years and it has a
+lot more sets than F Fury Road was they
+they go out on the road they turn around
+they come back that's it right and it
+was basically in the uh in the one one
+desert area where they shot in Namibia
+Furiosa we go to the bullet farm and we
+go to uh we're in the Citadel and we're
+on the road for some of it and then
+we're you we're all over the place. So,
+we needed they needed different
+locations. They needed an old quarry for
+one of the things they needed all they
+needed gas town, the bullet farm. Uh and
+that those locations didn't necessarily
+exist in Namibia. And there's only
+really one kind of main section of
+action that is that same look from kind
+of Fury Road. Uh so the decision was to
+shoot in Australia but do have to you
+know also do visual effects to kind of
+get that look because
+>> I don't think anybody wanted to go and
+relive I think the process of shooting
+in Namibia on Fury Road was very rough
+on everybody and the idea of going back
+to the desert and living in that again.
+It was like
+>> maybe we just shoot here and we use the
+technology to control what we want. So
+uh so the process changed for color
+grading because you really be I became
+quite heavily involved in the visual
+effects process because we now take
+uh we take the original photography and
+the VFX teams would you know when you
+see you've seen on uh photography people
+hold like the mirror the mirror ball up
+and stuff like that and and it takes the
+HDRI of the scene and stuff. So they got
+all the data of what the actual lighting
+was like. So they would basically create
+a sanjune lit scene based on the
+lighting of the shot and then comp that
+in and bring it into color. The problem
+was is that they got very unlucky with
+the shoot and it started sunny and then
+just got progressively worse and got to
+the point where they had to shoot a lot
+of the driving scenes inside a sound
+stage.
+uh which caused those shots became
+really difficult cuz they just they're
+not sunlit outside and there's a chrome
+truck that reflects every light that
+you've ever put on it and it it just
+became very difficult uh to get right.
+Um,
+but you get so we get our first pass
+back of and then we go into a look
+development process where again it's
+that process that George loves where you
+can in real time grade it, right? We can
+go, okay, we've got a mat now because
+they've composited the two together. I
+can control the background, I can
+control the foreground. What if the
+foreground looked a bit sunnier because
+this one was overcast, but the
+background that sky is no good. Let's
+put this guy in. I don't know. We would
+set looks based on that
+>> and then that would be the guideline of
+where to go with the scene.
+>> So we would we sometimes we only did it
+on a single frame. We would sit there
+and get really meticulous and draw like
+sunlight across the edge of the top of a
+sandune and then the shadow and then we
+would literally draw the frame and go
+that's what the scene should look like
+and then they would then go and light
+that in CG accordingly to get close to
+the reference. So then when the shot
+comes back I strip everything away again
+and just grade that. And so we did a lot
+of that. Um,
+which meant I didn't have to do sky
+replacements because we kind of did them
+in the look development process and
+sometimes we would they would use the
+sky they had or I would give them my sky
+or whatever and then then they would it
+would come back with the sky. So I
+didn't have to I didn't have to do that.
+But
+>> there was a lot of work of just trying
+to control the you know kind of take the
+CG edge off. Uh, and we're somewhat
+successful. Well, I think there were
+some shots that were just so hard and we
+were and of course I think there was
+like 1,600 visual effects shots and all
+the VFX teams needed every minute they
+could get. So the end of the film you
+suddenly have basically you have like
+1600 shots coming to you in in the last
+four weeks and it's like frantic trying
+to put the film together. Uh so it
+becomes a challenge of just getting
+everything working and and making sure
+it all it it all matches which is really
+difficult.
+>> That's another I feel like really
+valuable application of your like
+fluency in the VFX and comping all that
+stuff. Like this is something else I see
+with like only really really elite
+colorists is they're working on these
+bigger movies that have that same
+dynamic of like VFX needs every minute
+and then they're going to dump
+everything on you at the very end and
+you got to get it in and in a lot of
+cases like massage it and really
+integrate it on the color side. But
+being able to do that and being able to
+do it quickly is like such a such a
+niche skill, man.
+>> I don't know. I mean,
+not that I want to kind of not doing a
+oh wo is me kind of thing here, but it
+was it was very difficult because if you
+imagine if you have on a like we would
+get a day where we have a 100 V effect
+shots coming in today.
+So, and on Furiosa we had a great color
+team and we used the world's time zone
+to our advantage. So we had a team in
+Sydney because the editorial team was in
+Sydney, Australia and George is in
+Sydney. So we had a team in Sydney that
+were doing the conform and making
+because there's no locked edit with
+George. He's changing the edit every
+day. So we're conforming basically every
+day.
+>> Wow.
+>> Uh so the edit's changing constantly. So
+they're keeping the conform up to space
+which is great because we're in LA.
+>> We're it's basically day to night
+essentially. So when I go to bed,
+they're working.
+>> We also have a team of colorists in
+Toronto
+like, okay, we did so much work with the
+beard and the cape and hair rotos and
+all kinds of stuff. Okay, we got a roto
+dementis' beard and all this scene.
+Okay, can I get roto support in Toronto
+to get all this sort of done? So we have
+great colorists up there that I would
+leave notes of things I need to do. So
+then what's great about that is they're
+three hours ahead of us. So, when it's
+6:00 a.m. in in LA, it's 9:00 a.m. for
+them. So, they're already working for
+three hours before I even get in at 8:30
+or 9. Right.
+>> Put your team on blast. Who are these
+ninjas who are doing these ninja
+colorists who are doing roto for you?
+>> Oh, they're amazing. We, you know, we
+had uh uh Lily is in Toronto. We have
+Andrew Ross who's now in in LA and
+Wade's up there. And we had another guy,
+James, at for a little bit. And yeah,
+these they're amazing. Amazing.
+>> What a skill set. Um, and I was dumping
+hard stuff on them and you know it's
+like roto wispy hair beard
+>> and I need it by 9.
+>> Yes. And I need it by night. So they
+have a three-hour head start which is
+great. And then I would come in around
+kind of 8:30 or 9. And then go, okay, I
+thank you for these. I'll take these.
+I'll take that. Conform's been done.
+That's great. They've changed that shot.
+They've changed this shot. Okay, great.
+And then you'd be like, okay, a hundred
+shots have just come in from VFX. Okay,
+we're going to update them. Mhm.
+>> And Sydney couldn't update them because
+they weren't ready yet and they only
+came in after they finished the conform.
+So now we're going to have George online
+at 4 in the afternoon LA time. I've got
+to get these shots ready to update. So
+you put a shot in and sometimes like the
+mat assignments changed in the VFX shot.
+So you would have, you know, we may have
+used mats. you EXRs have embedded mats
+in them and so you'd use them and then
+the next version comp there was supposed
+to be the same layout but sometimes they
+would move around. So all of a sudden
+all my layers that I use to control and
+shape the the sky for example have all
+switched to a different mat assignment.
+So I have to go through all my layers
+and work out which mat's which and you
+know that can take 5 10 minutes for that
+shot
+>> for sure. Yeah.
+>> And I've got to do that for a 100 shots.
+So, you're running out of time and I've
+still got to grade the sequence and I've
+still got to do that Starfield sequence
+or whatever else, you know? So, you're
+just like running like crazy trying to
+get through it and then uh yeah, just I
+don't think people understand how just
+even updating one visual effect shot and
+making sure your grade works, you
+multiply that by how many are coming in
+and then as the show gets closer and
+closer to the finish line, you get 200
+shots a day or so and it just gets it
+just gets worse.
+just keeps getting worse.
+>> And then then we finally jump on with
+George and he wants to oh, let's look at
+this and grade this and we we do a
+session with him and I would often do a
+session till 2 or 3 in the morning and
+then we'd sign off. I'd rush home, try
+and get a few hours sleep and you do the
+whole process all over again, seven days
+a week non-stop, you know, it became
+hard. This reminds me of like something
+I feel like I've observed at a couple
+different points is like you see you
+like I see the work you're doing and
+like the end product of it and the
+filmmakers you're collaborating with and
+like I think most colors be like that
+would be awesome. I'd love to be doing
+that
+>> until you're doing it
+>> and then we hear the story. I'm like I
+mean I'm sure it's it's rewarding and
+you are glad you have done it but that's
+>> yeah look most of the time it was a
+great process. It was just it's always
+like that. I find most films it's the
+very end when it's rushed and you've got
+a delivery date and you got to get it
+done and everybody wants every last
+minute. VFX aren't going to deliver
+anything. I mean, I think we had shots
+the day we're delivering to Warner
+Brothers. We're still getting a shot.
+And you're like,
+>> uh, I'm I've meant to be rendering
+QCing. I've got no time to even do that
+now because I'm still waiting for your
+shot.
+>> You know, that becomes hard.
+>> Yeah. It's so funny how that, you know,
+like that aspect kind of travels all the
+way up. Like I've never heard of, oh,
+we're at such an like a high level of
+production of movie or show or whatever
+that we don't deal with that kind of
+deadline tension. Like everyone's trying
+to squeeze everything they can out of
+the project.
+>> There's that there's a famous quote from
+someone I can't remember who said it,
+but it's like films are never finished.
+They're just abandoned. Yep.
+>> And that's what it feels like. They get
+you get to a point like we're done.
+>> Press the button, we're done.
+>> Yeah.
+>> And then everybody just [ __ ] about it
+in the cinema later.
+>> Yeah. And on the IMDb or whatever.
+>> Yeah.
+>> Okay. Okay, I want to give you one more
+question from the community to so that
+they don't all yell at me later cuz
+there were way more that we won't be
+able to get to. Okay, so here's Isaac
+asks, "I'd be curious to know which
+phase of the color pipeline Eric
+considers his favorite during a
+production, whether it's lookdev,
+on-site collaboration, DI, or finishing,
+and why?"
+>> I don't know. They all
+>> You warned me at the beginning of this
+conversation, don't ask me about
+favorite things.
+>> Favorites. I know. I'm glad you haven't
+asked me what's your favorite.
+>> Yeah. What's your favorite movie? I hate
+that. Um,
+I don't know where really I think
+I don't know if I could I I have a
+trouble answering that because I like
+them all equally, you know,
+>> thrive on the variety.
+>> Yeah. Like the look development thing is
+fun when you're coming up with a look,
+but you're not finishing it and then
+it's just like that was just an idea at
+that point, you know? So, the fun is is
+the final crafting and the final
+finishing where you know, you're like,
+"Yes, that's that's where we finally got
+there." Like, but it's a result of all
+of those really. You can't. I don't
+know. It's hard. That's a hard thing to
+answer. I I like the process of all of
+it. And I think they all go hand in
+hand. So, I'm sorry, Isaac. I don't know
+the answer to that.
+>> You'll you'll you'll remain uh happily
+omnivorous with your different uh lanes
+that you drive in with color. Well, man,
+I mean, I feel like we could keep going
+and going, but feels like as reasonable
+as place of any to wrap for this
+conversation, and I just want to thank
+you so much for joining and sharing your
+experience and your insight with us,
+man.
+>> Oh, my pleasure. It's been great.
+>> Thanks for being here. Thanks.

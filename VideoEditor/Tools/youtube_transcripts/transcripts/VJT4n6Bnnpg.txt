@@ -1,0 +1,229 @@
+This is the fusion composition for a
+lower third title in the Fusion page of
+Da Vinci Resolve. Watch how quickly and
+how easily I can turn it into a clean,
+wellorganized drag and drop title on the
+edit page. And even if you have no
+interest whatsoever in making your own
+drag and drop titles or effects, you
+still need to stick around uh because
+there is one other feature in the
+program I'm going to show you that I
+really think every Da Vinci Resolve
+editor could find useful. The first
+thing I'm going to do is just copy all
+of these nodes. And then I'm going to
+open Macro Machine. This is my new
+program utility for Da Vinci Resolve. It
+is launching the free version into its
+open beta today. So you can go to the
+store page and download this uh for free
+right now. Let me show you what it does.
+I had those nodes copied and so now I
+can import from the clipboard. That
+shows me all of the nodes that built up
+my effect. I'll give myself a little bit
+more room. And then I can go through any
+of those like this text one. And I could
+click to add individual controls. That's
+pretty nice. Or I can click this quick
+set button. And if I click that, it adds
+in a custom set of controls that I found
+uh most helpful. And it automatically
+adds a label to group all of those
+together. So I can go to this next uh
+text uh control text two. Click uh quick
+again. That will add another one. And
+then if I select both of those groups, I
+can come to this new create control
+dropdown, click label, and it adds a new
+label encompassing uh all of those other
+controls. So now I can just call this
+something like text
+controls. And then I can come down to
+something like this background here
+where I have this gradient control which
+is actually what is driving this like
+color gradient in the background. And if
+I uh only select that clear selection uh
+only select that gradient, I can add a
+new label and just call this something
+like
+outline
+controls.
+Uh rename this something like colors
+exclamation point. Then I can open back
+up this top menu which is where we
+imported but also has this uh macro
+explorer area. Super valuable. We're
+going to talk about this more soon. But
+by default, it's showing me this edit uh
+tab, and this is actually the folder
+where all of your titles and effects and
+uh generators and transitions on the
+edit page live. So, if I open that up,
+come to titles, and then come to this
+test folder I made, I can click select,
+and then now back down here where we
+built this preset, I can come to this
+dropdown and export to the edit page. I
+just click that. And then when I hop
+back to Resolve, sometimes you need to
+give it a second to think. But if I hop
+back to the edit page now, uh, hop over
+to this clip in my effects library, I
+can come to titles, test, I have that
+colors, uh, lower third. I can drop it
+on and there uh, it is. If I click this,
+load it in the inspector, we have those
+text controls which we can modify. Yay.
+And those outline controls. But uh what
+if I decide I want these outline
+controls on top of the text controls?
+Well uh what if we decide that a bit in
+the future uh when we have completely uh
+gotten rid of that work in macro
+machine. Well then I can use this macro
+explorer. Open it up. Navigate to that
+folder inside titles. This test we have
+that colors. I will open that back up in
+macro machine. And there we have uh
+everything we just built. So I will
+close these back up. uh those text
+controls. And then if I grab these
+outline controls, put them on top.
+Export again, export to source file, uh
+you should see Resolve reload in the
+background. Yeah. Now, if I come back to
+Resolve, get rid of that one. Test
+folder, grab in the new version, you
+will see those outline controls are on
+top and can be modified right here. It's
+really cool. That was really quick for
+re-editing this custom macro that we
+made. But you can do that with any of
+your installed uh presets and plugins,
+all these macros. But you can do even
+more with them. This is what I said
+every D Vinci Resolve editor could use.
+I have lots of installed presets here.
+Uh if I come to uh effects drunko, I
+have this 3D screen pro pack. As you can
+see in the preview, these are meant to
+simulate a subtle 3D camera move over
+your footage. It's pretty slick, but you
+know, I have like 24 25 different
+controls here. What if I know that half
+of these I don't like at all. I don't
+want them taking up space in my effects
+library. Then in macro machine, I open
+up that uh macro explorer, navigate back
+to that root folder. And here I see
+right at top 3D screen pro DRFX. I can
+open up that pack. Here I see every
+installed pack. And say I just don't
+like these first eight. I can come in,
+select those first eight and then just
+disable selected. It shows those are all
+disabled. That was one and then 10
+through 16. We see that refresh in
+Resolve. If I come back to Resolve now,
+I'll get rid of that. So, it's just this
+uh come back to those effects drunk
+supply code. You see this 3D screen pro
+now starts at 17 and we have
+significantly less of them. And don't
+worry, you can always come right back
+and reenable those at any time. You can
+do that with individual presets inside a
+DRFX or uh with just whole DRFX packs.
+You can disable those and then reenable
+later when you want to. And as cool as
+that functionality is and really useful,
+I think to a lot uh of Da Vinci Resolve
+editors, that's not like the core
+functionality of Macro Machine. That's
+more of what I showed off earlier. And
+there are so many tools in Macro Machine
+for building custom drag and drop
+effects for the edit page. Like I showed
+you, you can just copy your nodes and
+paste them in here or you can import uh
+if you have that setting file, you can
+import that directly. We have color
+coding according to the kind of node it
+is on the fusion page, you can search
+through these nodes for specific
+controls. We showed creating a label,
+but you can also create custom uh drop-
+down controls or buttons or sliders. You
+see this upgrade tab? There will be a
+paid studio version in the future that
+has some already really insane features,
+but that is maybe a little further ways
+out, but I will be teasing it more soon.
+And there are lots of small things. If I
+grab uh the quick set group for this
+first text control again, back on
+something like these text fields, you
+can see you can change the number of
+lines in that default text box to keep
+that pretty succinct. If I come to
+color, you can paste in here the hex
+value or change your visibility for how
+it shows these color controls. If you
+only want that uh box where you select a
+color, choose this no sliders option.
+It's really slick. We have options for
+expressions and uh advanced like
+scripting. There is already lots of
+stuff in here. I want you all to try it
+out and I want you to let me know uh uh
+what bugs you find. This is launching
+into an open beta now. I've been working
+in it for a while. There is already lots
+of cool stuff in here, but with a system
+as complicated as the macro system, I
+know there are so little many like niche
+corners and interactions uh that I need
+help testing. And in the meantime, you
+can get this new really cool thing right
+now. In the description will also be a
+link to uh my Discord and specifically
+uh the page for giving feedback. Your
+feedback will be very very helpful here.
+I need it. I'm planning on talking much
+more comprehensively about all the super
+cool features in Macro Machine, but uh
+for now I'm just very very excited to be
+releasing this publicly. I've been
+working on this for quite a while. Um so
+so I'm excited for you all to get your
+hands on it. So go get your hands on it.
+I'll see you over there in the Discord.
+You will see much more of Macro Machine
+on the channel in the future. Thanks for
+watching and I'll see you next time.
+Okay, one more thing. One more thing I
+want to show off. I can create a new
+button. This is just like a button. It
+can do lots of things, but in this
+button execute script, I can insert a
+link launcher. Um, this is currently
+broken in this build. It'll be fixed by
+the time you see it. But there is code
+here, which currently you can only see
+when you select it. Again, this will be
+fixed. But what this does is you can
+just drop a URL in here. Let me actually
+do it. I have this going to my website.
+If I export this back to my clipboard,
+uh, I'm currently editing this video.
+Don't worry about it. And paste this in.
+And then it has this button which I
+didn't change the name to, but if I
+click it,
+it launches to my website or the URL you
+plug into. So that's it's like really
+slick. Really slick. Just built in. It's
+a macro machine. Go check it out.

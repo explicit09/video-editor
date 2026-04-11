@@ -1,0 +1,652 @@
+♪ Pull up on some yellow
+cab, street shit (pull up) ♪
+♪ Faded off a Xan, you
+be sneakin (sneakin) ♪
+♪ Tell me where you be
+at in the night time ♪
+♪ Baby, hit me on that life line ♪
+♪ Damn, I love your bad Americano body ♪
+♪ Ferragamo on me ♪
+♪ Probably left the party ♪
+♪ No dinero on me ♪
+♪ Imma shoot ♪
+♪ Got that barrel on me ♪
+- Now let me ask you this,
+why do you think people
+hate teal and orange?
+The answer is simple.
+There's too much garbage out there okay?
+People don't like to learn
+they just like to do things
+but when it comes to creating
+a modern day, teal and orange
+as we can see in joker, John wake, Madmax
+these are the movies
+that do it right. Okay?
+And that's what a lot
+of beginners try to do
+but they don't have the
+skillset to do it right.
+Well, in this video,
+we're gonna change that.
+I'm gonna start off by showing
+you the wrong way first,
+so you know, not to make those mistakes
+and then we're gonna do it the pro way.
+And the way I'm gonna create this look,
+you can save it as a power grid
+and then use it on your future projects.
+If you're a beginner filmmaker who wants
+to make their work stand out,
+color grading is one of the
+most effective ways to do that.
+If you're coming from
+premier pro or final, cut 10,
+then looking at a node based software
+like resolve will just
+confuse the heck out of you.
+In this free training
+you're not only gonna learn
+everything about nodes,
+you will also learn to
+build the perfect node tree
+regardless of the project
+that you were working on.
+I will end the session
+with an extended Q & A.
+These questions came from you guys,
+click the link in the description
+to sign up for this free training.
+Now guys, if you're enjoying the content
+you know what to do.
+Smash that like button,
+subscribe to my channel
+for more awesomeness,
+make sure you're following me
+on Instagram and let's roll the info.
+(bright upbeat music)
+Let's get this party started.
+So first I'm gonna play as a beginner
+and then I'm gonna show you the pro way,
+and for our beginner
+I'm gonna give him a
+benefit of the doubt okay.
+This right here is
+considered a hero frame,
+and our beginner usually
+wouldn't even be parked here
+because that's not a thing
+that they would usually do.
+So I'm gonna try to set everything up
+the same way as a pro would do
+just so we have a level
+playing field okay,
+and it will make more sense.
+So let's go under the project settings
+and here we're gonna choose color managed
+and I'm gonna select DaVinci Wide Gamut.
+If you guys have any questions
+to why I'm selecting this
+I've already done a video on that,
+so go check that out.
+Let's go ahead and hit save.
+And when we do that, nothing
+really happens, right?
+Nothing really changes.
+So we know that this footage is from red.
+So I'm gonna go ahead right click here.
+And I'm gonna go under input color space
+and I'm gonna go ahead
+and select a red gamut
+a wide gamut, and then log three, G 10.
+As soon as we do that
+we have a proper rec 709 conversion.
+So like I said, a beginner
+wouldn't know all these things
+but I'm just gonna give him
+the benefit of the doubt
+because I wanna keep my focus
+on the teal and orange execution
+more than anything else
+for this video. Okay.
+So it doesn't get confusing.
+The biggest mistake that
+most of the beginners make is
+that they don't have a
+proper node tree structure.
+And that's why I did an entire
+free training link is down
+below that you guys should
+absolutely check out.
+It'll turn you into a
+freaking node tree Ninja.
+Everybody should be watching
+that before watching my videos.
+Okay. But first thing
+a beginner would do is
+he's gonna start with exposure, right?
+So let's go into our primaries
+and he will start with his
+lift and he'll bring it down.
+I'll take his gain and he'll raise it up.
+And you know, he'll open
+up the image because that's
+just what beginners do.
+Like you just wanna max
+out your range here.
+Right? So you'll do something like that.
+And you'll be like, okay,
+this is looking pretty good.
+So now a beginner will open a new node
+and he will jump right
+into creating the look.
+So he'll take his lift and bring it down
+toward that, teal kind of situation.
+And then he'll take his gain
+and he'll raise it up to
+add that orange, right?
+They'll do something like that.
+And then he'll keep pushing his teal.
+And then he'll keep pushing his orange
+to something like that.
+Now, on YouTube, it might look cool
+especially on a small screen,
+but once I punch in
+and you look at what's really going on
+and all the degradation that's happening
+and how the hair is looking
+green instead of black
+and then all this noise
+that we have coming in,
+just because we're doing unnecessary push
+and pull on our image
+and then look at what's
+going on with the scope
+and ultimately look at what's
+happening to our vector scope.
+The middle point represents balance.
+Look how far off it is.
+And this is what gives our
+teal, an orange, a bad name.
+Okay. So people don't
+know how to create it.
+So they just go, Hey, I'm
+sick and tired of seeing it.
+Then you watch a movie
+like Tenet and you're
+like, this looks great.
+So if I punch in and look at this,
+see there's so many new
+colors that we introduced
+by how this image was pushed.
+And that is the rookie way of creating
+a teal and orange look.
+Okay. So if I do before and after
+somebody like I said, might
+say, well, it is a big change
+and a rookie came along way.
+That's pretty cool.
+But you won't know until
+you see the pro version.
+So let's stop talking and jump right in.
+Obviously there's different ways to do it.
+This is just my process. Okay.
+So first node is gonna be our highlights.
+I'm gonna start off
+by structuring my node tree and guys,
+again you got to check out that training,
+cause I'm telling you
+if you don't know what goes where,
+it's gonna throw your entire grade off
+and going from shot to shot
+is gonna be a disaster.
+Okay? So you really need to understand
+get proper node tree structure.
+It's a free training link
+is down below this one.
+I'm gonna call it printer lights.
+And if you guys wanna see
+a video on printer lights
+let me know I'm gonna put
+something together for you.
+This is gonna be my primaries.
+And then right here
+we're gonna have our
+healing orange correction
+and you'll know what that means.
+And then this is gonna be
+our teal and orange look.
+And then we're gonna
+have a look adjustment.
+And our next node is gonna
+be tried and tested low
+and then we're gonna have grain.
+Okay? So this is our setup.
+We're gonna start off with our primary.
+So first thing that I'm gonna
+do is go under my offset.
+Bring my image down a little bit
+not too much, something like that.
+Now I'm gonna go
+under my contrast and I'm
+gonna juice it up. Okay.
+And I'm gonna keep it
+somewhere around here.
+I'm gonna take my offset.
+I'm gonna raise it up a little bit.
+I want the image to
+breathe a little bit when
+I'm creating this look,
+my focus right now is just on a skin.
+Where do I want his skin to be?
+And now let's give it a
+little bit more contrast
+not too much, something like that is good.
+And let's leave this here.
+Now I'm gonna go back
+into my printer lights.
+And like I said, if you wanna
+see a video, let me know.
+Basically I'm gonna be
+messing with these right now.
+Okay. But I'm missing it on my panel.
+So what do we see, on this image?
+There's way too much magenta.
+So let's subtract some
+magenta by adding green.
+And as soon as I go,
+boom, boom, boom three
+and our image is already
+looking pretty good.
+Now red is down here.
+We can bring it up.
+So I I'm gonna hit red once,
+that's headed twice as too much.
+So I'm gonna bring it down.
+I'm gonna keep it somewhere around here.
+So our image, just by a couple of strokes
+we were able to balance our image
+and I mean look at this before and after.
+Okay. That's the beauty
+and that's the power of printer lights
+and if you wanna see, like I said,
+a full fledged video let me know.
+But this is where we are right now
+already off to a great start.
+A pro would balance their shots first
+before they go in and create a look
+and then they will do this will
+be considered a base grade.
+And they would do that
+to their entire scene.
+So everything is balanced.
+Everything is good to go.
+And then you will create a local, okay
+this will save you a lot
+of time in the long run.
+So now we're gonna go under our lift
+and lift gamma again,
+our primary is just
+like the amateur did it
+but we're gonna approach it differently.
+So I'm gonna start with my Lyft
+and I'm gonna start
+adding some of that teal.
+Right. So just like really go there.
+Right. It's okay.
+And now I'm gonna subtract that.
+So the amateur used his gain
+to subtract and add orange.
+I'm gonna use my gamma.
+Okay. And I'm gonna
+explain to you why that is
+but let's just do that first.
+So I'm gonna take my gamma up
+and try to get the skin back in
+right where I want it,
+something like that.
+And then I'm gonna take my lift
+and keep bringing it down.
+Something like this.
+Right? So keep it somewhere around here.
+I'm being a bit extreme with this.
+Okay. So that's okay.
+And now I'm gonna take my gamma again
+and I'm gonna subtract some of that green
+that we're adding by adding
+a little bit of magenta here
+and I'm gonna keep it
+somewhere around here.
+So this is not very different
+than what the amateur was doing.
+I mean, we can do at least this.
+So let's see when he keep it
+somewhere around here.
+That's okay.
+Okay. So why do I have the corrector node?
+Because that's the difference.
+That's what differentiate
+the pro from the amateur.
+We are gonna go into our log wheels
+and I'm gonna take my shadow.
+And here's the thing that
+you need to understand
+before I even do this anchors. Okay.
+And I break up my anchors
+into three different
+categories, blacks, whites
+and skin tones.
+So as long as my blacks look black,
+and as long as my whites look white
+and my skin looks somewhat similar
+to what it's supposed to be.
+Now, that's gonna change
+if you're shooting
+something in mixed lighting,
+RGB lighting something like that.
+But outside of that
+if the skin looks somewhat
+proper, hair looks black
+if it's black and then white looks white
+then everything else that I do in between
+I can sell you that look
+that's what Hollywood
+does to us all the time.
+And that's what makes your look
+feel mature and expensive
+compared to a cheap look
+which we can see in our amateurs grade.
+So I'm gonna go take my shadow.
+And I wanna cancel that.
+I wanna cancel
+that green that we had in the hair
+and just look at his hair now.
+So now his hair is looking
+way better than before,
+and what I'm gonna do is
+I'm gonna undo this one step
+and his hair is looking way better.
+And not only that, if
+I do before and after
+look how much it helped the
+skin just by pulling that out.
+So this is where we're sitting right now.
+Now what I'm gonna do is
+I'm gonna take my mid-tone
+and I'm gonna start adding
+more orange into a skin
+something like that.
+This is for the sake of
+this exercise, right?
+Like I'm just really pushing
+it to kind of give you a sense
+of like what we're going for here.
+So this is where we're at
+and we corrected our black points.
+So now our blacks are looking
+black or white look white
+and our skin looks really, really good.
+I mean, this is before the correction
+this is after the correction.
+Okay. So this is correcting that.
+Now what we need to do is I'm gonna go
+under my look adjustment
+and let's give our look
+a bit more juice, right?
+So we can do it multiple ways.
+We can do the editable
+spine ways, add a little pop
+into our shot, but I
+will just keep it simple.
+I'm gonna go under my lift gamma gain.
+I'm gonna take my Lift and
+I'm gonna pull it down.
+I'm gonna pull it down, do something
+like this. We need to realize that the,
+it's an African-American gentleman
+says skin is kind of dark, right?
+So we don't wanna keep it too bright.
+So I'm gonna keep it somewhere around here
+and we're looking pretty good.
+Okay. This is not looking bad at all.
+So I'm gonna keep it
+somewhere around here.
+And now I'm gonna go ahead
+and type in glow,
+drop that on.
+And all I'm gonna do here is soft light.
+Take that all the way back
+and I'm gonna take my
+spread all the way back
+and it creates this crazy, the movie 300
+sort of effect, like,
+look, it just pops our dude
+out right from the background,
+but that's too much.
+I'm gonna go into my blend
+and I'm gonna blend it in.
+So I'm gonna mess around
+with it until I'm happy.
+So even something like that
+is looking pretty good.
+And at that point, our image
+is like really popping.
+Everything is looking good.
+I'm gonna go in my highlights.
+I'm gonna hit shift eight
+so we can see what we're selecting.
+And I'm just gonna
+go ahead and start selecting the top end
+of my frame, something like that.
+I actually do wanna select his shoulder
+and a little more to like really add
+more depth into my image.
+I'm gonna go back into
+my highlights slider
+and I'm gonna start pulling that down
+and I'm gonna do,
+like I said I'm going for extreme
+because what it's doing is
+that it's bringing the
+teal back in even more.
+So it's kind of helping me out here.
+I'm gonna keep it somewhere around here.
+And I feel like we can just make
+the image pop a little bit more.
+So this time I will go in here
+and use my editable splines and do this
+and let's pop it up
+a little bit here.
+And then I'm gonna take this
+and I'm gonna pull this down.
+Not too much
+but even something like this, right?
+So this is what we got.
+Now, if some of you
+wanna see a more extreme
+teal and orange, we can do that.
+Right? So like, I can go back in here now
+because my node tree is set up properly.
+I have the flexibility to kind of go in
+and mess around with it.
+So I can now go in here, take my lift.
+And just take it more toward that,
+like crazy, crazy green.
+And what am I doing right now?
+If I take you here, right?
+This is from joker.
+And I pulled this up.
+You can see how extreme
+the teal and oranges
+and you can see what's happening here.
+The red, the green, the blue
+and we have a similar thing going on here
+right? Red, green, blue.
+So what I can do now
+is that I can go back
+under my corrector and just
+pull my green down a little
+bit and lift my blue up
+a little bit to really get
+this kind of thing going on.
+And we're still creating
+our own flare on top of it.
+We're not going for that.
+Like obviously with
+Jill, she kept her greens
+up top here to do like really
+have like green sit in there.
+We're not going for that.
+We're going more for like a,
+tenent or think of like blade runner,
+you would see something
+like that in those movies.
+So we're kind of going for that.
+So I'm, I'm gonna keep that here.
+But to me, this is looking pretty good.
+Now, ultimately, like I
+said, if you do want to
+bring a little bit of
+yellow or green in here
+you can easily do that by going under
+here and I will just take my,
+I will take my gain right here
+and let me go back in there
+and I will just take my blue gain
+and I will start bringing that down
+and look what it does
+when I'm bringing it down.
+So obviously we don't
+have to do it too much
+because I don't wanna make it artificial
+but that's just to kind
+of give you an idea
+to how much we can control
+our grade just by doing that.
+Now I wanna kind of split the difference.
+I don't wanna do too much of that.
+I think I can bring it down a little bit.
+That's okay.
+And then overall we can
+if we wanna stylize the image a little bit
+and just keep it classy,
+we can go under our curves
+and I can take my red saturation
+and kind of pull it down to
+like really stylize our look.
+So I can do the same thing with yellow
+and kind of pull it down, not too much.
+And that just creates a
+really interesting look.
+So guys look at this
+it's, it's that right.
+It's all of this to create a
+very finesse, very clean look.
+And then once you have it
+you save it and then you
+use it whenever you want.
+There's no qualifiers used.
+There's barely, we're using HSL curves.
+I mean, it's not necessary,
+but if you want to,
+I mean this is the kind of look
+you can slap it on anything
+and use it as a power grid.
+And that's it.
+Now you have the ultimate teal
+and orange modern day look.
+So if we compare this
+to what the amateur
+created, which is right here
+I'm gonna look at that and
+we're not even done yet.
+So, I mean, we still
+have to throw on a green
+and then that's gonna add so much magic
+once we have that on there
+and I'm gonna go for the pretty
+aggressive archival print
+and you should be able to see this.
+So if I do this and if I do before,
+look at this right here,
+after looking at this right there before
+after ed just makes it look so good.
+So once again, I mean, if we go
+to amateurs, look and look at the anchors,
+right all over the place,
+like, look at we're introducing
+this weird orange right here.
+What's happening with the hand there
+hair is green, then black.
+There's so much artifacting
+going on right here.
+I mean, just look at that, right?
+And we don't have any of this in this look
+and look how mature this
+look really, really is.
+So let's kill all of this and see what,
+where we started to where we ended up.
+So we started with our primaries,
+just did a proper exposure
+and then went in and use my printer lights
+to balance my image
+and then created our base, teal and orange
+using our left gamma gain.
+And then this is where the magic happened
+and I told you the power of anchors
+and how we were able to put everything
+back together and then look adjustment
+did a lot of work for us.
+I mean, this is really making
+the entire look extremely sophisticated.
+Use glow to like really pop the image,
+like look at how it's
+just making this entire
+image 3D and then added the green
+and then highlights really helped soften
+the roll-off on the top end.
+I think it does a lot.
+I mean, look at this,
+this just makes it look like film
+makes it look so good.
+So this is our final look.
+Let's check it out on full screen.
+♪ Pull up on some yellow
+cab, street shit (pull up) ♪
+♪ Faded off a Xan, you
+be sneakin (sneakin) ♪
+♪ Tell me where you be
+at in the night time ♪
+♪ Baby, hit me on that life line ♪
+♪ Damn, I love your bad Americano body ♪
+♪ Ferragamo on me ♪
+♪ Probably left the party ♪
+♪ No dinero on me ♪
+♪ Imma shoot ♪
+♪ Got that barrel on me ♪
+- And see, there are so
+many different variations
+in the teal and orange world
+and once you do it right
+you can start playing
+around with it, right?
+Like, do you want a little
+bit more cyan then say green
+whatever the flavor is,
+whatever the story calls for
+you can apply these similar
+techniques to your project.
+And trust me, as I mentioned
+you really need to learn how
+it proper node tree works
+in DaVinci resolve and what each node does
+and to find out more about
+that, link is down below
+the training is absolutely
+free to check it out
+and on that note, please smash
+that like button subscribe
+to my channel for more
+awesome awesomeness.
+And I will see you guys in the next video.
+(bright upbeat music)

@@ -1,0 +1,495 @@
+You know what DaVinci Resolve doesn't
+have? Easy drag and drop highly
+customizable masking effects for the
+edit page. So, I did it myself. A whole
+pack of drag and drop masking effects
+right on the edit page, highly
+customizable, even toss on an outline if
+you want to. And this pack of masking
+effects I recently made entirely free.
+And if you think that is cool, you have
+to stick around for the rest of the
+video cuz this video is just going to be
+talking about cool presets and plugins
+for DaVinci Resolve. And if you're
+watching this video at launch, uh stick
+around cuz at the end we're going to
+talk about how this rolls into uh this
+year's Black Friday sale. Woo woo woo
+woo woo. Um
+Now yes, every preset and plugin in this
+video is something that I have made.
+That's not because there aren't other
+amazing tools. I would love to talk
+about some more recent tools by other
+creators, but you know, let me know if
+you want that in the comments below. But
+for this video, we're just talking about
+cool things I've made for Resolve over
+the last 5 years doing this stuff. These
+aren't quite ranked, it's not the top
+10, but just 10 free presets and plugins
+that I think are really really cool. And
+hey, bonus on top of that, my 10
+favorite uh paid plugins or preset packs
+that I've made as well. I do love this
+mask pack, but if we hop over to the
+paid side of the show, um we'll have
+something else that I've been showing
+off a lot recently, Proto V3. Highly
+customizable glow and distortion
+effects. You can use it on text, you can
+use it on custom paths. Uh you can even
+use it on photo and video. And this is
+kind of a two-for-one bonus because we
+jumped to the top 10 paid products, but
+also I have a free version of Proto V3.
+It's called Proto V3 light. So, this
+video is kind of like 11 free plugins
+for Resolve. It's very hard not to talk
+about Proto by itself for for the entire
+length of this video, but hey, it's very
+very cool. Links to all these plugins
+will be down below, uh but especially
+Proto. Check out Proto. Back to our free
+plugins, uh we have a super basic speed
+lines effect. You know, the sort of like
+anime speed lines comes in, fades in
+towards the middle. Highly customizable
+if you want overall opacity or to change
+these colors or like how intense these
+lines are, how many lines there are,
+even the speed if you want to crank this
+down for like how quickly they like do
+their speed lines effect. You've got
+tons of options here. Oh, I also spaced
+cuz on this next paid plugin, it also
+has a free version. Uh kind of like
+Proto, this is my easier ease Pro
+plugin. When you drop it on an effect,
+by default nothing happens because this
+is an animation aid plugin. A lot of you
+know that by default when you make uh
+key frames in almost every software, by
+default they are linear. If I uh move
+this over here, set a keyframe, come
+forward, and slide this over, by default
+it would just like move at a constant
+velocity between those two points. But
+what easier ease does is that it
+automatically
+adds some subtle easing into whatever
+motion you animate on these basic uh
+position, size, and angle controls. It
+also has built-in motion blur controls.
+And hey, even uh built-in shake and mask
+controls. If I add a little shake, it'll
+just do this ongoing shake and then move
+and then keep that shake going. A solid
+default curve on this uh eased animation
+right out of the box. On this one
+specifically, I believe this core
+functionality is in the free version,
+but this included mask controls and
+shake controls and maybe motion blur,
+I'm not sure, are in the paid version.
+Back to free, we have a collection of
+tracking controls. If I come in here, if
+I come to the beginning of this clip,
+toss on my overlay, I can see how this
+does tracking my eye. If I track forward
+back and forth a solid little bit, we'll
+see how long this clip is. Oh, it's not
+too bad. Just let it do its thing. And
+then hey, that ta-da is tracked over to
+my eye. I could reposition this, do all
+kinds of things there. Uh it goes away
+cuz it jumps to a different tracking
+effect I have here. If I do the same
+thing, track over this eye,
+and let that run, you'll see it actually
+repositions my video. So, now if I scale
+in, we have this super popular locked on
+stabilization effect. So, wherever my
+eye moves, it stays in the center of the
+screen. These are free. I do also have a
+paid master tracker plugin that does
+some other fancy stuff, uh but I chose
+to show off the free tracking plugins
+cuz they're super useful. Back on the
+paid side of things, we have this
+YouTube overlay that's actually really
+slick. If I disable this clip, you see
+uh that underneath it is just my full
+video, but when I have uh the generator
+on top of that, it shrinks it down into
+the space to recreate this YouTube
+overlay. You have a bunch of video links
+on the side, which yes, you can
+customize all of these with a custom
+thumbnail and even titles and like how
+long ago they were published and their
+total views. You can customize this
+description and views down here. And
+this also has an alternate version that
+is just this full-screen layout. And in
+both of these, the actual timing
+controls are perfectly relative. So,
+like it'll load this buffer bar, and
+then however long your clip is or
+however long you customize it to be
+based on these controls, it will
+actually give you that proper
+proportional play amount of the play bar
+as your clip progresses. Really slick.
+Next for free, I've got a paid title
+that is
+this really slick starfield review. This
+was based off of uh
+a release event Apple did where you can
+see you can do this from the side and
+then it reveals whatever text you type
+in here. And at the end, it actually
+starts to rotate the other way. So, you
+could layer these back-to-back and swap
+between different words or even just
+have this being like a perfectly looped
+GIF. Uh really slick, made out of
+particles native to the Fusion page.
+Pretty basic controls, but pretty slick
+effect overall. Next is something I need
+a bit of more room to show off. I have
+nine video clips stacked. And if I come
+to my effects, open up Sterling Supply
+Co here, I have two different things
+here, Layout Pro and Layout Pro Blocks.
+If I select all of these, I come to uh
+Layout Pro V2, I can grab something uh
+here like 9 by 1. I can select all of
+these clips, make it a Fusion clip that
+sort of sums them down to one layer. But
+now if I drop on this Layout Pro 9 by 1,
+it arranges those nine clips perfectly
+spaced in frame. And in the inspector,
+you have controls over moving around
+these elements, you have controls over
+their background or their drop shadow.
+That's really slick. That is Layout Pro
+V2 that gives this general look. All of
+these different uh layouts you see here,
+up to 20 different video clips in frame.
+That's Layout Pro. We also have Layout
+Pro Blocks, which is just another look
+at that. If I come to uh these are
+organized a little differently. If I
+grab a 3 by 3, drop that on here, you'll
+see that Layout Pro Blocks is meant to
+look fill the entire space just with
+these little dividing lines instead of
+uh putting these clips more in like
+individual box that live in this this
+broader frame. And Layout Pro Block can
+fit up to a 5 by 5 grid. So, 25 video
+clips can be instantly arranged in frame
+just by making them a Fusion clip and
+dropping one effect on them. Pretty
+slick. If you've ever tried to do this
+manually, it can take a lot of time
+trying to dial things in, um especially
+if your videos are like different aspect
+ratio or something like that. You have
+full control here uh over you can see
+I'm making this one clip bigger or
+larger. You have a lot of customization
+for how these look after the fact,
+especially in Layout Pro V2. Uh but
+Layout Pro Block's just an alternate
+take on that really uh
+uh slick plugins that, you know, they
+just do what it says on the tin really
+quickly. I like them. Next is one of my
+more popular free effects, this Picture
+in Picture Pro. It just, you know,
+scales down your image, uh puts it in
+this little outline. Uh you can slide it
+down over into the corner, this is
+probably what I'm using in this exact
+video. You can even change the shape of
+this to all sorts of different shapes.
+You can add extra uh outlines and color
+and animation. You can create a whole
+lot of different looks just with this
+one free drag and drop effect. Next paid
+plugin is Highlighter Pro. I like this a
+lot. I dropped this on by default and
+you can see that whoosh, it draws on
+this little line here. That's slick. If
+I toggle on my Fusion overlay controls,
+you see that I can reposition this. We
+have several different styles we can
+choose from including squiggles that
+give us this broader area. I really like
+the way these look. Or if you toggle on
+custom, you can change the color, the
+apply mode, uh the animation speed, uh
+even add a texture which you see a
+little bit of here. Really quick utility
+with of course tons of customization, uh
+but for these very popular sort of like
+draw on highlighter effects. I Oh, oh.
+These are the kind of plugins I really
+really like. Uh and it it it works and I
+like it a lot. Highlighter Pro. Back on
+the free side of things, uh like stuff
+like Highlighter Pro, it makes sense
+that's paid, that's like a utility. I
+give away lots of like fun little stuff
+for free like this uh DVD logo
+screensaver where
+dink dink. Uh it pops around, you can uh
+tag in your custom text here or even
+like custom like images or video you can
+have bopping around the screen and
+changing color. I believe this is
+limited to the 16 by 9 aspect ratio
+without having to hop into Fusion and
+change some back-end controls. That's
+cool, right? This is actually based off
+of the particle system in Fusion. Some
+fun stuff going on, but this will
+actually run as long as you extend this
+to be. And every time it hits an edge,
+it will just change color. Pretty fun.
+Next in the paid is a pack of basic
+graphs and charts. So, we have things
+like this like bar chart, pie chart, uh
+and even this line grid. This is a pack
+I am definitely due to uh revisit and
+add some function functionality and
+organization. But the really cool thing
+here is that all of these values stay
+mathematically correct. I can come in
+here, change these graph controls uh to
+whatever value I want this. I can even
+change the maximum control up this bump
+this up to like 150. and then hey, 150%
+doesn't really make sense. So, I just go
+in and get rid of this custom suffix,
+and now we're dealing with those raw
+numbers. Uh tons of customization here.
+Really slick. Again, graphs and charts,
+totally my wheelhouse. I'm comfortable
+here. Really due to revisit this pack,
+add some more cool tools or styles here.
+Uh so, maybe look for that early in the
+new year. We'll see how that goes. Next
+in free land is something I've actually
+you've seen I've added to a few other
+effects, but it's just master shake
+plugin. Drop it on anything if you want
+the position and the angle and the scale
+to shake, it will just do that. If you
+only want position, then only do
+position. If you only want scale, then
+only do scale, and it will just wiggle
+on that. You can change the strength of
+that scale or the wobble and the speed.
+It's crazy real quick. Instead of diving
+into fusion or trying to animate any of
+these manually, uh you can just use drag
+and drop controls for a really quick
+shake. Next paid pack is an entire pack.
+This is 3D screen pro. So, here I had uh
+this image of the UI tossed on this 3D
+screen effect, and then it puts it at an
+angle, sort of pans over that. We have
+some optional depth blur controls, but
+importantly, if I pull up my effects
+library here, we have all these
+different I believe we have 25 different
+styles. And all of the thumbnails on the
+effects will show you what direction
+they're moving and what angle the
+footage is at. And if you scrub over,
+you should even get a preview of that
+move. Great for showing off screen
+recordings or even
+just like a capture of a webpage or
+anything like that. Pretty slick just
+pulling the 3D workspace out of fusion,
+drag and drop on the edit page. Next up
+for free is a fun little pack. I just
+recreated a bunch of the classic like
+word art styles from like Microsoft Word
+in like the '90s
+as text styles in resolve. We've got 16
+of these different ones. Lots of classic
+works. Toss them up as a title. They're
+not animated or anything because the
+originals weren't animated.
+Hey,
+free titles that I made just cuz I
+thought it'd be funny.
+Next up on the paid track is subtitle
+pro. And look, hey. And then
+it just it goes away at the end.
+Subtitle pro is an animation engine. And
+actually, it might be a product I'm
+going to rename to something like text
+animation pro or whatever because I did
+make this before a lot of the added
+subtitle animation first features were
+added into resolve, but this gives you
+all your normal text controls including
+shading, but then it has this animation
+tab. So, if you want animation in or
+out, you can customize those here
+whether it slides in or like rotates or
+like fades in. Uh lots of those options
+just living here on animation controls.
+And you can even design a custom like
+shading look and custom animation, save
+that back to your effects library, and
+you can use that as the title for like
+the built-in resolve animated presets.
+So, like to design new text animation
+that you can use other places, I think
+it's pretty slick. Next for free is my
+master countdown V2. This is a bit of an
+old one, but you can see this is a like
+12-second countdown because I stretched
+this clip to be 12 seconds long. If I
+stretch it to be longer, it'll be a
+longer countdown. By default, it has
+this flip where you can enter two
+different text fields, and then it
+rotates between them until it gets down
+to zero, but you can also just do a bar
+with this again accurate timing or oh,
+straight timer if you want it or the
+circle which fills up as it counts down
+to zero or I guess fills down. Some
+simple customization controls here as
+well. Again, this is a one of my more
+ancient plugins, but still super useful,
+but maybe this is also due to revisit.
+Then again, I don't know. It's free.
+Back for paid, we have a screen pump
+effect which by default
+goes crazy because kind of like my
+master shake plugin, we have individual
+parameters. So, it has one basic timing
+engine that's running, but then it adds
+blur, hue shift, gain shift, saturation,
+rotation, shake, and zoom. If I uncheck
+all of these except zoom, then it will
+just be
+How fast is that? Well, that's based on
+the actual BPM. So, if you want to sync
+this up to a song, you can find like a
+tap calculator or something like that
+online, find the BPM of your song, and
+then whatever effects you want, those
+will increase in strength based on the
+actual BPM. And this actually looks at
+your timeline
+frame rate. So, like I do all the math
+for you in the back end. Pretty slick.
+Again, you can also just change this to
+random, in which case it'll like go
+crazy
+at like completely random times, but
+hey, you got flexibility. And if you're
+doing like a music video or anything
+when you want this basic effect, I can't
+think of a faster way to do it. The last
+one on my free presets list is just
+number plus. The default text effect in
+resolve is text plus, so now we have
+number plus. Again, it looks the same
+through the shading elements and all the
+transform those options, but now we have
+a number tab. And you can increase this
+number and choose if you want decimal
+points and change the prefix. If you
+don't want it dollars, change it to
+something else. If you can also add a
+suffix like
+tacos. Add a little space in there. And
+check it out, you can animate these. You
+can go from zero tacos up to 291 tacos,
+and it will animate. Wow! Pretty slick
+simple text tool. I just wired up some
+of this in the back end, but especially
+working with decimals,
+um like
+it it'll just like handle all that for
+you in the back end. If you ever need
+simple numbers in in any part of your
+text, again, I don't think there's an
+easier way. And number plus is free. And
+the last paid plugin I'm showing off
+over here is a set of titles back again
+for YouTube. These are just simple
+subscribe buttons. And hey, if you're
+watching this video and you've gotten
+this far and you haven't subscribed,
+subscribe. We've got some really fun
+stuff coming early next year. We've got
+a simple standalone subscribe button. We
+got the like button.
+Uh we've got this full look again with
+these extra accents. I updated this for
+the change in 2025. I think there might
+have been another small change, so these
+are probably also due for an update, but
+whether you want this uh pointer or
+cursor in there or not or just the
+button by itself, all these little
+accents. Again, you can customize this
+with your thumbnail, your channel name
+all in the inspector.
+Uh slick little pack of YouTube
+graphics. And oh oh, wow! I we've
+covered with variations I think like 21,
+22 different presets for DaVinci
+Resolve. Over half of them completely
+for free. And hopefully the little bit
+I've shown you of the paid products has
+you interested to check out some of
+those. Again, links to the store page
+for all of these will be in the
+description. On those store pages, they
+do also link back to the videos on my
+channel or you can you know, click over
+to the channel, search around there.
+You've got options. Of course, you could
+just head straight to sterlingsupply.co
+where all of these live. Again, this is
+what I've been up to for like the last 5
+years. So, somehow if you haven't seen
+any of these, you got a lot to go check
+out. And like I teased at the beginning,
+I am releasing this video right before a
+bunch of holidays this year in 2025. So,
+we're going to kick off a Black Friday
+sale that will go live as soon as I edit
+this video is live depending on how fast
+I can edit it. And then that Black
+Friday sale will be ongoing for a few
+days. Right at the top of the
+description will be that promo code if
+that sale is ongoing. If you're watching
+this video within a few days of release,
+check the description. And if not, you
+you know, stick around cuz I like
+running sales every once in a while. Of
+course, you don't need to wait for sale
+if you want to pick any of these up. If
+you do want to wait for sale,
+go pick up some free presets in the
+meantime.
+I made these things cuz I think they're
+super cool. Hopefully you do too. Thanks
+for watching, and I'll see you next
+time.

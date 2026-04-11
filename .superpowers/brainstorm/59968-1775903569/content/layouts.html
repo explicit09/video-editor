@@ -1,0 +1,114 @@
+<h2>Which 2-3 layouts should we support?</h2>
+<p class="subtitle">Select the ones you want. Split panel is already confirmed — pick 1-2 more.</p>
+
+<div class="options" data-multiselect>
+  <div class="option selected" data-choice="split-panel" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Split Panel (default)</h3>
+      <p>Two hosts side by side, title text at bottom — the standard Technolgia look</p>
+    </div>
+  </div>
+  <div class="option" data-choice="text-heavy" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Text Heavy</h3>
+      <p>Small host photos top-left, massive bold title dominates the frame — good for topic-driven episodes</p>
+    </div>
+  </div>
+  <div class="option" data-choice="single-host" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Single Host</h3>
+      <p>One host fills the left half, title on the right — for solo episodes or guest interviews</p>
+    </div>
+  </div>
+  <div class="option" data-choice="centered" onclick="toggleSelect(this)">
+    <div class="letter">D</div>
+    <div class="content">
+      <h3>Centered Face-Off</h3>
+      <p>Both hosts angled inward, title centered above them — debate/versus energy</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <!-- Split Panel -->
+    <div class="mockup">
+      <div class="mockup-header">A — Split Panel</div>
+      <div class="mockup-body" style="background: #0a0a0a; aspect-ratio: 3/2; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; display: flex;">
+          <div style="flex: 1; background: linear-gradient(135deg, #0A3D2A 0%, #050505 100%);"></div>
+          <div style="flex: 1; background: linear-gradient(225deg, #0A3D2A 0%, #050505 100%);"></div>
+        </div>
+        <div style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; border-top: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 50px; height: 50px; border-bottom: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; top: 10%; left: 8%; width: 35%; height: 55%; background: #1a1a1a; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #555; font-size: 11px;">HOST A</div>
+        <div style="position: absolute; top: 10%; right: 8%; width: 35%; height: 55%; background: #1a1a1a; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #555; font-size: 11px;">HOST B</div>
+        <div style="position: absolute; top: 8px; right: 10px; color: #C8A84E; font-size: 8px; font-weight: bold;">TECHNOLGIA</div>
+        <div style="position: absolute; bottom: 10%; left: 0; right: 0; text-align: center;">
+          <div style="font-size: 14px; font-weight: 900; color: white;">TITLE LINE ONE</div>
+          <div style="font-size: 11px; font-weight: 800; color: #C8A84E;">SUBTITLE IN GOLD</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Heavy -->
+    <div class="mockup">
+      <div class="mockup-header">B — Text Heavy</div>
+      <div class="mockup-body" style="background: #0a0a0a; aspect-ratio: 3/2; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(160deg, #0A3D2A 0%, #050505 60%);"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; border-top: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 50px; height: 50px; border-bottom: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 6px;">
+          <div style="width: 40px; height: 40px; background: #1a1a1a; border-radius: 50%; border: 1px solid #C8A84E; display: flex; align-items: center; justify-content: center; color: #555; font-size: 6px;">A</div>
+          <div style="width: 40px; height: 40px; background: #1a1a1a; border-radius: 50%; border: 1px solid #C8A84E; display: flex; align-items: center; justify-content: center; color: #555; font-size: 6px;">B</div>
+        </div>
+        <div style="position: absolute; top: 8px; right: 10px; color: #C8A84E; font-size: 8px; font-weight: bold;">TECHNOLGIA</div>
+        <div style="position: absolute; top: 35%; left: 8%; right: 8%; text-align: left;">
+          <div style="font-size: 22px; font-weight: 900; color: white; line-height: 1.1;">ONE PERSON BUILT OPENCLAW</div>
+          <div style="font-size: 14px; font-weight: 800; color: #C8A84E; margin-top: 6px;">WHY SOLO FOUNDERS WIN</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Single Host -->
+    <div class="mockup">
+      <div class="mockup-header">C — Single Host</div>
+      <div class="mockup-body" style="background: #0a0a0a; aspect-ratio: 3/2; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; display: flex;">
+          <div style="flex: 1; background: linear-gradient(135deg, #0A3D2A 0%, #050505 100%);"></div>
+          <div style="flex: 1; background: linear-gradient(180deg, #0A3D2A 0%, #050505 100%);"></div>
+        </div>
+        <div style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; border-top: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 50px; height: 50px; border-bottom: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; top: 5%; left: 5%; width: 45%; height: 85%; background: #1a1a1a; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #555; font-size: 11px;">HOST</div>
+        <div style="position: absolute; top: 8px; right: 10px; color: #C8A84E; font-size: 8px; font-weight: bold;">TECHNOLGIA</div>
+        <div style="position: absolute; top: 30%; right: 5%; width: 42%; text-align: left;">
+          <div style="font-size: 16px; font-weight: 900; color: white; line-height: 1.1;">TITLE LINE ONE</div>
+          <div style="font-size: 11px; font-weight: 800; color: #C8A84E; margin-top: 6px;">SUBTITLE IN GOLD</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered Face-Off -->
+    <div class="mockup">
+      <div class="mockup-header">D — Centered Face-Off</div>
+      <div class="mockup-body" style="background: #0a0a0a; aspect-ratio: 3/2; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, #0A3D2A 0%, #050505 70%);"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; border-top: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; top: 0; right: 0; width: 50px; height: 50px; border-top: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; left: 0; width: 50px; height: 50px; border-bottom: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 50px; height: 50px; border-bottom: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; top: 8%; left: 0; right: 0; text-align: center;">
+          <div style="font-size: 16px; font-weight: 900; color: white;">TITLE LINE ONE</div>
+          <div style="font-size: 11px; font-weight: 800; color: #C8A84E; margin-top: 2px;">SUBTITLE IN GOLD</div>
+        </div>
+        <div style="position: absolute; top: 8px; right: 10px; color: #C8A84E; font-size: 8px; font-weight: bold;">TECHNOLGIA</div>
+        <div style="position: absolute; bottom: 8%; left: 10%; width: 35%; height: 55%; background: #1a1a1a; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #555; font-size: 11px; transform: rotate(2deg);">HOST A</div>
+        <div style="position: absolute; bottom: 8%; right: 10%; width: 35%; height: 55%; background: #1a1a1a; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #555; font-size: 11px; transform: rotate(-2deg);">HOST B</div>
+      </div>
+    </div>
+  </div>
+</div>

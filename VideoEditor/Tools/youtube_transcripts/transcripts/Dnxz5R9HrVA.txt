@@ -1,0 +1,635 @@
+Once your color management and your look
+are in place, exposure and contrast are
+by far the most important pieces of your
+grade. These adjustments should happen
+in one node. It should be the very first
+node that you hit. And that node should
+get you 80% of the way to your final
+image. Let me show you how I work and
+how I think my way through this very
+first node. So, as we get into Resolve
+here, you can see I've got my template
+node graph in place, which we're not
+going to do much with today except for
+node number one here, which I've labeled
+prime. But I also want to show you how
+I've set things up so that I can do what
+I need to do here in node number one. A
+moment ago, I mentioned color management
+and look. Those things for me are living
+here at the timeline level of my node
+graph. And you can see here I've got my
+DRT or my output transform. This is
+coming from a free thirdparty tool
+called Open DRT. And if I turn this off
+and then on, you can see that it's
+taking my graded image and actually
+mapping it and teeing it up for display
+so that it looks correct on my reference
+monitor. Okay, like I said, this is a
+free tool. I'll leave a link to it in
+the description for this video if you
+want to check it out for yourself. And
+then over here to the left, I have my
+look development plug-in, Contour, which
+is providing me my baseline creative
+look that is being used or applied to
+all of the shots in this timeline. So,
+it's giving me my creative contrast
+curve. It's giving me some extra color
+separation. It's giving me some extra
+saturation and really shaping out my
+image and giving me the strongest
+possible creative foundation so that I
+can dive right into node number one,
+make those exposure and contrast
+adjustments and get to that 80% point
+that I mentioned a moment ago really
+quickly and really easily. So, with that
+said, let's go back over to the clip
+level of the node graph and dive into
+node number one. So, with node number
+one, all we're trying to do is get our
+tonality feeling really, really good.
+everything from deepest shadows up to
+our brightest highlights. And the way
+we're going to do that is by hitting
+exposure and then contrast. So, let's
+bounce around. Let's go to a shot where
+we might need to do a little bit more
+like uh shot number six here. And we're
+going to start with exposure. Exposure
+is where we begin and it is always where
+we return when we are grading. Okay,
+I'll tell you more about that in just a
+minute, but let's for now go over to my
+HDR palette where I'm going to adjust my
+global exposure slider down here. Okay.
+And I'm going to use this to get my
+exposure to a better spot. Now, first
+thing I want to emphasize is we're
+talking about exposure here. Exposure is
+a creative parameter. It is not a
+technical parameter at this stage. Okay?
+There are best practices for exposing on
+a technical basis when you're shooting,
+but right now it is a creative parameter
+solely. How do I know when my exposure
+is good? When I like what I'm seeing and
+when my client likes what we're seeing.
+How do I know if it's bad? If we don't
+like it yet. That's all there is to it.
+You don't need to worry about any sort
+of arbitrary idea of correctness or
+incorrectness. Okay. So, I'm just going
+to swing this intentionally too far and
+then walk it back until I feel like I've
+got an exposure that I'm happier with.
+Now, you might be asking like, okay, why
+HDR global? Why is that the adjustment?
+Why not any other adjustment? Could I
+use any other adjustment if I prefer?
+Let me walk you through that. So HDR
+global is one of two ways within Resolve
+that allow us to make an adjustment
+that's what's called phototric. All that
+means it's a fancy word to tell us that
+it is going to do the same thing that we
+would get by opening or shutting our
+lens or by increasing or decreasing the
+amount of light that's uh actually being
+used on set. So it is a true exposure
+only adjustment. And that's a really
+important feature when we're working our
+way, especially through node number one
+here because we're going to be working
+exposure and then we're going to be
+working contrast. Yes, we are doing them
+in one node. We're doing them in one
+node because of how interactive they are
+and how much they play off of each other
+visually. But I still want to have the
+ability to work exposure and only
+exposure and then work contrast and only
+contrast. And if I pick the wrong tool
+to adjust exposure, I'm actually going
+to be adjusting exposure and contrast
+simultaneously. Let me give you an
+example of this. So, let's grab a still
+of what we just did. And I'm going to
+reset this node. And I'm now going to go
+back over to my primaries and work the
+first exposure like tool that I was ever
+introduced to when I began grading
+offset. So, let's do this. I'm going to
+wipe to the HDR grade that we just did
+and I'm going to try to match it with my
+offset. Maybe something like this. Let's
+make it a full-frame wipe so we can
+compare.
+Like so.
+I could go a little bit hotter on the
+offset actually. So, something like
+that. So, if we look at our offset
+exposure adjustment versus our HDR
+exposure adjustment.
+Offset
+HDR global. What difference do you see?
+What's the difference between these two?
+Well, there's a difference in contrast.
+Right now, here's what's important. It
+is not important which of these you
+prefer. you might actually prefer the
+offset uh exposure adjustment that I
+made just here. But what's important is
+that the offset adjustment didn't just
+change my exposure, it also changed my
+contrast. It may so happen in this case
+that it changed the contrast in a
+direction you want to see it go. But the
+fact that I'm adjusting two things when
+I'm really only supposed to be adjusting
+one is going to make it difficult for me
+to work efficiently and quickly through
+node number one. And it's going to make
+it really hard for me to avoid chasing
+my own tail. Okay. So, for that reason,
+we're going to stick with this HDR
+global adjustment. And this idea is
+going to come up even more strongly when
+we get into contrast next. Okay. So, now
+we've got our exposure in place. And
+looking at this with fresh eyes, I'm
+going to bring this back just a little
+bit, maybe to something like that. And
+we're now ready to start talking about
+exposure. Excuse me, about contrast. So,
+thinking about contrast, the same
+principle is going to apply almost even
+stronger than it did with exposure. that
+when I'm adjusting contrast, I just want
+to adjust contrast. I don't want to also
+move exposure. Uh when I just got done
+setting exposure where I wanted it to
+be, right? So, let's take a look at our
+options here. I'll start with like the
+very first exposure adjustment tool that
+I was introduced to when I began
+grading. Lift, gamma, and gain. Right?
+Lift, gamma, and gain can work. But
+here's the thing. When you're adjusting
+lift, gamma, and gain, you're always
+going to be adjusting exposure. like 99
+out of 100 times a lift gamma gain
+adjustment is going to bump exposure up
+or down a little bit while you're
+working through it. Okay, so it's not
+the ideal choice if you're really trying
+to focus on one thing at a time. So what
+are some other options here? Well,
+another good one right here within our
+primaries would be contrast. So what if
+we take our contrast slider here and
+move this to the right? Well, what do we
+see happening in the image and in the
+histogram as I'm doing this? Feels like
+it's getting darker, right? But check
+this out. I'm going to show you a magic
+number. Check out this pivot box and
+check out what happens when I type in
+this magic number 336. Let's actually
+before we do that, let's go back to
+where we were.
+And I'm going to set my contrast
+off of one. I'm going to go like heavy
+with the contrast. Now, when I set this
+to 336, watch what happens to the image.
+Gets brighter, right? But what's more
+important than it getting brighter or
+darker is that the pivot point of this
+contrast adjustment changes. Think about
+contrast. What are we fundamentally
+doing? We're taking everything below a
+certain point and and dropping it
+further toward the floor. We're dropping
+uh you know like the contrast in that
+area and then we're stretching it out on
+the other end. Right? Changing this
+pivot simply changes the point around
+which that stretch is happening. 336.
+Why is that a magic number? because it
+just so happens to represent where
+middle gay lives within my working color
+space of Da Vinci Y gamut intermediate.
+What does that mean? That means that I'm
+going to be pulling shadows down and
+stretching highlights out around the
+middle gray of my chosen working color
+space, which means that in general, I
+will not be biasing exposure up or up or
+down. I will simply be increasing
+contrast around that middle gray pivot
+point. Does that make sense? This is a
+really easy, really powerful way to get
+contrast only contrast adjustments that
+are not also going to bias the exposure
+choices that you literally just got done
+making a moment ago. Okay, so let's back
+this off now and just kind of dial it in
+by eye. And there's a couple things that
+come up as we start looking at contrast
+through this lens and we start looking
+at imposing these parameters on oursel.
+The first one is like, all right, so
+when I'm doing this, as soon as I start
+to move it to the right, I feel like,
+ah, that's kind of too much. So, here's
+like an interesting thing to keep in
+mind when you're thinking about exposure
+and contrast. I started this video today
+by saying like, "Hey, these are the most
+important key pieces of your color grade
+by the time you've got your color
+management and your look in place."
+That's 100% true. But what's interesting
+is just because they are the most
+important doesn't mean you need to do
+much or anything with them. It just
+needs it means you need to be keeping an
+eye on them. And especially when it
+comes to contrast, we are not trying to
+create or to remove contrast when we're
+grading in general at the shot level.
+What we are trying to do is maintain the
+contrast that we defined in our look.
+Okay? So remember, if we go back over
+here to the timeline level that I showed
+you a minute ago, I already have
+contrast happening right here. What I'm
+trying to do when I'm grading through my
+timeline is to maintain the ratio to
+maintain the contrast curve that I liked
+and that I said this is the look for
+when we were building the project at the
+beginning. I'm just trying to keep the
+car on the road. Okay. So, just because
+exposure and contrast are highly
+important adjustments doesn't actually
+need mean they need to be big
+adjustments. And in some cases, you may
+not need any adjustment at all. And in
+the case of this shot, I would say like
+we don't really need much contrast. Like
+that represents the ratio that I'm
+looking to see. Okay, that's one
+principle that can be helpful. It's like
+just cuz you need to be very attendant
+to exposure and contrast doesn't
+actually mean you need to do anything.
+Here's another one. If you regularly are
+finding yourself having to increase or
+decrease contrast in one direction, like
+shot after shot after shot, like let's
+say you go through five shots in a row
+and in every one of them you have to
+pull contrast back to get to a nicel
+looking image. That's a really good clue
+that your overall look does not yet have
+the right contrast dialed in. Means
+you've probably got too much contrast of
+living in the overall look and you want
+to go back and look at pulling some of
+that out. Okay, so that's another really
+helpful principle to think about when it
+comes to working your way through your
+contrast at the local adjustment level.
+Now, I also want to circle back to this
+pivot point that we talked about a
+moment ago. So, this is kind of a nifty
+trick that I showed you, but you may
+also be asking like, "Okay, great. So,
+does that mean I'm going to spend the
+rest of my life double clicking on this
+pivot field and typing in 336 in order
+to get this cool contrast adjustment
+that you were showing me? No. There's a
+better way to go about this. In fact, if
+we look at my power grades here and I go
+to my trees and I look at my CKC base
+tree, you can see when I apply this tree
+that I previously saved, there's no
+grading happening in this tree. Like,
+it's not doing anything to the image.
+But what it is doing is setting the
+pivot point to a custom position here in
+node number one. So, if I was starting
+this from zero with my template node
+graph, I can simply go in and adjust my
+exposure like so, and I can then
+immediately go back over to my primaries
+and adjust my contrast, and it's
+automatically going to be pivoting
+around that middle gray point of 336. By
+the way, another question that might be
+coming up, how in the world did you know
+that that's the number 336? To get that
+number, I referenced my mid-grade cheat
+sheet. That's a free resource that I
+will also leave a link to in the
+description for this video. It lists the
+middle gray point, that magic middle
+gray point for a number of different
+color spaces that you might choose to
+work in so that you can easily reference
+it and type it right into that pivot
+point regardless of the space that
+you're working in. I work in Da Vinci
+Intermediate. That's what I recommend
+here on the channel. If that's what
+you're working in, it's 336. But if you
+want to have a handy place to uh keep
+that available to yourself, go grab the
+mid-grade cheat sheet and it'll always
+be right there uh nearby when you need
+to grab it. Okay, so that's a way that
+you can accelerate your process here.
+Really, a lot of what we're doing here
+in node number one is figuring out a
+repeatable, consistent, efficient way to
+get the very best results as quickly as
+possible. Okay, so with this pivot set
+to 336, I can get my exposure dialed in.
+I can set that contrast and get to a
+really good spot with it very quickly.
+Okay, so that's the basic flow here. And
+you can see like we can start to work
+through this at a bit more speed of
+like, all right, let's set our exposure.
+And then I'm going to go in and set my
+contrast and get things looking good
+really fast. And that's the basic flow
+of what we're trying to do with this
+very first node is we're just trying to
+get that tonality feeling really good by
+working exposure and then by working
+contrast and by working them with tools
+that are not going to create the need
+for compensation and end up getting me
+chasing my own tail. Okay. Now, a couple
+questions come up along the way as uh
+we're going through this workflow or as
+you're learning this workflow for the
+very first time. One of them we've
+touched on a little bit, but I want to
+speak to it explicitly about why exactly
+we are doing exposure and contrast
+adjustment right within the same node.
+Wouldn't it be better to do them to do
+those adjustments in two separate nodes?
+Here's my reasoning. We just got done
+walking through a process where I show
+you hitting just exposure and then just
+contrast and treating them as separate
+pieces. But here's the thing. At the end
+of the day, what matters, like let's
+take a look at shot 13 here. What
+matters at the end of the day is not one
+of those pieces, but both of those
+pieces. So, if I open up just my
+exposure here, well, this is going to
+feel too milky and too open until I also
+adjust my contrast. Okay. So, this
+doesn't matter to me as much as
+uh this right here where I'm also Let's
+get this uh base tree in place here and
+actually try that again so that I'm
+pivoting around the right spot.
+So, there's my exposure and what I'm
+saying is this doesn't matter as much as
+this. It's the net of the way the
+exposure and the contrast interact with
+each other that really matters. That's
+why I like to do these things in one
+piece because ultimately I want to just
+be able to flip the whole thing off and
+on and see what I've done. Okay? Now,
+you don't have to do it this way. If you
+really prefer to do exposure in one node
+and then contrast in another node, the
+color grading police are not going to
+come and arrest you. I won't tell.
+That's totally cool. What I would
+encourage you to do is even if you're
+doing that and even if you like enabling
+and disabling just your contrast node
+and then enabling and disabling just
+your exposure node and looking at those
+pieces in isolation before you move on,
+like check this out. I'm going to set my
+contrast back to zero. And let's say
+that I'm going to work in that way as
+well. Like, all right, we're just going
+to do our exposure here. And then we're
+going to do our contrast in a separate
+node. Before you move on from your
+exposure and your contrast adjustments
+that you should be doing at the very
+beginning of your process, before you
+move on, do yourself a favor and grab
+both nodes and enable and disable the
+net of what they're both giving you. and
+make sure that in net they're doing
+exactly what you want and getting you to
+that 80% point that I've mentioned a
+couple times today. Okay, it's just a
+really good practice to get into because
+that's what matters more than just
+exposure or just contrast. Now, here's
+another big one. This comes up a lot
+when people are first learning this
+workflow. This is all good and well,
+Colin, if it's nicely shot material on a
+high-end camera like we have here, but
+what if the material isn't as well shot
+or if it's not shot on as good of a
+camera? Can I still really expect to get
+to 80% done in my very first node? My
+answer would be yes, absolutely. And I
+want to shift your perspective a little
+bit on that idea of 80% done. That's
+less something that we need to strive
+and stretch for and try to make happen.
+Like I got to get this to 80% done by
+the time I'm past node one. That's
+really just something that always
+happens. So like however far you get in
+node number one, that represents 80% of
+how far you're ever going to get in that
+grade. Does that make sense? By the time
+you've got your color management, your
+look, your exposure, and your contrast
+dialed in, the DNA of that image of that
+grade is set. And even though we've got
+this whole galaxy of nodes and tools and
+other adjustments that we can make when
+we're grading, the DNA has been defined
+by that point. So, it's less of
+something that's like you need to make
+sure you do that and it's more something
+you need to recognize like, hey,
+whatever I'm at right now, this is 80%
+of where I'm ever going to get. So, I
+need to make sure it's as good as it can
+possibly be. Especially if I'm working
+with challenging footage because that's
+going to be your best opportunity to get
+it into a good place is to get things to
+that 80% point early in that process
+where you've got all that firepower at
+your disposal. Because trust me, after
+this point, even with all the power and
+the flexibility that we have within
+software like Resolve, your ability to
+influence the DNA of the grade really,
+really falls off after that very first
+note. So yes, even if your footage is
+lower in quality or if it's more mixed
+in terms of like how well it was shot, I
+would say even more so if that's the
+case, you really want to focus in on
+getting as far as you possibly can in
+this very first node because that's
+going to be the easiest place to bias
+the outcome in a direction that you want
+to see it go. Okay, I want to show you
+one more thing before we wrap today.
+This is a fun final tweak that we're
+going to make here. So, I'm going to do
+something in a separate node to show it
+to you, and then I'm going to show you
+how you can roll it up and make it all a
+part of this very first node. Here's
+what I want to do. Let's take a look
+back to I don't know, like let's look at
+shot number six here, where we've just
+got a lot of deep shadows in this
+project that I'm grading today. And the
+deep shadows are beautiful, but
+something that we want to be mindful of
+when we're grading is we really want to
+hold on to detail and we want to create
+softness and shape in the low end of the
+image and in the high end of the image.
+So, even though we've got strong
+contrast through the middle, we want to
+make sure we're not too harsh in the
+bottom or in the top. And I'm going to
+show you a trick for achieving that
+right within this node. We're going to
+start by doing it in a separate node,
+and then we're going to compact it all
+together. Okay, so let me just go to
+node number nine for now. Now, track
+with me. There's a few steps here, but
+it ends up being very simple. So, I'm
+going to go to my utility power grades
+folder, and I'm going to grab my Da
+Vinci widegamut gray power grade here.
+All this is is an instance of my
+exposure chart DCTL, another free
+resource I'll leave a link to in the
+description for this video. And I've set
+my total steps to one. I've turned off
+show ramp. And I've set my tone curve to
+Da Vinci intermediate. Why have I done
+all that stuff? So that I have nothing
+in the world but a pure patch of middle
+gray right here in my image. And all I'm
+going to do with this is go back over to
+node number nine and go to my custom
+curves and eyropper anywhere on this
+gray patch. Okay, like so. Now that I've
+done this, I can actually wipe out node
+number 12. All I needed it for was to
+very precisely position this anchor
+point because I now know that's my
+middle gay. So, if I don't move this
+point, then I won't be moving exposure
+when I make this contrast finesse
+adjustment that I'm about to make. Same
+rules apply as with the contrast
+adjustment we were making a moment ago.
+I don't want to inadvertently adjust
+exposure when I'm really trying to
+adjust contrast. Okay. So, once I've got
+this in place, what I can do is shape
+out the bottom of the image. I'm just
+going to pick up the bottom and then add
+some compression like so.
+and then kind of walk that back to taste
+that I've got just the amount that I'm
+really looking for here. Okay, something
+like that feels really nice. And I can
+flip that off and on. You can see I'm
+just getting a little bit more softness
+down in the low end. Now, here's the fun
+thing. This is again where thinking your
+way through what you want your node tree
+to be, what you want your process to be
+when you're grading can be really
+beneficial. I like to do this so much
+that I've actually got it baked into
+node number one. I've saved off this uh
+mid-graay anchored custom curve into
+node number one. You might have actually
+noticed the little curve icon on my
+template node tree when I load it in
+here. If I pull this up, you can see
+even before I've done anything, this
+curve icon is there. It's not because
+anything's actually happening here. It's
+because I've saved off this anchored
+this mid-grade anchored custom curve
+into my node tree. So that when I'm
+working my way through a shot like shot
+number six, I don't even need to do what
+I was doing here in node number nine.
+Right here within node number one, if I
+want to, if I need to, I can go in here
+and I can shape out the contrast in the
+low end of the image. Okay, really
+powerful way to finesse things in the
+bottom of the top. This is a great
+recipe, something to take away from
+everything we've talked about today. If
+you're thinking about contrast and how
+to win with contrast and tonality as
+we're trying to do here in node number
+one, a pretty bulletproof recipe that
+you will see in all kinds of images and
+big movies and big shows and that you
+can apply to almost any kind of footage
+that you would want to grade is to have
+strong contrast through the middle and
+then softer shaped contrast in the very
+low end in the shadows and in the very
+high end and the highlights. So you're
+holding on to a little bit of detail
+there and nothing feels harsh or clipped
+or clamped. So hope that's a pretty fun
+walkthrough of the basics of exposure
+and contrast. And then a little bonus
+here of kind of how to trim that lower
+that bottom end when you need to and how
+to set yourself up to be able to
+efficiently do so whenever you need to.
+This is the way that I like to work my
+way through the process. And again, I
+want you to think about your exposure
+and your contrast and everything that
+you're doing in node number one. It's
+not like you need to stretch and make
+sure you're getting to 80% of the way
+done. You got to recognize that that
+just is 80% of the ball game right
+there.

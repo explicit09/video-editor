@@ -1,0 +1,835 @@
+So you've put in the effort to film some
+B-roll of yourself for
+your next YouTube video.
+You've set up the tripod, you got all the
+shots, and now that
+it's all recorded, you're
+thinking to yourself, what am I going to
+do with all of this?
+Today, I wanted to show you my process
+for editing B-roll into YouTube videos.
+We'll talk about how to combine it with
+your A-roll to create
+an engaging story and how
+to edit your B-roll to music.
+And by the way, everything that I'm going
+to show you, you can
+do for free in the free
+version of DaVinci Resolve, so you don't
+even have to buy any
+expensive software to
+get started with these editing tips.
+And by the way, thanks to Storyblocks for
+sponsoring today's video.
+We'll talk more about them later.
+First, I think we should just really
+quickly define what
+exactly is B-roll and what is
+A-roll.
+B-roll is basically supplemental footage
+that helps to enhance
+the story, but it isn't
+the main focus of the video.
+A-roll, on the other hand, is
+the main focus of the video.
+So in the case of YouTube videos like
+mine, the talking head
+part where you like see me
+chat into the camera, that's the A-roll.
+Meanwhile, all those other clips that you
+saw in the intro, for
+example, you know, of
+me like setting up my tripod and filming
+myself writing in my
+journal and all that, that is
+B-roll because it helped to enhance what
+I was saying, but it
+wasn't like the main purpose
+of the video.
+I'll admit the exact definition of this
+can be a bit fuzzy
+because sometimes clips that
+look like B-roll are
+actually the A-roll of a video.
+Let's just say if the point of the scene
+was to show me making a
+coffee in the morning.
+(upbeat music)
+(upbeat music)
+That definitely felt like a roll, right?
+But if I use those
+exact same clips over top
+of a talking head
+segment where I'm talking about
+how I love my mid afternoon coffee
+and it's so important
+for me to take a break
+around like two 30 or
+three in the afternoon
+because I need to get that caffeine hit
+to be productive for the rest of the day.
+See, in that case, it
+definitely felt like B roll, right?
+With that disclaimer out of the way
+for the purpose of today's video,
+when I talk about B roll,
+I mean supplemental clips
+that you add on top of
+like talking head footage.
+The way that I tend to
+do it in my own videos.
+And that's what I'm
+gonna show you how to edit.
+All right, before we can even start
+looking at our B roll,
+the first step in any edit
+is gonna be getting our A roll
+on the timeline.
+The way I like to do this in
+Resolve is just find the clip
+that I know is the talking
+head segment for my video.
+And I'm gonna right
+click it and then click on
+create new timeline using selected clips.
+Now to really efficiently
+edit my talking head segment,
+I'm gonna use the waveform
+and basically look for clues
+to when I need to cut
+out a certain section.
+If you're not familiar the way
+that audio waveforms work is
+anytime you see a flat line
+here that basically
+indicates that the video
+is more or less silent.
+The size of the wave
+indicates how loud the volume
+is at that point.
+So when I see a
+silent segment in my video,
+I pretty much know that
+I wasn't talking then.
+I was probably checking my
+script to see what my next line
+was supposed to be.
+So I'm just gonna use the
+blade tool and cut right
+before the waveform starts
+getting active like that.
+And then I'll use the selector
+tool here to select this part
+of the clip and then just delete it.
+And then pretty much what
+I like to do while editing
+is just play back the video
+and then start cutting out
+sections like as it's playing.
+And normally I can be fast
+enough that I can get rid
+of the pause before the
+play head even arrives
+at that point on the timeline.
+But sometimes I do have to
+pause and delete like that.
+And this is pretty much how
+I go about editing my talking
+head segments and with
+all of our pauses cut out,
+now we're ready to start
+adding B-rolls to the timeline.
+So let's go up to my
+folders here in the media pool.
+So I am a huge nerd
+for file organization.
+So when I'm filming my
+videos, I like to sort out
+which clips are for which
+scene and kind of sort them
+into folders based on that.
+If you wanna know more
+about that, I talked about it
+in this video that I made
+about how to edit faster.
+But since we're working on
+the intro, let's go into the
+folder for my intro B-roll.
+To get these clips in the
+right order and make sure
+that I'm like putting them in the
+timeline where I envisioned
+it when I was writing the
+script, I'm actually gonna pull
+up my video script in Notion
+here because the way I tend
+to format this is I will
+have a section where it's pretty
+much the script.
+This is what I'm saying
+during the talking head part.
+And then on the right
+hand side, I will have a list
+of the B-roll clips that I
+wanna capture to go along
+with that part of the script.
+So this is basically
+the segment of A-roll
+that we just edited.
+So now we're gonna be looking
+for some clips of me setting
+up the tripod, a closeup behind the
+camera of me adjusting
+it while I'm sitting in
+front of it, a point of view
+of the camera, me zooming in
+and out and adjusting focus.
+Okay, so we know we
+need to find those clips.
+So with that
+information, we're gonna start going
+through this folder.
+So if we take a look in the media pool
+here, this is the clip
+of me setting up the tripod.
+So all I'm gonna do is
+click on that and bring it
+into this preview panel here.
+In general, what we're
+seeing on the screen here is
+on the right hand side,
+this window here is a preview
+of what's happening in the timeline.
+And this window here is
+just a preview of the clips
+in the media pool that
+we're looking at specifically.
+Once I pull in a new B-roll
+clip, all I'm gonna do is press
+the space bar to start
+watching it back and decide what
+section of this clip I
+wanna include in the timeline.
+So as I'm watching it here,
+I realized like, okay, yeah,
+I remember I sort of made a
+mistake when I was setting it up
+and it didn't like look how I wanted.
+So I actually kind of redid
+that action in the same clip.
+So knowing that I'm kind of gonna wait
+and I'll press I here
+to set my in point, cause
+I know that's the beginning
+of what I wanna include in the video.
+And then when I'm sort
+of finished this action,
+I'm gonna press O to set my out point.
+And basically what I've done
+here is I've kind of pre-edited
+this clip and I've told
+resolve where I want the clip
+to start and end.
+Now all I'm gonna do is
+hover my mouse over this image
+and you'll see these two icons show up,
+one that's a little audio icon and one
+that's a video icon.
+And I'm gonna click on the
+video icon and drag that down
+to the timeline.
+And now I have my clip from
+the in point to the out point
+with just video only,
+no audio in my timeline.
+Because I've got my script handy,
+I know that this clip goes
+along with the very beginning
+of my A-roll segment.
+So I'm just gonna drag it
+to the start of the timeline
+and leave it there for now.
+Now I'm gonna do the same process again.
+So the next clip that I'm
+looking for is a closeup
+behind the camera.
+I'm adjusting the camera
+while sitting in front of it.
+All right, so I found
+the clip that I recorded
+for that point.
+And again, I'm just
+gonna press the space bar
+and let this play back and hit the I
+at the point where I
+want this clip to start
+and then hit the O for
+where I want the clip to end.
+And again, I'm just
+gonna drag the video clip
+into the timeline.
+So that's the basic process.
+I'm just gonna repeat
+that over and over again
+with all of the clips that I want to use
+for this part of the video.
+At this point, I'm
+just placing them roughly
+in the neighborhood of
+where I want them to end up
+because later on we're
+gonna adjust the timing.
+Now at this point you might be thinking,
+what do I do if I didn't
+actually film that much B-roll
+and now that I'm editing my videos,
+feeling a little bit boring?
+Then you might just
+wanna try out Storyblocks.
+Storyblocks is my go-to
+for getting interesting
+and high quality visuals
+to use in my YouTube videos.
+Storyblocks is an
+online stock media library
+with a huge variety of stock footage,
+animation templates, sound
+effects, background music,
+and more.
+It is a goldmine of
+finding stuff that you can use
+to make your YouTube
+videos more interesting.
+And when you have a
+Storyblocks subscription,
+you have full permission to use the
+content in your videos
+so you don't have to
+worry about copyright strikes.
+And all of the content on
+Storyblocks is available to you
+for one consistent
+monthly subscription price.
+So you don't have to worry
+about a pricey paper clip system
+really adding up.
+Something that I use Storyblocks for
+quite a bit actually
+is getting drone footage of
+the places that I travel to,
+particularly places where flying a drone
+is difficult or restricted.
+For example, I, a mere mortal,
+cannot fly a drone over Tokyo, Japan.
+But on Storyblocks, I
+can find clips from people
+who are allowed to do that.
+Storyblocks is like the
+antidote to boring videos.
+And if you find yourself
+editing and you're like, shoot,
+I really didn't film enough, don't worry.
+Just go to storyblocks.com slash Katie
+and you can try it
+out for yourself today.
+All right, now that all of
+our clips are in the timeline,
+it's time to get the
+timing of them right.
+As you can see, as I added my B-roll,
+I actually have more B-roll
+than I have A-roll right now,
+which we need to fix.
+But that's okay.
+This is just the natural result
+of setting your in and out points
+based on the part of
+the clip that you like,
+but we're just gonna trim it down a bit.
+So to do that, what we have to do
+is go back to the
+beginning here and play back
+and actually listen to what I'm saying
+and make sure that the
+visuals kind of match up.
+So let's take a listen.
+Filming for your YouTube
+videos can be a challenge
+when you're your own camera operator.
+Now, when I first wrote this script,
+I sort of envisioned this clip
+appearing as you hear me say,
+filming your own YouTube
+videos can be a challenge,
+like that part.
+And then when I get to the,
+when you're your own camera operator,
+I want you to actually
+see a camera on screen.
+So I'm gonna play it back one more time
+and make sure that I cut at the point
+where I want it to transition.
+Filming for your YouTube
+videos can be a challenge.
+So right before it says camera,
+I'm gonna go and make
+sure that this is a cut.
+However, maybe I actually wanna show
+a slightly different part of this clip,
+not necessarily just the first half,
+because I actually think I like the part
+where you see me
+extending the tripod like this.
+I think that's just a
+little bit more visually dynamic.
+So I'm going to actually
+delete the first section here.
+I'm gonna move this over
+and maybe I'll extend the beginning
+and then I'll go maybe
+like that and like that.
+Okay, let's take a look.
+Filming for your YouTube
+videos can be a challenge
+when you're your own camera operator.
+Okay, that's pretty good.
+So I actually need to
+make the cut like here.
+So I'll drag that back and then we'll
+just grab our next clip
+and slide it over on the
+timeline to meet the first one.
+And I'll keep listening
+and see how it matches up.
+Own camera operator.
+You don't have anyone to
+frame the shot for you?
+Now that I'm watching this,
+I actually think that I want it to be
+a little bit quicker than that.
+So I'm even gonna go back
+and shorten our first clip.
+YouTube videos can be--
+Gonna do that and like that.
+Filming for your YouTube
+videos can be a challenge
+when you're your own camera operator.
+I'm also feeling like
+this second clip here,
+it really gets more interesting
+at the point where my
+play head is right now.
+Like if we play it back from this point,
+it's a little bit like, I don't know.
+Some of this stuff, it's vibes based.
+Maybe you get what I
+mean as you see it too,
+but I feel like this is
+the point that's interesting.
+Like when I'm putting
+the camera onto the tripod,
+like that's what we wanna see.
+So I'm gonna cut that off and then again,
+just bump that clip up
+against the previous one.
+And then I feel like
+once my hand goes over
+the camera like that, it's like, eh,
+not much to see here, you know?
+Like it sort of becomes
+less visually interesting.
+So I'm gonna cut there as well
+and then just delete
+this next part of the clip.
+Something else that I
+have to play with here
+because I filmed these
+clips in 60 frames per second
+is I can actually make them slow motion.
+So I think I'm gonna try that out.
+So we'll select this clip
+and I have my
+keyboard shortcuts mapped out
+so that when I hit R on my keyboard,
+it brings up the change
+clip speed panel here.
+So I'm just gonna change
+that to 50% and click change.
+And then I'm gonna
+extend this out further.
+And I think I'm gonna do the
+same thing to this clip too
+and extend it as well.
+Now let's take a look.
+Filming for your YouTube
+videos can be a challenge
+when you're your own camera operator.
+I think we're getting there.
+Now my next clip, I
+know I wanted to start
+when I mentioned about
+like framing your own shots
+because that's sort
+of what this next clip
+really demonstrates.
+So I actually think it's this one here.
+So I'm gonna just drag that
+over to meet at that point
+and we'll take a listen.
+How do you want to
+frame the shot for you?
+See, and then I say press record
+and you see me
+pressing record in the clip.
+So that's kind of what I want you to see.
+And then this is sort of
+the second half of that clip.
+So I'm gonna move it over here as well.
+Basically you can see the
+process is pretty intuitive.
+It's just about matching up
+the visuals that you're showing
+with what you're saying in the A-roll
+and just continue to play it back,
+see how you feel about it
+as you watch it in real time
+and make adjustments as
+needed to make it feel more fluid.
+Honestly, a lot of this
+comes down to personal preference
+and taste, but I know
+that can be hard to develop.
+It takes a lot of time.
+So if you're just getting started,
+I wanted to share five kind of guidelines
+that you can work with to
+help make your final result
+look as professional
+and cinematic as possible.
+Our first clip here
+brings up a great example
+and this is my first tip for you.
+So I'm gonna show movement as it happens
+rather than seeing the beginning
+where there's kind of a pause and then
+the movement starts.
+Like if I play this back, hopefully
+you'll see what I mean.
+You can see I'm sort of paused there
+and then you kind of
+like start to see it adjust.
+Like it's really just about the speed
+that I did that with.
+But again, I don't know.
+Somehow the beginning just
+feels a bit awkward to me.
+So if I actually start more like there,
+you can almost see there's
+a little bit of motion blur
+in the shot and I'm gonna just cut off
+this beginning part and bring it over.
+It just feels a little bit more like,
+okay, we're like catching
+up with the story midway
+through the action.
+It feels more fluid to me.
+Tip number two, generally you should aim
+for your B-roll clips
+to be somewhere between
+like two and five seconds long.
+If they're too short, it feels chaotic,
+but if they're too long, it
+starts to feel a bit boring.
+Tip number three, add
+movement to your tripod shots.
+Since like me, you're
+probably gonna be using
+a lot of clips of yourself
+that you filmed by yourself.
+So that means that you
+shot them sitting on a tripod
+and they're most likely
+stationary, which is fine,
+but we can make them look
+a little bit more dynamic
+and interesting with
+just a few adjustments.
+So let's take this
+tripod one again, for example.
+I know we've watched this
+a bunch of times already,
+but you know, it's fine.
+It's like pretty like
+stable, maybe a little boring.
+So what we can do is select the clip
+and we'll bring the play head
+to the very beginning of it.
+And then I'm gonna go up
+here and click on inspector.
+My aim here is I'm gonna
+make it look like the camera
+was panning left to right.
+So in order to do that, we
+need to start by zooming in
+just a little bit so
+that we have the room
+to kind of like move the camera.
+Now that it's zoomed
+in, I'm gonna move down
+to my X position here.
+So this is kind of like
+the position of the image
+within the frame.
+And I'm just gonna click on the X value
+and just drag it over to
+the right a little bit.
+And then what I'm gonna do is click
+on this little diamond icon here
+that represents a key frame.
+Basically by clicking
+this, I'm telling resolve,
+put the video in this
+formation, like in this location
+at this time in the video.
+Now that we've done
+that, we're gonna go ahead
+and open up our little key frame timeline
+within our timeline here.
+So when we click on that, you can see
+we have this little white diamond here
+right at the beginning of the clip.
+So we're gonna go
+ahead and put our play head
+near the end and we're gonna
+go back to the X value again.
+And this time drag it a
+little bit to the left.
+I guess I went to the
+right the first time.
+And just until we're kind of like happy
+with that placement.
+Now you're gonna wanna go
+down and just like make sure
+that your little white
+key frame here is actually
+on the very end of the clip.
+And we'll do that for the
+one at the beginning as well.
+I'll just show you for
+example, if you don't do that,
+let's say the key frame is like here
+and we're playing back our clip.
+It's like nicely panning and it stops
+and it feels very abrupt.
+So I wanna make sure that
+always, always my key frames
+for movements like this
+are at the very beginning
+and very end of the clip.
+With that done, now we can watch it back.
+And you see, we have this
+lovely subtle slow movement.
+It almost makes it look
+like we had like a slider
+or something just sort of
+makes the shot more dynamic.
+Okay, my fifth and final
+tip for you is to match cuts
+between two clips with
+the action that you're doing
+in the clip.
+So for example, let's take
+a look at this clip of me
+basically walking into the
+scene, sitting down on the chair
+and then eventually
+taking a sip from my mug.
+I filmed that both at a wide
+angle and more of a closeup.
+And I wanna cut between
+the two in my sequence.
+This is where doing a match
+cut becomes really important.
+So let's just play this back.
+So I go and I take a sip and then we cut
+and then I go to take a sip again.
+And immediately, so unrealistic, right?
+Because we haven't
+matched that action correctly.
+Instead, what we're gonna
+do is as we're playing back
+the clip right before the action happens,
+we're gonna pause there
+because that is exactly
+where we wanna cut.
+And we're gonna really study like, okay,
+what is the position of
+my hand at this moment?
+And we're gonna make the cut there.
+And we're gonna look for that same
+position right there.
+Right, it's like I
+haven't quite taken a sip yet,
+but I'm about to.
+So now if we cut out these two segments
+and bring this together,
+we should have quite
+a seamless transition.
+The last thing I wanna
+address in this beginner
+B-roll editing video is how to edit
+your B-roll clips to music.
+This is for when you wanna make like a
+cute little montage,
+maybe to transition between scenes or
+something like that,
+rather than lining up
+your clips with talking,
+like how I just showed you.
+So I've got my music track in the
+timeline here already.
+And first off, I'm just
+gonna use the same method
+that I showed you before of going through
+and picking out the
+section of each B-roll clip
+that I would like to include.
+So for this, let's switch it up
+and we'll use a
+little bit of travel B-roll
+that I have from a trip to
+New York I did last spring.
+We got that in point,
+we got that out point,
+we got that strand bookstore.
+Okay, so basically we've got like a
+gaggle of clips here,
+all various lengths, not
+really like intentionally done.
+And now we're gonna get
+them in formation to the B.
+Okay, so basically what I like to do is,
+is I'll just bring the play head
+to the front of the clip like this.
+And then I'm pretty
+much just gonna press play
+and I am gonna try my best
+to hit my M key to the B.
+What this will do is, it'll
+add markers on the timeline
+where the beats in the music is.
+So, well, let's do it.
+(upbeat music)
+Okay, that's enough key tar.
+But yeah, basically what I've done
+is just established
+visual markers for myself
+where the beats happen.
+So now I can use that to
+really easily line up my clips
+to the beat.
+So let's do that.
+I think I'm actually gonna have my like
+little airplane clip
+here go on for several beats.
+And then I will trim it here.
+The nice thing about Resolve
+is as I'm trimming my clip,
+if I line up with the marker here,
+it will actually give me a little gray
+line that indicates,
+hey, you're lined up, you're good to go.
+So then I will release it.
+And then I'll just click
+and drag this clip over here.
+And let's give that a
+one beat sort of timeline.
+Okay, let's bring this one over.
+And again, we see that little gray line
+to let us know we're in the right spot.
+And so on.
+We'll do this third
+one to the beat as well.
+One thing I do wanna say about this
+is once you discover this technique,
+you're gonna be tempted
+to make every single cut
+happen on the beat.
+But I would recommend against that.
+I think the beauty of
+having your clips line up
+with the beat is that it's
+kind of this like satisfying
+moment to the viewer of
+like, oh yeah, like here we go.
+But it can get repetitive really quickly.
+So make sure to include a
+few clips here and there
+that are timed more
+so based on the action
+of what's happening in the clip
+rather than just to
+the timing of the music.
+So I might even do a
+couple that are on screen
+for like two beats, let's say.
+And then I think this clip here would be
+a really good candidate
+for just like breaking
+the musical pattern because
+it has such a specific action
+to it, you know?
+So I pull this book off the shelf
+and then I eventually put it back on.
+So maybe we'll like include
+that and then cut at that point
+which actually happens to
+be really close to the beat.
+So that's kind of nice.
+So when we add it to music like that,
+we end up with a result like this.
+(upbeat music)
+Kind of fun, kind of satisfying to watch.
+And I think it's a really
+great way to integrate the music
+that you are using with
+the clips that you're showing
+and just make it feel more intentional.
+Honestly, editing great B-roll sequences
+really does just take time and practice.
+But if you use these foundational skills,
+you'll be well on your way
+to editing awesome videos.
+If you are looking for
+editing support though,
+I did wanna let you know
+that my team of editors
+at Creatorly Media is
+currently accepting new clients.
+So if you're a
+YouTuber or a video podcaster
+that is looking to get
+editing off of your plate,
+we would love to help you out.
+You can check out all the details
+and the pricing at creatorlymedia.com
+and I'll link it in
+the description as well.
+Also, I wanna say thank you to Vicky
+for the suggestion to make this video.
+A ton of you seem to
+love my ultimate guide
+to filming yourself.
+So thank you, Vicky, and
+thank you for watching.
+If you have any video
+suggestions or tutorials
+you'd like to see me make next,
+please let me know in the comments
+because I would love
+to make them for you.
+And as always, I hope that
+you are having adventures
+and following your dreams,
+and I'll catch you in the next video.
+Bye.

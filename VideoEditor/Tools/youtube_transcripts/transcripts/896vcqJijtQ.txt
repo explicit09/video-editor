@@ -1,0 +1,503 @@
+So, I still get a lot of comments from
+people asking how to grade DJI footage,
+particularly DLOG M. Now, I have covered
+it before in a previous episode, but in
+this episode, I'm going to show you a
+new technique that I'm using, and I'm
+going to do a full grade breakdown. I'm
+going to show you some clips I've shot
+with DLOG M. I'm going to show you node
+by node exactly how I got the look. So,
+to get some footage, I took my Pocket 3,
+which shoots DlogM. I went down to the
+Amalfi Coast in Italy, met my friend
+there with her drone, and this is what
+we got.
+>> Welcome to Sento.
+Departing from Sarrento.
+[Music]
+Welcome to Puzzan.
+[Music]
+So, the music you're listening to in
+this montage is from audio.
+[Music]
+Come listen.
+[Applause]
+So, all the shots in that montage that
+were shot with the Pocket 3 were shot
+using the profile DLOG M. This is a
+really popular profile. That's why I
+chose it for this montage, so I can show
+you exactly how to grade it. There's
+three profiles in here. You've got
+normal, which doesn't even need grading.
+You've got DLOG M, which is a slightly
+flatter profile, but it it gives you a
+little bit more headroom, but it does
+need a little grade, which is what I'm
+going to show you. And you've got HLG,
+which is a full log profile that needs
+proper grading. So, I've got a couple of
+shots here that I'm going to show you.
+I've got this one of a Vesper, and I've
+got this one, which is a drone shot.
+Now, let's go back to this one. This is
+the actual grade. I'm going to show you
+in this episode every single node
+exactly what I did to achieve that look.
+But first of all, let's address the
+color management side of it. So, I'm
+going to go to here. I've built a little
+node tree here. There's nothing on here
+at all. If I just bypass here, you'll
+see that we've got absolutely nothing on
+here so far. These nodes are empty,
+ready to just start grading. I'm just
+going to show you my project settings.
+So, we go to color management, Da Vinci
+RGB, Da Vinci wide gamma intermediate as
+always, and my output color space
+matching my monitor Rex 9 gamma 2.4. You
+can use 2.2, of course, if that's what
+you're working. And the first thing I'm
+going to do is switch on this one, color
+space transform. So, all I've done is go
+to my effects and go to my library and
+I've taken a color space transform and
+dragged it on. So, what I need to do now
+is tell Resolve what the settings are.
+the input color space. So that is DJI
+D gamut and my input gamma is DJI DLOG.
+So we're using DLOG M. Now the output
+color space is going to Da Vinci wide
+gamut and the output gamma is going to
+Da Vinci wide intermediate. That means
+that when we're working in here, we're
+working in Da Vinci wide gamut. This is
+a nice color space that I like to work
+in. Now what we need to do, and for
+those of you who might know what's going
+on here, I am going to explain it in a
+moment. Then what we need to do is set
+our output CST. So we're going to go
+from Da Vinci wide gamut because we've
+sent everything up to Da Vinci wide
+gamut and we're going to output to Rick
+79 gamma 2.4 again matching my monitor.
+So this is now color managed. It's
+looking pretty good. We have good
+saturation in there. We've got good
+contrast, but it's actually a bit
+strong. And I'm going to show you why
+this is technically incorrect. If we go
+to our scopes here, you'll see at the
+top of the trace, we're actually
+clipping white, which means we're losing
+information. And the same's happening in
+the shadows as well. You can see it's
+clipping. So, this is not good. Also,
+our saturation is incredibly strong
+here. We've not even done any color
+grading yet. All we've done is color
+manager. The reason for this is this is
+actually incorrect. So, our front CST,
+our NCST is correct, but our first CST,
+and I've got whole episodes on color
+space transforms. I'll put a link to
+those in the description as well if you
+don't understand what's going on. And
+I'm going to show you a simpler way in a
+second as well. So, this is incorrect.
+The input gamut here is not DJI DLOG. It
+should be recx 709 because dlog m is
+actually recx 709. So let's click down
+here and choose rec 709. And that is a
+much better starting point. You see that
+we've got a little bit of headroom now.
+We're not clipping. We've got a bit of
+room in our shadows. Our saturation is
+at normal levels. And this is ready to
+start grading. So we could actually
+deliver that now. But let's just go and
+make a few little tweaks. So my first
+node, I norally do a bit of exposure and
+balance. I'm just checking the exposure
+is good. It actually looks pretty good
+to me. Let's go to contrast. Let's just
+add a little bit of contrast in there.
+Just make it look a bit better. And a
+little bit of saturation. It's pretty
+saturated already to be honest, but
+let's just put a little bit in. And
+there we go. We've got a really nice
+grade that could go out. That looks
+fantastic. Now, that's all good and
+well, but technically this isn't color
+managed correctly. The reason being is
+that the CST that I'm using at the front
+here doesn't have the capability of
+inputting DLOG M. There's no such thing.
+You can't do that in a color managed
+workflow. So what I've done is chosen
+the next best thing which is rec 709. If
+you want to technically go correctly
+from DLOG M to rec 709, you need to use
+the camera manufacturers's L. This will
+mean you could just apply that L and you
+don't even have to do any grading. So if
+that's how you want to work, I'm going
+to show you how to do that now. So if I
+go to my next version, I've set up here
+a basic notary. There's nothing on here
+at all. If I enable and disable that,
+you see nothing happens at all. This is
+the DLOM M file straight out of the
+camera as it was shot. But I want to
+make this look like Rec 709 technically
+correctly using the maths from DJI. Now,
+the only way to do that is to go to
+their website. I'm going to add another
+node, Alt S, and download their LUT. So,
+I'm going to show you how to do that. If
+you go to the DJI website, I'm going to
+put a link to this in the description.
+It'll take you directly to this page.
+Find the product that you're using. So
+I'm on Osmo Pocket 3 at supports DLOG M.
+And if I click here, I can download the
+L. So if we go to here, you've got all
+this product stuff in here as well, but
+here's the DJI Osmo Pocket 3 DLOG M to
+Rex 709 L. It's going to go Rex 79 2.4.
+So there's my Mac version and a Windows
+version. I've already downloaded this,
+but let me show you quickly how to
+install it. I've done this on a few
+videos before, so just skip ahead a
+little bit if you want to. I'm going to
+click here, go to color management, and
+down the bottom here, if I say, make
+sure you're on tetrahedral, by the way,
+in this interpolation. Uh, it gives you
+better quality. If you open the L
+folder, then this is the folder you want
+to drop that downloaded file into. And
+I've already done that here. So, I've
+got DJI, Osmo, Pocket 3, Rex 79 to color
+grading LUT. And you get five LS. You've
+got the regular one, and then you've got
+spring, summer, winter, autumn. These
+are just looks that DJI have added on. I
+don't recommend you use them. I
+recommend you go with the straight one.
+Once you've done that, just press update
+lists. And you might have to restart
+Dinci Resolve as well. And then if I
+just label this one L. If you right hand
+click on this node, go to L, and you can
+then choose it DJI Pocket Osmo, and it's
+here. And then what happens is we've
+gone from DJI DLOG M to Rex 79 with one
+L. So this is now a technically correct
+color managed clip. Now all we got to do
+is do a bit of grading. So, we could do
+a bit of exposure and balance if we need
+to. Let's just do it for fun. Actually,
+just before I show you something else
+with the L technique, I'm just going to
+remove that cuz I want to compare it to
+my version compared to the camera
+manufacturer's version. So, I was pretty
+close. I'd say my exposure was just a
+little bit down. Let me get rid of that.
+And let's just reset that one.
+Okay. Yes. So, slightly different, but
+not far off. Nothing that I would be too
+worried about anyway. So, why would I
+not work in this L workflow? Why would I
+not just stay here? The reason being is
+I like to work in the Da Vinci wide
+gamut color space. A lot of the plugins,
+a lot of the third party stuff I'm using
+rely on a larger color space. They
+certainly rely on not being input a DLOG
+M feed. So, things like the DRTs that
+I'm using now, these are I've got a
+whole episode on these. So, I'll just
+point to that instead of trying to
+explain it here. But it's a different
+way of tone mapping back from a large
+color space to rec 709. I'm using the
+monodes one at the moment. It's called
+look lab prints. I'm really enjoying
+that. Some people are using the JP2499.
+Uh Colin Kelly's just released his
+Genesis. This relies on a larger color
+space input. They don't have inputs for
+DLOG M. So that's one reason that I
+can't work in this L workflow. And just
+before I show you the second reason why,
+I just want to spend a minute thanking
+this episode sponsor, Audio. So, I'm
+logged into my Pro Audio account, and
+this has given me access to thousands of
+music tracks and sound effects. Now, to
+find music easily, I've taken a link
+from a track on YouTube that I like.
+I've put it into link match AI, and it's
+going to go ahead and find the best fit
+matches for me. So, once those matches
+appear, I can choose the individual
+stems that I want to use to remix the
+tracks to make it exactly how I want it.
+So, this is Elements 2.0. This is a
+major upgrade to audio stem offering.
+So, you're getting studio quality
+separation. And this is trusted by the
+major studios and it's all powered by
+audioshake. So as well as the original
+stems that we got like drums, bass,
+guitar, vocals, we now have an extra
+stem element which is the strings. So
+you can download these all at once or
+you can download them individually and
+you can mix and match these. So you've
+got across the board noise reduction and
+gain balancing to give you full
+creativity. So it's also reassuring to
+know that the tracks are covered for
+social media and most broadcast. So once
+I've downloaded them, I know that I'm
+good to go on all my projects. So if you
+want to try out Elements 2.0 for
+yourself and all the other fantastic
+features that are in audio. Click the
+link in the description and you'll get
+70% off your first year. Enter the code
+Darren at checkout. You'll also be
+supporting my channel. So, let's go back
+to the main video. The second reason is
+you have to be careful when you're
+working under LUTs. They're not as
+forgiving as if you're working in that
+nice large color space that I'm used to
+or a color managed workflow using CSTs.
+So, let me show you. If I go to look
+here, what I'm going to do is go to my
+chroma warper and select here. Let me
+just show you something that can happen
+if you're not careful. So, let's say I
+want to increase the saturation on the
+Vesper here. I'm going to click here.
+That gives us a point. And all I've got
+to do is push out to increase
+saturation. Now, look what's happening.
+The sky is breaking. If I just enable
+and disable that, the sky is breaking
+here. And also, if I just zoom in and
+show you,
+look at the outline of this sign here.
+If I enable and disable that, we're
+getting this horrible artifacting. Now,
+I've pushed that quite far. I don't even
+need to push it that far. Let's pull it
+back a little bit. So, we've given that
+a break. But if I go to the sky, you'll
+see that the sky is still not good. So,
+this is fixable, but it'd be really easy
+to miss that if you're not careful what
+you're doing. So, let me switch that
+node back on. I'm just going to push the
+saturation out a little bit more and
+let's just zoom in so you can see what's
+going on.
+So, let's have a look at that sign
+there. So, the color model we're working
+in at the minute is HSP. If we change
+our color model, these are ways that hue
+and saturation works with luminance. If
+I go to HSL, it does indeed fix that
+problem, but it'd be really easy to miss
+that. So, that's two reasons why I don't
+want to work in the L mode. So, let's go
+back to my CST workflow. I'm going to
+show you my full graded one. I'm going
+to break this down for you now. Let's
+have a look what's actually going on
+here. But this note tree is freely
+available. There's a link in the bottom
+of my description. You can download this
+note tree. Obviously, it doesn't have
+the color grade on it, but it has all
+the labeling on there ready to go. I've
+got a video on how to use it, and I'll
+put a link to that in the description as
+well. And actually, first of all, let me
+just show you. If I go to the warp here,
+you see there's nothing on here at the
+minute. I'm just going to show you that
+that warper trick that I just did
+doesn't get affected the same when
+you're not using the L workflow, but
+when you're in Da Vinci wide gamut. So,
+I'm going to do exactly the same. In
+fact, I'll do it a bit more extreme to
+show you. And you see there that my sky
+is staying safe. The signage is not
+breaking, and I've gone even further
+with my saturation than I did using the
+L method. Just to prove that that does
+work correctly in Da Vinci wide gamut or
+any other CST workflow that you're
+working with. I think the easiest way to
+show you this is for me to take off all
+the grade elements and just leave the
+color space transform on. So that's
+taking us to Rex 709. First thing we did
+balance and exposure. Let's have a look
+at that. So I've just done a little bit
+of a move there. That's just using the
+HDR wheels. Uh I might as well show you
+properly where I've done it. There's
+exposure there. Then we go to contrast.
+Now, when I'm applying contrast, I'm
+also wary, I've not switched it on yet,
+that my film look has not been applied
+yet. Now, the film look is going to go
+at the end just before my last CST cuz I
+want to work in Da Vinci wide gamut
+space. But my film look is coming from
+Dehancer. Now, I need to put this on
+because this has an element of contrast
+and saturation inbuilt with it. You
+could use film look creator for example
+if you don't have Dehancer, but I like
+working with Dehancer. So, I'm going to
+show you my settings. So my source Da
+Vinci wide gamut intermediate. That's
+what's being fed into the enhancer. My
+print is Kodak 2383. I've just adjust my
+target white point a little bit to make
+it a little bit warmer. And I've got a
+bit of hellation and a bit of bloom on
+there as well. So that is my dehancer
+settings. Now this stays constant
+throughout the entire montage. So all
+the clips have got that particular
+filmic look. And then I will adjust
+saturation, contrast, balance, exposure
+accordingly. But that will stay set once
+it's on. So, my saturation is, this is
+new. There's many ways of doing
+saturation in Da Vinci Resolve, but I've
+got a new way of working now. I'm going
+to show you what I do. So, I'm going to
+put that on, and I'm going to go up to
+here. So, I'm using a DCTL called
+monodes. This is called color shift, and
+it allows me to do global saturation
+here, but it allows me to control each
+of the six vectors individually. So I
+can control the amount of saturation in
+blue, the amount of saturation in red,
+the amount of density, and the amount of
+hue. So if you have a look at what I've
+done here, I've got a little bit of
+global saturation on. So I'm using this
+instead of like HDR saturation for
+example. And then I'm individually
+controlling my blue density. So that's
+controlling the sky really and the
+vesper. A little bit of hue change. This
+again was to make the sky match. I want
+the sky matching the next shot and the
+previous shots and all the shots. I want
+the sky being consistent. And I'm doing
+that with a little bit of a hue shift in
+here. And red density. This is what's
+happening on that Vesper. If you look at
+the red Vesper, this is giving me a nice
+dense feel on there and that little bit
+of flag there. So, this is a fantastic
+product. I'm using this all the time. To
+get this, you need to go to monodes.com,
+which is up here. And it's this one is
+the one I'm using, color shift. I've got
+a 10% discount code in my description. I
+think you put Darren at checkout, but
+I've been using monodes for years. So if
+you don't have mono nodes, you could use
+something like HSVs or the color slice
+tool. It's going to give you a similar
+look. What else have I done? I've got a
+little bit of temperature going on here.
+So we've got our color temperature
+change. So the only other thing I've got
+going on here is texture. And what this
+is is called texture pop. So I've gone
+into advanced mode, lumochroma, and by
+tweaking these sliders, I'm adjusting
+frequencies. And what this is doing,
+it's easy to show you what it's doing to
+be honest. I've got episodes on how I
+work with texture pop. But if I switch
+that on and off, if you look at the
+light here,
+okay, that is pretty subtle. Let me zoom
+in a bit more. There you can see that
+I'm just giving it a little bit more
+refine. So these sliders here are
+controlling smoothing and sharpening in
+particular frequencies. So I really do
+like that. Just gives it a little bit of
+sharpness. So that's that shot. Let's
+have a quick look at the drone one. Now
+it's exactly the same note tree. I've
+got the same dehancer on the end here.
+So just show you that same grading. I'm
+not going to go through each and every
+one of these, but I've basically played
+around with my balance, contrast, and
+saturation, but the only difference I've
+got here to show you is that the texture
+in here, I'm going to show you what it's
+actually doing here. So, I've set
+slightly different settings on the
+sliders, but what it's good for, if I
+switch this on and off, is if you look
+at the foliage here, it just gives it a
+little bit of sharpness. So, it just
+gives it a little bit of texture pop
+really. So, let's put that on loop play.
+I'm just going to play that through. And
+looks absolutely fantastic. The sky
+looks great on this. So, I'm really
+pleased with that. Let's have a look at
+the Vesper shot.
+And you can see there, take a look at
+the sky. Let's go back to this one. And
+you can see that we've got really nice
+matching skies. That's a really key
+thing to do when you're balancing shots.
+So, if you've picked up any tips out of
+this episode, think about subscribing.
+Most people don't. However, yesterday I
+did just pass 225,000 subscribers. So, I
+really appreciate it. I want to say
+thank you to each and every one of you
+who subscribed. And I want to say thanks
+to Audio for making this episode happen
+and thanks to Mari for her fantastic
+drone work. Look after yourselves and
+I'll see you in the next episode.
+>> Welcome to Sento.
+>> Parting from Sento.
+[Music]
+[Music]
+Welcome to Puzzan.
+[Music]
+So the music you're listening to in this
+montage is from audio.
+[Music]
+Come listen.
+[Music]

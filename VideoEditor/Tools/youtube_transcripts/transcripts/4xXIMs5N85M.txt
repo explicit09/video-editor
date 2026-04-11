@@ -1,0 +1,1081 @@
+I get asked a lot about the process of
+how I go through and edit my podcast
+specifically my video podcast uh and my
+audio podcast but here's the thing I
+edit them both at the same time and not
+only do I edit them both at the same
+time but by using Da Vinci resolve I
+have a very easily replicatable process
+that I can go through in in repeat each
+and every week so that my podcast is
+consistent and that's something that I
+think that my my viewers and my
+listeners really appreciate it so so in
+today's episode I'm going to go through
+and show you all the way from beginning
+to end how I edit my podcast it's going
+to be a long one so buckle up and if you
+have questions that something that I
+don't cover leave it in the comments
+down below and maybe I'll address it in
+a future video let's get started so the
+first thing that I have to do is I have
+to download the files from Riverside
+which is the sponsor of today's episode
+Riverside is a podcast recording
+platform that records all of your files
+locally and then uploads them so that
+you and whoever you are talking to can
+get the highest possible quality video
+and audio when recording your podcast
+without having to know how to do it it's
+I've done I've used a million different
+solutions for recording podcasts with
+other people over the internet and
+Riverside is the one that I find works
+the best and gives the best quality now
+I do think it is worth pointing out that
+not everybody needs to use a program
+like Da Vinci resolve in order to edit
+their podcast in fact if you don't know
+how to edit video at all one of the
+coolest things about Riverside is they
+have a built-in editor that will
+essentially edit your podcast for you
+all you have to do is click on that edit
+button like I showed you just a second
+ago and then you're going to be greeted
+with the complete transcript of your
+entire show right over here on the left
+hand side as well as what it's going to
+look like if I want I can change the
+layouts or the um I can change my tracks
+around so I can like you'll notice that
+I'm over here on the bottom left but I'm
+facing to the left and so I prefer to be
+on the right hand side of the screen so
+I'm just going to move myself up and now
+I'm on the right hand side of the screen
+facing to the left I I don't think it
+matters but it's just a personal
+preference for what I like to do uh I
+can also go through and say all right
+well Carrie uh who's also known as the
+fox if I click on this I can clean up
+his audio with one click this is all
+stuff that I'm going to be doing
+manually and da Vinci resolve later but
+you don't have to do it manually
+manually you can just use Rivers siiz
+built-in stuff I can also go into the
+layout and I can do picture and picture
+which will make one person big and
+everybody else small and then it
+automatically will edit when somebody
+switches from talking like when I stop
+talking and say somebody else starts
+talking they will take over the big spot
+and I would take over one of their
+smaller spots so if I jump ahead you can
+see that you know this guy Carrie is is
+talking and it pushed me into a smaller
+window now if you notice when you hover
+over this we've got little little um
+purple icon outline I can actually drag
+this around this is a new feature where
+if I decide that you know what I want
+rust to be in the Big Frame instead of
+carry maybe maybe the editor made a
+mistake I can click on it drag it over
+here and it'll swap them and I like it's
+just super super easy to make those
+changes and I like it a lot then
+whenever you are ready to export one
+thing that I would always say that you
+should do is normalize your audio levels
+this makes sure that your listeners or
+your viewers don't have to constantly
+turn the volume up and down based on
+who's talking or how loudly they're
+talking and then if you have some
+background noise like one of our one of
+the people on the show is using a
+condenser microphone which picks up a
+lot of ambient noise in the room I can
+click on remove background noise and it
+will get rid of that background noise so
+you can't hear it uh when they're
+talking it's really great feature and on
+top of that you can also add droll and
+this is another new feature that
+Riverside recently added where you can
+go into here to your uploads and then
+you can grab a video that you've
+uploaded and you can drag that onto your
+timeline and have b-roll while you're
+talking about something which is really
+really useful so whether you're making
+video podcasts or audio podcasts or like
+me doing both you might want to give
+Riverside a try it's really really easy
+to use there's a link in the description
+down below which will save you 15% off
+and uh huge thank you to Riverside for
+sponsoring this video I've put out
+plenty of episodes where Riverside has
+done the editing for me and I think it's
+fantastic but I prefer just a little
+more control that little more control
+comes with a lot of extra work but I
+think it pays off sometimes so I still
+use Riverside to record my podcast but
+then instead of going into the editor
+what I usually will do is I will just
+come down here to my recording
+files it's going to show me all my
+recording files and I click on export
+all and then download tracks once I
+click that it's going to take a I don't
+know like 10 15 minutes to zip all of
+the tracks together and then I can
+download them and now that I've got them
+downloaded let me open up finder you can
+see them right here this is the file
+that I downloaded I'm going to double
+click on it and then once it's done I'm
+going to have my folder here and if you
+look each person is going to have a
+bunch of different files now most of
+these are extra that we really don't
+need so what I like to do is I'm going
+to open this in a different um I'm going
+to open this in a different tab open a
+new tab tab drag it off to the side and
+then I go into my video Tab and I go
+into my interview Tab and then in here I
+double click and you see this it says
+Bill raw sync I grab that file drop it
+in there I do the same thing for this
+for for that speaker same thing for this
+speaker I'm just grabbing the first
+video file that shows
+up and I'm going to go ahead and close
+that now and now I have all of these so
+what then I'm going to go ahead and do
+is I'm going to delete that folder cuz I
+really don't need that folder and I'm
+going to delete that zip file because I
+really don't need that zip file and they
+are taking up a bunch of room on my um
+on my hard drive so once I've got that I
+can get rid of chrome and I can close
+this and I'm going to make a
+new podcast I'm hit new project I'm
+going to just call this
+example
+podcast and now I'm going to go into Da
+Vinci resolve I'm going to go over here
+to my uh media pool and over here on the
+left hand side you see this thing that
+says favorites in order to put things
+here in the favorites you're just going
+to find them over here and you can just
+drag them down to your favorites now I'm
+not actually going to do that uh because
+I've already got that but my projects
+are right here and if you look I have
+have a folder called how I edit my
+podcast so I'm going to double click on
+that and then I'm going to click on
+video and I'm going to drag that down
+here to on the left hand side where it
+says Master this is the bin for this
+particular podcast once it's there I go
+jump over to the edit tab I'm going to
+close the index open up my media pool
+and I going to click on interview and
+you can see that I have all of the files
+right there now the next thing that I
+like to do is I'm going to grab my video
+I'm going to drag it onto the
+timeline started at the beginning then
+I'm going to grab the next
+speaker line them
+up and now they're all lined up and um
+as you can see if I
+zoom if I move this up I'm waiting for
+the wave forms to get built you can see
+mine's been my wave for form's been
+built and uh if I zoom
+out if you look at this you can see uh
+the our audio levels are very different
+levels and that is because we all have
+different microphones we all have
+different voices we're all recording in
+different rooms or different different
+locations and we all have different
+voices and because of that uh we want to
+be able to edit our audio on a per track
+basis which I will show you how to do
+that that later uh this is one of the
+reasons that I switched from Final Cut
+Pro over to Da Vinci resolve is because
+just the audio editing is so much better
+uh but now that I've got those included
+um you can probably notice that they're
+all just stacked on top of each other
+which is really not how we want because
+if uh if you look we've got Russ here
+and I'm going to deactivate his layer
+the other people are all underneath so
+what we need to do is put these people
+into different sections of the screen if
+I want to have everybody on screen all
+at once so what I'm going to do is I'm
+going to go over here to my media pool
+and I'm going going to come down to my
+power bins now you won't have this in
+your power bins but after you've made
+effects or you have effects that you
+like to use if you drag them into your
+power bins and if you don't see Power
+bins here you just click on this three
+dots and you click on show Power bins
+right here make sure that that has a
+check next to it the cool thing about
+power bins is whatever you put in there
+is available in every single project
+that you make which is very very useful
+so if you look here I have this uh Power
+bin which is labeled podcast camera
+positions and in order to do this before
+I grab these and use them I'm going to
+rightclick and I'm going to add tracks
+and I am going to say add tracks
+multiple tracks instead of just add
+track because that gives me the ability
+to pick where the tracks go so I'm going
+to say add tracks I'm going to add one
+video track and I'm going to add that
+below my first track and then I'm going
+to add one audio track I'm going to make
+sure that it's stereo because that's
+going to be my podcast music and I'm
+going to have that be above the first
+track so basically what's going to
+happen is I'm going to take all of these
+tracks and I'm going to shift them away
+from the middle so I'm going to hit add
+track
+and you can see those there now let's
+label each track so this is going to be
+music this is going to be bill that's me
+and this one is Carrie and this one is
+Rich and this one is
+Russ uh once I have all of those labeled
+and it the reason I'm labeling that is
+because later when we go to edit the
+audio if you look over here on the right
+hand side and I always have trouble
+dragging
+this uh you drag that out you can see
+each channel is labeled so you can apply
+your effects to each Channel
+individually which we'll come back and
+do that later so now that I've got that
+set up what I'm going to put here in
+this blank track is I'm going to drag
+there's four of us so I need somebody on
+the bottom left the bottom right the top
+left and the top right so I'm going to
+grab each one of those I'm going to drag
+it underneath and you might be wondering
+why would I drag it underneath I'm going
+to explain why in just a second okay so
+let's say I wanted somebody to be on the
+top right if I drag this up above and
+then put my playhead at that you can see
+it's moved everything to the top right
+but that means it moves everything
+that's underneath it so all four of
+these this is called an adjustment clip
+okay so an adjustment clip it it it
+adjusts everything that's underneath it
+that's why I put them underneath this
+now why am I making adjustment Clips
+like this well because my adjustment
+Clips they have all of the settings that
+I already wanted to make so let me show
+you how to make the adjustment clip that
+we're talking about here so this
+one and uh if you click on here I have
+open
+FX and
+then transform so it says open FX
+transform so I'm going to
+recreate this over here so you can see
+what it like how I made this all right
+so this is open effects transform so I'm
+going to go to my effects open FX I'm
+going to click on that and then I'm
+going to click on the search and I'm
+going to type
+transform and it's right here I'm going
+to drop it on there so now it gives me
+all of these options so I can change my
+zoom level I can shrink it down to
+however small that I want it I can also
+move it to the right whoops to the right
+or I can move it to the left I can move
+it up or down and you can also go into
+your Edge adjustment and then go crop
+and instead of actually cropping I just
+like to increase the roundness on the
+corners so if you look right here you
+can see the the corners roundness is
+changing because I'd like to have just a
+little bit of roundness on the corners I
+think it looks a little bit better and
+then finally I'm going to come back over
+here to
+my favorites and I'm going to grab this
+drop shadow it's a re resolve FX styliz
+so if you were looking for that and you
+just click on your resolve FX
+so I'm going to do I'm going to type
+drop shadow
+here and that's not where it is open
+effects drop shadow it's under open
+effects and any effect that you really
+like you can just click on this star and
+it'll save it down here in your favorit
+so if there's something that you use all
+the time like I constantly use drop
+Shadows where' it go right here I
+constantly use drop Shadows then you
+want to have that so I'm going to grab
+this I'm going to drop it on my
+adjustment clip but I can't show you the
+drop shadow because currently anything
+that I put on the screen is going to be
+adjusted by this adjustment clip so you
+can't actually show that yet so now that
+you've seen how I make an adjustment
+clip and then I take this adjustment
+clip and and I saved it so if I come
+over here podcast camera positions I can
+grab that adjustment clip and just drop
+it in there if I want but I'm not going
+to because it's not something I'm going
+to use I'm actually going to delete that
+we're going to come back to this one
+which is the top right now why did I do
+all that I put it underneath I hit
+command C or contrl C if you're on
+Windows and then I'm going to click on
+somebody and put them in the top right
+so uh I'm going to select uh my friend
+Russ here and instead of command V I'm
+going to hit option
+V and it's going to open up this this is
+going to paste my attributes and I'm
+going to say video attributes just click
+all of them and if I hit apply now you
+can see the drop Shadows there and he's
+moved up to the top right so now I got
+to look for bottom right and I'm zoomed
+out a little bit too far so I so I can't
+see there we go the names so here's
+bottom right I'm going to do command C
+click on a person option V apply you
+can't see what happened because I did
+that
+oops to a track that is invisible so you
+I did it right there to that one next
+I'm going to do bottom left command
+C option V and then one more which would
+be top left command C whoops command C
+and then option V and I hit apply so now
+all four people are where they need to
+be I'm going to zoom back out actually
+not that far and I'm going to select
+these four things and just delete them
+because I don't need them anymore next I
+want to put a background that goes
+underneath everybody this is why I added
+this track to the bottom because now if
+I go into my effects these are just some
+things that I've already saved I have
+this um
+this uh like basically like a wallpaper
+but I'm going to grab this I'm going to
+put it right down
+here and you can see it doesn't take up
+the whole podcast but command
+C go to the end of that clip by pushing
+down and then I'm just going to hit
+command v a bunch of times until it
+fills up the whole
+thing you might say well nothing's
+happening and that's because I'm at the
+end of the clip each time all right well
+now that I'm there if I click on this
+now you can
+see that we have this background beneath
+underneath us if I hit play you can see
+the podcast is happening and and we've
+got this little animated thing happening
+underneath and you're all set then I'm
+going to go back into Riverside all
+right again Riverside has this really
+cool transcription feature so I'm going
+to go edit create new edit and then I
+remember that when we were having this
+conversation somebody said something
+very funny and I said oh that's the
+intro because what I usually like to do
+is find some clip that's in the middle
+of the episode and that that might be
+funny or interesting and I put that at
+the very beginning of the episode just a
+small clip and then the intro and then
+we jump into the actual show so I'm
+going to click on this search button
+right here and I'm going to type
+intro and there's four results and uh
+you can see right here I said and
+there's the intro and that happened at
+about 29 minutes into the podcast so why
+is that important well I'm going to go
+ahead and close that and I I shouldn't
+have moved those yet but I'm going to go
+to about 29 minutes all right so that's
+right around there and I'm going to find
+the
+intro
+intro all right there's the intro right
+there I heard myself say there's the
+intro so then I'm going to hit W and
+you'll notice let me hit undo uh I have
+all four of us selected and I hit W and
+that cuts and makes that into two clips
+and then I'm going to rewind a little
+bit it converts your PS
+VR2
+your and then he says convert your psvr2
+into psvr one it's kind of funny so now
+I'm just going to hit W again and you
+might be wondering well what just
+happened well if I zoom way in now
+I have these clips this is the intro of
+the show so here's what I'm going to do
+I'm going to click right here I'm going
+to click and drag and grab all of them
+move them to the
+right
+then I'm going to click
+these
+copy shift Z to zoom
+out paste that right
+there there's the
+intro yeah it converts your PSV VR2 to a
+PS
+VR1 all right so there's our intro now
+at the end of the
+intro
+intro I'm going to cut those off all
+right so
+w highlight those delete what do I want
+to do now well now I'm going to grab my
+asset for like my logo and I'm going to
+drag that on top of this
+actually let me put that over there I'm
+going to click on this so I have my two
+windows this is my source window this is
+my timeline window and I'm going to
+double click on nerd Nest intro 10
+seconds and that's right there and then
+I only want the video part I don't want
+the audio part so I'm going to click on
+this and drag it down I don't need the
+audio it's it there's blank audio anyway
+so then if I click on this you're going
+to notice if I get rid of that there's
+no drop shadow there so I'm going to
+going to go into my effects my favorites
+come down here grab the drop shadow and
+drop it on there and now there's a bit
+of a drop shadow but I think it's a
+little too is there a drop shadow no I
+didn't actually I must have
+missed
+what there we go okay I double click it
+instead uh now if you look over here
+under on on our insector if you don't
+see the inspector and you click this
+it'll pop up I've got effects open
+effects and drop Shadows turned on and I
+can change anything I want about the
+drop shadow so I'll make it a little
+less blurry I'll make it a little
+stronger of a shadow and lower the
+distance a little bit maybe increase the
+blur just a little bit I like the way
+that looks then I'm just going to move
+this to the left that's not the
+left to the left and shrink it down just
+a just a
+touch so then this is the intro the
+intro you see it pop up there next I
+need to grab the rest of the
+podcast and bring it back so I'll grab
+all of those Actually I don't even need
+to if I click on this it's going to
+select the Gap and if I hit backspace it
+will bring everything to the right of
+that Gap over to the
+left but you'll notice it also watch
+this it also deleted these these uh
+these things called wallpaper so I'm
+going to show you that one more time
+that's a problem the reason that that's
+a problem is because this is a perfectly
+looped wallpaper right so a perfectly
+looped wallpaper well if I'm cutting it
+in the middle of it and then changing it
+well it's not going to be a perfect Loop
+anymore so instead of clicking the Gap
+and just hitting delete I'm going to
+click and drag this over and once it
+hits my if I have snapping on which is
+this little magnet here so you turn it
+on or off if I have it on when it gets
+my playhead it'll just lock there and
+now if I zoom in you can see my intro
+intro and now the logo pops up and
+there's you going to be music which
+we'll add in in a little
+bit and then there's the beginning of
+the show so now we have most of the show
+made if I'm not going through and adding
+b-roll and everything to the podcast
+which is something that I do but is very
+timec consuming and I'm not going to
+show that on screen right now um you
+know what I will show one part on screen
+so let's say in this part of the show
+right here we're talking
+about Monster Hunter Wilds which is a
+new video game so what I would do is I
+would go into my media pool and I would
+come to my power bins and I have a
+folder called b-roll and then I'm going
+to go to games and then game trailers
+and I'll
+find the Monster Hunter Wilds footage
+double click
+it grab this put it on
+top and now when we're talking I'm going
+just going to mute
+this when we're talking uh and then we
+start talking about uh this particular
+game you can see that it is going to uh
+switch over to the b-roll but that's
+covering the whole screen maybe I don't
+want to cover the whole screen so here's
+my solution for that what I do is I just
+select one of the four of us I'm going
+to hit command C I'm going to click on
+my Boll I'm going to hit command or I'm
+sorry option V and this is going to do
+the same thing that we did before where
+it's going to shrink it down so now it's
+covering up one of us okay but I don't
+want it to cover up one of us I want it
+to be in the middle of all of us so I
+click on the the track or not the track
+but the clip I'm going to come over here
+to effects and I'm going to if you look
+my position X and position y is25
+.250 which moves it to the upper right
+quadrant of the screen if I just hit
+reset on both of those it moves it to
+the middle but it's a little too big
+like it's covering up Rich's face and Co
+covering up you know it's covering up
+too much of everything but that's okay
+because we have zoom right here
+currently set to 0 450 all I'm going to
+do is click on the numbers drag to the
+left until I feel like that's the right
+size and now I've got the b-roll and it
+automatically has if I close this it
+automatically has a drop shadow and
+rounded Corners because I copied it from
+one of the four people which made it so
+much easier and I can you know do that
+you know with I if maybe we're talking
+about a different game at this point I
+grab that
+clip I command
+C option V apply so then when we get to
+this point it's going to show us another
+clip and and I go through and I do that
+for every single game that we're talking
+about on the podcast because I know that
+our audience likes to see the games that
+we're talking about while we're talking
+about them if they're watching on
+YouTube when you are doing this if
+you're making your podcast with YouTube
+in mind it's also important to make sure
+that you're not
+requiring that your audience sees the
+things that are on the screen in order
+to get the most out of it so even though
+we're talking about a game and I'm
+showing it on the screen we're not
+referring to what we're seeing during
+the show because for the audio listeners
+that would be a bad experience now
+speaking of audio we got to find some
+music to put in this so I'm going to go
+back to my
+intro here's my intro right here and
+I've got my channel for music in order
+to grab some music I'm going to go into
+my power bins effects and and here's a
+song I'm going to click that song and
+drag it right over here so what I want
+to see
+is what does it sound like when the
+intro Clicks in right so take a
+look I'm looking for something right
+there did you hear that
+I want that to come in when the nerd
+Nest logo pops up so I'm G to click here
+actually just to show you what I mean
+I'm going to click my playhead right
+here this is what I'm looking at is
+where my playhead is and you're just
+going to hit a marker you see that
+little blue tag there and then I'm just
+going to drag
+that blue
+marker well I was going to drag it to
+the left but I can't because the track
+is too too long so I'll just cut off the
+beginning of it
+bring this to the
+left and then bring that all the way out
+to the beginning okay so the song is
+actually not starting right in the
+middle so here's the
+intro which I like but the music is
+completely covering
+up what we're saying here in this part
+so all I do is I click on this right
+here and I'm going to drag it to the
+left and I this is the right this point
+right here where my playhead is that is
+the point where it switches over and
+we're not talking anymore so that's I I
+usually go just a little bit past that
+and then if you look at this little gray
+dot right here it's kind of hard to see
+if you click on that gray dot you can
+change the shape of the curve that
+changes the volume of the music so I'm
+going to have it slowly increase so
+it'll be very very quiet here and then
+it'll get louder and louder and louder
+so I'm going to hit play
+and all right and then I'm going to hit
+uh
+Zoom get the appropriate amount of Zoom
+let me go ahead and close my media pool
+so I can see a little bit more and I'm
+going to get rid of all of this extra
+music because we don't need that during
+the show this is just intro
+music and then do the same thing just on
+the other
+side now let's go back
+hey everybody Welcome all right then
+there's the intro now you might think to
+yourself well you're still kind of hard
+to hear over the music that's because I
+haven't mastered everything yet I
+haven't gotten all of my levels exactly
+where I want and I do that on a per
+track basis uh so then I click this
+right here which is my uh logo and the
+music and I hit command C shift Z to
+zoom all the way back out go all the way
+to the end of the show
+against
+fers and I got to find where the show
+actually stops all right there's the end
+so I'm just going to zoom in I'm going
+to select all four of these hit
+W and then hit backspace now somebody
+might say well Bill how come you can
+don't just use your trim the end or trim
+the beginning shortcuts that's because
+if I do that it will usually mess with
+this wallpaper which goes underneath and
+I'm not doing a lot of cuts during the
+podcast I just let the podcast go
+naturally all right so now that I've got
+that done uh I've copied from before now
+I'm going to paste it in the intro music
+and
+the uh logo and I will click both of
+these whoops wrong button I click both
+of these I'm going to drag them to the
+left and this is going to be the very
+end of my podcast right here so I'm
+going to click on the wallpaper I'm
+going to hit e to delete the rest of
+that I'm going to click on the music I'm
+going to hit e to delete the rest of
+that and then I'm going to grab this
+handle and drag it to the end and I what
+I usually do is I will have the music
+fade in the opposite direction at the
+very
+end and I think that that's probably
+good I'll do it a little bit more
+[Music]
+all right so the podcast is essentially
+edited now all I have to do now is get
+my audio levels right so now we're going
+to jump into Fair light so I'm going to
+click on Fair light and in Fair light
+over here on the right hand side if you
+if you don't see all of these then you
+got to click on this and drag it to the
+left and now I can see all of my
+different channels uh you see that we
+have if I zoom out there's something on
+audio
+6 that right there if you look that is
+the b-roll I forgot and I I dragged in
+the audio for that Boll so what I'm
+going to just going to do is I'm going
+to I'm going to go into my edit
+Tab and I'm going to come down here and
+I'm going to right click unlink and then
+I'll just delete the
+audio and now you can see the audio 6 is
+completely empty if you right click you
+can say delete empty tracks and it will
+delete any tracks that don't have
+anything in in them so I'm going to go
+ahead and do that and it gets rid of
+audio 6 all right now in order to get
+your music or your audio sounding good
+you're going to have to edit each person
+individually because everybody's in
+different locations with different
+microphones and different voices and so
+that's one of the reasons this is the
+reason that I switched to uh resolve
+over Final Cut is because it made track
+editing instead of editing individual
+Clips I can edit edit the entire track
+at once and it makes it just so much
+easier and they're really powerful tools
+so the first thing that I'm going to do
+is I'm going to take a look at mine
+which is this track right here I'm going
+to come up here and I'm going to click
+on voice isolation I can't remember if
+voice isolation is part of the free part
+of Da Vinci resolve or the paid version
+um but I do this every single week so
+it's it was worth the paid version for
+me uh I'm going to click on these little
+um uh like controls right here and I'm
+going to decrease my uh amount of voice
+isolation usually for myself I usually
+go down down to about 15 or 20 or
+somewhere between those two because I've
+got a pretty decent microphone setup all
+right so that gets rid of any background
+noise like I've got a fan going right
+there I've got a fan on the back of my
+camera right now um you know something
+else happening in my house all of that
+stuff could get picked up by this
+microphone but if I turn on voice
+isolation I get rid of all that
+extraneous noise next I will go into
+dialogue
+leveling and dialogue leveling uh on the
+the Baseline one or the yeah the
+Baseline one is a little aggressive so I
+use my default which says optimi
+optimize moderate levels and then I turn
+off lift soft dialogue because it's just
+a little too aggressive I think for me
+uh so those are the changes that I made
+and then I I just saved that as my my
+default next I come down here to
+Dynamics actually before I do that click
+on this and this tells you what order
+will D Vinci resolve do things in so
+right now it's set to run FX first then
+Dynamics and then equal Equalization I
+prefer to do the bottom one Equalization
+first then FX then Dynamics now now
+Dynamics let's talk about those Dynamics
+I'm going to double click on this this
+is where you can do expanders Gates
+compressors and limiters and I'm going
+to use this as a simple compressor
+compressor so I'm going to click up here
+to where it says default and I'm going
+to say dialogue compression and it's
+going to have some default stuff in
+there but I need to find a spot where
+I'm talking which I think I am right
+here I'm looking
+at Bill vo right here and then I can see
+the waveform right here so I'm talking
+at that point so what I'm going to do is
+I'm going to hit play eventually some
+and I'm you just I'm actually going to
+turn this down I'm going to hit play and
+you can see my output bouncing around
+right here and what I want is for this
+to right now it's hitting right around
+-20 when I'm talking I want that to be
+up around -10 so I'm going to give it
+about 10 n
+DB of makeup gain so basically What's
+Happening Here is D Vinci resolve is
+taking the loud parts of my dialogue
+making them quieter and then I am
+lifting everything back up so that the
+quiet parts of the dialogue are easier
+to hear but the loud Parts aren't like
+blowing your ears out all right so let
+me zoom in and find a spot where I'm
+talking again because I stopped here we
+go so here you can see I'm talking and
+as I look right here it's hitting around
+-10 but it's going up a little bit above
+that the the thing that I've noticed is
+is you cannot depend on this you have to
+look down here at bus one bus one is the
+thing that's going to be sent out with
+to your final product at the end you
+want that to hit around -10 at least
+that's what I aim for so I'm watching
+right here and I am hitting around -10
+sometimes I'm getting as loud as5 but
+I'm I'm hitting around -10 for the most
+part so I think that's pretty good so
+I'm going to go ahead and close this
+I'll stop that from playing and next I
+didn't stop there we go and then the
+next thing that I'm going to do is maybe
+a little bit of EQ I'm not going to do
+the
+EQ in this particular video because this
+is already going to be a very long video
+but if I was I would come through here
+and I would do all of the normal
+Equalization stuff that you would do in
+a video but I would do that for each
+person
+[Music]
+individually so I'm going to go ahead
+and close that and then finally if uh if
+you are somebody who who has some
+sibilance in your voice where there's
+like s sounds
+are strong when you say things people
+don't like the sound of that so what I
+like to do is I like to click the plus
+right here these are our effects we're
+going to come down here to
+Restoration and under VST I use
+something called rx11 DS I'm going to
+click on that I'm going to click on
+spectral and I don't change anything
+else I just leave it alone and it gets
+rid of the S sound so I'm actually going
+to bring that back up so you can see
+what it looks like so I'm going to hit
+play and every time you see the blue
+show up here with a little negative
+that's because I said the S sound and
+it's lowering that frequency so it's
+less harsh on people's ears so now that
+I've got that done I'll stop that
+playing what I will usually do is I will
+save that as a preset so if you come up
+here to Fair light and you go to presets
+Library you can you can save your own
+presets library now I'm going to show
+you how to apply them so I'm going to
+click on this where it says equalizer
+presets I'm going to go to Global track
+presets and these are the ones that I've
+already saved so instead of doing all of
+that stuff every single time all I do is
+I say Bill sm7 7B that's my microphone
+rcp2 that's my roadter Pro 2 which is my
+mixer uh and then I'm going to this is
+the preset that I made I'm going to
+click on my voice and I hit apply and it
+goes through and it applies all of the
+presets to my voice then I have one that
+I made for Carrie who if you look
+look at car's waveforms they're huge
+compared to
+mine and if you look at Russ's
+waveforms it's almost impossible to see
+because Russ is a very very quiet guy um
+well he didn't say much in the very
+beginning oh here we go so right
+here you can see that Russ is saying
+he's just so quiet while he's talking so
+I have different presets for each person
+on the show so if I go back to my light
+and then my presets
+library and then I click on carry and
+then I click on carry vo this is the
+preset over here on the left this is the
+track that I'm going to apply it to and
+I'm going to hit apply and I want you to
+watch over here you'll see that change
+here I'll move this over so you can
+watch those at the same time I'm going
+to hit apply bam now we have car's stuff
+applied although he's his voice is a
+little more inconsistent because of that
+that condenser m style microphone so I'm
+going to click to where I see that he's
+talking and I'm going to open up our
+Dynamics and I'm going to hit
+play and I'm watching where he's Landing
+he's Landing a little bit louder than I
+was so I'm going to take his makeup gain
+and I'm going to bring it
+down a little bit more
+all right and uh he also has a limiter
+turned on I'm actually going to turn
+that off and see how that handles
+it all right I think that that's pretty
+good so now I'm going to go ahead and
+close that going to stop playing going
+to go back to my um Fair light presets
+Library I'm going to go to
+rich rich vo apply it just applied his I
+got to find a spot where he's talking
+which is right here he's talking right
+right here I could see that cuz it says
+Rich vo right here and that's where he's
+talking so I'm going to hit
+play I'm going to open up this and I'm
+just going to watch here and then over
+here and it looks like he's pretty
+consistent actually he needs a little
+bit more makeup gain cuz he's not ending
+up in the in the yellow very often so
+I'm just going to give him a little bit
+more and see over here where it
+lands I think he needs a little bit more
+he's still a little bit quiet
+all right I think that that's pretty
+good and then I'm going to do the same
+thing for Russ so we'll go Fair light
+presets Library Russ Global Russ vo
+apply and now I got to find
+Russ close that find where he's talking
+he's talking right
+here and like I said here actually if I
+double click on Russ you can see I'm
+getting the gain um I'm getting the
+limiter in there and then the gain
+reduction and he is still
+hitting like between -5 and -10 so I
+need to give him just a little bit more
+cuz he's super super quiet but at the
+end if you mix them all and they're all
+hitting the same levels then you're
+going to be fine all right now I can
+pause that so now I have all of my audio
+set up the way that I want and I ready
+to publish my podcast now the next thing
+that I'm going to do is I'm going to
+click on the deliver page and uh I
+always make both an audio version and a
+video version I upload the video version
+to YouTube I also upload the video
+version to Spotify and then I upload the
+audio version to patreon so that patrons
+can you know listen to the podcast
+without any ads in it so I'm going to
+come over here to audio podcast I'm
+going to click on this this is a preset
+that I made made if you want to make
+presets you just click on custom export
+set up everything that you want the way
+that you want it and then if you click
+the three dots you can then say save as
+a new preset all right so I have two
+presets I have my audio podcast preset
+so I'll label this test uh or
+example
+podcast and then I'll click on my browse
+and we're going to go to
+my to YouTube projects NOP to YouTube
+over here on the left sorry um and then
+projects and then how I edit my podcast
+exports
+save but I messed up so um hold on audio
+podcast I didn't click that so now that
+I clicked that it's not exporting the
+video which is important all right so
+example
+podcast and then I hit save and then I
+just always check and make sure I don't
+have upload Direct ly to YouTube I'm
+going to add that to my render queue so
+now it's getting ready to be delivered
+and then I'm going to click on this
+where it says YouTube direct upload I'm
+going to name it example podcast and
+it's going to go to the exact same place
+as the last one I'm going to turn off
+upload directly to YouTube unless you
+want to and then I'm going to hit add to
+render queue and now if you have one of
+these selected with a white bar around
+it um then it's only going to do that
+that one but if you clict uh click in
+this Blank Space right here and then you
+click render all it will go through and
+render both so you can walk away and
+come back later when it's
+done this
+podcast will typically take about 2
+hours to render on my ma this is on an
+M3 MacBook Pro uh with 30 uh 36 gigs of
+RAM so it takes a long time to render
+these uh if you want to do it via
+Riverside it takes a lot less time but
+you have a little bit less control and I
+just am a control freak so there you
+have it but that's how I use denture
+resolve in order to edit my podcast if
+you want to know more about the sponsor
+of this video Riverside I've got a video
+down linked down below that you can
+check out and uh thank you for watching
+hopefully I'll see you on the next one
+stay R everybody

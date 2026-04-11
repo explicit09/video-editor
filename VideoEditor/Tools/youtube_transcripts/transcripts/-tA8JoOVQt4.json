@@ -1,0 +1,1737 @@
+[
+  {
+    "text": "So, in this episode, I'm going to be",
+    "start": 0.32,
+    "duration": 3.359
+  },
+  {
+    "text": "looking at film emulation techniques and",
+    "start": 1.76,
+    "duration": 4.24
+  },
+  {
+    "text": "in particular the brand new DCTL from",
+    "start": 3.679,
+    "duration": 5.281
+  },
+  {
+    "text": "Stefan atmonodes.com. He's just updated",
+    "start": 6.0,
+    "duration": 6.32
+  },
+  {
+    "text": "his film elements pack to 2.0",
+    "start": 8.96,
+    "duration": 5.759
+  },
+  {
+    "text": "and this has finally got grain in it.",
+    "start": 12.32,
+    "duration": 3.76
+  },
+  {
+    "text": "So, I've been really looking forward to",
+    "start": 14.719,
+    "duration": 3.921
+  },
+  {
+    "text": "seeing what Stefan does with grain and",
+    "start": 16.08,
+    "duration": 4.08
+  },
+  {
+    "text": "I'm going to show you in this episode.",
+    "start": 18.64,
+    "duration": 3.2
+  },
+  {
+    "text": "Now, there's 13 new elements. I'm not",
+    "start": 20.16,
+    "duration": 3.279
+  },
+  {
+    "text": "going to go through all 13. I'm going to",
+    "start": 21.84,
+    "duration": 2.72
+  },
+  {
+    "text": "pick my favorites. I've been playing",
+    "start": 23.439,
+    "duration": 2.641
+  },
+  {
+    "text": "with it for a few days. I've tried it on",
+    "start": 24.56,
+    "duration": 3.44
+  },
+  {
+    "text": "lots of different footage and the",
+    "start": 26.08,
+    "duration": 5.439
+  },
+  {
+    "text": "results are amazing. Now, this is a paid",
+    "start": 28.0,
+    "duration": 5.92
+  },
+  {
+    "text": "DCTL. If that's not of interest to you,",
+    "start": 31.519,
+    "duration": 4.161
+  },
+  {
+    "text": "I suggest you watch some other videos or",
+    "start": 33.92,
+    "duration": 2.72
+  },
+  {
+    "text": "go and have a look at some of my",
+    "start": 35.68,
+    "duration": 2.879
+  },
+  {
+    "text": "playlist. I'll put a link up here. But",
+    "start": 36.64,
+    "duration": 3.36
+  },
+  {
+    "text": "if it is of interest to you, I'm going",
+    "start": 38.559,
+    "duration": 2.961
+  },
+  {
+    "text": "to be showing you a special offer that",
+    "start": 40.0,
+    "duration": 3.44
+  },
+  {
+    "text": "Stefan's got running at the moment as",
+    "start": 41.52,
+    "duration": 4.48
+  },
+  {
+    "text": "well. But just for transparency, I have",
+    "start": 43.44,
+    "duration": 3.92
+  },
+  {
+    "text": "not been paid to make this video. This",
+    "start": 46.0,
+    "duration": 3.12
+  },
+  {
+    "text": "is not a sponsored video. I did,",
+    "start": 47.36,
+    "duration": 4.719
+  },
+  {
+    "text": "however, receive this pack for free, but",
+    "start": 49.12,
+    "duration": 4.48
+  },
+  {
+    "text": "all the views in this are entirely my",
+    "start": 52.079,
+    "duration": 3.521
+  },
+  {
+    "text": "own. Stefan has not had any say in what",
+    "start": 53.6,
+    "duration": 4.4
+  },
+  {
+    "text": "I'm doing in this video. So, let's go",
+    "start": 55.6,
+    "duration": 4.0
+  },
+  {
+    "text": "and take a look at the ones that I",
+    "start": 58.0,
+    "duration": 2.719
+  },
+  {
+    "text": "particularly like. So, I've got a",
+    "start": 59.6,
+    "duration": 2.72
+  },
+  {
+    "text": "project set up here already. This has",
+    "start": 60.719,
+    "duration": 3.201
+  },
+  {
+    "text": "already been graded. As I said, this is",
+    "start": 62.32,
+    "duration": 4.32
+  },
+  {
+    "text": "on the Ursa 12K already graded. I'm just",
+    "start": 63.92,
+    "duration": 4.8
+  },
+  {
+    "text": "going to add these extra elements from",
+    "start": 66.64,
+    "duration": 5.28
+  },
+  {
+    "text": "the DCTL. So, to install the DCTL, I'll",
+    "start": 68.72,
+    "duration": 4.64
+  },
+  {
+    "text": "show you my project settings in here.",
+    "start": 71.92,
+    "duration": 3.6
+  },
+  {
+    "text": "Color management, Da Vinci RGB, Da Vinci",
+    "start": 73.36,
+    "duration": 3.92
+  },
+  {
+    "text": "widegam intermediate is our working",
+    "start": 75.52,
+    "duration": 4.4
+  },
+  {
+    "text": "color space. And our output is REC 79",
+    "start": 77.28,
+    "duration": 5.199
+  },
+  {
+    "text": "gamma 2.4 to match my monitor as always.",
+    "start": 79.92,
+    "duration": 4.8
+  },
+  {
+    "text": "And all I did was open the L folder and",
+    "start": 82.479,
+    "duration": 6.161
+  },
+  {
+    "text": "install the DCTL pack into there.",
+    "start": 84.72,
+    "duration": 5.6
+  },
+  {
+    "text": "Then when I select DCTL, remember you",
+    "start": 88.64,
+    "duration": 3.76
+  },
+  {
+    "text": "need the full version of Studio to run a",
+    "start": 90.32,
+    "duration": 4.56
+  },
+  {
+    "text": "DCTL, apply it on here, and then I'll",
+    "start": 92.4,
+    "duration": 4.24
+  },
+  {
+    "text": "scroll down and you'll see you can see",
+    "start": 94.88,
+    "duration": 3.12
+  },
+  {
+    "text": "I've got loads of monodes in here.",
+    "start": 96.64,
+    "duration": 4.159
+  },
+  {
+    "text": "Anyway, I use monodes on all my work.",
+    "start": 98.0,
+    "duration": 4.799
+  },
+  {
+    "text": "And if we go down here is our film",
+    "start": 100.799,
+    "duration": 4.401
+  },
+  {
+    "text": "elements. Now to select them from here,",
+    "start": 102.799,
+    "duration": 3.841
+  },
+  {
+    "text": "this list is getting very long in here",
+    "start": 105.2,
+    "duration": 3.44
+  },
+  {
+    "text": "in this little DCTL list. So, what I've",
+    "start": 106.64,
+    "duration": 4.799
+  },
+  {
+    "text": "done is I've actually grabbed a still of",
+    "start": 108.64,
+    "duration": 5.839
+  },
+  {
+    "text": "each of the 13 elements in its default",
+    "start": 111.439,
+    "duration": 4.64
+  },
+  {
+    "text": "state. So, this allows me instead of",
+    "start": 114.479,
+    "duration": 3.201
+  },
+  {
+    "text": "having to scroll down that list, it",
+    "start": 116.079,
+    "duration": 3.121
+  },
+  {
+    "text": "allows me to just simply grab from here.",
+    "start": 117.68,
+    "duration": 2.719
+  },
+  {
+    "text": "So, if I want to put a vignette on, for",
+    "start": 119.2,
+    "duration": 3.279
+  },
+  {
+    "text": "example, drag and drop it on, and I've",
+    "start": 120.399,
+    "duration": 3.921
+  },
+  {
+    "text": "kept them all in their default state so",
+    "start": 122.479,
+    "duration": 3.68
+  },
+  {
+    "text": "you can see what happens. So, let me",
+    "start": 124.32,
+    "duration": 3.84
+  },
+  {
+    "text": "show you my six favorite ones. Like I",
+    "start": 126.159,
+    "duration": 3.041
+  },
+  {
+    "text": "said, I've been playing with these for",
+    "start": 128.16,
+    "duration": 2.56
+  },
+  {
+    "text": "quite a few days now. I've really tested",
+    "start": 129.2,
+    "duration": 4.16
+  },
+  {
+    "text": "it on different footage. This is 12K",
+    "start": 130.72,
+    "duration": 5.04
+  },
+  {
+    "text": "footage. Okay, the playback on these is",
+    "start": 133.36,
+    "duration": 5.84
+  },
+  {
+    "text": "fantastic. So, let's start with the dirt",
+    "start": 135.76,
+    "duration": 4.8
+  },
+  {
+    "text": "and it's called dirt hair. So, I'm going",
+    "start": 139.2,
+    "duration": 3.119
+  },
+  {
+    "text": "to drag the hair. I'm going to drop it",
+    "start": 140.56,
+    "duration": 3.36
+  },
+  {
+    "text": "on. This gives me the default setting",
+    "start": 142.319,
+    "duration": 3.601
+  },
+  {
+    "text": "for that. I'm going to press shift and F",
+    "start": 143.92,
+    "duration": 4.399
+  },
+  {
+    "text": "each time so you get a nice full screen",
+    "start": 145.92,
+    "duration": 3.76
+  },
+  {
+    "text": "and you can see what I'm playing with",
+    "start": 148.319,
+    "duration": 6.28
+  },
+  {
+    "text": "down here. So, let's play this through.",
+    "start": 149.68,
+    "duration": 4.919
+  },
+  {
+    "text": "Okay, now it's hard to see any hair in",
+    "start": 155.2,
+    "duration": 3.679
+  },
+  {
+    "text": "there, and that is because the hair is",
+    "start": 157.12,
+    "duration": 2.64
+  },
+  {
+    "text": "only going to appear every now and",
+    "start": 158.879,
+    "duration": 3.44
+  },
+  {
+    "text": "again. I've just saw one there, and",
+    "start": 159.76,
+    "duration": 4.8
+  },
+  {
+    "text": "there it is, and it looks absolutely",
+    "start": 162.319,
+    "duration": 4.721
+  },
+  {
+    "text": "great. Now, if you want to set up the",
+    "start": 164.56,
+    "duration": 5.28
+  },
+  {
+    "text": "hair length and the you can do all the",
+    "start": 167.04,
+    "duration": 5.199
+  },
+  {
+    "text": "how frequent it runs. All this is all",
+    "start": 169.84,
+    "duration": 4.479
+  },
+  {
+    "text": "listed down here. Frequency, length,",
+    "start": 172.239,
+    "duration": 4.0
+  },
+  {
+    "text": "variation, thickness, blur. I'm not",
+    "start": 174.319,
+    "duration": 2.961
+  },
+  {
+    "text": "going to read all these out. It's pretty",
+    "start": 176.239,
+    "duration": 3.521
+  },
+  {
+    "text": "obvious how it works. But an easy way",
+    "start": 177.28,
+    "duration": 4.4
+  },
+  {
+    "text": "than having to find a frame to work on",
+    "start": 179.76,
+    "duration": 3.68
+  },
+  {
+    "text": "is you just say fill the screen with",
+    "start": 181.68,
+    "duration": 3.839
+  },
+  {
+    "text": "hair. And you can even then put a gray",
+    "start": 183.44,
+    "duration": 3.28
+  },
+  {
+    "text": "background on so you can see what's",
+    "start": 185.519,
+    "duration": 3.201
+  },
+  {
+    "text": "going on. This allows you to set up how",
+    "start": 186.72,
+    "duration": 3.439
+  },
+  {
+    "text": "you want that hair looking. Now, I'm",
+    "start": 188.72,
+    "duration": 3.28
+  },
+  {
+    "text": "going to zoom in because this the hair",
+    "start": 190.159,
+    "duration": 4.0
+  },
+  {
+    "text": "elements in here look really smart. bed.",
+    "start": 192.0,
+    "duration": 3.599
+  },
+  {
+    "text": "There's not I've seen some hair where",
+    "start": 194.159,
+    "duration": 3.921
+  },
+  {
+    "text": "it's very pixelated and also you get a",
+    "start": 195.599,
+    "duration": 3.841
+  },
+  {
+    "text": "kind of glow around it. There's all",
+    "start": 198.08,
+    "duration": 3.04
+  },
+  {
+    "text": "sorts of weird things happening. This is",
+    "start": 199.44,
+    "duration": 3.6
+  },
+  {
+    "text": "just really good organic hair. It's been",
+    "start": 201.12,
+    "duration": 3.92
+  },
+  {
+    "text": "really well made. So, let me take the",
+    "start": 203.04,
+    "duration": 4.88
+  },
+  {
+    "text": "gray background off and let me change",
+    "start": 205.04,
+    "duration": 5.119
+  },
+  {
+    "text": "that. Let me find a frame with some hair",
+    "start": 207.92,
+    "duration": 5.679
+  },
+  {
+    "text": "in it. There was one. Right now, you've",
+    "start": 210.159,
+    "duration": 5.041
+  },
+  {
+    "text": "got this really nice blend mode on it as",
+    "start": 213.599,
+    "duration": 3.041
+  },
+  {
+    "text": "well, so it looks really natural. And",
+    "start": 215.2,
+    "duration": 3.759
+  },
+  {
+    "text": "that is here. Uh you can change to black",
+    "start": 216.64,
+    "duration": 4.239
+  },
+  {
+    "text": "hair as well. Uh, with black hair, you",
+    "start": 218.959,
+    "duration": 3.601
+  },
+  {
+    "text": "really want to change this to be at",
+    "start": 220.879,
+    "duration": 4.0
+  },
+  {
+    "text": "multiply, but I'm going to choose the",
+    "start": 222.56,
+    "duration": 4.56
+  },
+  {
+    "text": "white hair here. And that's it. It's",
+    "start": 224.879,
+    "duration": 4.481
+  },
+  {
+    "text": "good to go. It just looks fantastic. So,",
+    "start": 227.12,
+    "duration": 4.479
+  },
+  {
+    "text": "that is the hair option. I'm going to",
+    "start": 229.36,
+    "duration": 3.76
+  },
+  {
+    "text": "show you the same dirt, but with spots",
+    "start": 231.599,
+    "duration": 2.961
+  },
+  {
+    "text": "this time. So, I'm going to overwrite",
+    "start": 233.12,
+    "duration": 3.119
+  },
+  {
+    "text": "that one. You can obviously build these",
+    "start": 234.56,
+    "duration": 3.36
+  },
+  {
+    "text": "up together. If you're doing that, you",
+    "start": 236.239,
+    "duration": 3.2
+  },
+  {
+    "text": "want to put them in serial. Don't put",
+    "start": 237.92,
+    "duration": 3.84
+  },
+  {
+    "text": "things like texture in as parallels. You",
+    "start": 239.439,
+    "duration": 4.481
+  },
+  {
+    "text": "want this going as serial. Now, these",
+    "start": 241.76,
+    "duration": 3.839
+  },
+  {
+    "text": "are great. These look fantastic. Let me",
+    "start": 243.92,
+    "duration": 3.44
+  },
+  {
+    "text": "just play that through.",
+    "start": 245.599,
+    "duration": 3.441
+  },
+  {
+    "text": "Yeah, you can just see them flicking on",
+    "start": 247.36,
+    "duration": 4.0
+  },
+  {
+    "text": "and off there. Really cool, really",
+    "start": 249.04,
+    "duration": 5.04
+  },
+  {
+    "text": "organic. They look really natural. And",
+    "start": 251.36,
+    "duration": 4.4
+  },
+  {
+    "text": "you can change the colors. You can have",
+    "start": 254.08,
+    "duration": 4.559
+  },
+  {
+    "text": "you can have black and white mixed. And",
+    "start": 255.76,
+    "duration": 4.879
+  },
+  {
+    "text": "at the top here, you'll see that you've",
+    "start": 258.639,
+    "duration": 3.921
+  },
+  {
+    "text": "got your frequencies for whites. And",
+    "start": 260.639,
+    "duration": 3.361
+  },
+  {
+    "text": "down here, you've got your frequencies",
+    "start": 262.56,
+    "duration": 3.12
+  },
+  {
+    "text": "and your sizing and the blurring and all",
+    "start": 264.0,
+    "duration": 4.0
+  },
+  {
+    "text": "that for the black spots. But the shape",
+    "start": 265.68,
+    "duration": 3.84
+  },
+  {
+    "text": "of them is fantastic. They're really",
+    "start": 268.0,
+    "duration": 4.56
+  },
+  {
+    "text": "very realistic looking.",
+    "start": 269.52,
+    "duration": 4.88
+  },
+  {
+    "text": "So that's those. Now you can again fill",
+    "start": 272.56,
+    "duration": 3.359
+  },
+  {
+    "text": "the screen and put the dirt on. So you",
+    "start": 274.4,
+    "duration": 2.799
+  },
+  {
+    "text": "can play around with the sizing and how",
+    "start": 275.919,
+    "duration": 4.641
+  },
+  {
+    "text": "you want them to look",
+    "start": 277.199,
+    "duration": 4.72
+  },
+  {
+    "text": "and just show you we're getting realtime",
+    "start": 280.56,
+    "duration": 3.44
+  },
+  {
+    "text": "playback. So it's 24 frames a second and",
+    "start": 281.919,
+    "duration": 3.28
+  },
+  {
+    "text": "that's playing back quite happily. Bear",
+    "start": 284.0,
+    "duration": 2.32
+  },
+  {
+    "text": "in mind this has already got a grade on",
+    "start": 285.199,
+    "duration": 2.641
+  },
+  {
+    "text": "it. So there's elements already in here.",
+    "start": 286.32,
+    "duration": 3.439
+  },
+  {
+    "text": "I've even got mon nodes density going on",
+    "start": 287.84,
+    "duration": 4.32
+  },
+  {
+    "text": "on this shot as well. So it's playing",
+    "start": 289.759,
+    "duration": 3.921
+  },
+  {
+    "text": "back absolutely fine. So the next one I",
+    "start": 292.16,
+    "duration": 3.2
+  },
+  {
+    "text": "want to show you is flicker. I really",
+    "start": 293.68,
+    "duration": 2.88
+  },
+  {
+    "text": "like how this one works. I'm going to go",
+    "start": 295.36,
+    "duration": 3.04
+  },
+  {
+    "text": "to this shot here for this one. I'm",
+    "start": 296.56,
+    "duration": 4.079
+  },
+  {
+    "text": "going to drag and drop it on. And what",
+    "start": 298.4,
+    "duration": 3.6
+  },
+  {
+    "text": "it's doing, it's probably easier to show",
+    "start": 300.639,
+    "duration": 2.321
+  },
+  {
+    "text": "you actually. In here there's a",
+    "start": 302.0,
+    "duration": 3.36
+  },
+  {
+    "text": "grayscale ramp. Check your transfer",
+    "start": 302.96,
+    "duration": 3.28
+  },
+  {
+    "text": "function. By the way, this is set to",
+    "start": 305.36,
+    "duration": 3.279
+  },
+  {
+    "text": "arlog C3. I want this to be DIY gamut",
+    "start": 306.24,
+    "duration": 4.32
+  },
+  {
+    "text": "intermediate, but there are many options",
+    "start": 308.639,
+    "duration": 4.321
+  },
+  {
+    "text": "in there. And if I play this through,",
+    "start": 310.56,
+    "duration": 3.359
+  },
+  {
+    "text": "you'll see what's happening. We're",
+    "start": 312.96,
+    "duration": 2.959
+  },
+  {
+    "text": "getting a really nice subtle flicker.",
+    "start": 313.919,
+    "duration": 4.161
+  },
+  {
+    "text": "So, if I show you that on the image by",
+    "start": 315.919,
+    "duration": 5.441
+  },
+  {
+    "text": "shift F. Let's take that off and press",
+    "start": 318.08,
+    "duration": 4.88
+  },
+  {
+    "text": "play.",
+    "start": 321.36,
+    "duration": 3.44
+  },
+  {
+    "text": "Okay. It's pretty s these are really",
+    "start": 322.96,
+    "duration": 3.84
+  },
+  {
+    "text": "subtle when you go by default, but",
+    "start": 324.8,
+    "duration": 3.36
+  },
+  {
+    "text": "actually I like that. I don't want them",
+    "start": 326.8,
+    "duration": 2.64
+  },
+  {
+    "text": "to be hard, but I'm just going to",
+    "start": 328.16,
+    "duration": 2.24
+  },
+  {
+    "text": "increase it a little bit so you can see",
+    "start": 329.44,
+    "duration": 2.96
+  },
+  {
+    "text": "what's going on.",
+    "start": 330.4,
+    "duration": 2.96
+  },
+  {
+    "text": "Okay. Yeah, you can just see that",
+    "start": 332.4,
+    "duration": 3.92
+  },
+  {
+    "text": "flickering going on there.",
+    "start": 333.36,
+    "duration": 4.399
+  },
+  {
+    "text": "Really subtle, but it's really great",
+    "start": 336.32,
+    "duration": 3.12
+  },
+  {
+    "text": "effect. I've not seen anyone do that",
+    "start": 337.759,
+    "duration": 3.681
+  },
+  {
+    "text": "that well, actually. And if you go to",
+    "start": 339.44,
+    "duration": 4.72
+  },
+  {
+    "text": "the monos.com website, there is a full",
+    "start": 341.44,
+    "duration": 5.12
+  },
+  {
+    "text": "list in there of exactly what these are",
+    "start": 344.16,
+    "duration": 3.599
+  },
+  {
+    "text": "doing, what each one's doing. I don't",
+    "start": 346.56,
+    "duration": 2.4
+  },
+  {
+    "text": "want to sit here and show you 13",
+    "start": 347.759,
+    "duration": 2.72
+  },
+  {
+    "text": "different film elements. We've got",
+    "start": 348.96,
+    "duration": 2.88
+  },
+  {
+    "text": "grain. I'm going to save that for the",
+    "start": 350.479,
+    "duration": 3.841
+  },
+  {
+    "text": "end. This is my favorite one. And",
+    "start": 351.84,
+    "duration": 3.6
+  },
+  {
+    "text": "another one of my favorites, obviously,",
+    "start": 354.32,
+    "duration": 2.08
+  },
+  {
+    "text": "hellation. Let's have a look at what",
+    "start": 355.44,
+    "duration": 2.56
+  },
+  {
+    "text": "hellation is doing. So, drag and drop",
+    "start": 356.4,
+    "duration": 3.6
+  },
+  {
+    "text": "that on. Let's go to our full screen",
+    "start": 358.0,
+    "duration": 4.16
+  },
+  {
+    "text": "mode. Remember the transfer function",
+    "start": 360.0,
+    "duration": 3.84
+  },
+  {
+    "text": "needs changing here. It's defaulting to",
+    "start": 362.16,
+    "duration": 4.879
+  },
+  {
+    "text": "ar log C3. We're indivi intermediate. So",
+    "start": 363.84,
+    "duration": 4.799
+  },
+  {
+    "text": "make sure you're in the right one. This",
+    "start": 367.039,
+    "duration": 2.801
+  },
+  {
+    "text": "is this is pretty obvious. This is",
+    "start": 368.639,
+    "duration": 3.12
+  },
+  {
+    "text": "giving us really subtle hellation",
+    "start": 369.84,
+    "duration": 3.76
+  },
+  {
+    "text": "straight away. I don't actually need to",
+    "start": 371.759,
+    "duration": 3.361
+  },
+  {
+    "text": "change anything in here. But let me show",
+    "start": 373.6,
+    "duration": 4.08
+  },
+  {
+    "text": "you on and off. There's on. It's",
+    "start": 375.12,
+    "duration": 4.079
+  },
+  {
+    "text": "probably actually that is quite heavy.",
+    "start": 377.68,
+    "duration": 3.84
+  },
+  {
+    "text": "So I can either do a global blend back",
+    "start": 379.199,
+    "duration": 4.401
+  },
+  {
+    "text": "or we can just pull the size down and",
+    "start": 381.52,
+    "duration": 4.32
+  },
+  {
+    "text": "maybe lift the threshold up so it takes",
+    "start": 383.6,
+    "duration": 4.159
+  },
+  {
+    "text": "a little bit longer to kick in. But that",
+    "start": 385.84,
+    "duration": 4.0
+  },
+  {
+    "text": "is giving us really really clean lovely",
+    "start": 387.759,
+    "duration": 4.401
+  },
+  {
+    "text": "hellation.",
+    "start": 389.84,
+    "duration": 3.68
+  },
+  {
+    "text": "So the next one I want to show you",
+    "start": 392.16,
+    "duration": 3.68
+  },
+  {
+    "text": "before I show you grain is MTF. Now just",
+    "start": 393.52,
+    "duration": 3.519
+  },
+  {
+    "text": "before I show you that I want to share",
+    "start": 395.84,
+    "duration": 2.799
+  },
+  {
+    "text": "with you a special offer that Stefan's",
+    "start": 397.039,
+    "duration": 5.44
+  },
+  {
+    "text": "offering until the 1st of November 2025",
+    "start": 398.639,
+    "duration": 5.201
+  },
+  {
+    "text": "I should state because I might leave",
+    "start": 402.479,
+    "duration": 3.201
+  },
+  {
+    "text": "this video up longer than that. But",
+    "start": 403.84,
+    "duration": 5.6
+  },
+  {
+    "text": "there is \u20ac100 off the price of the film",
+    "start": 405.68,
+    "duration": 7.68
+  },
+  {
+    "text": "elements 2.0 and that is only till 1st",
+    "start": 409.44,
+    "duration": 6.4
+  },
+  {
+    "text": "of November 2025. So the pack has just",
+    "start": 413.36,
+    "duration": 4.88
+  },
+  {
+    "text": "been released. So grab it quick. And if",
+    "start": 415.84,
+    "duration": 4.56
+  },
+  {
+    "text": "you want an extra 10% off that, if you",
+    "start": 418.24,
+    "duration": 4.48
+  },
+  {
+    "text": "put the code Darren at checkout, you'll",
+    "start": 420.4,
+    "duration": 5.44
+  },
+  {
+    "text": "get \u20ac100 plus 10%. And the 10% is all",
+    "start": 422.72,
+    "duration": 5.36
+  },
+  {
+    "text": "year round. So any monos.com, you can",
+    "start": 425.84,
+    "duration": 4.16
+  },
+  {
+    "text": "apply the code Darren at checkout and",
+    "start": 428.08,
+    "duration": 3.76
+  },
+  {
+    "text": "all year round you get 10% off any of",
+    "start": 430.0,
+    "duration": 4.24
+  },
+  {
+    "text": "those DCTLs. Right, let's get on with",
+    "start": 431.84,
+    "duration": 5.359
+  },
+  {
+    "text": "it. So I'm going to drag the MTF on.",
+    "start": 434.24,
+    "duration": 5.84
+  },
+  {
+    "text": "Now, what an MTF is, this is emulating",
+    "start": 437.199,
+    "duration": 5.201
+  },
+  {
+    "text": "uh with film, the characteristic is",
+    "start": 440.08,
+    "duration": 4.399
+  },
+  {
+    "text": "areas of very high frequency tend to get",
+    "start": 442.4,
+    "duration": 4.239
+  },
+  {
+    "text": "softened a little bit. And so, I'm",
+    "start": 444.479,
+    "duration": 3.921
+  },
+  {
+    "text": "talking about things like hair. We're",
+    "start": 446.639,
+    "duration": 4.641
+  },
+  {
+    "text": "looking at areas with sharp edges, uh",
+    "start": 448.4,
+    "duration": 4.72
+  },
+  {
+    "text": "pores, things like that. Just sort of",
+    "start": 451.28,
+    "duration": 3.6
+  },
+  {
+    "text": "fine frequency areas tend to get",
+    "start": 453.12,
+    "duration": 3.199
+  },
+  {
+    "text": "softened. So, this tool allows us to",
+    "start": 454.88,
+    "duration": 4.0
+  },
+  {
+    "text": "emulate that. Now, how do we going to do",
+    "start": 456.319,
+    "duration": 4.481
+  },
+  {
+    "text": "that? Let's have a look at the MTF",
+    "start": 458.88,
+    "duration": 3.92
+  },
+  {
+    "text": "checker. Put that on. There is nothing",
+    "start": 460.8,
+    "duration": 3.76
+  },
+  {
+    "text": "on by default. So, what you need to do",
+    "start": 462.8,
+    "duration": 3.839
+  },
+  {
+    "text": "is use these these sliders here. You got",
+    "start": 464.56,
+    "duration": 3.68
+  },
+  {
+    "text": "fine detail, small detail, and coarse",
+    "start": 466.639,
+    "duration": 4.081
+  },
+  {
+    "text": "detail. Moving to the left softens.",
+    "start": 468.24,
+    "duration": 4.0
+  },
+  {
+    "text": "Moving to the right will sharpen those",
+    "start": 470.72,
+    "duration": 4.24
+  },
+  {
+    "text": "textures. And fine being our high",
+    "start": 472.24,
+    "duration": 4.16
+  },
+  {
+    "text": "frequencies. So, what I'm going to do is",
+    "start": 474.96,
+    "duration": 3.359
+  },
+  {
+    "text": "bring that down because I want to soften",
+    "start": 476.4,
+    "duration": 3.44
+  },
+  {
+    "text": "these.",
+    "start": 478.319,
+    "duration": 2.88
+  },
+  {
+    "text": "And just to highlight it, I'm going to",
+    "start": 479.84,
+    "duration": 3.12
+  },
+  {
+    "text": "make my coarse detail a little bit",
+    "start": 481.199,
+    "duration": 3.921
+  },
+  {
+    "text": "sharper. So, this is what's being",
+    "start": 482.96,
+    "duration": 4.079
+  },
+  {
+    "text": "affected. So, particularly around here",
+    "start": 485.12,
+    "duration": 4.4
+  },
+  {
+    "text": "is where we're going to get our biggest",
+    "start": 487.039,
+    "duration": 3.84
+  },
+  {
+    "text": "uh effect. So, I'm going to take that",
+    "start": 489.52,
+    "duration": 3.2
+  },
+  {
+    "text": "off. I'm going to zoom. Now, you've got",
+    "start": 490.879,
+    "duration": 3.201
+  },
+  {
+    "text": "to zoom right in. This is a really",
+    "start": 492.72,
+    "duration": 3.12
+  },
+  {
+    "text": "subtle effect. What we're trying to do",
+    "start": 494.08,
+    "duration": 4.959
+  },
+  {
+    "text": "is soften but not make the image look",
+    "start": 495.84,
+    "duration": 5.28
+  },
+  {
+    "text": "out of focus. It's not like a blur. So,",
+    "start": 499.039,
+    "duration": 3.761
+  },
+  {
+    "text": "let me just enable and disable that. You",
+    "start": 501.12,
+    "duration": 2.72
+  },
+  {
+    "text": "can just see that happening on the",
+    "start": 502.8,
+    "duration": 3.839
+  },
+  {
+    "text": "eyelashes there. So, we're not blurring.",
+    "start": 503.84,
+    "duration": 4.56
+  },
+  {
+    "text": "We're just softening off the frequency",
+    "start": 506.639,
+    "duration": 4.081
+  },
+  {
+    "text": "areas. And that is great. Now, look at",
+    "start": 508.4,
+    "duration": 3.759
+  },
+  {
+    "text": "the pause even as well. I hope that's",
+    "start": 510.72,
+    "duration": 2.559
+  },
+  {
+    "text": "coming across on YouTube. I'm just going",
+    "start": 512.159,
+    "duration": 2.641
+  },
+  {
+    "text": "to exaggerate it a little bit more just",
+    "start": 513.279,
+    "duration": 3.68
+  },
+  {
+    "text": "so you can see it.",
+    "start": 514.8,
+    "duration": 4.96
+  },
+  {
+    "text": "But this is this is just fantastic MTF.",
+    "start": 516.959,
+    "duration": 4.64
+  },
+  {
+    "text": "Now, to set this up manually is quite a",
+    "start": 519.76,
+    "duration": 3.839
+  },
+  {
+    "text": "lot of work. So, the fact we've now got",
+    "start": 521.599,
+    "duration": 4.081
+  },
+  {
+    "text": "DCTL to do it is great. So, the last few",
+    "start": 523.599,
+    "duration": 3.841
+  },
+  {
+    "text": "in here, we've got reframe, vignette",
+    "start": 525.68,
+    "duration": 4.08
+  },
+  {
+    "text": "edge, vignetting. We've got a chromatic",
+    "start": 527.44,
+    "duration": 4.48
+  },
+  {
+    "text": "aberration here. The refframe, by the",
+    "start": 529.76,
+    "duration": 3.84
+  },
+  {
+    "text": "way, just does output blanking, but it's",
+    "start": 531.92,
+    "duration": 2.96
+  },
+  {
+    "text": "got a few more options than you get with",
+    "start": 533.6,
+    "duration": 3.679
+  },
+  {
+    "text": "the Vinci Resolve. And dirt spots I've",
+    "start": 534.88,
+    "duration": 4.0
+  },
+  {
+    "text": "shown you, but I've saved the best for",
+    "start": 537.279,
+    "duration": 3.761
+  },
+  {
+    "text": "last. This is fantastic. This is the",
+    "start": 538.88,
+    "duration": 4.48
+  },
+  {
+    "text": "best grain I've used to date. This is",
+    "start": 541.04,
+    "duration": 4.239
+  },
+  {
+    "text": "I'm just show you. I'm going to drag and",
+    "start": 543.36,
+    "duration": 4.24
+  },
+  {
+    "text": "drop it on. Let's go full screen. I",
+    "start": 545.279,
+    "duration": 4.081
+  },
+  {
+    "text": "don't need to do anything. It looks",
+    "start": 547.6,
+    "duration": 2.96
+  },
+  {
+    "text": "fantastic. Oh, I do need to change the",
+    "start": 549.36,
+    "duration": 3.28
+  },
+  {
+    "text": "transfer function.",
+    "start": 550.56,
+    "duration": 3.279
+  },
+  {
+    "text": "And I'm going play that through.",
+    "start": 552.64,
+    "duration": 2.639
+  },
+  {
+    "text": "Obviously, you need a play grain. And",
+    "start": 553.839,
+    "duration": 2.641
+  },
+  {
+    "text": "I'm still getting realtime playback",
+    "start": 555.279,
+    "duration": 2.481
+  },
+  {
+    "text": "here. And bear in mind, I've got other",
+    "start": 556.48,
+    "duration": 2.72
+  },
+  {
+    "text": "grading elements already on this. This",
+    "start": 557.76,
+    "duration": 3.84
+  },
+  {
+    "text": "is the full grade. And it just looks",
+    "start": 559.2,
+    "duration": 4.319
+  },
+  {
+    "text": "great. Let me show you on a grayscale.",
+    "start": 561.6,
+    "duration": 4.48
+  },
+  {
+    "text": "See what's going on.",
+    "start": 563.519,
+    "duration": 4.081
+  },
+  {
+    "text": "And obviously, I do have options to",
+    "start": 566.08,
+    "duration": 3.6
+  },
+  {
+    "text": "change things in here. So, for example,",
+    "start": 567.6,
+    "duration": 3.76
+  },
+  {
+    "text": "taking a bit of grain out the shadows is",
+    "start": 569.68,
+    "duration": 3.599
+  },
+  {
+    "text": "normally quite nice to do. I'm going to",
+    "start": 571.36,
+    "duration": 4.08
+  },
+  {
+    "text": "take that off. Let me zoom in so you can",
+    "start": 573.279,
+    "duration": 4.721
+  },
+  {
+    "text": "see what's going on. And also with this",
+    "start": 575.44,
+    "duration": 5.2
+  },
+  {
+    "text": "grain, when you change your timeline",
+    "start": 578.0,
+    "duration": 4.32
+  },
+  {
+    "text": "resolution, the grain will transfer",
+    "start": 580.64,
+    "duration": 3.28
+  },
+  {
+    "text": "correctly. So, if you're working in HD",
+    "start": 582.32,
+    "duration": 4.0
+  },
+  {
+    "text": "or 4K, it will look correct. I'm just",
+    "start": 583.92,
+    "duration": 3.76
+  },
+  {
+    "text": "going to play this clip back a few times",
+    "start": 586.32,
+    "duration": 3.12
+  },
+  {
+    "text": "and just show you how organic it looks.",
+    "start": 587.68,
+    "duration": 2.96
+  },
+  {
+    "text": "Some of the grains I've worked with look",
+    "start": 589.44,
+    "duration": 3.04
+  },
+  {
+    "text": "like they're literally sat on top of the",
+    "start": 590.64,
+    "duration": 4.08
+  },
+  {
+    "text": "image, like an overlay. This one really",
+    "start": 592.48,
+    "duration": 4.479
+  },
+  {
+    "text": "feels like it's part of the subject. Let",
+    "start": 594.72,
+    "duration": 3.679
+  },
+  {
+    "text": "me just show you quickly how I would",
+    "start": 596.959,
+    "duration": 3.281
+  },
+  {
+    "text": "apply a few together. So, let's start",
+    "start": 598.399,
+    "duration": 3.681
+  },
+  {
+    "text": "with that grain. Now, the grain, you",
+    "start": 600.24,
+    "duration": 3.279
+  },
+  {
+    "text": "could technically put this at the front",
+    "start": 602.08,
+    "duration": 3.52
+  },
+  {
+    "text": "of the operation. I tend to work it at",
+    "start": 603.519,
+    "duration": 4.32
+  },
+  {
+    "text": "the back, but try have a little play",
+    "start": 605.6,
+    "duration": 3.76
+  },
+  {
+    "text": "around. See what you think. Uh, I'm",
+    "start": 607.839,
+    "duration": 3.281
+  },
+  {
+    "text": "going to do option S. I'm going to add",
+    "start": 609.36,
+    "duration": 4.0
+  },
+  {
+    "text": "another node. And let's put a bit of",
+    "start": 611.12,
+    "duration": 4.399
+  },
+  {
+    "text": "hellation on there. Why not? And again,",
+    "start": 613.36,
+    "duration": 5.96
+  },
+  {
+    "text": "I'm going to my full screen.",
+    "start": 615.519,
+    "duration": 3.801
+  },
+  {
+    "text": "Let's just make sure that's on Dinci",
+    "start": 619.68,
+    "duration": 3.36
+  },
+  {
+    "text": "wide gamut. This is why it's a good idea",
+    "start": 621.519,
+    "duration": 3.76
+  },
+  {
+    "text": "to make these as presets. Actually, I",
+    "start": 623.04,
+    "duration": 3.359
+  },
+  {
+    "text": "should have changed them to Da Vinci",
+    "start": 625.279,
+    "duration": 2.721
+  },
+  {
+    "text": "wide gamut when I saved it as a preset.",
+    "start": 626.399,
+    "duration": 2.88
+  },
+  {
+    "text": "Still, that would be a good idea. I'm",
+    "start": 628.0,
+    "duration": 2.64
+  },
+  {
+    "text": "going to do that when I finish this",
+    "start": 629.279,
+    "duration": 5.201
+  },
+  {
+    "text": "episode. And so there's my headlation.",
+    "start": 630.64,
+    "duration": 5.28
+  },
+  {
+    "text": "And then you put as many of these on as",
+    "start": 634.48,
+    "duration": 3.68
+  },
+  {
+    "text": "you want. Then all you got to do if you",
+    "start": 635.92,
+    "duration": 4.159
+  },
+  {
+    "text": "want to is highlight them together,",
+    "start": 638.16,
+    "duration": 3.679
+  },
+  {
+    "text": "right click and you can say create",
+    "start": 640.079,
+    "duration": 6.401
+  },
+  {
+    "text": "compound node. And this can be my",
+    "start": 641.839,
+    "duration": 7.12
+  },
+  {
+    "text": "film",
+    "start": 646.48,
+    "duration": 4.88
+  },
+  {
+    "text": "elements. Then to go in there and edit",
+    "start": 648.959,
+    "duration": 4.481
+  },
+  {
+    "text": "any of that, right click and just say",
+    "start": 651.36,
+    "duration": 4.24
+  },
+  {
+    "text": "show compound mode.",
+    "start": 653.44,
+    "duration": 4.079
+  },
+  {
+    "text": "And there's my film elements. So I'm",
+    "start": 655.6,
+    "duration": 3.12
+  },
+  {
+    "text": "sure you'll agree with me. This is a",
+    "start": 657.519,
+    "duration": 3.201
+  },
+  {
+    "text": "really wellcrafted DCTL. Stefan's done",
+    "start": 658.72,
+    "duration": 3.84
+  },
+  {
+    "text": "an absolutely fantastic job on this.",
+    "start": 660.72,
+    "duration": 4.48
+  },
+  {
+    "text": "Don't forget, you get \u20ac100 off until the",
+    "start": 662.56,
+    "duration": 5.12
+  },
+  {
+    "text": "1st of November 2025. You get an",
+    "start": 665.2,
+    "duration": 4.319
+  },
+  {
+    "text": "additional 10% off that as well if you",
+    "start": 667.68,
+    "duration": 4.08
+  },
+  {
+    "text": "put the code Darren at checkout. If",
+    "start": 669.519,
+    "duration": 3.76
+  },
+  {
+    "text": "you're watching this after November the",
+    "start": 671.76,
+    "duration": 4.079
+  },
+  {
+    "text": "1st, you can apply the code Darren at",
+    "start": 673.279,
+    "duration": 5.281
+  },
+  {
+    "text": "checkout to get 10% off any of the DCTLS",
+    "start": 675.839,
+    "duration": 4.801
+  },
+  {
+    "text": "atmonos.com. I'd like to say thanks to",
+    "start": 678.56,
+    "duration": 4.88
+  },
+  {
+    "text": "Team 2 Films for the footage. And I",
+    "start": 680.64,
+    "duration": 3.759
+  },
+  {
+    "text": "really can't wait to get playing with",
+    "start": 683.44,
+    "duration": 2.48
+  },
+  {
+    "text": "this. I can't wait to put that grain on",
+    "start": 684.399,
+    "duration": 3.601
+  },
+  {
+    "text": "an actual project. Look after yourselves",
+    "start": 685.92,
+    "duration": 4.88
+  },
+  {
+    "text": "and I'll see you in the next",
+    "start": 688.0,
+    "duration": 2.8
+  }
+]

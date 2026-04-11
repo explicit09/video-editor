@@ -1,0 +1,98 @@
+This is the fusion page in Da Vinci
+Resolve. This is pretty much where I
+live. Please no shoes inside. For over
+the last 5 years, I've been working in
+Resolve and specifically in the Fusion
+page making presets and templates and
+plugins for Resolve. Now, today I want
+to show you uh one button that I just
+found after all that time uh that lots
+of people might not think is cool, but I
+think it's pretty cool and there's no
+other reason I'm going to talk about it.
+So, you're watching a video about one
+button. Neat. If I zoom in here, you'll
+see I have Protov V3. This is my new
+preset for these high energy uh like
+glow effects. Super awesome. More info
+in the description about all of that. Um
+but we're just demonstrating something
+here. Uh because proto uh like all of my
+presets I keep as a group. Um so if I
+double click this, you'll see all the
+nodes. Uh this is how I built Proto. I
+built it natively in Fusion. And you can
+go node by node and see how I did it.
+But as you can see, this is a lot and it
+also takes up a lot of space in my work
+in my general like nodes work area,
+especially if I had other nodes going on
+and proto was just a part of that. Now,
+I'm going to do something pretty
+interesting in this giant area. I'm
+actually going to shrink down the bounds
+of this group so that it's quite a bit
+smaller.
+And you'll see this is something I can
+do because this is a group of nodes.
+When I shrink that, these nodes kind of
+like disappear inside the group. And
+when I move around, it's like the rest
+of the nodes are gone, right? And if I
+want to get them back, I kind of need to
+expand this group all the way out again,
+right? No. Uh because the other day I
+was messing around with some group stuff
+and zoomed in and you do have this X
+which will close that group. But then I
+realized that in the opposite corner
+there's this other button here that I
+had never pressed. And heyo, uh spoiler
+alert, when you press that, nothing
+changes. But now, ooh, first let me
+uncheck this. Um uh default behavior in
+these node viewer is that I if I hold
+middle mouse button and left mouse
+button, it like zooms in behavior like
+this. That's pretty interesting. But if
+I click this button and then uh click
+outside the group and do that same
+thing. It's normal. If I click inside
+the group, I can zoom and even position
+separately inside this group. So now I
+can like scale this down, show the
+entire thing, but it's not taking up the
+entire thing space in my greater node
+graph. And if I want a specific area, I
+can just zoom in right into that. This
+is something that like occasionally when
+I would like load a preset I was working
+on, like the zoom layer would be kind of
+weird, but most of the time it like
+snapped and fixed itself. I never
+realized that it was probably part of
+the workflow about this little button
+that kind of gives you this separate
+workspace inside your groups. cuz it's
+like a virtual little nodes work area.
+And if you uncheck that, it goes back.
+Uh so this does kind of like lock it if
+you change anything. So it doesn't like
+snap back. Um but if you toggle it on,
+you can sort of retain all those files
+and still like open or close this
+however you want. But then if you want
+the entire thing separately, I just
+thought that was pretty nifty. And for
+people who spend a lot of time in
+Fusion, maybe this has also slid under
+your radar. Uh, for people who don't
+spend a lot of time in Fusion, uh, go
+check out Proto because you don't need
+to mess much with Fusion for that. You
+can do that all on the edit page. Um,
+but hey, a new button. Not new, just new
+to me after a really long time. I
+thought this was cool. Hopefully you do,
+too. Thanks for watching. I'll see you
+next time.

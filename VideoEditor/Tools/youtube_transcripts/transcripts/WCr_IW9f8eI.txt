@@ -1,0 +1,301 @@
+Today, I want to show you one of the
+wildest things I've ever seen inside
+DaVinci Resolve. And for some of you,
+this is legitimately game-changing.
+We're going to show off an extremely
+extremely cool workflow for editing so
+so fast, especially when working with
+live media. And that can mean a few
+other things that we'll get to you. But
+first, what's going on over here? This
+is a Twitch stream from the streamer
+Smallant. He's playing Pokémon. It's
+super cool. But I want you to put
+yourself in the position of Smallant's
+editor. I don't know if he cut this up
+between streams, but it sure looks like
+that timer is almost at 6 and 1/2 hours.
+Let's
+for the fun of it, assume that that is
+this one current stream. Not unheard of
+in streaming territory. If you are his
+editor and you just need to pull clips
+for social media or YouTube shorts, what
+do you do? Do you wait until he is done
+streaming? Uh maybe he's recording
+locally and he can send you an OBS
+recording. And then you have a 6 and 1/2
+hour video on your timeline to sort
+through. Blah. What if there was a
+better way? What if instead of watching
+Smallant on Twitch and then later
+editing, what if you could just watch
+him in DaVinci Resolve? Now, I will try
+to time out our latency in a moment, but
+what's important to know is that uh
+Resolve is reading this file as it is
+growing. So anytime you can go back and
+watch another part of the stream. This
+is when we had an ad break. Um
+but you can watch you can even watch on
+double or quadruple speed if you are
+getting through a slow zone in order to
+catch up and watch live again. And then
+at the very end, you can see it's riding
+this data or it's reading the data as
+it's being written. So if you come to
+the end, you can get pretty close and
+start playing and you'll see whether
+you're in the buffer of whether, you
+know, it starts writing new information
+before you hit the end of the clip. It
+looks like I'm in a good little spot
+here. I tried to get as close as I can.
+Let's see what our latency is. I'll try
+to find something to time off of next
+time something changes like
+someone's got to get like knocked out or
+something, right? Okay, when this goes
+down,
+one,
+two,
+three,
+four,
+five,
+six,
+seven,
+eight,
+nine,
+10. That was 10. I've measured this as
+low as five or six. I will note that as
+this clip grows, it gets harder to get
+like really fine towards the end of the
+clip. But with how fast the rest of this
+process is, I think a few seconds give
+or take, you know, we can work with
+that. But the real question is, what's
+next? You might notice I have this other
+window over here. Um that is actually
+the timeline I have it open down here.
+And this is vertical. What if I wanted
+to pull a clip from this stream and
+instantly send it out to socials? Well,
+I could be watching here. At any point,
+I can set an I for an in point. It will
+keep playing. It seems like 2,600 people
+are asleep.
+Cool. That's a neat little clip. But I
+set an I for an in point, O for an out
+point. And now
+that will drop that onto my timeline.
+And you'll notice I was previewing this
+in the full resolution. Note, I was
+previewing that because I was using the
+source tape. If you have this on source
+clip, it will crop to your timeline
+resolution. Haha. Uh but source tape
+lets you see the entire thing. But now
+on my timeline, it's cropped, right?
+It's auto scaling to fill. But here's
+the other super exciting thing. Of
+course, we have that audio.
+>> like 2,600 Now, I can open up my power
+bins, come to my vertical presets. Oh, I
+do need to toggle this off source tape.
+And I can select this footage, select my
+Smant vertical preset here, right click,
+link to reference Fusion composition,
+and wow, this entire clip perfectly
+formatted for vertical. These vertical
+presets are something I made a little
+while ago. They're a completely
+different product. You can jump into the
+Fusion page
+where you will see one, how it was
+built, but two, all the custom controls
+that are really easy to change around.
+So if you want any of this changed, you
+could do it. I give away versions of
+these you can start with or I will make
+presets for you if you want. But that's
+not what we're talking about in this
+video. We're back on our edit page
+timeline and boom, this is instantly
+rearranged. And hey, let's go a step
+further. Timeline AI tools, create
+subtitles from audio. Uh I will go
+double line, sure. Create this. It's
+just a few seconds. Shouldn't take that
+long. Oh, look. And there we are. And
+hey, and you'll see those here. But hey,
+why not come up to uh effects, titles,
+subtitles animated, and toss that right
+on. And now we have Oh, and those are at
+the bottom here. So why don't I just
+move those
+up
+and scale them up. And then hey, But
+you're going to fall asleep soon. Okay,
+okay. Um
+It seems like 2,600 people are asleep.
+We're in a pretty good spot. At that
+point, hop over to the deliver page
+where you could ship this right off to
+YouTube, right off to TikTok. You could
+review it there or hey, even push it
+live. And you could have social clips
+being pushed out
+a matter of a few minutes at most from
+when it was live. You don't even need to
+stop your OBS recording. Hopefully, you
+see how cool this is. Of course, for
+something like this, pulling clips from
+a stream, you know, that's its own
+little niche cottage industry. But
+what's cool is that this tech is kind of
+all over the place. I showed off doing
+something similar with the ATEM, this
+guy, little ATEM ISO Pro. If this is
+connected to network attached storage,
+Resolve could read that. This is the ISO
+version, which means it records the
+inputs separately. So say you were
+running an event and you had four
+different cameras, you could actually
+save those four different cameras
+individually and bring all of those
+clips into Resolve, have them synced in
+time, edit clips of your event while
+it's still going on. And very very cool
+is this also rolling out to cameras.
+Notably, uh the Blackmagic camera app,
+which is on phones, but then even in a
+handful of their cinema cameras. As soon
+as you click record on that, it can
+start generating a proxy and sending
+that to the cloud. And you can see
+camera clips appear in Resolve as they
+are being recorded somewhere else. Or
+the clip will finish and then only make
+the proxy and upload. That's very cool.
+I'm going to get into some specifics for
+people who want it. And I've got to give
+a shout out to one editor. Um I was
+working the DaVinci Resolve and
+Blackmagic Design booth at TwitchCon.
+And this editor came up and like told me
+this was possible. And then I had to
+dive in and figure some things out. Um
+but I didn't catch that editor's name.
+If you happen to stop by, leave a
+comment and we will all give you the
+thanks. But really, the linchpin here is
+in OBS. Uh I'm going to stop this
+recording now cuz that is just that
+doing that's thing. But in settings, in
+output, again, this is what worked for
+me. You can explore. Uh but the
+important thing is this recording format
+has to be .ts. Reading these was added
+to Resolve
+somewhere in the last year from when I
+was exploring it previously with the
+ATEM, I believe. I have audio on AAC.
+I'm not sure how important that is. Uh
+but I also want to note, this does work
+with multiple audio tracks. So I could
+be recording something and have like my
+voiceover and bring that in with a
+separate track. But on my system, what
+was also very important was this video
+encoder. We have all these other
+options. Normally, I would be on one of
+these hardware options. When I used
+those, only the audio was brought into
+Resolve. I needed to change this video
+encoder to software. But then at that
+point,
+um back on my edit page, I just had to
+open up the folder where that was being
+written. You know, let me go ahead go
+ahead and start again. Start recording
+again. And then this new file that just
+got up and running, I can just drag in
+here. It has that little red dot, which
+means it's live. And if I could double
+click that, I'll close this inspector.
+That will be back. I'll click this
+button to get back to this full screen
+option. Back will be here. And I believe
+we can go [clears throat]
+and watch this as it's being written
+again.
+Just watch this in Resolve. Pull clips.
+Put subtitles on them. Ship them.
+And like you could get this down to such
+a science. But this is just an extremely
+cool thing that I know will make some
+people very excited. If you don't think
+this is cool, I don't know. At least
+reading files as they're being written,
+the the camera side of things, that
+should make lots of people excited. You
+could have a crew out filming an
+interview and just have one editor back
+in the office. And while the other crew
+is, you know, wrapping up all their
+cables and driving back to the office,
+someone could be building a rough cut.
+Super slick.
+Other important things to note. Um stuff
+like that that camera system plays into
+Blackmagic Cloud. I'm doing all of this
+locally just cuz this file is being
+written on my native computer. But what
+about actually getting the video?
+Because yes, it is playing on my laptop
+going through a USB capture card. That
+was just to showcase easier in this
+video. Because a small hurdle can be
+audio. So I have it playing here so that
+I can just only send audio through the
+XLR, which is being read by OBS here. So
+while it's recording, it's not actually
+playing the audio. But this entire
+system can work on a single computer.
+The way I had to set this up in earlier
+testing is that I had one sort of Chrome
+browser window open for Twitch or
+YouTube Live I was also testing. Again,
+it works for anything. And in OBS, I was
+able to use these window capture
+devices, which does also provide a new
+audio capture just for that window.
+Again, it was very funky, but what I had
+to do was to then come into my system
+sounds. And actually, if I open this up,
+no, not something like that. Something
+like this. Um I had to change the output
+device for Chrome to something that
+wasn't actually attached to something
+like my monitor, which of course has
+like awful speakers. But if I set the
+output to that, then like I wouldn't be
+hearing the live stream as it was as it
+was happening. I could only choose to
+hear it if at once I was watching it in
+Resolve, if that makes sense. Again,
+getting into the weeds, but I know some
+people will be interesting. Managing
+audio can be a hurdle you will have to
+figure out on your specific system. Um,
+if you want any other info, ask me and
+maybe
+uh, if I missed enough, I'll make
+another video or I'll answer questions
+in the comments. But, if nothing else, I
+think this is the world's fastest Twitch
+clip editing workflow. And that seems
+pretty cool. I think it's cool, at
+least. Hopefully, you do, too. Thanks
+for watching and I'll see you next time.

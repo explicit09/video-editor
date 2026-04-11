@@ -1,0 +1,3177 @@
+[
+  {
+    "text": "Once your color management and your look",
+    "start": 0.24,
+    "duration": 4.96
+  },
+  {
+    "text": "are in place, exposure and contrast are",
+    "start": 2.08,
+    "duration": 5.679
+  },
+  {
+    "text": "by far the most important pieces of your",
+    "start": 5.2,
+    "duration": 4.399
+  },
+  {
+    "text": "grade. These adjustments should happen",
+    "start": 7.759,
+    "duration": 3.76
+  },
+  {
+    "text": "in one node. It should be the very first",
+    "start": 9.599,
+    "duration": 4.0
+  },
+  {
+    "text": "node that you hit. And that node should",
+    "start": 11.519,
+    "duration": 5.041
+  },
+  {
+    "text": "get you 80% of the way to your final",
+    "start": 13.599,
+    "duration": 4.961
+  },
+  {
+    "text": "image. Let me show you how I work and",
+    "start": 16.56,
+    "duration": 4.16
+  },
+  {
+    "text": "how I think my way through this very",
+    "start": 18.56,
+    "duration": 4.08
+  },
+  {
+    "text": "first node. So, as we get into Resolve",
+    "start": 20.72,
+    "duration": 3.36
+  },
+  {
+    "text": "here, you can see I've got my template",
+    "start": 22.64,
+    "duration": 3.36
+  },
+  {
+    "text": "node graph in place, which we're not",
+    "start": 24.08,
+    "duration": 3.6
+  },
+  {
+    "text": "going to do much with today except for",
+    "start": 26.0,
+    "duration": 3.199
+  },
+  {
+    "text": "node number one here, which I've labeled",
+    "start": 27.68,
+    "duration": 3.359
+  },
+  {
+    "text": "prime. But I also want to show you how",
+    "start": 29.199,
+    "duration": 4.081
+  },
+  {
+    "text": "I've set things up so that I can do what",
+    "start": 31.039,
+    "duration": 4.801
+  },
+  {
+    "text": "I need to do here in node number one. A",
+    "start": 33.28,
+    "duration": 4.16
+  },
+  {
+    "text": "moment ago, I mentioned color management",
+    "start": 35.84,
+    "duration": 3.84
+  },
+  {
+    "text": "and look. Those things for me are living",
+    "start": 37.44,
+    "duration": 4.959
+  },
+  {
+    "text": "here at the timeline level of my node",
+    "start": 39.68,
+    "duration": 5.36
+  },
+  {
+    "text": "graph. And you can see here I've got my",
+    "start": 42.399,
+    "duration": 4.881
+  },
+  {
+    "text": "DRT or my output transform. This is",
+    "start": 45.04,
+    "duration": 3.76
+  },
+  {
+    "text": "coming from a free thirdparty tool",
+    "start": 47.28,
+    "duration": 4.72
+  },
+  {
+    "text": "called Open DRT. And if I turn this off",
+    "start": 48.8,
+    "duration": 5.12
+  },
+  {
+    "text": "and then on, you can see that it's",
+    "start": 52.0,
+    "duration": 3.84
+  },
+  {
+    "text": "taking my graded image and actually",
+    "start": 53.92,
+    "duration": 4.159
+  },
+  {
+    "text": "mapping it and teeing it up for display",
+    "start": 55.84,
+    "duration": 4.32
+  },
+  {
+    "text": "so that it looks correct on my reference",
+    "start": 58.079,
+    "duration": 3.841
+  },
+  {
+    "text": "monitor. Okay, like I said, this is a",
+    "start": 60.16,
+    "duration": 3.039
+  },
+  {
+    "text": "free tool. I'll leave a link to it in",
+    "start": 61.92,
+    "duration": 2.4
+  },
+  {
+    "text": "the description for this video if you",
+    "start": 63.199,
+    "duration": 2.721
+  },
+  {
+    "text": "want to check it out for yourself. And",
+    "start": 64.32,
+    "duration": 4.32
+  },
+  {
+    "text": "then over here to the left, I have my",
+    "start": 65.92,
+    "duration": 4.48
+  },
+  {
+    "text": "look development plug-in, Contour, which",
+    "start": 68.64,
+    "duration": 4.159
+  },
+  {
+    "text": "is providing me my baseline creative",
+    "start": 70.4,
+    "duration": 4.719
+  },
+  {
+    "text": "look that is being used or applied to",
+    "start": 72.799,
+    "duration": 4.241
+  },
+  {
+    "text": "all of the shots in this timeline. So,",
+    "start": 75.119,
+    "duration": 3.921
+  },
+  {
+    "text": "it's giving me my creative contrast",
+    "start": 77.04,
+    "duration": 3.6
+  },
+  {
+    "text": "curve. It's giving me some extra color",
+    "start": 79.04,
+    "duration": 3.439
+  },
+  {
+    "text": "separation. It's giving me some extra",
+    "start": 80.64,
+    "duration": 4.0
+  },
+  {
+    "text": "saturation and really shaping out my",
+    "start": 82.479,
+    "duration": 3.28
+  },
+  {
+    "text": "image and giving me the strongest",
+    "start": 84.64,
+    "duration": 3.28
+  },
+  {
+    "text": "possible creative foundation so that I",
+    "start": 85.759,
+    "duration": 4.241
+  },
+  {
+    "text": "can dive right into node number one,",
+    "start": 87.92,
+    "duration": 3.519
+  },
+  {
+    "text": "make those exposure and contrast",
+    "start": 90.0,
+    "duration": 3.52
+  },
+  {
+    "text": "adjustments and get to that 80% point",
+    "start": 91.439,
+    "duration": 3.841
+  },
+  {
+    "text": "that I mentioned a moment ago really",
+    "start": 93.52,
+    "duration": 3.52
+  },
+  {
+    "text": "quickly and really easily. So, with that",
+    "start": 95.28,
+    "duration": 3.839
+  },
+  {
+    "text": "said, let's go back over to the clip",
+    "start": 97.04,
+    "duration": 4.0
+  },
+  {
+    "text": "level of the node graph and dive into",
+    "start": 99.119,
+    "duration": 3.68
+  },
+  {
+    "text": "node number one. So, with node number",
+    "start": 101.04,
+    "duration": 3.52
+  },
+  {
+    "text": "one, all we're trying to do is get our",
+    "start": 102.799,
+    "duration": 3.36
+  },
+  {
+    "text": "tonality feeling really, really good.",
+    "start": 104.56,
+    "duration": 3.519
+  },
+  {
+    "text": "everything from deepest shadows up to",
+    "start": 106.159,
+    "duration": 3.28
+  },
+  {
+    "text": "our brightest highlights. And the way",
+    "start": 108.079,
+    "duration": 2.881
+  },
+  {
+    "text": "we're going to do that is by hitting",
+    "start": 109.439,
+    "duration": 4.161
+  },
+  {
+    "text": "exposure and then contrast. So, let's",
+    "start": 110.96,
+    "duration": 4.0
+  },
+  {
+    "text": "bounce around. Let's go to a shot where",
+    "start": 113.6,
+    "duration": 2.64
+  },
+  {
+    "text": "we might need to do a little bit more",
+    "start": 114.96,
+    "duration": 3.439
+  },
+  {
+    "text": "like uh shot number six here. And we're",
+    "start": 116.24,
+    "duration": 4.479
+  },
+  {
+    "text": "going to start with exposure. Exposure",
+    "start": 118.399,
+    "duration": 4.241
+  },
+  {
+    "text": "is where we begin and it is always where",
+    "start": 120.719,
+    "duration": 3.76
+  },
+  {
+    "text": "we return when we are grading. Okay,",
+    "start": 122.64,
+    "duration": 3.2
+  },
+  {
+    "text": "I'll tell you more about that in just a",
+    "start": 124.479,
+    "duration": 3.361
+  },
+  {
+    "text": "minute, but let's for now go over to my",
+    "start": 125.84,
+    "duration": 5.039
+  },
+  {
+    "text": "HDR palette where I'm going to adjust my",
+    "start": 127.84,
+    "duration": 6.32
+  },
+  {
+    "text": "global exposure slider down here. Okay.",
+    "start": 130.879,
+    "duration": 4.881
+  },
+  {
+    "text": "And I'm going to use this to get my",
+    "start": 134.16,
+    "duration": 4.719
+  },
+  {
+    "text": "exposure to a better spot. Now, first",
+    "start": 135.76,
+    "duration": 4.4
+  },
+  {
+    "text": "thing I want to emphasize is we're",
+    "start": 138.879,
+    "duration": 3.36
+  },
+  {
+    "text": "talking about exposure here. Exposure is",
+    "start": 140.16,
+    "duration": 3.76
+  },
+  {
+    "text": "a creative parameter. It is not a",
+    "start": 142.239,
+    "duration": 3.921
+  },
+  {
+    "text": "technical parameter at this stage. Okay?",
+    "start": 143.92,
+    "duration": 4.64
+  },
+  {
+    "text": "There are best practices for exposing on",
+    "start": 146.16,
+    "duration": 3.92
+  },
+  {
+    "text": "a technical basis when you're shooting,",
+    "start": 148.56,
+    "duration": 3.52
+  },
+  {
+    "text": "but right now it is a creative parameter",
+    "start": 150.08,
+    "duration": 3.84
+  },
+  {
+    "text": "solely. How do I know when my exposure",
+    "start": 152.08,
+    "duration": 3.6
+  },
+  {
+    "text": "is good? When I like what I'm seeing and",
+    "start": 153.92,
+    "duration": 3.2
+  },
+  {
+    "text": "when my client likes what we're seeing.",
+    "start": 155.68,
+    "duration": 3.04
+  },
+  {
+    "text": "How do I know if it's bad? If we don't",
+    "start": 157.12,
+    "duration": 3.36
+  },
+  {
+    "text": "like it yet. That's all there is to it.",
+    "start": 158.72,
+    "duration": 3.28
+  },
+  {
+    "text": "You don't need to worry about any sort",
+    "start": 160.48,
+    "duration": 4.08
+  },
+  {
+    "text": "of arbitrary idea of correctness or",
+    "start": 162.0,
+    "duration": 4.56
+  },
+  {
+    "text": "incorrectness. Okay. So, I'm just going",
+    "start": 164.56,
+    "duration": 4.24
+  },
+  {
+    "text": "to swing this intentionally too far and",
+    "start": 166.56,
+    "duration": 4.24
+  },
+  {
+    "text": "then walk it back until I feel like I've",
+    "start": 168.8,
+    "duration": 4.64
+  },
+  {
+    "text": "got an exposure that I'm happier with.",
+    "start": 170.8,
+    "duration": 4.4
+  },
+  {
+    "text": "Now, you might be asking like, okay, why",
+    "start": 173.44,
+    "duration": 4.079
+  },
+  {
+    "text": "HDR global? Why is that the adjustment?",
+    "start": 175.2,
+    "duration": 4.0
+  },
+  {
+    "text": "Why not any other adjustment? Could I",
+    "start": 177.519,
+    "duration": 3.601
+  },
+  {
+    "text": "use any other adjustment if I prefer?",
+    "start": 179.2,
+    "duration": 4.16
+  },
+  {
+    "text": "Let me walk you through that. So HDR",
+    "start": 181.12,
+    "duration": 5.28
+  },
+  {
+    "text": "global is one of two ways within Resolve",
+    "start": 183.36,
+    "duration": 5.04
+  },
+  {
+    "text": "that allow us to make an adjustment",
+    "start": 186.4,
+    "duration": 4.32
+  },
+  {
+    "text": "that's what's called phototric. All that",
+    "start": 188.4,
+    "duration": 4.16
+  },
+  {
+    "text": "means it's a fancy word to tell us that",
+    "start": 190.72,
+    "duration": 3.68
+  },
+  {
+    "text": "it is going to do the same thing that we",
+    "start": 192.56,
+    "duration": 3.759
+  },
+  {
+    "text": "would get by opening or shutting our",
+    "start": 194.4,
+    "duration": 3.759
+  },
+  {
+    "text": "lens or by increasing or decreasing the",
+    "start": 196.319,
+    "duration": 3.681
+  },
+  {
+    "text": "amount of light that's uh actually being",
+    "start": 198.159,
+    "duration": 4.961
+  },
+  {
+    "text": "used on set. So it is a true exposure",
+    "start": 200.0,
+    "duration": 5.12
+  },
+  {
+    "text": "only adjustment. And that's a really",
+    "start": 203.12,
+    "duration": 3.36
+  },
+  {
+    "text": "important feature when we're working our",
+    "start": 205.12,
+    "duration": 3.039
+  },
+  {
+    "text": "way, especially through node number one",
+    "start": 206.48,
+    "duration": 3.6
+  },
+  {
+    "text": "here because we're going to be working",
+    "start": 208.159,
+    "duration": 3.281
+  },
+  {
+    "text": "exposure and then we're going to be",
+    "start": 210.08,
+    "duration": 3.439
+  },
+  {
+    "text": "working contrast. Yes, we are doing them",
+    "start": 211.44,
+    "duration": 3.76
+  },
+  {
+    "text": "in one node. We're doing them in one",
+    "start": 213.519,
+    "duration": 3.36
+  },
+  {
+    "text": "node because of how interactive they are",
+    "start": 215.2,
+    "duration": 3.759
+  },
+  {
+    "text": "and how much they play off of each other",
+    "start": 216.879,
+    "duration": 4.401
+  },
+  {
+    "text": "visually. But I still want to have the",
+    "start": 218.959,
+    "duration": 4.64
+  },
+  {
+    "text": "ability to work exposure and only",
+    "start": 221.28,
+    "duration": 5.2
+  },
+  {
+    "text": "exposure and then work contrast and only",
+    "start": 223.599,
+    "duration": 4.881
+  },
+  {
+    "text": "contrast. And if I pick the wrong tool",
+    "start": 226.48,
+    "duration": 4.16
+  },
+  {
+    "text": "to adjust exposure, I'm actually going",
+    "start": 228.48,
+    "duration": 5.119
+  },
+  {
+    "text": "to be adjusting exposure and contrast",
+    "start": 230.64,
+    "duration": 4.72
+  },
+  {
+    "text": "simultaneously. Let me give you an",
+    "start": 233.599,
+    "duration": 3.36
+  },
+  {
+    "text": "example of this. So, let's grab a still",
+    "start": 235.36,
+    "duration": 3.12
+  },
+  {
+    "text": "of what we just did. And I'm going to",
+    "start": 236.959,
+    "duration": 3.761
+  },
+  {
+    "text": "reset this node. And I'm now going to go",
+    "start": 238.48,
+    "duration": 4.399
+  },
+  {
+    "text": "back over to my primaries and work the",
+    "start": 240.72,
+    "duration": 4.4
+  },
+  {
+    "text": "first exposure like tool that I was ever",
+    "start": 242.879,
+    "duration": 3.92
+  },
+  {
+    "text": "introduced to when I began grading",
+    "start": 245.12,
+    "duration": 3.52
+  },
+  {
+    "text": "offset. So, let's do this. I'm going to",
+    "start": 246.799,
+    "duration": 5.121
+  },
+  {
+    "text": "wipe to the HDR grade that we just did",
+    "start": 248.64,
+    "duration": 6.159
+  },
+  {
+    "text": "and I'm going to try to match it with my",
+    "start": 251.92,
+    "duration": 5.439
+  },
+  {
+    "text": "offset. Maybe something like this. Let's",
+    "start": 254.799,
+    "duration": 4.641
+  },
+  {
+    "text": "make it a full-frame wipe so we can",
+    "start": 257.359,
+    "duration": 3.84
+  },
+  {
+    "text": "compare.",
+    "start": 259.44,
+    "duration": 4.16
+  },
+  {
+    "text": "Like so.",
+    "start": 261.199,
+    "duration": 4.321
+  },
+  {
+    "text": "I could go a little bit hotter on the",
+    "start": 263.6,
+    "duration": 3.76
+  },
+  {
+    "text": "offset actually. So, something like",
+    "start": 265.52,
+    "duration": 4.0
+  },
+  {
+    "text": "that. So, if we look at our offset",
+    "start": 267.36,
+    "duration": 4.8
+  },
+  {
+    "text": "exposure adjustment versus our HDR",
+    "start": 269.52,
+    "duration": 4.72
+  },
+  {
+    "text": "exposure adjustment.",
+    "start": 272.16,
+    "duration": 3.599
+  },
+  {
+    "text": "Offset",
+    "start": 274.24,
+    "duration": 3.519
+  },
+  {
+    "text": "HDR global. What difference do you see?",
+    "start": 275.759,
+    "duration": 3.201
+  },
+  {
+    "text": "What's the difference between these two?",
+    "start": 277.759,
+    "duration": 2.641
+  },
+  {
+    "text": "Well, there's a difference in contrast.",
+    "start": 278.96,
+    "duration": 3.44
+  },
+  {
+    "text": "Right now, here's what's important. It",
+    "start": 280.4,
+    "duration": 3.359
+  },
+  {
+    "text": "is not important which of these you",
+    "start": 282.4,
+    "duration": 3.28
+  },
+  {
+    "text": "prefer. you might actually prefer the",
+    "start": 283.759,
+    "duration": 4.641
+  },
+  {
+    "text": "offset uh exposure adjustment that I",
+    "start": 285.68,
+    "duration": 4.32
+  },
+  {
+    "text": "made just here. But what's important is",
+    "start": 288.4,
+    "duration": 3.519
+  },
+  {
+    "text": "that the offset adjustment didn't just",
+    "start": 290.0,
+    "duration": 4.639
+  },
+  {
+    "text": "change my exposure, it also changed my",
+    "start": 291.919,
+    "duration": 5.041
+  },
+  {
+    "text": "contrast. It may so happen in this case",
+    "start": 294.639,
+    "duration": 4.241
+  },
+  {
+    "text": "that it changed the contrast in a",
+    "start": 296.96,
+    "duration": 3.84
+  },
+  {
+    "text": "direction you want to see it go. But the",
+    "start": 298.88,
+    "duration": 3.759
+  },
+  {
+    "text": "fact that I'm adjusting two things when",
+    "start": 300.8,
+    "duration": 3.52
+  },
+  {
+    "text": "I'm really only supposed to be adjusting",
+    "start": 302.639,
+    "duration": 3.601
+  },
+  {
+    "text": "one is going to make it difficult for me",
+    "start": 304.32,
+    "duration": 3.84
+  },
+  {
+    "text": "to work efficiently and quickly through",
+    "start": 306.24,
+    "duration": 3.519
+  },
+  {
+    "text": "node number one. And it's going to make",
+    "start": 308.16,
+    "duration": 3.12
+  },
+  {
+    "text": "it really hard for me to avoid chasing",
+    "start": 309.759,
+    "duration": 4.321
+  },
+  {
+    "text": "my own tail. Okay. So, for that reason,",
+    "start": 311.28,
+    "duration": 4.56
+  },
+  {
+    "text": "we're going to stick with this HDR",
+    "start": 314.08,
+    "duration": 3.839
+  },
+  {
+    "text": "global adjustment. And this idea is",
+    "start": 315.84,
+    "duration": 3.919
+  },
+  {
+    "text": "going to come up even more strongly when",
+    "start": 317.919,
+    "duration": 4.481
+  },
+  {
+    "text": "we get into contrast next. Okay. So, now",
+    "start": 319.759,
+    "duration": 4.401
+  },
+  {
+    "text": "we've got our exposure in place. And",
+    "start": 322.4,
+    "duration": 3.68
+  },
+  {
+    "text": "looking at this with fresh eyes, I'm",
+    "start": 324.16,
+    "duration": 3.2
+  },
+  {
+    "text": "going to bring this back just a little",
+    "start": 326.08,
+    "duration": 3.04
+  },
+  {
+    "text": "bit, maybe to something like that. And",
+    "start": 327.36,
+    "duration": 3.44
+  },
+  {
+    "text": "we're now ready to start talking about",
+    "start": 329.12,
+    "duration": 4.56
+  },
+  {
+    "text": "exposure. Excuse me, about contrast. So,",
+    "start": 330.8,
+    "duration": 4.48
+  },
+  {
+    "text": "thinking about contrast, the same",
+    "start": 333.68,
+    "duration": 3.6
+  },
+  {
+    "text": "principle is going to apply almost even",
+    "start": 335.28,
+    "duration": 3.919
+  },
+  {
+    "text": "stronger than it did with exposure. that",
+    "start": 337.28,
+    "duration": 4.0
+  },
+  {
+    "text": "when I'm adjusting contrast, I just want",
+    "start": 339.199,
+    "duration": 4.081
+  },
+  {
+    "text": "to adjust contrast. I don't want to also",
+    "start": 341.28,
+    "duration": 4.16
+  },
+  {
+    "text": "move exposure. Uh when I just got done",
+    "start": 343.28,
+    "duration": 3.52
+  },
+  {
+    "text": "setting exposure where I wanted it to",
+    "start": 345.44,
+    "duration": 3.68
+  },
+  {
+    "text": "be, right? So, let's take a look at our",
+    "start": 346.8,
+    "duration": 3.839
+  },
+  {
+    "text": "options here. I'll start with like the",
+    "start": 349.12,
+    "duration": 3.2
+  },
+  {
+    "text": "very first exposure adjustment tool that",
+    "start": 350.639,
+    "duration": 2.961
+  },
+  {
+    "text": "I was introduced to when I began",
+    "start": 352.32,
+    "duration": 3.36
+  },
+  {
+    "text": "grading. Lift, gamma, and gain. Right?",
+    "start": 353.6,
+    "duration": 4.48
+  },
+  {
+    "text": "Lift, gamma, and gain can work. But",
+    "start": 355.68,
+    "duration": 4.32
+  },
+  {
+    "text": "here's the thing. When you're adjusting",
+    "start": 358.08,
+    "duration": 3.76
+  },
+  {
+    "text": "lift, gamma, and gain, you're always",
+    "start": 360.0,
+    "duration": 4.08
+  },
+  {
+    "text": "going to be adjusting exposure. like 99",
+    "start": 361.84,
+    "duration": 4.56
+  },
+  {
+    "text": "out of 100 times a lift gamma gain",
+    "start": 364.08,
+    "duration": 4.32
+  },
+  {
+    "text": "adjustment is going to bump exposure up",
+    "start": 366.4,
+    "duration": 3.76
+  },
+  {
+    "text": "or down a little bit while you're",
+    "start": 368.4,
+    "duration": 3.68
+  },
+  {
+    "text": "working through it. Okay, so it's not",
+    "start": 370.16,
+    "duration": 3.44
+  },
+  {
+    "text": "the ideal choice if you're really trying",
+    "start": 372.08,
+    "duration": 3.839
+  },
+  {
+    "text": "to focus on one thing at a time. So what",
+    "start": 373.6,
+    "duration": 3.599
+  },
+  {
+    "text": "are some other options here? Well,",
+    "start": 375.919,
+    "duration": 3.601
+  },
+  {
+    "text": "another good one right here within our",
+    "start": 377.199,
+    "duration": 4.881
+  },
+  {
+    "text": "primaries would be contrast. So what if",
+    "start": 379.52,
+    "duration": 5.119
+  },
+  {
+    "text": "we take our contrast slider here and",
+    "start": 382.08,
+    "duration": 4.72
+  },
+  {
+    "text": "move this to the right? Well, what do we",
+    "start": 384.639,
+    "duration": 4.081
+  },
+  {
+    "text": "see happening in the image and in the",
+    "start": 386.8,
+    "duration": 4.64
+  },
+  {
+    "text": "histogram as I'm doing this? Feels like",
+    "start": 388.72,
+    "duration": 4.88
+  },
+  {
+    "text": "it's getting darker, right? But check",
+    "start": 391.44,
+    "duration": 3.92
+  },
+  {
+    "text": "this out. I'm going to show you a magic",
+    "start": 393.6,
+    "duration": 4.0
+  },
+  {
+    "text": "number. Check out this pivot box and",
+    "start": 395.36,
+    "duration": 4.16
+  },
+  {
+    "text": "check out what happens when I type in",
+    "start": 397.6,
+    "duration": 5.439
+  },
+  {
+    "text": "this magic number 336. Let's actually",
+    "start": 399.52,
+    "duration": 5.36
+  },
+  {
+    "text": "before we do that, let's go back to",
+    "start": 403.039,
+    "duration": 3.921
+  },
+  {
+    "text": "where we were.",
+    "start": 404.88,
+    "duration": 5.039
+  },
+  {
+    "text": "And I'm going to set my contrast",
+    "start": 406.96,
+    "duration": 4.88
+  },
+  {
+    "text": "off of one. I'm going to go like heavy",
+    "start": 409.919,
+    "duration": 4.081
+  },
+  {
+    "text": "with the contrast. Now, when I set this",
+    "start": 411.84,
+    "duration": 5.28
+  },
+  {
+    "text": "to 336, watch what happens to the image.",
+    "start": 414.0,
+    "duration": 5.039
+  },
+  {
+    "text": "Gets brighter, right? But what's more",
+    "start": 417.12,
+    "duration": 3.359
+  },
+  {
+    "text": "important than it getting brighter or",
+    "start": 419.039,
+    "duration": 4.081
+  },
+  {
+    "text": "darker is that the pivot point of this",
+    "start": 420.479,
+    "duration": 4.881
+  },
+  {
+    "text": "contrast adjustment changes. Think about",
+    "start": 423.12,
+    "duration": 3.6
+  },
+  {
+    "text": "contrast. What are we fundamentally",
+    "start": 425.36,
+    "duration": 4.0
+  },
+  {
+    "text": "doing? We're taking everything below a",
+    "start": 426.72,
+    "duration": 4.56
+  },
+  {
+    "text": "certain point and and dropping it",
+    "start": 429.36,
+    "duration": 4.08
+  },
+  {
+    "text": "further toward the floor. We're dropping",
+    "start": 431.28,
+    "duration": 3.759
+  },
+  {
+    "text": "uh you know like the contrast in that",
+    "start": 433.44,
+    "duration": 3.44
+  },
+  {
+    "text": "area and then we're stretching it out on",
+    "start": 435.039,
+    "duration": 3.6
+  },
+  {
+    "text": "the other end. Right? Changing this",
+    "start": 436.88,
+    "duration": 3.84
+  },
+  {
+    "text": "pivot simply changes the point around",
+    "start": 438.639,
+    "duration": 5.761
+  },
+  {
+    "text": "which that stretch is happening. 336.",
+    "start": 440.72,
+    "duration": 5.52
+  },
+  {
+    "text": "Why is that a magic number? because it",
+    "start": 444.4,
+    "duration": 4.0
+  },
+  {
+    "text": "just so happens to represent where",
+    "start": 446.24,
+    "duration": 5.28
+  },
+  {
+    "text": "middle gay lives within my working color",
+    "start": 448.4,
+    "duration": 5.28
+  },
+  {
+    "text": "space of Da Vinci Y gamut intermediate.",
+    "start": 451.52,
+    "duration": 4.0
+  },
+  {
+    "text": "What does that mean? That means that I'm",
+    "start": 453.68,
+    "duration": 4.079
+  },
+  {
+    "text": "going to be pulling shadows down and",
+    "start": 455.52,
+    "duration": 4.88
+  },
+  {
+    "text": "stretching highlights out around the",
+    "start": 457.759,
+    "duration": 5.201
+  },
+  {
+    "text": "middle gray of my chosen working color",
+    "start": 460.4,
+    "duration": 4.88
+  },
+  {
+    "text": "space, which means that in general, I",
+    "start": 462.96,
+    "duration": 4.959
+  },
+  {
+    "text": "will not be biasing exposure up or up or",
+    "start": 465.28,
+    "duration": 4.56
+  },
+  {
+    "text": "down. I will simply be increasing",
+    "start": 467.919,
+    "duration": 5.521
+  },
+  {
+    "text": "contrast around that middle gray pivot",
+    "start": 469.84,
+    "duration": 5.919
+  },
+  {
+    "text": "point. Does that make sense? This is a",
+    "start": 473.44,
+    "duration": 5.039
+  },
+  {
+    "text": "really easy, really powerful way to get",
+    "start": 475.759,
+    "duration": 5.041
+  },
+  {
+    "text": "contrast only contrast adjustments that",
+    "start": 478.479,
+    "duration": 4.16
+  },
+  {
+    "text": "are not also going to bias the exposure",
+    "start": 480.8,
+    "duration": 3.839
+  },
+  {
+    "text": "choices that you literally just got done",
+    "start": 482.639,
+    "duration": 4.321
+  },
+  {
+    "text": "making a moment ago. Okay, so let's back",
+    "start": 484.639,
+    "duration": 5.68
+  },
+  {
+    "text": "this off now and just kind of dial it in",
+    "start": 486.96,
+    "duration": 4.88
+  },
+  {
+    "text": "by eye. And there's a couple things that",
+    "start": 490.319,
+    "duration": 3.28
+  },
+  {
+    "text": "come up as we start looking at contrast",
+    "start": 491.84,
+    "duration": 3.12
+  },
+  {
+    "text": "through this lens and we start looking",
+    "start": 493.599,
+    "duration": 3.6
+  },
+  {
+    "text": "at imposing these parameters on oursel.",
+    "start": 494.96,
+    "duration": 4.0
+  },
+  {
+    "text": "The first one is like, all right, so",
+    "start": 497.199,
+    "duration": 3.68
+  },
+  {
+    "text": "when I'm doing this, as soon as I start",
+    "start": 498.96,
+    "duration": 2.959
+  },
+  {
+    "text": "to move it to the right, I feel like,",
+    "start": 500.879,
+    "duration": 3.201
+  },
+  {
+    "text": "ah, that's kind of too much. So, here's",
+    "start": 501.919,
+    "duration": 3.761
+  },
+  {
+    "text": "like an interesting thing to keep in",
+    "start": 504.08,
+    "duration": 2.959
+  },
+  {
+    "text": "mind when you're thinking about exposure",
+    "start": 505.68,
+    "duration": 3.28
+  },
+  {
+    "text": "and contrast. I started this video today",
+    "start": 507.039,
+    "duration": 3.761
+  },
+  {
+    "text": "by saying like, \"Hey, these are the most",
+    "start": 508.96,
+    "duration": 4.559
+  },
+  {
+    "text": "important key pieces of your color grade",
+    "start": 510.8,
+    "duration": 3.84
+  },
+  {
+    "text": "by the time you've got your color",
+    "start": 513.519,
+    "duration": 2.4
+  },
+  {
+    "text": "management and your look in place.\"",
+    "start": 514.64,
+    "duration": 3.68
+  },
+  {
+    "text": "That's 100% true. But what's interesting",
+    "start": 515.919,
+    "duration": 3.761
+  },
+  {
+    "text": "is just because they are the most",
+    "start": 518.32,
+    "duration": 3.12
+  },
+  {
+    "text": "important doesn't mean you need to do",
+    "start": 519.68,
+    "duration": 3.839
+  },
+  {
+    "text": "much or anything with them. It just",
+    "start": 521.44,
+    "duration": 4.0
+  },
+  {
+    "text": "needs it means you need to be keeping an",
+    "start": 523.519,
+    "duration": 4.081
+  },
+  {
+    "text": "eye on them. And especially when it",
+    "start": 525.44,
+    "duration": 4.88
+  },
+  {
+    "text": "comes to contrast, we are not trying to",
+    "start": 527.6,
+    "duration": 5.6
+  },
+  {
+    "text": "create or to remove contrast when we're",
+    "start": 530.32,
+    "duration": 5.12
+  },
+  {
+    "text": "grading in general at the shot level.",
+    "start": 533.2,
+    "duration": 4.88
+  },
+  {
+    "text": "What we are trying to do is maintain the",
+    "start": 535.44,
+    "duration": 5.28
+  },
+  {
+    "text": "contrast that we defined in our look.",
+    "start": 538.08,
+    "duration": 4.4
+  },
+  {
+    "text": "Okay? So remember, if we go back over",
+    "start": 540.72,
+    "duration": 3.119
+  },
+  {
+    "text": "here to the timeline level that I showed",
+    "start": 542.48,
+    "duration": 3.2
+  },
+  {
+    "text": "you a minute ago, I already have",
+    "start": 543.839,
+    "duration": 4.481
+  },
+  {
+    "text": "contrast happening right here. What I'm",
+    "start": 545.68,
+    "duration": 4.24
+  },
+  {
+    "text": "trying to do when I'm grading through my",
+    "start": 548.32,
+    "duration": 4.48
+  },
+  {
+    "text": "timeline is to maintain the ratio to",
+    "start": 549.92,
+    "duration": 4.8
+  },
+  {
+    "text": "maintain the contrast curve that I liked",
+    "start": 552.8,
+    "duration": 4.479
+  },
+  {
+    "text": "and that I said this is the look for",
+    "start": 554.72,
+    "duration": 4.239
+  },
+  {
+    "text": "when we were building the project at the",
+    "start": 557.279,
+    "duration": 3.201
+  },
+  {
+    "text": "beginning. I'm just trying to keep the",
+    "start": 558.959,
+    "duration": 3.521
+  },
+  {
+    "text": "car on the road. Okay. So, just because",
+    "start": 560.48,
+    "duration": 3.68
+  },
+  {
+    "text": "exposure and contrast are highly",
+    "start": 562.48,
+    "duration": 3.52
+  },
+  {
+    "text": "important adjustments doesn't actually",
+    "start": 564.16,
+    "duration": 3.76
+  },
+  {
+    "text": "need mean they need to be big",
+    "start": 566.0,
+    "duration": 3.519
+  },
+  {
+    "text": "adjustments. And in some cases, you may",
+    "start": 567.92,
+    "duration": 3.52
+  },
+  {
+    "text": "not need any adjustment at all. And in",
+    "start": 569.519,
+    "duration": 3.121
+  },
+  {
+    "text": "the case of this shot, I would say like",
+    "start": 571.44,
+    "duration": 2.959
+  },
+  {
+    "text": "we don't really need much contrast. Like",
+    "start": 572.64,
+    "duration": 3.52
+  },
+  {
+    "text": "that represents the ratio that I'm",
+    "start": 574.399,
+    "duration": 3.44
+  },
+  {
+    "text": "looking to see. Okay, that's one",
+    "start": 576.16,
+    "duration": 3.28
+  },
+  {
+    "text": "principle that can be helpful. It's like",
+    "start": 577.839,
+    "duration": 4.801
+  },
+  {
+    "text": "just cuz you need to be very attendant",
+    "start": 579.44,
+    "duration": 4.64
+  },
+  {
+    "text": "to exposure and contrast doesn't",
+    "start": 582.64,
+    "duration": 2.96
+  },
+  {
+    "text": "actually mean you need to do anything.",
+    "start": 584.08,
+    "duration": 3.759
+  },
+  {
+    "text": "Here's another one. If you regularly are",
+    "start": 585.6,
+    "duration": 5.2
+  },
+  {
+    "text": "finding yourself having to increase or",
+    "start": 587.839,
+    "duration": 5.601
+  },
+  {
+    "text": "decrease contrast in one direction, like",
+    "start": 590.8,
+    "duration": 4.0
+  },
+  {
+    "text": "shot after shot after shot, like let's",
+    "start": 593.44,
+    "duration": 2.959
+  },
+  {
+    "text": "say you go through five shots in a row",
+    "start": 594.8,
+    "duration": 2.96
+  },
+  {
+    "text": "and in every one of them you have to",
+    "start": 596.399,
+    "duration": 4.161
+  },
+  {
+    "text": "pull contrast back to get to a nicel",
+    "start": 597.76,
+    "duration": 5.199
+  },
+  {
+    "text": "looking image. That's a really good clue",
+    "start": 600.56,
+    "duration": 5.04
+  },
+  {
+    "text": "that your overall look does not yet have",
+    "start": 602.959,
+    "duration": 4.721
+  },
+  {
+    "text": "the right contrast dialed in. Means",
+    "start": 605.6,
+    "duration": 4.0
+  },
+  {
+    "text": "you've probably got too much contrast of",
+    "start": 607.68,
+    "duration": 3.76
+  },
+  {
+    "text": "living in the overall look and you want",
+    "start": 609.6,
+    "duration": 3.44
+  },
+  {
+    "text": "to go back and look at pulling some of",
+    "start": 611.44,
+    "duration": 3.44
+  },
+  {
+    "text": "that out. Okay, so that's another really",
+    "start": 613.04,
+    "duration": 4.0
+  },
+  {
+    "text": "helpful principle to think about when it",
+    "start": 614.88,
+    "duration": 4.24
+  },
+  {
+    "text": "comes to working your way through your",
+    "start": 617.04,
+    "duration": 4.96
+  },
+  {
+    "text": "contrast at the local adjustment level.",
+    "start": 619.12,
+    "duration": 4.64
+  },
+  {
+    "text": "Now, I also want to circle back to this",
+    "start": 622.0,
+    "duration": 3.04
+  },
+  {
+    "text": "pivot point that we talked about a",
+    "start": 623.76,
+    "duration": 3.04
+  },
+  {
+    "text": "moment ago. So, this is kind of a nifty",
+    "start": 625.04,
+    "duration": 3.039
+  },
+  {
+    "text": "trick that I showed you, but you may",
+    "start": 626.8,
+    "duration": 3.039
+  },
+  {
+    "text": "also be asking like, \"Okay, great. So,",
+    "start": 628.079,
+    "duration": 2.721
+  },
+  {
+    "text": "does that mean I'm going to spend the",
+    "start": 629.839,
+    "duration": 2.641
+  },
+  {
+    "text": "rest of my life double clicking on this",
+    "start": 630.8,
+    "duration": 4.4
+  },
+  {
+    "text": "pivot field and typing in 336 in order",
+    "start": 632.48,
+    "duration": 4.16
+  },
+  {
+    "text": "to get this cool contrast adjustment",
+    "start": 635.2,
+    "duration": 3.28
+  },
+  {
+    "text": "that you were showing me? No. There's a",
+    "start": 636.64,
+    "duration": 3.36
+  },
+  {
+    "text": "better way to go about this. In fact, if",
+    "start": 638.48,
+    "duration": 4.0
+  },
+  {
+    "text": "we look at my power grades here and I go",
+    "start": 640.0,
+    "duration": 4.56
+  },
+  {
+    "text": "to my trees and I look at my CKC base",
+    "start": 642.48,
+    "duration": 4.16
+  },
+  {
+    "text": "tree, you can see when I apply this tree",
+    "start": 644.56,
+    "duration": 4.32
+  },
+  {
+    "text": "that I previously saved, there's no",
+    "start": 646.64,
+    "duration": 4.0
+  },
+  {
+    "text": "grading happening in this tree. Like,",
+    "start": 648.88,
+    "duration": 4.24
+  },
+  {
+    "text": "it's not doing anything to the image.",
+    "start": 650.64,
+    "duration": 4.48
+  },
+  {
+    "text": "But what it is doing is setting the",
+    "start": 653.12,
+    "duration": 4.64
+  },
+  {
+    "text": "pivot point to a custom position here in",
+    "start": 655.12,
+    "duration": 4.56
+  },
+  {
+    "text": "node number one. So, if I was starting",
+    "start": 657.76,
+    "duration": 3.6
+  },
+  {
+    "text": "this from zero with my template node",
+    "start": 659.68,
+    "duration": 5.279
+  },
+  {
+    "text": "graph, I can simply go in and adjust my",
+    "start": 661.36,
+    "duration": 6.56
+  },
+  {
+    "text": "exposure like so, and I can then",
+    "start": 664.959,
+    "duration": 4.961
+  },
+  {
+    "text": "immediately go back over to my primaries",
+    "start": 667.92,
+    "duration": 3.68
+  },
+  {
+    "text": "and adjust my contrast, and it's",
+    "start": 669.92,
+    "duration": 3.2
+  },
+  {
+    "text": "automatically going to be pivoting",
+    "start": 671.6,
+    "duration": 5.44
+  },
+  {
+    "text": "around that middle gray point of 336. By",
+    "start": 673.12,
+    "duration": 5.36
+  },
+  {
+    "text": "the way, another question that might be",
+    "start": 677.04,
+    "duration": 3.039
+  },
+  {
+    "text": "coming up, how in the world did you know",
+    "start": 678.48,
+    "duration": 4.479
+  },
+  {
+    "text": "that that's the number 336? To get that",
+    "start": 680.079,
+    "duration": 4.641
+  },
+  {
+    "text": "number, I referenced my mid-grade cheat",
+    "start": 682.959,
+    "duration": 3.201
+  },
+  {
+    "text": "sheet. That's a free resource that I",
+    "start": 684.72,
+    "duration": 2.799
+  },
+  {
+    "text": "will also leave a link to in the",
+    "start": 686.16,
+    "duration": 3.44
+  },
+  {
+    "text": "description for this video. It lists the",
+    "start": 687.519,
+    "duration": 3.76
+  },
+  {
+    "text": "middle gray point, that magic middle",
+    "start": 689.6,
+    "duration": 4.0
+  },
+  {
+    "text": "gray point for a number of different",
+    "start": 691.279,
+    "duration": 3.841
+  },
+  {
+    "text": "color spaces that you might choose to",
+    "start": 693.6,
+    "duration": 3.2
+  },
+  {
+    "text": "work in so that you can easily reference",
+    "start": 695.12,
+    "duration": 3.52
+  },
+  {
+    "text": "it and type it right into that pivot",
+    "start": 696.8,
+    "duration": 3.279
+  },
+  {
+    "text": "point regardless of the space that",
+    "start": 698.64,
+    "duration": 3.199
+  },
+  {
+    "text": "you're working in. I work in Da Vinci",
+    "start": 700.079,
+    "duration": 2.961
+  },
+  {
+    "text": "Intermediate. That's what I recommend",
+    "start": 701.839,
+    "duration": 2.321
+  },
+  {
+    "text": "here on the channel. If that's what",
+    "start": 703.04,
+    "duration": 4.0
+  },
+  {
+    "text": "you're working in, it's 336. But if you",
+    "start": 704.16,
+    "duration": 4.799
+  },
+  {
+    "text": "want to have a handy place to uh keep",
+    "start": 707.04,
+    "duration": 3.28
+  },
+  {
+    "text": "that available to yourself, go grab the",
+    "start": 708.959,
+    "duration": 2.641
+  },
+  {
+    "text": "mid-grade cheat sheet and it'll always",
+    "start": 710.32,
+    "duration": 3.04
+  },
+  {
+    "text": "be right there uh nearby when you need",
+    "start": 711.6,
+    "duration": 3.6
+  },
+  {
+    "text": "to grab it. Okay, so that's a way that",
+    "start": 713.36,
+    "duration": 4.159
+  },
+  {
+    "text": "you can accelerate your process here.",
+    "start": 715.2,
+    "duration": 3.44
+  },
+  {
+    "text": "Really, a lot of what we're doing here",
+    "start": 717.519,
+    "duration": 3.201
+  },
+  {
+    "text": "in node number one is figuring out a",
+    "start": 718.64,
+    "duration": 4.639
+  },
+  {
+    "text": "repeatable, consistent, efficient way to",
+    "start": 720.72,
+    "duration": 4.72
+  },
+  {
+    "text": "get the very best results as quickly as",
+    "start": 723.279,
+    "duration": 4.24
+  },
+  {
+    "text": "possible. Okay, so with this pivot set",
+    "start": 725.44,
+    "duration": 5.04
+  },
+  {
+    "text": "to 336, I can get my exposure dialed in.",
+    "start": 727.519,
+    "duration": 5.361
+  },
+  {
+    "text": "I can set that contrast and get to a",
+    "start": 730.48,
+    "duration": 4.24
+  },
+  {
+    "text": "really good spot with it very quickly.",
+    "start": 732.88,
+    "duration": 3.84
+  },
+  {
+    "text": "Okay, so that's the basic flow here. And",
+    "start": 734.72,
+    "duration": 3.84
+  },
+  {
+    "text": "you can see like we can start to work",
+    "start": 736.72,
+    "duration": 3.359
+  },
+  {
+    "text": "through this at a bit more speed of",
+    "start": 738.56,
+    "duration": 4.079
+  },
+  {
+    "text": "like, all right, let's set our exposure.",
+    "start": 740.079,
+    "duration": 4.0
+  },
+  {
+    "text": "And then I'm going to go in and set my",
+    "start": 742.639,
+    "duration": 4.721
+  },
+  {
+    "text": "contrast and get things looking good",
+    "start": 744.079,
+    "duration": 6.161
+  },
+  {
+    "text": "really fast. And that's the basic flow",
+    "start": 747.36,
+    "duration": 4.24
+  },
+  {
+    "text": "of what we're trying to do with this",
+    "start": 750.24,
+    "duration": 2.719
+  },
+  {
+    "text": "very first node is we're just trying to",
+    "start": 751.6,
+    "duration": 3.679
+  },
+  {
+    "text": "get that tonality feeling really good by",
+    "start": 752.959,
+    "duration": 3.841
+  },
+  {
+    "text": "working exposure and then by working",
+    "start": 755.279,
+    "duration": 3.68
+  },
+  {
+    "text": "contrast and by working them with tools",
+    "start": 756.8,
+    "duration": 4.24
+  },
+  {
+    "text": "that are not going to create the need",
+    "start": 758.959,
+    "duration": 3.68
+  },
+  {
+    "text": "for compensation and end up getting me",
+    "start": 761.04,
+    "duration": 4.0
+  },
+  {
+    "text": "chasing my own tail. Okay. Now, a couple",
+    "start": 762.639,
+    "duration": 4.401
+  },
+  {
+    "text": "questions come up along the way as uh",
+    "start": 765.04,
+    "duration": 3.919
+  },
+  {
+    "text": "we're going through this workflow or as",
+    "start": 767.04,
+    "duration": 3.12
+  },
+  {
+    "text": "you're learning this workflow for the",
+    "start": 768.959,
+    "duration": 2.641
+  },
+  {
+    "text": "very first time. One of them we've",
+    "start": 770.16,
+    "duration": 2.64
+  },
+  {
+    "text": "touched on a little bit, but I want to",
+    "start": 771.6,
+    "duration": 3.76
+  },
+  {
+    "text": "speak to it explicitly about why exactly",
+    "start": 772.8,
+    "duration": 5.279
+  },
+  {
+    "text": "we are doing exposure and contrast",
+    "start": 775.36,
+    "duration": 4.88
+  },
+  {
+    "text": "adjustment right within the same node.",
+    "start": 778.079,
+    "duration": 4.401
+  },
+  {
+    "text": "Wouldn't it be better to do them to do",
+    "start": 780.24,
+    "duration": 4.32
+  },
+  {
+    "text": "those adjustments in two separate nodes?",
+    "start": 782.48,
+    "duration": 4.4
+  },
+  {
+    "text": "Here's my reasoning. We just got done",
+    "start": 784.56,
+    "duration": 3.839
+  },
+  {
+    "text": "walking through a process where I show",
+    "start": 786.88,
+    "duration": 4.079
+  },
+  {
+    "text": "you hitting just exposure and then just",
+    "start": 788.399,
+    "duration": 4.081
+  },
+  {
+    "text": "contrast and treating them as separate",
+    "start": 790.959,
+    "duration": 3.601
+  },
+  {
+    "text": "pieces. But here's the thing. At the end",
+    "start": 792.48,
+    "duration": 4.56
+  },
+  {
+    "text": "of the day, what matters, like let's",
+    "start": 794.56,
+    "duration": 4.88
+  },
+  {
+    "text": "take a look at shot 13 here. What",
+    "start": 797.04,
+    "duration": 4.64
+  },
+  {
+    "text": "matters at the end of the day is not one",
+    "start": 799.44,
+    "duration": 4.079
+  },
+  {
+    "text": "of those pieces, but both of those",
+    "start": 801.68,
+    "duration": 3.92
+  },
+  {
+    "text": "pieces. So, if I open up just my",
+    "start": 803.519,
+    "duration": 4.641
+  },
+  {
+    "text": "exposure here, well, this is going to",
+    "start": 805.6,
+    "duration": 6.479
+  },
+  {
+    "text": "feel too milky and too open until I also",
+    "start": 808.16,
+    "duration": 6.64
+  },
+  {
+    "text": "adjust my contrast. Okay. So, this",
+    "start": 812.079,
+    "duration": 5.76
+  },
+  {
+    "text": "doesn't matter to me as much as",
+    "start": 814.8,
+    "duration": 6.96
+  },
+  {
+    "text": "uh this right here where I'm also Let's",
+    "start": 817.839,
+    "duration": 6.0
+  },
+  {
+    "text": "get this uh base tree in place here and",
+    "start": 821.76,
+    "duration": 3.6
+  },
+  {
+    "text": "actually try that again so that I'm",
+    "start": 823.839,
+    "duration": 4.081
+  },
+  {
+    "text": "pivoting around the right spot.",
+    "start": 825.36,
+    "duration": 4.4
+  },
+  {
+    "text": "So, there's my exposure and what I'm",
+    "start": 827.92,
+    "duration": 4.719
+  },
+  {
+    "text": "saying is this doesn't matter as much as",
+    "start": 829.76,
+    "duration": 5.68
+  },
+  {
+    "text": "this. It's the net of the way the",
+    "start": 832.639,
+    "duration": 4.721
+  },
+  {
+    "text": "exposure and the contrast interact with",
+    "start": 835.44,
+    "duration": 4.24
+  },
+  {
+    "text": "each other that really matters. That's",
+    "start": 837.36,
+    "duration": 4.0
+  },
+  {
+    "text": "why I like to do these things in one",
+    "start": 839.68,
+    "duration": 3.599
+  },
+  {
+    "text": "piece because ultimately I want to just",
+    "start": 841.36,
+    "duration": 3.36
+  },
+  {
+    "text": "be able to flip the whole thing off and",
+    "start": 843.279,
+    "duration": 4.56
+  },
+  {
+    "text": "on and see what I've done. Okay? Now,",
+    "start": 844.72,
+    "duration": 4.64
+  },
+  {
+    "text": "you don't have to do it this way. If you",
+    "start": 847.839,
+    "duration": 3.12
+  },
+  {
+    "text": "really prefer to do exposure in one node",
+    "start": 849.36,
+    "duration": 3.279
+  },
+  {
+    "text": "and then contrast in another node, the",
+    "start": 850.959,
+    "duration": 2.801
+  },
+  {
+    "text": "color grading police are not going to",
+    "start": 852.639,
+    "duration": 2.401
+  },
+  {
+    "text": "come and arrest you. I won't tell.",
+    "start": 853.76,
+    "duration": 2.879
+  },
+  {
+    "text": "That's totally cool. What I would",
+    "start": 855.04,
+    "duration": 3.039
+  },
+  {
+    "text": "encourage you to do is even if you're",
+    "start": 856.639,
+    "duration": 3.44
+  },
+  {
+    "text": "doing that and even if you like enabling",
+    "start": 858.079,
+    "duration": 3.44
+  },
+  {
+    "text": "and disabling just your contrast node",
+    "start": 860.079,
+    "duration": 2.801
+  },
+  {
+    "text": "and then enabling and disabling just",
+    "start": 861.519,
+    "duration": 2.721
+  },
+  {
+    "text": "your exposure node and looking at those",
+    "start": 862.88,
+    "duration": 3.84
+  },
+  {
+    "text": "pieces in isolation before you move on,",
+    "start": 864.24,
+    "duration": 3.76
+  },
+  {
+    "text": "like check this out. I'm going to set my",
+    "start": 866.72,
+    "duration": 3.2
+  },
+  {
+    "text": "contrast back to zero. And let's say",
+    "start": 868.0,
+    "duration": 3.279
+  },
+  {
+    "text": "that I'm going to work in that way as",
+    "start": 869.92,
+    "duration": 2.8
+  },
+  {
+    "text": "well. Like, all right, we're just going",
+    "start": 871.279,
+    "duration": 2.961
+  },
+  {
+    "text": "to do our exposure here. And then we're",
+    "start": 872.72,
+    "duration": 4.08
+  },
+  {
+    "text": "going to do our contrast in a separate",
+    "start": 874.24,
+    "duration": 4.959
+  },
+  {
+    "text": "node. Before you move on from your",
+    "start": 876.8,
+    "duration": 4.0
+  },
+  {
+    "text": "exposure and your contrast adjustments",
+    "start": 879.199,
+    "duration": 2.88
+  },
+  {
+    "text": "that you should be doing at the very",
+    "start": 880.8,
+    "duration": 3.039
+  },
+  {
+    "text": "beginning of your process, before you",
+    "start": 882.079,
+    "duration": 3.76
+  },
+  {
+    "text": "move on, do yourself a favor and grab",
+    "start": 883.839,
+    "duration": 4.56
+  },
+  {
+    "text": "both nodes and enable and disable the",
+    "start": 885.839,
+    "duration": 4.8
+  },
+  {
+    "text": "net of what they're both giving you. and",
+    "start": 888.399,
+    "duration": 4.24
+  },
+  {
+    "text": "make sure that in net they're doing",
+    "start": 890.639,
+    "duration": 3.921
+  },
+  {
+    "text": "exactly what you want and getting you to",
+    "start": 892.639,
+    "duration": 4.241
+  },
+  {
+    "text": "that 80% point that I've mentioned a",
+    "start": 894.56,
+    "duration": 3.839
+  },
+  {
+    "text": "couple times today. Okay, it's just a",
+    "start": 896.88,
+    "duration": 2.88
+  },
+  {
+    "text": "really good practice to get into because",
+    "start": 898.399,
+    "duration": 3.361
+  },
+  {
+    "text": "that's what matters more than just",
+    "start": 899.76,
+    "duration": 4.879
+  },
+  {
+    "text": "exposure or just contrast. Now, here's",
+    "start": 901.76,
+    "duration": 4.24
+  },
+  {
+    "text": "another big one. This comes up a lot",
+    "start": 904.639,
+    "duration": 2.56
+  },
+  {
+    "text": "when people are first learning this",
+    "start": 906.0,
+    "duration": 3.36
+  },
+  {
+    "text": "workflow. This is all good and well,",
+    "start": 907.199,
+    "duration": 4.08
+  },
+  {
+    "text": "Colin, if it's nicely shot material on a",
+    "start": 909.36,
+    "duration": 3.76
+  },
+  {
+    "text": "high-end camera like we have here, but",
+    "start": 911.279,
+    "duration": 3.36
+  },
+  {
+    "text": "what if the material isn't as well shot",
+    "start": 913.12,
+    "duration": 3.36
+  },
+  {
+    "text": "or if it's not shot on as good of a",
+    "start": 914.639,
+    "duration": 4.32
+  },
+  {
+    "text": "camera? Can I still really expect to get",
+    "start": 916.48,
+    "duration": 6.24
+  },
+  {
+    "text": "to 80% done in my very first node? My",
+    "start": 918.959,
+    "duration": 5.68
+  },
+  {
+    "text": "answer would be yes, absolutely. And I",
+    "start": 922.72,
+    "duration": 3.28
+  },
+  {
+    "text": "want to shift your perspective a little",
+    "start": 924.639,
+    "duration": 4.241
+  },
+  {
+    "text": "bit on that idea of 80% done. That's",
+    "start": 926.0,
+    "duration": 5.04
+  },
+  {
+    "text": "less something that we need to strive",
+    "start": 928.88,
+    "duration": 5.199
+  },
+  {
+    "text": "and stretch for and try to make happen.",
+    "start": 931.04,
+    "duration": 5.68
+  },
+  {
+    "text": "Like I got to get this to 80% done by",
+    "start": 934.079,
+    "duration": 4.721
+  },
+  {
+    "text": "the time I'm past node one. That's",
+    "start": 936.72,
+    "duration": 3.76
+  },
+  {
+    "text": "really just something that always",
+    "start": 938.8,
+    "duration": 5.44
+  },
+  {
+    "text": "happens. So like however far you get in",
+    "start": 940.48,
+    "duration": 7.12
+  },
+  {
+    "text": "node number one, that represents 80% of",
+    "start": 944.24,
+    "duration": 5.92
+  },
+  {
+    "text": "how far you're ever going to get in that",
+    "start": 947.6,
+    "duration": 4.4
+  },
+  {
+    "text": "grade. Does that make sense? By the time",
+    "start": 950.16,
+    "duration": 3.359
+  },
+  {
+    "text": "you've got your color management, your",
+    "start": 952.0,
+    "duration": 3.519
+  },
+  {
+    "text": "look, your exposure, and your contrast",
+    "start": 953.519,
+    "duration": 5.12
+  },
+  {
+    "text": "dialed in, the DNA of that image of that",
+    "start": 955.519,
+    "duration": 5.521
+  },
+  {
+    "text": "grade is set. And even though we've got",
+    "start": 958.639,
+    "duration": 4.721
+  },
+  {
+    "text": "this whole galaxy of nodes and tools and",
+    "start": 961.04,
+    "duration": 4.08
+  },
+  {
+    "text": "other adjustments that we can make when",
+    "start": 963.36,
+    "duration": 3.839
+  },
+  {
+    "text": "we're grading, the DNA has been defined",
+    "start": 965.12,
+    "duration": 3.76
+  },
+  {
+    "text": "by that point. So, it's less of",
+    "start": 967.199,
+    "duration": 3.121
+  },
+  {
+    "text": "something that's like you need to make",
+    "start": 968.88,
+    "duration": 3.199
+  },
+  {
+    "text": "sure you do that and it's more something",
+    "start": 970.32,
+    "duration": 3.68
+  },
+  {
+    "text": "you need to recognize like, hey,",
+    "start": 972.079,
+    "duration": 4.081
+  },
+  {
+    "text": "whatever I'm at right now, this is 80%",
+    "start": 974.0,
+    "duration": 3.759
+  },
+  {
+    "text": "of where I'm ever going to get. So, I",
+    "start": 976.16,
+    "duration": 3.119
+  },
+  {
+    "text": "need to make sure it's as good as it can",
+    "start": 977.759,
+    "duration": 3.841
+  },
+  {
+    "text": "possibly be. Especially if I'm working",
+    "start": 979.279,
+    "duration": 4.24
+  },
+  {
+    "text": "with challenging footage because that's",
+    "start": 981.6,
+    "duration": 4.32
+  },
+  {
+    "text": "going to be your best opportunity to get",
+    "start": 983.519,
+    "duration": 4.721
+  },
+  {
+    "text": "it into a good place is to get things to",
+    "start": 985.92,
+    "duration": 4.8
+  },
+  {
+    "text": "that 80% point early in that process",
+    "start": 988.24,
+    "duration": 4.64
+  },
+  {
+    "text": "where you've got all that firepower at",
+    "start": 990.72,
+    "duration": 3.76
+  },
+  {
+    "text": "your disposal. Because trust me, after",
+    "start": 992.88,
+    "duration": 3.68
+  },
+  {
+    "text": "this point, even with all the power and",
+    "start": 994.48,
+    "duration": 4.08
+  },
+  {
+    "text": "the flexibility that we have within",
+    "start": 996.56,
+    "duration": 5.04
+  },
+  {
+    "text": "software like Resolve, your ability to",
+    "start": 998.56,
+    "duration": 5.36
+  },
+  {
+    "text": "influence the DNA of the grade really,",
+    "start": 1001.6,
+    "duration": 4.32
+  },
+  {
+    "text": "really falls off after that very first",
+    "start": 1003.92,
+    "duration": 4.88
+  },
+  {
+    "text": "note. So yes, even if your footage is",
+    "start": 1005.92,
+    "duration": 4.96
+  },
+  {
+    "text": "lower in quality or if it's more mixed",
+    "start": 1008.8,
+    "duration": 4.159
+  },
+  {
+    "text": "in terms of like how well it was shot, I",
+    "start": 1010.88,
+    "duration": 3.84
+  },
+  {
+    "text": "would say even more so if that's the",
+    "start": 1012.959,
+    "duration": 3.601
+  },
+  {
+    "text": "case, you really want to focus in on",
+    "start": 1014.72,
+    "duration": 4.4
+  },
+  {
+    "text": "getting as far as you possibly can in",
+    "start": 1016.56,
+    "duration": 3.92
+  },
+  {
+    "text": "this very first node because that's",
+    "start": 1019.12,
+    "duration": 3.519
+  },
+  {
+    "text": "going to be the easiest place to bias",
+    "start": 1020.48,
+    "duration": 4.079
+  },
+  {
+    "text": "the outcome in a direction that you want",
+    "start": 1022.639,
+    "duration": 4.4
+  },
+  {
+    "text": "to see it go. Okay, I want to show you",
+    "start": 1024.559,
+    "duration": 3.841
+  },
+  {
+    "text": "one more thing before we wrap today.",
+    "start": 1027.039,
+    "duration": 3.441
+  },
+  {
+    "text": "This is a fun final tweak that we're",
+    "start": 1028.4,
+    "duration": 3.6
+  },
+  {
+    "text": "going to make here. So, I'm going to do",
+    "start": 1030.48,
+    "duration": 3.12
+  },
+  {
+    "text": "something in a separate node to show it",
+    "start": 1032.0,
+    "duration": 2.88
+  },
+  {
+    "text": "to you, and then I'm going to show you",
+    "start": 1033.6,
+    "duration": 3.199
+  },
+  {
+    "text": "how you can roll it up and make it all a",
+    "start": 1034.88,
+    "duration": 3.679
+  },
+  {
+    "text": "part of this very first node. Here's",
+    "start": 1036.799,
+    "duration": 3.201
+  },
+  {
+    "text": "what I want to do. Let's take a look",
+    "start": 1038.559,
+    "duration": 3.441
+  },
+  {
+    "text": "back to I don't know, like let's look at",
+    "start": 1040.0,
+    "duration": 3.919
+  },
+  {
+    "text": "shot number six here, where we've just",
+    "start": 1042.0,
+    "duration": 4.079
+  },
+  {
+    "text": "got a lot of deep shadows in this",
+    "start": 1043.919,
+    "duration": 3.76
+  },
+  {
+    "text": "project that I'm grading today. And the",
+    "start": 1046.079,
+    "duration": 2.881
+  },
+  {
+    "text": "deep shadows are beautiful, but",
+    "start": 1047.679,
+    "duration": 3.041
+  },
+  {
+    "text": "something that we want to be mindful of",
+    "start": 1048.96,
+    "duration": 3.44
+  },
+  {
+    "text": "when we're grading is we really want to",
+    "start": 1050.72,
+    "duration": 3.28
+  },
+  {
+    "text": "hold on to detail and we want to create",
+    "start": 1052.4,
+    "duration": 4.24
+  },
+  {
+    "text": "softness and shape in the low end of the",
+    "start": 1054.0,
+    "duration": 4.32
+  },
+  {
+    "text": "image and in the high end of the image.",
+    "start": 1056.64,
+    "duration": 3.44
+  },
+  {
+    "text": "So, even though we've got strong",
+    "start": 1058.32,
+    "duration": 3.04
+  },
+  {
+    "text": "contrast through the middle, we want to",
+    "start": 1060.08,
+    "duration": 2.64
+  },
+  {
+    "text": "make sure we're not too harsh in the",
+    "start": 1061.36,
+    "duration": 2.72
+  },
+  {
+    "text": "bottom or in the top. And I'm going to",
+    "start": 1062.72,
+    "duration": 3.12
+  },
+  {
+    "text": "show you a trick for achieving that",
+    "start": 1064.08,
+    "duration": 3.44
+  },
+  {
+    "text": "right within this node. We're going to",
+    "start": 1065.84,
+    "duration": 3.04
+  },
+  {
+    "text": "start by doing it in a separate node,",
+    "start": 1067.52,
+    "duration": 2.88
+  },
+  {
+    "text": "and then we're going to compact it all",
+    "start": 1068.88,
+    "duration": 3.84
+  },
+  {
+    "text": "together. Okay, so let me just go to",
+    "start": 1070.4,
+    "duration": 4.0
+  },
+  {
+    "text": "node number nine for now. Now, track",
+    "start": 1072.72,
+    "duration": 3.04
+  },
+  {
+    "text": "with me. There's a few steps here, but",
+    "start": 1074.4,
+    "duration": 3.92
+  },
+  {
+    "text": "it ends up being very simple. So, I'm",
+    "start": 1075.76,
+    "duration": 4.08
+  },
+  {
+    "text": "going to go to my utility power grades",
+    "start": 1078.32,
+    "duration": 3.28
+  },
+  {
+    "text": "folder, and I'm going to grab my Da",
+    "start": 1079.84,
+    "duration": 4.959
+  },
+  {
+    "text": "Vinci widegamut gray power grade here.",
+    "start": 1081.6,
+    "duration": 5.92
+  },
+  {
+    "text": "All this is is an instance of my",
+    "start": 1084.799,
+    "duration": 5.361
+  },
+  {
+    "text": "exposure chart DCTL, another free",
+    "start": 1087.52,
+    "duration": 4.08
+  },
+  {
+    "text": "resource I'll leave a link to in the",
+    "start": 1090.16,
+    "duration": 3.68
+  },
+  {
+    "text": "description for this video. And I've set",
+    "start": 1091.6,
+    "duration": 4.88
+  },
+  {
+    "text": "my total steps to one. I've turned off",
+    "start": 1093.84,
+    "duration": 4.959
+  },
+  {
+    "text": "show ramp. And I've set my tone curve to",
+    "start": 1096.48,
+    "duration": 4.24
+  },
+  {
+    "text": "Da Vinci intermediate. Why have I done",
+    "start": 1098.799,
+    "duration": 3.681
+  },
+  {
+    "text": "all that stuff? So that I have nothing",
+    "start": 1100.72,
+    "duration": 3.839
+  },
+  {
+    "text": "in the world but a pure patch of middle",
+    "start": 1102.48,
+    "duration": 5.36
+  },
+  {
+    "text": "gray right here in my image. And all I'm",
+    "start": 1104.559,
+    "duration": 4.561
+  },
+  {
+    "text": "going to do with this is go back over to",
+    "start": 1107.84,
+    "duration": 3.839
+  },
+  {
+    "text": "node number nine and go to my custom",
+    "start": 1109.12,
+    "duration": 5.76
+  },
+  {
+    "text": "curves and eyropper anywhere on this",
+    "start": 1111.679,
+    "duration": 6.401
+  },
+  {
+    "text": "gray patch. Okay, like so. Now that I've",
+    "start": 1114.88,
+    "duration": 5.039
+  },
+  {
+    "text": "done this, I can actually wipe out node",
+    "start": 1118.08,
+    "duration": 4.4
+  },
+  {
+    "text": "number 12. All I needed it for was to",
+    "start": 1119.919,
+    "duration": 5.841
+  },
+  {
+    "text": "very precisely position this anchor",
+    "start": 1122.48,
+    "duration": 5.28
+  },
+  {
+    "text": "point because I now know that's my",
+    "start": 1125.76,
+    "duration": 4.48
+  },
+  {
+    "text": "middle gay. So, if I don't move this",
+    "start": 1127.76,
+    "duration": 5.279
+  },
+  {
+    "text": "point, then I won't be moving exposure",
+    "start": 1130.24,
+    "duration": 4.96
+  },
+  {
+    "text": "when I make this contrast finesse",
+    "start": 1133.039,
+    "duration": 4.401
+  },
+  {
+    "text": "adjustment that I'm about to make. Same",
+    "start": 1135.2,
+    "duration": 3.839
+  },
+  {
+    "text": "rules apply as with the contrast",
+    "start": 1137.44,
+    "duration": 3.52
+  },
+  {
+    "text": "adjustment we were making a moment ago.",
+    "start": 1139.039,
+    "duration": 4.321
+  },
+  {
+    "text": "I don't want to inadvertently adjust",
+    "start": 1140.96,
+    "duration": 4.0
+  },
+  {
+    "text": "exposure when I'm really trying to",
+    "start": 1143.36,
+    "duration": 4.72
+  },
+  {
+    "text": "adjust contrast. Okay. So, once I've got",
+    "start": 1144.96,
+    "duration": 5.52
+  },
+  {
+    "text": "this in place, what I can do is shape",
+    "start": 1148.08,
+    "duration": 4.24
+  },
+  {
+    "text": "out the bottom of the image. I'm just",
+    "start": 1150.48,
+    "duration": 3.68
+  },
+  {
+    "text": "going to pick up the bottom and then add",
+    "start": 1152.32,
+    "duration": 5.04
+  },
+  {
+    "text": "some compression like so.",
+    "start": 1154.16,
+    "duration": 5.2
+  },
+  {
+    "text": "and then kind of walk that back to taste",
+    "start": 1157.36,
+    "duration": 4.96
+  },
+  {
+    "text": "that I've got just the amount that I'm",
+    "start": 1159.36,
+    "duration": 5.84
+  },
+  {
+    "text": "really looking for here. Okay, something",
+    "start": 1162.32,
+    "duration": 5.04
+  },
+  {
+    "text": "like that feels really nice. And I can",
+    "start": 1165.2,
+    "duration": 3.839
+  },
+  {
+    "text": "flip that off and on. You can see I'm",
+    "start": 1167.36,
+    "duration": 4.559
+  },
+  {
+    "text": "just getting a little bit more softness",
+    "start": 1169.039,
+    "duration": 5.201
+  },
+  {
+    "text": "down in the low end. Now, here's the fun",
+    "start": 1171.919,
+    "duration": 4.321
+  },
+  {
+    "text": "thing. This is again where thinking your",
+    "start": 1174.24,
+    "duration": 3.6
+  },
+  {
+    "text": "way through what you want your node tree",
+    "start": 1176.24,
+    "duration": 3.28
+  },
+  {
+    "text": "to be, what you want your process to be",
+    "start": 1177.84,
+    "duration": 3.199
+  },
+  {
+    "text": "when you're grading can be really",
+    "start": 1179.52,
+    "duration": 3.519
+  },
+  {
+    "text": "beneficial. I like to do this so much",
+    "start": 1181.039,
+    "duration": 3.76
+  },
+  {
+    "text": "that I've actually got it baked into",
+    "start": 1183.039,
+    "duration": 5.041
+  },
+  {
+    "text": "node number one. I've saved off this uh",
+    "start": 1184.799,
+    "duration": 6.481
+  },
+  {
+    "text": "mid-graay anchored custom curve into",
+    "start": 1188.08,
+    "duration": 4.64
+  },
+  {
+    "text": "node number one. You might have actually",
+    "start": 1191.28,
+    "duration": 3.759
+  },
+  {
+    "text": "noticed the little curve icon on my",
+    "start": 1192.72,
+    "duration": 4.079
+  },
+  {
+    "text": "template node tree when I load it in",
+    "start": 1195.039,
+    "duration": 4.801
+  },
+  {
+    "text": "here. If I pull this up, you can see",
+    "start": 1196.799,
+    "duration": 4.401
+  },
+  {
+    "text": "even before I've done anything, this",
+    "start": 1199.84,
+    "duration": 3.04
+  },
+  {
+    "text": "curve icon is there. It's not because",
+    "start": 1201.2,
+    "duration": 3.52
+  },
+  {
+    "text": "anything's actually happening here. It's",
+    "start": 1202.88,
+    "duration": 4.32
+  },
+  {
+    "text": "because I've saved off this anchored",
+    "start": 1204.72,
+    "duration": 4.72
+  },
+  {
+    "text": "this mid-grade anchored custom curve",
+    "start": 1207.2,
+    "duration": 4.32
+  },
+  {
+    "text": "into my node tree. So that when I'm",
+    "start": 1209.44,
+    "duration": 4.16
+  },
+  {
+    "text": "working my way through a shot like shot",
+    "start": 1211.52,
+    "duration": 4.08
+  },
+  {
+    "text": "number six, I don't even need to do what",
+    "start": 1213.6,
+    "duration": 4.24
+  },
+  {
+    "text": "I was doing here in node number nine.",
+    "start": 1215.6,
+    "duration": 4.48
+  },
+  {
+    "text": "Right here within node number one, if I",
+    "start": 1217.84,
+    "duration": 4.56
+  },
+  {
+    "text": "want to, if I need to, I can go in here",
+    "start": 1220.08,
+    "duration": 5.68
+  },
+  {
+    "text": "and I can shape out the contrast in the",
+    "start": 1222.4,
+    "duration": 6.08
+  },
+  {
+    "text": "low end of the image. Okay, really",
+    "start": 1225.76,
+    "duration": 4.64
+  },
+  {
+    "text": "powerful way to finesse things in the",
+    "start": 1228.48,
+    "duration": 3.439
+  },
+  {
+    "text": "bottom of the top. This is a great",
+    "start": 1230.4,
+    "duration": 3.04
+  },
+  {
+    "text": "recipe, something to take away from",
+    "start": 1231.919,
+    "duration": 3.281
+  },
+  {
+    "text": "everything we've talked about today. If",
+    "start": 1233.44,
+    "duration": 3.28
+  },
+  {
+    "text": "you're thinking about contrast and how",
+    "start": 1235.2,
+    "duration": 3.76
+  },
+  {
+    "text": "to win with contrast and tonality as",
+    "start": 1236.72,
+    "duration": 3.52
+  },
+  {
+    "text": "we're trying to do here in node number",
+    "start": 1238.96,
+    "duration": 3.52
+  },
+  {
+    "text": "one, a pretty bulletproof recipe that",
+    "start": 1240.24,
+    "duration": 4.88
+  },
+  {
+    "text": "you will see in all kinds of images and",
+    "start": 1242.48,
+    "duration": 4.64
+  },
+  {
+    "text": "big movies and big shows and that you",
+    "start": 1245.12,
+    "duration": 4.0
+  },
+  {
+    "text": "can apply to almost any kind of footage",
+    "start": 1247.12,
+    "duration": 3.6
+  },
+  {
+    "text": "that you would want to grade is to have",
+    "start": 1249.12,
+    "duration": 3.12
+  },
+  {
+    "text": "strong contrast through the middle and",
+    "start": 1250.72,
+    "duration": 3.839
+  },
+  {
+    "text": "then softer shaped contrast in the very",
+    "start": 1252.24,
+    "duration": 4.24
+  },
+  {
+    "text": "low end in the shadows and in the very",
+    "start": 1254.559,
+    "duration": 3.6
+  },
+  {
+    "text": "high end and the highlights. So you're",
+    "start": 1256.48,
+    "duration": 3.28
+  },
+  {
+    "text": "holding on to a little bit of detail",
+    "start": 1258.159,
+    "duration": 3.841
+  },
+  {
+    "text": "there and nothing feels harsh or clipped",
+    "start": 1259.76,
+    "duration": 4.799
+  },
+  {
+    "text": "or clamped. So hope that's a pretty fun",
+    "start": 1262.0,
+    "duration": 4.64
+  },
+  {
+    "text": "walkthrough of the basics of exposure",
+    "start": 1264.559,
+    "duration": 3.441
+  },
+  {
+    "text": "and contrast. And then a little bonus",
+    "start": 1266.64,
+    "duration": 3.279
+  },
+  {
+    "text": "here of kind of how to trim that lower",
+    "start": 1268.0,
+    "duration": 3.52
+  },
+  {
+    "text": "that bottom end when you need to and how",
+    "start": 1269.919,
+    "duration": 3.201
+  },
+  {
+    "text": "to set yourself up to be able to",
+    "start": 1271.52,
+    "duration": 3.84
+  },
+  {
+    "text": "efficiently do so whenever you need to.",
+    "start": 1273.12,
+    "duration": 3.84
+  },
+  {
+    "text": "This is the way that I like to work my",
+    "start": 1275.36,
+    "duration": 2.88
+  },
+  {
+    "text": "way through the process. And again, I",
+    "start": 1276.96,
+    "duration": 3.199
+  },
+  {
+    "text": "want you to think about your exposure",
+    "start": 1278.24,
+    "duration": 3.439
+  },
+  {
+    "text": "and your contrast and everything that",
+    "start": 1280.159,
+    "duration": 3.361
+  },
+  {
+    "text": "you're doing in node number one. It's",
+    "start": 1281.679,
+    "duration": 3.281
+  },
+  {
+    "text": "not like you need to stretch and make",
+    "start": 1283.52,
+    "duration": 3.039
+  },
+  {
+    "text": "sure you're getting to 80% of the way",
+    "start": 1284.96,
+    "duration": 3.599
+  },
+  {
+    "text": "done. You got to recognize that that",
+    "start": 1286.559,
+    "duration": 4.401
+  },
+  {
+    "text": "just is 80% of the ball game right",
+    "start": 1288.559,
+    "duration": 4.801
+  },
+  {
+    "text": "there.",
+    "start": 1290.96,
+    "duration": 2.4
+  }
+]

@@ -1,0 +1,266 @@
+- Two ways you can make your videos look
+and feel more professional is
+by adding B roll and music.
+B roll is simply supplementary video clips
+that you can add to your videos in editing
+to demonstrate or show
+whatever it is you are
+talking about in a video,
+kind of like what you are seeing
+right now, as I'm talking.
+When you combine these two,
+you actually will help
+the viewer experience
+and keep them more engaged
+as they watch your video.
+And when you add music,
+it gives your video edit a vibe and feel
+that your viewers can experience.
+And that's why in this video,
+I'll be showing you how
+to edit B roll and music
+so that your videos can stand out.
+Let's go.
+(upbeat music)
+Hey, what's up?
+It's Omar Eltakrori with Think Media
+and this video is sponsored by Camtasia.
+Camtasia is a program
+that makes editing video
+an easier process so that
+you can create more content.
+And that's the goal, creating more videos
+to grow on YouTube.
+But I'll be using Camtasia in this video.
+However, whichever software
+you're currently using
+to edit videos, the principles
+that I'll be teaching
+in this video can be applied to it today.
+Now, what's so cool about B roll
+is you don't actually
+have to be the person
+that shoots your B roll.
+Like that's totally an option,
+but you can actually grab
+B roll and music online
+which is a nice, cool thing.
+Today I'll be grabbing B roll
+from TechSmith Assets for Camtasia.
+There's a lot of online
+libraries with B roll
+that you can choose,
+but this one is from
+the makers of Camtasia,
+and it has over 900,000 video clips,
+and audio tracks, and graphics
+to use in your videos.
+It's super well-priced and
+it works great with Camtasia.
+You simply find the
+asset you want to import
+to your project, click the Camtasia logo,
+and then you'll find
+it inside of Camtasia.
+Super cool.
+Tip number one is to create a folder
+for B roll and import your footage.
+With TechSmith Assets for
+Camtasia, like I mentioned,
+you can just import it
+directly into the Camtasia
+media bin with one click,
+but having a bin or folder
+for your assets helps you
+stay organized when you edit.
+This makes it easy to
+reference in the future,
+and most softwares do have the ability
+to add a bin or create a folder,
+and I would just encourage you
+to do that right off the bat.
+Tip number two is to add
+selected clips to your timeline.
+I always like previewing the B roll clip
+before I add it to the timeline.
+And so you can simply double
+click on a B roll clip
+and actually preview it
+and make sure that it's the
+right clip you want to add on,
+and then simply drag
+it into your timeline.
+I found that adding B roll chronologically
+makes me edit a little bit faster
+because if you just start
+throwing clips randomly
+into your timeline,
+then you might be spending a lot of time
+shuffling them around.
+And sometimes I'll even have a notepad
+that has the B roll clips
+listed out chronologically
+as well.
+Tip number three is to
+now edit your B roll
+once it's in the timeline.
+And if you filmed your video,
+maybe in slow motion
+or in high frame rate,
+this is when you can slow it down,
+or maybe it's time to trim
+up your B roll a little bit.
+You don't need the full length of a clip,
+so only using what you need.
+And this is the time you
+would do that as well.
+Another edit you could
+be making to your B roll
+is adding transitions in between them.
+Personally, I just like hard cuts
+because transitions could
+be a little bit cheesy.
+And if you need a crossfade
+or maybe a dip to black,
+then by all means, add those
+in between your B roll clips.
+Another thing you can do to
+your B roll is add text to it.
+And we like doing this in title screens.
+As you've been seeing the tips come up,
+you've been seeing a title screen come up`
+which would be a B roll
+clip of a motion graphic,
+and then you would see texts come up
+when I mentioned the tip.
+And actually love that
+Camtasia has motion texts,
+so you can simply add text
+that already has motion to it.
+And all this really just makes your videos
+look a lot more professional,
+but it's very simple to do these
+things when you're editing,
+you just have to take the time to do them.
+Now, the next tip is to add
+and edit music in your video,
+but if you are already
+getting value in this video,
+hit the like button for me.
+Thank you so much.
+Having the right song match
+the vibe you're trying
+to put out is very important.
+You don't want some super
+gnarly disco EDM beat
+while you're a very mellow person,
+or even if your B roll doesn't
+allude to that kind of vibe.
+Find the music
+that really communicates
+the emotion you're trying
+to portray to your viewers.
+Camtasia has a very nice library of music
+in their assets folder
+and tons of more royalty-free tracks
+on TechSmith Assets for Camtasia.
+A lot of the times in the
+videos that I'm creating,
+I use like lo-fi hip
+hop because I'm kind of,
+that's my vibe.
+I feel like I'm very chill,
+but I'm also cool, you know?
+I hope I am, but this
+kind of matches my vibe
+and so it doesn't take people by surprise
+or actually make it more distracting.
+So just make sure you find the music
+that you want your viewers to feel.
+But one thing to make sure
+is that the music you do use
+is copyright free so that your
+video doesn't get taken down.
+Now, once you have found the music
+that you want to add
+to your video project,
+just add it into your timeline
+underneath any audio you already have,
+maybe from the A role,
+and actually a rule
+that we like to live by
+here at Think Media is what
+we called the grandma rule.
+And that is when somebody
+is talking on camera
+that you don't have music
+overpowering whatever it is
+somebody is saying,
+and we like to call it the grandma rule
+because if my grandma
+was watching my video,
+would they be able to make out
+whatever it is I was saying,
+even though there's music
+going on underneath?
+In Camtasia,
+you can lower volume by clicking
+and dragging the green line
+so that you can hear whoever is talking.
+If there's no one talking
+and maybe you're just
+doing a B roll sequence,
+or it's the intro to something,
+and this kind of goes back
+to editing your clips,
+because if you are using a B roll sequence
+and you just have the music laid out,
+then use the wave forms
+to cut the clips visually,
+which is an easy way to kind
+of make your B roll go on beat.
+And then once you have
+your music all laid out
+and your B roll laid out,
+you can fade in and out your song
+by finding some audio transitions.
+And usually this is a great
+way to bring in a song
+and as well as a great way to end a song
+or bring out a song.
+When music ends abruptly in videos,
+it kind of gives a weird
+feel to the viewer.
+And so just add a fade out
+at the end of your audio
+to make it nice and
+pleasing for your viewers.
+So that's how I edit videos
+to music and how you can too.
+You know, when it comes to editing videos,
+you just got to put in
+the practice and the reps
+to get better.
+And you saw from Camtasia itself
+how easy it is to implement
+some of these things,
+specifically with this software.
+So thanks to Camtasia for
+sponsoring this video,
+and there's actually a
+10% discount on Camtasia
+when you use the code, THINKMEDIA10.
+But if you want to check
+out Camtasia for yourself,
+be sure to check out the links
+down in the description below.
+Just practice because
+practice makes progress.
+And if you would like to check
+out another editing tutorial
+from us here at Think Media,
+then be sure to click or tap the screen.
+And actually cannot wait to
+see you in a future video.
+Peace.
+(relaxed music)

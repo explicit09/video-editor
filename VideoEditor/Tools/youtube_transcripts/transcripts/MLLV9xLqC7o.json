@@ -1,0 +1,2967 @@
+[
+  {
+    "text": "Today I'm going to show you how you can",
+    "start": 0.08,
+    "duration": 2.72
+  },
+  {
+    "text": "edit [music] viral podcast clips in Da",
+    "start": 1.12,
+    "duration": 3.52
+  },
+  {
+    "text": "Vinci Resolve and I'm going to go over a",
+    "start": 2.8,
+    "duration": 3.44
+  },
+  {
+    "text": "in realtime example. I'm going to show",
+    "start": 4.64,
+    "duration": 3.36
+  },
+  {
+    "text": "you how I get the clips and how I",
+    "start": 6.24,
+    "duration": 3.439
+  },
+  {
+    "text": "actually can cut the clips and find the",
+    "start": 8.0,
+    "duration": 3.28
+  },
+  {
+    "text": "clips as well and then most importantly",
+    "start": 9.679,
+    "duration": 2.88
+  },
+  {
+    "text": "how to edit the clips in Da Vinci",
+    "start": 11.28,
+    "duration": 2.64
+  },
+  {
+    "text": "Resolve. So let's hop straight into this",
+    "start": 12.559,
+    "duration": 2.641
+  },
+  {
+    "text": "video and let's get started. All right,",
+    "start": 13.92,
+    "duration": 3.04
+  },
+  {
+    "text": "so the very first thing that I do is I",
+    "start": 15.2,
+    "duration": 3.44
+  },
+  {
+    "text": "literally need to find the podcast clip",
+    "start": 16.96,
+    "duration": 3.28
+  },
+  {
+    "text": "that I want. So I really like this",
+    "start": 18.64,
+    "duration": 3.76
+  },
+  {
+    "text": "Pastor Anthony Mitchell guy and I really",
+    "start": 20.24,
+    "duration": 3.68
+  },
+  {
+    "text": "like his clips. So I literally just",
+    "start": 22.4,
+    "duration": 3.2
+  },
+  {
+    "text": "search for clips for him and I'm going",
+    "start": 23.92,
+    "duration": 3.439
+  },
+  {
+    "text": "to find the clip that I want and I'm",
+    "start": 25.6,
+    "duration": 3.12
+  },
+  {
+    "text": "kind of going to go off of a reference",
+    "start": 27.359,
+    "duration": 2.881
+  },
+  {
+    "text": "from that. So, let's say I want this",
+    "start": 28.72,
+    "duration": 4.16
+  },
+  {
+    "text": "clip right here. Okay. But the thing is",
+    "start": 30.24,
+    "duration": 3.999
+  },
+  {
+    "text": "is this clip is going to be an hour.",
+    "start": 32.88,
+    "duration": 2.64
+  },
+  {
+    "text": "That's the problem with podcasts is",
+    "start": 34.239,
+    "duration": 2.641
+  },
+  {
+    "text": "they're going to be about an hour long.",
+    "start": 35.52,
+    "duration": 2.879
+  },
+  {
+    "text": "Now, this is where my secret sauce comes",
+    "start": 36.88,
+    "duration": 3.12
+  },
+  {
+    "text": "into play. Most people actually don't",
+    "start": 38.399,
+    "duration": 2.801
+  },
+  {
+    "text": "know about this, but this feature is",
+    "start": 40.0,
+    "duration": 2.879
+  },
+  {
+    "text": "hidden in plain sight. So, thank you",
+    "start": 41.2,
+    "duration": 3.199
+  },
+  {
+    "text": "YouTube for this feature. You come down",
+    "start": 42.879,
+    "duration": 3.84
+  },
+  {
+    "text": "to the description and you hit show",
+    "start": 44.399,
+    "duration": 4.0
+  },
+  {
+    "text": "transcript. So, as you can see up here",
+    "start": 46.719,
+    "duration": 2.801
+  },
+  {
+    "text": "in the top right, you're going to have",
+    "start": 48.399,
+    "duration": 2.961
+  },
+  {
+    "text": "transcripts with literal timestamps.",
+    "start": 49.52,
+    "duration": 3.28
+  },
+  {
+    "text": "This is why YouTube is goated. So, I'm",
+    "start": 51.36,
+    "duration": 3.12
+  },
+  {
+    "text": "going to come here, copy every single",
+    "start": 52.8,
+    "duration": 3.439
+  },
+  {
+    "text": "timestamp in this. I'm going to hit",
+    "start": 54.48,
+    "duration": 2.88
+  },
+  {
+    "text": "command C, and I'm going to head over to",
+    "start": 56.239,
+    "duration": 2.48
+  },
+  {
+    "text": "Chad GBT. Now, we're going to type in",
+    "start": 57.36,
+    "duration": 4.64
+  },
+  {
+    "text": "this exact prompt. Find me the best",
+    "start": 58.719,
+    "duration": 7.436
+  },
+  {
+    "text": "clips based off the energy you can",
+    "start": 62.0,
+    "duration": 6.799
+  },
+  {
+    "text": "[music] sense in this podcast.",
+    "start": 66.155,
+    "duration": 3.925
+  },
+  {
+    "text": "Essentially, we're looking for high",
+    "start": 68.799,
+    "duration": 3.68
+  },
+  {
+    "text": "energy clips that are going to reach the",
+    "start": 70.08,
+    "duration": 4.24
+  },
+  {
+    "text": "people and preach the message, which is",
+    "start": 72.479,
+    "duration": 3.281
+  },
+  {
+    "text": "the point of this podcast clip is to",
+    "start": 74.32,
+    "duration": 2.96
+  },
+  {
+    "text": "preach the message to people who's never",
+    "start": 75.76,
+    "duration": 3.359
+  },
+  {
+    "text": "heard the good news of Jesus. Then,",
+    "start": 77.28,
+    "duration": 2.72
+  },
+  {
+    "text": "we're going to say, \"Give me",
+    "start": 79.119,
+    "duration": 2.721
+  },
+  {
+    "text": "timestamps.\" Catchy is literally going",
+    "start": 80.0,
+    "duration": 3.92
+  },
+  {
+    "text": "to give us the best clips and you could",
+    "start": 81.84,
+    "duration": 3.68
+  },
+  {
+    "text": "see. So, look here. Right here, you're",
+    "start": 83.92,
+    "duration": 3.36
+  },
+  {
+    "text": "just going to swipe down. top high",
+    "start": 85.52,
+    "duration": 3.2
+  },
+  {
+    "text": "energy moment clips and it's going to",
+    "start": 87.28,
+    "duration": 2.72
+  },
+  {
+    "text": "give us the time stamps. Right? So then",
+    "start": 88.72,
+    "duration": 2.56
+  },
+  {
+    "text": "we're going to go get those timestamps",
+    "start": 90.0,
+    "duration": 2.24
+  },
+  {
+    "text": "and then we're going to bring it into Da",
+    "start": 91.28,
+    "duration": 2.64
+  },
+  {
+    "text": "Vinci Resolve. I have the clip now in Da",
+    "start": 92.24,
+    "duration": 3.199
+  },
+  {
+    "text": "Vinci Resolve and as you can see he's",
+    "start": 93.92,
+    "duration": 3.28
+  },
+  {
+    "text": "moving around a lot and in this this is",
+    "start": 95.439,
+    "duration": 3.04
+  },
+  {
+    "text": "going to be my example where he's moving",
+    "start": 97.2,
+    "duration": 2.8
+  },
+  {
+    "text": "around podcast will pretty much be",
+    "start": 98.479,
+    "duration": 2.881
+  },
+  {
+    "text": "stationary the whole time but this is",
+    "start": 100.0,
+    "duration": 2.799
+  },
+  {
+    "text": "still going to be a trick. We're going",
+    "start": 101.36,
+    "duration": 2.799
+  },
+  {
+    "text": "to zoom in. We're going to go over to",
+    "start": 102.799,
+    "duration": 3.441
+  },
+  {
+    "text": "the position. We're going to open up AI",
+    "start": 104.159,
+    "duration": 3.361
+  },
+  {
+    "text": "smart refframe and we're going to go to",
+    "start": 106.24,
+    "duration": 3.28
+  },
+  {
+    "text": "a reference point. We are then going to",
+    "start": 107.52,
+    "duration": 3.76
+  },
+  {
+    "text": "reference him as the point and we're",
+    "start": 109.52,
+    "duration": 3.52
+  },
+  {
+    "text": "going to hit auto refframe. Perfect. Now",
+    "start": 111.28,
+    "duration": 3.6
+  },
+  {
+    "text": "you literally already have your clip",
+    "start": 113.04,
+    "duration": 4.399
+  },
+  {
+    "text": "basically done. Um, now we have our clip",
+    "start": 114.88,
+    "duration": 4.0
+  },
+  {
+    "text": "already done and it follows him all",
+    "start": 117.439,
+    "duration": 3.04
+  },
+  {
+    "text": "around. Now we just have to edit it. And",
+    "start": 118.88,
+    "duration": 3.199
+  },
+  {
+    "text": "I already found the good clip. Chad JPT",
+    "start": 120.479,
+    "duration": 3.041
+  },
+  {
+    "text": "already found me the good clip. The only",
+    "start": 122.079,
+    "duration": 3.68
+  },
+  {
+    "text": "other thing that I will will do most",
+    "start": 123.52,
+    "duration": 3.919
+  },
+  {
+    "text": "likely is I'm going to come in here and",
+    "start": 125.759,
+    "duration": 3.681
+  },
+  {
+    "text": "I'm going to make a new node on the",
+    "start": 127.439,
+    "duration": 4.401
+  },
+  {
+    "text": "color corrector page. And this is to get",
+    "start": 129.44,
+    "duration": 5.04
+  },
+  {
+    "text": "the virality um kind of like look. We're",
+    "start": 131.84,
+    "duration": 4.56
+  },
+  {
+    "text": "going to look for viral. We're going to",
+    "start": 134.48,
+    "duration": 3.92
+  },
+  {
+    "text": "look for film look creator. And we're",
+    "start": 136.4,
+    "duration": 3.919
+  },
+  {
+    "text": "going to apply that onto our image. And",
+    "start": 138.4,
+    "duration": 4.32
+  },
+  {
+    "text": "we're going to go to default 35 mm. And",
+    "start": 140.319,
+    "duration": 3.681
+  },
+  {
+    "text": "we're going to turn the color blend",
+    "start": 142.72,
+    "duration": 3.44
+  },
+  {
+    "text": "down. And then we're going to turn the",
+    "start": 144.0,
+    "duration": 3.599
+  },
+  {
+    "text": "film look blend down. Then we're going",
+    "start": 146.16,
+    "duration": 3.439
+  },
+  {
+    "text": "to come to all of these effects. We're",
+    "start": 147.599,
+    "duration": 3.201
+  },
+  {
+    "text": "going to turn off the Well, we could",
+    "start": 149.599,
+    "duration": 2.72
+  },
+  {
+    "text": "keep vignetting just depending on how",
+    "start": 150.8,
+    "duration": 3.36
+  },
+  {
+    "text": "you're what it looks like. But for mine,",
+    "start": 152.319,
+    "duration": 3.28
+  },
+  {
+    "text": "I'm going to turn off the hueization",
+    "start": 154.16,
+    "duration": 3.04
+  },
+  {
+    "text": "off. I'm going to keep the bloom on. I'm",
+    "start": 155.599,
+    "duration": 2.801
+  },
+  {
+    "text": "just going to turn it down just a little",
+    "start": 157.2,
+    "duration": 3.84
+  },
+  {
+    "text": "bit. This is the big one. Grain. We're",
+    "start": 158.4,
+    "duration": 4.16
+  },
+  {
+    "text": "going to crank this puppy up to make it",
+    "start": 161.04,
+    "duration": 3.919
+  },
+  {
+    "text": "look really crispy because this is what",
+    "start": 162.56,
+    "duration": 3.679
+  },
+  {
+    "text": "this is what all the people are doing",
+    "start": 164.959,
+    "duration": 2.56
+  },
+  {
+    "text": "right now. I'm going to probably pull it",
+    "start": 166.239,
+    "duration": 4.0
+  },
+  {
+    "text": "up to like 0.6 no troll. And when you",
+    "start": 167.519,
+    "duration": 4.401
+  },
+  {
+    "text": "play this through, it has this virality.",
+    "start": 170.239,
+    "duration": 3.601
+  },
+  {
+    "text": "Now, if you want it to get even more in",
+    "start": 171.92,
+    "duration": 3.679
+  },
+  {
+    "text": "depth, you can go to the other node and",
+    "start": 173.84,
+    "duration": 3.6
+  },
+  {
+    "text": "we can come to the colors wheel and we",
+    "start": 175.599,
+    "duration": 3.761
+  },
+  {
+    "text": "can just turn the saturation down. That",
+    "start": 177.44,
+    "duration": 3.439
+  },
+  {
+    "text": "way, when we play this through, now it's",
+    "start": 179.36,
+    "duration": 3.92
+  },
+  {
+    "text": "like really has that viral look. And if",
+    "start": 180.879,
+    "duration": 3.44
+  },
+  {
+    "text": "you guys know what I'm talking about,",
+    "start": 183.28,
+    "duration": 2.239
+  },
+  {
+    "text": "you guys know what I'm talking about.",
+    "start": 184.319,
+    "duration": 3.041
+  },
+  {
+    "text": "So, guys, I actually ended up finding a",
+    "start": 185.519,
+    "duration": 3.921
+  },
+  {
+    "text": "really fire audio. And so, I will be",
+    "start": 187.36,
+    "duration": 4.4
+  },
+  {
+    "text": "linking this audio down below. Um, you",
+    "start": 189.44,
+    "duration": 3.92
+  },
+  {
+    "text": "can find free assets down below. I'll be",
+    "start": 191.76,
+    "duration": 3.04
+  },
+  {
+    "text": "linking this audio. But anyways, it",
+    "start": 193.36,
+    "duration": 3.12
+  },
+  {
+    "text": "really goes good with the video. So, if",
+    "start": 194.8,
+    "duration": 4.64
+  },
+  {
+    "text": "we play this",
+    "start": 196.48,
+    "duration": 6.28
+  },
+  {
+    "text": "his perfectous.",
+    "start": 199.44,
+    "duration": 3.32
+  },
+  {
+    "text": ">> And then we're going to bring in the",
+    "start": 203.68,
+    "duration": 2.72
+  },
+  {
+    "text": "beat right when he does that. So like",
+    "start": 204.8,
+    "duration": 2.96
+  },
+  {
+    "text": "you got to just like really come with",
+    "start": 206.4,
+    "duration": 3.6
+  },
+  {
+    "text": "the good part. So like for me like I'm",
+    "start": 207.76,
+    "duration": 3.68
+  },
+  {
+    "text": "really trying to figure out the parts.",
+    "start": 210.0,
+    "duration": 2.799
+  },
+  {
+    "text": "So like this goes good together right",
+    "start": 211.44,
+    "duration": 4.719
+  },
+  {
+    "text": "here. Boom.",
+    "start": 212.799,
+    "duration": 5.281
+  },
+  {
+    "text": "Then it stops.",
+    "start": 216.159,
+    "duration": 3.281
+  },
+  {
+    "text": ">> So also like the reason why I like",
+    "start": 218.08,
+    "duration": 3.12
+  },
+  {
+    "text": "hyperfixating on the audio first is",
+    "start": 219.44,
+    "duration": 3.6
+  },
+  {
+    "text": "because if without a good audio like",
+    "start": 221.2,
+    "duration": 3.92
+  },
+  {
+    "text": "you're not going to get a any sort of a",
+    "start": 223.04,
+    "duration": 5.04
+  },
+  {
+    "text": "video to reach souls, right? So, my I'm",
+    "start": 225.12,
+    "duration": 4.479
+  },
+  {
+    "text": "going to add some risers in, which you",
+    "start": 228.08,
+    "duration": 3.12
+  },
+  {
+    "text": "guys can check my risers down below. I",
+    "start": 229.599,
+    "duration": 3.601
+  },
+  {
+    "text": "have a a nice asset pack that you guys",
+    "start": 231.2,
+    "duration": 3.52
+  },
+  {
+    "text": "can check out. I'm going to add like",
+    "start": 233.2,
+    "duration": 3.679
+  },
+  {
+    "text": "just a bunch of risers that way it",
+    "start": 234.72,
+    "duration": 4.239
+  },
+  {
+    "text": "doesn't sound off. Um, and we're going",
+    "start": 236.879,
+    "duration": 3.601
+  },
+  {
+    "text": "to see what it sounds like. I added",
+    "start": 238.959,
+    "duration": 3.601
+  },
+  {
+    "text": "three different risers and then",
+    "start": 240.48,
+    "duration": 4.16
+  },
+  {
+    "text": "obviously not overpowering them. Now",
+    "start": 242.56,
+    "duration": 3.36
+  },
+  {
+    "text": "that we have the audio complete, we need",
+    "start": 244.64,
+    "duration": 3.36
+  },
+  {
+    "text": "to get the captions going. So, I'm going",
+    "start": 245.92,
+    "duration": 3.519
+  },
+  {
+    "text": "to show you guys exactly how I do my",
+    "start": 248.0,
+    "duration": 3.28
+  },
+  {
+    "text": "captions and how I actually speed up my",
+    "start": 249.439,
+    "duration": 3.281
+  },
+  {
+    "text": "workflow. That way, I can bang these",
+    "start": 251.28,
+    "duration": 3.2
+  },
+  {
+    "text": "clips out really easily. So the very",
+    "start": 252.72,
+    "duration": 3.759
+  },
+  {
+    "text": "first the very first thing I'm going to",
+    "start": 254.48,
+    "duration": 4.64
+  },
+  {
+    "text": "do is actually add a zoom out. So one",
+    "start": 256.479,
+    "duration": 4.801
+  },
+  {
+    "text": "way you could do this is I actually have",
+    "start": 259.12,
+    "duration": 4.24
+  },
+  {
+    "text": "everything like made for you. So I will",
+    "start": 261.28,
+    "duration": 3.76
+  },
+  {
+    "text": "say this once everything that I am going",
+    "start": 263.36,
+    "duration": 4.16
+  },
+  {
+    "text": "to be using today um will be down below.",
+    "start": 265.04,
+    "duration": 4.4
+  },
+  {
+    "text": "Um there are some presets and asset",
+    "start": 267.52,
+    "duration": 3.6
+  },
+  {
+    "text": "packs that you can use down below.",
+    "start": 269.44,
+    "duration": 2.96
+  },
+  {
+    "text": "They're going to be absolute game",
+    "start": 271.12,
+    "duration": 3.6
+  },
+  {
+    "text": "changers. So I have these auto zoom",
+    "start": 272.4,
+    "duration": 3.28
+  },
+  {
+    "text": "outs, but I'm going to show you guys how",
+    "start": 274.72,
+    "duration": 2.24
+  },
+  {
+    "text": "to do this. You're going to grab an",
+    "start": 275.68,
+    "duration": 3.519
+  },
+  {
+    "text": "adjustment clip and then grab down one",
+    "start": 276.96,
+    "duration": 4.56
+  },
+  {
+    "text": "of the transform nodes. And we're going",
+    "start": 279.199,
+    "duration": 4.56
+  },
+  {
+    "text": "to zoom in like this. And then we're",
+    "start": 281.52,
+    "duration": 3.679
+  },
+  {
+    "text": "going to hit a key frame. And we're",
+    "start": 283.759,
+    "duration": 3.361
+  },
+  {
+    "text": "going to come to about frame 50. And",
+    "start": 285.199,
+    "duration": 3.521
+  },
+  {
+    "text": "we're going to bring it back to one.",
+    "start": 287.12,
+    "duration": 2.799
+  },
+  {
+    "text": "Okay. Now, we're going to head over to",
+    "start": 288.72,
+    "duration": 2.56
+  },
+  {
+    "text": "the spline page and check mark the",
+    "start": 289.919,
+    "duration": 2.801
+  },
+  {
+    "text": "transform. And then we're going to hit",
+    "start": 291.28,
+    "duration": 2.96
+  },
+  {
+    "text": "command A. And then right click and go",
+    "start": 292.72,
+    "duration": 3.199
+  },
+  {
+    "text": "to ease and out cubic. Now, remember",
+    "start": 294.24,
+    "duration": 3.12
+  },
+  {
+    "text": "this exact sequence that I just showed",
+    "start": 295.919,
+    "duration": 2.56
+  },
+  {
+    "text": "you cuz we're going to be using that",
+    "start": 297.36,
+    "duration": 2.8
+  },
+  {
+    "text": "sequence a lot today. Well, you guys",
+    "start": 298.479,
+    "duration": 3.121
+  },
+  {
+    "text": "might if you don't get the presets, but",
+    "start": 300.16,
+    "duration": 3.12
+  },
+  {
+    "text": "boom. It's going to zoom out just like",
+    "start": 301.6,
+    "duration": 3.52
+  },
+  {
+    "text": "that. So, we're going to actually put a",
+    "start": 303.28,
+    "duration": 2.96
+  },
+  {
+    "text": "we're going to put this all above",
+    "start": 305.12,
+    "duration": 2.56
+  },
+  {
+    "text": "everything cuz we're going to put some",
+    "start": 306.24,
+    "duration": 4.32
+  },
+  {
+    "text": "captions there first, too. So, how I",
+    "start": 307.68,
+    "duration": 4.16
+  },
+  {
+    "text": "would personally do it is I have these",
+    "start": 310.56,
+    "duration": 4.16
+  },
+  {
+    "text": "fat this fat preset text animation bin,",
+    "start": 311.84,
+    "duration": 4.16
+  },
+  {
+    "text": "which like I said, you can find down",
+    "start": 314.72,
+    "duration": 3.52
+  },
+  {
+    "text": "below. Um, and so if I wanted to, I can",
+    "start": 316.0,
+    "duration": 5.68
+  },
+  {
+    "text": "grab these presets and use them. So,",
+    "start": 318.24,
+    "duration": 6.399
+  },
+  {
+    "text": "so then and then dot dot dot, right? And",
+    "start": 321.68,
+    "duration": 4.239
+  },
+  {
+    "text": "then obviously we'd probably make this",
+    "start": 324.639,
+    "duration": 3.041
+  },
+  {
+    "text": "like some some yellow or something,",
+    "start": 325.919,
+    "duration": 4.321
+  },
+  {
+    "text": "right? So, but I'm going to show you",
+    "start": 327.68,
+    "duration": 3.76
+  },
+  {
+    "text": "guys how you can do these animations.",
+    "start": 330.24,
+    "duration": 2.08
+  },
+  {
+    "text": "I'm going to show you guys how to do",
+    "start": 331.44,
+    "duration": 2.72
+  },
+  {
+    "text": "these animations because they're really",
+    "start": 332.32,
+    "duration": 3.12
+  },
+  {
+    "text": "useful and you guys can save them as",
+    "start": 334.16,
+    "duration": 2.4
+  },
+  {
+    "text": "presets, too. So, we're going to grab",
+    "start": 335.44,
+    "duration": 3.52
+  },
+  {
+    "text": "down a text plus. I'm gonna grab Apple",
+    "start": 336.56,
+    "duration": 4.24
+  },
+  {
+    "text": "Garmin, which in my pack I give you all",
+    "start": 338.96,
+    "duration": 3.519
+  },
+  {
+    "text": "the guys, all the fonts too that you",
+    "start": 340.8,
+    "duration": 5.28
+  },
+  {
+    "text": "need. And then let's just say this is up",
+    "start": 342.479,
+    "duration": 5.841
+  },
+  {
+    "text": "animation, right? So, we're going to",
+    "start": 346.08,
+    "duration": 4.08
+  },
+  {
+    "text": "label that as up animation. Come to the",
+    "start": 348.32,
+    "duration": 3.76
+  },
+  {
+    "text": "Fusion page, hit shift space for a",
+    "start": 350.16,
+    "duration": 3.36
+  },
+  {
+    "text": "transform node. Now, there are a few",
+    "start": 352.08,
+    "duration": 3.04
+  },
+  {
+    "text": "different animations we can do. So,",
+    "start": 353.52,
+    "duration": 2.8
+  },
+  {
+    "text": "we're only going to be using this",
+    "start": 355.12,
+    "duration": 2.88
+  },
+  {
+    "text": "transform node basically essentially the",
+    "start": 356.32,
+    "duration": 2.8
+  },
+  {
+    "text": "whole time. I'm going to show you guys",
+    "start": 358.0,
+    "duration": 2.56
+  },
+  {
+    "text": "some other tricks and tips, too. But",
+    "start": 359.12,
+    "duration": 3.44
+  },
+  {
+    "text": "anyways, we're going to swipe down and",
+    "start": 360.56,
+    "duration": 3.84
+  },
+  {
+    "text": "we're going to hit a key frame. We're",
+    "start": 362.56,
+    "duration": 2.639
+  },
+  {
+    "text": "going to the same thing. We're going to",
+    "start": 364.4,
+    "duration": 3.84
+  },
+  {
+    "text": "go about frame 50 and hit 0.5. We're",
+    "start": 365.199,
+    "duration": 4.161
+  },
+  {
+    "text": "going to go to the spline page. We're",
+    "start": 368.24,
+    "duration": 2.399
+  },
+  {
+    "text": "going to hit zoom to fit. Right click,",
+    "start": 369.36,
+    "duration": 2.559
+  },
+  {
+    "text": "which highlights both the points, and",
+    "start": 370.639,
+    "duration": 2.721
+  },
+  {
+    "text": "then go to ease and then go to out",
+    "start": 371.919,
+    "duration": 3.041
+  },
+  {
+    "text": "cubic. We're going to bring this arrow",
+    "start": 373.36,
+    "duration": 3.52
+  },
+  {
+    "text": "about up here. That way it like zooms in",
+    "start": 374.96,
+    "duration": 4.239
+  },
+  {
+    "text": "nice and crispy. And then play around",
+    "start": 376.88,
+    "duration": 3.92
+  },
+  {
+    "text": "with it for your liking. So, I kind of",
+    "start": 379.199,
+    "duration": 3.521
+  },
+  {
+    "text": "like it right here where it goes like",
+    "start": 380.8,
+    "duration": 3.2
+  },
+  {
+    "text": "that. And then make sure you're applying",
+    "start": 382.72,
+    "duration": 2.96
+  },
+  {
+    "text": "the motion blur. Now, here's another",
+    "start": 384.0,
+    "duration": 4.0
+  },
+  {
+    "text": "tip. Shift space blur before the",
+    "start": 385.68,
+    "duration": 4.56
+  },
+  {
+    "text": "transform node [music] and add in that",
+    "start": 388.0,
+    "duration": 4.4
+  },
+  {
+    "text": "blur. Okay? And what you're going to do",
+    "start": 390.24,
+    "duration": 3.84
+  },
+  {
+    "text": "is you're going to add an ellipse tool",
+    "start": 392.4,
+    "duration": 3.04
+  },
+  {
+    "text": "and you're going to put it to the right",
+    "start": 394.08,
+    "duration": 3.52
+  },
+  {
+    "text": "of this and we're going to crank up that",
+    "start": 395.44,
+    "duration": 4.08
+  },
+  {
+    "text": "soft edge. Now, what this is going to do",
+    "start": 397.6,
+    "duration": 3.68
+  },
+  {
+    "text": "is it's going to make it look really",
+    "start": 399.52,
+    "duration": 3.76
+  },
+  {
+    "text": "crispy. So, like you could see that it's",
+    "start": 401.28,
+    "duration": 4.32
+  },
+  {
+    "text": "a really viral style. Now, another viral",
+    "start": 403.28,
+    "duration": 3.44
+  },
+  {
+    "text": "style is if you head over to settings",
+    "start": 405.6,
+    "duration": 2.48
+  },
+  {
+    "text": "and you go to the composite mode and you",
+    "start": 406.72,
+    "duration": 3.199
+  },
+  {
+    "text": "hit difference, this is going to give it",
+    "start": 408.08,
+    "duration": 4.64
+  },
+  {
+    "text": "that that um see-through vibe type of",
+    "start": 409.919,
+    "duration": 4.881
+  },
+  {
+    "text": "deal. And this also is pretty pretty",
+    "start": 412.72,
+    "duration": 4.0
+  },
+  {
+    "text": "viral right now, too. Now, to be honest,",
+    "start": 414.8,
+    "duration": 6.0
+  },
+  {
+    "text": "it's kind of tricky because his his his",
+    "start": 416.72,
+    "duration": 6.24
+  },
+  {
+    "text": "whole image is black and white. So,",
+    "start": 420.8,
+    "duration": 3.679
+  },
+  {
+    "text": ">> and then",
+    "start": 422.96,
+    "duration": 5.2
+  },
+  {
+    "text": ">> so then we would start by saying",
+    "start": 424.479,
+    "duration": 7.0
+  },
+  {
+    "text": "and then",
+    "start": 428.16,
+    "duration": 3.319
+  },
+  {
+    "text": ">> and then we cut that and say from the",
+    "start": 431.599,
+    "duration": 8.32
+  },
+  {
+    "text": "and if you want to get",
+    "start": 436.96,
+    "duration": 4.56
+  },
+  {
+    "text": "and if you want to get really in detail,",
+    "start": 439.919,
+    "duration": 4.081
+  },
+  {
+    "text": "you guys can also grab some assets. So,",
+    "start": 441.52,
+    "duration": 4.399
+  },
+  {
+    "text": "I actually have a cross right here that",
+    "start": 444.0,
+    "duration": 4.4
+  },
+  {
+    "text": "I I might want to use for today's video.",
+    "start": 445.919,
+    "duration": 4.241
+  },
+  {
+    "text": "Um, the only thing is is it's kind of",
+    "start": 448.4,
+    "duration": 3.6
+  },
+  {
+    "text": "out of place, right? Because it is",
+    "start": 450.16,
+    "duration": 5.52
+  },
+  {
+    "text": "literally um very, you know, it's it's",
+    "start": 452.0,
+    "duration": 6.56
+  },
+  {
+    "text": "not it's it's it's it's not of it has",
+    "start": 455.68,
+    "duration": 4.48
+  },
+  {
+    "text": "color in it. And so, the only way to",
+    "start": 458.56,
+    "duration": 4.88
+  },
+  {
+    "text": "change that is to come in here and",
+    "start": 460.16,
+    "duration": 6.319
+  },
+  {
+    "text": "actually go ahead to the color page and",
+    "start": 463.44,
+    "duration": 4.4
+  },
+  {
+    "text": "then just turn down the saturation of",
+    "start": 466.479,
+    "duration": 2.641
+  },
+  {
+    "text": "that one, too. So, we would just",
+    "start": 467.84,
+    "duration": 3.919
+  },
+  {
+    "text": "basically boom. And then with this cross",
+    "start": 469.12,
+    "duration": 4.799
+  },
+  {
+    "text": "right here, I'm gonna head over to my",
+    "start": 471.759,
+    "duration": 3.84
+  },
+  {
+    "text": "effects and I'm going to go to viral",
+    "start": 473.919,
+    "duration": 4.0
+  },
+  {
+    "text": "effects.",
+    "start": 475.599,
+    "duration": 4.081
+  },
+  {
+    "text": "And I'm just going to drag and drop",
+    "start": 477.919,
+    "duration": 4.56
+  },
+  {
+    "text": "smooth up in",
+    "start": 479.68,
+    "duration": 4.32
+  },
+  {
+    "text": ">> and then this is also my viral",
+    "start": 482.479,
+    "duration": 2.72
+  },
+  {
+    "text": "transitions a pack which you can find",
+    "start": 484.0,
+    "duration": 3.039
+  },
+  {
+    "text": "down below. So boom. And then you add in",
+    "start": 485.199,
+    "duration": 5.72
+  },
+  {
+    "text": "that zoom out. Boom. So",
+    "start": 487.039,
+    "duration": 3.88
+  },
+  {
+    "text": ">> from the he",
+    "start": 491.039,
+    "duration": 4.041
+  },
+  {
+    "text": "want to capitalize he cuz it's Jesus",
+    "start": 496.72,
+    "duration": 2.8
+  },
+  {
+    "text": "we're talking about. And then we're",
+    "start": 498.24,
+    "duration": 2.799
+  },
+  {
+    "text": "going to cut this out. I'm actually just",
+    "start": 499.52,
+    "duration": 2.88
+  },
+  {
+    "text": "going to use that cuz I think it looks",
+    "start": 501.039,
+    "duration": 3.6
+  },
+  {
+    "text": "really good. But in my text animations,",
+    "start": 502.4,
+    "duration": 3.359
+  },
+  {
+    "text": "um I'm think I'm going to do this",
+    "start": 504.639,
+    "duration": 3.761
+  },
+  {
+    "text": "continuous uh right slide. I think it",
+    "start": 505.759,
+    "duration": 5.961
+  },
+  {
+    "text": "looks really clean.",
+    "start": 508.4,
+    "duration": 3.32
+  },
+  {
+    "text": ">> His perfect",
+    "start": 512.0,
+    "duration": 3.8
+  },
+  {
+    "text": "righteousness.",
+    "start": 516.159,
+    "duration": 2.961
+  },
+  {
+    "text": "Now, if you don't know how to spell the",
+    "start": 518.0,
+    "duration": 2.64
+  },
+  {
+    "text": "word, just go to Google and literally",
+    "start": 519.12,
+    "duration": 3.039
+  },
+  {
+    "text": "just copy and paste it. It'll correct it",
+    "start": 520.64,
+    "duration": 3.279
+  },
+  {
+    "text": "for you. Copy [music] it. Go back in",
+    "start": 522.159,
+    "duration": 3.201
+  },
+  {
+    "text": "here and copy it back in. That's for",
+    "start": 523.919,
+    "duration": 2.641
+  },
+  {
+    "text": "people who are dumb like me. Then I'm",
+    "start": 525.36,
+    "duration": 4.32
+  },
+  {
+    "text": "gonna add in delay up",
+    "start": 526.56,
+    "duration": 6.6
+  },
+  {
+    "text": "so that those",
+    "start": 529.68,
+    "duration": 3.48
+  },
+  {
+    "text": "we're gonna add another one. I'm gonna",
+    "start": 533.68,
+    "duration": 4.159
+  },
+  {
+    "text": "make this this one yellow. So boom,",
+    "start": 534.959,
+    "duration": 6.481
+  },
+  {
+    "text": "yellow. Just like that.",
+    "start": 537.839,
+    "duration": 6.56
+  },
+  {
+    "text": ">> Who place? Now, like I said, if you guys",
+    "start": 541.44,
+    "duration": 4.64
+  },
+  {
+    "text": "really want to get into it, you can grab",
+    "start": 544.399,
+    "duration": 3.601
+  },
+  {
+    "text": "a picture of Jesus or like whatever type",
+    "start": 546.08,
+    "duration": 3.6
+  },
+  {
+    "text": "of podcast you're editing. So I'm going",
+    "start": 548.0,
+    "duration": 3.04
+  },
+  {
+    "text": "to grab this one in right here. I'm",
+    "start": 549.68,
+    "duration": 3.12
+  },
+  {
+    "text": "going to place this one. And it has to",
+    "start": 551.04,
+    "duration": 3.28
+  },
+  {
+    "text": "make sense. So like right here, this",
+    "start": 552.8,
+    "duration": 2.8
+  },
+  {
+    "text": "does make sense. Okay. Okay. So, what",
+    "start": 554.32,
+    "duration": 2.079
+  },
+  {
+    "text": "I'm going to do is I'm going to make",
+    "start": 555.6,
+    "duration": 2.16
+  },
+  {
+    "text": "this as a compound clip. Now, the reason",
+    "start": 556.399,
+    "duration": 2.801
+  },
+  {
+    "text": "I'm going to do that is because I'm",
+    "start": 557.76,
+    "duration": 2.56
+  },
+  {
+    "text": "actually going to come in here and I'm",
+    "start": 559.2,
+    "duration": 3.12
+  },
+  {
+    "text": "going to add a blur node and I'm just",
+    "start": 560.32,
+    "duration": 3.199
+  },
+  {
+    "text": "going to crank it up. And then I'm going",
+    "start": 562.32,
+    "duration": 2.48
+  },
+  {
+    "text": "to do the same thing. I'm just going to",
+    "start": 563.519,
+    "duration": 3.041
+  },
+  {
+    "text": "add this ellipse tool. I'm going to put",
+    "start": 564.8,
+    "duration": 4.159
+  },
+  {
+    "text": "it around his body like this. Right?",
+    "start": 566.56,
+    "duration": 3.839
+  },
+  {
+    "text": "That way it looks clean. And then we're",
+    "start": 568.959,
+    "duration": 3.361
+  },
+  {
+    "text": "going to turn up the soft edge. Okay.",
+    "start": 570.399,
+    "duration": 4.961
+  },
+  {
+    "text": "Now, we have this clip of him Jesus. And",
+    "start": 572.32,
+    "duration": 4.56
+  },
+  {
+    "text": "we're going to grab up the smooth up",
+    "start": 575.36,
+    "duration": 3.52
+  },
+  {
+    "text": "smooth and we're going to place that on",
+    "start": 576.88,
+    "duration": 3.84
+  },
+  {
+    "text": "our timeline.",
+    "start": 578.88,
+    "duration": 4.0
+  },
+  {
+    "text": "And then we're going to also just lowkey",
+    "start": 580.72,
+    "duration": 4.16
+  },
+  {
+    "text": "change this. And then we're going to cut",
+    "start": 582.88,
+    "duration": 4.72
+  },
+  {
+    "text": "this up. So now that we changed those",
+    "start": 584.88,
+    "duration": 6.68
+  },
+  {
+    "text": "clips, we have something like this.",
+    "start": 587.6,
+    "duration": 3.96
+  },
+  {
+    "text": ">> So we have Christ right here.",
+    "start": 591.6,
+    "duration": 5.04
+  },
+  {
+    "text": ">> Then for here with the big buildup, I'm",
+    "start": 594.56,
+    "duration": 4.56
+  },
+  {
+    "text": "thinking we literally cut to like a",
+    "start": 596.64,
+    "duration": 5.04
+  },
+  {
+    "text": "crispy black screen, right? And how",
+    "start": 599.12,
+    "duration": 3.92
+  },
+  {
+    "text": "we're going to do that is I'm going to",
+    "start": 601.68,
+    "duration": 3.279
+  },
+  {
+    "text": "make a background. So we have this",
+    "start": 603.04,
+    "duration": 3.6
+  },
+  {
+    "text": "background right here. It's a black gray",
+    "start": 604.959,
+    "duration": 4.0
+  },
+  {
+    "text": "gradient. Now, how I was able to do this",
+    "start": 606.64,
+    "duration": 4.319
+  },
+  {
+    "text": "was very simple, actually. You're going",
+    "start": 608.959,
+    "duration": 4.641
+  },
+  {
+    "text": "to take a background. So, if I grab down",
+    "start": 610.959,
+    "duration": 4.641
+  },
+  {
+    "text": "a crispy fresh background right here,",
+    "start": 613.6,
+    "duration": 3.76
+  },
+  {
+    "text": "instead of solid color, we're going to",
+    "start": 615.6,
+    "duration": 4.32
+  },
+  {
+    "text": "do a gradient. And instead of the linear",
+    "start": 617.36,
+    "duration": 5.039
+  },
+  {
+    "text": "type, we're going to do radial. And then",
+    "start": 619.92,
+    "duration": 4.08
+  },
+  {
+    "text": "make your gradient look like this. So,",
+    "start": 622.399,
+    "duration": 2.801
+  },
+  {
+    "text": "by doing that, you're going to make this",
+    "start": 624.0,
+    "duration": 3.44
+  },
+  {
+    "text": "first one a nice dark gray. Then you're",
+    "start": 625.2,
+    "duration": 3.759
+  },
+  {
+    "text": "going to add another point and make it",
+    "start": 627.44,
+    "duration": 3.04
+  },
+  {
+    "text": "just a little bit darker. And then",
+    "start": 628.959,
+    "duration": 2.801
+  },
+  {
+    "text": "you're going to add your third point and",
+    "start": 630.48,
+    "duration": 2.96
+  },
+  {
+    "text": "make it just a tad bit darker. And then",
+    "start": 631.76,
+    "duration": 3.04
+  },
+  {
+    "text": "that's it. Now you have this crispy",
+    "start": 633.44,
+    "duration": 3.2
+  },
+  {
+    "text": "background. And now we're going to add",
+    "start": 634.8,
+    "duration": 5.12
+  },
+  {
+    "text": "some Knuckles Knuckles",
+    "start": 636.64,
+    "duration": 5.28
+  },
+  {
+    "text": "caption. So, this is probably one of my",
+    "start": 639.92,
+    "duration": 3.28
+  },
+  {
+    "text": "favorite captions right here. It's going",
+    "start": 641.92,
+    "duration": 3.599
+  },
+  {
+    "text": "to be the blur slide up, the partial",
+    "start": 643.2,
+    "duration": 3.68
+  },
+  {
+    "text": "blur, just like this. And I'm going to",
+    "start": 645.519,
+    "duration": 4.32
+  },
+  {
+    "text": "be like,",
+    "start": 646.88,
+    "duration": 6.079
+  },
+  {
+    "text": ">> then we're going to just do justified.",
+    "start": 649.839,
+    "duration": 4.641
+  },
+  {
+    "text": "And we're going to size it up. And I'm",
+    "start": 652.959,
+    "duration": 4.0
+  },
+  {
+    "text": "actually just going to make it a nice",
+    "start": 654.48,
+    "duration": 4.96
+  },
+  {
+    "text": "Apple Garmin look. Do the bold itallic.",
+    "start": 656.959,
+    "duration": 5.361
+  },
+  {
+    "text": "Size it up just like so. Bring it right",
+    "start": 659.44,
+    "duration": 5.519
+  },
+  {
+    "text": "here.",
+    "start": 662.32,
+    "duration": 4.56
+  },
+  {
+    "text": "Have been made justified. Like, this",
+    "start": 664.959,
+    "duration": 5.12
+  },
+  {
+    "text": "looks so fire, bro. like have been made",
+    "start": 666.88,
+    "duration": 5.12
+  },
+  {
+    "text": "justified. And these animations are",
+    "start": 670.079,
+    "duration": 4.561
+  },
+  {
+    "text": "super easy because you just literally",
+    "start": 672.0,
+    "duration": 4.399
+  },
+  {
+    "text": "they're drag and drops, bro. So like",
+    "start": 674.64,
+    "duration": 3.199
+  },
+  {
+    "text": "then we're going to cut this all right",
+    "start": 676.399,
+    "duration": 3.041
+  },
+  {
+    "text": "here. And then I'm actually going to go",
+    "start": 677.839,
+    "duration": 3.761
+  },
+  {
+    "text": "ahead and regrab this zoom out right",
+    "start": 679.44,
+    "duration": 3.76
+  },
+  {
+    "text": "here. And I'm going to put this right",
+    "start": 681.6,
+    "duration": 4.239
+  },
+  {
+    "text": "here. That",
+    "start": 683.2,
+    "duration": 4.319
+  },
+  {
+    "text": "and then honestly, if we want, we can",
+    "start": 685.839,
+    "duration": 4.081
+  },
+  {
+    "text": "also grab like some overlays, too. So",
+    "start": 687.519,
+    "duration": 4.481
+  },
+  {
+    "text": "basically, like the whole point of like",
+    "start": 689.92,
+    "duration": 4.88
+  },
+  {
+    "text": "this this video, right, is to make it",
+    "start": 692.0,
+    "duration": 4.64
+  },
+  {
+    "text": "look as good as possible. So boom.",
+    "start": 694.8,
+    "duration": 6.2
+  },
+  {
+    "text": "Replay this. This is looking so fire.",
+    "start": 696.64,
+    "duration": 4.36
+  },
+  {
+    "text": ">> Christ alone have been made justified in",
+    "start": 706.399,
+    "duration": 5.761
+  },
+  {
+    "text": "the sight of God.",
+    "start": 710.399,
+    "duration": 4.0
+  },
+  {
+    "text": ">> Like dude, this is so fire. Like I was",
+    "start": 712.16,
+    "duration": 4.16
+  },
+  {
+    "text": "literally able to create this. This is",
+    "start": 714.399,
+    "duration": 4.081
+  },
+  {
+    "text": "why I just love being able to be a",
+    "start": 716.32,
+    "duration": 4.16
+  },
+  {
+    "text": "creator, bro. Like being able to put",
+    "start": 718.48,
+    "duration": 3.52
+  },
+  {
+    "text": "this in my software and just make",
+    "start": 720.48,
+    "duration": 3.84
+  },
+  {
+    "text": "something that I personally would watch",
+    "start": 722.0,
+    "duration": 4.32
+  },
+  {
+    "text": "and like that is that could potentially",
+    "start": 724.32,
+    "duration": 5.28
+  },
+  {
+    "text": "reach many many souls, bro, is honestly",
+    "start": 726.32,
+    "duration": 4.88
+  },
+  {
+    "text": "the best part about editing in my",
+    "start": 729.6,
+    "duration": 4.08
+  },
+  {
+    "text": "opinion. Like genuinely, I just I just",
+    "start": 731.2,
+    "duration": 4.0
+  },
+  {
+    "text": "love that. Like that's like one of my",
+    "start": 733.68,
+    "duration": 3.2
+  },
+  {
+    "text": "favorite parts. So if you guys are ever",
+    "start": 735.2,
+    "duration": 2.8
+  },
+  {
+    "text": "creating and you want to know why I",
+    "start": 736.88,
+    "duration": 2.72
+  },
+  {
+    "text": "create, that's why I create because I",
+    "start": 738.0,
+    "duration": 3.44
+  },
+  {
+    "text": "just love creating cool stuff like this.",
+    "start": 739.6,
+    "duration": 3.039
+  },
+  {
+    "text": "And so I'm going to show you guys really",
+    "start": 741.44,
+    "duration": 3.12
+  },
+  {
+    "text": "quickly how we are able to do that",
+    "start": 742.639,
+    "duration": 4.0
+  },
+  {
+    "text": "really cool, clean, crispy animation.",
+    "start": 744.56,
+    "duration": 3.76
+  },
+  {
+    "text": "So, the crispy animation that you guys",
+    "start": 746.639,
+    "duration": 2.88
+  },
+  {
+    "text": "have probably been wanting to do is like",
+    "start": 748.32,
+    "duration": 2.88
+  },
+  {
+    "text": "the the one that's called continuous",
+    "start": 749.519,
+    "duration": 5.12
+  },
+  {
+    "text": "zoom. So, I'm just going to do right,",
+    "start": 751.2,
+    "duration": 6.639
+  },
+  {
+    "text": "left, yes,",
+    "start": 754.639,
+    "duration": 4.721
+  },
+  {
+    "text": "easy. I don't know. Just as an example,",
+    "start": 757.839,
+    "duration": 3.12
+  },
+  {
+    "text": "I'm going to use the font Helvitica for",
+    "start": 759.36,
+    "duration": 3.36
+  },
+  {
+    "text": "simple terms. And then we're just going",
+    "start": 760.959,
+    "duration": 3.361
+  },
+  {
+    "text": "to do a bold. We're going to size this",
+    "start": 762.72,
+    "duration": 2.96
+  },
+  {
+    "text": "up, right? So, you're going to head into",
+    "start": 764.32,
+    "duration": 2.72
+  },
+  {
+    "text": "the fusion page with this puppy here.",
+    "start": 765.68,
+    "duration": 2.8
+  },
+  {
+    "text": "When you head in the fusion page, after",
+    "start": 767.04,
+    "duration": 2.479
+  },
+  {
+    "text": "the template, you're going to hit shift",
+    "start": 768.48,
+    "duration": 2.799
+  },
+  {
+    "text": "space for a transform node. Now, what",
+    "start": 769.519,
+    "duration": 2.641
+  },
+  {
+    "text": "you're going to do is you're going to",
+    "start": 771.279,
+    "duration": 2.481
+  },
+  {
+    "text": "come all the way over to the right and",
+    "start": 772.16,
+    "duration": 3.2
+  },
+  {
+    "text": "you're going to hit a key frame. and",
+    "start": 773.76,
+    "duration": 3.28
+  },
+  {
+    "text": "you're gonna come over to where it's",
+    "start": 775.36,
+    "duration": 3.36
+  },
+  {
+    "text": "like in the frame, you know, by like",
+    "start": 777.04,
+    "duration": 3.68
+  },
+  {
+    "text": "frame 20. So, we want to come over and",
+    "start": 778.72,
+    "duration": 3.919
+  },
+  {
+    "text": "then it's in the frame right here. And",
+    "start": 780.72,
+    "duration": 4.88
+  },
+  {
+    "text": "then we want to then zoom it out all the",
+    "start": 782.639,
+    "duration": 5.361
+  },
+  {
+    "text": "way to frame 65. And then we just want",
+    "start": 785.6,
+    "duration": 4.56
+  },
+  {
+    "text": "to get it",
+    "start": 788.0,
+    "duration": 3.92
+  },
+  {
+    "text": "get it out of there. Basically, that's",
+    "start": 790.16,
+    "duration": 3.709
+  },
+  {
+    "text": "the whole point of the animation.",
+    "start": 791.92,
+    "duration": 4.8
+  },
+  {
+    "text": "[music] And so, it going to go like boom",
+    "start": 793.869,
+    "duration": 4.451
+  },
+  {
+    "text": "boom. And then we got to smooth out",
+    "start": 796.72,
+    "duration": 3.359
+  },
+  {
+    "text": "these animations. So, for the first one,",
+    "start": 798.32,
+    "duration": 3.68
+  },
+  {
+    "text": "we're going to hit [music] an ease. And",
+    "start": 800.079,
+    "duration": 3.921
+  },
+  {
+    "text": "honestly, we could probably just hit S.",
+    "start": 802.0,
+    "duration": 3.519
+  },
+  {
+    "text": "And then we could zoom in like right",
+    "start": 804.0,
+    "duration": 3.839
+  },
+  {
+    "text": "here. Boom. Come here. And then it's",
+    "start": 805.519,
+    "duration": 4.32
+  },
+  {
+    "text": "going to look something like this. So",
+    "start": 807.839,
+    "duration": 5.361
+  },
+  {
+    "text": "when we zoom it in,",
+    "start": 809.839,
+    "duration": 4.881
+  },
+  {
+    "text": "boom. And then we're going to do the",
+    "start": 813.2,
+    "duration": 3.84
+  },
+  {
+    "text": "same thing for this one. So we're going",
+    "start": 814.72,
+    "duration": 4.08
+  },
+  {
+    "text": "to highlight both of these points and",
+    "start": 817.04,
+    "duration": 5.039
+  },
+  {
+    "text": "hit S. And then do like a really similar",
+    "start": 818.8,
+    "duration": 4.96
+  },
+  {
+    "text": "thing. So bring this point like this. So",
+    "start": 822.079,
+    "duration": 4.241
+  },
+  {
+    "text": "that way it's like boom.",
+    "start": 823.76,
+    "duration": 4.16
+  },
+  {
+    "text": "But we don't want it to really stop like",
+    "start": 826.32,
+    "duration": 3.44
+  },
+  {
+    "text": "that. So to keep it continuous, we're",
+    "start": 827.92,
+    "duration": 3.68
+  },
+  {
+    "text": "kind of going to hold it hold it up like",
+    "start": 829.76,
+    "duration": 3.68
+  },
+  {
+    "text": "that. Maybe take it out like just like",
+    "start": 831.6,
+    "duration": 4.16
+  },
+  {
+    "text": "that. Maybe a little bit. Bring this one",
+    "start": 833.44,
+    "duration": 4.079
+  },
+  {
+    "text": "over just a little bit. Bring this one",
+    "start": 835.76,
+    "duration": 3.519
+  },
+  {
+    "text": "like this. Make sure it's a continuous",
+    "start": 837.519,
+    "duration": 4.88
+  },
+  {
+    "text": "zoom at all times. So, boom.",
+    "start": 839.279,
+    "duration": 4.321
+  },
+  {
+    "text": "And then all you have to do to make it",
+    "start": 842.399,
+    "duration": 2.8
+  },
+  {
+    "text": "look extra crispy is add the motion",
+    "start": 843.6,
+    "duration": 4.72
+  },
+  {
+    "text": "blur. Boom. Boom. Dude, this is so hard.",
+    "start": 845.199,
+    "duration": 6.361
+  },
+  {
+    "text": "So, like",
+    "start": 848.32,
+    "duration": 3.24
+  },
+  {
+    "text": ">> So, I'm actually going to use this",
+    "start": 853.68,
+    "duration": 3.519
+  },
+  {
+    "text": "because like that's that's I know how to",
+    "start": 855.519,
+    "duration": 3.201
+  },
+  {
+    "text": "do it.",
+    "start": 857.199,
+    "duration": 7.241
+  },
+  {
+    "text": "So, I'm going to do in the site.",
+    "start": 858.72,
+    "duration": 5.72
+  },
+  {
+    "text": "And then if you want to make it extra",
+    "start": 875.68,
+    "duration": 3.2
+  },
+  {
+    "text": "crispy, like I said, we can do that same",
+    "start": 877.12,
+    "duration": 4.24
+  },
+  {
+    "text": "thing where we add the blur. And so, if",
+    "start": 878.88,
+    "duration": 4.319
+  },
+  {
+    "text": "you really want to like do like if you",
+    "start": 881.36,
+    "duration": 3.12
+  },
+  {
+    "text": "really want to level up as an editor,",
+    "start": 883.199,
+    "duration": 2.08
+  },
+  {
+    "text": "this is what you're going to do. You're",
+    "start": 884.48,
+    "duration": 2.159
+  },
+  {
+    "text": "going to add the blur node. You're gonna",
+    "start": 885.279,
+    "duration": 2.721
+  },
+  {
+    "text": "hit a key frame and you're gonna go",
+    "start": 886.639,
+    "duration": 4.961
+  },
+  {
+    "text": "forward and you're going to",
+    "start": 888.0,
+    "duration": 6.72
+  },
+  {
+    "text": "crank up your blur on frame zero. And",
+    "start": 891.6,
+    "duration": 4.32
+  },
+  {
+    "text": "then as you come in, it's gonna be",
+    "start": 894.72,
+    "duration": 2.96
+  },
+  {
+    "text": "really blurred. And then as it comes in,",
+    "start": 895.92,
+    "duration": 4.0
+  },
+  {
+    "text": "you're going to turn your blur down like",
+    "start": 897.68,
+    "duration": 5.04
+  },
+  {
+    "text": "that. Okay. Uncheck mark this transform",
+    "start": 899.92,
+    "duration": 4.32
+  },
+  {
+    "text": "node and we're just going to smooth all",
+    "start": 902.72,
+    "duration": 5.04
+  },
+  {
+    "text": "of this out. So boom,",
+    "start": 904.24,
+    "duration": 6.159
+  },
+  {
+    "text": "boom. And then on the way out, we're",
+    "start": 907.76,
+    "duration": 4.079
+  },
+  {
+    "text": "going to reblur it. So we're going to go",
+    "start": 910.399,
+    "duration": 3.041
+  },
+  {
+    "text": "boom. And then on the way out, we're",
+    "start": 911.839,
+    "duration": 4.0
+  },
+  {
+    "text": "going to crank that blur back up. zoom",
+    "start": 913.44,
+    "duration": 4.32
+  },
+  {
+    "text": "to fit and we're going to highlight it",
+    "start": 915.839,
+    "duration": 5.281
+  },
+  {
+    "text": "and smooth that puppy out. So, boom.",
+    "start": 917.76,
+    "duration": 5.36
+  },
+  {
+    "text": "Like, that's so hard. Like, I don't",
+    "start": 921.12,
+    "duration": 3.36
+  },
+  {
+    "text": "think you guys understand how fire that",
+    "start": 923.12,
+    "duration": 3.68
+  },
+  {
+    "text": "is. And uh if we want to change some of",
+    "start": 924.48,
+    "duration": 3.68
+  },
+  {
+    "text": "the lettering, we can come to template,",
+    "start": 926.8,
+    "duration": 2.479
+  },
+  {
+    "text": "right click, go to character level",
+    "start": 928.16,
+    "duration": 3.6
+  },
+  {
+    "text": "stylings, go to modifiers, and we can",
+    "start": 929.279,
+    "duration": 4.881
+  },
+  {
+    "text": "highlight God, and we can emphasize this",
+    "start": 931.76,
+    "duration": 4.639
+  },
+  {
+    "text": "word by changing the color and then even",
+    "start": 934.16,
+    "duration": 4.56
+  },
+  {
+    "text": "making it atalicized. So, doing that,",
+    "start": 936.399,
+    "duration": 6.281
+  },
+  {
+    "text": "changing the font. So, boom.",
+    "start": 938.72,
+    "duration": 3.96
+  },
+  {
+    "text": "Like this is fire. Like you guys can",
+    "start": 945.12,
+    "duration": 4.24
+  },
+  {
+    "text": "easily do this stuff in Da Vinci",
+    "start": 947.76,
+    "duration": 3.199
+  },
+  {
+    "text": "Resolve. I'm just going to do settings",
+    "start": 949.36,
+    "duration": 3.039
+  },
+  {
+    "text": "on this one and do difference on this",
+    "start": 950.959,
+    "duration": 4.921
+  },
+  {
+    "text": "one. So boom.",
+    "start": 952.399,
+    "duration": 3.481
+  },
+  {
+    "text": ">> I'm actually probably just going to size",
+    "start": 956.399,
+    "duration": 5.36
+  },
+  {
+    "text": "this one up. Not because of",
+    "start": 957.68,
+    "duration": 5.36
+  },
+  {
+    "text": ">> And then we're kind of running out of",
+    "start": 961.759,
+    "duration": 2.801
+  },
+  {
+    "text": "room here. So I'm just going to hold",
+    "start": 963.04,
+    "duration": 5.239
+  },
+  {
+    "text": "these like this.",
+    "start": 964.56,
+    "duration": 3.719
+  },
+  {
+    "text": ">> So we're kind of running out of room.",
+    "start": 969.519,
+    "duration": 2.721
+  },
+  {
+    "text": "So, I'm going to highlight all of these",
+    "start": 970.56,
+    "duration": 4.88
+  },
+  {
+    "text": "and actually even highlight this overlay",
+    "start": 972.24,
+    "duration": 5.36
+  },
+  {
+    "text": "because we lowkey need that. We're just",
+    "start": 975.44,
+    "duration": 4.16
+  },
+  {
+    "text": "going to go up one frame or one track.",
+    "start": 977.6,
+    "duration": 3.599
+  },
+  {
+    "text": "And then we're going to bring this one.",
+    "start": 979.6,
+    "duration": 3.28
+  },
+  {
+    "text": "We're going to copy this one down by",
+    "start": 981.199,
+    "duration": 4.921
+  },
+  {
+    "text": "holding option.",
+    "start": 982.88,
+    "duration": 3.24
+  },
+  {
+    "text": "Make it see-through. So, boom. Not",
+    "start": 992.639,
+    "duration": 4.081
+  },
+  {
+    "text": "because of behavior. Delay up. We're",
+    "start": 994.72,
+    "duration": 7.64
+  },
+  {
+    "text": "going to do because of the",
+    "start": 996.72,
+    "duration": 5.64
+  },
+  {
+    "text": ">> And then we're actually going to just",
+    "start": 1003.6,
+    "duration": 3.039
+  },
+  {
+    "text": "like bring the like sometimes like the",
+    "start": 1004.8,
+    "duration": 3.76
+  },
+  {
+    "text": "delay up. The one that I have is like a",
+    "start": 1006.639,
+    "duration": 3.44
+  },
+  {
+    "text": "little bit too slow. So, I'm going to",
+    "start": 1008.56,
+    "duration": 4.24
+  },
+  {
+    "text": "speed this up.",
+    "start": 1010.079,
+    "duration": 4.721
+  },
+  {
+    "text": ">> Speed that up right there. Um, right",
+    "start": 1012.8,
+    "duration": 3.76
+  },
+  {
+    "text": "here, we're going to add back in this",
+    "start": 1014.8,
+    "duration": 4.0
+  },
+  {
+    "text": "black gradient. So, boom. Then for",
+    "start": 1016.56,
+    "duration": 4.0
+  },
+  {
+    "text": "righteousness of Christ, we're going to",
+    "start": 1018.8,
+    "duration": 3.2
+  },
+  {
+    "text": "do the same thing because we want to",
+    "start": 1020.56,
+    "duration": 3.36
+  },
+  {
+    "text": "keep it consistent. So then we're going",
+    "start": 1022.0,
+    "duration": 5.12
+  },
+  {
+    "text": "to do the same thing.",
+    "start": 1023.92,
+    "duration": 5.36
+  },
+  {
+    "text": "We're going to add blur up slide just",
+    "start": 1027.12,
+    "duration": 5.4
+  },
+  {
+    "text": "like this",
+    "start": 1029.28,
+    "duration": 3.24
+  },
+  {
+    "text": "of Christ.",
+    "start": 1034.959,
+    "duration": 3.321
+  },
+  {
+    "text": "Then if you ever want to add a tag so",
+    "start": 1044.0,
+    "duration": 4.4
+  },
+  {
+    "text": "that no one steals your work, this is a",
+    "start": 1046.079,
+    "duration": 4.081
+  },
+  {
+    "text": "great way to add a tag. So grab your",
+    "start": 1048.4,
+    "duration": 6.0
+  },
+  {
+    "text": "text plus. I'm going to do at Ryan Heric",
+    "start": 1050.16,
+    "duration": 6.32
+  },
+  {
+    "text": "and I'm going to do a signature font",
+    "start": 1054.4,
+    "duration": 3.68
+  },
+  {
+    "text": "just like a Helvitica, you know, nothing",
+    "start": 1056.48,
+    "duration": 4.559
+  },
+  {
+    "text": "crazy. Go ahead and do bold. Size it",
+    "start": 1058.08,
+    "duration": 4.8
+  },
+  {
+    "text": "down. And we're going to place it like",
+    "start": 1061.039,
+    "duration": 3.601
+  },
+  {
+    "text": "right here. And then what I'm going to",
+    "start": 1062.88,
+    "duration": 2.799
+  },
+  {
+    "text": "do is I'm actually just going to create",
+    "start": 1064.64,
+    "duration": 2.88
+  },
+  {
+    "text": "this as a new compound clip. I'm going",
+    "start": 1065.679,
+    "duration": 3.36
+  },
+  {
+    "text": "to deactivate this and I'm going to come",
+    "start": 1067.52,
+    "duration": 3.76
+  },
+  {
+    "text": "up on my timeline. I'm going to hit",
+    "start": 1069.039,
+    "duration": 3.76
+  },
+  {
+    "text": "shift space for another transform node.",
+    "start": 1071.28,
+    "duration": 2.32
+  },
+  {
+    "text": "This time we're going to do it a little",
+    "start": 1072.799,
+    "duration": 1.76
+  },
+  {
+    "text": "differently. We're going to bring it out",
+    "start": 1073.6,
+    "duration": 3.12
+  },
+  {
+    "text": "of frame and we're going to key frame.",
+    "start": 1074.559,
+    "duration": 4.24
+  },
+  {
+    "text": "I'm going to go to frame like 45. I'm",
+    "start": 1076.72,
+    "duration": 4.64
+  },
+  {
+    "text": "going to go 0.5. And then we're just",
+    "start": 1078.799,
+    "duration": 4.081
+  },
+  {
+    "text": "going to hit command A. This time we're",
+    "start": 1081.36,
+    "duration": 3.28
+  },
+  {
+    "text": "going to hit e out cubic and just leave",
+    "start": 1082.88,
+    "duration": 3.44
+  },
+  {
+    "text": "it.",
+    "start": 1084.64,
+    "duration": 2.8
+  },
+  {
+    "text": "And then what I'm going to do",
+    "start": 1086.32,
+    "duration": 2.479
+  },
+  {
+    "text": "differently this time is I'm actually",
+    "start": 1087.44,
+    "duration": 6.0
+  },
+  {
+    "text": "going to use the opacity. So basically I",
+    "start": 1088.799,
+    "duration": 6.641
+  },
+  {
+    "text": "want to keep the opacity low. So I'm",
+    "start": 1093.44,
+    "duration": 4.4
+  },
+  {
+    "text": "going to key frame it. One, two. Bring",
+    "start": 1095.44,
+    "duration": 4.88
+  },
+  {
+    "text": "it up. One, two. Bring it down. One,",
+    "start": 1097.84,
+    "duration": 3.92
+  },
+  {
+    "text": "two, bring it up. One, two, bring it",
+    "start": 1100.32,
+    "duration": 3.44
+  },
+  {
+    "text": "down. One, two, bring it up. Bring it",
+    "start": 1101.76,
+    "duration": 3.76
+  },
+  {
+    "text": "down. And then one, two, bring it up.",
+    "start": 1103.76,
+    "duration": 3.919
+  },
+  {
+    "text": "One, one, bring it down. And leave it",
+    "start": 1105.52,
+    "duration": 5.159
+  },
+  {
+    "text": "there.",
+    "start": 1107.679,
+    "duration": 3.0
+  },
+  {
+    "text": "That way you have your own tag. And if",
+    "start": 1111.52,
+    "duration": 3.76
+  },
+  {
+    "text": "you think that it's it's going to mix",
+    "start": 1113.6,
+    "duration": 3.12
+  },
+  {
+    "text": "with his shirt right there, I'm just",
+    "start": 1115.28,
+    "duration": 3.279
+  },
+  {
+    "text": "going to bring it down a little bit. So,",
+    "start": 1116.72,
+    "duration": 4.72
+  },
+  {
+    "text": "boom.",
+    "start": 1118.559,
+    "duration": 4.48
+  },
+  {
+    "text": "So, now if we play this through, it is",
+    "start": 1121.44,
+    "duration": 3.44
+  },
+  {
+    "text": "looking really intensely fire. And we",
+    "start": 1123.039,
+    "duration": 3.76
+  },
+  {
+    "text": "just made a podcast clip, church clip,",
+    "start": 1124.88,
+    "duration": 3.679
+  },
+  {
+    "text": "whatever you guys want to call them in",
+    "start": 1126.799,
+    "duration": 4.161
+  },
+  {
+    "text": "what, 20 minutes. So after looking at",
+    "start": 1128.559,
+    "duration": 4.401
+  },
+  {
+    "text": "this, I do want to add a shake effect. I",
+    "start": 1130.96,
+    "duration": 3.36
+  },
+  {
+    "text": "want to add a shake. So I'm going to",
+    "start": 1132.96,
+    "duration": 2.8
+  },
+  {
+    "text": "right when it says justify, the beat",
+    "start": 1134.32,
+    "duration": 3.2
+  },
+  {
+    "text": "comes in. It's really hype. I think it's",
+    "start": 1135.76,
+    "duration": 3.84
+  },
+  {
+    "text": "it's unmatched if we don't add a shake.",
+    "start": 1137.52,
+    "duration": 3.44
+  },
+  {
+    "text": "So I'm going to add in what's called a",
+    "start": 1139.6,
+    "duration": 3.68
+  },
+  {
+    "text": "camera shake right here. And we're just",
+    "start": 1140.96,
+    "duration": 4.48
+  },
+  {
+    "text": "going to key frame everything to be",
+    "start": 1143.28,
+    "duration": 3.84
+  },
+  {
+    "text": "perfect and just how we want it. So if",
+    "start": 1145.44,
+    "duration": 3.52
+  },
+  {
+    "text": "we turn down everything, literally",
+    "start": 1147.12,
+    "duration": 4.16
+  },
+  {
+    "text": "everything, and we key frame all the",
+    "start": 1148.96,
+    "duration": 3.839
+  },
+  {
+    "text": "stuff that we want to use. Even if we",
+    "start": 1151.28,
+    "duration": 2.72
+  },
+  {
+    "text": "don't plan on using it, just go ahead",
+    "start": 1152.799,
+    "duration": 3.201
+  },
+  {
+    "text": "and key frame it. [music]",
+    "start": 1154.0,
+    "duration": 4.0
+  },
+  {
+    "text": "Then come up",
+    "start": 1156.0,
+    "duration": 4.32
+  },
+  {
+    "text": ">> right when we want it's a heavy hit.",
+    "start": 1158.0,
+    "duration": 4.88
+  },
+  {
+    "text": "Turn up this. Turn up the Y. Turn up the",
+    "start": 1160.32,
+    "duration": 4.16
+  },
+  {
+    "text": "rotation just a little bit. Turn up the",
+    "start": 1162.88,
+    "duration": 3.28
+  },
+  {
+    "text": "randomness just a little bit. And then",
+    "start": 1164.48,
+    "duration": 3.28
+  },
+  {
+    "text": "the overall strength's got to go all the",
+    "start": 1166.16,
+    "duration": 2.96
+  },
+  {
+    "text": "way up. Then the speed's got to go all",
+    "start": 1167.76,
+    "duration": 3.76
+  },
+  {
+    "text": "the way up. So boom. So we're going to",
+    "start": 1169.12,
+    "duration": 4.48
+  },
+  {
+    "text": "make like a cone. So it comes up and",
+    "start": 1171.52,
+    "duration": 3.68
+  },
+  {
+    "text": "then it goes like that. Then we're going",
+    "start": 1173.6,
+    "duration": 3.28
+  },
+  {
+    "text": "to hold all of these and then hit S on",
+    "start": 1175.2,
+    "duration": 3.359
+  },
+  {
+    "text": "our keyboard. So boom. Yeah, guys.",
+    "start": 1176.88,
+    "duration": 3.679
+  },
+  {
+    "text": "That's pretty much how I edit podcast",
+    "start": 1178.559,
+    "duration": 3.601
+  },
+  {
+    "text": "clips or just church clips, whatever you",
+    "start": 1180.559,
+    "duration": 3.36
+  },
+  {
+    "text": "want to call it. But this thing, these",
+    "start": 1182.16,
+    "duration": 3.2
+  },
+  {
+    "text": "are the type of things that are going to",
+    "start": 1183.919,
+    "duration": 3.201
+  },
+  {
+    "text": "get you eyes. And this is exactly how I",
+    "start": 1185.36,
+    "duration": 2.96
+  },
+  {
+    "text": "do it. Um, if you guys learned",
+    "start": 1187.12,
+    "duration": 2.4
+  },
+  {
+    "text": "something, let me know down in the",
+    "start": 1188.32,
+    "duration": 2.239
+  },
+  {
+    "text": "comments below. I taught you guys all",
+    "start": 1189.52,
+    "duration": 2.159
+  },
+  {
+    "text": "the sauce. And also, don't forget to",
+    "start": 1190.559,
+    "duration": 2.961
+  },
+  {
+    "text": "check out viral effects, all my camera",
+    "start": 1191.679,
+    "duration": 3.841
+  },
+  {
+    "text": "transitions, everything down below cuz",
+    "start": 1193.52,
+    "duration": 3.519
+  },
+  {
+    "text": "you can literally edit just like me",
+    "start": 1195.52,
+    "duration": 2.88
+  },
+  {
+    "text": "within a blink of an eye. So, I'll see",
+    "start": 1197.039,
+    "duration": 2.88
+  },
+  {
+    "text": "you guys in the next video. See you",
+    "start": 1198.4,
+    "duration": 3.76
+  },
+  {
+    "text": "tomorrow.",
+    "start": 1199.919,
+    "duration": 2.241
+  }
+]

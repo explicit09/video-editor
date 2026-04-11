@@ -82,7 +82,7 @@ public enum ThumbnailLayout: String, Sendable {
 }
 
 public enum ProviderFilter: String, Sendable {
-    case both, openai, gemini
+    case both, openai, gemini, flux
 }
 
 /// Result from thumbnail generation.

@@ -1,0 +1,480 @@
+[sighs]
+>> What's up, guys? My name is Kazi, and
+today's topic is what do we think of
+sinners? Is it overrated? 16
+nominations? I mean, if I'm not
+mistaken, the most nominations ever
+given to a single movie. Correct me if
+I'm wrong, but 16 nominations, four
+wins. That is absolutely insane. I saw
+the movie, it impacted me, and I
+thought, "Wow, what a great film." But
+16 noms, more than Titanic, more than
+some of the greatest movies ever made?
+I'm not sure. I'm also not hating on it
+at all. I thought it was a really good
+film, but you know what other movie that
+I thought was really good and should
+have been nominated for way more and
+should have won a lot more? Get Out by
+Jordan Peele. It did win for original
+screenplay, but I just personally, I
+think it should have won a lot more.
+Great film, looked amazing. Everything
+was intentional, and I think it really
+started this entire movement of like
+critically acclaimed horror movies. It
+basically took horror movies out of the
+B-movie genre and really put it to like
+that critically acclaimed level. Again,
+my opinion. Let me know what you guys
+think. I mean, I've anybody that I talk
+to about sinners, they're kind of split
+in between. So, what I want to do, cuz
+this channel is about color grading, and
+it did win for cinematography, aka color
+grading. I mean, not really, but still,
+like they basically go hand in hand. So,
+what I want to do is I want to pick out
+one of my favorite shots from the film,
+which is this right here. So, this
+particular scene in the barn. I feel
+like it really encompasses like what the
+essence when it comes to like where each
+hue was sitting and what was happening
+of that entire film. What we're going to
+do is sort of go through this, break it
+down, and then recreate it. I'm going to
+recreate it on three different shots.
+And now, these shots that I picked out,
+I didn't make my life easy. I picked out
+very different shots, okay? So, they're
+from the same camera, in the same space,
+but still very different, okay? So, this
+is a different location. This is a
+location around here, but very different
+in terms of lighting, backlit, front
+lit, and then in the dressing room. So,
+different scenes, and it will be really
+fun for you guys to see how we're going
+to approach, first of all, creating such
+a stylized look,
+>> [music]
+>> taking this, applying it here, and
+secondly, how we're going to apply that
+to the other shots, and then go back and
+forth and match them. And guys, if you
+enjoy it watching content like this,
+then please do me a favor. Smash the
+like button, subscribe to the channel if
+you haven't already, hit the bell, and
+let's get into it. For those that don't
+know me, my name is Kazi. I've worked
+with brands like Adidas, Amazon Prime,
+Universal Studios, and I make no
+ straightforward color grading
+tutorials so you can work with your
+dream clients.
+All right, so let's start off by
+analyzing this shot. This is our hero
+frame that we picked. So, what's really
+going on? So, if I go and click right
+here and select my eyedropper, and in
+here, I have this turned on, display
+qualifier focus, so that's why when we
+hover over, it tells us exactly what's
+happening here. And my weapon of choice
+here is vectorscope and waveform. That
+should do the trick. We can clearly see
+the entire image in the vectorscope is
+sitting in this quadrant, yellow to red,
+right? So, like orange mostly, right
+here. And we feel that. We see that.
+But, it's not like they don't have
+proper blacks. So, they do touch right
+here, the cross here, which means that
+we have really good, healthy [music]
+anchors. If I pull you in and kind of
+show you that. So, that's really, really
+good. That's what gives it like such a
+believable warm look. When we look at
+our waveform, let's just crank this up
+so we can really see what's happening.
+Again, we see that color as a
+colorized waveform. I turned this on.
+Usually, yours might look like that. So,
+I just clicked on this guy right here.
+So, that's what we're seeing here, okay?
+Where is my homie sitting? So, let's
+click right here, all the way down here.
+This is a This is a very moody shot. So,
+this is what we got. So, let's just park
+on our hero frame, and uh let's start
+building it. So, I'm going to go in my
+HDR palette. I'm going to go in my
+offset right here. This works like stops
+in your camera. I'm going to stop
+dropping it or start dropping it, and
+I'm going to
+I mean, that's what's going to give us
+that weight that we're looking for,
+okay? Everything else is looking good. I
+mean, already like this, like if you
+look at the whites right here, and then
+our whites, like they're right there.
+So, all of that is already looking good.
+I mean, you see like how big of a
+difference just like a proper exposure
+makes? Like we can just literally go
+between these two shots, and we're kind
+of like, "Are we there already?" Uh
+there's still like long ways to go.
+Okay?
+So, what I want to do next is [music]
+I want to jump straight in here and
+start building my look. And the way I'm
+going to do that, because there's a
+couple of things that I'm seeing that
+needs to happen. We have way too much
+red in our undertones. Way too much red.
+I mean, look at this right here. That
+needs to go. That needs to go. We need
+to counter that, okay? And then, we have
+like just overall, like image is very
+much on the red side compared to what
+we're seeing here. So, why don't we kind
+of just like balance it first? I'm going
+to go here. I'm going to be using my
+printer lights under color. I'm going to
+be using these guys, okay? And I'm going
+to keep telling you what I'm doing on
+the screen so you you have an idea
+[music] like where we're going so you're
+not lost. I'm going to come down from
+red. Like let's just subtract some red.
+Not too much. Something like that, okay?
+And let's just go and add maybe a little
+bit more yellow.
+Or actually, you know what?
+Hold on. Let's just come down quite a
+bit, go up, and
+this is not looking bad compared to
+before. This is already looking pretty
+good. I think this might be
+I think this is a good place. So, I'm
+going to leave it there, all right? So,
+what did I do? If I go right here and
+kind of show you, uh we basically just
+like dropped half of our uh red to 24.5.
+That's all we did here, okay? So, now,
+let's go to right here in our custom
+curves. This is where the majority of
+the look is going to be created. All
+right, so one of the things that I want
+to say before we keep going is that you
+absolutely cannot skip fundamentals.
+Stuff that you're learning right here is
+crucial. That said, when you're at a
+professional level, you have to move
+with speed. And for that, with my
+15-plus years of experience, I've
+created a tool that I just want to show
+you. You don't have to get it, anything
+like that, but let me just show you
+this. Best part about it, since we're on
+the topic of sinners, watch this. If I
+go under cinematic, we can just select
+sinners, sinners barn, and look at this.
+3 2 1. We're done. Like now, if I just
+match this to that, it was this simple,
+and everything latches on. Everything is
+100% customizable. The best part about
+it is that I am hiring colorists all
+around the globe, and they're creating
+52 bespoke looks every year. One look a
+week that we release for this tool. And
+best best best of all, you can start for
+absolutely $0. The trial version you get
+for 7 days comes with a license key. So,
+it's a full version. Go actually work on
+a project, get paid, so then Rapid Grade
+is free. That is my promise. You can
+cancel before the 7 days, and you do not
+have to pay a single dollar. I'm that
+confident in the product. Link is going
+to be in the description, check it out.
+Let's get back to the video. So, what's
+happening is this. If we look at these
+two shots,
+we have a lot of breathing room in our
+undertones. They These are like
+basically just kind of like
+almost crushed. Like but still really
+pretty, okay? So, we have to build that.
+Uh so, one of the ways I'm going to do
+is like first of all, let's just lock
+our 18% gray lift somewhere around here.
+So, we're going to click that and park
+that there. And then, what I want to do
+is I want to just create a point right
+here,
+and I want to start like pulling that
+down, okay?
+And I want to do before and after, and
+you're seeing like that richness that
+we're building into our image, and let's
+keep it very, very close to like that
+black point.
+Okay? So, we're getting like really,
+really rich tones. Made a really big
+difference, to be honest with [music]
+you. We don't necessarily need to do
+much on the top end, so we can kind of
+just like let it breathe. Another thing
+that I want to do now is let's just get
+in get in granular, right? So, like what
+we want to do is we want to get like
+these tones into our undertones. So, I'm
+going to take this, and I'm going to
+start pulling it down. Let's go too far
+first, always, and then let's pull it
+back.
+And [music] we can clearly see what
+we're doing. So, if you see like how
+much red we had before to like what
+we're doing, we are controlling it quite
+a bit, okay? And we're basically
+neutralizing that in a good way. Another
+thing I want to do is I want to go in my
+greens,
+and I want to pull that down just a
+touch, because I really like the proper
+neutral black points that we have
+underneath. So, we pulled the red down,
+right? But then, we don't want the cyan
+to be underneath. Like we still want
+like a magenta to be underneath. So,
+even if I go here, just focus on this,
+and if we just go here and start pulling
+it,
+like just a kiss, okay? I don't want to
+do too much. This is looking really
+good. This is like this black right now.
+We got that in there. On the top end, do
+we want to add a little bit more warmth?
+I mean, I see this to that, and they're
+looking pretty good, but I think we can
+still do a little bit more. So, this is
+more on the yellow side right now, but I
+see like a healthy red thing going on.
+So, maybe we go under green, and [music]
+we grab this, and we pull it down to add
+that little bit of magenta, right? Like
+not not a lot
+at all, okay? So, even something like
+that. And then, I want to go in my blue,
+and I want to pull that down and what
+that's going to do that's going to give
+us like that overall warmth that we're
+feeling here. And then what we can do
+with our red is like maybe lift it up a
+little bit. Again, just a tiny bit,
+okay? We want to make like very very
+very small changes here. So what I want
+to do is I want to go right here and I
+want to drop look creator on here mostly
+for the grain but for our subtractive
+saturation as well. So we're going to
+drop that on and we just want to go here
+change that to default 35. We want to
+take the film look blend and kill it.
+When we do that it like brings in a lot
+of character that is good but what's not
+good is this right here. So we want to
+take the contrast and we kind of want to
+like make this big and then
+kind of like see what we want to do with
+that, okay? So something like that. I
+want to go here in my first node because
+I feel like our image just has a lot
+more saturation than what we're seeing
+here but it's in the it's more like a
+color boost than an actual saturation.
+So I actually want to go in my color
+boost and I want to pull it down. So let
+obviously all of us go too far and then
+bring it in. And you see like just like
+controlling that makes our image look so
+much more cinematic. Don't worry about
+the skin tones because that is something
+that we have to isolate and then work on
+it separately. But overall image if I
+just take this and if I just go before
+and after I mean just like look at where
+we started to where we are and more
+importantly like the actual DNA of the
+image that is seeping through is very
+important, okay? And that is there. So
+now I want to go here and I want to use
+a corrector node, okay? So what I'm
+going to do is [music] I'm just going to
+go right here and I'm going to click
+right here and that should be able to
+grab her entire face. I'm going to do
+better. I'm going to add this a little
+bit and then let's track it. All right,
+so this is great. Now we go here and all
+I'm going to do is I'm going to go under
+my gain lift it up a little bit not too
+much something like that. Now I want to
+go and under my gamma and I want to add
+that red, okay? So we're going to add
+that red a little bit. Let's pull this
+down and let's go in there again. So
+adding red just a little bit of magenta
+keeping that warmth.
+Okay. Lift it up maybe a little bit.
+All right. So now this is before this is
+after big difference. Normally honestly
+I personally wouldn't recommend doing
+stuff like that just because everybody's
+complexion is going to be different. So
+now we're just like kind of getting too
+granular but that's okay. For this
+example's sake like it does really
+really help. So this is where I would
+park my first shot. So if we go from
+here to here and let's just say we pull
+this up and we kind of like go back and
+forth to like where we started to where
+we ended up
+I mean that is a pretty pretty major
+change, okay? So this is before this is
+after. I personally think we can even go
+in our color boost and just kind of like
+again
+Now at this point you want to kind of do
+one of these, right? Like you just want
+to kind of like go back and forth and
+see
+where do you want to be? And this to me
+looks really really good.
+Before and after and then if we take
+this this is where we started this is
+where we are. Now let's go ahead and
+apply it to the rest of the shots.
+Tuesday's are taco Tuesday so just took
+a little break had dinner with the
+wifey. Now we're back. We'll jump right
+in. Where were we? So we are done with
+this shot. It is looking very very good.
+Now let's try to match it. So middle
+click
+and middle click and just like we
+expected this does not look like
+anything we're trying to do. And we
+don't need that so let's get rid of
+this. And now let's go here
+and lift this up
+and let's see where it's going to leave
+us. So this is much better.
+Like way more organic.
+And then like we said we need
+a little bit more yellow.
+Maybe more red.
+Okay.
+And then let's add a little bit of
+half green.
+Maybe we can do quarter green.
+That right there.
+So that is
+going from here to here
+looking pretty good. Let's go to HDR
+palette lift it up a little bit.
+Okay. So that to this looks good.
+And now if we take these [music] and go
+before and after so big big big
+difference still have the similar vibe
+going on. And then we come to this shot.
+And again we don't need this to get rid
+of it and now we come here
+and
+HDR palette
+drop it a little bit not too much.
+And here we have to do a few things.
+Let's just add a little bit more [music]
+warmth so I'm going to put more red in
+there and obviously pull it back.
+Put more magenta in there.
+Okay.
+Global offset pull it down.
+That is looking really really good. So
+if I go and take these
+massive massive difference. Like one
+thing that we can do is go under our
+contrast where did we do the contrast
+like right here? We did the contrast
+adjustment, right? So we can go here and
+we can literally pull this up
+>> [music]
+>> and go in our contrast adjustment and
+kind of like undo it go here and then
+pull it back
+or somewhere like in the middle, right?
+So 1 1 2 5.
+So we leave it here and we come out and
+how do we feel about it if we just come
+out of it and then go between shots?
+I think just even going from this shot
+to that shot is a really really good
+match. So like look at this. So this was
+before
+and then this is after and then going
+here like look at the consistency in our
+[music] even skin tones. Like look at
+this. Skin tones how well it matches.
+And then same thing here. Like I mean we
+can raise this up a little bit and go
+under contrast and see
+like I think the contrast was fine. So
+yeah, this to this really good match and
+then this
+an excellent match. And I told you guys
+from the beginning like I didn't pick
+shots from the same exact location from
+this like you know I mean it would have
+been really easy if I just grabbed three
+shots of like three hero shots of like
+people just swapped in the same angle. I
+mean then it's easy to copy paste. I
+really wanted to take something that's
+like it takes us from here to here. How
+do we match that? And then when we go
+from here to here how do we like you
+know bring it into the same world? It
+doesn't need to be 100% match because
+the lighting is different there she's in
+a different room all of that but still
+we want it like to tie it all in. And if
+you genuinely look at the skin tones
+like I said from this to that it's
+absolutely incredible. So there you go.
+Hopefully this was fun. This is
+something that we used to do a lot
+popular movie looks. I can bring it back
+if you guys are interested obviously. So
+smash the like button subscribe to the
+channel hit the bell so you can be
+notified about future content because we
+are promising you to put out two videos
+per week if you guys care and if you
+guys are interested and one reel per
+day. So that is a really really chunky
+order and we want to commit to it but it
+only depends on you guys if you guys
+want to see more content. So drop a
+comment below let us know. On that note
+I love you guys. I'll see you in the
+next one. Peace.
+>> [music]
+[music]

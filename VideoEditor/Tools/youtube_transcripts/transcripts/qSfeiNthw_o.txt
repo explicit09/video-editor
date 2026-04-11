@@ -1,0 +1,277 @@
+A little while ago now, I released Proto
+V3, uh the latest update for my big uh
+distortion and glow and high energy text
+and like master plug-in [laughter] thing
+for Da Vinci Resolve. A general overview
+will be in the description if you want
+to check that out if you don't know
+about it at all. But if you do know
+about it, this video is for you because
+I want to show off a few sort of like
+next step tips and tricks to how to use
+Proto, throw on one other little cool
+thing in Fusion and get something get
+something really exciting. We're also
+going to show off um a system that has
+been added since the full release. So,
+if you only saw the big headline when
+Proto came out, um there's some new
+stuff I'm going to be showing off, as
+well as just going uh in a little deeper
+to a few controls here in the inspector
+um that uh really have a lot of power,
+but like need to be explained a little
+further. Let's get started. And the
+first thing I'm going to show off um of
+course on these presets, you have these
+25 different presets with all these
+different looks. Super cool. Uh, I'm
+going to hop over to the tune preset.
+Uh, and this I really like. It's not as
+glowy. It just has these like hard
+edges, kind of like construction paper
+vibes, but you'll notice the motion is
+still pretty organic, right? It's like
+in and out and like it's just like
+ongoing motion. When I was designing
+this look, I actually designed it with
+one extra step, which is what I want to
+show off now. I'm going to open this in
+Fusion. And then I'm not even going to
+open proto up. But coming out of proto,
+I'm going to add a stop motion node. Uh
+five on this frame repeat is probably
+about okay. And now I can go right back
+to the edit page. And if I just preview
+that then
+five is a lot. Five is a lot. Let's make
+it three.
+Oh, it's also caching. We'll let it
+cache. We have this like stop motion
+motiony motion. I did call this tune to
+me. This has kind of like a little like
+kindergarten vibe and that like organic
+motion didn't fit as well. But hey, toss
+a stop motion effect on there afterwards
+and it feels it it feels like a pretty
+different style right off the bat. Never
+forget that while you have all these
+controls uh to build your effect
+natively in proto, you can add anything
+before or after proto customize further.
+And something like stopotion messing
+with the timing of this effect can get
+you like a really distinct look. Let's
+move on onto video. Now, if I drop uh
+protov3, the effect version on here, it
+looks uh to every line in your scene and
+adds proto there. And that is because in
+this external source effects, we have
+edge detect and outline controls. You
+can always customize these edge detect
+controls for how sensitive you want this
+or how thick you want those lines to be.
+And if I click this over to outline,
+nothing happens. Uh that is because this
+is applied to a sort of full screen uh
+video clip here. If I did something like
+drag on the resolve logo just here in my
+window even like zoom it down a little
+bit then if I were to toss on protov3
+effect by default it would look for all
+the lines. But if I change that to
+outline it would only look at the
+outside line. Haha. But let's go back to
+this video clip because again we can do
+some nifty stuff and it's actually going
+to be really straightforward. If I open
+this in the fusion page, you'll see now
+we have this media clip uh plugged into
+proto. But before proto, I'm going to
+add a magic mask effect. And you see now
+it's here in between. If I just click on
+his shirt, we'll probably get his shirt
+and his head and his arms and make sure
+we get all his shoes. That's pretty
+good. And it's even processing proto as
+this goes. So you see we just have that
+outline. I am just going to preview the
+magic mask for now. So we can process
+that as it runs through. Now this is
+processing in 4K. That's my fault. Um I
+should have pulled this down to 1080
+while I'm just showing this off. But we
+can fast forward through this anyway.
+It's just processing Magic Mask. Look
+how great it looks. This is Magic Mask
+V2. um which came uh to the color page I
+believe in version 20 and a few versions
+after it came to the fusion page. Super
+slick. And once this is done, okay,
+that's processed. If we just preview the
+magic mask, you see, wow, we've got that
+guy dancing by himself. And if we come
+to proto or after proto or hop back to
+the edit page, you'll see we have the
+video of that guy by himself just with
+this outline. Now, of course, we have a
+few options. Uh let's say I still want
+to see that background because uh sure I
+still want to see that background. I'm
+just going to take the output of proto,
+drag that over the output to media in1.
+So it comps that back over itself. So
+now we have the background. Now we have
+him. Uh and we'll just preview this in
+Fusion for now. And he is perfectly
+outlined based on that magic mask.
+That's great by itself, but don't forget
+we can always hop back to edge detect.
+And while the initial edge detect looked
+for every line in the entire image, the
+only thing we are plugging into proto
+now is just the guy. So if we hop this
+to edge detect, we get every line
+detected but only on him. So I'm going
+to hop back to the edit page. Let this
+cache um with this edge detect and then
+we'll see what we get. That's cached. If
+we preview, we have this edge detect
+effect right on the guy. Lots of fine
+lines in his shirt, but it's completely
+isolated just to the guy. His face looks
+a little wild, but don't forget this is
+all before the entire style system. So
+if I grab something like this beam
+effect, but now as he's dancing, we have
+these lines coming through. This is
+actually meant to be like beam like beam
+me up like from Star Trek teleporters.
+So like that looks cool. You could like
+fade this out and like do like a custom
+little effect right off that. Really
+slick. Okay, last thing I want to show
+off isn't quite the same tips and
+tricks, but will be really useful to
+anyone who's been dabbling in proto,
+especially making their own looks. I am
+opening right up uh these style controls
+and open up distortion controls. This is
+subtle but super important. We have
+distortion strength, scale, detail, and
+contrast. Now, these contrast and scale
+uh and detail are actually based off the
+fast noise node inside Fusion, which
+just sort of like generates that random
+texture. We can hop in and check it out.
+Uh I'm going to open up proto also. Oh,
+this is on the other text. So, I'll get
+rid of that fast noise for now. Open up
+proto. And you can see all the way over
+here, we have one proto fast noise. If I
+preview that, wow, we do not see much
+going on. Now, if we zoom in, you can
+see some really like subtle detail.
+It'll be be sure I'm hard to tell on the
+video, but if I make a new fast noise,
+it's just sort of this cloudy texture.
+And you can see you can pull up the
+detail, pull up the scale, and like the
+brightness and the contrast to get
+pretty different looks. And uh this fast
+noise going into displace nodes is what
+makes my uh general displace effect on
+all these uh proto effects. So, if I hop
+back, we can zoom in here. And for
+instance, if I pull distortion strength
+all the way down, it'll just be straight
+lines. Even for this example, I'm going
+to completely get rid of the aura. So,
+it's only the core. So, distortion
+strength all the way down, straight
+lines. If I pull that back up and then
+pull the scale all the way down,
+straight lines. If I pull that back up
+and then pull contrast all the way down,
+straight lines. Okay, so uh these
+controls, if you pull any of them down,
+it's straight lines. Um, but how they
+work together really gets you this look.
+For instance, if I pull scale pretty far
+down, then you get sort of this generic
+wavy texture, which is going pretty slow
+here. But if I have the scale down and
+the contrast up, then we get like crazy
+looks like this. Versus if I have the
+scale up and the contrast down, we get a
+lot more fine distortion, but closer to
+the original line, if that makes sense.
+I know this is an interesting time to be
+covering this. Um, but it's sort of that
+like next level stuff. If you're
+interested in proto, I think you'll
+really like this as well as this
+distortion strength. So, especially if I
+pull this strength down and like the
+maybe the contrast up at this point,
+then maybe the scale down, then it's
+like close to those original lines, but
+a completely different look. how you
+balance, especially these distortion
+controls will get you wildly different
+looks. So, especially if you want to hop
+through these presets and see how uh
+those distortion controls are set for
+each of those presets, that'll really
+get you in the right direction. Um, but
+it is very easy um to sort of have most
+of your effects too big, if that makes
+sense. You really want to pull this
+scale up for a lot of fine control, and
+then it's just a matter of like
+balancing that. And you might need to
+pull down this strength or this contrast
+quite a bit more than you thought you
+would have to. Especially if you pull
+that up and then pull contrast all the
+way down. Nah, pull that down and pull
+contrast all the way up. Haha. You can
+get some
+really unique looks. And don't forget uh
+this scale here goes up to 50. You can
+always type in here. If I type up why
+not 500, boom. Uh it sort of goes wild.
+Unless you pull this contrast back down
+and the strength down even more core
+control, make it really thin. Maybe 500
+was a bit, but as you pull this down, uh
+uh you can get lots of lots of fine
+control. Or if you just want like a
+little bit of distortion right on the
+edge, you can get that if you crank
+these up. But, you know, be careful
+cranking these numbers up to something
+crazy. But, of course, it's always fun
+to mess around with. Now, if you toss on
+that aura, you'll even see some of that
+come through as well. So, there's some
+proto tips and tricks. I mostly wanted
+to show off that uh stop motion effect.
+And then, of course, magic mask working
+with proto. It's super cool. If you
+haven't messed around with that,
+absolutely do it. That stopotion effect
+will work great with the free version of
+Proto, which has, you know, all of like
+the text features, but you will need the
+full version of Proto if you want easy
+access um to using Proto on images and
+video and all those expanded tools. Of
+course, like I said, more info in the
+description. If you want to pick up
+Proto, you can always do it. Um, I I
+still think Proto rocks. I think Proto
+rocks. So, hopefully you do, too.
+Hopefully, you thought this video was
+cool. Thanks for watching and I'll see
+you next

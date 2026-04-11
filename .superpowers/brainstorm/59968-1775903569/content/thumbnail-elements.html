@@ -1,0 +1,80 @@
+<h2>Which elements should every thumbnail include?</h2>
+<p class="subtitle">Select all that apply — these become the standard template components</p>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="host-photos" onclick="toggleSelect(this)">
+    <div class="letter">1</div>
+    <div class="content">
+      <h3>Host Photos</h3>
+      <p>Real photos of Tadiwa & Elvis, cropped and positioned in split panels</p>
+    </div>
+  </div>
+  <div class="option" data-choice="title-text" onclick="toggleSelect(this)">
+    <div class="letter">2</div>
+    <div class="content">
+      <h3>Title Text (2 lines)</h3>
+      <p>Main line in white, emphasis/subtitle line in gold — large, bold, readable at small sizes</p>
+    </div>
+  </div>
+  <div class="option" data-choice="logo" onclick="toggleSelect(this)">
+    <div class="letter">3</div>
+    <div class="content">
+      <h3>Technolgia Logo</h3>
+      <p>Brand logo placed in a corner (from logo file)</p>
+    </div>
+  </div>
+  <div class="option" data-choice="background" onclick="toggleSelect(this)">
+    <div class="letter">4</div>
+    <div class="content">
+      <h3>Branded Background</h3>
+      <p>Dark green (#0A3D2A) to black gradient behind each host panel</p>
+    </div>
+  </div>
+  <div class="option" data-choice="gold-accents" onclick="toggleSelect(this)">
+    <div class="letter">5</div>
+    <div class="content">
+      <h3>Gold Accent Lines</h3>
+      <p>Thin gold (#C8A84E) diagonal lines or border frames in corners</p>
+    </div>
+  </div>
+  <div class="option" data-choice="episode-number" onclick="toggleSelect(this)">
+    <div class="letter">6</div>
+    <div class="content">
+      <h3>Episode Number Badge</h3>
+      <p>Small "EP 12" or "S2E3" badge in a corner</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem;">
+  <h3>Preview Layout</h3>
+  <div class="mockup">
+    <div class="mockup-header">Thumbnail Template — 1536×1024</div>
+    <div class="mockup-body" style="background: #0a0a0a; aspect-ratio: 1536/1024; position: relative; overflow: hidden;">
+      <!-- Background gradient panels -->
+      <div style="position: absolute; inset: 0; display: flex;">
+        <div style="flex: 1; background: linear-gradient(135deg, #0A3D2A 0%, #050505 100%);"></div>
+        <div style="flex: 1; background: linear-gradient(225deg, #0A3D2A 0%, #050505 100%);"></div>
+      </div>
+      <!-- Gold corner accents -->
+      <div style="position: absolute; top: 0; left: 0; width: 80px; height: 80px; border-top: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+      <div style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; border-top: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+      <div style="position: absolute; bottom: 0; left: 0; width: 80px; height: 80px; border-bottom: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+      <div style="position: absolute; bottom: 0; right: 0; width: 80px; height: 80px; border-bottom: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+      <!-- Host photo placeholders -->
+      <div style="position: absolute; top: 8%; left: 5%; width: 42%; height: 60%; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 80%; height: 90%; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 14px;">HOST A PHOTO</div>
+      </div>
+      <div style="position: absolute; top: 8%; right: 5%; width: 42%; height: 60%; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 80%; height: 90%; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 14px;">HOST B PHOTO</div>
+      </div>
+      <!-- Logo -->
+      <div style="position: absolute; top: 12px; right: 16px; background: #0A3D2A; border: 1px solid #C8A84E; border-radius: 4px; padding: 4px 10px; color: #C8A84E; font-size: 11px; font-weight: bold; letter-spacing: 1px;">TECHNOLGIA</div>
+      <!-- Title text -->
+      <div style="position: absolute; bottom: 8%; left: 0; right: 0; text-align: center; padding: 0 5%;">
+        <div style="font-size: 28px; font-weight: 900; color: white; text-transform: uppercase; line-height: 1.1; text-shadow: 2px 2px 8px rgba(0,0,0,0.8);">ONE PERSON BUILT OPENCLAW</div>
+        <div style="font-size: 22px; font-weight: 800; color: #C8A84E; text-transform: uppercase; margin-top: 4px; text-shadow: 2px 2px 8px rgba(0,0,0,0.8);">WHY SOLO FOUNDERS WIN</div>
+      </div>
+    </div>
+  </div>
+</div>

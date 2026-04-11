@@ -1,0 +1,4572 @@
+[
+  {
+    "text": "In this video, I'm going to show you a",
+    "start": 0.16,
+    "duration": 3.44
+  },
+  {
+    "text": "completely free way to build film",
+    "start": 1.68,
+    "duration": 4.72
+  },
+  {
+    "text": "emulations that match or beat nearly",
+    "start": 3.6,
+    "duration": 5.28
+  },
+  {
+    "text": "every L and plugin out there. Along the",
+    "start": 6.4,
+    "duration": 4.239
+  },
+  {
+    "text": "way, you're going to learn what truly",
+    "start": 8.88,
+    "duration": 4.08
+  },
+  {
+    "text": "defines the film look, why it's so hard",
+    "start": 10.639,
+    "duration": 4.321
+  },
+  {
+    "text": "for us to achieve digitally, and the",
+    "start": 12.96,
+    "duration": 4.319
+  },
+  {
+    "text": "difference between an emulation and an",
+    "start": 14.96,
+    "duration": 4.72
+  },
+  {
+    "text": "imitation. Okay, we've got lots to cover",
+    "start": 17.279,
+    "duration": 3.92
+  },
+  {
+    "text": "here in Resolve, but before we get",
+    "start": 19.68,
+    "duration": 3.28
+  },
+  {
+    "text": "hands-on, there's a few basic concepts",
+    "start": 21.199,
+    "duration": 3.601
+  },
+  {
+    "text": "that we need to cover. And the first is",
+    "start": 22.96,
+    "duration": 3.84
+  },
+  {
+    "text": "the film look itself. So, what is the",
+    "start": 24.8,
+    "duration": 4.08
+  },
+  {
+    "text": "film look? What makes the film look?",
+    "start": 26.8,
+    "duration": 3.36
+  },
+  {
+    "text": "Well, you're going to hear lots of",
+    "start": 28.88,
+    "duration": 3.519
+  },
+  {
+    "text": "different ideas and opinions on this",
+    "start": 30.16,
+    "duration": 4.64
+  },
+  {
+    "text": "topic floating around out there, but at",
+    "start": 32.399,
+    "duration": 4.241
+  },
+  {
+    "text": "the most basic level, the film look is",
+    "start": 34.8,
+    "duration": 3.919
+  },
+  {
+    "text": "always going to require two things. A",
+    "start": 36.64,
+    "duration": 4.64
+  },
+  {
+    "text": "film negative and a film print. You",
+    "start": 38.719,
+    "duration": 3.921
+  },
+  {
+    "text": "can't even get a film image without",
+    "start": 41.28,
+    "duration": 2.72
+  },
+  {
+    "text": "these two things. So, of course, you're",
+    "start": 42.64,
+    "duration": 3.36
+  },
+  {
+    "text": "going to need them if you want to get a",
+    "start": 44.0,
+    "duration": 4.32
+  },
+  {
+    "text": "film look. And what this effectively",
+    "start": 46.0,
+    "duration": 4.8
+  },
+  {
+    "text": "means is that the film look is",
+    "start": 48.32,
+    "duration": 4.96
+  },
+  {
+    "text": "inherently what we can call display",
+    "start": 50.8,
+    "duration": 4.64
+  },
+  {
+    "text": "referred. That just means that it has",
+    "start": 53.28,
+    "duration": 4.32
+  },
+  {
+    "text": "been made ready for display and it is",
+    "start": 55.44,
+    "duration": 4.799
+  },
+  {
+    "text": "visible on some type of screen. And this",
+    "start": 57.6,
+    "duration": 3.759
+  },
+  {
+    "text": "makes perfect sense if you think about",
+    "start": 60.239,
+    "duration": 2.721
+  },
+  {
+    "text": "it because if we're talking about the",
+    "start": 61.359,
+    "duration": 3.361
+  },
+  {
+    "text": "film look and being inspired by it and",
+    "start": 62.96,
+    "duration": 3.36
+  },
+  {
+    "text": "wanting to emulate it in our digital",
+    "start": 64.72,
+    "duration": 3.36
+  },
+  {
+    "text": "color grading workflows, we would have",
+    "start": 66.32,
+    "duration": 3.6
+  },
+  {
+    "text": "to be inspired by seeing something,",
+    "start": 68.08,
+    "duration": 4.399
+  },
+  {
+    "text": "right? So having a film look be display",
+    "start": 69.92,
+    "duration": 4.879
+  },
+  {
+    "text": "referred just makes perfect sense. But",
+    "start": 72.479,
+    "duration": 4.241
+  },
+  {
+    "text": "where it gets interesting is that we run",
+    "start": 74.799,
+    "duration": 4.161
+  },
+  {
+    "text": "into a problem when we're trying to",
+    "start": 76.72,
+    "duration": 4.96
+  },
+  {
+    "text": "incorporate that system, that film look",
+    "start": 78.96,
+    "duration": 4.479
+  },
+  {
+    "text": "into that digital color grading",
+    "start": 81.68,
+    "duration": 3.84
+  },
+  {
+    "text": "workflow. Because on one hand, we have",
+    "start": 83.439,
+    "duration": 4.241
+  },
+  {
+    "text": "our film print whose job it is to put",
+    "start": 85.52,
+    "duration": 3.599
+  },
+  {
+    "text": "the image on the screen to make it",
+    "start": 87.68,
+    "duration": 3.04
+  },
+  {
+    "text": "visible. And then in our color",
+    "start": 89.119,
+    "duration": 3.121
+  },
+  {
+    "text": "management framework, which we should",
+    "start": 90.72,
+    "duration": 3.84
+  },
+  {
+    "text": "always be using when we're grading, we",
+    "start": 92.24,
+    "duration": 4.32
+  },
+  {
+    "text": "have a component with a really similar",
+    "start": 94.56,
+    "duration": 5.04
+  },
+  {
+    "text": "task. That's our output transform. And",
+    "start": 96.56,
+    "duration": 5.199
+  },
+  {
+    "text": "what happens is these two things stack",
+    "start": 99.6,
+    "duration": 4.08
+  },
+  {
+    "text": "on top of each other and we get really",
+    "start": 101.759,
+    "duration": 4.081
+  },
+  {
+    "text": "weird looking results when they do.",
+    "start": 103.68,
+    "duration": 4.56
+  },
+  {
+    "text": "Right? When I first ran into this years",
+    "start": 105.84,
+    "duration": 4.08
+  },
+  {
+    "text": "ago, when I was first getting into film",
+    "start": 108.24,
+    "duration": 4.0
+  },
+  {
+    "text": "emulation and color management, I spent",
+    "start": 109.92,
+    "duration": 4.479
+  },
+  {
+    "text": "a very long period of time trying to",
+    "start": 112.24,
+    "duration": 4.72
+  },
+  {
+    "text": "figure out the best way to get these two",
+    "start": 114.399,
+    "duration": 4.561
+  },
+  {
+    "text": "systems to connect together and play",
+    "start": 116.96,
+    "duration": 4.0
+  },
+  {
+    "text": "nice together. And I ended up coming up",
+    "start": 118.96,
+    "duration": 3.6
+  },
+  {
+    "text": "with a really good solution. That's",
+    "start": 120.96,
+    "duration": 2.96
+  },
+  {
+    "text": "actually the solution that I use to",
+    "start": 122.56,
+    "duration": 4.239
+  },
+  {
+    "text": "build my Kodak 2383 emulation that I",
+    "start": 123.92,
+    "duration": 5.119
+  },
+  {
+    "text": "make available for free here on YouTube.",
+    "start": 126.799,
+    "duration": 3.841
+  },
+  {
+    "text": "And what we're going to do today is walk",
+    "start": 129.039,
+    "duration": 3.28
+  },
+  {
+    "text": "through that full process that I",
+    "start": 130.64,
+    "duration": 4.08
+  },
+  {
+    "text": "designed end to end step by step so that",
+    "start": 132.319,
+    "duration": 4.241
+  },
+  {
+    "text": "you can build film emulations just like",
+    "start": 134.72,
+    "duration": 5.44
+  },
+  {
+    "text": "I built my Kodak 2383 for yourself.",
+    "start": 136.56,
+    "duration": 5.28
+  },
+  {
+    "text": "After we finish doing that, I'm going to",
+    "start": 140.16,
+    "duration": 3.28
+  },
+  {
+    "text": "walk you through the pros and cons of",
+    "start": 141.84,
+    "duration": 4.16
+  },
+  {
+    "text": "this workflow and really what it means",
+    "start": 143.44,
+    "duration": 4.64
+  },
+  {
+    "text": "to emulate film inside of a color",
+    "start": 146.0,
+    "duration": 4.08
+  },
+  {
+    "text": "management workflow and how that's going",
+    "start": 148.08,
+    "duration": 3.84
+  },
+  {
+    "text": "to affect your grading practice and your",
+    "start": 150.08,
+    "duration": 3.92
+  },
+  {
+    "text": "final images. Okay, two more things",
+    "start": 151.92,
+    "duration": 4.24
+  },
+  {
+    "text": "before we get started. Number one, today",
+    "start": 154.0,
+    "duration": 3.519
+  },
+  {
+    "text": "we're going to be focused on the",
+    "start": 156.16,
+    "duration": 4.079
+  },
+  {
+    "text": "contrast and the color component of film",
+    "start": 157.519,
+    "duration": 4.08
+  },
+  {
+    "text": "emulation. We're not going to be",
+    "start": 160.239,
+    "duration": 3.761
+  },
+  {
+    "text": "focusing on textural things like grain",
+    "start": 161.599,
+    "duration": 4.0
+  },
+  {
+    "text": "and halation just because we've got",
+    "start": 164.0,
+    "duration": 3.28
+  },
+  {
+    "text": "enough to bite off just on the contrast",
+    "start": 165.599,
+    "duration": 3.441
+  },
+  {
+    "text": "and tonality side or the contrast and",
+    "start": 167.28,
+    "duration": 3.84
+  },
+  {
+    "text": "color side I should say. So, uh texture",
+    "start": 169.04,
+    "duration": 3.36
+  },
+  {
+    "text": "is something we can save for another",
+    "start": 171.12,
+    "duration": 2.64
+  },
+  {
+    "text": "video. You're also going to find that",
+    "start": 172.4,
+    "duration": 2.8
+  },
+  {
+    "text": "once you're up and running with this",
+    "start": 173.76,
+    "duration": 2.88
+  },
+  {
+    "text": "process, this pipeline that I'm going to",
+    "start": 175.2,
+    "duration": 2.88
+  },
+  {
+    "text": "help you design today, it's actually",
+    "start": 176.64,
+    "duration": 3.44
+  },
+  {
+    "text": "very easy to incorporate those textural",
+    "start": 178.08,
+    "duration": 4.48
+  },
+  {
+    "text": "pieces on your own. And then secondly, I",
+    "start": 180.08,
+    "duration": 4.72
+  },
+  {
+    "text": "also want to emphasize today we are",
+    "start": 182.56,
+    "duration": 4.64
+  },
+  {
+    "text": "doing strict emulation, meaning that we",
+    "start": 184.8,
+    "duration": 4.799
+  },
+  {
+    "text": "are going to be using actual measured",
+    "start": 187.2,
+    "duration": 5.6
+  },
+  {
+    "text": "data from the behavior of real film as",
+    "start": 189.599,
+    "duration": 5.841
+  },
+  {
+    "text": "the basis for this film emulation. So",
+    "start": 192.8,
+    "duration": 4.719
+  },
+  {
+    "text": "this is different than an imitation",
+    "start": 195.44,
+    "duration": 4.0
+  },
+  {
+    "text": "where we might just look at a film image",
+    "start": 197.519,
+    "duration": 4.241
+  },
+  {
+    "text": "and say, \"Oh, I love the way the shadows",
+    "start": 199.44,
+    "duration": 4.32
+  },
+  {
+    "text": "feel or the highlight roll off or I like",
+    "start": 201.76,
+    "duration": 4.0
+  },
+  {
+    "text": "the way that skin tone is being rendered",
+    "start": 203.76,
+    "duration": 3.6
+  },
+  {
+    "text": "and I want to mimic that in my own",
+    "start": 205.76,
+    "duration": 3.52
+  },
+  {
+    "text": "grade.\" That wouldn't be a better or",
+    "start": 207.36,
+    "duration": 3.519
+  },
+  {
+    "text": "worse way of going about things. It",
+    "start": 209.28,
+    "duration": 2.879
+  },
+  {
+    "text": "would just be a different way of going",
+    "start": 210.879,
+    "duration": 3.041
+  },
+  {
+    "text": "about things to say, I'm going to",
+    "start": 212.159,
+    "duration": 3.681
+  },
+  {
+    "text": "imitate those characteristics that I",
+    "start": 213.92,
+    "duration": 3.599
+  },
+  {
+    "text": "like. You might want to imitate those",
+    "start": 215.84,
+    "duration": 3.36
+  },
+  {
+    "text": "things with Resolve Native Tools. You",
+    "start": 217.519,
+    "duration": 3.28
+  },
+  {
+    "text": "might use a look development plugin like",
+    "start": 219.2,
+    "duration": 4.24
+  },
+  {
+    "text": "my uh plug-in Contour, for example. But",
+    "start": 220.799,
+    "duration": 3.921
+  },
+  {
+    "text": "that would be a fundamentally different",
+    "start": 223.44,
+    "duration": 2.96
+  },
+  {
+    "text": "approach than what we're doing today,",
+    "start": 224.72,
+    "duration": 3.439
+  },
+  {
+    "text": "which is about emulation, which is about",
+    "start": 226.4,
+    "duration": 4.08
+  },
+  {
+    "text": "using measured data about the behavior",
+    "start": 228.159,
+    "duration": 4.8
+  },
+  {
+    "text": "of real film and incorporating it into",
+    "start": 230.48,
+    "duration": 3.92
+  },
+  {
+    "text": "the emulation that we're going to be",
+    "start": 232.959,
+    "duration": 3.36
+  },
+  {
+    "text": "building today. Okay, let's get hands on",
+    "start": 234.4,
+    "duration": 3.759
+  },
+  {
+    "text": "her resolve and uh see if we can build",
+    "start": 236.319,
+    "duration": 3.92
+  },
+  {
+    "text": "ourselves a film emulation pipeline. So,",
+    "start": 238.159,
+    "duration": 3.28
+  },
+  {
+    "text": "what am I looking at right now? I",
+    "start": 240.239,
+    "duration": 2.64
+  },
+  {
+    "text": "haven't done any grading yet, but I have",
+    "start": 241.439,
+    "duration": 2.561
+  },
+  {
+    "text": "gone ahead and set up my color",
+    "start": 242.879,
+    "duration": 2.321
+  },
+  {
+    "text": "management. This is the way that I set",
+    "start": 244.0,
+    "duration": 2.56
+  },
+  {
+    "text": "up my color management for all my",
+    "start": 245.2,
+    "duration": 3.679
+  },
+  {
+    "text": "projects. I've got my input transform",
+    "start": 246.56,
+    "duration": 4.16
+  },
+  {
+    "text": "going from my camera color space to my",
+    "start": 248.879,
+    "duration": 3.761
+  },
+  {
+    "text": "working color space of Da Vinci wide",
+    "start": 250.72,
+    "duration": 4.159
+  },
+  {
+    "text": "gamut intermediate. That for me is",
+    "start": 252.64,
+    "duration": 3.68
+  },
+  {
+    "text": "happening here at the group pre-clip",
+    "start": 254.879,
+    "duration": 3.521
+  },
+  {
+    "text": "level of my nodraph. And then here on",
+    "start": 256.32,
+    "duration": 3.84
+  },
+  {
+    "text": "the other end at the timeline level of",
+    "start": 258.4,
+    "duration": 4.48
+  },
+  {
+    "text": "my nodraph is my output transform. This",
+    "start": 260.16,
+    "duration": 4.8
+  },
+  {
+    "text": "is what is making my image look correct",
+    "start": 262.88,
+    "duration": 4.16
+  },
+  {
+    "text": "on my screen. is what's giving it the",
+    "start": 264.96,
+    "duration": 4.48
+  },
+  {
+    "text": "appropriate contrast and saturation for",
+    "start": 267.04,
+    "duration": 4.64
+  },
+  {
+    "text": "my screen. Now, if it's been a while",
+    "start": 269.44,
+    "duration": 3.52
+  },
+  {
+    "text": "since you've thought about or worked",
+    "start": 271.68,
+    "duration": 2.72
+  },
+  {
+    "text": "with color management, or if you're",
+    "start": 272.96,
+    "duration": 2.799
+  },
+  {
+    "text": "brand new to it, I'm going to encourage",
+    "start": 274.4,
+    "duration": 3.44
+  },
+  {
+    "text": "you to pause this video right here and",
+    "start": 275.759,
+    "duration": 3.681
+  },
+  {
+    "text": "go back and check out some of my other",
+    "start": 277.84,
+    "duration": 3.76
+  },
+  {
+    "text": "videos on color management and how I",
+    "start": 279.44,
+    "duration": 3.759
+  },
+  {
+    "text": "like to set things up and why we set",
+    "start": 281.6,
+    "duration": 2.879
+  },
+  {
+    "text": "things up and what all this stuff is",
+    "start": 283.199,
+    "duration": 2.961
+  },
+  {
+    "text": "that I just walked you through. Cuz I",
+    "start": 284.479,
+    "duration": 3.521
+  },
+  {
+    "text": "promise it's going to get more difficult",
+    "start": 286.16,
+    "duration": 3.28
+  },
+  {
+    "text": "to follow from here because I'm going to",
+    "start": 288.0,
+    "duration": 3.199
+  },
+  {
+    "text": "assume you've got some basic literacy in",
+    "start": 289.44,
+    "duration": 3.52
+  },
+  {
+    "text": "these areas. So, if that's you, hit",
+    "start": 291.199,
+    "duration": 3.121
+  },
+  {
+    "text": "pause, go check out some of those other",
+    "start": 292.96,
+    "duration": 3.6
+  },
+  {
+    "text": "videos. If not, let's uh continue",
+    "start": 294.32,
+    "duration": 3.84
+  },
+  {
+    "text": "forward and start building out this film",
+    "start": 296.56,
+    "duration": 3.84
+  },
+  {
+    "text": "emulation. So, here's what we're going",
+    "start": 298.16,
+    "duration": 3.759
+  },
+  {
+    "text": "to do. I'm going to start by disabling",
+    "start": 300.4,
+    "duration": 3.92
+  },
+  {
+    "text": "this output transform just for now, and",
+    "start": 301.919,
+    "duration": 3.521
+  },
+  {
+    "text": "we're going to start to build out this",
+    "start": 304.32,
+    "duration": 3.439
+  },
+  {
+    "text": "emulation. So, we're building an",
+    "start": 305.44,
+    "duration": 4.319
+  },
+  {
+    "text": "emulation. What are our raw materials",
+    "start": 307.759,
+    "duration": 3.761
+  },
+  {
+    "text": "going to be in this construction? Well,",
+    "start": 309.759,
+    "duration": 2.72
+  },
+  {
+    "text": "we know what they're going to be. We",
+    "start": 311.52,
+    "duration": 1.92
+  },
+  {
+    "text": "talked about them right at the beginning",
+    "start": 312.479,
+    "duration": 2.241
+  },
+  {
+    "text": "of this video. We're going to need to",
+    "start": 313.44,
+    "duration": 3.36
+  },
+  {
+    "text": "build our negative and then our print",
+    "start": 314.72,
+    "duration": 4.08
+  },
+  {
+    "text": "and put them together, right? So, here's",
+    "start": 316.8,
+    "duration": 3.2
+  },
+  {
+    "text": "what that's going to look like. We are",
+    "start": 318.8,
+    "duration": 2.64
+  },
+  {
+    "text": "going to use some Resolve native",
+    "start": 320.0,
+    "duration": 3.6
+  },
+  {
+    "text": "solutions for both of those components",
+    "start": 321.44,
+    "duration": 5.12
+  },
+  {
+    "text": "that are uh built from actual measured",
+    "start": 323.6,
+    "duration": 4.8
+  },
+  {
+    "text": "behavior of real film that we can",
+    "start": 326.56,
+    "duration": 4.72
+  },
+  {
+    "text": "sequence together to get that film look",
+    "start": 328.4,
+    "duration": 4.799
+  },
+  {
+    "text": "built out here in Resolve. So, we're",
+    "start": 331.28,
+    "duration": 3.359
+  },
+  {
+    "text": "going to start with the negative side of",
+    "start": 333.199,
+    "duration": 3.041
+  },
+  {
+    "text": "things. And to build our negative, we",
+    "start": 334.639,
+    "duration": 3.601
+  },
+  {
+    "text": "are going to use a standard uh called",
+    "start": 336.24,
+    "duration": 3.84
+  },
+  {
+    "text": "ADX. This was developed by the same",
+    "start": 338.24,
+    "duration": 3.44
+  },
+  {
+    "text": "people who developed the ASUS color",
+    "start": 340.08,
+    "duration": 3.36
+  },
+  {
+    "text": "management framework. And it was",
+    "start": 341.68,
+    "duration": 4.16
+  },
+  {
+    "text": "developed as a way of translating in",
+    "start": 343.44,
+    "duration": 4.88
+  },
+  {
+    "text": "between the color space of a film",
+    "start": 345.84,
+    "duration": 4.56
+  },
+  {
+    "text": "negative and the color space of a",
+    "start": 348.32,
+    "duration": 3.92
+  },
+  {
+    "text": "digital uh color grading space something",
+    "start": 350.4,
+    "duration": 3.6
+  },
+  {
+    "text": "like Da Vinci intermediate for example.",
+    "start": 352.24,
+    "duration": 2.799
+  },
+  {
+    "text": "So we're actually going to do this in",
+    "start": 354.0,
+    "duration": 2.16
+  },
+  {
+    "text": "two steps. So here's how it's going to",
+    "start": 355.039,
+    "duration": 2.561
+  },
+  {
+    "text": "go. We're going to go color space",
+    "start": 356.16,
+    "duration": 3.44
+  },
+  {
+    "text": "transform",
+    "start": 357.6,
+    "duration": 4.48
+  },
+  {
+    "text": "and we're going to go from Da Vinci wide",
+    "start": 359.6,
+    "duration": 8.24
+  },
+  {
+    "text": "gamut Da Vinci intermediate to ASES AP0",
+    "start": 362.08,
+    "duration": 8.0
+  },
+  {
+    "text": "linear. Now, as we start to build out",
+    "start": 367.84,
+    "duration": 3.6
+  },
+  {
+    "text": "nodes here, because we're going to",
+    "start": 370.08,
+    "duration": 2.88
+  },
+  {
+    "text": "sequence several of these out uh during",
+    "start": 371.44,
+    "duration": 3.84
+  },
+  {
+    "text": "our video today, it's always helpful to",
+    "start": 372.96,
+    "duration": 3.6
+  },
+  {
+    "text": "keep in mind what we're doing. We are",
+    "start": 375.28,
+    "duration": 3.199
+  },
+  {
+    "text": "always starting with the space that we",
+    "start": 376.56,
+    "duration": 4.24
+  },
+  {
+    "text": "are in, and then we are moving into some",
+    "start": 378.479,
+    "duration": 4.801
+  },
+  {
+    "text": "other space and then we're going to pick",
+    "start": 380.8,
+    "duration": 4.8
+  },
+  {
+    "text": "up from whatever space we've moved into",
+    "start": 383.28,
+    "duration": 4.8
+  },
+  {
+    "text": "as the input to our next process. You'll",
+    "start": 385.6,
+    "duration": 3.76
+  },
+  {
+    "text": "see what that looks like as we go along",
+    "start": 388.08,
+    "duration": 3.04
+  },
+  {
+    "text": "here. Okay. Now, thus far, I've",
+    "start": 389.36,
+    "duration": 3.44
+  },
+  {
+    "text": "succeeded in making my flat, boring",
+    "start": 391.12,
+    "duration": 3.76
+  },
+  {
+    "text": "image look way worse, but I promise it's",
+    "start": 392.8,
+    "duration": 3.119
+  },
+  {
+    "text": "going to get better. We're going to keep",
+    "start": 394.88,
+    "duration": 3.599
+  },
+  {
+    "text": "building this stack out. So, let's label",
+    "start": 395.919,
+    "duration": 4.321
+  },
+  {
+    "text": "things as we go along. We're going to",
+    "start": 398.479,
+    "duration": 4.241
+  },
+  {
+    "text": "say this is two aces. Why are we going",
+    "start": 400.24,
+    "duration": 4.959
+  },
+  {
+    "text": "into aces right now? Strictly so that I",
+    "start": 402.72,
+    "duration": 5.599
+  },
+  {
+    "text": "can open up an aces transform here and",
+    "start": 405.199,
+    "duration": 5.521
+  },
+  {
+    "text": "use a color space that it has available",
+    "start": 408.319,
+    "duration": 4.88
+  },
+  {
+    "text": "to it to me here in my drop downs. So,",
+    "start": 410.72,
+    "duration": 3.68
+  },
+  {
+    "text": "what we're going to say here is for my",
+    "start": 413.199,
+    "duration": 3.041
+  },
+  {
+    "text": "input transform, we're actually going to",
+    "start": 414.4,
+    "duration": 4.079
+  },
+  {
+    "text": "leave this at no input transform, which",
+    "start": 416.24,
+    "duration": 5.2
+  },
+  {
+    "text": "means as AP0 linear, the exact space",
+    "start": 418.479,
+    "duration": 6.081
+  },
+  {
+    "text": "that I just cded myself into in this",
+    "start": 421.44,
+    "duration": 6.24
+  },
+  {
+    "text": "previous node. And now for my output, I",
+    "start": 424.56,
+    "duration": 5.039
+  },
+  {
+    "text": "want to get into my negative space. And",
+    "start": 427.68,
+    "duration": 4.88
+  },
+  {
+    "text": "that's going to be ADX10. This is a",
+    "start": 429.599,
+    "duration": 4.961
+  },
+  {
+    "text": "generalized color space that's meant to",
+    "start": 432.56,
+    "duration": 4.8
+  },
+  {
+    "text": "characterize the color space of a film",
+    "start": 434.56,
+    "duration": 4.24
+  },
+  {
+    "text": "negative. And it's going to work great",
+    "start": 437.36,
+    "duration": 3.2
+  },
+  {
+    "text": "for our purposes today of needing to",
+    "start": 438.8,
+    "duration": 4.56
+  },
+  {
+    "text": "model that portion of the film look or",
+    "start": 440.56,
+    "duration": 4.96
+  },
+  {
+    "text": "the film pipeline. So, we've now moved",
+    "start": 443.36,
+    "duration": 3.679
+  },
+  {
+    "text": "into our negative space. And I'm just",
+    "start": 445.52,
+    "duration": 2.88
+  },
+  {
+    "text": "going to label this. And we'll call this",
+    "start": 447.039,
+    "duration": 4.481
+  },
+  {
+    "text": "neg. This tees us up perfectly for what",
+    "start": 448.4,
+    "duration": 5.519
+  },
+  {
+    "text": "we need to do next. Next, we need to do",
+    "start": 451.52,
+    "duration": 5.04
+  },
+  {
+    "text": "our print. And hiding out right here in",
+    "start": 453.919,
+    "duration": 6.0
+  },
+  {
+    "text": "Resolve in our film looks folder, we've",
+    "start": 456.56,
+    "duration": 5.919
+  },
+  {
+    "text": "got some very nice film emulations. So,",
+    "start": 459.919,
+    "duration": 3.761
+  },
+  {
+    "text": "I'm going to widen this out a little",
+    "start": 462.479,
+    "duration": 3.28
+  },
+  {
+    "text": "bit. Now, these film emulations shipped",
+    "start": 463.68,
+    "duration": 3.919
+  },
+  {
+    "text": "for free with Resolve. In fact, my",
+    "start": 465.759,
+    "duration": 3.361
+  },
+  {
+    "text": "friend Walter Vulpado, who was recently",
+    "start": 467.599,
+    "duration": 4.081
+  },
+  {
+    "text": "a guest on my podcast, used one of these",
+    "start": 469.12,
+    "duration": 4.479
+  },
+  {
+    "text": "LUTs for the show Winning Time, which he",
+    "start": 471.68,
+    "duration": 4.799
+  },
+  {
+    "text": "graded uh recently for HBO. Amazing",
+    "start": 473.599,
+    "duration": 4.561
+  },
+  {
+    "text": "looking show with some great filmic",
+    "start": 476.479,
+    "duration": 3.521
+  },
+  {
+    "text": "character to it. So, again, don't sleep",
+    "start": 478.16,
+    "duration": 3.12
+  },
+  {
+    "text": "on these LUTs just because they're",
+    "start": 480.0,
+    "duration": 2.879
+  },
+  {
+    "text": "available for free right here within",
+    "start": 481.28,
+    "duration": 3.52
+  },
+  {
+    "text": "Resolve. We're going to use today the",
+    "start": 482.879,
+    "duration": 5.361
+  },
+  {
+    "text": "Rex 709 Kodak 2383D60.",
+    "start": 484.8,
+    "duration": 4.799
+  },
+  {
+    "text": "If you wanted something a bit warmer,",
+    "start": 488.24,
+    "duration": 4.079
+  },
+  {
+    "text": "you could use the 2383D55.",
+    "start": 489.599,
+    "duration": 3.761
+  },
+  {
+    "text": "If you wanted something a little bit",
+    "start": 492.319,
+    "duration": 3.28
+  },
+  {
+    "text": "cooler, you could use the D65. I'm going",
+    "start": 493.36,
+    "duration": 3.679
+  },
+  {
+    "text": "to play Goldilocks and go for the one",
+    "start": 495.599,
+    "duration": 3.121
+  },
+  {
+    "text": "right here in the middle. And we're",
+    "start": 497.039,
+    "duration": 4.481
+  },
+  {
+    "text": "going to apply this to our image. And",
+    "start": 498.72,
+    "duration": 5.52
+  },
+  {
+    "text": "let's take a second here to admire what",
+    "start": 501.52,
+    "duration": 6.16
+  },
+  {
+    "text": "we've done. We have just applied this",
+    "start": 504.24,
+    "duration": 6.079
+  },
+  {
+    "text": "print L to a negative state of image.",
+    "start": 507.68,
+    "duration": 4.719
+  },
+  {
+    "text": "And the net of what we've just done is",
+    "start": 510.319,
+    "duration": 4.321
+  },
+  {
+    "text": "we've got a really nice film rendering",
+    "start": 512.399,
+    "duration": 4.32
+  },
+  {
+    "text": "of our image. We've achieved the film",
+    "start": 514.64,
+    "duration": 4.48
+  },
+  {
+    "text": "look here. So, are we done? Well, not",
+    "start": 516.719,
+    "duration": 4.481
+  },
+  {
+    "text": "quite because remember we turned off",
+    "start": 519.12,
+    "duration": 4.399
+  },
+  {
+    "text": "this output transform here earlier. So,",
+    "start": 521.2,
+    "duration": 3.84
+  },
+  {
+    "text": "we're kind of sidest stepping that",
+    "start": 523.519,
+    "duration": 3.361
+  },
+  {
+    "text": "problem that I mentioned a minute ago",
+    "start": 525.04,
+    "duration": 4.4
+  },
+  {
+    "text": "that happens here where we've got a",
+    "start": 526.88,
+    "duration": 5.519
+  },
+  {
+    "text": "print and an output transform that are",
+    "start": 529.44,
+    "duration": 4.64
+  },
+  {
+    "text": "fighting each other. They're bumping",
+    "start": 532.399,
+    "duration": 3.44
+  },
+  {
+    "text": "into each other. So, we need to solve",
+    "start": 534.08,
+    "duration": 4.08
+  },
+  {
+    "text": "that issue. That's really where the",
+    "start": 535.839,
+    "duration": 4.481
+  },
+  {
+    "text": "craft comes into this workflow I'm about",
+    "start": 538.16,
+    "duration": 3.6
+  },
+  {
+    "text": "to show you. So, let's go ahead and",
+    "start": 540.32,
+    "duration": 4.079
+  },
+  {
+    "text": "label this node. And what we need to do",
+    "start": 541.76,
+    "duration": 5.519
+  },
+  {
+    "text": "from here is put something in between",
+    "start": 544.399,
+    "duration": 6.641
+  },
+  {
+    "text": "this and this that is going to make this",
+    "start": 547.279,
+    "duration": 5.921
+  },
+  {
+    "text": "look correct. Right? So, what are we",
+    "start": 551.04,
+    "duration": 3.2
+  },
+  {
+    "text": "going to do? Well, we're actually going",
+    "start": 553.2,
+    "duration": 3.44
+  },
+  {
+    "text": "to use a color space transform. And the",
+    "start": 554.24,
+    "duration": 5.2
+  },
+  {
+    "text": "fundamental idea here is that we are",
+    "start": 556.64,
+    "duration": 6.879
+  },
+  {
+    "text": "going to pre-invert meaning in invert",
+    "start": 559.44,
+    "duration": 7.36
+  },
+  {
+    "text": "ahead of the stuff that's happening here",
+    "start": 563.519,
+    "duration": 6.081
+  },
+  {
+    "text": "so that the net of these two cancels",
+    "start": 566.8,
+    "duration": 4.719
+  },
+  {
+    "text": "each other out or close to cancels each",
+    "start": 569.6,
+    "duration": 5.04
+  },
+  {
+    "text": "other out. Okay. Now to do that we're",
+    "start": 571.519,
+    "duration": 4.641
+  },
+  {
+    "text": "going to do something that I advise",
+    "start": 574.64,
+    "duration": 4.8
+  },
+  {
+    "text": "against on the channel all the time. We",
+    "start": 576.16,
+    "duration": 6.16
+  },
+  {
+    "text": "are going to go from a I'm actually",
+    "start": 579.44,
+    "duration": 4.32
+  },
+  {
+    "text": "doing this backwards because I'm so used",
+    "start": 582.32,
+    "duration": 3.44
+  },
+  {
+    "text": "to it. We're going to go from a display",
+    "start": 583.76,
+    "duration": 5.44
+  },
+  {
+    "text": "color space, Rex 709, gamma 24, back",
+    "start": 585.76,
+    "duration": 6.4
+  },
+  {
+    "text": "into what's called a scene color space,",
+    "start": 589.2,
+    "duration": 6.56
+  },
+  {
+    "text": "Da Vinci intermediate. This is a very",
+    "start": 592.16,
+    "duration": 5.04
+  },
+  {
+    "text": "tricky thing to do well and it's",
+    "start": 595.76,
+    "duration": 2.72
+  },
+  {
+    "text": "something we need to be very careful",
+    "start": 597.2,
+    "duration": 2.56
+  },
+  {
+    "text": "with. That's why I usually recommend",
+    "start": 598.48,
+    "duration": 3.2
+  },
+  {
+    "text": "against it. But if we get the details",
+    "start": 599.76,
+    "duration": 4.0
+  },
+  {
+    "text": "right and if we do it in just the right",
+    "start": 601.68,
+    "duration": 3.68
+  },
+  {
+    "text": "way, we can get the result that we're",
+    "start": 603.76,
+    "duration": 3.6
+  },
+  {
+    "text": "after, which is an emulation that's",
+    "start": 605.36,
+    "duration": 4.32
+  },
+  {
+    "text": "going to play nice inside of our color",
+    "start": 607.36,
+    "duration": 4.8
+  },
+  {
+    "text": "management. Okay, now we've got some",
+    "start": 609.68,
+    "duration": 4.0
+  },
+  {
+    "text": "more work to do, but let's again just",
+    "start": 612.16,
+    "duration": 3.6
+  },
+  {
+    "text": "kind of pause. I'm going to label this",
+    "start": 613.68,
+    "duration": 5.599
+  },
+  {
+    "text": "node and take stock of what we've done",
+    "start": 615.76,
+    "duration": 5.84
+  },
+  {
+    "text": "thus far. So now with the addition of",
+    "start": 619.279,
+    "duration": 5.361
+  },
+  {
+    "text": "this fourth node, I've gone from color",
+    "start": 621.6,
+    "duration": 6.16
+  },
+  {
+    "text": "management only to effectively film",
+    "start": 624.64,
+    "duration": 5.84
+  },
+  {
+    "text": "emulation happening across four nodes",
+    "start": 627.76,
+    "duration": 5.92
+  },
+  {
+    "text": "that is playing nice inside of my color",
+    "start": 630.48,
+    "duration": 4.96
+  },
+  {
+    "text": "management framework. So that's pretty",
+    "start": 633.68,
+    "duration": 4.24
+  },
+  {
+    "text": "cool, right? But devil's in the details",
+    "start": 635.44,
+    "duration": 3.92
+  },
+  {
+    "text": "here. We really want to make sure we're",
+    "start": 637.92,
+    "duration": 3.76
+  },
+  {
+    "text": "going to go in now and analyze every",
+    "start": 639.36,
+    "duration": 4.08
+  },
+  {
+    "text": "step of this chain and make sure that we",
+    "start": 641.68,
+    "duration": 4.399
+  },
+  {
+    "text": "are being as gentle to the image as we",
+    "start": 643.44,
+    "duration": 4.16
+  },
+  {
+    "text": "possibly can be and make sure that we're",
+    "start": 646.079,
+    "duration": 4.081
+  },
+  {
+    "text": "not creating any room for problems or",
+    "start": 647.6,
+    "duration": 5.04
+  },
+  {
+    "text": "unwanted behaviors to crop up on other",
+    "start": 650.16,
+    "duration": 5.44
+  },
+  {
+    "text": "images uh when we apply this same stack",
+    "start": 652.64,
+    "duration": 4.8
+  },
+  {
+    "text": "uh to other images or other grades.",
+    "start": 655.6,
+    "duration": 3.359
+  },
+  {
+    "text": "Okay, so here's what we're going to do.",
+    "start": 657.44,
+    "duration": 3.2
+  },
+  {
+    "text": "I'm going to prepend a serial node by",
+    "start": 658.959,
+    "duration": 4.081
+  },
+  {
+    "text": "hitting shift s. And I'm going to go",
+    "start": 660.64,
+    "duration": 4.48
+  },
+  {
+    "text": "over here to my gallery and to my",
+    "start": 663.04,
+    "duration": 4.16
+  },
+  {
+    "text": "utility power grades and just grab an",
+    "start": 665.12,
+    "duration": 4.08
+  },
+  {
+    "text": "instance of my grayscale ramp. This is a",
+    "start": 667.2,
+    "duration": 4.319
+  },
+  {
+    "text": "free dctl that I'll leave a link to in",
+    "start": 669.2,
+    "duration": 3.6
+  },
+  {
+    "text": "the description for today's video so",
+    "start": 671.519,
+    "duration": 3.201
+  },
+  {
+    "text": "that you can do this exact same thing. I",
+    "start": 672.8,
+    "duration": 3.279
+  },
+  {
+    "text": "like this one that I created because it",
+    "start": 674.72,
+    "duration": 4.0
+  },
+  {
+    "text": "allows me to see the grayscale ramp here",
+    "start": 676.079,
+    "duration": 5.2
+  },
+  {
+    "text": "in my waveform while also continuing to",
+    "start": 678.72,
+    "duration": 4.64
+  },
+  {
+    "text": "look at the image. And so what we want",
+    "start": 681.279,
+    "duration": 3.761
+  },
+  {
+    "text": "to do is we're going to go piece by",
+    "start": 683.36,
+    "duration": 4.0
+  },
+  {
+    "text": "piece here and look at what each one of",
+    "start": 685.04,
+    "duration": 5.12
+  },
+  {
+    "text": "these nodes is doing to this grayscale",
+    "start": 687.36,
+    "duration": 5.039
+  },
+  {
+    "text": "ramp that I'm looking at right here.",
+    "start": 690.16,
+    "duration": 4.799
+  },
+  {
+    "text": "Okay. So let's start with our ASUS",
+    "start": 692.399,
+    "duration": 4.481
+  },
+  {
+    "text": "transform. I'm going to turn this on.",
+    "start": 694.959,
+    "duration": 4.241
+  },
+  {
+    "text": "Now this is the one of all these nodes",
+    "start": 696.88,
+    "duration": 5.199
+  },
+  {
+    "text": "in the stack where we can kind of ignore",
+    "start": 699.2,
+    "duration": 5.12
+  },
+  {
+    "text": "what might look like a problematic curve",
+    "start": 702.079,
+    "duration": 4.241
+  },
+  {
+    "text": "here. This looks like we're clipping out",
+    "start": 704.32,
+    "duration": 4.16
+  },
+  {
+    "text": "a bunch of data, right? We're actually",
+    "start": 706.32,
+    "duration": 4.0
+  },
+  {
+    "text": "not. What's happening is we are mapping",
+    "start": 708.48,
+    "duration": 5.44
+  },
+  {
+    "text": "into a linear domain where the range is",
+    "start": 710.32,
+    "duration": 6.32
+  },
+  {
+    "text": "much greater than 0 to 100 as we see",
+    "start": 713.92,
+    "duration": 4.479
+  },
+  {
+    "text": "here. So it's not that this is being",
+    "start": 716.64,
+    "duration": 3.36
+  },
+  {
+    "text": "chopped off. It's that it's continuing",
+    "start": 718.399,
+    "duration": 4.481
+  },
+  {
+    "text": "to go up above the range of my scope. So",
+    "start": 720.0,
+    "duration": 4.56
+  },
+  {
+    "text": "this is the one situation where I'm",
+    "start": 722.88,
+    "duration": 5.12
+  },
+  {
+    "text": "going to allow an ugly curve to remain",
+    "start": 724.56,
+    "duration": 5.279
+  },
+  {
+    "text": "without trying to do anything about it.",
+    "start": 728.0,
+    "duration": 3.519
+  },
+  {
+    "text": "All right, we're now going to take a",
+    "start": 729.839,
+    "duration": 2.961
+  },
+  {
+    "text": "look at our neg and let's see what",
+    "start": 731.519,
+    "duration": 3.361
+  },
+  {
+    "text": "happens once we apply this. So you can",
+    "start": 732.8,
+    "duration": 3.839
+  },
+  {
+    "text": "see we're getting stuff kind of falling",
+    "start": 734.88,
+    "duration": 4.32
+  },
+  {
+    "text": "back into range here, but now we are",
+    "start": 736.639,
+    "duration": 4.32
+  },
+  {
+    "text": "still getting some clipping in the top",
+    "start": 739.2,
+    "duration": 5.12
+  },
+  {
+    "text": "end. And this we can do something about.",
+    "start": 740.959,
+    "duration": 4.721
+  },
+  {
+    "text": "Here's what I want to do. I want to do",
+    "start": 744.32,
+    "duration": 3.6
+  },
+  {
+    "text": "some tone mapping to say, hey, whatever",
+    "start": 745.68,
+    "duration": 4.399
+  },
+  {
+    "text": "we need to do to kind of soften and roll",
+    "start": 747.92,
+    "duration": 4.0
+  },
+  {
+    "text": "things in just here at the very top.",
+    "start": 750.079,
+    "duration": 3.361
+  },
+  {
+    "text": "That's what I'd like to do. Because if I",
+    "start": 751.92,
+    "duration": 3.84
+  },
+  {
+    "text": "think about, I don't know, a a bright",
+    "start": 753.44,
+    "duration": 4.32
+  },
+  {
+    "text": "exposure out a window or, you know, like",
+    "start": 755.76,
+    "duration": 3.68
+  },
+  {
+    "text": "a glint or a flare or something like",
+    "start": 757.76,
+    "duration": 5.12
+  },
+  {
+    "text": "that, I don't want a hot exposed element",
+    "start": 759.44,
+    "duration": 5.76
+  },
+  {
+    "text": "in my frame to have a hard clipped",
+    "start": 762.88,
+    "duration": 4.56
+  },
+  {
+    "text": "behavior. I would rather it gently roll.",
+    "start": 765.2,
+    "duration": 3.759
+  },
+  {
+    "text": "Okay, so here's what we're going to do",
+    "start": 767.44,
+    "duration": 2.88
+  },
+  {
+    "text": "that or how how we're going to do that",
+    "start": 768.959,
+    "duration": 2.88
+  },
+  {
+    "text": "rather. Let's go back to this ASUS",
+    "start": 770.32,
+    "duration": 3.36
+  },
+  {
+    "text": "transform and we're going to use some",
+    "start": 771.839,
+    "duration": 3.841
+  },
+  {
+    "text": "luminance mapping here. We're going to",
+    "start": 773.68,
+    "duration": 3.92
+  },
+  {
+    "text": "say a custom max output of 10,000",
+    "start": 775.68,
+    "duration": 3.52
+  },
+  {
+    "text": "because that's the max of this working",
+    "start": 777.6,
+    "duration": 3.76
+  },
+  {
+    "text": "space that we may indeed hit with the",
+    "start": 779.2,
+    "duration": 3.92
+  },
+  {
+    "text": "right image, right? And then we're going",
+    "start": 781.36,
+    "duration": 4.0
+  },
+  {
+    "text": "to do a custom max output. And we're",
+    "start": 783.12,
+    "duration": 4.48
+  },
+  {
+    "text": "also going to do that at 10,000 for now.",
+    "start": 785.36,
+    "duration": 4.32
+  },
+  {
+    "text": "Just so that I can point out if I set",
+    "start": 787.6,
+    "duration": 4.96
+  },
+  {
+    "text": "these both to 10,000, I'm getting no",
+    "start": 789.68,
+    "duration": 5.2
+  },
+  {
+    "text": "change in this curve. Right? It's",
+    "start": 792.56,
+    "duration": 4.399
+  },
+  {
+    "text": "nothing additional is happening. So what",
+    "start": 794.88,
+    "duration": 4.48
+  },
+  {
+    "text": "I want to do now is move this output",
+    "start": 796.959,
+    "duration": 6.0
+  },
+  {
+    "text": "slider as little as possible to get the",
+    "start": 799.36,
+    "duration": 6.479
+  },
+  {
+    "text": "curve back in range. You see what I mean",
+    "start": 802.959,
+    "duration": 5.361
+  },
+  {
+    "text": "here? It's just not quite in range here.",
+    "start": 805.839,
+    "duration": 4.881
+  },
+  {
+    "text": "Now it's going further than I need to. I",
+    "start": 808.32,
+    "duration": 4.4
+  },
+  {
+    "text": "want to go as far as I need to, but no",
+    "start": 810.72,
+    "duration": 4.0
+  },
+  {
+    "text": "further with this value. And that's",
+    "start": 812.72,
+    "duration": 4.799
+  },
+  {
+    "text": "going to be right around 2200 in this",
+    "start": 814.72,
+    "duration": 4.64
+  },
+  {
+    "text": "case. Okay. And I want to point out",
+    "start": 817.519,
+    "duration": 3.201
+  },
+  {
+    "text": "something that we're going to see a",
+    "start": 819.36,
+    "duration": 2.64
+  },
+  {
+    "text": "couple times as we're going through this",
+    "start": 820.72,
+    "duration": 4.08
+  },
+  {
+    "text": "node stack here today. These nit values",
+    "start": 822.0,
+    "duration": 5.519
+  },
+  {
+    "text": "here are not particularly intuitive.",
+    "start": 824.8,
+    "duration": 5.44
+  },
+  {
+    "text": "Like if we look at this adjustment from",
+    "start": 827.519,
+    "duration": 4.961
+  },
+  {
+    "text": "10,000 to 2,200, that sounds like a",
+    "start": 830.24,
+    "duration": 3.68
+  },
+  {
+    "text": "massive adjustment, right? Like if you",
+    "start": 832.48,
+    "duration": 4.799
+  },
+  {
+    "text": "had $10,000 and I took away 7,800 bucks",
+    "start": 833.92,
+    "duration": 4.96
+  },
+  {
+    "text": "from you, you'd be like, \"Man, that was",
+    "start": 837.279,
+    "duration": 3.12
+  },
+  {
+    "text": "like most of my money that you just took",
+    "start": 838.88,
+    "duration": 3.36
+  },
+  {
+    "text": "away from me, right? Doesn't work quite",
+    "start": 840.399,
+    "duration": 4.081
+  },
+  {
+    "text": "the same way here. These uh numbers are",
+    "start": 842.24,
+    "duration": 4.88
+  },
+  {
+    "text": "not perceptually aligned.\" Okay? So,",
+    "start": 844.48,
+    "duration": 4.4
+  },
+  {
+    "text": "even though we're making a big numerical",
+    "start": 847.12,
+    "duration": 3.76
+  },
+  {
+    "text": "adjustment, there's not necessarily",
+    "start": 848.88,
+    "duration": 4.0
+  },
+  {
+    "text": "going to be that same scale of visible",
+    "start": 850.88,
+    "duration": 3.6
+  },
+  {
+    "text": "adjustment when we actually get this",
+    "start": 852.88,
+    "duration": 2.959
+  },
+  {
+    "text": "thing fully built out. We'll see another",
+    "start": 854.48,
+    "duration": 2.56
+  },
+  {
+    "text": "example of that here in just a little",
+    "start": 855.839,
+    "duration": 3.601
+  },
+  {
+    "text": "bit. So, we've now got this tone mapped",
+    "start": 857.04,
+    "duration": 4.56
+  },
+  {
+    "text": "and we're taking care to ensure that our",
+    "start": 859.44,
+    "duration": 6.0
+  },
+  {
+    "text": "curve is gently being shaped as we move",
+    "start": 861.6,
+    "duration": 6.4
+  },
+  {
+    "text": "forward through this stack. Okay, we're",
+    "start": 865.44,
+    "duration": 4.16
+  },
+  {
+    "text": "now going to apply our print process.",
+    "start": 868.0,
+    "duration": 3.44
+  },
+  {
+    "text": "Let's see what we're getting here. That",
+    "start": 869.6,
+    "duration": 3.359
+  },
+  {
+    "text": "looks good, right? These curves feel",
+    "start": 871.44,
+    "duration": 4.0
+  },
+  {
+    "text": "nice and smooth, nice and gentle. No big",
+    "start": 872.959,
+    "duration": 3.921
+  },
+  {
+    "text": "problems there. And that's to be",
+    "start": 875.44,
+    "duration": 2.959
+  },
+  {
+    "text": "expected because I'm not doing anything",
+    "start": 876.88,
+    "duration": 4.0
+  },
+  {
+    "text": "fancy quite yet. I'm really just mapping",
+    "start": 878.399,
+    "duration": 5.68
+  },
+  {
+    "text": "this image for a traditional film",
+    "start": 880.88,
+    "duration": 5.12
+  },
+  {
+    "text": "reproduction or a print film emulation",
+    "start": 884.079,
+    "duration": 3.921
+  },
+  {
+    "text": "reproduction without needing to slot it",
+    "start": 886.0,
+    "duration": 4.16
+  },
+  {
+    "text": "into my color management. It's this next",
+    "start": 888.0,
+    "duration": 4.48
+  },
+  {
+    "text": "step where we're going to run into some",
+    "start": 890.16,
+    "duration": 3.76
+  },
+  {
+    "text": "challenges and really need to finesse",
+    "start": 892.48,
+    "duration": 4.88
+  },
+  {
+    "text": "what we're doing. So here in this step,",
+    "start": 893.92,
+    "duration": 6.08
+  },
+  {
+    "text": "we are again going from a display space",
+    "start": 897.36,
+    "duration": 5.039
+  },
+  {
+    "text": "to a scene space. So, we need to be very",
+    "start": 900.0,
+    "duration": 3.839
+  },
+  {
+    "text": "mindful of how we do this because",
+    "start": 902.399,
+    "duration": 3.601
+  },
+  {
+    "text": "essentially we're taking the fabric of",
+    "start": 903.839,
+    "duration": 5.12
+  },
+  {
+    "text": "our image and gently stretching it back",
+    "start": 906.0,
+    "duration": 5.279
+  },
+  {
+    "text": "out from the dynamic range that it was",
+    "start": 908.959,
+    "duration": 5.201
+  },
+  {
+    "text": "compressed down to for display by the",
+    "start": 911.279,
+    "duration": 5.281
+  },
+  {
+    "text": "print process. Okay, so we're going to",
+    "start": 914.16,
+    "duration": 4.08
+  },
+  {
+    "text": "gently stretch this back out. And here's",
+    "start": 916.56,
+    "duration": 3.36
+  },
+  {
+    "text": "how I like to do it. We're going to do",
+    "start": 918.24,
+    "duration": 3.599
+  },
+  {
+    "text": "luminance mapping again. We're going to",
+    "start": 919.92,
+    "duration": 4.64
+  },
+  {
+    "text": "set a custom max input of 100. And let's",
+    "start": 921.839,
+    "duration": 4.161
+  },
+  {
+    "text": "just say for argument sake, we're like,",
+    "start": 924.56,
+    "duration": 3.36
+  },
+  {
+    "text": "hey, let's I want the full 10,000 here.",
+    "start": 926.0,
+    "duration": 3.839
+  },
+  {
+    "text": "Can I get there? Here's what's going to",
+    "start": 927.92,
+    "duration": 4.159
+  },
+  {
+    "text": "happen. If we go kind of large on our",
+    "start": 929.839,
+    "duration": 4.321
+  },
+  {
+    "text": "waveform, you can see this top end of",
+    "start": 932.079,
+    "duration": 3.601
+  },
+  {
+    "text": "the curve is starting to get a little",
+    "start": 934.16,
+    "duration": 4.64
+  },
+  {
+    "text": "kind of chunky and jagged, right? So,",
+    "start": 935.68,
+    "duration": 5.04
+  },
+  {
+    "text": "what we want to do here is find an",
+    "start": 938.8,
+    "duration": 4.64
+  },
+  {
+    "text": "output that's as high as possible so",
+    "start": 940.72,
+    "duration": 4.96
+  },
+  {
+    "text": "that we can get some dynamic range",
+    "start": 943.44,
+    "duration": 6.24
+  },
+  {
+    "text": "restored, but that stays smooth. Okay?",
+    "start": 945.68,
+    "duration": 6.88
+  },
+  {
+    "text": "And usually for this workflow with film",
+    "start": 949.68,
+    "duration": 4.8
+  },
+  {
+    "text": "print LUTs, that's going to be somewhere",
+    "start": 952.56,
+    "duration": 5.199
+  },
+  {
+    "text": "in the neighborhood of 600 to 650 nits",
+    "start": 954.48,
+    "duration": 5.52
+  },
+  {
+    "text": "for output. Okay? Now remember we",
+    "start": 957.759,
+    "duration": 4.721
+  },
+  {
+    "text": "observed just a moment ago these numbers",
+    "start": 960.0,
+    "duration": 4.88
+  },
+  {
+    "text": "don't scale perceptually. So you know",
+    "start": 962.48,
+    "duration": 4.24
+  },
+  {
+    "text": "like if we're looking at oh I could have",
+    "start": 964.88,
+    "duration": 3.44
+  },
+  {
+    "text": "gone all the way to 10,000 and now I'm",
+    "start": 966.72,
+    "duration": 4.08
+  },
+  {
+    "text": "only going to 600. That sounds like a",
+    "start": 968.32,
+    "duration": 5.04
+  },
+  {
+    "text": "massive change. It's actually not nearly",
+    "start": 970.8,
+    "duration": 4.56
+  },
+  {
+    "text": "the impact visually that you would",
+    "start": 973.36,
+    "duration": 3.279
+  },
+  {
+    "text": "expect and we're going to see that in a",
+    "start": 975.36,
+    "duration": 3.52
+  },
+  {
+    "text": "minute here. Okay. So now we're again",
+    "start": 976.639,
+    "duration": 3.841
+  },
+  {
+    "text": "managing that curve, keeping it as",
+    "start": 978.88,
+    "duration": 3.759
+  },
+  {
+    "text": "smooth as we possibly can. We've got a",
+    "start": 980.48,
+    "duration": 3.68
+  },
+  {
+    "text": "little bit of jaggedness down here in",
+    "start": 982.639,
+    "duration": 3.521
+  },
+  {
+    "text": "the bottom of the curve as well. Like if",
+    "start": 984.16,
+    "duration": 4.08
+  },
+  {
+    "text": "I increase this ramp height, you can see",
+    "start": 986.16,
+    "duration": 4.0
+  },
+  {
+    "text": "that. But that's really just the result",
+    "start": 988.24,
+    "duration": 3.279
+  },
+  {
+    "text": "of this chain that we're going through",
+    "start": 990.16,
+    "duration": 3.44
+  },
+  {
+    "text": "and the fact that I am using a L that's",
+    "start": 991.519,
+    "duration": 4.721
+  },
+  {
+    "text": "only a 33 point L. It's not like a 65",
+    "start": 993.6,
+    "duration": 5.359
+  },
+  {
+    "text": "point or super high resolution L. So",
+    "start": 996.24,
+    "duration": 4.399
+  },
+  {
+    "text": "there are some areas here as we're",
+    "start": 998.959,
+    "duration": 3.281
+  },
+  {
+    "text": "building this out where it's just the",
+    "start": 1000.639,
+    "duration": 2.721
+  },
+  {
+    "text": "best we can do and there's nothing",
+    "start": 1002.24,
+    "duration": 2.959
+  },
+  {
+    "text": "really further that we can do. We just",
+    "start": 1003.36,
+    "duration": 3.12
+  },
+  {
+    "text": "want to make sure that anything we can",
+    "start": 1005.199,
+    "duration": 3.2
+  },
+  {
+    "text": "do to be gentle in the image we are",
+    "start": 1006.48,
+    "duration": 4.159
+  },
+  {
+    "text": "doing. Okay. So let's turn this ramp",
+    "start": 1008.399,
+    "duration": 5.44
+  },
+  {
+    "text": "back down to 10% here. And we're going",
+    "start": 1010.639,
+    "duration": 4.88
+  },
+  {
+    "text": "to continue forward and apply our last",
+    "start": 1013.839,
+    "duration": 5.601
+  },
+  {
+    "text": "step next of our final output transform.",
+    "start": 1015.519,
+    "duration": 5.361
+  },
+  {
+    "text": "And that curve, as you can see, is",
+    "start": 1019.44,
+    "duration": 4.72
+  },
+  {
+    "text": "looking pretty good. So let's observe",
+    "start": 1020.88,
+    "duration": 4.72
+  },
+  {
+    "text": "now that we've done these last two",
+    "start": 1024.16,
+    "duration": 3.6
+  },
+  {
+    "text": "pieces. Fundamentally, what we are",
+    "start": 1025.6,
+    "duration": 3.76
+  },
+  {
+    "text": "trying to get, let me stretch these",
+    "start": 1027.76,
+    "duration": 4.799
+  },
+  {
+    "text": "scopes back out so I can get my vector",
+    "start": 1029.36,
+    "duration": 5.52
+  },
+  {
+    "text": "scope visible as well as my waveform",
+    "start": 1032.559,
+    "duration": 5.201
+  },
+  {
+    "text": "here. Okay. And let's look at the scopes",
+    "start": 1034.88,
+    "duration": 4.72
+  },
+  {
+    "text": "as I flip these last two nodes off and",
+    "start": 1037.76,
+    "duration": 3.12
+  },
+  {
+    "text": "on.",
+    "start": 1039.6,
+    "duration": 4.16
+  },
+  {
+    "text": "I am hoping to see little to no change",
+    "start": 1040.88,
+    "duration": 5.039
+  },
+  {
+    "text": "in the image area because remember like",
+    "start": 1043.76,
+    "duration": 4.159
+  },
+  {
+    "text": "this is the film look right here. I just",
+    "start": 1045.919,
+    "duration": 4.481
+  },
+  {
+    "text": "want to translate it so that it can work",
+    "start": 1047.919,
+    "duration": 4.721
+  },
+  {
+    "text": "inside of my color management. Right? So",
+    "start": 1050.4,
+    "duration": 4.08
+  },
+  {
+    "text": "if I was seeing more than a small change",
+    "start": 1052.64,
+    "duration": 3.68
+  },
+  {
+    "text": "in the image that would mean that I",
+    "start": 1054.48,
+    "duration": 4.24
+  },
+  {
+    "text": "wasn't doing things as well as I really",
+    "start": 1056.32,
+    "duration": 3.84
+  },
+  {
+    "text": "should in this step because I don't want",
+    "start": 1058.72,
+    "duration": 3.6
+  },
+  {
+    "text": "to change the visual. I don't want to",
+    "start": 1060.16,
+    "duration": 3.84
+  },
+  {
+    "text": "change the rendering of the image. I",
+    "start": 1062.32,
+    "duration": 3.76
+  },
+  {
+    "text": "want to change the pipeline that I'm",
+    "start": 1064.0,
+    "duration": 4.48
+  },
+  {
+    "text": "able to use to get that rendering. Does",
+    "start": 1066.08,
+    "duration": 4.479
+  },
+  {
+    "text": "that make sense? So, we are getting a",
+    "start": 1068.48,
+    "duration": 5.439
+  },
+  {
+    "text": "small net change here, but we are",
+    "start": 1070.559,
+    "duration": 5.601
+  },
+  {
+    "text": "maintaining the overall essence of the",
+    "start": 1073.919,
+    "duration": 5.041
+  },
+  {
+    "text": "look, and we've just slotted it into our",
+    "start": 1076.16,
+    "duration": 5.28
+  },
+  {
+    "text": "color management framework. Okay, so",
+    "start": 1078.96,
+    "duration": 4.719
+  },
+  {
+    "text": "we've got that set up. We've gotten uh",
+    "start": 1081.44,
+    "duration": 4.239
+  },
+  {
+    "text": "uh nice and smoothed out in terms of our",
+    "start": 1083.679,
+    "duration": 3.281
+  },
+  {
+    "text": "curves and working our way through",
+    "start": 1085.679,
+    "duration": 3.201
+  },
+  {
+    "text": "things with our grayscale ramp. So,",
+    "start": 1086.96,
+    "duration": 3.68
+  },
+  {
+    "text": "where do we go from here? From now on,",
+    "start": 1088.88,
+    "duration": 3.12
+  },
+  {
+    "text": "do you just have to stack these four",
+    "start": 1090.64,
+    "duration": 2.72
+  },
+  {
+    "text": "nodes every single time you want to do a",
+    "start": 1092.0,
+    "duration": 3.44
+  },
+  {
+    "text": "film emulation inside of a color manage",
+    "start": 1093.36,
+    "duration": 3.92
+  },
+  {
+    "text": "framework? No, you don't. I want to show",
+    "start": 1095.44,
+    "duration": 4.16
+  },
+  {
+    "text": "you now a way that you can cook all four",
+    "start": 1097.28,
+    "duration": 4.96
+  },
+  {
+    "text": "of these out into a L that you can use",
+    "start": 1099.6,
+    "duration": 4.8
+  },
+  {
+    "text": "and reuse whenever you want to. Now,",
+    "start": 1102.24,
+    "duration": 4.0
+  },
+  {
+    "text": "here's another kind of tricky part that",
+    "start": 1104.4,
+    "duration": 2.88
+  },
+  {
+    "text": "we're going to get into right now",
+    "start": 1106.24,
+    "duration": 3.28
+  },
+  {
+    "text": "because we want to cook out a lot, but",
+    "start": 1107.28,
+    "duration": 4.0
+  },
+  {
+    "text": "we want this L to only contain certain",
+    "start": 1109.52,
+    "duration": 3.6
+  },
+  {
+    "text": "things and to exclude other things. So,",
+    "start": 1111.28,
+    "duration": 3.44
+  },
+  {
+    "text": "like with everything that we're looking",
+    "start": 1113.12,
+    "duration": 3.84
+  },
+  {
+    "text": "at right now, let's just summarize our",
+    "start": 1114.72,
+    "duration": 4.8
+  },
+  {
+    "text": "processes. We have an input transform.",
+    "start": 1116.96,
+    "duration": 4.24
+  },
+  {
+    "text": "We have these four where we're going",
+    "start": 1119.52,
+    "duration": 4.24
+  },
+  {
+    "text": "from aces or rather we're going to aces.",
+    "start": 1121.2,
+    "duration": 4.24
+  },
+  {
+    "text": "We're modeling our neg. We're going",
+    "start": 1123.76,
+    "duration": 2.96
+  },
+  {
+    "text": "through our print process. We're",
+    "start": 1125.44,
+    "duration": 2.8
+  },
+  {
+    "text": "converting back to Da Vinci Y gamut",
+    "start": 1126.72,
+    "duration": 3.36
+  },
+  {
+    "text": "intermediate and we're going out to back",
+    "start": 1128.24,
+    "duration": 3.84
+  },
+  {
+    "text": "out to Rec 709. But we don't want to",
+    "start": 1130.08,
+    "duration": 4.24
+  },
+  {
+    "text": "bake all of that into our L because we",
+    "start": 1132.08,
+    "duration": 4.16
+  },
+  {
+    "text": "want some of those pieces to come from",
+    "start": 1134.32,
+    "duration": 3.68
+  },
+  {
+    "text": "our color management when we're using",
+    "start": 1136.24,
+    "duration": 4.24
+  },
+  {
+    "text": "that L, right? So, the main thing to be",
+    "start": 1138.0,
+    "duration": 4.08
+  },
+  {
+    "text": "mindful of when you're cooking out a L",
+    "start": 1140.48,
+    "duration": 3.04
+  },
+  {
+    "text": "is to make sure that you are leaving the",
+    "start": 1142.08,
+    "duration": 2.8
+  },
+  {
+    "text": "right things on and turning the right",
+    "start": 1143.52,
+    "duration": 3.039
+  },
+  {
+    "text": "things off so that you're cooking out",
+    "start": 1144.88,
+    "duration": 4.24
+  },
+  {
+    "text": "the L that you actually need for use in",
+    "start": 1146.559,
+    "duration": 4.161
+  },
+  {
+    "text": "your workflow. Here's what that's going",
+    "start": 1149.12,
+    "duration": 3.919
+  },
+  {
+    "text": "to look like. We don't want this, right?",
+    "start": 1150.72,
+    "duration": 3.76
+  },
+  {
+    "text": "This will be provided when we're doing",
+    "start": 1153.039,
+    "duration": 4.081
+  },
+  {
+    "text": "our color management. We also don't want",
+    "start": 1154.48,
+    "duration": 4.4
+  },
+  {
+    "text": "our input space, and this is the one",
+    "start": 1157.12,
+    "duration": 3.679
+  },
+  {
+    "text": "that I always forget about when I'm",
+    "start": 1158.88,
+    "duration": 4.08
+  },
+  {
+    "text": "doing this process. You want to go over",
+    "start": 1160.799,
+    "duration": 3.841
+  },
+  {
+    "text": "to wherever your input transform is",
+    "start": 1162.96,
+    "duration": 3.44
+  },
+  {
+    "text": "happening and turn it off because I",
+    "start": 1164.64,
+    "duration": 3.52
+  },
+  {
+    "text": "don't want to bake a camera to working",
+    "start": 1166.4,
+    "duration": 4.56
+  },
+  {
+    "text": "space transform into my L. I want that",
+    "start": 1168.16,
+    "duration": 5.2
+  },
+  {
+    "text": "to be handled by my color management. I",
+    "start": 1170.96,
+    "duration": 5.52
+  },
+  {
+    "text": "just want a lot that contains the four",
+    "start": 1173.36,
+    "duration": 5.52
+  },
+  {
+    "text": "processes that we've just built out here",
+    "start": 1176.48,
+    "duration": 5.36
+  },
+  {
+    "text": "that model my color management friendly",
+    "start": 1178.88,
+    "duration": 5.679
+  },
+  {
+    "text": "or my scene referred film emulation. And",
+    "start": 1181.84,
+    "duration": 4.719
+  },
+  {
+    "text": "then I can build everything around that",
+    "start": 1184.559,
+    "duration": 4.0
+  },
+  {
+    "text": "with my color management framework. So",
+    "start": 1186.559,
+    "duration": 3.12
+  },
+  {
+    "text": "now that I've got the right things",
+    "start": 1188.559,
+    "duration": 2.961
+  },
+  {
+    "text": "turned off and on, oh, we can turn our",
+    "start": 1189.679,
+    "duration": 3.921
+  },
+  {
+    "text": "ramp off as well. We don't want to ask",
+    "start": 1191.52,
+    "duration": 3.6
+  },
+  {
+    "text": "Resolve to try to cook that into a L",
+    "start": 1193.6,
+    "duration": 2.8
+  },
+  {
+    "text": "because it'll get confused. I'm going to",
+    "start": 1195.12,
+    "duration": 4.32
+  },
+  {
+    "text": "even need it right now uh at any for for",
+    "start": 1196.4,
+    "duration": 4.639
+  },
+  {
+    "text": "any reason anyway. So I'm going to turn",
+    "start": 1199.44,
+    "duration": 3.44
+  },
+  {
+    "text": "my gallery off here. And here's what",
+    "start": 1201.039,
+    "duration": 2.64
+  },
+  {
+    "text": "we're going to do now. We're going to",
+    "start": 1202.88,
+    "duration": 1.919
+  },
+  {
+    "text": "rightclick and we're going to say",
+    "start": 1203.679,
+    "duration": 4.801
+  },
+  {
+    "text": "generate L 65 point cube. And this is",
+    "start": 1204.799,
+    "duration": 5.681
+  },
+  {
+    "text": "going to point me to my L folder. And",
+    "start": 1208.48,
+    "duration": 4.8
+  },
+  {
+    "text": "we're going to call this 2383",
+    "start": 1210.48,
+    "duration": 6.96
+  },
+  {
+    "text": "Da Vinci wide gamut. All right,",
+    "start": 1213.28,
+    "duration": 6.8
+  },
+  {
+    "text": "we've now outputed that L. And what I",
+    "start": 1217.44,
+    "duration": 5.2
+  },
+  {
+    "text": "want to do is open my L folder and just",
+    "start": 1220.08,
+    "duration": 3.839
+  },
+  {
+    "text": "check the name on it. So I'm going to go",
+    "start": 1222.64,
+    "duration": 2.64
+  },
+  {
+    "text": "to my project settings, which I could",
+    "start": 1223.919,
+    "duration": 3.361
+  },
+  {
+    "text": "get to from this gear icon here, or go",
+    "start": 1225.28,
+    "duration": 4.0
+  },
+  {
+    "text": "to the file menu and hit project",
+    "start": 1227.28,
+    "duration": 3.759
+  },
+  {
+    "text": "settings. And I'm going to go here to",
+    "start": 1229.28,
+    "duration": 4.24
+  },
+  {
+    "text": "color management and then lookup tables.",
+    "start": 1231.039,
+    "duration": 4.961
+  },
+  {
+    "text": "And we're going to say open LUT folder.",
+    "start": 1233.52,
+    "duration": 4.8
+  },
+  {
+    "text": "And if you notice here, you'll see I've",
+    "start": 1236.0,
+    "duration": 6.0
+  },
+  {
+    "text": "got this Kodak 2383",
+    "start": 1238.32,
+    "duration": 5.599
+  },
+  {
+    "text": "L here, but it's got this suffix on here",
+    "start": 1242.0,
+    "duration": 3.84
+  },
+  {
+    "text": "that Resolve is always going to add. I'm",
+    "start": 1243.919,
+    "duration": 3.12
+  },
+  {
+    "text": "just going to strip that back off so",
+    "start": 1245.84,
+    "duration": 4.16
+  },
+  {
+    "text": "that I'm left with 2383 Da Vinci wide",
+    "start": 1247.039,
+    "duration": 5.281
+  },
+  {
+    "text": "gamut. I'm going to cancel out of my",
+    "start": 1250.0,
+    "duration": 4.799
+  },
+  {
+    "text": "project settings here in Resolve. And",
+    "start": 1252.32,
+    "duration": 4.16
+  },
+  {
+    "text": "we're now going to turn everything back",
+    "start": 1254.799,
+    "duration": 3.921
+  },
+  {
+    "text": "on here in Resolve. And I'm going to",
+    "start": 1256.48,
+    "duration": 4.079
+  },
+  {
+    "text": "grab a still of this. I'm going to use",
+    "start": 1258.72,
+    "duration": 4.4
+  },
+  {
+    "text": "this as my reference to confirm that the",
+    "start": 1260.559,
+    "duration": 4.561
+  },
+  {
+    "text": "L that we're about to bring in is doing",
+    "start": 1263.12,
+    "duration": 4.24
+  },
+  {
+    "text": "what it should. Okay. So, I've got my",
+    "start": 1265.12,
+    "duration": 4.32
+  },
+  {
+    "text": "reference still pulled here. I'm now",
+    "start": 1267.36,
+    "duration": 3.76
+  },
+  {
+    "text": "going to turn off these four pieces",
+    "start": 1269.44,
+    "duration": 3.84
+  },
+  {
+    "text": "because hopefully these four pieces and",
+    "start": 1271.12,
+    "duration": 4.48
+  },
+  {
+    "text": "only these four pieces are what just got",
+    "start": 1273.28,
+    "duration": 4.639
+  },
+  {
+    "text": "cooked into my L. So, when I apply this",
+    "start": 1275.6,
+    "duration": 4.559
+  },
+  {
+    "text": "new L that I've just generated, it",
+    "start": 1277.919,
+    "duration": 3.681
+  },
+  {
+    "text": "should do the exact same thing that",
+    "start": 1280.159,
+    "duration": 4.161
+  },
+  {
+    "text": "these four things were doing before.",
+    "start": 1281.6,
+    "duration": 5.199
+  },
+  {
+    "text": "Okay. So, let's go to our L folder. I'm",
+    "start": 1284.32,
+    "duration": 4.16
+  },
+  {
+    "text": "going to go to the root level. I'm going",
+    "start": 1286.799,
+    "duration": 4.161
+  },
+  {
+    "text": "to rightclick and hit refresh.",
+    "start": 1288.48,
+    "duration": 4.72
+  },
+  {
+    "text": "And I can see my 2383 Da Vinci wide",
+    "start": 1290.96,
+    "duration": 4.48
+  },
+  {
+    "text": "gamut living right here. And if I double",
+    "start": 1293.2,
+    "duration": 5.28
+  },
+  {
+    "text": "click on this, I should now see no",
+    "start": 1295.44,
+    "duration": 6.32
+  },
+  {
+    "text": "change in my image when I wipe between",
+    "start": 1298.48,
+    "duration": 5.679
+  },
+  {
+    "text": "the L being applied and the still that I",
+    "start": 1301.76,
+    "duration": 4.88
+  },
+  {
+    "text": "just grabbed where these four nodes were",
+    "start": 1304.159,
+    "duration": 5.441
+  },
+  {
+    "text": "being applied. Okay,",
+    "start": 1306.64,
+    "duration": 4.64
+  },
+  {
+    "text": "so that's the overall process. That's",
+    "start": 1309.6,
+    "duration": 3.28
+  },
+  {
+    "text": "how you can build your film emulation.",
+    "start": 1311.28,
+    "duration": 3.44
+  },
+  {
+    "text": "That's how you can cook it out into a L.",
+    "start": 1312.88,
+    "duration": 4.24
+  },
+  {
+    "text": "You can experiment with different",
+    "start": 1314.72,
+    "duration": 3.92
+  },
+  {
+    "text": "ingredients. You can experiment with",
+    "start": 1317.12,
+    "duration": 3.84
+  },
+  {
+    "text": "different film looks here within Resolve",
+    "start": 1318.64,
+    "duration": 4.32
+  },
+  {
+    "text": "and uh you know look at different",
+    "start": 1320.96,
+    "duration": 3.04
+  },
+  {
+    "text": "ingredients that you're going to use to",
+    "start": 1322.96,
+    "duration": 2.48
+  },
+  {
+    "text": "build this film emulation. That's really",
+    "start": 1324.0,
+    "duration": 4.08
+  },
+  {
+    "text": "going to be the biggest predictor of the",
+    "start": 1325.44,
+    "duration": 4.16
+  },
+  {
+    "text": "quality of your emulation is the quality",
+    "start": 1328.08,
+    "duration": 3.68
+  },
+  {
+    "text": "of the ingredients that go into it and",
+    "start": 1329.6,
+    "duration": 4.959
+  },
+  {
+    "text": "how uh well uh sourced that data",
+    "start": 1331.76,
+    "duration": 4.56
+  },
+  {
+    "text": "actually is. But now that we've gone",
+    "start": 1334.559,
+    "duration": 3.521
+  },
+  {
+    "text": "through this process, let's talk about",
+    "start": 1336.32,
+    "duration": 4.08
+  },
+  {
+    "text": "the pros and cons of what we are",
+    "start": 1338.08,
+    "duration": 4.479
+  },
+  {
+    "text": "fundamentally doing here and what you",
+    "start": 1340.4,
+    "duration": 3.279
+  },
+  {
+    "text": "need to be aware of if you're going to",
+    "start": 1342.559,
+    "duration": 2.881
+  },
+  {
+    "text": "use it. kind of going into it with like",
+    "start": 1343.679,
+    "duration": 3.601
+  },
+  {
+    "text": "full context of what this workflow is",
+    "start": 1345.44,
+    "duration": 3.68
+  },
+  {
+    "text": "and how it's going to impact your image.",
+    "start": 1347.28,
+    "duration": 3.519
+  },
+  {
+    "text": "So, a couple of the pros first. Some of",
+    "start": 1349.12,
+    "duration": 3.439
+  },
+  {
+    "text": "these are obvious, like the biggest pro",
+    "start": 1350.799,
+    "duration": 3.521
+  },
+  {
+    "text": "here is that, hey, we're able to do a",
+    "start": 1352.559,
+    "duration": 3.36
+  },
+  {
+    "text": "film emulation that looks almost",
+    "start": 1354.32,
+    "duration": 3.599
+  },
+  {
+    "text": "identical to what I was getting without",
+    "start": 1355.919,
+    "duration": 3.841
+  },
+  {
+    "text": "color management inside of my color",
+    "start": 1357.919,
+    "duration": 3.281
+  },
+  {
+    "text": "management. That's cool. I can use the",
+    "start": 1359.76,
+    "duration": 3.84
+  },
+  {
+    "text": "workflow I'm familiar with. I can target",
+    "start": 1361.2,
+    "duration": 4.32
+  },
+  {
+    "text": "other display color spaces. Like, that's",
+    "start": 1363.6,
+    "duration": 4.4
+  },
+  {
+    "text": "a great benefit that I can now use a",
+    "start": 1365.52,
+    "duration": 5.36
+  },
+  {
+    "text": "visually faithful film emulation inside",
+    "start": 1368.0,
+    "duration": 4.72
+  },
+  {
+    "text": "of my color management framework. And",
+    "start": 1370.88,
+    "duration": 3.36
+  },
+  {
+    "text": "the second pro I just touched on",
+    "start": 1372.72,
+    "duration": 3.52
+  },
+  {
+    "text": "actually. Now that I'm in that color",
+    "start": 1374.24,
+    "duration": 3.6
+  },
+  {
+    "text": "management framework, I can actually",
+    "start": 1376.24,
+    "duration": 4.0
+  },
+  {
+    "text": "target other output color spaces and I",
+    "start": 1377.84,
+    "duration": 4.16
+  },
+  {
+    "text": "can target an HDR color space or",
+    "start": 1380.24,
+    "duration": 3.679
+  },
+  {
+    "text": "whatever other color space I want to",
+    "start": 1382.0,
+    "duration": 3.76
+  },
+  {
+    "text": "because I've got this emulation that is",
+    "start": 1383.919,
+    "duration": 4.801
+  },
+  {
+    "text": "now scene referred. It's living inside",
+    "start": 1385.76,
+    "duration": 5.039
+  },
+  {
+    "text": "of my color management framework. That's",
+    "start": 1388.72,
+    "duration": 4.24
+  },
+  {
+    "text": "pretty cool too, right? Let's talk about",
+    "start": 1390.799,
+    "duration": 3.36
+  },
+  {
+    "text": "some cons. Let's talk about some",
+    "start": 1392.96,
+    "duration": 2.959
+  },
+  {
+    "text": "drawbacks that we need to be aware of.",
+    "start": 1394.159,
+    "duration": 4.321
+  },
+  {
+    "text": "Here's the first one. When you are doing",
+    "start": 1395.919,
+    "duration": 6.24
+  },
+  {
+    "text": "this workflow, your image is only ever",
+    "start": 1398.48,
+    "duration": 6.079
+  },
+  {
+    "text": "going to look as good as it did before.",
+    "start": 1402.159,
+    "duration": 4.081
+  },
+  {
+    "text": "And in practice, it's probably going to",
+    "start": 1404.559,
+    "duration": 3.761
+  },
+  {
+    "text": "look maybe not worse, but it's going to",
+    "start": 1406.24,
+    "duration": 3.52
+  },
+  {
+    "text": "look a little bit different. Like you",
+    "start": 1408.32,
+    "duration": 3.68
+  },
+  {
+    "text": "can see here when I flip things off and",
+    "start": 1409.76,
+    "duration": 3.68
+  },
+  {
+    "text": "on like I did a moment ago. Let's get",
+    "start": 1412.0,
+    "duration": 3.28
+  },
+  {
+    "text": "this pull this lot out of the stack for",
+    "start": 1413.44,
+    "duration": 3.84
+  },
+  {
+    "text": "now and just go back to our four raw",
+    "start": 1415.28,
+    "duration": 4.56
+  },
+  {
+    "text": "nodes. And when I toggle these last two",
+    "start": 1417.28,
+    "duration": 5.44
+  },
+  {
+    "text": "pieces off and on, the image is",
+    "start": 1419.84,
+    "duration": 5.12
+  },
+  {
+    "text": "changing, right? Like not necessarily",
+    "start": 1422.72,
+    "duration": 3.6
+  },
+  {
+    "text": "for the worst. It's not like one is",
+    "start": 1424.96,
+    "duration": 3.12
+  },
+  {
+    "text": "inherently better than the other, but",
+    "start": 1426.32,
+    "duration": 3.599
+  },
+  {
+    "text": "the image is changing a little bit. So,",
+    "start": 1428.08,
+    "duration": 3.599
+  },
+  {
+    "text": "we are disturbing the image a little",
+    "start": 1429.919,
+    "duration": 3.441
+  },
+  {
+    "text": "bit. And this is really just a way of",
+    "start": 1431.679,
+    "duration": 3.841
+  },
+  {
+    "text": "pointing out that the image is never",
+    "start": 1433.36,
+    "duration": 4.48
+  },
+  {
+    "text": "going to get better than it was before.",
+    "start": 1435.52,
+    "duration": 4.32
+  },
+  {
+    "text": "At best, it is going to look",
+    "start": 1437.84,
+    "duration": 4.319
+  },
+  {
+    "text": "fundamentally the same as it did before,",
+    "start": 1439.84,
+    "duration": 6.0
+  },
+  {
+    "text": "but it is not going to get better. Okay,",
+    "start": 1442.159,
+    "duration": 6.4
+  },
+  {
+    "text": "here's the other drawback. These two",
+    "start": 1445.84,
+    "duration": 5.839
+  },
+  {
+    "text": "things have to pair together. So, what",
+    "start": 1448.559,
+    "duration": 5.841
+  },
+  {
+    "text": "that means is that this only works for",
+    "start": 1451.679,
+    "duration": 6.081
+  },
+  {
+    "text": "one DRT or one output transform at a",
+    "start": 1454.4,
+    "duration": 5.92
+  },
+  {
+    "text": "time. For example, if I were to swap out",
+    "start": 1457.76,
+    "duration": 8.0
+  },
+  {
+    "text": "my CST with a different DRT, like 24.99,",
+    "start": 1460.32,
+    "duration": 8.8
+  },
+  {
+    "text": "for example, if I were to swap this out,",
+    "start": 1465.76,
+    "duration": 5.6
+  },
+  {
+    "text": "I would no longer be getting a",
+    "start": 1469.12,
+    "duration": 4.559
+  },
+  {
+    "text": "symmetrical round trip. Now, the image",
+    "start": 1471.36,
+    "duration": 4.4
+  },
+  {
+    "text": "is changing quite a bit. Now, whether",
+    "start": 1473.679,
+    "duration": 3.441
+  },
+  {
+    "text": "you like that more or less, that's",
+    "start": 1475.76,
+    "duration": 3.279
+  },
+  {
+    "text": "really a topic for uh another",
+    "start": 1477.12,
+    "duration": 4.08
+  },
+  {
+    "text": "discussion. But the point is that if I'm",
+    "start": 1479.039,
+    "duration": 4.64
+  },
+  {
+    "text": "trying to faithfully reproduce this",
+    "start": 1481.2,
+    "duration": 4.56
+  },
+  {
+    "text": "visual inside of my color management",
+    "start": 1483.679,
+    "duration": 4.401
+  },
+  {
+    "text": "framework, I'm no longer doing it once",
+    "start": 1485.76,
+    "duration": 5.12
+  },
+  {
+    "text": "I'm no longer using a symmetrical pair",
+    "start": 1488.08,
+    "duration": 5.76
+  },
+  {
+    "text": "of inverse and forward transformation.",
+    "start": 1490.88,
+    "duration": 6.24
+  },
+  {
+    "text": "Okay, so TLDDR there. This only works",
+    "start": 1493.84,
+    "duration": 6.56
+  },
+  {
+    "text": "for one output transform at a time.",
+    "start": 1497.12,
+    "duration": 5.52
+  },
+  {
+    "text": "Okay, so those are the kind of big cons",
+    "start": 1500.4,
+    "duration": 3.92
+  },
+  {
+    "text": "that we need to be aware of when we're",
+    "start": 1502.64,
+    "duration": 3.68
+  },
+  {
+    "text": "working uh with this workflow. And",
+    "start": 1504.32,
+    "duration": 3.92
+  },
+  {
+    "text": "what's fun about getting familiar with",
+    "start": 1506.32,
+    "duration": 4.719
+  },
+  {
+    "text": "this way of doing things is it's going",
+    "start": 1508.24,
+    "duration": 5.36
+  },
+  {
+    "text": "to show you something you can learn",
+    "start": 1511.039,
+    "duration": 4.801
+  },
+  {
+    "text": "about any film emulation that you choose",
+    "start": 1513.6,
+    "duration": 3.6
+  },
+  {
+    "text": "to work with from now forward. Whether",
+    "start": 1515.84,
+    "duration": 2.88
+  },
+  {
+    "text": "it's one that you've built or one that",
+    "start": 1517.2,
+    "duration": 3.44
+  },
+  {
+    "text": "you are considering buying or one that a",
+    "start": 1518.72,
+    "duration": 5.439
+  },
+  {
+    "text": "friend has given to you. Anytime you are",
+    "start": 1520.64,
+    "duration": 5.919
+  },
+  {
+    "text": "seeing a film emulation that offers you",
+    "start": 1524.159,
+    "duration": 5.361
+  },
+  {
+    "text": "the option of output to a scene color",
+    "start": 1526.559,
+    "duration": 5.681
+  },
+  {
+    "text": "space that could be uh area log C3 or Da",
+    "start": 1529.52,
+    "duration": 4.96
+  },
+  {
+    "text": "Vinci wide gamut intermediate or slog 3",
+    "start": 1532.24,
+    "duration": 4.799
+  },
+  {
+    "text": "or aces or whatever it might be. Anytime",
+    "start": 1534.48,
+    "duration": 4.16
+  },
+  {
+    "text": "you're seeing a film emulation that is",
+    "start": 1537.039,
+    "duration": 4.801
+  },
+  {
+    "text": "offering to output you into a nondis",
+    "start": 1538.64,
+    "duration": 6.159
+  },
+  {
+    "text": "color space, some version of this",
+    "start": 1541.84,
+    "duration": 4.64
+  },
+  {
+    "text": "process that we just went through right",
+    "start": 1544.799,
+    "duration": 4.321
+  },
+  {
+    "text": "here has been used. That's a really",
+    "start": 1546.48,
+    "duration": 4.799
+  },
+  {
+    "text": "important thing to understand. We've had",
+    "start": 1549.12,
+    "duration": 5.76
+  },
+  {
+    "text": "to somehow reconcile the fact that film",
+    "start": 1551.279,
+    "duration": 5.76
+  },
+  {
+    "text": "is display referred and color management",
+    "start": 1554.88,
+    "duration": 5.12
+  },
+  {
+    "text": "wants a scene referred look in order to",
+    "start": 1557.039,
+    "duration": 4.721
+  },
+  {
+    "text": "uh do what it's designed to do. So",
+    "start": 1560.0,
+    "duration": 3.12
+  },
+  {
+    "text": "there's a fundamental tension there that",
+    "start": 1561.76,
+    "duration": 3.519
+  },
+  {
+    "text": "we've just resolved in the best way that",
+    "start": 1563.12,
+    "duration": 4.0
+  },
+  {
+    "text": "you really can, but it's still a",
+    "start": 1565.279,
+    "duration": 3.441
+  },
+  {
+    "text": "compromise. It's still not perfect",
+    "start": 1567.12,
+    "duration": 4.0
+  },
+  {
+    "text": "because we're having to do some",
+    "start": 1568.72,
+    "duration": 4.16
+  },
+  {
+    "text": "significant changes to the image in",
+    "start": 1571.12,
+    "duration": 4.64
+  },
+  {
+    "text": "order to make this pipeline work within",
+    "start": 1572.88,
+    "duration": 4.88
+  },
+  {
+    "text": "a color managed context. So this is a",
+    "start": 1575.76,
+    "duration": 3.68
+  },
+  {
+    "text": "really helpful thing to understand going",
+    "start": 1577.76,
+    "duration": 3.84
+  },
+  {
+    "text": "forward is anytime you are looking at",
+    "start": 1579.44,
+    "duration": 4.56
+  },
+  {
+    "text": "any emulation, a lot or a plug-in that",
+    "start": 1581.6,
+    "duration": 4.24
+  },
+  {
+    "text": "offers to output you into a non-dis",
+    "start": 1584.0,
+    "duration": 4.08
+  },
+  {
+    "text": "color space, some version of this",
+    "start": 1585.84,
+    "duration": 4.319
+  },
+  {
+    "text": "pipeline has been used. And that's a",
+    "start": 1588.08,
+    "duration": 4.4
+  },
+  {
+    "text": "really important thing to understand.",
+    "start": 1590.159,
+    "duration": 4.721
+  },
+  {
+    "text": "Now, that might bother you, that might",
+    "start": 1592.48,
+    "duration": 3.84
+  },
+  {
+    "text": "not bother you, it might be a problem",
+    "start": 1594.88,
+    "duration": 3.2
+  },
+  {
+    "text": "for your workflow, or it might not be a",
+    "start": 1596.32,
+    "duration": 2.959
+  },
+  {
+    "text": "problem for your workflow. It's just",
+    "start": 1598.08,
+    "duration": 2.719
+  },
+  {
+    "text": "something that you want to go into with",
+    "start": 1599.279,
+    "duration": 3.841
+  },
+  {
+    "text": "full awareness of. And I also want to",
+    "start": 1600.799,
+    "duration": 3.841
+  },
+  {
+    "text": "show you the alternative. If it does",
+    "start": 1603.12,
+    "duration": 3.28
+  },
+  {
+    "text": "bother you, if it no longer feels like",
+    "start": 1604.64,
+    "duration": 4.08
+  },
+  {
+    "text": "the best thing for your workflow, I want",
+    "start": 1606.4,
+    "duration": 3.84
+  },
+  {
+    "text": "to show you a really simple alternative",
+    "start": 1608.72,
+    "duration": 3.12
+  },
+  {
+    "text": "because, as you might know, I make a",
+    "start": 1610.24,
+    "duration": 3.919
+  },
+  {
+    "text": "film emulation uh plugin in partnership",
+    "start": 1611.84,
+    "duration": 4.16
+  },
+  {
+    "text": "with my partners, Dr. Mitch Bugdanowitz",
+    "start": 1614.159,
+    "duration": 4.4
+  },
+  {
+    "text": "and Steve Edelin, ASC called Genesis.",
+    "start": 1616.0,
+    "duration": 4.799
+  },
+  {
+    "text": "Genesis does not have the option to",
+    "start": 1618.559,
+    "duration": 4.401
+  },
+  {
+    "text": "output into anything but a display color",
+    "start": 1620.799,
+    "duration": 4.401
+  },
+  {
+    "text": "space. The reason why Genesis is",
+    "start": 1622.96,
+    "duration": 4.319
+  },
+  {
+    "text": "designed in that way is because we",
+    "start": 1625.2,
+    "duration": 5.359
+  },
+  {
+    "text": "ultimately felt that doing this workflow",
+    "start": 1627.279,
+    "duration": 5.76
+  },
+  {
+    "text": "where the image is never going to get",
+    "start": 1630.559,
+    "duration": 4.641
+  },
+  {
+    "text": "better and is at best just going to be",
+    "start": 1633.039,
+    "duration": 4.401
+  },
+  {
+    "text": "as good as it was before was not",
+    "start": 1635.2,
+    "duration": 5.44
+  },
+  {
+    "text": "actually a benefit to uh the end uh",
+    "start": 1637.44,
+    "duration": 5.44
+  },
+  {
+    "text": "product or to the end user. So, we chose",
+    "start": 1640.64,
+    "duration": 4.159
+  },
+  {
+    "text": "to create a plugin that only does what",
+    "start": 1642.88,
+    "duration": 4.24
+  },
+  {
+    "text": "Real Film does, which is to put you out",
+    "start": 1644.799,
+    "duration": 5.441
+  },
+  {
+    "text": "onto a display. Now, what if you want to",
+    "start": 1647.12,
+    "duration": 4.559
+  },
+  {
+    "text": "do the same? What if you're like, \"Hey,",
+    "start": 1650.24,
+    "duration": 3.84
+  },
+  {
+    "text": "I don't want to go through this",
+    "start": 1651.679,
+    "duration": 4.24
+  },
+  {
+    "text": "pre-inversion just so that I can work",
+    "start": 1654.08,
+    "duration": 4.4
+  },
+  {
+    "text": "within the DRT of my color management",
+    "start": 1655.919,
+    "duration": 3.76
+  },
+  {
+    "text": "framework. What do I have to do? Do I",
+    "start": 1658.48,
+    "duration": 2.64
+  },
+  {
+    "text": "have to go and grab this Genesis",
+    "start": 1659.679,
+    "duration": 2.88
+  },
+  {
+    "text": "plugin?\" I'm going to give you a much",
+    "start": 1661.12,
+    "duration": 3.2
+  },
+  {
+    "text": "simpler free solution available right",
+    "start": 1662.559,
+    "duration": 3.841
+  },
+  {
+    "text": "here with Resolve. Check this out. Grab",
+    "start": 1664.32,
+    "duration": 4.08
+  },
+  {
+    "text": "these two nodes,",
+    "start": 1666.4,
+    "duration": 4.72
+  },
+  {
+    "text": "turn them off. That's it. Just let the",
+    "start": 1668.4,
+    "duration": 5.84
+  },
+  {
+    "text": "print do its job. Let this be your DRT.",
+    "start": 1671.12,
+    "duration": 5.439
+  },
+  {
+    "text": "Let it do exactly what it was designed",
+    "start": 1674.24,
+    "duration": 4.319
+  },
+  {
+    "text": "to do, which is to put your pixels on",
+    "start": 1676.559,
+    "duration": 3.761
+  },
+  {
+    "text": "the screen and then do all of your",
+    "start": 1678.559,
+    "duration": 4.24
+  },
+  {
+    "text": "grading over here at the clip level just",
+    "start": 1680.32,
+    "duration": 4.32
+  },
+  {
+    "text": "like you normally would. If that's",
+    "start": 1682.799,
+    "duration": 3.76
+  },
+  {
+    "text": "something that you are open to exploring",
+    "start": 1684.64,
+    "duration": 3.279
+  },
+  {
+    "text": "that you feel like, hey, it's time for",
+    "start": 1686.559,
+    "duration": 4.561
+  },
+  {
+    "text": "me to try another approach uh than doing",
+    "start": 1687.919,
+    "duration": 5.521
+  },
+  {
+    "text": "this pre-inverse to uh make things work",
+    "start": 1691.12,
+    "duration": 3.919
+  },
+  {
+    "text": "within my color management framework.",
+    "start": 1693.44,
+    "duration": 3.28
+  },
+  {
+    "text": "This is a great alternative. There's no",
+    "start": 1695.039,
+    "duration": 4.801
+  },
+  {
+    "text": "arguing this is gentler on your image",
+    "start": 1696.72,
+    "duration": 5.52
+  },
+  {
+    "text": "and you can get great results uh doing",
+    "start": 1699.84,
+    "duration": 5.199
+  },
+  {
+    "text": "things this way. The only caveat or",
+    "start": 1702.24,
+    "duration": 4.72
+  },
+  {
+    "text": "downside to this is that you're not",
+    "start": 1705.039,
+    "duration": 3.841
+  },
+  {
+    "text": "using the exact same workflow that you",
+    "start": 1706.96,
+    "duration": 4.079
+  },
+  {
+    "text": "are familiar with. But that leads really",
+    "start": 1708.88,
+    "duration": 3.36
+  },
+  {
+    "text": "leads me to something that I brought up",
+    "start": 1711.039,
+    "duration": 2.401
+  },
+  {
+    "text": "right at the beginning of this video",
+    "start": 1712.24,
+    "duration": 3.6
+  },
+  {
+    "text": "which is like okay so what is the",
+    "start": 1713.44,
+    "duration": 4.479
+  },
+  {
+    "text": "reason? Why do we find it so difficult",
+    "start": 1715.84,
+    "duration": 4.8
+  },
+  {
+    "text": "to emulate film digitally? Like why is",
+    "start": 1717.919,
+    "duration": 4.401
+  },
+  {
+    "text": "it this moving target that everyone's",
+    "start": 1720.64,
+    "duration": 4.0
+  },
+  {
+    "text": "always chasing and so often falling",
+    "start": 1722.32,
+    "duration": 4.239
+  },
+  {
+    "text": "short of? One of the main reasons for",
+    "start": 1724.64,
+    "duration": 4.159
+  },
+  {
+    "text": "that, in fact, the main reason for that",
+    "start": 1726.559,
+    "duration": 3.681
+  },
+  {
+    "text": "is that we say we want the film",
+    "start": 1728.799,
+    "duration": 3.281
+  },
+  {
+    "text": "emulation. We want the film look. We",
+    "start": 1730.24,
+    "duration": 4.0
+  },
+  {
+    "text": "want the film system, but we want it to",
+    "start": 1732.08,
+    "duration": 4.4
+  },
+  {
+    "text": "come to us, we want it to work the way",
+    "start": 1734.24,
+    "duration": 4.64
+  },
+  {
+    "text": "we are used to things working instead of",
+    "start": 1736.48,
+    "duration": 4.079
+  },
+  {
+    "text": "wanting it to work the way that it",
+    "start": 1738.88,
+    "duration": 3.679
+  },
+  {
+    "text": "works. That's where we run into this",
+    "start": 1740.559,
+    "duration": 3.84
+  },
+  {
+    "text": "tension where it's like, well, we want a",
+    "start": 1742.559,
+    "duration": 3.521
+  },
+  {
+    "text": "but we want it to work in a different",
+    "start": 1744.399,
+    "duration": 3.681
+  },
+  {
+    "text": "way than it does. And that's where the",
+    "start": 1746.08,
+    "duration": 4.719
+  },
+  {
+    "text": "difficulty arises in getting a really",
+    "start": 1748.08,
+    "duration": 6.0
+  },
+  {
+    "text": "really faithful idealized filmic",
+    "start": 1750.799,
+    "duration": 5.281
+  },
+  {
+    "text": "rendering of image or photochemical",
+    "start": 1754.08,
+    "duration": 4.0
+  },
+  {
+    "text": "rendering of image is if we really want",
+    "start": 1756.08,
+    "duration": 4.56
+  },
+  {
+    "text": "that we need to meet the system. We need",
+    "start": 1758.08,
+    "duration": 4.88
+  },
+  {
+    "text": "to meet the look more on its own terms",
+    "start": 1760.64,
+    "duration": 4.0
+  },
+  {
+    "text": "which again in this case would be to",
+    "start": 1762.96,
+    "duration": 4.48
+  },
+  {
+    "text": "simply let the look and the system do",
+    "start": 1764.64,
+    "duration": 5.6
+  },
+  {
+    "text": "its job. Let that output transform come",
+    "start": 1767.44,
+    "duration": 5.28
+  },
+  {
+    "text": "from the print which was designed to put",
+    "start": 1770.24,
+    "duration": 4.48
+  },
+  {
+    "text": "your pixels on the screen. So that's a",
+    "start": 1772.72,
+    "duration": 4.8
+  },
+  {
+    "text": "great way to a great opportunity to",
+    "start": 1774.72,
+    "duration": 4.4
+  },
+  {
+    "text": "start exploring doing things a little",
+    "start": 1777.52,
+    "duration": 3.519
+  },
+  {
+    "text": "bit differently than your normal color",
+    "start": 1779.12,
+    "duration": 3.52
+  },
+  {
+    "text": "management framework would call for. And",
+    "start": 1781.039,
+    "duration": 2.64
+  },
+  {
+    "text": "by the way, this is still color",
+    "start": 1782.64,
+    "duration": 2.24
+  },
+  {
+    "text": "management. You're just using a",
+    "start": 1783.679,
+    "duration": 3.6
+  },
+  {
+    "text": "different DRT. You are using your film",
+    "start": 1784.88,
+    "duration": 5.039
+  },
+  {
+    "text": "print as your DRT. It's totally valid.",
+    "start": 1787.279,
+    "duration": 4.561
+  },
+  {
+    "text": "It can work beautifully and in fact is",
+    "start": 1789.919,
+    "duration": 3.921
+  },
+  {
+    "text": "probably going to net you better results",
+    "start": 1791.84,
+    "duration": 3.839
+  },
+  {
+    "text": "because you are uh doing less to your",
+    "start": 1793.84,
+    "duration": 3.28
+  },
+  {
+    "text": "image and you're being a little bit",
+    "start": 1795.679,
+    "duration": 3.921
+  },
+  {
+    "text": "gentler on your image. So, I hope that's",
+    "start": 1797.12,
+    "duration": 4.88
+  },
+  {
+    "text": "a really helpful walkthrough for you of",
+    "start": 1799.6,
+    "duration": 4.48
+  },
+  {
+    "text": "how you can build out film emulations",
+    "start": 1802.0,
+    "duration": 4.0
+  },
+  {
+    "text": "using the right ingredients, many of",
+    "start": 1804.08,
+    "duration": 3.199
+  },
+  {
+    "text": "which are free and available right here",
+    "start": 1806.0,
+    "duration": 3.679
+  },
+  {
+    "text": "within Resolve and build film emulations",
+    "start": 1807.279,
+    "duration": 4.161
+  },
+  {
+    "text": "that I would put up against when you've",
+    "start": 1809.679,
+    "duration": 3.041
+  },
+  {
+    "text": "got the right ingredients, you can put",
+    "start": 1811.44,
+    "duration": 3.76
+  },
+  {
+    "text": "these up against any product or tool",
+    "start": 1812.72,
+    "duration": 4.079
+  },
+  {
+    "text": "that's out there and compare for",
+    "start": 1815.2,
+    "duration": 3.52
+  },
+  {
+    "text": "yourself and see what you get and see",
+    "start": 1816.799,
+    "duration": 3.12
+  },
+  {
+    "text": "what kind of differences that you",
+    "start": 1818.72,
+    "duration": 2.8
+  },
+  {
+    "text": "observe. Last thing that I want to point",
+    "start": 1819.919,
+    "duration": 3.521
+  },
+  {
+    "text": "out to you actually is if you ever want",
+    "start": 1821.52,
+    "duration": 3.36
+  },
+  {
+    "text": "to get like a source of truth or a",
+    "start": 1823.44,
+    "duration": 3.76
+  },
+  {
+    "text": "reference point, go grab a free trial of",
+    "start": 1824.88,
+    "duration": 3.919
+  },
+  {
+    "text": "Genesis, my plugin that I mentioned a",
+    "start": 1827.2,
+    "duration": 4.079
+  },
+  {
+    "text": "moment ago, and use it to compare. So,",
+    "start": 1828.799,
+    "duration": 4.561
+  },
+  {
+    "text": "I'm going to load Genesis on here, and",
+    "start": 1831.279,
+    "duration": 5.441
+  },
+  {
+    "text": "I'm going to connect it up to the head",
+    "start": 1833.36,
+    "duration": 6.64
+  },
+  {
+    "text": "of this node graph, like so. Okay. And",
+    "start": 1836.72,
+    "duration": 5.36
+  },
+  {
+    "text": "you can now compare and at least start",
+    "start": 1840.0,
+    "duration": 4.08
+  },
+  {
+    "text": "to get a sense for like, okay, am I in",
+    "start": 1842.08,
+    "duration": 3.76
+  },
+  {
+    "text": "the right ballpark? Is my contrast",
+    "start": 1844.08,
+    "duration": 3.44
+  },
+  {
+    "text": "ratio? Is my color rendering? Is my",
+    "start": 1845.84,
+    "duration": 4.559
+  },
+  {
+    "text": "saturation feeling good? or is what I'm",
+    "start": 1847.52,
+    "duration": 4.879
+  },
+  {
+    "text": "building manually up here in the top",
+    "start": 1850.399,
+    "duration": 4.721
+  },
+  {
+    "text": "feeling really far-flung from the",
+    "start": 1852.399,
+    "duration": 4.16
+  },
+  {
+    "text": "photochemical model that I'm seeing",
+    "start": 1855.12,
+    "duration": 3.76
+  },
+  {
+    "text": "represented here by Genesis below. That",
+    "start": 1856.559,
+    "duration": 3.6
+  },
+  {
+    "text": "might be a good clue that you want to go",
+    "start": 1858.88,
+    "duration": 3.279
+  },
+  {
+    "text": "and look at sourcing some different",
+    "start": 1860.159,
+    "duration": 4.0
+  },
+  {
+    "text": "ingredients for your neg or for your",
+    "start": 1862.159,
+    "duration": 3.52
+  },
+  {
+    "text": "print or that you just want to double",
+    "start": 1864.159,
+    "duration": 2.801
+  },
+  {
+    "text": "check that you're following the exact",
+    "start": 1865.679,
+    "duration": 2.801
+  },
+  {
+    "text": "process that I've walked you through",
+    "start": 1866.96,
+    "duration": 3.439
+  },
+  {
+    "text": "today. But go grab a free trial of this",
+    "start": 1868.48,
+    "duration": 3.76
+  },
+  {
+    "text": "plugin and it can be a great reference",
+    "start": 1870.399,
+    "duration": 3.361
+  },
+  {
+    "text": "point for you when you are building your",
+    "start": 1872.24,
+    "duration": 3.52
+  },
+  {
+    "text": "own film emulations of whether you're",
+    "start": 1873.76,
+    "duration": 4.399
+  },
+  {
+    "text": "getting into a sound baseline position",
+    "start": 1875.76,
+    "duration": 4.72
+  },
+  {
+    "text": "for things like contrast, saturation,",
+    "start": 1878.159,
+    "duration": 4.081
+  },
+  {
+    "text": "and color reproduction or whether you",
+    "start": 1880.48,
+    "duration": 3.04
+  },
+  {
+    "text": "want to look at sourcing some different",
+    "start": 1882.24,
+    "duration": 2.799
+  },
+  {
+    "text": "ingredients or double-checking that you",
+    "start": 1883.52,
+    "duration": 3.759
+  },
+  {
+    "text": "have set up your pipeline to run in the",
+    "start": 1885.039,
+    "duration": 4.321
+  },
+  {
+    "text": "correct way. So, hope you enjoyed that",
+    "start": 1887.279,
+    "duration": 3.52
+  },
+  {
+    "text": "walkthrough. I know that's a long one.",
+    "start": 1889.36,
+    "duration": 2.559
+  },
+  {
+    "text": "Let me know in the comments what",
+    "start": 1890.799,
+    "duration": 3.201
+  },
+  {
+    "text": "questions you have. If anything, go and",
+    "start": 1891.919,
+    "duration": 4.401
+  },
+  {
+    "text": "give this one another watch to absorb",
+    "start": 1894.0,
+    "duration": 3.84
+  },
+  {
+    "text": "the different uh kind of twists and",
+    "start": 1896.32,
+    "duration": 3.359
+  },
+  {
+    "text": "turns along the path here. And I promise",
+    "start": 1897.84,
+    "duration": 3.839
+  },
+  {
+    "text": "this starts to become easier to",
+    "start": 1899.679,
+    "duration": 2.961
+  },
+  {
+    "text": "understand with a little bit of",
+    "start": 1901.679,
+    "duration": 3.201
+  },
+  {
+    "text": "practice. And this can be a really",
+    "start": 1902.64,
+    "duration": 4.08
+  },
+  {
+    "text": "powerful way. In fact, this is the very",
+    "start": 1904.88,
+    "duration": 5.2
+  },
+  {
+    "text": "best way to build a scene referred film",
+    "start": 1906.72,
+    "duration": 5.439
+  },
+  {
+    "text": "emulation or a color management friendly",
+    "start": 1910.08,
+    "duration": 4.479
+  },
+  {
+    "text": "film emulation if that's your goal uh",
+    "start": 1912.159,
+    "duration": 4.24
+  },
+  {
+    "text": "when uh inside of Resolve and you're",
+    "start": 1914.559,
+    "duration": 4.0
+  },
+  {
+    "text": "trying to get uh that film emulation to",
+    "start": 1916.399,
+    "duration": 4.0
+  },
+  {
+    "text": "work within your established color",
+    "start": 1918.559,
+    "duration": 4.561
+  },
+  {
+    "text": "management workflow.",
+    "start": 1920.399,
+    "duration": 2.721
+  }
+]

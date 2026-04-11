@@ -1,0 +1,2517 @@
+[
+  {
+    "text": "So, I still get a lot of comments from",
+    "start": 0.08,
+    "duration": 3.76
+  },
+  {
+    "text": "people asking how to grade DJI footage,",
+    "start": 1.68,
+    "duration": 4.48
+  },
+  {
+    "text": "particularly DLOG M. Now, I have covered",
+    "start": 3.84,
+    "duration": 4.64
+  },
+  {
+    "text": "it before in a previous episode, but in",
+    "start": 6.16,
+    "duration": 3.68
+  },
+  {
+    "text": "this episode, I'm going to show you a",
+    "start": 8.48,
+    "duration": 3.119
+  },
+  {
+    "text": "new technique that I'm using, and I'm",
+    "start": 9.84,
+    "duration": 3.36
+  },
+  {
+    "text": "going to do a full grade breakdown. I'm",
+    "start": 11.599,
+    "duration": 2.801
+  },
+  {
+    "text": "going to show you some clips I've shot",
+    "start": 13.2,
+    "duration": 3.36
+  },
+  {
+    "text": "with DLOG M. I'm going to show you node",
+    "start": 14.4,
+    "duration": 4.32
+  },
+  {
+    "text": "by node exactly how I got the look. So,",
+    "start": 16.56,
+    "duration": 4.4
+  },
+  {
+    "text": "to get some footage, I took my Pocket 3,",
+    "start": 18.72,
+    "duration": 4.16
+  },
+  {
+    "text": "which shoots DlogM. I went down to the",
+    "start": 20.96,
+    "duration": 4.239
+  },
+  {
+    "text": "Amalfi Coast in Italy, met my friend",
+    "start": 22.88,
+    "duration": 4.399
+  },
+  {
+    "text": "there with her drone, and this is what",
+    "start": 25.199,
+    "duration": 2.881
+  },
+  {
+    "text": "we got.",
+    "start": 27.279,
+    "duration": 2.801
+  },
+  {
+    "text": ">> Welcome to Sento.",
+    "start": 28.08,
+    "duration": 6.439
+  },
+  {
+    "text": "Departing from Sarrento.",
+    "start": 30.08,
+    "duration": 4.439
+  },
+  {
+    "text": "[Music]",
+    "start": 39.73,
+    "duration": 4.39
+  },
+  {
+    "text": "Welcome to Puzzan.",
+    "start": 42.32,
+    "duration": 10.319
+  },
+  {
+    "text": "[Music]",
+    "start": 44.12,
+    "duration": 8.519
+  },
+  {
+    "text": "So, the music you're listening to in",
+    "start": 54.079,
+    "duration": 5.241
+  },
+  {
+    "text": "this montage is from audio.",
+    "start": 55.199,
+    "duration": 4.121
+  },
+  {
+    "text": "[Music]",
+    "start": 62.89,
+    "duration": 7.579
+  },
+  {
+    "text": "Come listen.",
+    "start": 74.32,
+    "duration": 3.4
+  },
+  {
+    "text": "[Applause]",
+    "start": 77.73,
+    "duration": 3.089
+  },
+  {
+    "text": "So, all the shots in that montage that",
+    "start": 83.6,
+    "duration": 3.199
+  },
+  {
+    "text": "were shot with the Pocket 3 were shot",
+    "start": 85.28,
+    "duration": 3.839
+  },
+  {
+    "text": "using the profile DLOG M. This is a",
+    "start": 86.799,
+    "duration": 4.241
+  },
+  {
+    "text": "really popular profile. That's why I",
+    "start": 89.119,
+    "duration": 3.521
+  },
+  {
+    "text": "chose it for this montage, so I can show",
+    "start": 91.04,
+    "duration": 3.119
+  },
+  {
+    "text": "you exactly how to grade it. There's",
+    "start": 92.64,
+    "duration": 2.72
+  },
+  {
+    "text": "three profiles in here. You've got",
+    "start": 94.159,
+    "duration": 3.121
+  },
+  {
+    "text": "normal, which doesn't even need grading.",
+    "start": 95.36,
+    "duration": 4.399
+  },
+  {
+    "text": "You've got DLOG M, which is a slightly",
+    "start": 97.28,
+    "duration": 4.4
+  },
+  {
+    "text": "flatter profile, but it it gives you a",
+    "start": 99.759,
+    "duration": 3.36
+  },
+  {
+    "text": "little bit more headroom, but it does",
+    "start": 101.68,
+    "duration": 2.64
+  },
+  {
+    "text": "need a little grade, which is what I'm",
+    "start": 103.119,
+    "duration": 2.801
+  },
+  {
+    "text": "going to show you. And you've got HLG,",
+    "start": 104.32,
+    "duration": 3.68
+  },
+  {
+    "text": "which is a full log profile that needs",
+    "start": 105.92,
+    "duration": 3.92
+  },
+  {
+    "text": "proper grading. So, I've got a couple of",
+    "start": 108.0,
+    "duration": 3.2
+  },
+  {
+    "text": "shots here that I'm going to show you.",
+    "start": 109.84,
+    "duration": 3.84
+  },
+  {
+    "text": "I've got this one of a Vesper, and I've",
+    "start": 111.2,
+    "duration": 4.559
+  },
+  {
+    "text": "got this one, which is a drone shot.",
+    "start": 113.68,
+    "duration": 4.479
+  },
+  {
+    "text": "Now, let's go back to this one. This is",
+    "start": 115.759,
+    "duration": 4.4
+  },
+  {
+    "text": "the actual grade. I'm going to show you",
+    "start": 118.159,
+    "duration": 3.92
+  },
+  {
+    "text": "in this episode every single node",
+    "start": 120.159,
+    "duration": 4.161
+  },
+  {
+    "text": "exactly what I did to achieve that look.",
+    "start": 122.079,
+    "duration": 3.68
+  },
+  {
+    "text": "But first of all, let's address the",
+    "start": 124.32,
+    "duration": 2.799
+  },
+  {
+    "text": "color management side of it. So, I'm",
+    "start": 125.759,
+    "duration": 2.881
+  },
+  {
+    "text": "going to go to here. I've built a little",
+    "start": 127.119,
+    "duration": 3.12
+  },
+  {
+    "text": "node tree here. There's nothing on here",
+    "start": 128.64,
+    "duration": 3.36
+  },
+  {
+    "text": "at all. If I just bypass here, you'll",
+    "start": 130.239,
+    "duration": 3.121
+  },
+  {
+    "text": "see that we've got absolutely nothing on",
+    "start": 132.0,
+    "duration": 3.28
+  },
+  {
+    "text": "here so far. These nodes are empty,",
+    "start": 133.36,
+    "duration": 3.519
+  },
+  {
+    "text": "ready to just start grading. I'm just",
+    "start": 135.28,
+    "duration": 3.36
+  },
+  {
+    "text": "going to show you my project settings.",
+    "start": 136.879,
+    "duration": 3.281
+  },
+  {
+    "text": "So, we go to color management, Da Vinci",
+    "start": 138.64,
+    "duration": 3.679
+  },
+  {
+    "text": "RGB, Da Vinci wide gamma intermediate as",
+    "start": 140.16,
+    "duration": 3.68
+  },
+  {
+    "text": "always, and my output color space",
+    "start": 142.319,
+    "duration": 4.481
+  },
+  {
+    "text": "matching my monitor Rex 9 gamma 2.4. You",
+    "start": 143.84,
+    "duration": 4.64
+  },
+  {
+    "text": "can use 2.2, of course, if that's what",
+    "start": 146.8,
+    "duration": 3.519
+  },
+  {
+    "text": "you're working. And the first thing I'm",
+    "start": 148.48,
+    "duration": 3.839
+  },
+  {
+    "text": "going to do is switch on this one, color",
+    "start": 150.319,
+    "duration": 3.841
+  },
+  {
+    "text": "space transform. So, all I've done is go",
+    "start": 152.319,
+    "duration": 4.401
+  },
+  {
+    "text": "to my effects and go to my library and",
+    "start": 154.16,
+    "duration": 4.079
+  },
+  {
+    "text": "I've taken a color space transform and",
+    "start": 156.72,
+    "duration": 3.44
+  },
+  {
+    "text": "dragged it on. So, what I need to do now",
+    "start": 158.239,
+    "duration": 4.801
+  },
+  {
+    "text": "is tell Resolve what the settings are.",
+    "start": 160.16,
+    "duration": 7.2
+  },
+  {
+    "text": "the input color space. So that is DJI",
+    "start": 163.04,
+    "duration": 8.96
+  },
+  {
+    "text": "D gamut and my input gamma is DJI DLOG.",
+    "start": 167.36,
+    "duration": 7.04
+  },
+  {
+    "text": "So we're using DLOG M. Now the output",
+    "start": 172.0,
+    "duration": 3.68
+  },
+  {
+    "text": "color space is going to Da Vinci wide",
+    "start": 174.4,
+    "duration": 3.44
+  },
+  {
+    "text": "gamut and the output gamma is going to",
+    "start": 175.68,
+    "duration": 4.96
+  },
+  {
+    "text": "Da Vinci wide intermediate. That means",
+    "start": 177.84,
+    "duration": 4.16
+  },
+  {
+    "text": "that when we're working in here, we're",
+    "start": 180.64,
+    "duration": 3.36
+  },
+  {
+    "text": "working in Da Vinci wide gamut. This is",
+    "start": 182.0,
+    "duration": 3.36
+  },
+  {
+    "text": "a nice color space that I like to work",
+    "start": 184.0,
+    "duration": 3.68
+  },
+  {
+    "text": "in. Now what we need to do, and for",
+    "start": 185.36,
+    "duration": 4.159
+  },
+  {
+    "text": "those of you who might know what's going",
+    "start": 187.68,
+    "duration": 3.68
+  },
+  {
+    "text": "on here, I am going to explain it in a",
+    "start": 189.519,
+    "duration": 4.08
+  },
+  {
+    "text": "moment. Then what we need to do is set",
+    "start": 191.36,
+    "duration": 4.0
+  },
+  {
+    "text": "our output CST. So we're going to go",
+    "start": 193.599,
+    "duration": 3.36
+  },
+  {
+    "text": "from Da Vinci wide gamut because we've",
+    "start": 195.36,
+    "duration": 3.04
+  },
+  {
+    "text": "sent everything up to Da Vinci wide",
+    "start": 196.959,
+    "duration": 3.2
+  },
+  {
+    "text": "gamut and we're going to output to Rick",
+    "start": 198.4,
+    "duration": 5.28
+  },
+  {
+    "text": "79 gamma 2.4 again matching my monitor.",
+    "start": 200.159,
+    "duration": 5.36
+  },
+  {
+    "text": "So this is now color managed. It's",
+    "start": 203.68,
+    "duration": 4.32
+  },
+  {
+    "text": "looking pretty good. We have good",
+    "start": 205.519,
+    "duration": 3.681
+  },
+  {
+    "text": "saturation in there. We've got good",
+    "start": 208.0,
+    "duration": 2.879
+  },
+  {
+    "text": "contrast, but it's actually a bit",
+    "start": 209.2,
+    "duration": 3.28
+  },
+  {
+    "text": "strong. And I'm going to show you why",
+    "start": 210.879,
+    "duration": 3.761
+  },
+  {
+    "text": "this is technically incorrect. If we go",
+    "start": 212.48,
+    "duration": 3.44
+  },
+  {
+    "text": "to our scopes here, you'll see at the",
+    "start": 214.64,
+    "duration": 2.72
+  },
+  {
+    "text": "top of the trace, we're actually",
+    "start": 215.92,
+    "duration": 3.36
+  },
+  {
+    "text": "clipping white, which means we're losing",
+    "start": 217.36,
+    "duration": 3.439
+  },
+  {
+    "text": "information. And the same's happening in",
+    "start": 219.28,
+    "duration": 2.72
+  },
+  {
+    "text": "the shadows as well. You can see it's",
+    "start": 220.799,
+    "duration": 3.36
+  },
+  {
+    "text": "clipping. So, this is not good. Also,",
+    "start": 222.0,
+    "duration": 4.08
+  },
+  {
+    "text": "our saturation is incredibly strong",
+    "start": 224.159,
+    "duration": 3.681
+  },
+  {
+    "text": "here. We've not even done any color",
+    "start": 226.08,
+    "duration": 3.04
+  },
+  {
+    "text": "grading yet. All we've done is color",
+    "start": 227.84,
+    "duration": 4.08
+  },
+  {
+    "text": "manager. The reason for this is this is",
+    "start": 229.12,
+    "duration": 5.119
+  },
+  {
+    "text": "actually incorrect. So, our front CST,",
+    "start": 231.92,
+    "duration": 5.44
+  },
+  {
+    "text": "our NCST is correct, but our first CST,",
+    "start": 234.239,
+    "duration": 4.56
+  },
+  {
+    "text": "and I've got whole episodes on color",
+    "start": 237.36,
+    "duration": 2.72
+  },
+  {
+    "text": "space transforms. I'll put a link to",
+    "start": 238.799,
+    "duration": 2.64
+  },
+  {
+    "text": "those in the description as well if you",
+    "start": 240.08,
+    "duration": 2.48
+  },
+  {
+    "text": "don't understand what's going on. And",
+    "start": 241.439,
+    "duration": 2.641
+  },
+  {
+    "text": "I'm going to show you a simpler way in a",
+    "start": 242.56,
+    "duration": 4.48
+  },
+  {
+    "text": "second as well. So, this is incorrect.",
+    "start": 244.08,
+    "duration": 5.76
+  },
+  {
+    "text": "The input gamut here is not DJI DLOG. It",
+    "start": 247.04,
+    "duration": 5.68
+  },
+  {
+    "text": "should be recx 709 because dlog m is",
+    "start": 249.84,
+    "duration": 5.759
+  },
+  {
+    "text": "actually recx 709. So let's click down",
+    "start": 252.72,
+    "duration": 6.32
+  },
+  {
+    "text": "here and choose rec 709. And that is a",
+    "start": 255.599,
+    "duration": 4.801
+  },
+  {
+    "text": "much better starting point. You see that",
+    "start": 259.04,
+    "duration": 2.719
+  },
+  {
+    "text": "we've got a little bit of headroom now.",
+    "start": 260.4,
+    "duration": 2.88
+  },
+  {
+    "text": "We're not clipping. We've got a bit of",
+    "start": 261.759,
+    "duration": 3.841
+  },
+  {
+    "text": "room in our shadows. Our saturation is",
+    "start": 263.28,
+    "duration": 4.56
+  },
+  {
+    "text": "at normal levels. And this is ready to",
+    "start": 265.6,
+    "duration": 3.76
+  },
+  {
+    "text": "start grading. So we could actually",
+    "start": 267.84,
+    "duration": 3.919
+  },
+  {
+    "text": "deliver that now. But let's just go and",
+    "start": 269.36,
+    "duration": 3.76
+  },
+  {
+    "text": "make a few little tweaks. So my first",
+    "start": 271.759,
+    "duration": 3.041
+  },
+  {
+    "text": "node, I norally do a bit of exposure and",
+    "start": 273.12,
+    "duration": 3.359
+  },
+  {
+    "text": "balance. I'm just checking the exposure",
+    "start": 274.8,
+    "duration": 2.959
+  },
+  {
+    "text": "is good. It actually looks pretty good",
+    "start": 276.479,
+    "duration": 4.481
+  },
+  {
+    "text": "to me. Let's go to contrast. Let's just",
+    "start": 277.759,
+    "duration": 5.601
+  },
+  {
+    "text": "add a little bit of contrast in there.",
+    "start": 280.96,
+    "duration": 4.799
+  },
+  {
+    "text": "Just make it look a bit better. And a",
+    "start": 283.36,
+    "duration": 3.76
+  },
+  {
+    "text": "little bit of saturation. It's pretty",
+    "start": 285.759,
+    "duration": 2.961
+  },
+  {
+    "text": "saturated already to be honest, but",
+    "start": 287.12,
+    "duration": 2.799
+  },
+  {
+    "text": "let's just put a little bit in. And",
+    "start": 288.72,
+    "duration": 3.12
+  },
+  {
+    "text": "there we go. We've got a really nice",
+    "start": 289.919,
+    "duration": 3.521
+  },
+  {
+    "text": "grade that could go out. That looks",
+    "start": 291.84,
+    "duration": 3.04
+  },
+  {
+    "text": "fantastic. Now, that's all good and",
+    "start": 293.44,
+    "duration": 3.52
+  },
+  {
+    "text": "well, but technically this isn't color",
+    "start": 294.88,
+    "duration": 4.72
+  },
+  {
+    "text": "managed correctly. The reason being is",
+    "start": 296.96,
+    "duration": 4.72
+  },
+  {
+    "text": "that the CST that I'm using at the front",
+    "start": 299.6,
+    "duration": 3.92
+  },
+  {
+    "text": "here doesn't have the capability of",
+    "start": 301.68,
+    "duration": 4.239
+  },
+  {
+    "text": "inputting DLOG M. There's no such thing.",
+    "start": 303.52,
+    "duration": 3.92
+  },
+  {
+    "text": "You can't do that in a color managed",
+    "start": 305.919,
+    "duration": 3.84
+  },
+  {
+    "text": "workflow. So what I've done is chosen",
+    "start": 307.44,
+    "duration": 5.28
+  },
+  {
+    "text": "the next best thing which is rec 709. If",
+    "start": 309.759,
+    "duration": 4.88
+  },
+  {
+    "text": "you want to technically go correctly",
+    "start": 312.72,
+    "duration": 4.88
+  },
+  {
+    "text": "from DLOG M to rec 709, you need to use",
+    "start": 314.639,
+    "duration": 4.881
+  },
+  {
+    "text": "the camera manufacturers's L. This will",
+    "start": 317.6,
+    "duration": 3.28
+  },
+  {
+    "text": "mean you could just apply that L and you",
+    "start": 319.52,
+    "duration": 2.72
+  },
+  {
+    "text": "don't even have to do any grading. So if",
+    "start": 320.88,
+    "duration": 2.48
+  },
+  {
+    "text": "that's how you want to work, I'm going",
+    "start": 322.24,
+    "duration": 3.36
+  },
+  {
+    "text": "to show you how to do that now. So if I",
+    "start": 323.36,
+    "duration": 5.04
+  },
+  {
+    "text": "go to my next version, I've set up here",
+    "start": 325.6,
+    "duration": 4.8
+  },
+  {
+    "text": "a basic notary. There's nothing on here",
+    "start": 328.4,
+    "duration": 3.6
+  },
+  {
+    "text": "at all. If I enable and disable that,",
+    "start": 330.4,
+    "duration": 4.0
+  },
+  {
+    "text": "you see nothing happens at all. This is",
+    "start": 332.0,
+    "duration": 4.16
+  },
+  {
+    "text": "the DLOM M file straight out of the",
+    "start": 334.4,
+    "duration": 4.16
+  },
+  {
+    "text": "camera as it was shot. But I want to",
+    "start": 336.16,
+    "duration": 5.039
+  },
+  {
+    "text": "make this look like Rec 709 technically",
+    "start": 338.56,
+    "duration": 6.0
+  },
+  {
+    "text": "correctly using the maths from DJI. Now,",
+    "start": 341.199,
+    "duration": 4.801
+  },
+  {
+    "text": "the only way to do that is to go to",
+    "start": 344.56,
+    "duration": 3.68
+  },
+  {
+    "text": "their website. I'm going to add another",
+    "start": 346.0,
+    "duration": 5.759
+  },
+  {
+    "text": "node, Alt S, and download their LUT. So,",
+    "start": 348.24,
+    "duration": 4.72
+  },
+  {
+    "text": "I'm going to show you how to do that. If",
+    "start": 351.759,
+    "duration": 2.481
+  },
+  {
+    "text": "you go to the DJI website, I'm going to",
+    "start": 352.96,
+    "duration": 2.64
+  },
+  {
+    "text": "put a link to this in the description.",
+    "start": 354.24,
+    "duration": 3.76
+  },
+  {
+    "text": "It'll take you directly to this page.",
+    "start": 355.6,
+    "duration": 3.76
+  },
+  {
+    "text": "Find the product that you're using. So",
+    "start": 358.0,
+    "duration": 5.199
+  },
+  {
+    "text": "I'm on Osmo Pocket 3 at supports DLOG M.",
+    "start": 359.36,
+    "duration": 7.279
+  },
+  {
+    "text": "And if I click here, I can download the",
+    "start": 363.199,
+    "duration": 5.201
+  },
+  {
+    "text": "L. So if we go to here, you've got all",
+    "start": 366.639,
+    "duration": 3.28
+  },
+  {
+    "text": "this product stuff in here as well, but",
+    "start": 368.4,
+    "duration": 4.079
+  },
+  {
+    "text": "here's the DJI Osmo Pocket 3 DLOG M to",
+    "start": 369.919,
+    "duration": 6.081
+  },
+  {
+    "text": "Rex 709 L. It's going to go Rex 79 2.4.",
+    "start": 372.479,
+    "duration": 5.28
+  },
+  {
+    "text": "So there's my Mac version and a Windows",
+    "start": 376.0,
+    "duration": 3.52
+  },
+  {
+    "text": "version. I've already downloaded this,",
+    "start": 377.759,
+    "duration": 3.121
+  },
+  {
+    "text": "but let me show you quickly how to",
+    "start": 379.52,
+    "duration": 3.28
+  },
+  {
+    "text": "install it. I've done this on a few",
+    "start": 380.88,
+    "duration": 3.439
+  },
+  {
+    "text": "videos before, so just skip ahead a",
+    "start": 382.8,
+    "duration": 2.959
+  },
+  {
+    "text": "little bit if you want to. I'm going to",
+    "start": 384.319,
+    "duration": 4.0
+  },
+  {
+    "text": "click here, go to color management, and",
+    "start": 385.759,
+    "duration": 4.641
+  },
+  {
+    "text": "down the bottom here, if I say, make",
+    "start": 388.319,
+    "duration": 3.361
+  },
+  {
+    "text": "sure you're on tetrahedral, by the way,",
+    "start": 390.4,
+    "duration": 3.44
+  },
+  {
+    "text": "in this interpolation. Uh, it gives you",
+    "start": 391.68,
+    "duration": 3.68
+  },
+  {
+    "text": "better quality. If you open the L",
+    "start": 393.84,
+    "duration": 4.32
+  },
+  {
+    "text": "folder, then this is the folder you want",
+    "start": 395.36,
+    "duration": 4.8
+  },
+  {
+    "text": "to drop that downloaded file into. And",
+    "start": 398.16,
+    "duration": 3.52
+  },
+  {
+    "text": "I've already done that here. So, I've",
+    "start": 400.16,
+    "duration": 4.159
+  },
+  {
+    "text": "got DJI, Osmo, Pocket 3, Rex 79 to color",
+    "start": 401.68,
+    "duration": 5.04
+  },
+  {
+    "text": "grading LUT. And you get five LS. You've",
+    "start": 404.319,
+    "duration": 4.32
+  },
+  {
+    "text": "got the regular one, and then you've got",
+    "start": 406.72,
+    "duration": 4.4
+  },
+  {
+    "text": "spring, summer, winter, autumn. These",
+    "start": 408.639,
+    "duration": 5.361
+  },
+  {
+    "text": "are just looks that DJI have added on. I",
+    "start": 411.12,
+    "duration": 3.84
+  },
+  {
+    "text": "don't recommend you use them. I",
+    "start": 414.0,
+    "duration": 2.88
+  },
+  {
+    "text": "recommend you go with the straight one.",
+    "start": 414.96,
+    "duration": 3.679
+  },
+  {
+    "text": "Once you've done that, just press update",
+    "start": 416.88,
+    "duration": 3.2
+  },
+  {
+    "text": "lists. And you might have to restart",
+    "start": 418.639,
+    "duration": 4.241
+  },
+  {
+    "text": "Dinci Resolve as well. And then if I",
+    "start": 420.08,
+    "duration": 6.48
+  },
+  {
+    "text": "just label this one L. If you right hand",
+    "start": 422.88,
+    "duration": 6.0
+  },
+  {
+    "text": "click on this node, go to L, and you can",
+    "start": 426.56,
+    "duration": 5.039
+  },
+  {
+    "text": "then choose it DJI Pocket Osmo, and it's",
+    "start": 428.88,
+    "duration": 4.159
+  },
+  {
+    "text": "here. And then what happens is we've",
+    "start": 431.599,
+    "duration": 5.201
+  },
+  {
+    "text": "gone from DJI DLOG M to Rex 79 with one",
+    "start": 433.039,
+    "duration": 6.401
+  },
+  {
+    "text": "L. So this is now a technically correct",
+    "start": 436.8,
+    "duration": 4.399
+  },
+  {
+    "text": "color managed clip. Now all we got to do",
+    "start": 439.44,
+    "duration": 3.44
+  },
+  {
+    "text": "is do a bit of grading. So, we could do",
+    "start": 441.199,
+    "duration": 3.44
+  },
+  {
+    "text": "a bit of exposure and balance if we need",
+    "start": 442.88,
+    "duration": 4.719
+  },
+  {
+    "text": "to. Let's just do it for fun. Actually,",
+    "start": 444.639,
+    "duration": 4.56
+  },
+  {
+    "text": "just before I show you something else",
+    "start": 447.599,
+    "duration": 3.44
+  },
+  {
+    "text": "with the L technique, I'm just going to",
+    "start": 449.199,
+    "duration": 3.521
+  },
+  {
+    "text": "remove that cuz I want to compare it to",
+    "start": 451.039,
+    "duration": 3.6
+  },
+  {
+    "text": "my version compared to the camera",
+    "start": 452.72,
+    "duration": 4.24
+  },
+  {
+    "text": "manufacturer's version. So, I was pretty",
+    "start": 454.639,
+    "duration": 4.161
+  },
+  {
+    "text": "close. I'd say my exposure was just a",
+    "start": 456.96,
+    "duration": 3.679
+  },
+  {
+    "text": "little bit down. Let me get rid of that.",
+    "start": 458.8,
+    "duration": 5.119
+  },
+  {
+    "text": "And let's just reset that one.",
+    "start": 460.639,
+    "duration": 5.361
+  },
+  {
+    "text": "Okay. Yes. So, slightly different, but",
+    "start": 463.919,
+    "duration": 3.601
+  },
+  {
+    "text": "not far off. Nothing that I would be too",
+    "start": 466.0,
+    "duration": 4.16
+  },
+  {
+    "text": "worried about anyway. So, why would I",
+    "start": 467.52,
+    "duration": 5.119
+  },
+  {
+    "text": "not work in this L workflow? Why would I",
+    "start": 470.16,
+    "duration": 4.319
+  },
+  {
+    "text": "not just stay here? The reason being is",
+    "start": 472.639,
+    "duration": 3.761
+  },
+  {
+    "text": "I like to work in the Da Vinci wide",
+    "start": 474.479,
+    "duration": 4.481
+  },
+  {
+    "text": "gamut color space. A lot of the plugins,",
+    "start": 476.4,
+    "duration": 4.32
+  },
+  {
+    "text": "a lot of the third party stuff I'm using",
+    "start": 478.96,
+    "duration": 4.0
+  },
+  {
+    "text": "rely on a larger color space. They",
+    "start": 480.72,
+    "duration": 4.96
+  },
+  {
+    "text": "certainly rely on not being input a DLOG",
+    "start": 482.96,
+    "duration": 5.679
+  },
+  {
+    "text": "M feed. So, things like the DRTs that",
+    "start": 485.68,
+    "duration": 4.72
+  },
+  {
+    "text": "I'm using now, these are I've got a",
+    "start": 488.639,
+    "duration": 3.441
+  },
+  {
+    "text": "whole episode on these. So, I'll just",
+    "start": 490.4,
+    "duration": 2.88
+  },
+  {
+    "text": "point to that instead of trying to",
+    "start": 492.08,
+    "duration": 2.559
+  },
+  {
+    "text": "explain it here. But it's a different",
+    "start": 493.28,
+    "duration": 3.599
+  },
+  {
+    "text": "way of tone mapping back from a large",
+    "start": 494.639,
+    "duration": 4.881
+  },
+  {
+    "text": "color space to rec 709. I'm using the",
+    "start": 496.879,
+    "duration": 4.16
+  },
+  {
+    "text": "monodes one at the moment. It's called",
+    "start": 499.52,
+    "duration": 3.119
+  },
+  {
+    "text": "look lab prints. I'm really enjoying",
+    "start": 501.039,
+    "duration": 4.401
+  },
+  {
+    "text": "that. Some people are using the JP2499.",
+    "start": 502.639,
+    "duration": 4.721
+  },
+  {
+    "text": "Uh Colin Kelly's just released his",
+    "start": 505.44,
+    "duration": 4.96
+  },
+  {
+    "text": "Genesis. This relies on a larger color",
+    "start": 507.36,
+    "duration": 4.96
+  },
+  {
+    "text": "space input. They don't have inputs for",
+    "start": 510.4,
+    "duration": 4.4
+  },
+  {
+    "text": "DLOG M. So that's one reason that I",
+    "start": 512.32,
+    "duration": 4.48
+  },
+  {
+    "text": "can't work in this L workflow. And just",
+    "start": 514.8,
+    "duration": 3.599
+  },
+  {
+    "text": "before I show you the second reason why,",
+    "start": 516.8,
+    "duration": 2.799
+  },
+  {
+    "text": "I just want to spend a minute thanking",
+    "start": 518.399,
+    "duration": 3.681
+  },
+  {
+    "text": "this episode sponsor, Audio. So, I'm",
+    "start": 519.599,
+    "duration": 4.161
+  },
+  {
+    "text": "logged into my Pro Audio account, and",
+    "start": 522.08,
+    "duration": 3.28
+  },
+  {
+    "text": "this has given me access to thousands of",
+    "start": 523.76,
+    "duration": 3.84
+  },
+  {
+    "text": "music tracks and sound effects. Now, to",
+    "start": 525.36,
+    "duration": 4.0
+  },
+  {
+    "text": "find music easily, I've taken a link",
+    "start": 527.6,
+    "duration": 3.6
+  },
+  {
+    "text": "from a track on YouTube that I like.",
+    "start": 529.36,
+    "duration": 3.599
+  },
+  {
+    "text": "I've put it into link match AI, and it's",
+    "start": 531.2,
+    "duration": 3.36
+  },
+  {
+    "text": "going to go ahead and find the best fit",
+    "start": 532.959,
+    "duration": 3.361
+  },
+  {
+    "text": "matches for me. So, once those matches",
+    "start": 534.56,
+    "duration": 3.44
+  },
+  {
+    "text": "appear, I can choose the individual",
+    "start": 536.32,
+    "duration": 3.92
+  },
+  {
+    "text": "stems that I want to use to remix the",
+    "start": 538.0,
+    "duration": 4.08
+  },
+  {
+    "text": "tracks to make it exactly how I want it.",
+    "start": 540.24,
+    "duration": 3.84
+  },
+  {
+    "text": "So, this is Elements 2.0. This is a",
+    "start": 542.08,
+    "duration": 4.24
+  },
+  {
+    "text": "major upgrade to audio stem offering.",
+    "start": 544.08,
+    "duration": 3.84
+  },
+  {
+    "text": "So, you're getting studio quality",
+    "start": 546.32,
+    "duration": 3.12
+  },
+  {
+    "text": "separation. And this is trusted by the",
+    "start": 547.92,
+    "duration": 3.359
+  },
+  {
+    "text": "major studios and it's all powered by",
+    "start": 549.44,
+    "duration": 3.76
+  },
+  {
+    "text": "audioshake. So as well as the original",
+    "start": 551.279,
+    "duration": 3.921
+  },
+  {
+    "text": "stems that we got like drums, bass,",
+    "start": 553.2,
+    "duration": 4.48
+  },
+  {
+    "text": "guitar, vocals, we now have an extra",
+    "start": 555.2,
+    "duration": 4.48
+  },
+  {
+    "text": "stem element which is the strings. So",
+    "start": 557.68,
+    "duration": 3.599
+  },
+  {
+    "text": "you can download these all at once or",
+    "start": 559.68,
+    "duration": 2.96
+  },
+  {
+    "text": "you can download them individually and",
+    "start": 561.279,
+    "duration": 2.961
+  },
+  {
+    "text": "you can mix and match these. So you've",
+    "start": 562.64,
+    "duration": 3.52
+  },
+  {
+    "text": "got across the board noise reduction and",
+    "start": 564.24,
+    "duration": 3.599
+  },
+  {
+    "text": "gain balancing to give you full",
+    "start": 566.16,
+    "duration": 3.359
+  },
+  {
+    "text": "creativity. So it's also reassuring to",
+    "start": 567.839,
+    "duration": 2.881
+  },
+  {
+    "text": "know that the tracks are covered for",
+    "start": 569.519,
+    "duration": 3.281
+  },
+  {
+    "text": "social media and most broadcast. So once",
+    "start": 570.72,
+    "duration": 3.84
+  },
+  {
+    "text": "I've downloaded them, I know that I'm",
+    "start": 572.8,
+    "duration": 3.76
+  },
+  {
+    "text": "good to go on all my projects. So if you",
+    "start": 574.56,
+    "duration": 3.68
+  },
+  {
+    "text": "want to try out Elements 2.0 for",
+    "start": 576.56,
+    "duration": 3.2
+  },
+  {
+    "text": "yourself and all the other fantastic",
+    "start": 578.24,
+    "duration": 3.36
+  },
+  {
+    "text": "features that are in audio. Click the",
+    "start": 579.76,
+    "duration": 3.36
+  },
+  {
+    "text": "link in the description and you'll get",
+    "start": 581.6,
+    "duration": 4.08
+  },
+  {
+    "text": "70% off your first year. Enter the code",
+    "start": 583.12,
+    "duration": 4.719
+  },
+  {
+    "text": "Darren at checkout. You'll also be",
+    "start": 585.68,
+    "duration": 4.48
+  },
+  {
+    "text": "supporting my channel. So, let's go back",
+    "start": 587.839,
+    "duration": 4.721
+  },
+  {
+    "text": "to the main video. The second reason is",
+    "start": 590.16,
+    "duration": 3.52
+  },
+  {
+    "text": "you have to be careful when you're",
+    "start": 592.56,
+    "duration": 2.56
+  },
+  {
+    "text": "working under LUTs. They're not as",
+    "start": 593.68,
+    "duration": 3.36
+  },
+  {
+    "text": "forgiving as if you're working in that",
+    "start": 595.12,
+    "duration": 3.52
+  },
+  {
+    "text": "nice large color space that I'm used to",
+    "start": 597.04,
+    "duration": 4.32
+  },
+  {
+    "text": "or a color managed workflow using CSTs.",
+    "start": 598.64,
+    "duration": 4.48
+  },
+  {
+    "text": "So, let me show you. If I go to look",
+    "start": 601.36,
+    "duration": 4.08
+  },
+  {
+    "text": "here, what I'm going to do is go to my",
+    "start": 603.12,
+    "duration": 5.36
+  },
+  {
+    "text": "chroma warper and select here. Let me",
+    "start": 605.44,
+    "duration": 4.32
+  },
+  {
+    "text": "just show you something that can happen",
+    "start": 608.48,
+    "duration": 2.96
+  },
+  {
+    "text": "if you're not careful. So, let's say I",
+    "start": 609.76,
+    "duration": 3.199
+  },
+  {
+    "text": "want to increase the saturation on the",
+    "start": 611.44,
+    "duration": 3.04
+  },
+  {
+    "text": "Vesper here. I'm going to click here.",
+    "start": 612.959,
+    "duration": 3.281
+  },
+  {
+    "text": "That gives us a point. And all I've got",
+    "start": 614.48,
+    "duration": 3.68
+  },
+  {
+    "text": "to do is push out to increase",
+    "start": 616.24,
+    "duration": 4.56
+  },
+  {
+    "text": "saturation. Now, look what's happening.",
+    "start": 618.16,
+    "duration": 4.88
+  },
+  {
+    "text": "The sky is breaking. If I just enable",
+    "start": 620.8,
+    "duration": 4.64
+  },
+  {
+    "text": "and disable that, the sky is breaking",
+    "start": 623.04,
+    "duration": 5.52
+  },
+  {
+    "text": "here. And also, if I just zoom in and",
+    "start": 625.44,
+    "duration": 5.28
+  },
+  {
+    "text": "show you,",
+    "start": 628.56,
+    "duration": 4.56
+  },
+  {
+    "text": "look at the outline of this sign here.",
+    "start": 630.72,
+    "duration": 4.08
+  },
+  {
+    "text": "If I enable and disable that, we're",
+    "start": 633.12,
+    "duration": 3.92
+  },
+  {
+    "text": "getting this horrible artifacting. Now,",
+    "start": 634.8,
+    "duration": 3.84
+  },
+  {
+    "text": "I've pushed that quite far. I don't even",
+    "start": 637.04,
+    "duration": 2.88
+  },
+  {
+    "text": "need to push it that far. Let's pull it",
+    "start": 638.64,
+    "duration": 4.16
+  },
+  {
+    "text": "back a little bit. So, we've given that",
+    "start": 639.92,
+    "duration": 4.8
+  },
+  {
+    "text": "a break. But if I go to the sky, you'll",
+    "start": 642.8,
+    "duration": 5.039
+  },
+  {
+    "text": "see that the sky is still not good. So,",
+    "start": 644.72,
+    "duration": 4.96
+  },
+  {
+    "text": "this is fixable, but it'd be really easy",
+    "start": 647.839,
+    "duration": 3.601
+  },
+  {
+    "text": "to miss that if you're not careful what",
+    "start": 649.68,
+    "duration": 2.88
+  },
+  {
+    "text": "you're doing. So, let me switch that",
+    "start": 651.44,
+    "duration": 2.639
+  },
+  {
+    "text": "node back on. I'm just going to push the",
+    "start": 652.56,
+    "duration": 3.92
+  },
+  {
+    "text": "saturation out a little bit more and",
+    "start": 654.079,
+    "duration": 3.921
+  },
+  {
+    "text": "let's just zoom in so you can see what's",
+    "start": 656.48,
+    "duration": 4.24
+  },
+  {
+    "text": "going on.",
+    "start": 658.0,
+    "duration": 4.48
+  },
+  {
+    "text": "So, let's have a look at that sign",
+    "start": 660.72,
+    "duration": 3.679
+  },
+  {
+    "text": "there. So, the color model we're working",
+    "start": 662.48,
+    "duration": 3.68
+  },
+  {
+    "text": "in at the minute is HSP. If we change",
+    "start": 664.399,
+    "duration": 4.56
+  },
+  {
+    "text": "our color model, these are ways that hue",
+    "start": 666.16,
+    "duration": 4.72
+  },
+  {
+    "text": "and saturation works with luminance. If",
+    "start": 668.959,
+    "duration": 4.56
+  },
+  {
+    "text": "I go to HSL, it does indeed fix that",
+    "start": 670.88,
+    "duration": 4.56
+  },
+  {
+    "text": "problem, but it'd be really easy to miss",
+    "start": 673.519,
+    "duration": 3.841
+  },
+  {
+    "text": "that. So, that's two reasons why I don't",
+    "start": 675.44,
+    "duration": 4.399
+  },
+  {
+    "text": "want to work in the L mode. So, let's go",
+    "start": 677.36,
+    "duration": 4.0
+  },
+  {
+    "text": "back to my CST workflow. I'm going to",
+    "start": 679.839,
+    "duration": 3.601
+  },
+  {
+    "text": "show you my full graded one. I'm going",
+    "start": 681.36,
+    "duration": 3.36
+  },
+  {
+    "text": "to break this down for you now. Let's",
+    "start": 683.44,
+    "duration": 2.24
+  },
+  {
+    "text": "have a look what's actually going on",
+    "start": 684.72,
+    "duration": 2.799
+  },
+  {
+    "text": "here. But this note tree is freely",
+    "start": 685.68,
+    "duration": 3.839
+  },
+  {
+    "text": "available. There's a link in the bottom",
+    "start": 687.519,
+    "duration": 3.681
+  },
+  {
+    "text": "of my description. You can download this",
+    "start": 689.519,
+    "duration": 2.88
+  },
+  {
+    "text": "note tree. Obviously, it doesn't have",
+    "start": 691.2,
+    "duration": 2.8
+  },
+  {
+    "text": "the color grade on it, but it has all",
+    "start": 692.399,
+    "duration": 3.361
+  },
+  {
+    "text": "the labeling on there ready to go. I've",
+    "start": 694.0,
+    "duration": 4.399
+  },
+  {
+    "text": "got a video on how to use it, and I'll",
+    "start": 695.76,
+    "duration": 4.0
+  },
+  {
+    "text": "put a link to that in the description as",
+    "start": 698.399,
+    "duration": 3.841
+  },
+  {
+    "text": "well. And actually, first of all, let me",
+    "start": 699.76,
+    "duration": 4.24
+  },
+  {
+    "text": "just show you. If I go to the warp here,",
+    "start": 702.24,
+    "duration": 2.88
+  },
+  {
+    "text": "you see there's nothing on here at the",
+    "start": 704.0,
+    "duration": 2.48
+  },
+  {
+    "text": "minute. I'm just going to show you that",
+    "start": 705.12,
+    "duration": 4.08
+  },
+  {
+    "text": "that warper trick that I just did",
+    "start": 706.48,
+    "duration": 4.72
+  },
+  {
+    "text": "doesn't get affected the same when",
+    "start": 709.2,
+    "duration": 3.36
+  },
+  {
+    "text": "you're not using the L workflow, but",
+    "start": 711.2,
+    "duration": 2.48
+  },
+  {
+    "text": "when you're in Da Vinci wide gamut. So,",
+    "start": 712.56,
+    "duration": 2.0
+  },
+  {
+    "text": "I'm going to do exactly the same. In",
+    "start": 713.68,
+    "duration": 2.56
+  },
+  {
+    "text": "fact, I'll do it a bit more extreme to",
+    "start": 714.56,
+    "duration": 3.92
+  },
+  {
+    "text": "show you. And you see there that my sky",
+    "start": 716.24,
+    "duration": 4.48
+  },
+  {
+    "text": "is staying safe. The signage is not",
+    "start": 718.48,
+    "duration": 4.08
+  },
+  {
+    "text": "breaking, and I've gone even further",
+    "start": 720.72,
+    "duration": 3.44
+  },
+  {
+    "text": "with my saturation than I did using the",
+    "start": 722.56,
+    "duration": 3.519
+  },
+  {
+    "text": "L method. Just to prove that that does",
+    "start": 724.16,
+    "duration": 4.08
+  },
+  {
+    "text": "work correctly in Da Vinci wide gamut or",
+    "start": 726.079,
+    "duration": 3.76
+  },
+  {
+    "text": "any other CST workflow that you're",
+    "start": 728.24,
+    "duration": 3.279
+  },
+  {
+    "text": "working with. I think the easiest way to",
+    "start": 729.839,
+    "duration": 4.24
+  },
+  {
+    "text": "show you this is for me to take off all",
+    "start": 731.519,
+    "duration": 4.481
+  },
+  {
+    "text": "the grade elements and just leave the",
+    "start": 734.079,
+    "duration": 3.361
+  },
+  {
+    "text": "color space transform on. So that's",
+    "start": 736.0,
+    "duration": 4.079
+  },
+  {
+    "text": "taking us to Rex 709. First thing we did",
+    "start": 737.44,
+    "duration": 3.92
+  },
+  {
+    "text": "balance and exposure. Let's have a look",
+    "start": 740.079,
+    "duration": 3.2
+  },
+  {
+    "text": "at that. So I've just done a little bit",
+    "start": 741.36,
+    "duration": 3.599
+  },
+  {
+    "text": "of a move there. That's just using the",
+    "start": 743.279,
+    "duration": 4.0
+  },
+  {
+    "text": "HDR wheels. Uh I might as well show you",
+    "start": 744.959,
+    "duration": 3.361
+  },
+  {
+    "text": "properly where I've done it. There's",
+    "start": 747.279,
+    "duration": 4.0
+  },
+  {
+    "text": "exposure there. Then we go to contrast.",
+    "start": 748.32,
+    "duration": 5.12
+  },
+  {
+    "text": "Now, when I'm applying contrast, I'm",
+    "start": 751.279,
+    "duration": 4.56
+  },
+  {
+    "text": "also wary, I've not switched it on yet,",
+    "start": 753.44,
+    "duration": 5.28
+  },
+  {
+    "text": "that my film look has not been applied",
+    "start": 755.839,
+    "duration": 4.321
+  },
+  {
+    "text": "yet. Now, the film look is going to go",
+    "start": 758.72,
+    "duration": 4.48
+  },
+  {
+    "text": "at the end just before my last CST cuz I",
+    "start": 760.16,
+    "duration": 4.56
+  },
+  {
+    "text": "want to work in Da Vinci wide gamut",
+    "start": 763.2,
+    "duration": 4.16
+  },
+  {
+    "text": "space. But my film look is coming from",
+    "start": 764.72,
+    "duration": 4.16
+  },
+  {
+    "text": "Dehancer. Now, I need to put this on",
+    "start": 767.36,
+    "duration": 4.24
+  },
+  {
+    "text": "because this has an element of contrast",
+    "start": 768.88,
+    "duration": 5.04
+  },
+  {
+    "text": "and saturation inbuilt with it. You",
+    "start": 771.6,
+    "duration": 3.84
+  },
+  {
+    "text": "could use film look creator for example",
+    "start": 773.92,
+    "duration": 3.28
+  },
+  {
+    "text": "if you don't have Dehancer, but I like",
+    "start": 775.44,
+    "duration": 2.88
+  },
+  {
+    "text": "working with Dehancer. So, I'm going to",
+    "start": 777.2,
+    "duration": 2.879
+  },
+  {
+    "text": "show you my settings. So my source Da",
+    "start": 778.32,
+    "duration": 3.12
+  },
+  {
+    "text": "Vinci wide gamut intermediate. That's",
+    "start": 780.079,
+    "duration": 3.521
+  },
+  {
+    "text": "what's being fed into the enhancer. My",
+    "start": 781.44,
+    "duration": 5.6
+  },
+  {
+    "text": "print is Kodak 2383. I've just adjust my",
+    "start": 783.6,
+    "duration": 5.359
+  },
+  {
+    "text": "target white point a little bit to make",
+    "start": 787.04,
+    "duration": 4.08
+  },
+  {
+    "text": "it a little bit warmer. And I've got a",
+    "start": 788.959,
+    "duration": 3.761
+  },
+  {
+    "text": "bit of hellation and a bit of bloom on",
+    "start": 791.12,
+    "duration": 3.839
+  },
+  {
+    "text": "there as well. So that is my dehancer",
+    "start": 792.72,
+    "duration": 4.16
+  },
+  {
+    "text": "settings. Now this stays constant",
+    "start": 794.959,
+    "duration": 3.761
+  },
+  {
+    "text": "throughout the entire montage. So all",
+    "start": 796.88,
+    "duration": 3.36
+  },
+  {
+    "text": "the clips have got that particular",
+    "start": 798.72,
+    "duration": 3.76
+  },
+  {
+    "text": "filmic look. And then I will adjust",
+    "start": 800.24,
+    "duration": 4.64
+  },
+  {
+    "text": "saturation, contrast, balance, exposure",
+    "start": 802.48,
+    "duration": 4.32
+  },
+  {
+    "text": "accordingly. But that will stay set once",
+    "start": 804.88,
+    "duration": 5.519
+  },
+  {
+    "text": "it's on. So, my saturation is, this is",
+    "start": 806.8,
+    "duration": 4.96
+  },
+  {
+    "text": "new. There's many ways of doing",
+    "start": 810.399,
+    "duration": 3.921
+  },
+  {
+    "text": "saturation in Da Vinci Resolve, but I've",
+    "start": 811.76,
+    "duration": 4.0
+  },
+  {
+    "text": "got a new way of working now. I'm going",
+    "start": 814.32,
+    "duration": 2.48
+  },
+  {
+    "text": "to show you what I do. So, I'm going to",
+    "start": 815.76,
+    "duration": 3.36
+  },
+  {
+    "text": "put that on, and I'm going to go up to",
+    "start": 816.8,
+    "duration": 4.479
+  },
+  {
+    "text": "here. So, I'm using a DCTL called",
+    "start": 819.12,
+    "duration": 6.24
+  },
+  {
+    "text": "monodes. This is called color shift, and",
+    "start": 821.279,
+    "duration": 7.041
+  },
+  {
+    "text": "it allows me to do global saturation",
+    "start": 825.36,
+    "duration": 5.279
+  },
+  {
+    "text": "here, but it allows me to control each",
+    "start": 828.32,
+    "duration": 5.12
+  },
+  {
+    "text": "of the six vectors individually. So I",
+    "start": 830.639,
+    "duration": 4.241
+  },
+  {
+    "text": "can control the amount of saturation in",
+    "start": 833.44,
+    "duration": 3.36
+  },
+  {
+    "text": "blue, the amount of saturation in red,",
+    "start": 834.88,
+    "duration": 3.759
+  },
+  {
+    "text": "the amount of density, and the amount of",
+    "start": 836.8,
+    "duration": 2.96
+  },
+  {
+    "text": "hue. So if you have a look at what I've",
+    "start": 838.639,
+    "duration": 2.56
+  },
+  {
+    "text": "done here, I've got a little bit of",
+    "start": 839.76,
+    "duration": 3.36
+  },
+  {
+    "text": "global saturation on. So I'm using this",
+    "start": 841.199,
+    "duration": 4.401
+  },
+  {
+    "text": "instead of like HDR saturation for",
+    "start": 843.12,
+    "duration": 5.44
+  },
+  {
+    "text": "example. And then I'm individually",
+    "start": 845.6,
+    "duration": 5.039
+  },
+  {
+    "text": "controlling my blue density. So that's",
+    "start": 848.56,
+    "duration": 3.839
+  },
+  {
+    "text": "controlling the sky really and the",
+    "start": 850.639,
+    "duration": 4.241
+  },
+  {
+    "text": "vesper. A little bit of hue change. This",
+    "start": 852.399,
+    "duration": 4.401
+  },
+  {
+    "text": "again was to make the sky match. I want",
+    "start": 854.88,
+    "duration": 5.199
+  },
+  {
+    "text": "the sky matching the next shot and the",
+    "start": 856.8,
+    "duration": 4.56
+  },
+  {
+    "text": "previous shots and all the shots. I want",
+    "start": 860.079,
+    "duration": 2.801
+  },
+  {
+    "text": "the sky being consistent. And I'm doing",
+    "start": 861.36,
+    "duration": 3.12
+  },
+  {
+    "text": "that with a little bit of a hue shift in",
+    "start": 862.88,
+    "duration": 4.56
+  },
+  {
+    "text": "here. And red density. This is what's",
+    "start": 864.48,
+    "duration": 4.32
+  },
+  {
+    "text": "happening on that Vesper. If you look at",
+    "start": 867.44,
+    "duration": 4.16
+  },
+  {
+    "text": "the red Vesper, this is giving me a nice",
+    "start": 868.8,
+    "duration": 4.399
+  },
+  {
+    "text": "dense feel on there and that little bit",
+    "start": 871.6,
+    "duration": 3.599
+  },
+  {
+    "text": "of flag there. So, this is a fantastic",
+    "start": 873.199,
+    "duration": 3.921
+  },
+  {
+    "text": "product. I'm using this all the time. To",
+    "start": 875.199,
+    "duration": 4.401
+  },
+  {
+    "text": "get this, you need to go to monodes.com,",
+    "start": 877.12,
+    "duration": 4.399
+  },
+  {
+    "text": "which is up here. And it's this one is",
+    "start": 879.6,
+    "duration": 3.44
+  },
+  {
+    "text": "the one I'm using, color shift. I've got",
+    "start": 881.519,
+    "duration": 4.481
+  },
+  {
+    "text": "a 10% discount code in my description. I",
+    "start": 883.04,
+    "duration": 4.72
+  },
+  {
+    "text": "think you put Darren at checkout, but",
+    "start": 886.0,
+    "duration": 3.839
+  },
+  {
+    "text": "I've been using monodes for years. So if",
+    "start": 887.76,
+    "duration": 3.36
+  },
+  {
+    "text": "you don't have mono nodes, you could use",
+    "start": 889.839,
+    "duration": 3.841
+  },
+  {
+    "text": "something like HSVs or the color slice",
+    "start": 891.12,
+    "duration": 4.159
+  },
+  {
+    "text": "tool. It's going to give you a similar",
+    "start": 893.68,
+    "duration": 2.88
+  },
+  {
+    "text": "look. What else have I done? I've got a",
+    "start": 895.279,
+    "duration": 2.641
+  },
+  {
+    "text": "little bit of temperature going on here.",
+    "start": 896.56,
+    "duration": 2.639
+  },
+  {
+    "text": "So we've got our color temperature",
+    "start": 897.92,
+    "duration": 2.88
+  },
+  {
+    "text": "change. So the only other thing I've got",
+    "start": 899.199,
+    "duration": 3.601
+  },
+  {
+    "text": "going on here is texture. And what this",
+    "start": 900.8,
+    "duration": 4.08
+  },
+  {
+    "text": "is is called texture pop. So I've gone",
+    "start": 902.8,
+    "duration": 4.479
+  },
+  {
+    "text": "into advanced mode, lumochroma, and by",
+    "start": 904.88,
+    "duration": 4.72
+  },
+  {
+    "text": "tweaking these sliders, I'm adjusting",
+    "start": 907.279,
+    "duration": 4.401
+  },
+  {
+    "text": "frequencies. And what this is doing,",
+    "start": 909.6,
+    "duration": 3.28
+  },
+  {
+    "text": "it's easy to show you what it's doing to",
+    "start": 911.68,
+    "duration": 2.88
+  },
+  {
+    "text": "be honest. I've got episodes on how I",
+    "start": 912.88,
+    "duration": 3.92
+  },
+  {
+    "text": "work with texture pop. But if I switch",
+    "start": 914.56,
+    "duration": 3.36
+  },
+  {
+    "text": "that on and off, if you look at the",
+    "start": 916.8,
+    "duration": 3.68
+  },
+  {
+    "text": "light here,",
+    "start": 917.92,
+    "duration": 4.08
+  },
+  {
+    "text": "okay, that is pretty subtle. Let me zoom",
+    "start": 920.48,
+    "duration": 3.84
+  },
+  {
+    "text": "in a bit more. There you can see that",
+    "start": 922.0,
+    "duration": 4.56
+  },
+  {
+    "text": "I'm just giving it a little bit more",
+    "start": 924.32,
+    "duration": 4.72
+  },
+  {
+    "text": "refine. So these sliders here are",
+    "start": 926.56,
+    "duration": 4.8
+  },
+  {
+    "text": "controlling smoothing and sharpening in",
+    "start": 929.04,
+    "duration": 4.239
+  },
+  {
+    "text": "particular frequencies. So I really do",
+    "start": 931.36,
+    "duration": 3.52
+  },
+  {
+    "text": "like that. Just gives it a little bit of",
+    "start": 933.279,
+    "duration": 3.281
+  },
+  {
+    "text": "sharpness. So that's that shot. Let's",
+    "start": 934.88,
+    "duration": 3.44
+  },
+  {
+    "text": "have a quick look at the drone one. Now",
+    "start": 936.56,
+    "duration": 4.48
+  },
+  {
+    "text": "it's exactly the same note tree. I've",
+    "start": 938.32,
+    "duration": 4.879
+  },
+  {
+    "text": "got the same dehancer on the end here.",
+    "start": 941.04,
+    "duration": 4.64
+  },
+  {
+    "text": "So just show you that same grading. I'm",
+    "start": 943.199,
+    "duration": 3.44
+  },
+  {
+    "text": "not going to go through each and every",
+    "start": 945.68,
+    "duration": 2.399
+  },
+  {
+    "text": "one of these, but I've basically played",
+    "start": 946.639,
+    "duration": 2.721
+  },
+  {
+    "text": "around with my balance, contrast, and",
+    "start": 948.079,
+    "duration": 2.801
+  },
+  {
+    "text": "saturation, but the only difference I've",
+    "start": 949.36,
+    "duration": 4.08
+  },
+  {
+    "text": "got here to show you is that the texture",
+    "start": 950.88,
+    "duration": 4.16
+  },
+  {
+    "text": "in here, I'm going to show you what it's",
+    "start": 953.44,
+    "duration": 2.56
+  },
+  {
+    "text": "actually doing here. So, I've set",
+    "start": 955.04,
+    "duration": 2.08
+  },
+  {
+    "text": "slightly different settings on the",
+    "start": 956.0,
+    "duration": 3.36
+  },
+  {
+    "text": "sliders, but what it's good for, if I",
+    "start": 957.12,
+    "duration": 3.6
+  },
+  {
+    "text": "switch this on and off, is if you look",
+    "start": 959.36,
+    "duration": 3.919
+  },
+  {
+    "text": "at the foliage here, it just gives it a",
+    "start": 960.72,
+    "duration": 4.96
+  },
+  {
+    "text": "little bit of sharpness. So, it just",
+    "start": 963.279,
+    "duration": 4.24
+  },
+  {
+    "text": "gives it a little bit of texture pop",
+    "start": 965.68,
+    "duration": 4.159
+  },
+  {
+    "text": "really. So, let's put that on loop play.",
+    "start": 967.519,
+    "duration": 4.481
+  },
+  {
+    "text": "I'm just going to play that through. And",
+    "start": 969.839,
+    "duration": 3.601
+  },
+  {
+    "text": "looks absolutely fantastic. The sky",
+    "start": 972.0,
+    "duration": 3.68
+  },
+  {
+    "text": "looks great on this. So, I'm really",
+    "start": 973.44,
+    "duration": 2.959
+  },
+  {
+    "text": "pleased with that. Let's have a look at",
+    "start": 975.68,
+    "duration": 3.519
+  },
+  {
+    "text": "the Vesper shot.",
+    "start": 976.399,
+    "duration": 4.56
+  },
+  {
+    "text": "And you can see there, take a look at",
+    "start": 979.199,
+    "duration": 3.361
+  },
+  {
+    "text": "the sky. Let's go back to this one. And",
+    "start": 980.959,
+    "duration": 3.12
+  },
+  {
+    "text": "you can see that we've got really nice",
+    "start": 982.56,
+    "duration": 3.36
+  },
+  {
+    "text": "matching skies. That's a really key",
+    "start": 984.079,
+    "duration": 3.76
+  },
+  {
+    "text": "thing to do when you're balancing shots.",
+    "start": 985.92,
+    "duration": 3.68
+  },
+  {
+    "text": "So, if you've picked up any tips out of",
+    "start": 987.839,
+    "duration": 3.44
+  },
+  {
+    "text": "this episode, think about subscribing.",
+    "start": 989.6,
+    "duration": 4.159
+  },
+  {
+    "text": "Most people don't. However, yesterday I",
+    "start": 991.279,
+    "duration": 6.161
+  },
+  {
+    "text": "did just pass 225,000 subscribers. So, I",
+    "start": 993.759,
+    "duration": 4.721
+  },
+  {
+    "text": "really appreciate it. I want to say",
+    "start": 997.44,
+    "duration": 2.56
+  },
+  {
+    "text": "thank you to each and every one of you",
+    "start": 998.48,
+    "duration": 3.919
+  },
+  {
+    "text": "who subscribed. And I want to say thanks",
+    "start": 1000.0,
+    "duration": 5.279
+  },
+  {
+    "text": "to Audio for making this episode happen",
+    "start": 1002.399,
+    "duration": 5.041
+  },
+  {
+    "text": "and thanks to Mari for her fantastic",
+    "start": 1005.279,
+    "duration": 3.68
+  },
+  {
+    "text": "drone work. Look after yourselves and",
+    "start": 1007.44,
+    "duration": 2.959
+  },
+  {
+    "text": "I'll see you in the next episode.",
+    "start": 1008.959,
+    "duration": 3.521
+  },
+  {
+    "text": ">> Welcome to Sento.",
+    "start": 1010.399,
+    "duration": 5.301
+  },
+  {
+    "text": ">> Parting from Sento.",
+    "start": 1012.48,
+    "duration": 6.59
+  },
+  {
+    "text": "[Music]",
+    "start": 1015.7,
+    "duration": 3.37
+  },
+  {
+    "text": "[Music]",
+    "start": 1022.06,
+    "duration": 4.38
+  },
+  {
+    "text": "Welcome to Puzzan.",
+    "start": 1024.64,
+    "duration": 10.319
+  },
+  {
+    "text": "[Music]",
+    "start": 1026.44,
+    "duration": 8.519
+  },
+  {
+    "text": "So the music you're listening to in this",
+    "start": 1036.4,
+    "duration": 5.24
+  },
+  {
+    "text": "montage is from audio.",
+    "start": 1037.679,
+    "duration": 3.961
+  },
+  {
+    "text": "[Music]",
+    "start": 1045.21,
+    "duration": 7.58
+  },
+  {
+    "text": "Come listen.",
+    "start": 1056.64,
+    "duration": 3.399
+  },
+  {
+    "text": "[Music]",
+    "start": 1066.75,
+    "duration": 3.259
+  }
+]

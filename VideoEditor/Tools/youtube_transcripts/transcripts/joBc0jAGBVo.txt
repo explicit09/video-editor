@@ -1,0 +1,914 @@
+In this video, I'm going to show you a
+completely free way to build film
+emulations that match or beat nearly
+every L and plugin out there. Along the
+way, you're going to learn what truly
+defines the film look, why it's so hard
+for us to achieve digitally, and the
+difference between an emulation and an
+imitation. Okay, we've got lots to cover
+here in Resolve, but before we get
+hands-on, there's a few basic concepts
+that we need to cover. And the first is
+the film look itself. So, what is the
+film look? What makes the film look?
+Well, you're going to hear lots of
+different ideas and opinions on this
+topic floating around out there, but at
+the most basic level, the film look is
+always going to require two things. A
+film negative and a film print. You
+can't even get a film image without
+these two things. So, of course, you're
+going to need them if you want to get a
+film look. And what this effectively
+means is that the film look is
+inherently what we can call display
+referred. That just means that it has
+been made ready for display and it is
+visible on some type of screen. And this
+makes perfect sense if you think about
+it because if we're talking about the
+film look and being inspired by it and
+wanting to emulate it in our digital
+color grading workflows, we would have
+to be inspired by seeing something,
+right? So having a film look be display
+referred just makes perfect sense. But
+where it gets interesting is that we run
+into a problem when we're trying to
+incorporate that system, that film look
+into that digital color grading
+workflow. Because on one hand, we have
+our film print whose job it is to put
+the image on the screen to make it
+visible. And then in our color
+management framework, which we should
+always be using when we're grading, we
+have a component with a really similar
+task. That's our output transform. And
+what happens is these two things stack
+on top of each other and we get really
+weird looking results when they do.
+Right? When I first ran into this years
+ago, when I was first getting into film
+emulation and color management, I spent
+a very long period of time trying to
+figure out the best way to get these two
+systems to connect together and play
+nice together. And I ended up coming up
+with a really good solution. That's
+actually the solution that I use to
+build my Kodak 2383 emulation that I
+make available for free here on YouTube.
+And what we're going to do today is walk
+through that full process that I
+designed end to end step by step so that
+you can build film emulations just like
+I built my Kodak 2383 for yourself.
+After we finish doing that, I'm going to
+walk you through the pros and cons of
+this workflow and really what it means
+to emulate film inside of a color
+management workflow and how that's going
+to affect your grading practice and your
+final images. Okay, two more things
+before we get started. Number one, today
+we're going to be focused on the
+contrast and the color component of film
+emulation. We're not going to be
+focusing on textural things like grain
+and halation just because we've got
+enough to bite off just on the contrast
+and tonality side or the contrast and
+color side I should say. So, uh texture
+is something we can save for another
+video. You're also going to find that
+once you're up and running with this
+process, this pipeline that I'm going to
+help you design today, it's actually
+very easy to incorporate those textural
+pieces on your own. And then secondly, I
+also want to emphasize today we are
+doing strict emulation, meaning that we
+are going to be using actual measured
+data from the behavior of real film as
+the basis for this film emulation. So
+this is different than an imitation
+where we might just look at a film image
+and say, "Oh, I love the way the shadows
+feel or the highlight roll off or I like
+the way that skin tone is being rendered
+and I want to mimic that in my own
+grade." That wouldn't be a better or
+worse way of going about things. It
+would just be a different way of going
+about things to say, I'm going to
+imitate those characteristics that I
+like. You might want to imitate those
+things with Resolve Native Tools. You
+might use a look development plugin like
+my uh plug-in Contour, for example. But
+that would be a fundamentally different
+approach than what we're doing today,
+which is about emulation, which is about
+using measured data about the behavior
+of real film and incorporating it into
+the emulation that we're going to be
+building today. Okay, let's get hands on
+her resolve and uh see if we can build
+ourselves a film emulation pipeline. So,
+what am I looking at right now? I
+haven't done any grading yet, but I have
+gone ahead and set up my color
+management. This is the way that I set
+up my color management for all my
+projects. I've got my input transform
+going from my camera color space to my
+working color space of Da Vinci wide
+gamut intermediate. That for me is
+happening here at the group pre-clip
+level of my nodraph. And then here on
+the other end at the timeline level of
+my nodraph is my output transform. This
+is what is making my image look correct
+on my screen. is what's giving it the
+appropriate contrast and saturation for
+my screen. Now, if it's been a while
+since you've thought about or worked
+with color management, or if you're
+brand new to it, I'm going to encourage
+you to pause this video right here and
+go back and check out some of my other
+videos on color management and how I
+like to set things up and why we set
+things up and what all this stuff is
+that I just walked you through. Cuz I
+promise it's going to get more difficult
+to follow from here because I'm going to
+assume you've got some basic literacy in
+these areas. So, if that's you, hit
+pause, go check out some of those other
+videos. If not, let's uh continue
+forward and start building out this film
+emulation. So, here's what we're going
+to do. I'm going to start by disabling
+this output transform just for now, and
+we're going to start to build out this
+emulation. So, we're building an
+emulation. What are our raw materials
+going to be in this construction? Well,
+we know what they're going to be. We
+talked about them right at the beginning
+of this video. We're going to need to
+build our negative and then our print
+and put them together, right? So, here's
+what that's going to look like. We are
+going to use some Resolve native
+solutions for both of those components
+that are uh built from actual measured
+behavior of real film that we can
+sequence together to get that film look
+built out here in Resolve. So, we're
+going to start with the negative side of
+things. And to build our negative, we
+are going to use a standard uh called
+ADX. This was developed by the same
+people who developed the ASUS color
+management framework. And it was
+developed as a way of translating in
+between the color space of a film
+negative and the color space of a
+digital uh color grading space something
+like Da Vinci intermediate for example.
+So we're actually going to do this in
+two steps. So here's how it's going to
+go. We're going to go color space
+transform
+and we're going to go from Da Vinci wide
+gamut Da Vinci intermediate to ASES AP0
+linear. Now, as we start to build out
+nodes here, because we're going to
+sequence several of these out uh during
+our video today, it's always helpful to
+keep in mind what we're doing. We are
+always starting with the space that we
+are in, and then we are moving into some
+other space and then we're going to pick
+up from whatever space we've moved into
+as the input to our next process. You'll
+see what that looks like as we go along
+here. Okay. Now, thus far, I've
+succeeded in making my flat, boring
+image look way worse, but I promise it's
+going to get better. We're going to keep
+building this stack out. So, let's label
+things as we go along. We're going to
+say this is two aces. Why are we going
+into aces right now? Strictly so that I
+can open up an aces transform here and
+use a color space that it has available
+to it to me here in my drop downs. So,
+what we're going to say here is for my
+input transform, we're actually going to
+leave this at no input transform, which
+means as AP0 linear, the exact space
+that I just cded myself into in this
+previous node. And now for my output, I
+want to get into my negative space. And
+that's going to be ADX10. This is a
+generalized color space that's meant to
+characterize the color space of a film
+negative. And it's going to work great
+for our purposes today of needing to
+model that portion of the film look or
+the film pipeline. So, we've now moved
+into our negative space. And I'm just
+going to label this. And we'll call this
+neg. This tees us up perfectly for what
+we need to do next. Next, we need to do
+our print. And hiding out right here in
+Resolve in our film looks folder, we've
+got some very nice film emulations. So,
+I'm going to widen this out a little
+bit. Now, these film emulations shipped
+for free with Resolve. In fact, my
+friend Walter Vulpado, who was recently
+a guest on my podcast, used one of these
+LUTs for the show Winning Time, which he
+graded uh recently for HBO. Amazing
+looking show with some great filmic
+character to it. So, again, don't sleep
+on these LUTs just because they're
+available for free right here within
+Resolve. We're going to use today the
+Rex 709 Kodak 2383D60.
+If you wanted something a bit warmer,
+you could use the 2383D55.
+If you wanted something a little bit
+cooler, you could use the D65. I'm going
+to play Goldilocks and go for the one
+right here in the middle. And we're
+going to apply this to our image. And
+let's take a second here to admire what
+we've done. We have just applied this
+print L to a negative state of image.
+And the net of what we've just done is
+we've got a really nice film rendering
+of our image. We've achieved the film
+look here. So, are we done? Well, not
+quite because remember we turned off
+this output transform here earlier. So,
+we're kind of sidest stepping that
+problem that I mentioned a minute ago
+that happens here where we've got a
+print and an output transform that are
+fighting each other. They're bumping
+into each other. So, we need to solve
+that issue. That's really where the
+craft comes into this workflow I'm about
+to show you. So, let's go ahead and
+label this node. And what we need to do
+from here is put something in between
+this and this that is going to make this
+look correct. Right? So, what are we
+going to do? Well, we're actually going
+to use a color space transform. And the
+fundamental idea here is that we are
+going to pre-invert meaning in invert
+ahead of the stuff that's happening here
+so that the net of these two cancels
+each other out or close to cancels each
+other out. Okay. Now to do that we're
+going to do something that I advise
+against on the channel all the time. We
+are going to go from a I'm actually
+doing this backwards because I'm so used
+to it. We're going to go from a display
+color space, Rex 709, gamma 24, back
+into what's called a scene color space,
+Da Vinci intermediate. This is a very
+tricky thing to do well and it's
+something we need to be very careful
+with. That's why I usually recommend
+against it. But if we get the details
+right and if we do it in just the right
+way, we can get the result that we're
+after, which is an emulation that's
+going to play nice inside of our color
+management. Okay, now we've got some
+more work to do, but let's again just
+kind of pause. I'm going to label this
+node and take stock of what we've done
+thus far. So now with the addition of
+this fourth node, I've gone from color
+management only to effectively film
+emulation happening across four nodes
+that is playing nice inside of my color
+management framework. So that's pretty
+cool, right? But devil's in the details
+here. We really want to make sure we're
+going to go in now and analyze every
+step of this chain and make sure that we
+are being as gentle to the image as we
+possibly can be and make sure that we're
+not creating any room for problems or
+unwanted behaviors to crop up on other
+images uh when we apply this same stack
+uh to other images or other grades.
+Okay, so here's what we're going to do.
+I'm going to prepend a serial node by
+hitting shift s. And I'm going to go
+over here to my gallery and to my
+utility power grades and just grab an
+instance of my grayscale ramp. This is a
+free dctl that I'll leave a link to in
+the description for today's video so
+that you can do this exact same thing. I
+like this one that I created because it
+allows me to see the grayscale ramp here
+in my waveform while also continuing to
+look at the image. And so what we want
+to do is we're going to go piece by
+piece here and look at what each one of
+these nodes is doing to this grayscale
+ramp that I'm looking at right here.
+Okay. So let's start with our ASUS
+transform. I'm going to turn this on.
+Now this is the one of all these nodes
+in the stack where we can kind of ignore
+what might look like a problematic curve
+here. This looks like we're clipping out
+a bunch of data, right? We're actually
+not. What's happening is we are mapping
+into a linear domain where the range is
+much greater than 0 to 100 as we see
+here. So it's not that this is being
+chopped off. It's that it's continuing
+to go up above the range of my scope. So
+this is the one situation where I'm
+going to allow an ugly curve to remain
+without trying to do anything about it.
+All right, we're now going to take a
+look at our neg and let's see what
+happens once we apply this. So you can
+see we're getting stuff kind of falling
+back into range here, but now we are
+still getting some clipping in the top
+end. And this we can do something about.
+Here's what I want to do. I want to do
+some tone mapping to say, hey, whatever
+we need to do to kind of soften and roll
+things in just here at the very top.
+That's what I'd like to do. Because if I
+think about, I don't know, a a bright
+exposure out a window or, you know, like
+a glint or a flare or something like
+that, I don't want a hot exposed element
+in my frame to have a hard clipped
+behavior. I would rather it gently roll.
+Okay, so here's what we're going to do
+that or how how we're going to do that
+rather. Let's go back to this ASUS
+transform and we're going to use some
+luminance mapping here. We're going to
+say a custom max output of 10,000
+because that's the max of this working
+space that we may indeed hit with the
+right image, right? And then we're going
+to do a custom max output. And we're
+also going to do that at 10,000 for now.
+Just so that I can point out if I set
+these both to 10,000, I'm getting no
+change in this curve. Right? It's
+nothing additional is happening. So what
+I want to do now is move this output
+slider as little as possible to get the
+curve back in range. You see what I mean
+here? It's just not quite in range here.
+Now it's going further than I need to. I
+want to go as far as I need to, but no
+further with this value. And that's
+going to be right around 2200 in this
+case. Okay. And I want to point out
+something that we're going to see a
+couple times as we're going through this
+node stack here today. These nit values
+here are not particularly intuitive.
+Like if we look at this adjustment from
+10,000 to 2,200, that sounds like a
+massive adjustment, right? Like if you
+had $10,000 and I took away 7,800 bucks
+from you, you'd be like, "Man, that was
+like most of my money that you just took
+away from me, right? Doesn't work quite
+the same way here. These uh numbers are
+not perceptually aligned." Okay? So,
+even though we're making a big numerical
+adjustment, there's not necessarily
+going to be that same scale of visible
+adjustment when we actually get this
+thing fully built out. We'll see another
+example of that here in just a little
+bit. So, we've now got this tone mapped
+and we're taking care to ensure that our
+curve is gently being shaped as we move
+forward through this stack. Okay, we're
+now going to apply our print process.
+Let's see what we're getting here. That
+looks good, right? These curves feel
+nice and smooth, nice and gentle. No big
+problems there. And that's to be
+expected because I'm not doing anything
+fancy quite yet. I'm really just mapping
+this image for a traditional film
+reproduction or a print film emulation
+reproduction without needing to slot it
+into my color management. It's this next
+step where we're going to run into some
+challenges and really need to finesse
+what we're doing. So here in this step,
+we are again going from a display space
+to a scene space. So, we need to be very
+mindful of how we do this because
+essentially we're taking the fabric of
+our image and gently stretching it back
+out from the dynamic range that it was
+compressed down to for display by the
+print process. Okay, so we're going to
+gently stretch this back out. And here's
+how I like to do it. We're going to do
+luminance mapping again. We're going to
+set a custom max input of 100. And let's
+just say for argument sake, we're like,
+hey, let's I want the full 10,000 here.
+Can I get there? Here's what's going to
+happen. If we go kind of large on our
+waveform, you can see this top end of
+the curve is starting to get a little
+kind of chunky and jagged, right? So,
+what we want to do here is find an
+output that's as high as possible so
+that we can get some dynamic range
+restored, but that stays smooth. Okay?
+And usually for this workflow with film
+print LUTs, that's going to be somewhere
+in the neighborhood of 600 to 650 nits
+for output. Okay? Now remember we
+observed just a moment ago these numbers
+don't scale perceptually. So you know
+like if we're looking at oh I could have
+gone all the way to 10,000 and now I'm
+only going to 600. That sounds like a
+massive change. It's actually not nearly
+the impact visually that you would
+expect and we're going to see that in a
+minute here. Okay. So now we're again
+managing that curve, keeping it as
+smooth as we possibly can. We've got a
+little bit of jaggedness down here in
+the bottom of the curve as well. Like if
+I increase this ramp height, you can see
+that. But that's really just the result
+of this chain that we're going through
+and the fact that I am using a L that's
+only a 33 point L. It's not like a 65
+point or super high resolution L. So
+there are some areas here as we're
+building this out where it's just the
+best we can do and there's nothing
+really further that we can do. We just
+want to make sure that anything we can
+do to be gentle in the image we are
+doing. Okay. So let's turn this ramp
+back down to 10% here. And we're going
+to continue forward and apply our last
+step next of our final output transform.
+And that curve, as you can see, is
+looking pretty good. So let's observe
+now that we've done these last two
+pieces. Fundamentally, what we are
+trying to get, let me stretch these
+scopes back out so I can get my vector
+scope visible as well as my waveform
+here. Okay. And let's look at the scopes
+as I flip these last two nodes off and
+on.
+I am hoping to see little to no change
+in the image area because remember like
+this is the film look right here. I just
+want to translate it so that it can work
+inside of my color management. Right? So
+if I was seeing more than a small change
+in the image that would mean that I
+wasn't doing things as well as I really
+should in this step because I don't want
+to change the visual. I don't want to
+change the rendering of the image. I
+want to change the pipeline that I'm
+able to use to get that rendering. Does
+that make sense? So, we are getting a
+small net change here, but we are
+maintaining the overall essence of the
+look, and we've just slotted it into our
+color management framework. Okay, so
+we've got that set up. We've gotten uh
+uh nice and smoothed out in terms of our
+curves and working our way through
+things with our grayscale ramp. So,
+where do we go from here? From now on,
+do you just have to stack these four
+nodes every single time you want to do a
+film emulation inside of a color manage
+framework? No, you don't. I want to show
+you now a way that you can cook all four
+of these out into a L that you can use
+and reuse whenever you want to. Now,
+here's another kind of tricky part that
+we're going to get into right now
+because we want to cook out a lot, but
+we want this L to only contain certain
+things and to exclude other things. So,
+like with everything that we're looking
+at right now, let's just summarize our
+processes. We have an input transform.
+We have these four where we're going
+from aces or rather we're going to aces.
+We're modeling our neg. We're going
+through our print process. We're
+converting back to Da Vinci Y gamut
+intermediate and we're going out to back
+out to Rec 709. But we don't want to
+bake all of that into our L because we
+want some of those pieces to come from
+our color management when we're using
+that L, right? So, the main thing to be
+mindful of when you're cooking out a L
+is to make sure that you are leaving the
+right things on and turning the right
+things off so that you're cooking out
+the L that you actually need for use in
+your workflow. Here's what that's going
+to look like. We don't want this, right?
+This will be provided when we're doing
+our color management. We also don't want
+our input space, and this is the one
+that I always forget about when I'm
+doing this process. You want to go over
+to wherever your input transform is
+happening and turn it off because I
+don't want to bake a camera to working
+space transform into my L. I want that
+to be handled by my color management. I
+just want a lot that contains the four
+processes that we've just built out here
+that model my color management friendly
+or my scene referred film emulation. And
+then I can build everything around that
+with my color management framework. So
+now that I've got the right things
+turned off and on, oh, we can turn our
+ramp off as well. We don't want to ask
+Resolve to try to cook that into a L
+because it'll get confused. I'm going to
+even need it right now uh at any for for
+any reason anyway. So I'm going to turn
+my gallery off here. And here's what
+we're going to do now. We're going to
+rightclick and we're going to say
+generate L 65 point cube. And this is
+going to point me to my L folder. And
+we're going to call this 2383
+Da Vinci wide gamut. All right,
+we've now outputed that L. And what I
+want to do is open my L folder and just
+check the name on it. So I'm going to go
+to my project settings, which I could
+get to from this gear icon here, or go
+to the file menu and hit project
+settings. And I'm going to go here to
+color management and then lookup tables.
+And we're going to say open LUT folder.
+And if you notice here, you'll see I've
+got this Kodak 2383
+L here, but it's got this suffix on here
+that Resolve is always going to add. I'm
+just going to strip that back off so
+that I'm left with 2383 Da Vinci wide
+gamut. I'm going to cancel out of my
+project settings here in Resolve. And
+we're now going to turn everything back
+on here in Resolve. And I'm going to
+grab a still of this. I'm going to use
+this as my reference to confirm that the
+L that we're about to bring in is doing
+what it should. Okay. So, I've got my
+reference still pulled here. I'm now
+going to turn off these four pieces
+because hopefully these four pieces and
+only these four pieces are what just got
+cooked into my L. So, when I apply this
+new L that I've just generated, it
+should do the exact same thing that
+these four things were doing before.
+Okay. So, let's go to our L folder. I'm
+going to go to the root level. I'm going
+to rightclick and hit refresh.
+And I can see my 2383 Da Vinci wide
+gamut living right here. And if I double
+click on this, I should now see no
+change in my image when I wipe between
+the L being applied and the still that I
+just grabbed where these four nodes were
+being applied. Okay,
+so that's the overall process. That's
+how you can build your film emulation.
+That's how you can cook it out into a L.
+You can experiment with different
+ingredients. You can experiment with
+different film looks here within Resolve
+and uh you know look at different
+ingredients that you're going to use to
+build this film emulation. That's really
+going to be the biggest predictor of the
+quality of your emulation is the quality
+of the ingredients that go into it and
+how uh well uh sourced that data
+actually is. But now that we've gone
+through this process, let's talk about
+the pros and cons of what we are
+fundamentally doing here and what you
+need to be aware of if you're going to
+use it. kind of going into it with like
+full context of what this workflow is
+and how it's going to impact your image.
+So, a couple of the pros first. Some of
+these are obvious, like the biggest pro
+here is that, hey, we're able to do a
+film emulation that looks almost
+identical to what I was getting without
+color management inside of my color
+management. That's cool. I can use the
+workflow I'm familiar with. I can target
+other display color spaces. Like, that's
+a great benefit that I can now use a
+visually faithful film emulation inside
+of my color management framework. And
+the second pro I just touched on
+actually. Now that I'm in that color
+management framework, I can actually
+target other output color spaces and I
+can target an HDR color space or
+whatever other color space I want to
+because I've got this emulation that is
+now scene referred. It's living inside
+of my color management framework. That's
+pretty cool too, right? Let's talk about
+some cons. Let's talk about some
+drawbacks that we need to be aware of.
+Here's the first one. When you are doing
+this workflow, your image is only ever
+going to look as good as it did before.
+And in practice, it's probably going to
+look maybe not worse, but it's going to
+look a little bit different. Like you
+can see here when I flip things off and
+on like I did a moment ago. Let's get
+this pull this lot out of the stack for
+now and just go back to our four raw
+nodes. And when I toggle these last two
+pieces off and on, the image is
+changing, right? Like not necessarily
+for the worst. It's not like one is
+inherently better than the other, but
+the image is changing a little bit. So,
+we are disturbing the image a little
+bit. And this is really just a way of
+pointing out that the image is never
+going to get better than it was before.
+At best, it is going to look
+fundamentally the same as it did before,
+but it is not going to get better. Okay,
+here's the other drawback. These two
+things have to pair together. So, what
+that means is that this only works for
+one DRT or one output transform at a
+time. For example, if I were to swap out
+my CST with a different DRT, like 24.99,
+for example, if I were to swap this out,
+I would no longer be getting a
+symmetrical round trip. Now, the image
+is changing quite a bit. Now, whether
+you like that more or less, that's
+really a topic for uh another
+discussion. But the point is that if I'm
+trying to faithfully reproduce this
+visual inside of my color management
+framework, I'm no longer doing it once
+I'm no longer using a symmetrical pair
+of inverse and forward transformation.
+Okay, so TLDDR there. This only works
+for one output transform at a time.
+Okay, so those are the kind of big cons
+that we need to be aware of when we're
+working uh with this workflow. And
+what's fun about getting familiar with
+this way of doing things is it's going
+to show you something you can learn
+about any film emulation that you choose
+to work with from now forward. Whether
+it's one that you've built or one that
+you are considering buying or one that a
+friend has given to you. Anytime you are
+seeing a film emulation that offers you
+the option of output to a scene color
+space that could be uh area log C3 or Da
+Vinci wide gamut intermediate or slog 3
+or aces or whatever it might be. Anytime
+you're seeing a film emulation that is
+offering to output you into a nondis
+color space, some version of this
+process that we just went through right
+here has been used. That's a really
+important thing to understand. We've had
+to somehow reconcile the fact that film
+is display referred and color management
+wants a scene referred look in order to
+uh do what it's designed to do. So
+there's a fundamental tension there that
+we've just resolved in the best way that
+you really can, but it's still a
+compromise. It's still not perfect
+because we're having to do some
+significant changes to the image in
+order to make this pipeline work within
+a color managed context. So this is a
+really helpful thing to understand going
+forward is anytime you are looking at
+any emulation, a lot or a plug-in that
+offers to output you into a non-dis
+color space, some version of this
+pipeline has been used. And that's a
+really important thing to understand.
+Now, that might bother you, that might
+not bother you, it might be a problem
+for your workflow, or it might not be a
+problem for your workflow. It's just
+something that you want to go into with
+full awareness of. And I also want to
+show you the alternative. If it does
+bother you, if it no longer feels like
+the best thing for your workflow, I want
+to show you a really simple alternative
+because, as you might know, I make a
+film emulation uh plugin in partnership
+with my partners, Dr. Mitch Bugdanowitz
+and Steve Edelin, ASC called Genesis.
+Genesis does not have the option to
+output into anything but a display color
+space. The reason why Genesis is
+designed in that way is because we
+ultimately felt that doing this workflow
+where the image is never going to get
+better and is at best just going to be
+as good as it was before was not
+actually a benefit to uh the end uh
+product or to the end user. So, we chose
+to create a plugin that only does what
+Real Film does, which is to put you out
+onto a display. Now, what if you want to
+do the same? What if you're like, "Hey,
+I don't want to go through this
+pre-inversion just so that I can work
+within the DRT of my color management
+framework. What do I have to do? Do I
+have to go and grab this Genesis
+plugin?" I'm going to give you a much
+simpler free solution available right
+here with Resolve. Check this out. Grab
+these two nodes,
+turn them off. That's it. Just let the
+print do its job. Let this be your DRT.
+Let it do exactly what it was designed
+to do, which is to put your pixels on
+the screen and then do all of your
+grading over here at the clip level just
+like you normally would. If that's
+something that you are open to exploring
+that you feel like, hey, it's time for
+me to try another approach uh than doing
+this pre-inverse to uh make things work
+within my color management framework.
+This is a great alternative. There's no
+arguing this is gentler on your image
+and you can get great results uh doing
+things this way. The only caveat or
+downside to this is that you're not
+using the exact same workflow that you
+are familiar with. But that leads really
+leads me to something that I brought up
+right at the beginning of this video
+which is like okay so what is the
+reason? Why do we find it so difficult
+to emulate film digitally? Like why is
+it this moving target that everyone's
+always chasing and so often falling
+short of? One of the main reasons for
+that, in fact, the main reason for that
+is that we say we want the film
+emulation. We want the film look. We
+want the film system, but we want it to
+come to us, we want it to work the way
+we are used to things working instead of
+wanting it to work the way that it
+works. That's where we run into this
+tension where it's like, well, we want a
+but we want it to work in a different
+way than it does. And that's where the
+difficulty arises in getting a really
+really faithful idealized filmic
+rendering of image or photochemical
+rendering of image is if we really want
+that we need to meet the system. We need
+to meet the look more on its own terms
+which again in this case would be to
+simply let the look and the system do
+its job. Let that output transform come
+from the print which was designed to put
+your pixels on the screen. So that's a
+great way to a great opportunity to
+start exploring doing things a little
+bit differently than your normal color
+management framework would call for. And
+by the way, this is still color
+management. You're just using a
+different DRT. You are using your film
+print as your DRT. It's totally valid.
+It can work beautifully and in fact is
+probably going to net you better results
+because you are uh doing less to your
+image and you're being a little bit
+gentler on your image. So, I hope that's
+a really helpful walkthrough for you of
+how you can build out film emulations
+using the right ingredients, many of
+which are free and available right here
+within Resolve and build film emulations
+that I would put up against when you've
+got the right ingredients, you can put
+these up against any product or tool
+that's out there and compare for
+yourself and see what you get and see
+what kind of differences that you
+observe. Last thing that I want to point
+out to you actually is if you ever want
+to get like a source of truth or a
+reference point, go grab a free trial of
+Genesis, my plugin that I mentioned a
+moment ago, and use it to compare. So,
+I'm going to load Genesis on here, and
+I'm going to connect it up to the head
+of this node graph, like so. Okay. And
+you can now compare and at least start
+to get a sense for like, okay, am I in
+the right ballpark? Is my contrast
+ratio? Is my color rendering? Is my
+saturation feeling good? or is what I'm
+building manually up here in the top
+feeling really far-flung from the
+photochemical model that I'm seeing
+represented here by Genesis below. That
+might be a good clue that you want to go
+and look at sourcing some different
+ingredients for your neg or for your
+print or that you just want to double
+check that you're following the exact
+process that I've walked you through
+today. But go grab a free trial of this
+plugin and it can be a great reference
+point for you when you are building your
+own film emulations of whether you're
+getting into a sound baseline position
+for things like contrast, saturation,
+and color reproduction or whether you
+want to look at sourcing some different
+ingredients or double-checking that you
+have set up your pipeline to run in the
+correct way. So, hope you enjoyed that
+walkthrough. I know that's a long one.
+Let me know in the comments what
+questions you have. If anything, go and
+give this one another watch to absorb
+the different uh kind of twists and
+turns along the path here. And I promise
+this starts to become easier to
+understand with a little bit of
+practice. And this can be a really
+powerful way. In fact, this is the very
+best way to build a scene referred film
+emulation or a color management friendly
+film emulation if that's your goal uh
+when uh inside of Resolve and you're
+trying to get uh that film emulation to
+work within your established color
+management workflow.

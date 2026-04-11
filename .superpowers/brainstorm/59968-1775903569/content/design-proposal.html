@@ -1,0 +1,163 @@
+<h2>Thumbnail Renderer — Design Proposal</h2>
+<p class="subtitle">Programmatic thumbnail generation with real host photos, no AI image generation</p>
+
+<div class="section">
+  <h3>Architecture</h3>
+  <p>A new <code>ThumbnailRenderer</code> class in the <code>EditorCore</code> package that uses Core Graphics to compose thumbnails from real assets. Replaces AI image generation for the standard thumbnail workflow. AI providers (FLUX, Gemini) remain available for creative/experimental use.</p>
+
+  <div class="mockup">
+    <div class="mockup-header">Pipeline</div>
+    <div class="mockup-body" style="padding: 20px; background: #111; font-family: monospace; font-size: 13px; color: #ccc; line-height: 2;">
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span style="background: #0A3D2A; padding: 6px 12px; border-radius: 4px; color: #C8A84E;">1. Load host photos</span>
+        <span style="color: #555;">→</span>
+        <span style="background: #0A3D2A; padding: 6px 12px; border-radius: 4px; color: #C8A84E;">2. Remove backgrounds (Vision)</span>
+        <span style="color: #555;">→</span>
+        <span style="background: #0A3D2A; padding: 6px 12px; border-radius: 4px; color: #C8A84E;">3. Feather edges</span>
+        <span style="color: #555;">→</span>
+        <span style="background: #0A3D2A; padding: 6px 12px; border-radius: 4px; color: #C8A84E;">4. Draw background gradient</span>
+        <span style="color: #555;">→</span>
+        <span style="background: #0A3D2A; padding: 6px 12px; border-radius: 4px; color: #C8A84E;">5. Composite hosts</span>
+        <span style="color: #555;">→</span>
+        <span style="background: #0A3D2A; padding: 6px 12px; border-radius: 4px; color: #C8A84E;">6. Render text + logo + accents</span>
+        <span style="color: #555;">→</span>
+        <span style="background: #C8A84E; padding: 6px 12px; border-radius: 4px; color: #000; font-weight: bold;">PNG out</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Components</h3>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+    <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px;">
+      <div style="color: #C8A84E; font-weight: bold; margin-bottom: 8px;">ThumbnailRenderer</div>
+      <div style="color: #999; font-size: 13px;">Main entry point. Takes a ThumbnailConfig, returns PNG Data. Orchestrates the pipeline.</div>
+    </div>
+    <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px;">
+      <div style="color: #C8A84E; font-weight: bold; margin-bottom: 8px;">ThumbnailConfig</div>
+      <div style="color: #999; font-size: 13px;">Data struct: title, subtitle, layout, host photos, brand (colors, logos). Loaded from overlay template JSON.</div>
+    </div>
+    <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px;">
+      <div style="color: #C8A84E; font-weight: bold; margin-bottom: 8px;">ThumbnailLayout (enum)</div>
+      <div style="color: #999; font-size: 13px;">splitPanel, centeredFaceOff, textHeavy — each knows how to position hosts + text in the canvas.</div>
+    </div>
+    <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px;">
+      <div style="color: #C8A84E; font-weight: bold; margin-bottom: 8px;">PhotoCutout (utility)</div>
+      <div style="color: #999; font-size: 13px;">Uses existing PersonMasker + CIFilter gaussian blur on mask edges for feathered cutouts.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Three Layouts</h3>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 12px;">
+    <!-- Split Panel -->
+    <div class="mockup">
+      <div class="mockup-header">Split Panel</div>
+      <div class="mockup-body" style="background: #050505; aspect-ratio: 3/2; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; display: flex;">
+          <div style="flex: 1; background: linear-gradient(135deg, #0A3D2A 0%, #050505 100%);"></div>
+          <div style="flex: 1; background: linear-gradient(225deg, #0A3D2A 0%, #050505 100%);"></div>
+        </div>
+        <div style="position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-top: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 40px; height: 40px; border-bottom: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <!-- Feathered host silhouettes -->
+        <div style="position: absolute; top: 5%; left: 5%; width: 40%; height: 62%; display: flex; align-items: flex-end; justify-content: center;">
+          <div style="width: 70%; height: 85%; background: radial-gradient(ellipse at center, rgba(100,100,100,0.5) 40%, transparent 70%); border-radius: 40% 40% 0 0;"></div>
+        </div>
+        <div style="position: absolute; top: 5%; right: 5%; width: 40%; height: 62%; display: flex; align-items: flex-end; justify-content: center;">
+          <div style="width: 70%; height: 85%; background: radial-gradient(ellipse at center, rgba(100,100,100,0.5) 40%, transparent 70%); border-radius: 40% 40% 0 0;"></div>
+        </div>
+        <div style="position: absolute; top: 6px; right: 8px; color: #C8A84E; font-size: 7px; font-weight: bold;">TECHNOLGIA</div>
+        <div style="position: absolute; bottom: 8%; left: 0; right: 0; text-align: center;">
+          <div style="font-size: 11px; font-weight: 900; color: white;">TITLE LINE</div>
+          <div style="font-size: 9px; font-weight: 800; color: #C8A84E;">SUBTITLE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered Face-Off -->
+    <div class="mockup">
+      <div class="mockup-header">Centered Face-Off</div>
+      <div class="mockup-body" style="background: #050505; aspect-ratio: 3/2; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, #0A3D2A 0%, #050505 70%);"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-top: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; top: 0; right: 0; width: 40px; height: 40px; border-top: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; left: 0; width: 40px; height: 40px; border-bottom: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 40px; height: 40px; border-bottom: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; top: 6px; right: 8px; color: #C8A84E; font-size: 7px; font-weight: bold;">TECHNOLGIA</div>
+        <div style="position: absolute; top: 6%; left: 0; right: 0; text-align: center;">
+          <div style="font-size: 11px; font-weight: 900; color: white;">TITLE LINE</div>
+          <div style="font-size: 9px; font-weight: 800; color: #C8A84E;">SUBTITLE</div>
+        </div>
+        <div style="position: absolute; bottom: 2%; left: 8%; width: 38%; height: 60%; display: flex; align-items: flex-end; justify-content: center; transform: rotate(2deg);">
+          <div style="width: 70%; height: 85%; background: radial-gradient(ellipse at center, rgba(100,100,100,0.5) 40%, transparent 70%); border-radius: 40% 40% 0 0;"></div>
+        </div>
+        <div style="position: absolute; bottom: 2%; right: 8%; width: 38%; height: 60%; display: flex; align-items: flex-end; justify-content: center; transform: rotate(-2deg);">
+          <div style="width: 70%; height: 85%; background: radial-gradient(ellipse at center, rgba(100,100,100,0.5) 40%, transparent 70%); border-radius: 40% 40% 0 0;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Heavy -->
+    <div class="mockup">
+      <div class="mockup-header">Text Heavy</div>
+      <div class="mockup-body" style="background: #050505; aspect-ratio: 3/2; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(160deg, #0A3D2A 0%, #050505 60%);"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-top: 2px solid #C8A84E; border-left: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 40px; height: 40px; border-bottom: 2px solid #C8A84E; border-right: 2px solid #C8A84E;"></div>
+        <div style="position: absolute; top: 6px; right: 8px; color: #C8A84E; font-size: 7px; font-weight: bold;">TECHNOLGIA</div>
+        <!-- Small circular host photos -->
+        <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 6px;">
+          <div style="width: 32px; height: 32px; background: radial-gradient(circle, rgba(100,100,100,0.5) 50%, transparent 70%); border-radius: 50%; border: 1.5px solid #C8A84E;"></div>
+          <div style="width: 32px; height: 32px; background: radial-gradient(circle, rgba(100,100,100,0.5) 50%, transparent 70%); border-radius: 50%; border: 1.5px solid #C8A84E;"></div>
+        </div>
+        <div style="position: absolute; top: 30%; left: 8%; right: 8%;">
+          <div style="font-size: 18px; font-weight: 900; color: white; line-height: 1.1;">ONE PERSON BUILT OPENCLAW</div>
+          <div style="font-size: 12px; font-weight: 800; color: #C8A84E; margin-top: 6px;">WHY SOLO FOUNDERS WIN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Key Decisions</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
+    <div style="background: #1a1a1a; border-left: 3px solid #C8A84E; padding: 12px; border-radius: 0 6px 6px 0;">
+      <div style="color: white; font-weight: bold; font-size: 13px;">Photos</div>
+      <div style="color: #999; font-size: 12px; margin-top: 4px;">Fixed host photos from Documents dir. Background removed via Vision framework. Feathered edges via gaussian blur on mask.</div>
+    </div>
+    <div style="background: #1a1a1a; border-left: 3px solid #C8A84E; padding: 12px; border-radius: 0 6px 6px 0;">
+      <div style="color: white; font-weight: bold; font-size: 13px;">Title</div>
+      <div style="color: #999; font-size: 12px; margin-top: 4px;">Auto-generated from analyze_transcript, with manual override. Line 1 white, line 2 gold. CoreText rendering.</div>
+    </div>
+    <div style="background: #1a1a1a; border-left: 3px solid #C8A84E; padding: 12px; border-radius: 0 6px 6px 0;">
+      <div style="color: white; font-weight: bold; font-size: 13px;">Brand</div>
+      <div style="color: #999; font-size: 12px; margin-top: 4px;">Colors + logos loaded from overlay template JSON (brand section). Technolgia Talks hardcoded for now, structured for future templates.</div>
+    </div>
+    <div style="background: #1a1a1a; border-left: 3px solid #C8A84E; padding: 12px; border-radius: 0 6px 6px 0;">
+      <div style="color: white; font-weight: bold; font-size: 13px;">Output</div>
+      <div style="color: #999; font-size: 12px; margin-top: 4px;">1536×1024 PNG. Instant (no API calls). Saved to Thumbnails/ directory. MCP tool returns path.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>MCP Tool Interface</h3>
+  <div style="background: #111; border: 1px solid #333; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #ccc; line-height: 1.8;">
+    <span style="color: #C8A84E;">generate_thumbnail</span>(<br>
+    &nbsp;&nbsp;title: <span style="color: #6a9955;">"One Person Built OpenClaw"</span>,<br>
+    &nbsp;&nbsp;subtitle: <span style="color: #6a9955;">"Why Solo Founders Win"</span>,<br>
+    &nbsp;&nbsp;template: <span style="color: #6a9955;">"technologia_talks"</span>,<br>
+    &nbsp;&nbsp;layout: <span style="color: #6a9955;">"split_panel"</span> | <span style="color: #6a9955;">"centered"</span> | <span style="color: #6a9955;">"text_heavy"</span>,<br>
+    &nbsp;&nbsp;provider: <span style="color: #6a9955;">"local"</span> | <span style="color: #6a9955;">"flux"</span> | <span style="color: #6a9955;">"gemini"</span> | <span style="color: #6a9955;">"both"</span><br>
+    )<br>
+    <br>
+    <span style="color: #555;">// provider="local" → programmatic renderer (default)</span><br>
+    <span style="color: #555;">// provider="flux"/"gemini"/"both" → AI generation (existing)</span>
+  </div>
+</div>

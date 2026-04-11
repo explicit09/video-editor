@@ -1,0 +1,213 @@
+I've spent the last five years creating
+presets and plugins for Da Vinci
+Resolve, including some really, really
+cool stuff like Proto V3, but I don't
+think anything I've done so far comes
+close to what I'm building next. Macro
+Machine. Watch this. So, you've got a
+basic lower third you've built in
+Fusion, and you also have a Google doc
+sheet with a whole bunch of names and
+other data. Why not copy those nodes,
+paste them into macro machine, select
+the controls you want to publish? I'll
+do these two uh names and then come down
+to this background node. Select the
+color for that and then come to data
+import Google sheet on the doc you want
+to link to. Come to share. Just make
+sure this is set to anyone with the
+link. Copy that link. Paste it into
+macro machine. Click import. And then on
+this first text, you can connect to the
+first name field. Other text connect to
+the last name field. And even on this
+color group where we have this hex code,
+we can connect to this other column here
+on the Google sheet that has different
+hex color values. And then I going to
+come to data insert update data button.
+Well, you we will get back to that
+later. Um let's just make sure that is
+uh on the bottom of this list. And then
+I am going to data generate from CSV
+based on the first name. When I click
+continue, it will create four different
+presets for me because we have four
+entries on this doc. I'm going to come
+select all for export minus that first
+one we were working in. Make sure I am
+exporting to the edit page in generators
+test folder. I will select that and
+export to the edit page. Click okay. Hop
+back to Resolve. Sometimes it has to
+think for a second. Back on the edit
+page. Now, inside that test folder, I
+have all those presets with those data
+correctly pulled in those names and even
+the different color values we linked off
+that hex object. But we have this Dan
+David's uh lower third here. But what if
+there was a mistake and his name isn't
+Dan Davids, it's Dan Davidson? Of
+course, you could change this in
+Resolve, but what if you wanted to make
+that a permanent update? Or what if
+there was some other data that needed to
+change regularly? Well, just come back
+to that Google sheet and where it says
+David's, make it Davidson Sin, hop back
+to Resolve, I can click this update data
+button. If I click that, it will load
+that preset into macro machine. Ask me
+if I want to update that from David's to
+Davidson. I will click overwrite that
+updates and exports. And back in
+Resolve, if I drag that Dan uh preset
+back down to my timeline, now it's
+DanDavidson. Now, that small teaser has
+a lot packed into it, but that is not
+even all of it. Not close to all of it.
+I have added completely new features
+since I recorded that video that I think
+are super cool, super valuable. But to
+continue, I need your help. You can help
+me out here in a few different ways.
+First, big picture supporting the
+development of Macro Machine right now
+just means like supporting me. But good
+news, um, all those presets I've
+mentioned, if you head over to
+sterlingupply.co, you can see dozens of
+presets and plugins for Da Vinci
+Resolve. Lots of those free, a handful
+paid. Some that have free light versions
+and then paid full versions. Something
+like my uh autoeing animation plugin has
+a free version and then like a $5 paid
+version. And then there's something like
+Protov3 which has a free version that's
+a little more constrained to uh like
+text or titles and then the paid version
+unlocks a whole bunch of stuff. I'll
+link in the description to uh an
+overview of Proto in less than a minute.
+Proto is cool. I've been pouring a lot
+of work into Macro Machine and if you've
+seen on the channel, there have been
+less videos because of that. And videos
+are the main traffic generator that then
+pushes people to my store and then
+occasionally they buy something. So
+whether you've been following for a
+while or not, if you go over there,
+browse around, or click through the
+channel, I will also link um a video I
+did covering my top 10 free plugins I've
+made and top 10 paid plugins I've made.
+That's super cool. If you purchase a
+product that you think you will use,
+you'll get that product and then I will
+be able to think a little bit less about
+YouTube for a while and focus on macro
+machine. Ways you can help with macro
+machine. Number two, just drop all your
+ideas in the comments. What would appeal
+to you in this sort of macro generator
+creator utility? Side note to talk about
+other cool functionality in Macro
+Machine. There is a little browser
+window that I'm calling the macro
+explorer. It's helpful because like I
+showed in that video, you can choose a
+destination to export and export right
+to uh the edit page in Da Vinci Resolve.
+But if you open that full macro
+explorer, you can also see all the DRFX
+packs you have currently installed. You
+can disable any of those packs if you
+don't want to fully delete them, but you
+just don't want to see them in Resolve.
+Or you can open them in that window and
+selectively disable individual presets
+inside that pack. super valuable if you
+download, you know, one of these packs
+with like, you know, dozens or hundreds
+or I I know it gets crazy, but if you
+have any DRFX with lots of controls, but
+you really only want to see a few in
+Resolve, you can selectively uh disable
+the rest of them. Only see what you want
+in Resolve, take a lot more ownership
+over your effects library. I think that
+is super cool. Any sort of like
+roundabout uh effect or preset
+functionality like that, um, leave that
+in the comments. Absolutely. I'm already
+doing uh I'm so excited to talk more
+about Macro Machine. I'm already doing
+some cool stuff with like presets.
+Uh stick around. And the big way you can
+help. Number three is that I am
+currently testing Macro Machine. Right
+now, I am limiting that to members over
+at the website strollingsupply.co.
+That's not YouTube members, although if
+there's a way to expand to that, I might
+do that sometime. Although I really like
+the tracking I have um through
+memberships with something complicated
+like macro machine working with this
+complicated macro system in resolve um
+there's you know all of these controls
+it can get complicated. I am in a period
+of development where I am actively
+trying to you know squash a lot of bugs.
+So I really need people testing in a
+variety of circumstances with a variety
+of presets so they can let me know what
+works, what's broken, what they want
+changed. So if you head over to
+stroningsupply.co co. Um, there's a
+membership little page button. Um, there
+are some other perks you get with that.
+I haven't been as on top of videos and
+other things for that as I would like,
+but you get, you know, a handful of my
+paid deluxe plugins for free if you want
+to go that way instead. And, uh, you get
+this early access to Macro Machine. I'm
+not entirely sure what the full release
+of Macro Machine will look like,
+especially how I'm going to monetize
+that or what I'm going to do. I had
+other plans for a course. I'm not sure
+how those will go. Lots of things are
+still up in the air, but uh you know,
+Macro Machine exists now and I want to
+get it to more people after I make sure
+it's in a solid spot and right now
+memberships are where I am setting that
+solid spot. If things go well, hopefully
+I'll have more information on a
+progressively wider release soon. But um
+I I've posted about Macro Machine on
+like Twitter and a few other places and
+I've talked about it on live streams. Um
+but other than a small tease, I haven't
+done just a main video about it. So, I
+think macro machine is very cool. There
+are some other tools already out there
+um like macro lab um from Matt Mcool.
+It's a little little bit of a tongue
+twister, but that's available for free.
+I will also link that in the description
+as well as other like community macro
+tools, but mostly I thought it was time
+for this video. Macro Machine is coming
+and I need your help. Um however you
+choose to help me out with this goal, I
+think we are building something really,
+really exciting for the broader Dinci
+Resolve community. Thanks for watching
+and I'll see you next

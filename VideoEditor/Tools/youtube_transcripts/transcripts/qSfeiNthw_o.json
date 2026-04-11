@@ -1,0 +1,1387 @@
+[
+  {
+    "text": "A little while ago now, I released Proto",
+    "start": 0.08,
+    "duration": 5.279
+  },
+  {
+    "text": "V3, uh the latest update for my big uh",
+    "start": 2.399,
+    "duration": 6.481
+  },
+  {
+    "text": "distortion and glow and high energy text",
+    "start": 5.359,
+    "duration": 6.481
+  },
+  {
+    "text": "and like master plug-in [laughter] thing",
+    "start": 8.88,
+    "duration": 5.12
+  },
+  {
+    "text": "for Da Vinci Resolve. A general overview",
+    "start": 11.84,
+    "duration": 3.28
+  },
+  {
+    "text": "will be in the description if you want",
+    "start": 14.0,
+    "duration": 2.08
+  },
+  {
+    "text": "to check that out if you don't know",
+    "start": 15.12,
+    "duration": 2.4
+  },
+  {
+    "text": "about it at all. But if you do know",
+    "start": 16.08,
+    "duration": 3.68
+  },
+  {
+    "text": "about it, this video is for you because",
+    "start": 17.52,
+    "duration": 4.08
+  },
+  {
+    "text": "I want to show off a few sort of like",
+    "start": 19.76,
+    "duration": 4.56
+  },
+  {
+    "text": "next step tips and tricks to how to use",
+    "start": 21.6,
+    "duration": 5.36
+  },
+  {
+    "text": "Proto, throw on one other little cool",
+    "start": 24.32,
+    "duration": 4.48
+  },
+  {
+    "text": "thing in Fusion and get something get",
+    "start": 26.96,
+    "duration": 3.04
+  },
+  {
+    "text": "something really exciting. We're also",
+    "start": 28.8,
+    "duration": 3.2
+  },
+  {
+    "text": "going to show off um a system that has",
+    "start": 30.0,
+    "duration": 3.76
+  },
+  {
+    "text": "been added since the full release. So,",
+    "start": 32.0,
+    "duration": 3.2
+  },
+  {
+    "text": "if you only saw the big headline when",
+    "start": 33.76,
+    "duration": 2.959
+  },
+  {
+    "text": "Proto came out, um there's some new",
+    "start": 35.2,
+    "duration": 3.039
+  },
+  {
+    "text": "stuff I'm going to be showing off, as",
+    "start": 36.719,
+    "duration": 4.481
+  },
+  {
+    "text": "well as just going uh in a little deeper",
+    "start": 38.239,
+    "duration": 6.0
+  },
+  {
+    "text": "to a few controls here in the inspector",
+    "start": 41.2,
+    "duration": 5.6
+  },
+  {
+    "text": "um that uh really have a lot of power,",
+    "start": 44.239,
+    "duration": 4.241
+  },
+  {
+    "text": "but like need to be explained a little",
+    "start": 46.8,
+    "duration": 3.68
+  },
+  {
+    "text": "further. Let's get started. And the",
+    "start": 48.48,
+    "duration": 4.079
+  },
+  {
+    "text": "first thing I'm going to show off um of",
+    "start": 50.48,
+    "duration": 3.919
+  },
+  {
+    "text": "course on these presets, you have these",
+    "start": 52.559,
+    "duration": 4.48
+  },
+  {
+    "text": "25 different presets with all these",
+    "start": 54.399,
+    "duration": 4.64
+  },
+  {
+    "text": "different looks. Super cool. Uh, I'm",
+    "start": 57.039,
+    "duration": 4.801
+  },
+  {
+    "text": "going to hop over to the tune preset.",
+    "start": 59.039,
+    "duration": 4.961
+  },
+  {
+    "text": "Uh, and this I really like. It's not as",
+    "start": 61.84,
+    "duration": 4.08
+  },
+  {
+    "text": "glowy. It just has these like hard",
+    "start": 64.0,
+    "duration": 3.76
+  },
+  {
+    "text": "edges, kind of like construction paper",
+    "start": 65.92,
+    "duration": 4.72
+  },
+  {
+    "text": "vibes, but you'll notice the motion is",
+    "start": 67.76,
+    "duration": 4.48
+  },
+  {
+    "text": "still pretty organic, right? It's like",
+    "start": 70.64,
+    "duration": 3.28
+  },
+  {
+    "text": "in and out and like it's just like",
+    "start": 72.24,
+    "duration": 3.84
+  },
+  {
+    "text": "ongoing motion. When I was designing",
+    "start": 73.92,
+    "duration": 4.4
+  },
+  {
+    "text": "this look, I actually designed it with",
+    "start": 76.08,
+    "duration": 4.0
+  },
+  {
+    "text": "one extra step, which is what I want to",
+    "start": 78.32,
+    "duration": 3.28
+  },
+  {
+    "text": "show off now. I'm going to open this in",
+    "start": 80.08,
+    "duration": 3.039
+  },
+  {
+    "text": "Fusion. And then I'm not even going to",
+    "start": 81.6,
+    "duration": 4.0
+  },
+  {
+    "text": "open proto up. But coming out of proto,",
+    "start": 83.119,
+    "duration": 6.241
+  },
+  {
+    "text": "I'm going to add a stop motion node. Uh",
+    "start": 85.6,
+    "duration": 5.839
+  },
+  {
+    "text": "five on this frame repeat is probably",
+    "start": 89.36,
+    "duration": 3.92
+  },
+  {
+    "text": "about okay. And now I can go right back",
+    "start": 91.439,
+    "duration": 4.161
+  },
+  {
+    "text": "to the edit page. And if I just preview",
+    "start": 93.28,
+    "duration": 5.36
+  },
+  {
+    "text": "that then",
+    "start": 95.6,
+    "duration": 4.479
+  },
+  {
+    "text": "five is a lot. Five is a lot. Let's make",
+    "start": 98.64,
+    "duration": 3.519
+  },
+  {
+    "text": "it three.",
+    "start": 100.079,
+    "duration": 4.0
+  },
+  {
+    "text": "Oh, it's also caching. We'll let it",
+    "start": 102.159,
+    "duration": 5.041
+  },
+  {
+    "text": "cache. We have this like stop motion",
+    "start": 104.079,
+    "duration": 6.32
+  },
+  {
+    "text": "motiony motion. I did call this tune to",
+    "start": 107.2,
+    "duration": 4.64
+  },
+  {
+    "text": "me. This has kind of like a little like",
+    "start": 110.399,
+    "duration": 3.841
+  },
+  {
+    "text": "kindergarten vibe and that like organic",
+    "start": 111.84,
+    "duration": 4.559
+  },
+  {
+    "text": "motion didn't fit as well. But hey, toss",
+    "start": 114.24,
+    "duration": 5.04
+  },
+  {
+    "text": "a stop motion effect on there afterwards",
+    "start": 116.399,
+    "duration": 5.441
+  },
+  {
+    "text": "and it feels it it feels like a pretty",
+    "start": 119.28,
+    "duration": 4.479
+  },
+  {
+    "text": "different style right off the bat. Never",
+    "start": 121.84,
+    "duration": 3.36
+  },
+  {
+    "text": "forget that while you have all these",
+    "start": 123.759,
+    "duration": 3.441
+  },
+  {
+    "text": "controls uh to build your effect",
+    "start": 125.2,
+    "duration": 4.32
+  },
+  {
+    "text": "natively in proto, you can add anything",
+    "start": 127.2,
+    "duration": 4.88
+  },
+  {
+    "text": "before or after proto customize further.",
+    "start": 129.52,
+    "duration": 4.079
+  },
+  {
+    "text": "And something like stopotion messing",
+    "start": 132.08,
+    "duration": 4.08
+  },
+  {
+    "text": "with the timing of this effect can get",
+    "start": 133.599,
+    "duration": 5.36
+  },
+  {
+    "text": "you like a really distinct look. Let's",
+    "start": 136.16,
+    "duration": 5.68
+  },
+  {
+    "text": "move on onto video. Now, if I drop uh",
+    "start": 138.959,
+    "duration": 5.601
+  },
+  {
+    "text": "protov3, the effect version on here, it",
+    "start": 141.84,
+    "duration": 5.44
+  },
+  {
+    "text": "looks uh to every line in your scene and",
+    "start": 144.56,
+    "duration": 5.36
+  },
+  {
+    "text": "adds proto there. And that is because in",
+    "start": 147.28,
+    "duration": 4.64
+  },
+  {
+    "text": "this external source effects, we have",
+    "start": 149.92,
+    "duration": 4.08
+  },
+  {
+    "text": "edge detect and outline controls. You",
+    "start": 151.92,
+    "duration": 4.08
+  },
+  {
+    "text": "can always customize these edge detect",
+    "start": 154.0,
+    "duration": 3.44
+  },
+  {
+    "text": "controls for how sensitive you want this",
+    "start": 156.0,
+    "duration": 3.12
+  },
+  {
+    "text": "or how thick you want those lines to be.",
+    "start": 157.44,
+    "duration": 3.6
+  },
+  {
+    "text": "And if I click this over to outline,",
+    "start": 159.12,
+    "duration": 4.56
+  },
+  {
+    "text": "nothing happens. Uh that is because this",
+    "start": 161.04,
+    "duration": 7.04
+  },
+  {
+    "text": "is applied to a sort of full screen uh",
+    "start": 163.68,
+    "duration": 6.96
+  },
+  {
+    "text": "video clip here. If I did something like",
+    "start": 168.08,
+    "duration": 5.84
+  },
+  {
+    "text": "drag on the resolve logo just here in my",
+    "start": 170.64,
+    "duration": 5.12
+  },
+  {
+    "text": "window even like zoom it down a little",
+    "start": 173.92,
+    "duration": 5.76
+  },
+  {
+    "text": "bit then if I were to toss on protov3",
+    "start": 175.76,
+    "duration": 5.92
+  },
+  {
+    "text": "effect by default it would look for all",
+    "start": 179.68,
+    "duration": 3.839
+  },
+  {
+    "text": "the lines. But if I change that to",
+    "start": 181.68,
+    "duration": 3.6
+  },
+  {
+    "text": "outline it would only look at the",
+    "start": 183.519,
+    "duration": 4.881
+  },
+  {
+    "text": "outside line. Haha. But let's go back to",
+    "start": 185.28,
+    "duration": 6.239
+  },
+  {
+    "text": "this video clip because again we can do",
+    "start": 188.4,
+    "duration": 4.72
+  },
+  {
+    "text": "some nifty stuff and it's actually going",
+    "start": 191.519,
+    "duration": 3.36
+  },
+  {
+    "text": "to be really straightforward. If I open",
+    "start": 193.12,
+    "duration": 3.839
+  },
+  {
+    "text": "this in the fusion page, you'll see now",
+    "start": 194.879,
+    "duration": 4.801
+  },
+  {
+    "text": "we have this media clip uh plugged into",
+    "start": 196.959,
+    "duration": 5.36
+  },
+  {
+    "text": "proto. But before proto, I'm going to",
+    "start": 199.68,
+    "duration": 5.04
+  },
+  {
+    "text": "add a magic mask effect. And you see now",
+    "start": 202.319,
+    "duration": 4.721
+  },
+  {
+    "text": "it's here in between. If I just click on",
+    "start": 204.72,
+    "duration": 4.08
+  },
+  {
+    "text": "his shirt, we'll probably get his shirt",
+    "start": 207.04,
+    "duration": 4.88
+  },
+  {
+    "text": "and his head and his arms and make sure",
+    "start": 208.8,
+    "duration": 4.719
+  },
+  {
+    "text": "we get all his shoes. That's pretty",
+    "start": 211.92,
+    "duration": 3.92
+  },
+  {
+    "text": "good. And it's even processing proto as",
+    "start": 213.519,
+    "duration": 4.961
+  },
+  {
+    "text": "this goes. So you see we just have that",
+    "start": 215.84,
+    "duration": 4.399
+  },
+  {
+    "text": "outline. I am just going to preview the",
+    "start": 218.48,
+    "duration": 3.839
+  },
+  {
+    "text": "magic mask for now. So we can process",
+    "start": 220.239,
+    "duration": 5.761
+  },
+  {
+    "text": "that as it runs through. Now this is",
+    "start": 222.319,
+    "duration": 6.321
+  },
+  {
+    "text": "processing in 4K. That's my fault. Um I",
+    "start": 226.0,
+    "duration": 3.92
+  },
+  {
+    "text": "should have pulled this down to 1080",
+    "start": 228.64,
+    "duration": 2.48
+  },
+  {
+    "text": "while I'm just showing this off. But we",
+    "start": 229.92,
+    "duration": 2.319
+  },
+  {
+    "text": "can fast forward through this anyway.",
+    "start": 231.12,
+    "duration": 2.8
+  },
+  {
+    "text": "It's just processing Magic Mask. Look",
+    "start": 232.239,
+    "duration": 3.36
+  },
+  {
+    "text": "how great it looks. This is Magic Mask",
+    "start": 233.92,
+    "duration": 5.679
+  },
+  {
+    "text": "V2. um which came uh to the color page I",
+    "start": 235.599,
+    "duration": 6.241
+  },
+  {
+    "text": "believe in version 20 and a few versions",
+    "start": 239.599,
+    "duration": 4.241
+  },
+  {
+    "text": "after it came to the fusion page. Super",
+    "start": 241.84,
+    "duration": 5.28
+  },
+  {
+    "text": "slick. And once this is done, okay,",
+    "start": 243.84,
+    "duration": 4.88
+  },
+  {
+    "text": "that's processed. If we just preview the",
+    "start": 247.12,
+    "duration": 3.679
+  },
+  {
+    "text": "magic mask, you see, wow, we've got that",
+    "start": 248.72,
+    "duration": 3.76
+  },
+  {
+    "text": "guy dancing by himself. And if we come",
+    "start": 250.799,
+    "duration": 4.0
+  },
+  {
+    "text": "to proto or after proto or hop back to",
+    "start": 252.48,
+    "duration": 4.319
+  },
+  {
+    "text": "the edit page, you'll see we have the",
+    "start": 254.799,
+    "duration": 4.96
+  },
+  {
+    "text": "video of that guy by himself just with",
+    "start": 256.799,
+    "duration": 4.881
+  },
+  {
+    "text": "this outline. Now, of course, we have a",
+    "start": 259.759,
+    "duration": 3.761
+  },
+  {
+    "text": "few options. Uh let's say I still want",
+    "start": 261.68,
+    "duration": 4.959
+  },
+  {
+    "text": "to see that background because uh sure I",
+    "start": 263.52,
+    "duration": 4.56
+  },
+  {
+    "text": "still want to see that background. I'm",
+    "start": 266.639,
+    "duration": 3.201
+  },
+  {
+    "text": "just going to take the output of proto,",
+    "start": 268.08,
+    "duration": 4.399
+  },
+  {
+    "text": "drag that over the output to media in1.",
+    "start": 269.84,
+    "duration": 5.44
+  },
+  {
+    "text": "So it comps that back over itself. So",
+    "start": 272.479,
+    "duration": 4.241
+  },
+  {
+    "text": "now we have the background. Now we have",
+    "start": 275.28,
+    "duration": 3.44
+  },
+  {
+    "text": "him. Uh and we'll just preview this in",
+    "start": 276.72,
+    "duration": 3.919
+  },
+  {
+    "text": "Fusion for now. And he is perfectly",
+    "start": 278.72,
+    "duration": 4.56
+  },
+  {
+    "text": "outlined based on that magic mask.",
+    "start": 280.639,
+    "duration": 4.56
+  },
+  {
+    "text": "That's great by itself, but don't forget",
+    "start": 283.28,
+    "duration": 4.24
+  },
+  {
+    "text": "we can always hop back to edge detect.",
+    "start": 285.199,
+    "duration": 4.161
+  },
+  {
+    "text": "And while the initial edge detect looked",
+    "start": 287.52,
+    "duration": 4.72
+  },
+  {
+    "text": "for every line in the entire image, the",
+    "start": 289.36,
+    "duration": 4.32
+  },
+  {
+    "text": "only thing we are plugging into proto",
+    "start": 292.24,
+    "duration": 4.56
+  },
+  {
+    "text": "now is just the guy. So if we hop this",
+    "start": 293.68,
+    "duration": 5.92
+  },
+  {
+    "text": "to edge detect, we get every line",
+    "start": 296.8,
+    "duration": 5.679
+  },
+  {
+    "text": "detected but only on him. So I'm going",
+    "start": 299.6,
+    "duration": 4.64
+  },
+  {
+    "text": "to hop back to the edit page. Let this",
+    "start": 302.479,
+    "duration": 4.401
+  },
+  {
+    "text": "cache um with this edge detect and then",
+    "start": 304.24,
+    "duration": 4.399
+  },
+  {
+    "text": "we'll see what we get. That's cached. If",
+    "start": 306.88,
+    "duration": 4.08
+  },
+  {
+    "text": "we preview, we have this edge detect",
+    "start": 308.639,
+    "duration": 4.241
+  },
+  {
+    "text": "effect right on the guy. Lots of fine",
+    "start": 310.96,
+    "duration": 3.84
+  },
+  {
+    "text": "lines in his shirt, but it's completely",
+    "start": 312.88,
+    "duration": 3.84
+  },
+  {
+    "text": "isolated just to the guy. His face looks",
+    "start": 314.8,
+    "duration": 4.239
+  },
+  {
+    "text": "a little wild, but don't forget this is",
+    "start": 316.72,
+    "duration": 4.88
+  },
+  {
+    "text": "all before the entire style system. So",
+    "start": 319.039,
+    "duration": 4.401
+  },
+  {
+    "text": "if I grab something like this beam",
+    "start": 321.6,
+    "duration": 5.039
+  },
+  {
+    "text": "effect, but now as he's dancing, we have",
+    "start": 323.44,
+    "duration": 4.56
+  },
+  {
+    "text": "these lines coming through. This is",
+    "start": 326.639,
+    "duration": 3.201
+  },
+  {
+    "text": "actually meant to be like beam like beam",
+    "start": 328.0,
+    "duration": 4.08
+  },
+  {
+    "text": "me up like from Star Trek teleporters.",
+    "start": 329.84,
+    "duration": 4.32
+  },
+  {
+    "text": "So like that looks cool. You could like",
+    "start": 332.08,
+    "duration": 3.76
+  },
+  {
+    "text": "fade this out and like do like a custom",
+    "start": 334.16,
+    "duration": 3.599
+  },
+  {
+    "text": "little effect right off that. Really",
+    "start": 335.84,
+    "duration": 4.079
+  },
+  {
+    "text": "slick. Okay, last thing I want to show",
+    "start": 337.759,
+    "duration": 3.841
+  },
+  {
+    "text": "off isn't quite the same tips and",
+    "start": 339.919,
+    "duration": 3.201
+  },
+  {
+    "text": "tricks, but will be really useful to",
+    "start": 341.6,
+    "duration": 3.12
+  },
+  {
+    "text": "anyone who's been dabbling in proto,",
+    "start": 343.12,
+    "duration": 3.44
+  },
+  {
+    "text": "especially making their own looks. I am",
+    "start": 344.72,
+    "duration": 4.96
+  },
+  {
+    "text": "opening right up uh these style controls",
+    "start": 346.56,
+    "duration": 5.84
+  },
+  {
+    "text": "and open up distortion controls. This is",
+    "start": 349.68,
+    "duration": 4.72
+  },
+  {
+    "text": "subtle but super important. We have",
+    "start": 352.4,
+    "duration": 5.84
+  },
+  {
+    "text": "distortion strength, scale, detail, and",
+    "start": 354.4,
+    "duration": 8.0
+  },
+  {
+    "text": "contrast. Now, these contrast and scale",
+    "start": 358.24,
+    "duration": 6.32
+  },
+  {
+    "text": "uh and detail are actually based off the",
+    "start": 362.4,
+    "duration": 4.4
+  },
+  {
+    "text": "fast noise node inside Fusion, which",
+    "start": 364.56,
+    "duration": 3.919
+  },
+  {
+    "text": "just sort of like generates that random",
+    "start": 366.8,
+    "duration": 3.839
+  },
+  {
+    "text": "texture. We can hop in and check it out.",
+    "start": 368.479,
+    "duration": 5.761
+  },
+  {
+    "text": "Uh I'm going to open up proto also. Oh,",
+    "start": 370.639,
+    "duration": 5.201
+  },
+  {
+    "text": "this is on the other text. So, I'll get",
+    "start": 374.24,
+    "duration": 4.0
+  },
+  {
+    "text": "rid of that fast noise for now. Open up",
+    "start": 375.84,
+    "duration": 5.6
+  },
+  {
+    "text": "proto. And you can see all the way over",
+    "start": 378.24,
+    "duration": 5.44
+  },
+  {
+    "text": "here, we have one proto fast noise. If I",
+    "start": 381.44,
+    "duration": 5.12
+  },
+  {
+    "text": "preview that, wow, we do not see much",
+    "start": 383.68,
+    "duration": 5.44
+  },
+  {
+    "text": "going on. Now, if we zoom in, you can",
+    "start": 386.56,
+    "duration": 4.56
+  },
+  {
+    "text": "see some really like subtle detail.",
+    "start": 389.12,
+    "duration": 4.72
+  },
+  {
+    "text": "It'll be be sure I'm hard to tell on the",
+    "start": 391.12,
+    "duration": 5.44
+  },
+  {
+    "text": "video, but if I make a new fast noise,",
+    "start": 393.84,
+    "duration": 4.32
+  },
+  {
+    "text": "it's just sort of this cloudy texture.",
+    "start": 396.56,
+    "duration": 2.8
+  },
+  {
+    "text": "And you can see you can pull up the",
+    "start": 398.16,
+    "duration": 4.0
+  },
+  {
+    "text": "detail, pull up the scale, and like the",
+    "start": 399.36,
+    "duration": 4.399
+  },
+  {
+    "text": "brightness and the contrast to get",
+    "start": 402.16,
+    "duration": 4.479
+  },
+  {
+    "text": "pretty different looks. And uh this fast",
+    "start": 403.759,
+    "duration": 5.361
+  },
+  {
+    "text": "noise going into displace nodes is what",
+    "start": 406.639,
+    "duration": 5.601
+  },
+  {
+    "text": "makes my uh general displace effect on",
+    "start": 409.12,
+    "duration": 5.919
+  },
+  {
+    "text": "all these uh proto effects. So, if I hop",
+    "start": 412.24,
+    "duration": 5.44
+  },
+  {
+    "text": "back, we can zoom in here. And for",
+    "start": 415.039,
+    "duration": 4.241
+  },
+  {
+    "text": "instance, if I pull distortion strength",
+    "start": 417.68,
+    "duration": 3.76
+  },
+  {
+    "text": "all the way down, it'll just be straight",
+    "start": 419.28,
+    "duration": 4.08
+  },
+  {
+    "text": "lines. Even for this example, I'm going",
+    "start": 421.44,
+    "duration": 4.24
+  },
+  {
+    "text": "to completely get rid of the aura. So,",
+    "start": 423.36,
+    "duration": 4.08
+  },
+  {
+    "text": "it's only the core. So, distortion",
+    "start": 425.68,
+    "duration": 3.359
+  },
+  {
+    "text": "strength all the way down, straight",
+    "start": 427.44,
+    "duration": 3.92
+  },
+  {
+    "text": "lines. If I pull that back up and then",
+    "start": 429.039,
+    "duration": 4.321
+  },
+  {
+    "text": "pull the scale all the way down,",
+    "start": 431.36,
+    "duration": 4.239
+  },
+  {
+    "text": "straight lines. If I pull that back up",
+    "start": 433.36,
+    "duration": 4.32
+  },
+  {
+    "text": "and then pull contrast all the way down,",
+    "start": 435.599,
+    "duration": 4.401
+  },
+  {
+    "text": "straight lines. Okay, so uh these",
+    "start": 437.68,
+    "duration": 4.72
+  },
+  {
+    "text": "controls, if you pull any of them down,",
+    "start": 440.0,
+    "duration": 4.8
+  },
+  {
+    "text": "it's straight lines. Um, but how they",
+    "start": 442.4,
+    "duration": 4.48
+  },
+  {
+    "text": "work together really gets you this look.",
+    "start": 444.8,
+    "duration": 5.04
+  },
+  {
+    "text": "For instance, if I pull scale pretty far",
+    "start": 446.88,
+    "duration": 6.64
+  },
+  {
+    "text": "down, then you get sort of this generic",
+    "start": 449.84,
+    "duration": 6.16
+  },
+  {
+    "text": "wavy texture, which is going pretty slow",
+    "start": 453.52,
+    "duration": 4.959
+  },
+  {
+    "text": "here. But if I have the scale down and",
+    "start": 456.0,
+    "duration": 4.639
+  },
+  {
+    "text": "the contrast up, then we get like crazy",
+    "start": 458.479,
+    "duration": 4.081
+  },
+  {
+    "text": "looks like this. Versus if I have the",
+    "start": 460.639,
+    "duration": 5.521
+  },
+  {
+    "text": "scale up and the contrast down, we get a",
+    "start": 462.56,
+    "duration": 6.8
+  },
+  {
+    "text": "lot more fine distortion, but closer to",
+    "start": 466.16,
+    "duration": 5.52
+  },
+  {
+    "text": "the original line, if that makes sense.",
+    "start": 469.36,
+    "duration": 4.08
+  },
+  {
+    "text": "I know this is an interesting time to be",
+    "start": 471.68,
+    "duration": 3.68
+  },
+  {
+    "text": "covering this. Um, but it's sort of that",
+    "start": 473.44,
+    "duration": 3.439
+  },
+  {
+    "text": "like next level stuff. If you're",
+    "start": 475.36,
+    "duration": 2.959
+  },
+  {
+    "text": "interested in proto, I think you'll",
+    "start": 476.879,
+    "duration": 2.72
+  },
+  {
+    "text": "really like this as well as this",
+    "start": 478.319,
+    "duration": 4.0
+  },
+  {
+    "text": "distortion strength. So, especially if I",
+    "start": 479.599,
+    "duration": 6.72
+  },
+  {
+    "text": "pull this strength down and like the",
+    "start": 482.319,
+    "duration": 5.921
+  },
+  {
+    "text": "maybe the contrast up at this point,",
+    "start": 486.319,
+    "duration": 5.761
+  },
+  {
+    "text": "then maybe the scale down, then it's",
+    "start": 488.24,
+    "duration": 6.079
+  },
+  {
+    "text": "like close to those original lines, but",
+    "start": 492.08,
+    "duration": 4.239
+  },
+  {
+    "text": "a completely different look. how you",
+    "start": 494.319,
+    "duration": 4.32
+  },
+  {
+    "text": "balance, especially these distortion",
+    "start": 496.319,
+    "duration": 4.72
+  },
+  {
+    "text": "controls will get you wildly different",
+    "start": 498.639,
+    "duration": 4.56
+  },
+  {
+    "text": "looks. So, especially if you want to hop",
+    "start": 501.039,
+    "duration": 4.56
+  },
+  {
+    "text": "through these presets and see how uh",
+    "start": 503.199,
+    "duration": 4.0
+  },
+  {
+    "text": "those distortion controls are set for",
+    "start": 505.599,
+    "duration": 3.201
+  },
+  {
+    "text": "each of those presets, that'll really",
+    "start": 507.199,
+    "duration": 3.84
+  },
+  {
+    "text": "get you in the right direction. Um, but",
+    "start": 508.8,
+    "duration": 6.08
+  },
+  {
+    "text": "it is very easy um to sort of have most",
+    "start": 511.039,
+    "duration": 6.641
+  },
+  {
+    "text": "of your effects too big, if that makes",
+    "start": 514.88,
+    "duration": 4.399
+  },
+  {
+    "text": "sense. You really want to pull this",
+    "start": 517.68,
+    "duration": 4.159
+  },
+  {
+    "text": "scale up for a lot of fine control, and",
+    "start": 519.279,
+    "duration": 4.161
+  },
+  {
+    "text": "then it's just a matter of like",
+    "start": 521.839,
+    "duration": 3.521
+  },
+  {
+    "text": "balancing that. And you might need to",
+    "start": 523.44,
+    "duration": 4.48
+  },
+  {
+    "text": "pull down this strength or this contrast",
+    "start": 525.36,
+    "duration": 4.32
+  },
+  {
+    "text": "quite a bit more than you thought you",
+    "start": 527.92,
+    "duration": 3.28
+  },
+  {
+    "text": "would have to. Especially if you pull",
+    "start": 529.68,
+    "duration": 3.68
+  },
+  {
+    "text": "that up and then pull contrast all the",
+    "start": 531.2,
+    "duration": 4.48
+  },
+  {
+    "text": "way down. Nah, pull that down and pull",
+    "start": 533.36,
+    "duration": 5.919
+  },
+  {
+    "text": "contrast all the way up. Haha. You can",
+    "start": 535.68,
+    "duration": 5.279
+  },
+  {
+    "text": "get some",
+    "start": 539.279,
+    "duration": 4.56
+  },
+  {
+    "text": "really unique looks. And don't forget uh",
+    "start": 540.959,
+    "duration": 5.281
+  },
+  {
+    "text": "this scale here goes up to 50. You can",
+    "start": 543.839,
+    "duration": 5.361
+  },
+  {
+    "text": "always type in here. If I type up why",
+    "start": 546.24,
+    "duration": 7.68
+  },
+  {
+    "text": "not 500, boom. Uh it sort of goes wild.",
+    "start": 549.2,
+    "duration": 6.639
+  },
+  {
+    "text": "Unless you pull this contrast back down",
+    "start": 553.92,
+    "duration": 6.08
+  },
+  {
+    "text": "and the strength down even more core",
+    "start": 555.839,
+    "duration": 8.321
+  },
+  {
+    "text": "control, make it really thin. Maybe 500",
+    "start": 560.0,
+    "duration": 6.959
+  },
+  {
+    "text": "was a bit, but as you pull this down, uh",
+    "start": 564.16,
+    "duration": 5.44
+  },
+  {
+    "text": "uh you can get lots of lots of fine",
+    "start": 566.959,
+    "duration": 4.0
+  },
+  {
+    "text": "control. Or if you just want like a",
+    "start": 569.6,
+    "duration": 2.799
+  },
+  {
+    "text": "little bit of distortion right on the",
+    "start": 570.959,
+    "duration": 3.361
+  },
+  {
+    "text": "edge, you can get that if you crank",
+    "start": 572.399,
+    "duration": 3.841
+  },
+  {
+    "text": "these up. But, you know, be careful",
+    "start": 574.32,
+    "duration": 3.36
+  },
+  {
+    "text": "cranking these numbers up to something",
+    "start": 576.24,
+    "duration": 3.279
+  },
+  {
+    "text": "crazy. But, of course, it's always fun",
+    "start": 577.68,
+    "duration": 4.0
+  },
+  {
+    "text": "to mess around with. Now, if you toss on",
+    "start": 579.519,
+    "duration": 4.081
+  },
+  {
+    "text": "that aura, you'll even see some of that",
+    "start": 581.68,
+    "duration": 3.76
+  },
+  {
+    "text": "come through as well. So, there's some",
+    "start": 583.6,
+    "duration": 3.6
+  },
+  {
+    "text": "proto tips and tricks. I mostly wanted",
+    "start": 585.44,
+    "duration": 4.16
+  },
+  {
+    "text": "to show off that uh stop motion effect.",
+    "start": 587.2,
+    "duration": 4.4
+  },
+  {
+    "text": "And then, of course, magic mask working",
+    "start": 589.6,
+    "duration": 3.919
+  },
+  {
+    "text": "with proto. It's super cool. If you",
+    "start": 591.6,
+    "duration": 2.96
+  },
+  {
+    "text": "haven't messed around with that,",
+    "start": 593.519,
+    "duration": 3.041
+  },
+  {
+    "text": "absolutely do it. That stopotion effect",
+    "start": 594.56,
+    "duration": 3.76
+  },
+  {
+    "text": "will work great with the free version of",
+    "start": 596.56,
+    "duration": 3.839
+  },
+  {
+    "text": "Proto, which has, you know, all of like",
+    "start": 598.32,
+    "duration": 4.079
+  },
+  {
+    "text": "the text features, but you will need the",
+    "start": 600.399,
+    "duration": 3.681
+  },
+  {
+    "text": "full version of Proto if you want easy",
+    "start": 602.399,
+    "duration": 4.801
+  },
+  {
+    "text": "access um to using Proto on images and",
+    "start": 604.08,
+    "duration": 5.04
+  },
+  {
+    "text": "video and all those expanded tools. Of",
+    "start": 607.2,
+    "duration": 3.44
+  },
+  {
+    "text": "course, like I said, more info in the",
+    "start": 609.12,
+    "duration": 2.56
+  },
+  {
+    "text": "description. If you want to pick up",
+    "start": 610.64,
+    "duration": 4.0
+  },
+  {
+    "text": "Proto, you can always do it. Um, I I",
+    "start": 611.68,
+    "duration": 4.88
+  },
+  {
+    "text": "still think Proto rocks. I think Proto",
+    "start": 614.64,
+    "duration": 3.199
+  },
+  {
+    "text": "rocks. So, hopefully you do, too.",
+    "start": 616.56,
+    "duration": 2.32
+  },
+  {
+    "text": "Hopefully, you thought this video was",
+    "start": 617.839,
+    "duration": 2.881
+  },
+  {
+    "text": "cool. Thanks for watching and I'll see",
+    "start": 618.88,
+    "duration": 4.16
+  },
+  {
+    "text": "you next",
+    "start": 620.72,
+    "duration": 2.32
+  }
+]
