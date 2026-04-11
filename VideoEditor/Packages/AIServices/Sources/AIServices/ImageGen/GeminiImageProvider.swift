@@ -49,9 +49,16 @@ public actor GeminiImageProvider: ImageGenProvider {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        // Build parts array
+        // Build parts array with face preservation instructions when reference images are provided
+        let enhancedPrompt: String
+        if referenceImages.isEmpty {
+            enhancedPrompt = prompt
+        } else {
+            enhancedPrompt = "Maintain the exact facial features, skin tone, hairstyle, and expression of all people shown in the reference images. Do not stylize or alter their appearance. " + prompt
+        }
+
         var parts: [[String: Any]] = [
-            ["text": prompt]
+            ["text": enhancedPrompt]
         ]
 
         for imageData in referenceImages {

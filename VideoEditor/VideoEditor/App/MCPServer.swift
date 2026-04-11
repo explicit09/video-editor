@@ -5201,6 +5201,10 @@ final class MCPServer {
             }
         }
 
+        // Prepend face preservation instructions for AI providers
+        let preservationPrefix = "IMPORTANT: The reference images contain real people. Preserve their exact facial features, eye color, skin tone, hairstyle, and expression. Do not alter, stylize, or reimagine their faces. Maintain identical subject appearance. "
+        let finalPrompt = hostPhotos.isEmpty ? imagePrompt : preservationPrefix + imagePrompt
+
         // 3. Initialize providers
         var providers: [(String, any ImageGenProvider)] = []
 
@@ -5244,7 +5248,7 @@ final class MCPServer {
         var errors: [String] = []
 
         let photosCopy = hostPhotos
-        let promptCopy = imagePrompt
+        let promptCopy = finalPrompt
 
         await withTaskGroup(of: (String, Int, Result<Data, Error>).self) { group in
             for (providerName, provider) in providers {
@@ -5472,7 +5476,12 @@ final class MCPServer {
 
         CRITICAL RULES:
         1. LAYOUT: \(layoutDesc)
-        2. HOSTS: "Preserve the exact faces, skin tone, and appearance from the reference photos. Do NOT alter, stylize, or reimagine their faces."
+        2. HOSTS / FACE PRESERVATION: The reference images contain real people. Your prompt MUST include these exact instructions:
+           - "Preserve the exact facial features, eye color, skin tone, and facial expression of the people in the reference images"
+           - "Maintain identical subject appearance — do not alter, stylize, or reimagine the faces"
+           - "The person from image 1 should appear exactly as in their reference photo"
+           - "Keep the same hairstyle, facial structure, and distinguishing features"
+           Never describe the hosts' faces in your own words — always defer to the reference photos.
         3. TEXT: Display "\(title)" as large, bold, sans-serif text. Max 6-8 words visible. Use white or bright text with a dark stroke/shadow for readability at any size. Text must be the FIRST thing a viewer reads.
         4. SIZE: 1536x1024 landscape format (YouTube thumbnail aspect ratio)
         5. STYLE: \(styleGuide)
