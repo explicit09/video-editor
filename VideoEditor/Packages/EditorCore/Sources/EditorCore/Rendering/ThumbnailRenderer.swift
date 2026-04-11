@@ -119,24 +119,28 @@ extension ThumbnailRenderer {
 
 extension ThumbnailRenderer {
 
-    /// Green/gold brand bar at the very bottom — like TBPN's green bar
+    /// Brand bar with logo — like TBPN's green bar with GT logo
     private func drawBrandBar(ctx: CGContext, brand: ThumbnailBrand, size: CGSize) {
-        let barHeight: CGFloat = 6
-        // Gold accent line
-        ctx.setFillColor(brand.accentGold)
+        // Semi-transparent dark green bar at bottom
+        let barHeight: CGFloat = 50
+        ctx.saveGState()
+        ctx.setFillColor(CGColor(red: 0.04, green: 0.24, blue: 0.16, alpha: 0.85))
         ctx.fill(CGRect(x: 0, y: 0, width: size.width, height: barHeight))
+        // Gold accent line on top of bar
+        ctx.setFillColor(brand.accentGold)
+        ctx.fill(CGRect(x: 0, y: barHeight - 2, width: size.width, height: 2))
+        ctx.restoreGState()
 
-        // Logo in bottom-right corner, above the bar
+        // Logo centered in the bar
         if let logo = brand.logoImage {
-            let logoMaxH: CGFloat = 45
+            let logoMaxH: CGFloat = 35
             let logoW = CGFloat(logo.width)
             let logoH = CGFloat(logo.height)
             let scale = logoMaxH / logoH
             let drawW = logoW * scale
             let drawH = logoMaxH
-            let padding: CGFloat = 20
-            let x = size.width - drawW - padding
-            let y = barHeight + 10
+            let x = (size.width - drawW) / 2
+            let y = (barHeight - drawH) / 2
             ctx.draw(logo, in: CGRect(x: x, y: y, width: drawW, height: drawH))
         }
     }
@@ -284,7 +288,7 @@ extension ThumbnailRenderer {
 
             let finalW = measureText(titleText, font: actualTitleFont)
             let titleX = (size.width - finalW) / 2
-            let titleY: CGFloat = 75
+            let titleY: CGFloat = 115  // Above the 50px brand bar
 
             drawCTText(ctx: ctx, text: titleText, x: titleX, y: titleY, font: actualTitleFont, color: brand.textPrimary)
 
@@ -292,7 +296,7 @@ extension ThumbnailRenderer {
             if let sub = subtitleText {
                 let subW = measureText(sub, font: subtitleFont)
                 let subX = (size.width - subW) / 2
-                let subY: CGFloat = 20
+                let subY: CGFloat = 60  // Between title and brand bar
                 drawCTText(ctx: ctx, text: sub, x: subX, y: subY, font: subtitleFont, color: brand.textAccent)
             }
 
