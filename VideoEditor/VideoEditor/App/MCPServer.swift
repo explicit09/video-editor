@@ -556,9 +556,10 @@ final class MCPServer {
                 ],
                 [
                     "name": "generate_thumbnail",
-                    "description": "Generate YouTube thumbnails using AI. Composites host photos with styled text and backgrounds. Produces multiple options from GPT Image 1.5 and Nano Banana 2. Requires OPENAI_API_KEY and/or GEMINI_API_KEY. Host photos loaded from overlay template or custom paths.",
+                    "description": "Generate YouTube thumbnails. Default: programmatic renderer with real host photos (provider='local'). Also supports AI generation via FLUX/Gemini.",
                     "inputSchema": ["type": "object", "properties": [
                         "title": ["type": "string", "description": "Episode/video title text for the thumbnail"],
+                        "subtitle": ["type": "string", "description": "Subtitle text (rendered in gold). If omitted with local provider, extracted from title."],
                         "description": ["type": "string", "description": "Episode description for AI styling context"],
                         "template": ["type": "string", "description": "Overlay template name (e.g. 'technologia_talks') for host info"],
                         "host_photos": ["type": "array", "items": ["type": "string"], "description": "Override: paths to host photo files"],
@@ -566,18 +567,18 @@ final class MCPServer {
                         "layout": ["type": "string", "description": "Layout: 'split_panel' (default), 'hosts_left', 'centered', 'text_heavy'"],
                         "prompt": ["type": "string", "description": "Override: skip AI prompt gen, use this prompt directly"],
                         "count": ["type": "integer", "description": "Images per provider (default: 2)"],
-                        "provider": ["type": "string", "description": "Provider: 'both' (default), 'openai', 'gemini'"],
+                        "provider": ["type": "string", "description": "Provider: 'local' (default — programmatic), 'flux', 'gemini', 'both' (flux + gemini)"],
                     ], "required": ["title"]],
                 ],
                 [
                     "name": "generate_carousel",
-                    "description": "Generate Instagram carousel slides (1080x1080) using AI. Each slide gets a styled image with text. Uses Claude to write prompts, then GPT Image 1.5 and/or Nano Banana 2 to generate.",
+                    "description": "Generate Instagram carousel slides (1080x1080) using AI. Each slide gets a styled image with text. Uses Claude to write prompts, then FLUX Kontext and/or Gemini to generate.",
                     "inputSchema": ["type": "object", "properties": [
                         "title": ["type": "string", "description": "Carousel title (used for consistent branding across slides)"],
                         "slides": ["type": "array", "items": ["type": "object", "properties": ["text": ["type": "string", "description": "Text content for this slide"], "image_description": ["type": "string", "description": "Optional visual description for the slide background"]], "required": ["text"]], "description": "Array of slide content. Each slide has text and optional image_description."],
                         "template": ["type": "string", "description": "Overlay template name (e.g. 'technologia_talks') for host branding"],
                         "style": ["type": "string", "description": "Visual style: 'bold' (default), 'minimal', 'dramatic', 'vibrant'"],
-                        "provider": ["type": "string", "description": "Provider: 'both' (default), 'openai', 'gemini'"],
+                        "provider": ["type": "string", "description": "Provider: 'both' (default — flux + gemini), 'flux', 'gemini'"],
                         "count_per_slide": ["type": "integer", "description": "Images per provider per slide (default: 1)"],
                     ], "required": ["title", "slides"]],
                 ],
@@ -1702,27 +1703,32 @@ final class MCPServer {
         case "podcast":
             effectChain = .podcastVoice
         case "music":
-            effectChain = AudioEffectChain(compressor: .music)
+            effectChain = AudioEffectChain(compressor: CompressorConfig(ratio: 2, attackMS: 30, releaseMS: 300, thresholdDB: -15, makeupGainDB: 3))
         case "none":
             effectChain = nil
         case "custom":
             var chain = AudioEffectChain()
             if let eqPreset = args["eq_preset"] as? String {
                 switch eqPreset {
-                case "voice_clarity": chain.eq = .voiceClarity
-                default: chain.eq = .tenBand
+                case "voice_clarity":
+                    chain.eq = EQConfig(bands: [
+                        EQBand(freqHz: 80, gainDB: -6), EQBand(freqHz: 250, gainDB: -3),
+                        EQBand(freqHz: 2000, gainDB: 3), EQBand(freqHz: 4000, gainDB: 4),
+                    ])
+                default:
+                    chain.eq = EQConfig(bands: [31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000].map { EQBand(freqHz: $0) })
                 }
             }
             if let compPreset = args["compressor_preset"] as? String {
                 switch compPreset {
-                case "voice": chain.compressor = .voice
-                case "music": chain.compressor = .music
-                case "limiter": chain.compressor = .limiter
+                case "voice": chain.compressor = CompressorConfig(ratio: 4, attackMS: 10, releaseMS: 100, thresholdDB: -20, makeupGainDB: 6)
+                case "music": chain.compressor = CompressorConfig(ratio: 2, attackMS: 30, releaseMS: 300, thresholdDB: -15, makeupGainDB: 3)
+                case "limiter": chain.compressor = CompressorConfig(ratio: 20, attackMS: 1, releaseMS: 50, thresholdDB: -6, makeupGainDB: 6)
                 default: break
                 }
             }
             if let noiseGate = args["noise_gate_db"] as? Double {
-                chain.noiseGateThreshold = noiseGate
+                chain.gate = GateConfig(thresholdDB: noiseGate)
             }
             effectChain = chain
         default:
@@ -1738,8 +1744,8 @@ final class MCPServer {
         if let chain = effectChain {
             var desc: [String] = []
             if let eq = chain.eq { desc.append("EQ (\(eq.bands.count) bands)") }
-            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.threshold)dB, ratio: \(comp.ratio):1)") }
-            if let gate = chain.noiseGateThreshold { desc.append("Noise gate (\(gate)dB)") }
+            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.thresholdDB)dB, ratio: \(comp.ratio):1)") }
+            if let gate = chain.gate { desc.append("Noise gate (\(gate.thresholdDB)dB)") }
             return "Applied audio effects to track: \(desc.joined(separator: ", ")). Effects render during export."
         }
         return "Removed audio effects from track."
@@ -5110,7 +5116,8 @@ final class MCPServer {
         let layout = args["layout"] as? String ?? "split_panel"
         let promptOverride = args["prompt"] as? String
         let count = args["count"] as? Int ?? 2
-        let providerFilter = args["provider"] as? String ?? "both"
+        let providerFilter = args["provider"] as? String ?? "local"
+        let subtitle = args["subtitle"] as? String
 
         // 1. Load host photos from template or custom paths
         var hostPhotos: [Data] = []
@@ -5136,6 +5143,44 @@ final class MCPServer {
             }
         }
 
+        // Local programmatic renderer — no AI needed
+        if providerFilter == "local" {
+            let brand = loadThumbnailBrand(templateName: args["template"] as? String)
+
+            let config = ThumbnailConfig(
+                title: title,
+                subtitle: subtitle,
+                layout: ThumbnailLayout(rawValue: layout) ?? .splitPanel,
+                hostPhotos: hostPhotos,
+                brand: brand
+            )
+
+            let renderer = ThumbnailRenderer()
+            let pngData: Data
+            do {
+                pngData = try await renderer.render(config: config)
+            } catch {
+                return "Error rendering thumbnail: \(error)"
+            }
+
+            // Save to Thumbnails directory
+            let thumbnailDir: URL
+            if let exportFolder = ExportFolderManager.defaultFolder {
+                thumbnailDir = exportFolder.appendingPathComponent("Thumbnails")
+            } else {
+                thumbnailDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                    .appendingPathComponent("Thumbnails")
+            }
+            try? FileManager.default.createDirectory(at: thumbnailDir, withIntermediateDirectories: true)
+
+            let sanitizedTitle = title.replacingOccurrences(of: "[^a-zA-Z0-9_-]", with: "_", options: .regularExpression).prefix(50)
+            let filename = "thumbnail_\(sanitizedTitle)_\(layout).png"
+            let filePath = thumbnailDir.appendingPathComponent(filename)
+            try? pngData.write(to: filePath)
+
+            return "Generated thumbnail: \(filePath.path)\nLayout: \(layout)\nSize: \(ThumbnailRenderer.canvasWidth)x\(ThumbnailRenderer.canvasHeight)"
+        }
+
         // 2. Generate or use provided prompt
         let imagePrompt: String
         if let override = promptOverride {
@@ -5159,11 +5204,11 @@ final class MCPServer {
         // 3. Initialize providers
         var providers: [(String, any ImageGenProvider)] = []
 
-        if providerFilter == "both" || providerFilter == "openai" {
-            if let key = ProcessInfo.processInfo.environment["OPENAI_API_KEY"] ?? loadEnvKey("OPENAI_API_KEY") {
-                providers.append(("openai", OpenAIImageProvider(apiKey: key)))
-            } else if providerFilter == "openai" {
-                return "Error: OPENAI_API_KEY not set"
+        if providerFilter == "both" || providerFilter == "flux" {
+            if let key = ProcessInfo.processInfo.environment["BFL_API_KEY"] ?? loadEnvKey("BFL_API_KEY") {
+                providers.append(("flux", FluxImageProvider(apiKey: key)))
+            } else if providerFilter == "flux" {
+                return "Error: BFL_API_KEY not set"
             }
         }
         if providerFilter == "both" || providerFilter == "gemini" {
@@ -5178,7 +5223,7 @@ final class MCPServer {
         }
 
         if providers.isEmpty {
-            return "Error: No image generation API keys configured. Set OPENAI_API_KEY and/or GEMINI_API_KEY."
+            return "Error: No image generation API keys configured. Set BFL_API_KEY and/or GEMINI_API_KEY."
         }
 
         // 4. Create output directory
@@ -5323,6 +5368,64 @@ final class MCPServer {
         return .success((names, photos))
     }
 
+    private func loadOverlayTemplateJSON(_ name: String) -> [String: Any]? {
+        let candidates = [
+            FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
+                .appendingPathComponent("overlay_templates/\(name).json"),
+            Bundle.main.bundleURL
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+                .deletingLastPathComponent().deletingLastPathComponent()
+                .appendingPathComponent("Tools/overlay_templates/\(name).json"),
+        ].compactMap { $0 }
+
+        for url in candidates {
+            if let data = try? Data(contentsOf: url),
+               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                return json
+            }
+        }
+        return nil
+    }
+
+    private func loadThumbnailBrand(templateName: String?) -> ThumbnailBrand {
+        var primaryBg = ThumbnailBrand.parseHex("#000000")
+        var secondaryBg = ThumbnailBrand.parseHex("#0A3D2A")
+        var accentGold = ThumbnailBrand.parseHex("#C8A84E")
+        var textPrimary = ThumbnailBrand.parseHex("#FFFFFF")
+        var textAccent = ThumbnailBrand.parseHex("#C8A84E")
+        var logoImage: CGImage? = nil
+
+        if let name = templateName, let templateData = loadOverlayTemplateJSON(name) {
+            if let brand = templateData["brand"] as? [String: Any],
+               let colors = brand["colors"] as? [String: String] {
+                if let v = colors["primary_background"] { primaryBg = ThumbnailBrand.parseHex(v) }
+                if let v = colors["secondary_background"] { secondaryBg = ThumbnailBrand.parseHex(v) }
+                if let v = colors["accent_gold"] { accentGold = ThumbnailBrand.parseHex(v) }
+                if let v = colors["text_primary"] { textPrimary = ThumbnailBrand.parseHex(v) }
+                if let v = colors["text_accent"] { textAccent = ThumbnailBrand.parseHex(v) }
+            }
+            if let brand = templateData["brand"] as? [String: Any],
+               let logos = brand["logos"] as? [String: String],
+               let logoFilename = logos["horizontal"] {
+                let logoPath = resolveDocumentsPath(logoFilename)
+                if let data = FileManager.default.contents(atPath: logoPath),
+                   let provider = CGDataProvider(data: data as CFData),
+                   let image = CGImage(pngDataProviderSource: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent) {
+                    logoImage = image
+                }
+            }
+        }
+
+        return ThumbnailBrand(
+            primaryBackground: primaryBg,
+            secondaryBackground: secondaryBg,
+            accentGold: accentGold,
+            textPrimary: textPrimary,
+            textAccent: textAccent,
+            logoImage: logoImage
+        )
+    }
+
     /// Use Claude to generate a thumbnail image prompt.
     private func generateThumbnailPrompt(
         title: String,
@@ -5458,11 +5561,11 @@ final class MCPServer {
 
         // Initialize providers
         var providers: [(String, any ImageGenProvider)] = []
-        if providerFilter == "both" || providerFilter == "openai" {
-            if let key = ProcessInfo.processInfo.environment["OPENAI_API_KEY"] ?? loadEnvKey("OPENAI_API_KEY") {
-                providers.append(("openai", OpenAIImageProvider(apiKey: key)))
-            } else if providerFilter == "openai" {
-                return "Error: OPENAI_API_KEY not set"
+        if providerFilter == "both" || providerFilter == "flux" {
+            if let key = ProcessInfo.processInfo.environment["BFL_API_KEY"] ?? loadEnvKey("BFL_API_KEY") {
+                providers.append(("flux", FluxImageProvider(apiKey: key)))
+            } else if providerFilter == "flux" {
+                return "Error: BFL_API_KEY not set"
             }
         }
         if providerFilter == "both" || providerFilter == "gemini" {
@@ -5477,7 +5580,7 @@ final class MCPServer {
         }
 
         if providers.isEmpty {
-            return "Error: No image generation API keys configured."
+            return "Error: No image generation API keys configured. Set BFL_API_KEY and/or GEMINI_API_KEY."
         }
 
         // Create output directory
