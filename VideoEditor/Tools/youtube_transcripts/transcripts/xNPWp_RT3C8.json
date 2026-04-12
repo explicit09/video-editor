@@ -1,0 +1,212 @@
+[
+  {
+    "text": "Ding ding ding",
+    "start": 0.4,
+    "duration": 9.44
+  },
+  {
+    "text": "[Music]",
+    "start": 3.81,
+    "duration": 8.14
+  },
+  {
+    "text": "one.",
+    "start": 9.84,
+    "duration": 20.039
+  },
+  {
+    "text": "[Music]",
+    "start": 11.95,
+    "duration": 17.929
+  },
+  {
+    "text": "Adding these titles is just like adding",
+    "start": 32.8,
+    "duration": 3.279
+  },
+  {
+    "text": "any other title from the effects",
+    "start": 34.559,
+    "duration": 3.68
+  },
+  {
+    "text": "library. We'll select which one we want,",
+    "start": 36.079,
+    "duration": 4.961
+  },
+  {
+    "text": "drag it onto our timeline. From here, we",
+    "start": 38.239,
+    "duration": 4.64
+  },
+  {
+    "text": "can go into our inspector and make all",
+    "start": 41.04,
+    "duration": 4.08
+  },
+  {
+    "text": "of the customizations that we need to.",
+    "start": 42.879,
+    "duration": 6.081
+  },
+  {
+    "text": "Let's change the secondary color here.",
+    "start": 45.12,
+    "duration": 5.84
+  },
+  {
+    "text": "All of the controls here are set up from",
+    "start": 48.96,
+    "duration": 3.84
+  },
+  {
+    "text": "top to bottom how you see them on",
+    "start": 50.96,
+    "duration": 3.439
+  },
+  {
+    "text": "screen. We'll go down to the bottom here",
+    "start": 52.8,
+    "duration": 3.68
+  },
+  {
+    "text": "to logos. We can change the size",
+    "start": 54.399,
+    "duration": 4.401
+  },
+  {
+    "text": "position of the logos as well as what",
+    "start": 56.48,
+    "duration": 5.52
+  },
+  {
+    "text": "the logo is. There's 28 built-in logos",
+    "start": 58.8,
+    "duration": 5.2
+  },
+  {
+    "text": "as well as the ability to add in your",
+    "start": 62.0,
+    "duration": 4.32
+  },
+  {
+    "text": "own custom logo. You can also change the",
+    "start": 64.0,
+    "duration": 4.64
+  },
+  {
+    "text": "color of the logo to match the project.",
+    "start": 66.32,
+    "duration": 3.76
+  },
+  {
+    "text": "Since this pack allows for full",
+    "start": 68.64,
+    "duration": 2.72
+  },
+  {
+    "text": "customization, let's go ahead and change",
+    "start": 70.08,
+    "duration": 2.96
+  },
+  {
+    "text": "the color of the names within this",
+    "start": 71.36,
+    "duration": 3.6
+  },
+  {
+    "text": "section. We'll click on the template",
+    "start": 73.04,
+    "duration": 4.64
+  },
+  {
+    "text": "fusion button. Now, this is where we can",
+    "start": 74.96,
+    "duration": 4.56
+  },
+  {
+    "text": "see the group that has all of the nodes",
+    "start": 77.68,
+    "duration": 4.0
+  },
+  {
+    "text": "that build this template. And let's find",
+    "start": 79.52,
+    "duration": 3.599
+  },
+  {
+    "text": "the node that's responsible for this",
+    "start": 81.68,
+    "duration": 4.479
+  },
+  {
+    "text": "body of text. Here it is. Jumping over",
+    "start": 83.119,
+    "duration": 4.64
+  },
+  {
+    "text": "to modifiers, we can see that this is",
+    "start": 86.159,
+    "duration": 3.28
+  },
+  {
+    "text": "the character level styling modifier.",
+    "start": 87.759,
+    "duration": 3.201
+  },
+  {
+    "text": "And let's give ourselves a little bit of",
+    "start": 89.439,
+    "duration": 3.121
+  },
+  {
+    "text": "space here. And we'll just simply",
+    "start": 90.96,
+    "duration": 3.6
+  },
+  {
+    "text": "highlight the names and change the",
+    "start": 92.56,
+    "duration": 5.0
+  },
+  {
+    "text": "color.",
+    "start": 94.56,
+    "duration": 3.0
+  },
+  {
+    "text": "As simple as it was to change text",
+    "start": 98.32,
+    "duration": 2.96
+  },
+  {
+    "text": "color, you can also change all of the",
+    "start": 99.92,
+    "duration": 3.6
+  },
+  {
+    "text": "other parameters. We took advantage of",
+    "start": 101.28,
+    "duration": 4.08
+  },
+  {
+    "text": "text size as well as font style. And",
+    "start": 103.52,
+    "duration": 3.279
+  },
+  {
+    "text": "from here, all we need to do is jump",
+    "start": 105.36,
+    "duration": 3.439
+  },
+  {
+    "text": "over to the edit page and we're good to",
+    "start": 106.799,
+    "duration": 5.0
+  },
+  {
+    "text": "go.",
+    "start": 108.799,
+    "duration": 3.0
+  }
+]

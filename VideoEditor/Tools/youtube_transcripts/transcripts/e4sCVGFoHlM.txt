@@ -1,0 +1,227 @@
+So, in this super quick episode, I'm
+going to show you five things in the
+scopes in Dav Vinci Resolve that you may
+not know and stick to the end because
+you don't want to miss the last one. All
+right, let's have a look at the scopes
+then. So, if we press shift, command,
+and W, we can open them up into a large
+view. You can also put them onto a
+second display if you want to, which is
+what I recommend. And what I'm going to
+show you, if you click here, this is the
+main menu, and you've got something here
+called display qualifier focus. What I'm
+going to do is switch to the waveform.
+And what display qualify focus does is
+it allows us to hover over our let's say
+we want to measure the skin tone. It
+allows us to hover over and you can see
+those three circles appearing on the
+waveform. So that's display qualifier
+focus. Tip number two, change your
+waveform. What I'm going to do is click
+on the settings here. So this is main
+settings for the whole scopes. This one
+here is the settings for each individual
+scope. By default, it looks at RGB. What
+we want to do on the waveform is look at
+the Y. We want to look at the luminance
+channel. And the other thing I'm going
+to take off is colorize. Now, when we
+want to see the RGB levels, we're going
+to use the parade. But watch what
+happens now in the display qualifier
+focus. Instead of those three circles,
+which makes it a little bit harder to
+see where your levels are. If we click
+on here now, we've just got a single
+circle. So, we can see exactly where we
+are on the scopes. Switch over to the
+RGB parade and you've got the three
+individual levels, but it's a much
+clearer way of viewing it. Another tip,
+if you're working with the parade, if
+you click in here, you can actually
+select Y RGB. So you see the luminance
+and the individual RGB channels. Really
+good tip. Tip number three is zooming
+into the scopes. Now I'm going to need a
+mouse with a middle wheel on that. So
+just buy a cheap mouse, plug it in. I'm
+going to put the pen down. Got my mouse
+here. And if you press option on your
+keyboard, you can actually zoom right
+into the scopes. Now if I middle mouse
+click and drag, I can zoom around here
+as well. Now this is great. I can
+actually analyze the shadows here. So
+I'm zoomed right in and I can see
+exactly what's going on. Let's have a
+look at the vetoscope. If I bring the
+vectorscope up again, option and zoom,
+we can scroll right in. So, obviously on
+the vectorscope, you can't drag it
+around because you need it sitting on
+the correct vectors. To set that back,
+you just click up here and you can press
+reset. So, tip number four, we're going
+to use the image wipe to compare two
+shots so we can grade them better using
+the scopes. But, I'm going to take it to
+the next level. So, traditionally, you'd
+probably double click the still that's
+graded and then you can see that in your
+window here. And on the waveform, what's
+nice is we're comparing the graded shot
+on this side to the ungraded shot on
+this side. And we can then start
+balancing them up. So, let me just do a
+little bit of work in here. Something
+like that. Let's bring that down a
+little bit. But the problem is I'm only
+seeing a third of the image I want to
+grade here and two/ird of the image
+that's graded. So, what I'm going to do
+is change the style of this. I'm going
+to come off image wipe here. I'm going
+to go to this one called split screen.
+And in here, I can choose anything I
+want. So, I've got selected still
+images. So this one's selected. And the
+beauty of this is that you're seeing
+both images in full side by side. So I'm
+getting a much better representation of
+what I'm comparing to. Now the other
+nice thing with this mode is if you go
+to the vectorscope,
+they actually sit on top of each other
+in here. So if I go to my balance node
+here and just start moving my offset,
+I'll go extreme. You can see that the
+graded image is sitting still
+underneath. And all I've got to do is
+put that trace directly on top and I'm
+balanced. Absolutely fantastic. So, let
+me know in the comments if you've got
+any other scope tips or which one of
+these has been your favorite. And if
+you've enjoyed this content and you've
+learned something from it, think about
+subscribing for me. It really is
+appreciated. And if you want to let
+YouTube know that you've enjoyed this,
+hit the like button for me. So, tip
+number five is all to do with the
+vetoscopes. And what I'm going to do is
+customize them to make them even more
+useful for me. What I'm going to do is
+go into a four display. And we've got
+our vetoscope here. And if you look in
+here, you'll see that it's currently set
+to all. That means it's analyzing the
+entire image. What I want to do is make
+three more. I'm going to make a
+vectorscope here, a vetoscope here, and
+a vector scope here. This one I'm going
+to change its settings to be low. So,
+all it's going to do is read the
+shadows. This one here, I'm going to
+change it setting to be mids. And on
+this one, I'm going to set it to be
+high. So, what I've now got is three
+separate scopes that are reading the
+shadows, the mid tones, and the
+highlights. And I've got this one here
+for overall image. So, watch what
+happens when I increase the highlights.
+You can see that trace getting slightly
+bigger there. And then if I move my
+gain, you see, obviously, it's affecting
+all of it, but my focus on the scope is
+here. So, I can see exactly what's going
+on. Really useful for white balancing.
+So, for those who stayed this far in the
+video, I've got an extra bonus tip for
+you, and it's nothing to do with resolve
+scopes. So, as you may know, if you
+follow my channel, I use No Omniscope,
+which is a dedicated software for
+scopes. And there is nothing wrong with
+the resolve scopes. and the Omniscope
+gives you exactly the same readings, but
+it allows me to customize it much, much
+further and have added tools. So, it's
+absolutely fantastic. That's what I've
+got running in the background here. So,
+it's No Omniscope. Now, the reason I'm
+showing you this is because from
+November the 19th to December the 1st,
+they've got a special offer of 30% off
+either the video or a pro license. So,
+that is a fantastic deal. But even more
+than that, exclusive to my channel only,
+if you use the link below and put the
+code Darren at checkout, you're going to
+get an extra 5%. So, I've only ever seen
+it once at this price, and that was this
+time last year. So, 35%
+off. No B O B O B O B O B O B O B O B O
+B O B O Bcope Pro or No B O B O B O B O
+B O B O B O B O B O B Omniscope video.
+Use the link below code Darren. You
+won't find that deal anywhere else, not
+even on the time and pixels website. Let
+me show you my layout and then you can
+get an idea of what's going on. So, I've
+got mine on a dedicated machine, but you
+can run it inside Da Vinci Resolve. So,
+what you do is apply Omniscope effect to
+an adjustment clip. Then, if you
+highlight that and go to the effects,
+you can open Omniscope from there. So,
+this is the layout that I've got. And
+what you'll see straight away is the
+vectors scopes. I've got mine
+permanently on low, mid, and high. They
+just sit there really nicely. I've got
+my waveform, my dedicated waveform here,
+and my dedicated vectors scope here. And
+I can zoom this in and out. I can
+customize all these. You can really go
+to town on the customization. I've got
+my histogram here. I like to have a
+histogram to show me what's happening
+with my contrast. Twin Peaks is a
+dedicated scope inside the Omniscope,
+and it allows me to see really easily
+whether I'm effectively white balanced
+or not. It's a really quick tool for
+doing that. I've done a few episodes on
+Omniscope and I've got one that's
+actually dedicated to looking at Twin
+Peaks. I'll put a link to that in the
+description. This waveform here is
+showing me the bottom 15% of my blacks.
+So, it's the shadows. So, this is what I
+did uh on the resolver when we zoomed in
+using option, but this is up here all
+the time. I've always seeing the bottom
+15% of my shadows. I love that. Here's
+my overall waveform. So, don't forget
+you can customize this exactly how you
+want it to be, but I've got an extra
+four images down at the bottom. This one
+here is showing me exposure, so it's
+false color. This one is showing me my
+skin tones, so at a glance I can see
+where my skin tones are sitting. This
+one I've got set to black and white.
+It's just a very quick way of checking
+contrast. I can see noise a little bit
+easier on that as well. And this one is
+just the full color image. So that is my
+Omniscope setup. So don't forget 35%
+exclusively with the link down below.
+Put the code Darren at checkout. Look
+after yourselves. Enjoy your scopes.

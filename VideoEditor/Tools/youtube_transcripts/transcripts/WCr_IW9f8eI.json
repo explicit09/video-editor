@@ -1,0 +1,1507 @@
+[
+  {
+    "text": "Today, I want to show you one of the",
+    "start": 0.0,
+    "duration": 4.12
+  },
+  {
+    "text": "wildest things I've ever seen inside",
+    "start": 1.76,
+    "duration": 4.36
+  },
+  {
+    "text": "DaVinci Resolve. And for some of you,",
+    "start": 4.12,
+    "duration": 4.96
+  },
+  {
+    "text": "this is legitimately game-changing.",
+    "start": 6.12,
+    "duration": 4.16
+  },
+  {
+    "text": "We're going to show off an extremely",
+    "start": 9.08,
+    "duration": 4.08
+  },
+  {
+    "text": "extremely cool workflow for editing so",
+    "start": 10.28,
+    "duration": 5.24
+  },
+  {
+    "text": "so fast, especially when working with",
+    "start": 13.16,
+    "duration": 4.12
+  },
+  {
+    "text": "live media. And that can mean a few",
+    "start": 15.52,
+    "duration": 2.96
+  },
+  {
+    "text": "other things that we'll get to you. But",
+    "start": 17.28,
+    "duration": 3.2
+  },
+  {
+    "text": "first, what's going on over here? This",
+    "start": 18.48,
+    "duration": 4.12
+  },
+  {
+    "text": "is a Twitch stream from the streamer",
+    "start": 20.48,
+    "duration": 4.04
+  },
+  {
+    "text": "Smallant. He's playing Pok\u00e9mon. It's",
+    "start": 22.6,
+    "duration": 3.64
+  },
+  {
+    "text": "super cool. But I want you to put",
+    "start": 24.52,
+    "duration": 4.36
+  },
+  {
+    "text": "yourself in the position of Smallant's",
+    "start": 26.24,
+    "duration": 4.52
+  },
+  {
+    "text": "editor. I don't know if he cut this up",
+    "start": 28.88,
+    "duration": 3.559
+  },
+  {
+    "text": "between streams, but it sure looks like",
+    "start": 30.76,
+    "duration": 5.2
+  },
+  {
+    "text": "that timer is almost at 6 and 1/2 hours.",
+    "start": 32.439,
+    "duration": 4.641
+  },
+  {
+    "text": "Let's",
+    "start": 35.96,
+    "duration": 3.72
+  },
+  {
+    "text": "for the fun of it, assume that that is",
+    "start": 37.08,
+    "duration": 5.56
+  },
+  {
+    "text": "this one current stream. Not unheard of",
+    "start": 39.68,
+    "duration": 5.2
+  },
+  {
+    "text": "in streaming territory. If you are his",
+    "start": 42.64,
+    "duration": 4.0
+  },
+  {
+    "text": "editor and you just need to pull clips",
+    "start": 44.88,
+    "duration": 3.64
+  },
+  {
+    "text": "for social media or YouTube shorts, what",
+    "start": 46.64,
+    "duration": 3.68
+  },
+  {
+    "text": "do you do? Do you wait until he is done",
+    "start": 48.52,
+    "duration": 3.6
+  },
+  {
+    "text": "streaming? Uh maybe he's recording",
+    "start": 50.32,
+    "duration": 3.8
+  },
+  {
+    "text": "locally and he can send you an OBS",
+    "start": 52.12,
+    "duration": 5.12
+  },
+  {
+    "text": "recording. And then you have a 6 and 1/2",
+    "start": 54.12,
+    "duration": 6.04
+  },
+  {
+    "text": "hour video on your timeline to sort",
+    "start": 57.24,
+    "duration": 5.32
+  },
+  {
+    "text": "through. Blah. What if there was a",
+    "start": 60.16,
+    "duration": 4.56
+  },
+  {
+    "text": "better way? What if instead of watching",
+    "start": 62.56,
+    "duration": 4.68
+  },
+  {
+    "text": "Smallant on Twitch and then later",
+    "start": 64.72,
+    "duration": 4.56
+  },
+  {
+    "text": "editing, what if you could just watch",
+    "start": 67.24,
+    "duration": 5.72
+  },
+  {
+    "text": "him in DaVinci Resolve? Now, I will try",
+    "start": 69.28,
+    "duration": 5.8
+  },
+  {
+    "text": "to time out our latency in a moment, but",
+    "start": 72.96,
+    "duration": 4.28
+  },
+  {
+    "text": "what's important to know is that uh",
+    "start": 75.08,
+    "duration": 4.0
+  },
+  {
+    "text": "Resolve is reading this file as it is",
+    "start": 77.24,
+    "duration": 3.88
+  },
+  {
+    "text": "growing. So anytime you can go back and",
+    "start": 79.08,
+    "duration": 4.0
+  },
+  {
+    "text": "watch another part of the stream. This",
+    "start": 81.12,
+    "duration": 4.44
+  },
+  {
+    "text": "is when we had an ad break. Um",
+    "start": 83.08,
+    "duration": 4.24
+  },
+  {
+    "text": "but you can watch you can even watch on",
+    "start": 85.56,
+    "duration": 3.96
+  },
+  {
+    "text": "double or quadruple speed if you are",
+    "start": 87.32,
+    "duration": 4.0
+  },
+  {
+    "text": "getting through a slow zone in order to",
+    "start": 89.52,
+    "duration": 3.52
+  },
+  {
+    "text": "catch up and watch live again. And then",
+    "start": 91.32,
+    "duration": 3.56
+  },
+  {
+    "text": "at the very end, you can see it's riding",
+    "start": 93.04,
+    "duration": 3.68
+  },
+  {
+    "text": "this data or it's reading the data as",
+    "start": 94.88,
+    "duration": 3.64
+  },
+  {
+    "text": "it's being written. So if you come to",
+    "start": 96.72,
+    "duration": 5.36
+  },
+  {
+    "text": "the end, you can get pretty close and",
+    "start": 98.52,
+    "duration": 5.68
+  },
+  {
+    "text": "start playing and you'll see whether",
+    "start": 102.08,
+    "duration": 3.88
+  },
+  {
+    "text": "you're in the buffer of whether, you",
+    "start": 104.2,
+    "duration": 3.76
+  },
+  {
+    "text": "know, it starts writing new information",
+    "start": 105.96,
+    "duration": 4.0
+  },
+  {
+    "text": "before you hit the end of the clip. It",
+    "start": 107.96,
+    "duration": 3.56
+  },
+  {
+    "text": "looks like I'm in a good little spot",
+    "start": 109.96,
+    "duration": 4.36
+  },
+  {
+    "text": "here. I tried to get as close as I can.",
+    "start": 111.52,
+    "duration": 4.32
+  },
+  {
+    "text": "Let's see what our latency is. I'll try",
+    "start": 114.32,
+    "duration": 3.72
+  },
+  {
+    "text": "to find something to time off of next",
+    "start": 115.84,
+    "duration": 5.04
+  },
+  {
+    "text": "time something changes like",
+    "start": 118.04,
+    "duration": 4.12
+  },
+  {
+    "text": "someone's got to get like knocked out or",
+    "start": 120.88,
+    "duration": 3.16
+  },
+  {
+    "text": "something, right? Okay, when this goes",
+    "start": 122.16,
+    "duration": 3.6
+  },
+  {
+    "text": "down,",
+    "start": 124.04,
+    "duration": 2.84
+  },
+  {
+    "text": "one,",
+    "start": 125.76,
+    "duration": 2.24
+  },
+  {
+    "text": "two,",
+    "start": 126.88,
+    "duration": 2.28
+  },
+  {
+    "text": "three,",
+    "start": 128.0,
+    "duration": 2.399
+  },
+  {
+    "text": "four,",
+    "start": 129.16,
+    "duration": 2.4
+  },
+  {
+    "text": "five,",
+    "start": 130.399,
+    "duration": 2.361
+  },
+  {
+    "text": "six,",
+    "start": 131.56,
+    "duration": 2.44
+  },
+  {
+    "text": "seven,",
+    "start": 132.76,
+    "duration": 2.32
+  },
+  {
+    "text": "eight,",
+    "start": 134.0,
+    "duration": 2.24
+  },
+  {
+    "text": "nine,",
+    "start": 135.08,
+    "duration": 3.88
+  },
+  {
+    "text": "10. That was 10. I've measured this as",
+    "start": 136.24,
+    "duration": 5.32
+  },
+  {
+    "text": "low as five or six. I will note that as",
+    "start": 138.96,
+    "duration": 4.6
+  },
+  {
+    "text": "this clip grows, it gets harder to get",
+    "start": 141.56,
+    "duration": 3.4
+  },
+  {
+    "text": "like really fine towards the end of the",
+    "start": 143.56,
+    "duration": 3.36
+  },
+  {
+    "text": "clip. But with how fast the rest of this",
+    "start": 144.96,
+    "duration": 4.4
+  },
+  {
+    "text": "process is, I think a few seconds give",
+    "start": 146.92,
+    "duration": 4.16
+  },
+  {
+    "text": "or take, you know, we can work with",
+    "start": 149.36,
+    "duration": 3.44
+  },
+  {
+    "text": "that. But the real question is, what's",
+    "start": 151.08,
+    "duration": 3.08
+  },
+  {
+    "text": "next? You might notice I have this other",
+    "start": 152.8,
+    "duration": 3.92
+  },
+  {
+    "text": "window over here. Um that is actually",
+    "start": 154.16,
+    "duration": 4.52
+  },
+  {
+    "text": "the timeline I have it open down here.",
+    "start": 156.72,
+    "duration": 3.96
+  },
+  {
+    "text": "And this is vertical. What if I wanted",
+    "start": 158.68,
+    "duration": 4.2
+  },
+  {
+    "text": "to pull a clip from this stream and",
+    "start": 160.68,
+    "duration": 4.32
+  },
+  {
+    "text": "instantly send it out to socials? Well,",
+    "start": 162.88,
+    "duration": 4.0
+  },
+  {
+    "text": "I could be watching here. At any point,",
+    "start": 165.0,
+    "duration": 4.28
+  },
+  {
+    "text": "I can set an I for an in point. It will",
+    "start": 166.88,
+    "duration": 5.48
+  },
+  {
+    "text": "keep playing. It seems like 2,600 people",
+    "start": 169.28,
+    "duration": 5.44
+  },
+  {
+    "text": "are asleep.",
+    "start": 172.36,
+    "duration": 4.36
+  },
+  {
+    "text": "Cool. That's a neat little clip. But I",
+    "start": 174.72,
+    "duration": 3.44
+  },
+  {
+    "text": "set an I for an in point, O for an out",
+    "start": 176.72,
+    "duration": 4.0
+  },
+  {
+    "text": "point. And now",
+    "start": 178.16,
+    "duration": 4.6
+  },
+  {
+    "text": "that will drop that onto my timeline.",
+    "start": 180.72,
+    "duration": 3.92
+  },
+  {
+    "text": "And you'll notice I was previewing this",
+    "start": 182.76,
+    "duration": 3.76
+  },
+  {
+    "text": "in the full resolution. Note, I was",
+    "start": 184.64,
+    "duration": 3.6
+  },
+  {
+    "text": "previewing that because I was using the",
+    "start": 186.52,
+    "duration": 3.4
+  },
+  {
+    "text": "source tape. If you have this on source",
+    "start": 188.24,
+    "duration": 3.24
+  },
+  {
+    "text": "clip, it will crop to your timeline",
+    "start": 189.92,
+    "duration": 3.72
+  },
+  {
+    "text": "resolution. Haha. Uh but source tape",
+    "start": 191.48,
+    "duration": 4.0
+  },
+  {
+    "text": "lets you see the entire thing. But now",
+    "start": 193.64,
+    "duration": 3.48
+  },
+  {
+    "text": "on my timeline, it's cropped, right?",
+    "start": 195.48,
+    "duration": 3.48
+  },
+  {
+    "text": "It's auto scaling to fill. But here's",
+    "start": 197.12,
+    "duration": 4.28
+  },
+  {
+    "text": "the other super exciting thing. Of",
+    "start": 198.96,
+    "duration": 3.6
+  },
+  {
+    "text": "course, we have that audio.",
+    "start": 201.4,
+    "duration": 3.92
+  },
+  {
+    "text": ">> like 2,600 Now, I can open up my power",
+    "start": 202.56,
+    "duration": 6.4
+  },
+  {
+    "text": "bins, come to my vertical presets. Oh, I",
+    "start": 205.32,
+    "duration": 5.4
+  },
+  {
+    "text": "do need to toggle this off source tape.",
+    "start": 208.96,
+    "duration": 4.36
+  },
+  {
+    "text": "And I can select this footage, select my",
+    "start": 210.72,
+    "duration": 5.56
+  },
+  {
+    "text": "Smant vertical preset here, right click,",
+    "start": 213.32,
+    "duration": 5.24
+  },
+  {
+    "text": "link to reference Fusion composition,",
+    "start": 216.28,
+    "duration": 4.8
+  },
+  {
+    "text": "and wow, this entire clip perfectly",
+    "start": 218.56,
+    "duration": 4.16
+  },
+  {
+    "text": "formatted for vertical. These vertical",
+    "start": 221.08,
+    "duration": 3.0
+  },
+  {
+    "text": "presets are something I made a little",
+    "start": 222.72,
+    "duration": 2.44
+  },
+  {
+    "text": "while ago. They're a completely",
+    "start": 224.08,
+    "duration": 3.2
+  },
+  {
+    "text": "different product. You can jump into the",
+    "start": 225.16,
+    "duration": 3.52
+  },
+  {
+    "text": "Fusion page",
+    "start": 227.28,
+    "duration": 3.6
+  },
+  {
+    "text": "where you will see one, how it was",
+    "start": 228.68,
+    "duration": 4.08
+  },
+  {
+    "text": "built, but two, all the custom controls",
+    "start": 230.88,
+    "duration": 4.12
+  },
+  {
+    "text": "that are really easy to change around.",
+    "start": 232.76,
+    "duration": 4.12
+  },
+  {
+    "text": "So if you want any of this changed, you",
+    "start": 235.0,
+    "duration": 3.48
+  },
+  {
+    "text": "could do it. I give away versions of",
+    "start": 236.88,
+    "duration": 4.4
+  },
+  {
+    "text": "these you can start with or I will make",
+    "start": 238.48,
+    "duration": 4.08
+  },
+  {
+    "text": "presets for you if you want. But that's",
+    "start": 241.28,
+    "duration": 2.28
+  },
+  {
+    "text": "not what we're talking about in this",
+    "start": 242.56,
+    "duration": 3.04
+  },
+  {
+    "text": "video. We're back on our edit page",
+    "start": 243.56,
+    "duration": 4.84
+  },
+  {
+    "text": "timeline and boom, this is instantly",
+    "start": 245.6,
+    "duration": 5.12
+  },
+  {
+    "text": "rearranged. And hey, let's go a step",
+    "start": 248.4,
+    "duration": 4.92
+  },
+  {
+    "text": "further. Timeline AI tools, create",
+    "start": 250.72,
+    "duration": 5.6
+  },
+  {
+    "text": "subtitles from audio. Uh I will go",
+    "start": 253.32,
+    "duration": 5.4
+  },
+  {
+    "text": "double line, sure. Create this. It's",
+    "start": 256.32,
+    "duration": 4.36
+  },
+  {
+    "text": "just a few seconds. Shouldn't take that",
+    "start": 258.72,
+    "duration": 3.92
+  },
+  {
+    "text": "long. Oh, look. And there we are. And",
+    "start": 260.68,
+    "duration": 4.12
+  },
+  {
+    "text": "hey, and you'll see those here. But hey,",
+    "start": 262.64,
+    "duration": 6.12
+  },
+  {
+    "text": "why not come up to uh effects, titles,",
+    "start": 264.8,
+    "duration": 6.8
+  },
+  {
+    "text": "subtitles animated, and toss that right",
+    "start": 268.76,
+    "duration": 4.4
+  },
+  {
+    "text": "on. And now we have Oh, and those are at",
+    "start": 271.6,
+    "duration": 5.16
+  },
+  {
+    "text": "the bottom here. So why don't I just",
+    "start": 273.16,
+    "duration": 6.24
+  },
+  {
+    "text": "move those",
+    "start": 276.76,
+    "duration": 3.84
+  },
+  {
+    "text": "up",
+    "start": 279.4,
+    "duration": 4.24
+  },
+  {
+    "text": "and scale them up. And then hey, But",
+    "start": 280.6,
+    "duration": 4.36
+  },
+  {
+    "text": "you're going to fall asleep soon. Okay,",
+    "start": 283.64,
+    "duration": 3.08
+  },
+  {
+    "text": "okay. Um",
+    "start": 284.96,
+    "duration": 5.4
+  },
+  {
+    "text": "It seems like 2,600 people are asleep.",
+    "start": 286.72,
+    "duration": 4.88
+  },
+  {
+    "text": "We're in a pretty good spot. At that",
+    "start": 290.36,
+    "duration": 2.64
+  },
+  {
+    "text": "point, hop over to the deliver page",
+    "start": 291.6,
+    "duration": 3.12
+  },
+  {
+    "text": "where you could ship this right off to",
+    "start": 293.0,
+    "duration": 4.2
+  },
+  {
+    "text": "YouTube, right off to TikTok. You could",
+    "start": 294.72,
+    "duration": 4.28
+  },
+  {
+    "text": "review it there or hey, even push it",
+    "start": 297.2,
+    "duration": 4.64
+  },
+  {
+    "text": "live. And you could have social clips",
+    "start": 299.0,
+    "duration": 4.84
+  },
+  {
+    "text": "being pushed out",
+    "start": 301.84,
+    "duration": 5.48
+  },
+  {
+    "text": "a matter of a few minutes at most from",
+    "start": 303.84,
+    "duration": 5.64
+  },
+  {
+    "text": "when it was live. You don't even need to",
+    "start": 307.32,
+    "duration": 4.68
+  },
+  {
+    "text": "stop your OBS recording. Hopefully, you",
+    "start": 309.48,
+    "duration": 4.76
+  },
+  {
+    "text": "see how cool this is. Of course, for",
+    "start": 312.0,
+    "duration": 4.16
+  },
+  {
+    "text": "something like this, pulling clips from",
+    "start": 314.24,
+    "duration": 3.6
+  },
+  {
+    "text": "a stream, you know, that's its own",
+    "start": 316.16,
+    "duration": 3.36
+  },
+  {
+    "text": "little niche cottage industry. But",
+    "start": 317.84,
+    "duration": 4.0
+  },
+  {
+    "text": "what's cool is that this tech is kind of",
+    "start": 319.52,
+    "duration": 4.16
+  },
+  {
+    "text": "all over the place. I showed off doing",
+    "start": 321.84,
+    "duration": 4.04
+  },
+  {
+    "text": "something similar with the ATEM, this",
+    "start": 323.68,
+    "duration": 4.76
+  },
+  {
+    "text": "guy, little ATEM ISO Pro. If this is",
+    "start": 325.88,
+    "duration": 4.12
+  },
+  {
+    "text": "connected to network attached storage,",
+    "start": 328.44,
+    "duration": 3.28
+  },
+  {
+    "text": "Resolve could read that. This is the ISO",
+    "start": 330.0,
+    "duration": 3.08
+  },
+  {
+    "text": "version, which means it records the",
+    "start": 331.72,
+    "duration": 3.6
+  },
+  {
+    "text": "inputs separately. So say you were",
+    "start": 333.08,
+    "duration": 4.0
+  },
+  {
+    "text": "running an event and you had four",
+    "start": 335.32,
+    "duration": 3.6
+  },
+  {
+    "text": "different cameras, you could actually",
+    "start": 337.08,
+    "duration": 3.48
+  },
+  {
+    "text": "save those four different cameras",
+    "start": 338.92,
+    "duration": 3.68
+  },
+  {
+    "text": "individually and bring all of those",
+    "start": 340.56,
+    "duration": 3.72
+  },
+  {
+    "text": "clips into Resolve, have them synced in",
+    "start": 342.6,
+    "duration": 4.0
+  },
+  {
+    "text": "time, edit clips of your event while",
+    "start": 344.28,
+    "duration": 4.72
+  },
+  {
+    "text": "it's still going on. And very very cool",
+    "start": 346.6,
+    "duration": 4.2
+  },
+  {
+    "text": "is this also rolling out to cameras.",
+    "start": 349.0,
+    "duration": 3.76
+  },
+  {
+    "text": "Notably, uh the Blackmagic camera app,",
+    "start": 350.8,
+    "duration": 3.88
+  },
+  {
+    "text": "which is on phones, but then even in a",
+    "start": 352.76,
+    "duration": 4.16
+  },
+  {
+    "text": "handful of their cinema cameras. As soon",
+    "start": 354.68,
+    "duration": 4.72
+  },
+  {
+    "text": "as you click record on that, it can",
+    "start": 356.92,
+    "duration": 4.56
+  },
+  {
+    "text": "start generating a proxy and sending",
+    "start": 359.4,
+    "duration": 4.28
+  },
+  {
+    "text": "that to the cloud. And you can see",
+    "start": 361.48,
+    "duration": 4.8
+  },
+  {
+    "text": "camera clips appear in Resolve as they",
+    "start": 363.68,
+    "duration": 4.96
+  },
+  {
+    "text": "are being recorded somewhere else. Or",
+    "start": 366.28,
+    "duration": 3.68
+  },
+  {
+    "text": "the clip will finish and then only make",
+    "start": 368.64,
+    "duration": 3.44
+  },
+  {
+    "text": "the proxy and upload. That's very cool.",
+    "start": 369.96,
+    "duration": 3.8
+  },
+  {
+    "text": "I'm going to get into some specifics for",
+    "start": 372.08,
+    "duration": 3.08
+  },
+  {
+    "text": "people who want it. And I've got to give",
+    "start": 373.76,
+    "duration": 4.0
+  },
+  {
+    "text": "a shout out to one editor. Um I was",
+    "start": 375.16,
+    "duration": 4.28
+  },
+  {
+    "text": "working the DaVinci Resolve and",
+    "start": 377.76,
+    "duration": 3.92
+  },
+  {
+    "text": "Blackmagic Design booth at TwitchCon.",
+    "start": 379.44,
+    "duration": 4.48
+  },
+  {
+    "text": "And this editor came up and like told me",
+    "start": 381.68,
+    "duration": 4.24
+  },
+  {
+    "text": "this was possible. And then I had to",
+    "start": 383.92,
+    "duration": 4.64
+  },
+  {
+    "text": "dive in and figure some things out. Um",
+    "start": 385.92,
+    "duration": 4.44
+  },
+  {
+    "text": "but I didn't catch that editor's name.",
+    "start": 388.56,
+    "duration": 3.48
+  },
+  {
+    "text": "If you happen to stop by, leave a",
+    "start": 390.36,
+    "duration": 4.0
+  },
+  {
+    "text": "comment and we will all give you the",
+    "start": 392.04,
+    "duration": 5.4
+  },
+  {
+    "text": "thanks. But really, the linchpin here is",
+    "start": 394.36,
+    "duration": 5.12
+  },
+  {
+    "text": "in OBS. Uh I'm going to stop this",
+    "start": 397.44,
+    "duration": 4.16
+  },
+  {
+    "text": "recording now cuz that is just that",
+    "start": 399.48,
+    "duration": 4.96
+  },
+  {
+    "text": "doing that's thing. But in settings, in",
+    "start": 401.6,
+    "duration": 4.16
+  },
+  {
+    "text": "output, again, this is what worked for",
+    "start": 404.44,
+    "duration": 3.08
+  },
+  {
+    "text": "me. You can explore. Uh but the",
+    "start": 405.76,
+    "duration": 3.68
+  },
+  {
+    "text": "important thing is this recording format",
+    "start": 407.52,
+    "duration": 4.88
+  },
+  {
+    "text": "has to be .ts. Reading these was added",
+    "start": 409.44,
+    "duration": 4.72
+  },
+  {
+    "text": "to Resolve",
+    "start": 412.4,
+    "duration": 3.48
+  },
+  {
+    "text": "somewhere in the last year from when I",
+    "start": 414.16,
+    "duration": 3.48
+  },
+  {
+    "text": "was exploring it previously with the",
+    "start": 415.88,
+    "duration": 4.92
+  },
+  {
+    "text": "ATEM, I believe. I have audio on AAC.",
+    "start": 417.64,
+    "duration": 5.12
+  },
+  {
+    "text": "I'm not sure how important that is. Uh",
+    "start": 420.8,
+    "duration": 4.04
+  },
+  {
+    "text": "but I also want to note, this does work",
+    "start": 422.76,
+    "duration": 4.56
+  },
+  {
+    "text": "with multiple audio tracks. So I could",
+    "start": 424.84,
+    "duration": 3.84
+  },
+  {
+    "text": "be recording something and have like my",
+    "start": 427.32,
+    "duration": 3.28
+  },
+  {
+    "text": "voiceover and bring that in with a",
+    "start": 428.68,
+    "duration": 3.96
+  },
+  {
+    "text": "separate track. But on my system, what",
+    "start": 430.6,
+    "duration": 5.48
+  },
+  {
+    "text": "was also very important was this video",
+    "start": 432.64,
+    "duration": 5.16
+  },
+  {
+    "text": "encoder. We have all these other",
+    "start": 436.08,
+    "duration": 3.52
+  },
+  {
+    "text": "options. Normally, I would be on one of",
+    "start": 437.8,
+    "duration": 3.8
+  },
+  {
+    "text": "these hardware options. When I used",
+    "start": 439.6,
+    "duration": 4.84
+  },
+  {
+    "text": "those, only the audio was brought into",
+    "start": 441.6,
+    "duration": 4.6
+  },
+  {
+    "text": "Resolve. I needed to change this video",
+    "start": 444.44,
+    "duration": 4.24
+  },
+  {
+    "text": "encoder to software. But then at that",
+    "start": 446.2,
+    "duration": 3.56
+  },
+  {
+    "text": "point,",
+    "start": 448.68,
+    "duration": 3.16
+  },
+  {
+    "text": "um back on my edit page, I just had to",
+    "start": 449.76,
+    "duration": 4.64
+  },
+  {
+    "text": "open up the folder where that was being",
+    "start": 451.84,
+    "duration": 4.0
+  },
+  {
+    "text": "written. You know, let me go ahead go",
+    "start": 454.4,
+    "duration": 2.96
+  },
+  {
+    "text": "ahead and start again. Start recording",
+    "start": 455.84,
+    "duration": 4.56
+  },
+  {
+    "text": "again. And then this new file that just",
+    "start": 457.36,
+    "duration": 5.4
+  },
+  {
+    "text": "got up and running, I can just drag in",
+    "start": 460.4,
+    "duration": 4.44
+  },
+  {
+    "text": "here. It has that little red dot, which",
+    "start": 462.76,
+    "duration": 3.84
+  },
+  {
+    "text": "means it's live. And if I could double",
+    "start": 464.84,
+    "duration": 4.76
+  },
+  {
+    "text": "click that, I'll close this inspector.",
+    "start": 466.6,
+    "duration": 4.56
+  },
+  {
+    "text": "That will be back. I'll click this",
+    "start": 469.6,
+    "duration": 2.88
+  },
+  {
+    "text": "button to get back to this full screen",
+    "start": 471.16,
+    "duration": 4.04
+  },
+  {
+    "text": "option. Back will be here. And I believe",
+    "start": 472.48,
+    "duration": 3.72
+  },
+  {
+    "text": "we can go [clears throat]",
+    "start": 475.2,
+    "duration": 2.4
+  },
+  {
+    "text": "and watch this as it's being written",
+    "start": 476.2,
+    "duration": 2.52
+  },
+  {
+    "text": "again.",
+    "start": 477.6,
+    "duration": 3.96
+  },
+  {
+    "text": "Just watch this in Resolve. Pull clips.",
+    "start": 478.72,
+    "duration": 5.6
+  },
+  {
+    "text": "Put subtitles on them. Ship them.",
+    "start": 481.56,
+    "duration": 5.44
+  },
+  {
+    "text": "And like you could get this down to such",
+    "start": 484.32,
+    "duration": 6.08
+  },
+  {
+    "text": "a science. But this is just an extremely",
+    "start": 487.0,
+    "duration": 5.52
+  },
+  {
+    "text": "cool thing that I know will make some",
+    "start": 490.4,
+    "duration": 3.52
+  },
+  {
+    "text": "people very excited. If you don't think",
+    "start": 492.52,
+    "duration": 3.44
+  },
+  {
+    "text": "this is cool, I don't know. At least",
+    "start": 493.92,
+    "duration": 3.96
+  },
+  {
+    "text": "reading files as they're being written,",
+    "start": 495.96,
+    "duration": 3.24
+  },
+  {
+    "text": "the the camera side of things, that",
+    "start": 497.88,
+    "duration": 2.72
+  },
+  {
+    "text": "should make lots of people excited. You",
+    "start": 499.2,
+    "duration": 2.96
+  },
+  {
+    "text": "could have a crew out filming an",
+    "start": 500.6,
+    "duration": 3.32
+  },
+  {
+    "text": "interview and just have one editor back",
+    "start": 502.16,
+    "duration": 3.56
+  },
+  {
+    "text": "in the office. And while the other crew",
+    "start": 503.92,
+    "duration": 3.48
+  },
+  {
+    "text": "is, you know, wrapping up all their",
+    "start": 505.72,
+    "duration": 3.44
+  },
+  {
+    "text": "cables and driving back to the office,",
+    "start": 507.4,
+    "duration": 4.08
+  },
+  {
+    "text": "someone could be building a rough cut.",
+    "start": 509.16,
+    "duration": 3.72
+  },
+  {
+    "text": "Super slick.",
+    "start": 511.48,
+    "duration": 3.8
+  },
+  {
+    "text": "Other important things to note. Um stuff",
+    "start": 512.88,
+    "duration": 5.839
+  },
+  {
+    "text": "like that that camera system plays into",
+    "start": 515.28,
+    "duration": 5.52
+  },
+  {
+    "text": "Blackmagic Cloud. I'm doing all of this",
+    "start": 518.719,
+    "duration": 4.161
+  },
+  {
+    "text": "locally just cuz this file is being",
+    "start": 520.8,
+    "duration": 4.24
+  },
+  {
+    "text": "written on my native computer. But what",
+    "start": 522.88,
+    "duration": 4.36
+  },
+  {
+    "text": "about actually getting the video?",
+    "start": 525.04,
+    "duration": 4.28
+  },
+  {
+    "text": "Because yes, it is playing on my laptop",
+    "start": 527.24,
+    "duration": 4.68
+  },
+  {
+    "text": "going through a USB capture card. That",
+    "start": 529.32,
+    "duration": 4.6
+  },
+  {
+    "text": "was just to showcase easier in this",
+    "start": 531.92,
+    "duration": 4.24
+  },
+  {
+    "text": "video. Because a small hurdle can be",
+    "start": 533.92,
+    "duration": 4.96
+  },
+  {
+    "text": "audio. So I have it playing here so that",
+    "start": 536.16,
+    "duration": 5.12
+  },
+  {
+    "text": "I can just only send audio through the",
+    "start": 538.88,
+    "duration": 5.52
+  },
+  {
+    "text": "XLR, which is being read by OBS here. So",
+    "start": 541.28,
+    "duration": 4.8
+  },
+  {
+    "text": "while it's recording, it's not actually",
+    "start": 544.4,
+    "duration": 3.76
+  },
+  {
+    "text": "playing the audio. But this entire",
+    "start": 546.08,
+    "duration": 5.52
+  },
+  {
+    "text": "system can work on a single computer.",
+    "start": 548.16,
+    "duration": 5.28
+  },
+  {
+    "text": "The way I had to set this up in earlier",
+    "start": 551.6,
+    "duration": 4.2
+  },
+  {
+    "text": "testing is that I had one sort of Chrome",
+    "start": 553.44,
+    "duration": 4.6
+  },
+  {
+    "text": "browser window open for Twitch or",
+    "start": 555.8,
+    "duration": 4.2
+  },
+  {
+    "text": "YouTube Live I was also testing. Again,",
+    "start": 558.04,
+    "duration": 4.2
+  },
+  {
+    "text": "it works for anything. And in OBS, I was",
+    "start": 560.0,
+    "duration": 4.0
+  },
+  {
+    "text": "able to use these window capture",
+    "start": 562.24,
+    "duration": 4.36
+  },
+  {
+    "text": "devices, which does also provide a new",
+    "start": 564.0,
+    "duration": 5.4
+  },
+  {
+    "text": "audio capture just for that window.",
+    "start": 566.6,
+    "duration": 4.24
+  },
+  {
+    "text": "Again, it was very funky, but what I had",
+    "start": 569.4,
+    "duration": 3.52
+  },
+  {
+    "text": "to do was to then come into my system",
+    "start": 570.84,
+    "duration": 4.8
+  },
+  {
+    "text": "sounds. And actually, if I open this up,",
+    "start": 572.92,
+    "duration": 3.84
+  },
+  {
+    "text": "no, not something like that. Something",
+    "start": 575.64,
+    "duration": 3.68
+  },
+  {
+    "text": "like this. Um I had to change the output",
+    "start": 576.76,
+    "duration": 5.72
+  },
+  {
+    "text": "device for Chrome to something that",
+    "start": 579.32,
+    "duration": 4.4
+  },
+  {
+    "text": "wasn't actually attached to something",
+    "start": 582.48,
+    "duration": 2.76
+  },
+  {
+    "text": "like my monitor, which of course has",
+    "start": 583.72,
+    "duration": 3.52
+  },
+  {
+    "text": "like awful speakers. But if I set the",
+    "start": 585.24,
+    "duration": 4.12
+  },
+  {
+    "text": "output to that, then like I wouldn't be",
+    "start": 587.24,
+    "duration": 4.48
+  },
+  {
+    "text": "hearing the live stream as it was as it",
+    "start": 589.36,
+    "duration": 4.36
+  },
+  {
+    "text": "was happening. I could only choose to",
+    "start": 591.72,
+    "duration": 4.48
+  },
+  {
+    "text": "hear it if at once I was watching it in",
+    "start": 593.72,
+    "duration": 4.16
+  },
+  {
+    "text": "Resolve, if that makes sense. Again,",
+    "start": 596.2,
+    "duration": 3.64
+  },
+  {
+    "text": "getting into the weeds, but I know some",
+    "start": 597.88,
+    "duration": 3.72
+  },
+  {
+    "text": "people will be interesting. Managing",
+    "start": 599.84,
+    "duration": 3.44
+  },
+  {
+    "text": "audio can be a hurdle you will have to",
+    "start": 601.6,
+    "duration": 4.44
+  },
+  {
+    "text": "figure out on your specific system. Um,",
+    "start": 603.28,
+    "duration": 5.0
+  },
+  {
+    "text": "if you want any other info, ask me and",
+    "start": 606.04,
+    "duration": 3.28
+  },
+  {
+    "text": "maybe",
+    "start": 608.28,
+    "duration": 2.16
+  },
+  {
+    "text": "uh, if I missed enough, I'll make",
+    "start": 609.32,
+    "duration": 3.0
+  },
+  {
+    "text": "another video or I'll answer questions",
+    "start": 610.44,
+    "duration": 5.28
+  },
+  {
+    "text": "in the comments. But, if nothing else, I",
+    "start": 612.32,
+    "duration": 6.32
+  },
+  {
+    "text": "think this is the world's fastest Twitch",
+    "start": 615.72,
+    "duration": 6.2
+  },
+  {
+    "text": "clip editing workflow. And that seems",
+    "start": 618.64,
+    "duration": 4.84
+  },
+  {
+    "text": "pretty cool. I think it's cool, at",
+    "start": 621.92,
+    "duration": 3.32
+  },
+  {
+    "text": "least. Hopefully, you do, too. Thanks",
+    "start": 623.48,
+    "duration": 5.6
+  },
+  {
+    "text": "for watching and I'll see you next time.",
+    "start": 625.24,
+    "duration": 3.84
+  }
+]

@@ -1,0 +1,395 @@
+so this is my first in-depth look at
+nose and we're going to be looking at
+parallels and i've got something for
+everyone here if you're an
+absolute beginner i'm going to teach you
+the difference between serial nodes
+and parallel nodes so in just a few
+minutes you're going to understand
+exactly how they work
+when and why you use them we're going to
+look then at my fixed note tree and why
+i use parallels and a particular
+technique that i use called dodge and
+burn
+and then we're going to look at a little
+bit about the science behind it what's
+actually happening
+under the hood in resolve so let's have
+a look
+so i get quite a lot of questions about
+my no trees my fix no trees that i use
+this is one that i typically use for
+music promos i have some that are
+larger than this if i'm working on drama
+work and i've got some fixed note trees
+that are smaller than this if i'm
+working with documentary stuff where i
+have to be
+a little bit quicker in my workflow but
+the common theme
+amongst all of them is i have a string
+of parallels and sometimes two strings
+of parallels so let me show you
+that if i get to my power grade here
+this is one that i typically use
+for drama work or commercial work so you
+can see i've got a row of parallels here
+and a row of parallels here so this next
+section is for absolute beginners i'm
+going to teach you in just a few minutes
+exactly how serials and parallels work
+you will totally understand
+when and why you use them if you already
+know have a look at the time description
+below and just jump ahead to the next
+bit
+so starting from absolute scratch this
+is our footage with nothing on it at all
+i've got a single serial node here
+that's completely blank
+so what i'm going to do is just do a
+very quick balance this is ari log c
+footage normally i would apply a colour
+space transform to this to get into the
+right
+colour space but i'm just going to do a
+simple bit of liftgame again here
+just to keep it simple let's put some
+saturation in there
+and that's absolutely fine now let me
+just lift that up a little bit there
+something like that okay i'm going to
+add another serial node so i'm going to
+right hand click on here
+i'm going to say add serial okay
+now a serial node this node number two
+that i've just created
+gets its information from node one node
+one is getting its information from the
+source this represents the
+source the arri log c footage that you
+saw at the start
+so that's feeding into here and then the
+grade that i've done on node one is fed
+into node two
+so let's start playing around with note
+2. what i'm going to do is
+completely desaturate the image
+okay so we've got a black and white
+image now i'm going to go ahead and add
+another node
+add serial okay and on this node now i'm
+going to try and bring back saturation
+but watch what happens when i boost
+saturation
+nothing happens because the image is
+already desaturated if we look at our
+vector scope
+you'll see a tiny little dot in the
+middle means there is zero saturation
+so because we desaturated on node two
+the output of node two which is
+basically node one
+plus node two is being fed along this
+rgb connector
+into node three and because the
+saturation was taken out here
+i don't have saturation to put back so
+all i can do on node 3
+is i can start doing some tinting for
+example so i can add sort of a color
+wash
+but i can't actually get the original
+saturation
+that was in the image now let me delete
+that node
+instead of adding a serial i'm going to
+add a parallel so i'll say add node
+add parallel and what happens now is
+node 2 is still got our desaturation on
+it so it's black and white
+node 4 it creates node four because it
+counts the parallel mixer as node three
+so this
+is a parallel mixer this is added
+automatically when you add a parallel
+node
+so it counts this as node three
+effectively but you can't actually do
+anything on these you can't add
+color or do anything to them so if i go
+to node 4
+i can now bring back saturation
+by just increasing saturation here so if
+i go to saturation 100
+we are now back where we started and the
+reason for that is that
+the information for node four is
+actually coming from node one
+not node two okay so no twos are
+desaturation node one
+is our first balance that we did it's
+our original balance if i just
+deselect these two press command d it's
+our original balance
+and that is feeding both node four
+and node two the parallel mixer is then
+mixing the two
+together in equal proportion okay so by
+desaturating and then
+fully saturating and back to where i
+started from so that is what a parallel
+is doing it a parallel mixer
+is combining all the notes and you don't
+have to have just two you can have three
+four five something add another one you
+can say
+add node add parallel and you just keep
+adding them as many as you want in there
+five six seven eight nine with however
+many you want
+and they will all be equally combined
+and they come from the same
+source in fact you can re-route the
+source as well you can actually take it
+from a different source
+but that's for another episode so let's
+go back to our image
+okay so let's have a look at what is
+going on on this fixed node tree so i'm
+just going to
+deselect it all i'm going to use command
+d i'm going to use command d a lot here
+to switch nodes on and off okay
+so however many you've got selected
+command d will switch that amount of
+nodes off
+so my first node that i work with is
+this one here it's the first one after
+this row of parallels
+and it's my color space transform okay
+so this one is currently set
+to take me from arie log c into rec 709
+gamma 2.4 all right so that's just up
+here in the open fx
+if i click on that you can see that set
+there so then what i do is i move over
+to
+my first notes here this first one here
+is just doing noise reduction
+the second one i've got going on here is
+just doing obviously my offset
+getting me into the right starting point
+i've got my parade on
+and i've got a little bit of highlight
+recovery going on some saturation
+a few bits and pieces going on here so
+my second node will also be
+doing a similar sort of thing so i'll be
+looking at uh normally i'll be adjusting
+things like temperature here
+and things like that just to get me in a
+good starting point so this is
+my basic balance then i move on to this
+row of parallels here i don't
+necessarily use all of these but
+this starts to give me my creative look
+so i'm going to switch these
+on all of them once you can see the
+difference it's making so there's a lot
+of work going on there
+to get the actual look that i wanted so
+i'll switch it on and off
+okay so what's actually going on here
+this node here is just giving us a
+little bit of
+extra work in the primaries this node
+here
+is doing some log work so if i switch
+this one on and off you'll see
+that i'm picking up some detail in the
+shadows and
+just adjusting the color to get the
+blacks right this
+node here is affecting the wall at the
+back okay so i'm just affecting this
+blue wall here
+and then these four nodes are shapes
+that i'm working with
+and what i'm doing here is a technique
+that is similar to dodge and burn so
+it's called dodge and burn
+and it's basically allowing me to lift
+certain areas and
+drop certain areas down okay now there
+is a bit of overlap on these
+so this one here is affecting the whole
+central region
+i just switched that on and off okay i'm
+just lifting it and then this one here
+is lifting
+this bit this one here is darkening that
+area and this one here
+is just lifting that section so there's
+a lot of crossover between
+these windows and if i switch them all
+on and off
+you'll see that it really is reshaping
+how the light works on my image
+now the reason these work well and the
+reason i'm working in parallels is
+because i want everything
+fed from the balance node that i've got
+so it's the sum of these two
+is feeding each of these layers in my
+parallel individually
+now if i did this with serial nodes the
+problem i've got is that this node would
+then be feeding this node
+would then feed the wall which would
+then feed the shape and this shape and
+the shape and the shape and they would
+be adding on to each other
+all right so what i've done is i've
+actually recreated this using serial
+nose to show you what it would look like
+and you'll see that it looks quite
+different
+to the parallel so i'm just going to use
+my middle mouse click and apply
+that grade and there's the grade exactly
+the same parameters i've copied and
+pasted the parameters but done as a row
+of
+serials okay so back to parallel
+and back to serial you can see there's
+quite a difference particularly in this
+area here where i'm getting lots of
+light being sort of multiplied
+so in the parallel node these areas the
+amount of
+exposure that i give them inside the
+window
+is coming from the same node it's coming
+from this node here
+so this is fundamental to how i'm
+working i want everything to mix
+remember the parallel node mixes
+everything equally
+whereas with serial one node will affect
+the next node
+so let's just take a quick look at
+what's actually happening in resolve
+when i select a serial node
+or a parallel node and particularly why
+i'm using parallels when i'm shaping
+light this will answer that question so
+hit the subscription button if you're
+enjoying this so far
+and let's go and take a look so i'm at
+the end of my timeline and i just want
+to explain what's going on here i've got
+a gray
+solid here with a value of one two seven
+one two seven one two seven in rgb
+and that is sitting at five one two on
+our waveform
+now what i'm gonna do is grab a still of
+this
+and i'm gonna add a serial node i'm
+going to show you here a very subtle
+difference between the serial
+and the parallel node which gives you
+another reason why i use my parallels so
+let's add a power window so it's
+default power window with some softness
+in it and i'm going to increase this by
+exactly
+0.5 i'm going to use my panel just
+because i can get that quicker
+so we've increased gain by 1.5 and you
+can see there that it's quite clearly
+hitting
+768 on our scope and this is our soft
+edge that we've got going on
+okay so you just see the fall off on the
+soft edge okay let's add another serial
+and this time what i'm going to do is
+i'm going to copy the exact same shape
+and the parameter so i'm going to use my
+option drag which copies the parameter
+in
+i'm now going to reset the gain i'm
+going to decrease it
+by 0.5 i'm going to use my panel just
+for speed
+and what's happening is the output of
+node 2 is being fed into node 3. so when
+we take away
+half of our gain we don't get back to a
+neutral point we actually come down here
+to 384
+so what we can do is use the gray that
+we started with
+uh using a image wipe and we can try and
+match it by
+i and by using the scope so i'm just
+going to increase my gain this time
+and let's pull it up until we hit the
+512 line
+and you can see as we get there we are
+never quite going to get it
+on the line and what we're getting is
+this kind of
+halo effect around the edge from the
+softness and that's because
+we've not been fed a true flat signal to
+start with we've been fed
+this node's signal which already has a
+bit of softness and
+gain on it so by reducing gain even
+though we've got a power window the same
+amount of softness
+we are never going to get it exactly sat
+on the line
+and this is why i use parallels when i'm
+doing the dodge and burn because i don't
+want accumulation of nodes
+doing this to my image so let's see what
+happens if we do this with a parallel
+node i'm going to take off the split
+wipe
+i'm going to delete that node and this
+time i'm going to add a parallel node
+so option p i'm going to copy
+the exact shape and the grade across
+i'm going to then reset the gain and now
+i'm going to do
+is reduce this by 0.5
+and bring it all the way down and you
+can see that we get
+perfectly neutral because both of these
+are being fed
+from the same source so they've been fed
+from the neutral gray
+into into node two and neutral gray into
+node
+four so it counts the parallel mixer as
+node three and what the parallel mix was
+doing is mixing these in an equal amount
+so when i'm doing dodge and burn on
+multiple
+nodes if i work in parallel i'm not
+going to get one of them affecting
+the other in in a direct way so let's go
+back
+to our shot here's our four
+nodes that we've used power windows on
+and you can see we get a much nicer
+image than if we did that using serials
+so i hope you enjoyed the episode and
+you are enlightened on the world of
+parallels
+look after yourselves and i'll see you
+in the next episode

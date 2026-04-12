@@ -1,0 +1,462 @@
+[
+  {
+    "text": "Today I am updating one of my most",
+    "start": 0.16,
+    "duration": 3.68
+  },
+  {
+    "text": "popular plugins for Da Vinci Resolve.",
+    "start": 2.0,
+    "duration": 3.68
+  },
+  {
+    "text": "You got some footage, drag and drop,",
+    "start": 3.84,
+    "duration": 3.439
+  },
+  {
+    "text": "boom, a pictureand picture effect right",
+    "start": 5.68,
+    "duration": 3.44
+  },
+  {
+    "text": "on the edit page. This plugin has been",
+    "start": 7.279,
+    "duration": 4.081
+  },
+  {
+    "text": "downloaded over 40,000 times. And if",
+    "start": 9.12,
+    "duration": 3.68
+  },
+  {
+    "text": "you've downloaded this previously, you",
+    "start": 11.36,
+    "duration": 3.52
+  },
+  {
+    "text": "should already have the update download",
+    "start": 12.8,
+    "duration": 3.76
+  },
+  {
+    "text": "link uh waiting for you in your email.",
+    "start": 14.88,
+    "duration": 2.72
+  },
+  {
+    "text": "Or if you're watching this video at",
+    "start": 16.56,
+    "duration": 2.479
+  },
+  {
+    "text": "launch, it should be coming soon. But",
+    "start": 17.6,
+    "duration": 3.36
+  },
+  {
+    "text": "first things first, this plugin is also",
+    "start": 19.039,
+    "duration": 3.761
+  },
+  {
+    "text": "free. So if you like it, if you like my",
+    "start": 20.96,
+    "duration": 3.12
+  },
+  {
+    "text": "other free stuff, click around the",
+    "start": 22.8,
+    "duration": 3.6
+  },
+  {
+    "text": "store, find a way to support me if you",
+    "start": 24.08,
+    "duration": 4.32
+  },
+  {
+    "text": "want. it would it would mean a lot cuz",
+    "start": 26.4,
+    "duration": 3.119
+  },
+  {
+    "text": "lots of people have downloaded this",
+    "start": 28.4,
+    "duration": 3.839
+  },
+  {
+    "text": "plugin completely for free and that's",
+    "start": 29.519,
+    "duration": 4.641
+  },
+  {
+    "text": "cool and today hey it's getting even",
+    "start": 32.239,
+    "duration": 3.84
+  },
+  {
+    "text": "better. Now I've done two main things in",
+    "start": 34.16,
+    "duration": 3.919
+  },
+  {
+    "text": "this update. Uh but if you download the",
+    "start": 36.079,
+    "duration": 3.921
+  },
+  {
+    "text": "update link you'll see that uh now we",
+    "start": 38.079,
+    "duration": 4.64
+  },
+  {
+    "text": "have a version 18 19 and 20. I am",
+    "start": 40.0,
+    "duration": 4.719
+  },
+  {
+    "text": "including past versions of the plugin in",
+    "start": 42.719,
+    "duration": 4.081
+  },
+  {
+    "text": "this download specifically because uh",
+    "start": 44.719,
+    "duration": 3.761
+  },
+  {
+    "text": "some of the new features I've added over",
+    "start": 46.8,
+    "duration": 4.48
+  },
+  {
+    "text": "the years um require certain versions of",
+    "start": 48.48,
+    "duration": 4.48
+  },
+  {
+    "text": "Resolve. So this new update is in the",
+    "start": 51.28,
+    "duration": 3.439
+  },
+  {
+    "text": "V20 that gets you right to the DRFX.",
+    "start": 52.96,
+    "duration": 4.239
+  },
+  {
+    "text": "Double click to install. And this plugin",
+    "start": 54.719,
+    "duration": 5.601
+  },
+  {
+    "text": "mostly is one big major bug fix. I have",
+    "start": 57.199,
+    "duration": 5.121
+  },
+  {
+    "text": "a past version of the plugin here. And",
+    "start": 60.32,
+    "duration": 4.08
+  },
+  {
+    "text": "as I scroll, you see this is a very long",
+    "start": 62.32,
+    "duration": 4.56
+  },
+  {
+    "text": "clip. If we get to right under an hour",
+    "start": 64.4,
+    "duration": 5.2
+  },
+  {
+    "text": "on one continuous clip, boom, no frame",
+    "start": 66.88,
+    "duration": 4.64
+  },
+  {
+    "text": "available for media out one. This is",
+    "start": 69.6,
+    "duration": 3.92
+  },
+  {
+    "text": "something I never ran into personally",
+    "start": 71.52,
+    "duration": 3.599
+  },
+  {
+    "text": "when I use this effect. And I use this",
+    "start": 73.52,
+    "duration": 3.599
+  },
+  {
+    "text": "effect on every video cuz I never have a",
+    "start": 75.119,
+    "duration": 3.521
+  },
+  {
+    "text": "clip that long. But plenty of people",
+    "start": 77.119,
+    "duration": 3.441
+  },
+  {
+    "text": "have left comments that they do run into",
+    "start": 78.64,
+    "duration": 3.04
+  },
+  {
+    "text": "this issue and then I have to like",
+    "start": 80.56,
+    "duration": 3.12
+  },
+  {
+    "text": "provide like small workarounds or tips.",
+    "start": 81.68,
+    "duration": 3.68
+  },
+  {
+    "text": "But hey, why not just change that? So,",
+    "start": 83.68,
+    "duration": 4.079
+  },
+  {
+    "text": "this new update can just go and go and",
+    "start": 85.36,
+    "duration": 5.36
+  },
+  {
+    "text": "go. This is a multi-ong hour clip and it",
+    "start": 87.759,
+    "duration": 4.961
+  },
+  {
+    "text": "just it just keeps going. That I'm sure",
+    "start": 90.72,
+    "duration": 3.759
+  },
+  {
+    "text": "will be cool enough for some people. But",
+    "start": 92.72,
+    "duration": 3.28
+  },
+  {
+    "text": "hey, while we're here, we also took",
+    "start": 94.479,
+    "duration": 3.28
+  },
+  {
+    "text": "advantage of something new in Resolve",
+    "start": 96.0,
+    "duration": 4.159
+  },
+  {
+    "text": "20. And in the past version, you'll see",
+    "start": 97.759,
+    "duration": 4.481
+  },
+  {
+    "text": "these mask shape controls. You can",
+    "start": 100.159,
+    "duration": 4.161
+  },
+  {
+    "text": "choose this shape. Uh, and then you have",
+    "start": 102.24,
+    "duration": 4.96
+  },
+  {
+    "text": "all these like subfolders to uh further",
+    "start": 104.32,
+    "duration": 5.839
+  },
+  {
+    "text": "control like uh your selection, but that",
+    "start": 107.2,
+    "duration": 4.879
+  },
+  {
+    "text": "can get kind of messy. So in the update",
+    "start": 110.159,
+    "duration": 4.081
+  },
+  {
+    "text": "in this mask shape controls, you have",
+    "start": 112.079,
+    "duration": 4.161
+  },
+  {
+    "text": "that shape selection, but then it",
+    "start": 114.24,
+    "duration": 4.0
+  },
+  {
+    "text": "automatically change the visible",
+    "start": 116.24,
+    "duration": 4.72
+  },
+  {
+    "text": "controls to whatever you select. So if",
+    "start": 118.24,
+    "duration": 5.04
+  },
+  {
+    "text": "you want to customize them, you",
+    "start": 120.96,
+    "duration": 4.159
+  },
+  {
+    "text": "absolutely can. And then go back and",
+    "start": 123.28,
+    "duration": 4.24
+  },
+  {
+    "text": "forth and change any of those. It saves",
+    "start": 125.119,
+    "duration": 5.441
+  },
+  {
+    "text": "any uh change you make. So you got one",
+    "start": 127.52,
+    "duration": 6.16
+  },
+  {
+    "text": "big bug fix and one cool sort of like UI",
+    "start": 130.56,
+    "duration": 5.6
+  },
+  {
+    "text": "cleanup in a free update to a free",
+    "start": 133.68,
+    "duration": 5.12
+  },
+  {
+    "text": "plugin. I think it's pretty cool. By the",
+    "start": 136.16,
+    "duration": 3.92
+  },
+  {
+    "text": "time this video is live, I will have",
+    "start": 138.8,
+    "duration": 2.88
+  },
+  {
+    "text": "swapped out this file. So maybe if",
+    "start": 140.08,
+    "duration": 3.12
+  },
+  {
+    "text": "you're waiting for that update email,",
+    "start": 141.68,
+    "duration": 2.88
+  },
+  {
+    "text": "you can wait around. Or if you have",
+    "start": 143.2,
+    "duration": 3.039
+  },
+  {
+    "text": "never downloaded this plugin, you can",
+    "start": 144.56,
+    "duration": 4.0
+  },
+  {
+    "text": "head over to strengthsupply.co link in",
+    "start": 146.239,
+    "duration": 3.761
+  },
+  {
+    "text": "the description. Grab picture and",
+    "start": 148.56,
+    "duration": 3.52
+  },
+  {
+    "text": "pricker pro. Grab one of my other dozens",
+    "start": 150.0,
+    "duration": 3.84
+  },
+  {
+    "text": "of free plugins or click around some of",
+    "start": 152.08,
+    "duration": 4.32
+  },
+  {
+    "text": "my paid plugins. Really cool stuff like",
+    "start": 153.84,
+    "duration": 4.32
+  },
+  {
+    "text": "proto, which I've shown off a lot",
+    "start": 156.4,
+    "duration": 5.28
+  },
+  {
+    "text": "recently. And top secret tip right now",
+    "start": 158.16,
+    "duration": 6.48
+  },
+  {
+    "text": "on my channel, like two videos ago, I",
+    "start": 161.68,
+    "duration": 4.639
+  },
+  {
+    "text": "talk about this update for pictureand",
+    "start": 164.64,
+    "duration": 4.48
+  },
+  {
+    "text": "picture pro and I kind of give a tease",
+    "start": 166.319,
+    "duration": 6.161
+  },
+  {
+    "text": "um of another really really cool thing",
+    "start": 169.12,
+    "duration": 5.759
+  },
+  {
+    "text": "coming soon. Uh it's like beyond a",
+    "start": 172.48,
+    "duration": 4.479
+  },
+  {
+    "text": "product. It's it's a it's a program that",
+    "start": 174.879,
+    "duration": 3.841
+  },
+  {
+    "text": "does some cool stuff. I don't know how",
+    "start": 176.959,
+    "duration": 3.441
+  },
+  {
+    "text": "long that video will stay on the channel",
+    "start": 178.72,
+    "duration": 3.84
+  },
+  {
+    "text": "or if I will include this in the video.",
+    "start": 180.4,
+    "duration": 4.16
+  },
+  {
+    "text": "Anyway, Picture and Picture Pro I think",
+    "start": 182.56,
+    "duration": 3.84
+  },
+  {
+    "text": "is very cool. Hopefully you do too.",
+    "start": 184.56,
+    "duration": 3.12
+  },
+  {
+    "text": "Thanks for watching and I'll see you",
+    "start": 186.4,
+    "duration": 3.44
+  },
+  {
+    "text": "next",
+    "start": 187.68,
+    "duration": 2.16
+  }
+]

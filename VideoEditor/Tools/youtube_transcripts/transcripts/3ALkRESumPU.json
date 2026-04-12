@@ -1,0 +1,622 @@
+[
+  {
+    "text": "Folks, it is the most wonderful time of",
+    "start": 0.16,
+    "duration": 4.4
+  },
+  {
+    "text": "the year. I'm not talking about",
+    "start": 2.8,
+    "duration": 5.36
+  },
+  {
+    "text": "Christmas silly. I am talking about NAB,",
+    "start": 4.56,
+    "duration": 7.68
+  },
+  {
+    "text": "the once a year big showcase, conference",
+    "start": 8.16,
+    "duration": 7.439
+  },
+  {
+    "text": "thingabob out in Las Vegas. That's not",
+    "start": 12.24,
+    "duration": 5.52
+  },
+  {
+    "text": "important. What's important is that at",
+    "start": 15.599,
+    "duration": 4.801
+  },
+  {
+    "text": "this big show every year, we get a brand",
+    "start": 17.76,
+    "duration": 4.88
+  },
+  {
+    "text": "new version, a brand new update to Da",
+    "start": 20.4,
+    "duration": 4.08
+  },
+  {
+    "text": "Vinci Resolve, at least historically.",
+    "start": 22.64,
+    "duration": 3.36
+  },
+  {
+    "text": "So, we're going to get one. We also",
+    "start": 24.48,
+    "duration": 3.2
+  },
+  {
+    "text": "haven't got one in a while, which I'll",
+    "start": 26.0,
+    "duration": 3.439
+  },
+  {
+    "text": "talk about in a bit. But that means it's",
+    "start": 27.68,
+    "duration": 3.599
+  },
+  {
+    "text": "also time to pick up a tradition I",
+    "start": 29.439,
+    "duration": 3.601
+  },
+  {
+    "text": "started last year where I sort of touch",
+    "start": 31.279,
+    "duration": 4.161
+  },
+  {
+    "text": "base with all of you. I talk a lot about",
+    "start": 33.04,
+    "duration": 4.24
+  },
+  {
+    "text": "Da Vinci Resolve on this channel pretty",
+    "start": 35.44,
+    "duration": 4.16
+  },
+  {
+    "text": "much exclusively. I've spent over the",
+    "start": 37.28,
+    "duration": 4.16
+  },
+  {
+    "text": "last 5 years, almost six years now,",
+    "start": 39.6,
+    "duration": 3.6
+  },
+  {
+    "text": "talking about Resolve. Uh the last five",
+    "start": 41.44,
+    "duration": 3.6
+  },
+  {
+    "text": "of that I've spent making presets and",
+    "start": 43.2,
+    "duration": 3.519
+  },
+  {
+    "text": "plugins for Da Vinci Resolve. If you",
+    "start": 45.04,
+    "duration": 3.999
+  },
+  {
+    "text": "don't know about all of that cool stuff,",
+    "start": 46.719,
+    "duration": 4.0
+  },
+  {
+    "text": "it's it's all over the channel and the",
+    "start": 49.039,
+    "duration": 4.401
+  },
+  {
+    "text": "website sterlingupply.co. But today",
+    "start": 50.719,
+    "duration": 4.081
+  },
+  {
+    "text": "we're talking about the update to",
+    "start": 53.44,
+    "duration": 3.759
+  },
+  {
+    "text": "Resolve. And here's the big question.",
+    "start": 54.8,
+    "duration": 4.72
+  },
+  {
+    "text": "What do you want to see? Inside",
+    "start": 57.199,
+    "duration": 4.321
+  },
+  {
+    "text": "question, what do you think you will",
+    "start": 59.52,
+    "duration": 4.16
+  },
+  {
+    "text": "actually see? This is exciting because",
+    "start": 61.52,
+    "duration": 4.959
+  },
+  {
+    "text": "last year specifically, it felt like we",
+    "start": 63.68,
+    "duration": 5.68
+  },
+  {
+    "text": "got um a lot of the long-standing",
+    "start": 66.479,
+    "duration": 5.281
+  },
+  {
+    "text": "feature requests that finally showed up",
+    "start": 69.36,
+    "duration": 4.24
+  },
+  {
+    "text": "in that version of Resolve. Some really",
+    "start": 71.76,
+    "duration": 3.679
+  },
+  {
+    "text": "cool stuff like text formatting that we",
+    "start": 73.6,
+    "duration": 3.519
+  },
+  {
+    "text": "had been missing for a while and we",
+    "start": 75.439,
+    "duration": 3.201
+  },
+  {
+    "text": "finally got and cool options. I think it",
+    "start": 77.119,
+    "duration": 2.961
+  },
+  {
+    "text": "was last year for like managing your",
+    "start": 78.64,
+    "duration": 3.68
+  },
+  {
+    "text": "render cache. Lots of cool stuff. But we",
+    "start": 80.08,
+    "duration": 3.679
+  },
+  {
+    "text": "don't want to look back. We want to look",
+    "start": 82.32,
+    "duration": 3.52
+  },
+  {
+    "text": "forward. So, that is the big question.",
+    "start": 83.759,
+    "duration": 3.761
+  },
+  {
+    "text": "What do you want to see in Da Vinci",
+    "start": 85.84,
+    "duration": 4.56
+  },
+  {
+    "text": "Resolve 21? I'm assuming it's version",
+    "start": 87.52,
+    "duration": 4.88
+  },
+  {
+    "text": "21. And and while we're talking about",
+    "start": 90.4,
+    "duration": 4.8
+  },
+  {
+    "text": "assumptions, I expect this to be a",
+    "start": 92.4,
+    "duration": 5.44
+  },
+  {
+    "text": "pretty crazy update. Why? Number one,",
+    "start": 95.2,
+    "duration": 4.64
+  },
+  {
+    "text": "Resolve updates in general are always",
+    "start": 97.84,
+    "duration": 4.08
+  },
+  {
+    "text": "pretty crazy, but something happened",
+    "start": 99.84,
+    "duration": 3.76
+  },
+  {
+    "text": "last year that I think a lot of people",
+    "start": 101.92,
+    "duration": 4.8
+  },
+  {
+    "text": "missed. Going back years previously, we",
+    "start": 103.6,
+    "duration": 5.36
+  },
+  {
+    "text": "have gotten an update at NAB. And",
+    "start": 106.72,
+    "duration": 3.84
+  },
+  {
+    "text": "usually that has launched into public",
+    "start": 108.96,
+    "duration": 4.159
+  },
+  {
+    "text": "beta at NAB and then been in beta for a",
+    "start": 110.56,
+    "duration": 4.64
+  },
+  {
+    "text": "while and had its full release a few",
+    "start": 113.119,
+    "duration": 4.081
+  },
+  {
+    "text": "months later. And more often than not,",
+    "start": 115.2,
+    "duration": 4.239
+  },
+  {
+    "text": "we've also had a pretty substantial",
+    "start": 117.2,
+    "duration": 4.72
+  },
+  {
+    "text": "update in like November at the end of",
+    "start": 119.439,
+    "duration": 4.72
+  },
+  {
+    "text": "the year. Now, last year we had the beta",
+    "start": 121.92,
+    "duration": 4.96
+  },
+  {
+    "text": "for Da Vinci Resolve 20 drop at NAB, but",
+    "start": 124.159,
+    "duration": 5.681
+  },
+  {
+    "text": "it got its full release shockingly",
+    "start": 126.88,
+    "duration": 5.12
+  },
+  {
+    "text": "quick. so fast that when we finally got",
+    "start": 129.84,
+    "duration": 4.08
+  },
+  {
+    "text": "uh 20.1",
+    "start": 132.0,
+    "duration": 5.68
+  },
+  {
+    "text": "um we actually got the the beta for 20.1",
+    "start": 133.92,
+    "duration": 7.28
+  },
+  {
+    "text": "faster than uh in the years previously",
+    "start": 137.68,
+    "duration": 6.72
+  },
+  {
+    "text": "the initial full big NAB version even",
+    "start": 141.2,
+    "duration": 5.36
+  },
+  {
+    "text": "got out of beta if that makes sense. Add",
+    "start": 144.4,
+    "duration": 3.52
+  },
+  {
+    "text": "on top of that that we kind of didn't",
+    "start": 146.56,
+    "duration": 4.16
+  },
+  {
+    "text": "get a big like.5 or extra substantial",
+    "start": 147.92,
+    "duration": 5.2
+  },
+  {
+    "text": "release at the very end of last year.",
+    "start": 150.72,
+    "duration": 5.36
+  },
+  {
+    "text": "Blackmagic Design has had a lot of time",
+    "start": 153.12,
+    "duration": 5.199
+  },
+  {
+    "text": "uh to cook up something special for this",
+    "start": 156.08,
+    "duration": 4.32
+  },
+  {
+    "text": "update and I absolutely expect it. I",
+    "start": 158.319,
+    "duration": 3.521
+  },
+  {
+    "text": "would be remiss if I didn't point out",
+    "start": 160.4,
+    "duration": 4.16
+  },
+  {
+    "text": "that there are a handful of outstanding",
+    "start": 161.84,
+    "duration": 4.72
+  },
+  {
+    "text": "things from the announcement last year",
+    "start": 164.56,
+    "duration": 4.56
+  },
+  {
+    "text": "that still aren't in Resolve. Notably,",
+    "start": 166.56,
+    "duration": 5.36
+  },
+  {
+    "text": "some uh AI generation. They had an AI",
+    "start": 169.12,
+    "duration": 4.96
+  },
+  {
+    "text": "set extender tool that they showed off",
+    "start": 171.92,
+    "duration": 4.64
+  },
+  {
+    "text": "last year and we haven't seen it since.",
+    "start": 174.08,
+    "duration": 4.32
+  },
+  {
+    "text": "It feels like a safe bet that we will",
+    "start": 176.56,
+    "duration": 4.0
+  },
+  {
+    "text": "get that, but also I don't think it's",
+    "start": 178.4,
+    "duration": 4.4
+  },
+  {
+    "text": "out of the question that there is a",
+    "start": 180.56,
+    "duration": 4.8
+  },
+  {
+    "text": "reason uh that we haven't seen it. Of",
+    "start": 182.8,
+    "duration": 3.76
+  },
+  {
+    "text": "course, maybe it just needed more time",
+    "start": 185.36,
+    "duration": 3.84
+  },
+  {
+    "text": "in development. Maybe they just dropped",
+    "start": 186.56,
+    "duration": 4.24
+  },
+  {
+    "text": "it. So, I guess we'll have to see.",
+    "start": 189.2,
+    "duration": 3.28
+  },
+  {
+    "text": "Obviously, whether it's that tool or",
+    "start": 190.8,
+    "duration": 4.4
+  },
+  {
+    "text": "something else, uh we'll see AI somehow.",
+    "start": 192.48,
+    "duration": 4.96
+  },
+  {
+    "text": "I feel like a lot of people like the way",
+    "start": 195.2,
+    "duration": 3.92
+  },
+  {
+    "text": "that Dav Vinci Resolve has been handling",
+    "start": 197.44,
+    "duration": 4.799
+  },
+  {
+    "text": "kind of uh AI stuff where uh they've",
+    "start": 199.12,
+    "duration": 5.119
+  },
+  {
+    "text": "sort of funneled it towards specific",
+    "start": 202.239,
+    "duration": 3.92
+  },
+  {
+    "text": "tools that are very high value in",
+    "start": 204.239,
+    "duration": 4.481
+  },
+  {
+    "text": "Resolve. Lots of audio tools that like",
+    "start": 206.159,
+    "duration": 4.64
+  },
+  {
+    "text": "are labeled AI and like kind of that",
+    "start": 208.72,
+    "duration": 4.079
+  },
+  {
+    "text": "machine learning space. But will we",
+    "start": 210.799,
+    "duration": 4.481
+  },
+  {
+    "text": "finally get that uh image or video",
+    "start": 212.799,
+    "duration": 5.36
+  },
+  {
+    "text": "generation in Resolve? I guess we'll",
+    "start": 215.28,
+    "duration": 5.28
+  },
+  {
+    "text": "see. And I guess we'll see soon. But of",
+    "start": 218.159,
+    "duration": 4.0
+  },
+  {
+    "text": "course, outside of all AI stuff, Dav",
+    "start": 220.56,
+    "duration": 3.599
+  },
+  {
+    "text": "Vinci Resolve still does a ton of stuff.",
+    "start": 222.159,
+    "duration": 5.521
+  },
+  {
+    "text": "And uh I have my personal list um that I",
+    "start": 224.159,
+    "duration": 6.401
+  },
+  {
+    "text": "might share um if I try to like round up",
+    "start": 227.68,
+    "duration": 5.68
+  },
+  {
+    "text": "feedback. But hey, this is the video",
+    "start": 230.56,
+    "duration": 5.2
+  },
+  {
+    "text": "where you get to respond and have those",
+    "start": 233.36,
+    "duration": 4.48
+  },
+  {
+    "text": "conversations in the comments. What is",
+    "start": 235.76,
+    "duration": 4.88
+  },
+  {
+    "text": "at the very top of your Da Vinci Resolve",
+    "start": 237.84,
+    "duration": 4.8
+  },
+  {
+    "text": "wish list? This was very fun when we did",
+    "start": 240.64,
+    "duration": 3.599
+  },
+  {
+    "text": "it before, so we're running it back.",
+    "start": 242.64,
+    "duration": 3.04
+  },
+  {
+    "text": "We're doing it again. I'll be down there",
+    "start": 244.239,
+    "duration": 3.521
+  },
+  {
+    "text": "in the comments absolutely as well. Um,",
+    "start": 245.68,
+    "duration": 4.0
+  },
+  {
+    "text": "and then hopefully we'll like round up",
+    "start": 247.76,
+    "duration": 3.679
+  },
+  {
+    "text": "some of these suggestions and maybe do a",
+    "start": 249.68,
+    "duration": 4.08
+  },
+  {
+    "text": "video either before or after that",
+    "start": 251.439,
+    "duration": 4.08
+  },
+  {
+    "text": "launch. Last year I think we sort of",
+    "start": 253.76,
+    "duration": 3.52
+  },
+  {
+    "text": "like reviewed after. Anyway, it doesn't",
+    "start": 255.519,
+    "duration": 3.12
+  },
+  {
+    "text": "matter. You know what it is. What do you",
+    "start": 257.28,
+    "duration": 2.799
+  },
+  {
+    "text": "want in Resolve? What do you think we'll",
+    "start": 258.639,
+    "duration": 2.961
+  },
+  {
+    "text": "actually get in Resolve? Uh, how do you",
+    "start": 260.079,
+    "duration": 3.441
+  },
+  {
+    "text": "feel about some AI stuff? I don't know.",
+    "start": 261.6,
+    "duration": 3.92
+  },
+  {
+    "text": "You got to let me know. Either way, it's",
+    "start": 263.52,
+    "duration": 4.16
+  },
+  {
+    "text": "it's cool. It's fun to talk about. It's",
+    "start": 265.52,
+    "duration": 3.84
+  },
+  {
+    "text": "all very cool. I think it is. Hopefully,",
+    "start": 267.68,
+    "duration": 3.36
+  },
+  {
+    "text": "you do, too. Thanks for watching and",
+    "start": 269.36,
+    "duration": 4.32
+  },
+  {
+    "text": "I'll see you next",
+    "start": 271.04,
+    "duration": 2.64
+  }
+]

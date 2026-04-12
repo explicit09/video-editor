@@ -1,0 +1,318 @@
+So, in this episode, we're getting back
+to basics. I'm talking about layer
+nodes. I'm going to give you four real
+world examples of when and why you would
+use layer nodes instead of parallels and
+serals in your node tree. This episode
+is aimed at beginners, but as usual,
+there's tips and tricks in there for
+more intermediate users. So, first of
+all, let's have a look at what a layer
+mix actually is, and then I'll give you
+these real world scenarios. So, I've got
+four shots here that I'm going to use
+for my four examples. But here, I've
+just got this gray chart feeding into a
+parallel mixer. So, this is a regular
+parallel mixer. I've got at the top here
+a red circle power window that I've just
+tinted red. I've got a green one and
+I've got a blue one. And you can see
+that because this is a parallel mixer,
+they're all blended equally together.
+So, that's what a parallel does. Now, to
+make a layer mixer instead, what I can
+do is actually morph this into a layer
+mixer. So, down here, you can just swap
+it or I could create it from scratch,
+but I'm just going to do this for speed.
+So, when I switch to layer mixer, you'll
+see that the layers have priority. So
+how it works is the bottom layer has
+priority over the next layer over the
+next layer. And you can have as many of
+these as you want. You might have 10,
+12, 13 layers. What's actually happening
+is it's not the node itself. I could put
+that up there. That doesn't change the
+priority. It's actually the inputs going
+into this mixer. So if I change this leg
+and this leg and I'm going to bring that
+down and I'm going to input it into the
+bottom here, which is actually the top
+priority. It's the kind of opposite way
+around what you think. Let's stick that
+one into there. You see now that the red
+has priority over green over blue. So I
+can change the order of priority really
+easily. So now that we know what a layer
+mixer is doing, how does that work in
+real world examples? Let's take this
+first shot here. I've already graded
+this. So it's got color space transform
+for my color management. I've got tons
+of episodes on that. I'll put links to
+those in the description and up here and
+all the usual stuff. But I've already
+done a look on this as well. So just to
+show you what this looked like in Rex
+79. There it is. color managed, of
+course. And the look for this, this was
+a jewelry commercial, is they wanted
+quite a desaturated look, which is going
+to help pop the colors on the jewels
+themselves. So, I've not done the
+jewelry part yet. So, what we're going
+to do now is to make this pop, we need
+to do something like a key or a curve or
+something like that. So, I'm going to go
+to my Kia. I'm going to select a 3D key
+in this instance, and I'm just going to
+select the area. Now, I went too far
+then. So, I'm just going to use my
+negative tool here. And let's just
+deselect these areas here. You can take
+a bit more time over it than that. This
+is just for this example, but let me get
+rid of the lines on the screen. And all
+I need to do now is go to saturation.
+Uh, let's choose our HDR saturation. And
+I'm going to just boost that up so we
+get that nice popping on that blue
+gemstone. Now, the issue I've got is I'm
+already feeding a desaturated look into
+this node. So, it's not giving us the
+very best that we could get out of that.
+So, what I'm going to do is I'm going to
+disable that one. I'm going to click on
+here and instead of a serial, I'm going
+to use a layer. So, I'm going to use
+option L to create a layer node. Now,
+what happens, if you remember, the
+layers have priority. So, this node now
+has priority over this one. And this
+node here, if I just deselect that,
+contains the desaturated look. So, the
+look is pretty strong up to there. and
+then it's desaturated, but this one has
+priority over it now. So, we're getting
+a more rich blue in that stone. So, what
+I want to do is use this for my key. So,
+let's do the same 3D.
+Let's apply that to the stone like so.
+And you can see that happening already.
+And if I now go to my HDR saturation, do
+the same thing. We get a much more
+prominent blue because it's being fed a
+stronger signal. It's being fed it
+signal from here, but it has priority
+over this layer. So it's not blended. So
+that is that one. And if I deselect that
+one, I show you the other one. You can
+see it's not as rich. So that is a great
+use of the layer node. Let's have a look
+at another example. So moving on to this
+shot here. You've seen me use this on
+YouTube before. It's a commercial that I
+graded many years ago now. But let's
+imagine that the picture in the window
+here needs to be blurred out for privacy
+reasons. So I've already done that here.
+Here's our look, by the way. So just to
+show you Rex 9. It's just a little bit
+contrasty look. And here I've done a
+power window and I've used my blur
+sharpen tool to just blur out the image.
+And I've already tracked this. So let me
+show you what's going on. So you can see
+that's tracked. Now the issue we've got
+is that as we move through the track, we
+have a character crossing over. So, she
+will now have, if we zoom in,
+and I'm use my middle mouse click to
+pull that around, but she has now got
+the properties of that shape and the
+blur and a little bit of darkening there
+as well. So, we don't want that. We want
+her to be obviously in the foreground of
+this. So, we're going to use layer
+mixers to our advantage here. So, I'm
+going to do is click on here. I'm going
+to press option L again to create
+another layer node. And now, we don't
+see the blur of that box. The reason
+being is this has priority over this
+node here because we're in a layer
+mixer, not a parallel. Right? So, all I
+need to do now, let's just put that back
+to best fit is take this character here
+and key her out. Now, what I'm going to
+do is use a magic mask
+and let's just add some points on here.
+Let's see what that looks like. I'm
+going to keep it in faster mode for now.
+I could make this better, but it
+explains exactly what I'm doing with the
+nose. Let's just track that through. And
+what you'll also notice now is there's a
+second character walking in in front of
+that blurred box as well. So we need to
+deal with this character at the same
+time. So there's our first one done.
+We're seeing it in highlight mode.
+That's why it looks a bit strange. But
+let's zoom through and just check it's
+worked on our first character, which it
+has. And as we come back, the box is
+still blurred. And we now need to
+address this character. So all we got to
+do is add another layer. You can have as
+many of these as you want. I'm going
+option L. Let's add another one. Let's
+do the same thing on this character now.
+So, I'm going to get the magic mask
+again. I'm going to isolate her. Let's
+just check that's working, which it is.
+Magic mask is so good. Moving forward.
+So, we now have our two characters
+sitting in the foreground due to the
+layer mixer with a magic mask around
+them revealing the node at the bottom
+here, which has got the blur and the box
+on it. So, that should give us a really
+nice image. What I'm going to do is zoom
+into that so you can see what's going
+on.
+And let's just play that through. So
+we've got our blur. There's our first
+character. And there's our second
+character. So really good. And I could
+make that even better. If I put that
+into better mode, you'll get a much
+better edge on there as well. So that's
+another great use of the layer nodes.
+Let's have a look at a third example. So
+shift and zed is a really good shortcut
+to get that full screen. This is a music
+video that I did a few years back. And
+this is actually a nostalgic scene. So
+we're going back in time at this
+element. So we wanted quite a distinct
+look and this is where I took advantage
+of layer nodes. So again, it's got the
+color space transforms for our color
+management. Let me show you the look
+that I've got going on. That's Rex 709.
+Here's the look so far. And I've already
+built my two layers, but there's nothing
+in there. So that's a layer mixer with
+two empty nodes. So what I'm going to do
+now is use the blending properties, the
+composite properties of layer nodes. So
+layer nodes have this ability to use
+blend modes. Let me show you what I
+mean. I'm going to get rid of this node
+for the moment. I'm just going to
+disable it. At the moment are the layer
+mixer, the composite mode is set to
+normal. All right. So that gives us that
+priority that we're used to. What I'm
+going to do on this node here, I'm going
+to give it a kind of bleach bypass look.
+So what I'm going to do is desaturate
+this. Now there's many ways of
+desaturating. I could use uh the HDR
+set. I could use RGB mixer. I'm just
+going to use the primary tool in this
+instance. So, let's just go primary
+saturation down. Let's give it a little
+bit of extra contrast in there. Maybe
+something like that. I'm going to switch
+this node on. Now, as you're all aware
+by now, soon as I switch this on, it has
+priority. So, it's basically got the
+feed coming from here into it,
+overwriting this one because it has a
+priority. But if I change the composite
+mode from normal to be something else,
+what I'm going to do is change it to be
+overlay. So what the overlay blend mode
+does is it increases contrast in the
+shadows and the highlights but not in
+the mid tones. So that keeps our skin
+tones looking good. That's why this
+works so well. Now we can actually dial
+this back in as well. So if I go to here
+and go to our key output here, zero is
+effectively I've switched that node off.
+So we're back to the full color and then
+one would be full strength. And then
+somewhere in between we're mixing these
+two layer nodes now. And you can really
+experiment with these looks. If I press
+command and W, this allows me to swap
+nodes. So, I'm going to put the black
+and white layer where the color one was.
+And we get a very different look. In
+fact, I like that even more to be
+honest. So, this is a great use of layer
+nodes just using the advantage of the
+composite modes. And you've got all
+these different ones in here. So, you
+can really play around. We've got soft
+light, for example. That will give you
+another good look. So, that is three
+really good uses of the layer. These are
+practical examples that I use every day
+in my work as a professional colorist.
+If you're enjoying this content, before
+I show you the fourth one, think about
+subscribing. Hit the like button for me
+so that YouTube knows you're enjoying it
+as well. And then hopefully YouTube
+sends it to many more people and
+everyone can benefit from this. Right,
+let's have a look at the fourth example
+of a layer node. So here we've got a
+commercial that I worked on and this is
+a really simple and obvious example of
+how to use layer nodes. You can use it
+just to have a look at different looks.
+So, if I've got my client set in the
+room, we've got our base grade done. So,
+we're sort of at this point here. Uh,
+let me just show you what this looks
+like without anything. So, that's just
+Rex 709. And then we've slowly built the
+look up. And we're getting to a point
+where we now actually want to stylize
+it. So, what I'm doing is using layer
+nodes to try out different looks before
+we move further in our commercial
+development. So, let's have a look at
+the first look. If I switch that one on,
+there is a look that we're going for.
+I've got the client here. I'm looking at
+it. Just having a look which I like and
+I'm going to compare it to this one
+here. So if I switch this one on,
+obviously it takes priority over this
+one. So I don't see this look. So it
+always going to show you the bottom node
+in that layer stack. So it's a really
+good way of just switching on and off
+going do I like that one? Do I like that
+one? And it's easier than saving stills
+or versions. So really nice quick way of
+using layeros just to simply have a look
+at some different looks. So, I've got
+hundreds of videos now on the color
+page, the edit page, all the other pages
+in Da Vinci Resolve. YouTube's going to
+recommend you one somewhere around about
+here. So, have a look at that one if you
+haven't done so already. Check out my
+playlist. Enjoy using your layer nodes.
+I hope you found that useful. Look after
+yourselves and I'll see you in the next
+episode.

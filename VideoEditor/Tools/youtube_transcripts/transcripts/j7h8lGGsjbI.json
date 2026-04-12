@@ -1,0 +1,1797 @@
+[
+  {
+    "text": "Today we're taking a look at a question",
+    "start": 0.16,
+    "duration": 3.6
+  },
+  {
+    "text": "that was asked on my community website",
+    "start": 1.68,
+    "duration": 3.679
+  },
+  {
+    "text": "postp proist where we talk everything",
+    "start": 3.76,
+    "duration": 3.92
+  },
+  {
+    "text": "Dav Vinci Resolve fusion and fair lights",
+    "start": 5.359,
+    "duration": 4.801
+  },
+  {
+    "text": "and the user was asking is there a more",
+    "start": 7.68,
+    "duration": 4.8
+  },
+  {
+    "text": "efficient way to do an animation. They",
+    "start": 10.16,
+    "duration": 4.24
+  },
+  {
+    "text": "were working on a project that had a",
+    "start": 12.48,
+    "duration": 3.279
+  },
+  {
+    "text": "tight deadline. They weren't able to do",
+    "start": 14.4,
+    "duration": 3.04
+  },
+  {
+    "text": "it. They had a friend do it in Premiere",
+    "start": 15.759,
+    "duration": 3.36
+  },
+  {
+    "text": "and I'm guessing After Effects. They",
+    "start": 17.44,
+    "duration": 3.36
+  },
+  {
+    "text": "went back to the project and they were",
+    "start": 19.119,
+    "duration": 2.961
+  },
+  {
+    "text": "just curious if there was a more",
+    "start": 20.8,
+    "duration": 3.68
+  },
+  {
+    "text": "efficient way of creating a motion",
+    "start": 22.08,
+    "duration": 5.199
+  },
+  {
+    "text": "graphic like this in Fusion compared to",
+    "start": 24.48,
+    "duration": 5.039
+  },
+  {
+    "text": "how they did it. So, I'm going to take a",
+    "start": 27.279,
+    "duration": 4.32
+  },
+  {
+    "text": "look at it and hopefully through this",
+    "start": 29.519,
+    "duration": 4.641
+  },
+  {
+    "text": "process, everyone gets a little bit of",
+    "start": 31.599,
+    "duration": 4.401
+  },
+  {
+    "text": "my insight on how I would build",
+    "start": 34.16,
+    "duration": 4.079
+  },
+  {
+    "text": "something and maybe you might learn a",
+    "start": 36.0,
+    "duration": 4.719
+  },
+  {
+    "text": "few things to introduce into your",
+    "start": 38.239,
+    "duration": 4.721
+  },
+  {
+    "text": "workflow. So, here is the project he",
+    "start": 40.719,
+    "duration": 4.721
+  },
+  {
+    "text": "sent over. And it looks like I don't",
+    "start": 42.96,
+    "duration": 4.8
+  },
+  {
+    "text": "have a font. So, let's go over here and",
+    "start": 45.44,
+    "duration": 6.08
+  },
+  {
+    "text": "take a look at what we got going on.",
+    "start": 47.76,
+    "duration": 6.56
+  },
+  {
+    "text": "And it looks like he has a bunch of",
+    "start": 51.52,
+    "duration": 5.359
+  },
+  {
+    "text": "groups. and all the groups. Okay, they",
+    "start": 54.32,
+    "duration": 4.559
+  },
+  {
+    "text": "have a title and that's probably what's",
+    "start": 56.879,
+    "duration": 6.801
+  },
+  {
+    "text": "erroring out cuz the font. So now that",
+    "start": 58.879,
+    "duration": 7.441
+  },
+  {
+    "text": "should all work. Okay, he's got a media",
+    "start": 63.68,
+    "duration": 4.799
+  },
+  {
+    "text": "out here as well. Interesting. All",
+    "start": 66.32,
+    "duration": 5.28
+  },
+  {
+    "text": "right. So,",
+    "start": 68.479,
+    "duration": 5.041
+  },
+  {
+    "text": "so there's the animation. So, why do we",
+    "start": 71.6,
+    "duration": 4.08
+  },
+  {
+    "text": "have a media out here? Do we have a",
+    "start": 73.52,
+    "duration": 4.08
+  },
+  {
+    "text": "different index? No, we don't. What is",
+    "start": 75.68,
+    "duration": 5.439
+  },
+  {
+    "text": "the index over here? Okay. So, the first",
+    "start": 77.6,
+    "duration": 5.28
+  },
+  {
+    "text": "thing is that you don't need to have",
+    "start": 81.119,
+    "duration": 4.401
+  },
+  {
+    "text": "media outs here. The reason why you can",
+    "start": 82.88,
+    "duration": 4.8
+  },
+  {
+    "text": "have multiple media outs is because",
+    "start": 85.52,
+    "duration": 4.4
+  },
+  {
+    "text": "let's say you have what do we got in",
+    "start": 87.68,
+    "duration": 6.0
+  },
+  {
+    "text": "here? Let's say we had um a composite",
+    "start": 89.92,
+    "duration": 5.92
+  },
+  {
+    "text": "and let's say this was the shot and this",
+    "start": 93.68,
+    "duration": 4.24
+  },
+  {
+    "text": "house were going to blow up and we have",
+    "start": 95.84,
+    "duration": 5.04
+  },
+  {
+    "text": "to add in uh other sources, right? So,",
+    "start": 97.92,
+    "duration": 4.96
+  },
+  {
+    "text": "an explosion and different things like",
+    "start": 100.88,
+    "duration": 3.599
+  },
+  {
+    "text": "that and maybe we want to be able to",
+    "start": 102.88,
+    "duration": 5.12
+  },
+  {
+    "text": "color grade the explosion uh on its own.",
+    "start": 104.479,
+    "duration": 6.801
+  },
+  {
+    "text": "And the tools that are in Fusion can get",
+    "start": 108.0,
+    "duration": 6.399
+  },
+  {
+    "text": "you pretty far, but they're very",
+    "start": 111.28,
+    "duration": 5.68
+  },
+  {
+    "text": "primitive compared to what's accessible",
+    "start": 114.399,
+    "duration": 5.121
+  },
+  {
+    "text": "on the color page. So, what you would do",
+    "start": 116.96,
+    "duration": 4.72
+  },
+  {
+    "text": "is here you would just change this index",
+    "start": 119.52,
+    "duration": 4.4
+  },
+  {
+    "text": "to one. It starts at zero, it goes 1 2 3",
+    "start": 121.68,
+    "duration": 5.439
+  },
+  {
+    "text": "and so on. On the color page, you would",
+    "start": 123.92,
+    "duration": 5.52
+  },
+  {
+    "text": "then add another source, and then you",
+    "start": 127.119,
+    "duration": 4.561
+  },
+  {
+    "text": "could grab just that explosion and",
+    "start": 129.44,
+    "duration": 4.72
+  },
+  {
+    "text": "composite it back in, and so on. So,",
+    "start": 131.68,
+    "duration": 4.559
+  },
+  {
+    "text": "that's the reason on why you would have",
+    "start": 134.16,
+    "duration": 4.48
+  },
+  {
+    "text": "multiple here. But for this project, you",
+    "start": 136.239,
+    "duration": 4.561
+  },
+  {
+    "text": "don't actually need that. So, let's take",
+    "start": 138.64,
+    "duration": 4.0
+  },
+  {
+    "text": "a look at this animation that we have",
+    "start": 140.8,
+    "duration": 4.24
+  },
+  {
+    "text": "here.",
+    "start": 142.64,
+    "duration": 4.8
+  },
+  {
+    "text": "All right. And let's take a look at how",
+    "start": 145.04,
+    "duration": 4.72
+  },
+  {
+    "text": "it was built. Okay. So, it looks like",
+    "start": 147.44,
+    "duration": 4.32
+  },
+  {
+    "text": "it's Why is it up there now? Is it",
+    "start": 149.76,
+    "duration": 3.759
+  },
+  {
+    "text": "transform? Okay. So, he's flipping it,",
+    "start": 151.76,
+    "duration": 3.839
+  },
+  {
+    "text": "it looks like.",
+    "start": 153.519,
+    "duration": 5.681
+  },
+  {
+    "text": "All right. It's interesting.",
+    "start": 155.599,
+    "duration": 6.681
+  },
+  {
+    "text": "All right.",
+    "start": 159.2,
+    "duration": 3.08
+  },
+  {
+    "text": "And then we have this. Is this animated?",
+    "start": 163.2,
+    "duration": 4.96
+  },
+  {
+    "text": "Yeah, it is. the little box.",
+    "start": 165.44,
+    "duration": 7.079
+  },
+  {
+    "text": "All right. What else we have here?",
+    "start": 168.16,
+    "duration": 4.359
+  },
+  {
+    "text": "What is this for?",
+    "start": 173.44,
+    "duration": 5.28
+  },
+  {
+    "text": "Oh, that's how he's Okay, that's how",
+    "start": 177.04,
+    "duration": 6.4
+  },
+  {
+    "text": "he's animating it. Why is there a",
+    "start": 178.72,
+    "duration": 6.4
+  },
+  {
+    "text": "All right. All right. So, there's a lot",
+    "start": 183.44,
+    "duration": 3.28
+  },
+  {
+    "text": "of things here that we can change. What",
+    "start": 185.12,
+    "duration": 5.28
+  },
+  {
+    "text": "is this in here? Blend. Let's turn it",
+    "start": 186.72,
+    "duration": 5.92
+  },
+  {
+    "text": "off. Okay. And then it's coming into a",
+    "start": 190.4,
+    "duration": 4.479
+  },
+  {
+    "text": "transform. What is this transform? just",
+    "start": 192.64,
+    "duration": 4.4
+  },
+  {
+    "text": "making it smaller. And then we have a",
+    "start": 194.879,
+    "duration": 4.161
+  },
+  {
+    "text": "tracker. All right. So, let me show you",
+    "start": 197.04,
+    "duration": 4.4
+  },
+  {
+    "text": "how I would do this. First, let's start.",
+    "start": 199.04,
+    "duration": 4.32
+  },
+  {
+    "text": "Let's do this like a side by side.",
+    "start": 201.44,
+    "duration": 3.36
+  },
+  {
+    "text": "First, let's start with creating this",
+    "start": 203.36,
+    "duration": 5.36
+  },
+  {
+    "text": "dot. So, these are all of like the core",
+    "start": 204.8,
+    "duration": 6.64
+  },
+  {
+    "text": "old school uh okay, I don't really want",
+    "start": 208.72,
+    "duration": 4.0
+  },
+  {
+    "text": "to call them old school, but this is",
+    "start": 211.44,
+    "duration": 3.76
+  },
+  {
+    "text": "like the old school way of creating a",
+    "start": 212.72,
+    "duration": 4.56
+  },
+  {
+    "text": "motion graphic of this nature. There's",
+    "start": 215.2,
+    "duration": 3.759
+  },
+  {
+    "text": "more efficient ways to do this, and I'll",
+    "start": 217.28,
+    "duration": 4.72
+  },
+  {
+    "text": "show you using shape. So, uh, all of the",
+    "start": 218.959,
+    "duration": 5.92
+  },
+  {
+    "text": "shape tools, let me show you here. All",
+    "start": 222.0,
+    "duration": 4.879
+  },
+  {
+    "text": "of these shape tools are actually all",
+    "start": 224.879,
+    "duration": 3.761
+  },
+  {
+    "text": "vector-based, and then you have a",
+    "start": 226.879,
+    "duration": 4.161
+  },
+  {
+    "text": "renderer, which then, uh, turns it into",
+    "start": 228.64,
+    "duration": 4.72
+  },
+  {
+    "text": "pixels, right? So, it rasterizes it.",
+    "start": 231.04,
+    "duration": 3.919
+  },
+  {
+    "text": "And,",
+    "start": 233.36,
+    "duration": 4.4
+  },
+  {
+    "text": "uh, it's just more efficient, especially",
+    "start": 234.959,
+    "duration": 4.961
+  },
+  {
+    "text": "when you're duplicating it a bunch of",
+    "start": 237.76,
+    "duration": 4.64
+  },
+  {
+    "text": "times, right? Because each one of these",
+    "start": 239.92,
+    "duration": 4.16
+  },
+  {
+    "text": "has individual pixels that it's",
+    "start": 242.4,
+    "duration": 4.479
+  },
+  {
+    "text": "accounting for and so on, where vectors",
+    "start": 244.08,
+    "duration": 6.4
+  },
+  {
+    "text": "don't have pixels. um data turned into",
+    "start": 246.879,
+    "duration": 5.841
+  },
+  {
+    "text": "pixels, but it's just location data, if",
+    "start": 250.48,
+    "duration": 4.479
+  },
+  {
+    "text": "that makes sense. So, let's uh build",
+    "start": 252.72,
+    "duration": 5.44
+  },
+  {
+    "text": "this out. So, how do we start here?",
+    "start": 254.959,
+    "duration": 5.921
+  },
+  {
+    "text": "Let's go. So, we start with an ellipse.",
+    "start": 258.16,
+    "duration": 6.64
+  },
+  {
+    "text": "So, s ellipse. We'll add an ellipse. And",
+    "start": 260.88,
+    "duration": 5.44
+  },
+  {
+    "text": "then, what else do we have? We have an",
+    "start": 264.8,
+    "duration": 3.36
+  },
+  {
+    "text": "outside. So, I'm just going to duplicate",
+    "start": 266.32,
+    "duration": 5.04
+  },
+  {
+    "text": "this. So, C while I have it selected,",
+    "start": 268.16,
+    "duration": 5.28
+  },
+  {
+    "text": "and I'm going to uh paste it. It's going",
+    "start": 271.36,
+    "duration": 4.8
+  },
+  {
+    "text": "to make a merge, right? So, it's it's",
+    "start": 273.44,
+    "duration": 5.84
+  },
+  {
+    "text": "combining those two. So, let's uh let me",
+    "start": 276.16,
+    "duration": 4.72
+  },
+  {
+    "text": "look at the final one cuz it's like down",
+    "start": 279.28,
+    "duration": 3.84
+  },
+  {
+    "text": "in the corner. So, what I'll do is I'll",
+    "start": 280.88,
+    "duration": 3.759
+  },
+  {
+    "text": "just make this smaller. And I'm just",
+    "start": 283.12,
+    "duration": 5.12
+  },
+  {
+    "text": "going to copy this over here,",
+    "start": 284.639,
+    "duration": 7.28
+  },
+  {
+    "text": "right? Okay. So, that's that one. And",
+    "start": 288.24,
+    "duration": 5.679
+  },
+  {
+    "text": "then the other one I'm going to take",
+    "start": 291.919,
+    "duration": 4.481
+  },
+  {
+    "text": "down there as well.",
+    "start": 293.919,
+    "duration": 5.041
+  },
+  {
+    "text": "And we're going to turn this",
+    "start": 296.4,
+    "duration": 4.4
+  },
+  {
+    "text": "into",
+    "start": 298.96,
+    "duration": 4.56
+  },
+  {
+    "text": "a little ring. And currently, you see it",
+    "start": 300.8,
+    "duration": 4.8
+  },
+  {
+    "text": "full. So, all we have to do is turn off",
+    "start": 303.52,
+    "duration": 6.08
+  },
+  {
+    "text": "solid. and then turn on border width. So",
+    "start": 305.6,
+    "duration": 5.76
+  },
+  {
+    "text": "there's that portion and then we have",
+    "start": 309.6,
+    "duration": 4.24
+  },
+  {
+    "text": "this line next, right? Yeah, the lines",
+    "start": 311.36,
+    "duration": 4.32
+  },
+  {
+    "text": "next. So to do the line, we're going to",
+    "start": 313.84,
+    "duration": 5.44
+  },
+  {
+    "text": "add in an S polygon",
+    "start": 315.68,
+    "duration": 5.28
+  },
+  {
+    "text": "and we will connect that in. And then",
+    "start": 319.28,
+    "duration": 4.0
+  },
+  {
+    "text": "I'm just going to, like I said, copy",
+    "start": 320.96,
+    "duration": 6.079
+  },
+  {
+    "text": "from here, the path. So it looks like it",
+    "start": 323.28,
+    "duration": 7.68
+  },
+  {
+    "text": "starts there, comes up and over.",
+    "start": 327.039,
+    "duration": 6.0
+  },
+  {
+    "text": "Currently, you don't see it in Oops.",
+    "start": 330.96,
+    "duration": 3.679
+  },
+  {
+    "text": "Currently, you don't see it in here. And",
+    "start": 333.039,
+    "duration": 2.88
+  },
+  {
+    "text": "that's just because we need to change",
+    "start": 334.639,
+    "duration": 5.601
+  },
+  {
+    "text": "the width. So now we have that.",
+    "start": 335.919,
+    "duration": 8.72
+  },
+  {
+    "text": "And what else did we have in here?",
+    "start": 340.24,
+    "duration": 6.32
+  },
+  {
+    "text": "Why do we have three paths? What is",
+    "start": 344.639,
+    "duration": 4.921
+  },
+  {
+    "text": "this?",
+    "start": 346.56,
+    "duration": 3.0
+  },
+  {
+    "text": "I'm not entirely sure. Okay. Anyways, so",
+    "start": 349.68,
+    "duration": 8.0
+  },
+  {
+    "text": "this path I think it's animated, right?",
+    "start": 352.88,
+    "duration": 7.039
+  },
+  {
+    "text": "Yeah. All right. So that would just be",
+    "start": 357.68,
+    "duration": 4.32
+  },
+  {
+    "text": "on the polygon you have a length and",
+    "start": 359.919,
+    "duration": 4.72
+  },
+  {
+    "text": "that would just be that animation.",
+    "start": 362.0,
+    "duration": 4.0
+  },
+  {
+    "text": "And then it looks like we're flipping",
+    "start": 364.639,
+    "duration": 3.441
+  },
+  {
+    "text": "it, which we don't need to do because",
+    "start": 366.0,
+    "duration": 4.319
+  },
+  {
+    "text": "I'm building it right side up. If you",
+    "start": 368.08,
+    "duration": 4.399
+  },
+  {
+    "text": "did you there's an S transform that you",
+    "start": 370.319,
+    "duration": 4.961
+  },
+  {
+    "text": "could use. What is this then? So this is",
+    "start": 372.479,
+    "duration": 5.201
+  },
+  {
+    "text": "the white box. So let's create that with",
+    "start": 375.28,
+    "duration": 5.12
+  },
+  {
+    "text": "another S polygon.",
+    "start": 377.68,
+    "duration": 4.639
+  },
+  {
+    "text": "We will connect that over. And let me",
+    "start": 380.4,
+    "duration": 3.76
+  },
+  {
+    "text": "just view",
+    "start": 382.319,
+    "duration": 3.44
+  },
+  {
+    "text": "this so I can see where it's actually",
+    "start": 384.16,
+    "duration": 4.319
+  },
+  {
+    "text": "at. Just right above. Okay. So the",
+    "start": 385.759,
+    "duration": 5.121
+  },
+  {
+    "text": "second one I'm just going to go right",
+    "start": 388.479,
+    "duration": 7.201
+  },
+  {
+    "text": "above like that. and increase its width",
+    "start": 390.88,
+    "duration": 7.52
+  },
+  {
+    "text": "and take off caps. And then our",
+    "start": 395.68,
+    "duration": 5.12
+  },
+  {
+    "text": "animation would just be using the length",
+    "start": 398.4,
+    "duration": 4.48
+  },
+  {
+    "text": "again.",
+    "start": 400.8,
+    "duration": 4.959
+  },
+  {
+    "text": "All right. And then we have text.",
+    "start": 402.88,
+    "duration": 4.64
+  },
+  {
+    "text": "So the text, I did see something that",
+    "start": 405.759,
+    "duration": 3.201
+  },
+  {
+    "text": "was a little interesting and I'll show",
+    "start": 407.52,
+    "duration": 3.119
+  },
+  {
+    "text": "you here in a second because I'm just",
+    "start": 408.96,
+    "duration": 4.72
+  },
+  {
+    "text": "going to copy this.",
+    "start": 410.639,
+    "duration": 7.761
+  },
+  {
+    "text": "We'll add our text and turn it black.",
+    "start": 413.68,
+    "duration": 9.12
+  },
+  {
+    "text": "Right. So in here you had this. you're",
+    "start": 418.4,
+    "duration": 7.28
+  },
+  {
+    "text": "using this brightness contrast to turn",
+    "start": 422.8,
+    "duration": 6.0
+  },
+  {
+    "text": "on and off the visibility of it. And you",
+    "start": 425.68,
+    "duration": 6.32
+  },
+  {
+    "text": "can actually do it in the actual uh text",
+    "start": 428.8,
+    "duration": 5.76
+  },
+  {
+    "text": "itself by coming over in the shading and",
+    "start": 432.0,
+    "duration": 4.8
+  },
+  {
+    "text": "there's an opacity. So you wouldn't",
+    "start": 434.56,
+    "duration": 4.479
+  },
+  {
+    "text": "actually need this node, right? Because",
+    "start": 436.8,
+    "duration": 4.08
+  },
+  {
+    "text": "you're just processing the same pixels",
+    "start": 439.039,
+    "duration": 3.361
+  },
+  {
+    "text": "over again. All right. So now that we",
+    "start": 440.88,
+    "duration": 3.84
+  },
+  {
+    "text": "have that in this one, we also have that",
+    "start": 442.4,
+    "duration": 4.239
+  },
+  {
+    "text": "shading element that we can or control",
+    "start": 444.72,
+    "duration": 5.12
+  },
+  {
+    "text": "that we can use to animate.",
+    "start": 446.639,
+    "duration": 5.441
+  },
+  {
+    "text": "Was there anything else in here? What is",
+    "start": 449.84,
+    "duration": 5.52
+  },
+  {
+    "text": "this done? Oh, this is to turn it on and",
+    "start": 452.08,
+    "duration": 5.2
+  },
+  {
+    "text": "off, right? Yeah. Yeah. Okay. So, we can",
+    "start": 455.36,
+    "duration": 4.239
+  },
+  {
+    "text": "do that later. Coming out of this,",
+    "start": 457.28,
+    "duration": 6.72
+  },
+  {
+    "text": "remember this is all um vector data. So,",
+    "start": 459.599,
+    "duration": 7.44
+  },
+  {
+    "text": "we need to turn it into a 2D image",
+    "start": 464.0,
+    "duration": 7.039
+  },
+  {
+    "text": "pixels. So, we'll do S render",
+    "start": 467.039,
+    "duration": 6.321
+  },
+  {
+    "text": "and bring that in. And then we're done.",
+    "start": 471.039,
+    "duration": 4.0
+  },
+  {
+    "text": "Right. So, we take I don't know how many",
+    "start": 473.36,
+    "duration": 3.839
+  },
+  {
+    "text": "nodes are here. We turn it into what is",
+    "start": 475.039,
+    "duration": 5.121
+  },
+  {
+    "text": "here? Eight. Seven nodes. Right. So",
+    "start": 477.199,
+    "duration": 4.4
+  },
+  {
+    "text": "we'll take all of this and we'll go",
+    "start": 480.16,
+    "duration": 3.68
+  },
+  {
+    "text": "group. So then we have that. And then",
+    "start": 481.599,
+    "duration": 4.88
+  },
+  {
+    "text": "down here we just made it smaller. So",
+    "start": 483.84,
+    "duration": 5.6
+  },
+  {
+    "text": "you could make it smaller inside here,",
+    "start": 486.479,
+    "duration": 5.681
+  },
+  {
+    "text": "right before the renderer or we can",
+    "start": 489.44,
+    "duration": 6.24
+  },
+  {
+    "text": "actually do it in a merge node. So what",
+    "start": 492.16,
+    "duration": 6.64
+  },
+  {
+    "text": "I'll do is coming out of here, I'm just",
+    "start": 495.68,
+    "duration": 5.359
+  },
+  {
+    "text": "going to get a multimemerge. Right? So",
+    "start": 498.8,
+    "duration": 3.839
+  },
+  {
+    "text": "we'll just connect the multimemerge up.",
+    "start": 501.039,
+    "duration": 2.72
+  },
+  {
+    "text": "And I'm just going to disconnect this",
+    "start": 502.639,
+    "duration": 3.441
+  },
+  {
+    "text": "for now. We'll get the multimemerge. And",
+    "start": 503.759,
+    "duration": 6.081
+  },
+  {
+    "text": "then we will um go out of the group into",
+    "start": 506.08,
+    "duration": 6.24
+  },
+  {
+    "text": "the multi merge. And if we take a look",
+    "start": 509.84,
+    "duration": 5.36
+  },
+  {
+    "text": "at this in the multi merge, we have this",
+    "start": 512.32,
+    "duration": 6.24
+  },
+  {
+    "text": "first um layer here. And you can name it",
+    "start": 515.2,
+    "duration": 5.6
+  },
+  {
+    "text": "whatever you want it to. But we can make",
+    "start": 518.56,
+    "duration": 3.68
+  },
+  {
+    "text": "it smaller cuz I feel like it was",
+    "start": 520.8,
+    "duration": 3.28
+  },
+  {
+    "text": "smaller before and then it was like",
+    "start": 522.24,
+    "duration": 3.599
+  },
+  {
+    "text": "looking at one of these trees or",
+    "start": 524.08,
+    "duration": 4.48
+  },
+  {
+    "text": "something like that. Right. So that was",
+    "start": 525.839,
+    "duration": 4.721
+  },
+  {
+    "text": "how that animation was. And then we just",
+    "start": 528.56,
+    "duration": 3.839
+  },
+  {
+    "text": "have to track it. So to track it there,",
+    "start": 530.56,
+    "duration": 3.6
+  },
+  {
+    "text": "we have the center. Just going to right",
+    "start": 532.399,
+    "duration": 4.961
+  },
+  {
+    "text": "click, modify width, track position. And",
+    "start": 534.16,
+    "duration": 4.96
+  },
+  {
+    "text": "I don't like using Intelllet track, so",
+    "start": 537.36,
+    "duration": 3.599
+  },
+  {
+    "text": "I'll just go point tracker. Just a",
+    "start": 539.12,
+    "duration": 5.279
+  },
+  {
+    "text": "little lighter. Um, if you have a lot of",
+    "start": 540.959,
+    "duration": 5.44
+  },
+  {
+    "text": "parallax, sometimes Intelllet Track",
+    "start": 544.399,
+    "duration": 3.841
+  },
+  {
+    "text": "works a little bit better, but for now,",
+    "start": 546.399,
+    "duration": 3.761
+  },
+  {
+    "text": "I will just use the normal tracker. And",
+    "start": 548.24,
+    "duration": 5.12
+  },
+  {
+    "text": "let's just go on this tree here.",
+    "start": 550.16,
+    "duration": 6.08
+  },
+  {
+    "text": "And we can see it in here. Uh, I change",
+    "start": 553.36,
+    "duration": 4.64
+  },
+  {
+    "text": "the per frames because you don't need to",
+    "start": 556.24,
+    "duration": 3.92
+  },
+  {
+    "text": "have every single frame tracked. You",
+    "start": 558.0,
+    "duration": 5.04
+  },
+  {
+    "text": "can, you know, skip between frames. um",
+    "start": 560.16,
+    "duration": 5.28
+  },
+  {
+    "text": "makes tracking a little quicker. And",
+    "start": 563.04,
+    "duration": 5.12
+  },
+  {
+    "text": "then we will just track track that",
+    "start": 565.44,
+    "duration": 5.04
+  },
+  {
+    "text": "location for however long you need it",
+    "start": 568.16,
+    "duration": 4.32
+  },
+  {
+    "text": "to. And then we can just stop that. Now",
+    "start": 570.48,
+    "duration": 4.16
+  },
+  {
+    "text": "we have a tracked location that it locks",
+    "start": 572.48,
+    "duration": 4.72
+  },
+  {
+    "text": "onto. Uh you'll notice that obviously",
+    "start": 574.64,
+    "duration": 4.879
+  },
+  {
+    "text": "the point isn't where the center of this",
+    "start": 577.2,
+    "duration": 5.12
+  },
+  {
+    "text": "is. So all we need to do is in the",
+    "start": 579.519,
+    "duration": 5.361
+  },
+  {
+    "text": "modifier under the tracker, we have an",
+    "start": 582.32,
+    "duration": 5.68
+  },
+  {
+    "text": "offset. So we'll just do the XY offset",
+    "start": 584.88,
+    "duration": 6.88
+  },
+  {
+    "text": "right onto that little point like that.",
+    "start": 588.0,
+    "duration": 7.76
+  },
+  {
+    "text": "And then from the beginning of this",
+    "start": 591.76,
+    "duration": 5.759
+  },
+  {
+    "text": "going all the way around you can see",
+    "start": 595.76,
+    "duration": 5.44
+  },
+  {
+    "text": "that it is locked on and tracked. So",
+    "start": 597.519,
+    "duration": 6.0
+  },
+  {
+    "text": "only other thing was that turning it on",
+    "start": 601.2,
+    "duration": 4.0
+  },
+  {
+    "text": "and off. Right. So at the beginning here",
+    "start": 603.519,
+    "duration": 3.921
+  },
+  {
+    "text": "I'll just zoom in a little bit. Uh we",
+    "start": 605.2,
+    "duration": 5.759
+  },
+  {
+    "text": "can just go blend off and then a couple",
+    "start": 607.44,
+    "duration": 7.519
+  },
+  {
+    "text": "of frames in turn it on and then at the",
+    "start": 610.959,
+    "duration": 6.0
+  },
+  {
+    "text": "other end",
+    "start": 614.959,
+    "duration": 5.761
+  },
+  {
+    "text": "on couple of frames turn it off. And I",
+    "start": 616.959,
+    "duration": 5.681
+  },
+  {
+    "text": "feel like that was all of the obviously",
+    "start": 620.72,
+    "duration": 4.96
+  },
+  {
+    "text": "I don't have these animations, but I",
+    "start": 622.64,
+    "duration": 4.56
+  },
+  {
+    "text": "showed you here where you could do all",
+    "start": 625.68,
+    "duration": 4.24
+  },
+  {
+    "text": "of those. And then that's it. So, moving",
+    "start": 627.2,
+    "duration": 4.879
+  },
+  {
+    "text": "forward with",
+    "start": 629.92,
+    "duration": 5.28
+  },
+  {
+    "text": "adding others in, all we would do from",
+    "start": 632.079,
+    "duration": 6.401
+  },
+  {
+    "text": "here, oops, is I'm just going to",
+    "start": 635.2,
+    "duration": 4.96
+  },
+  {
+    "text": "collapse this, but we would just",
+    "start": 638.48,
+    "duration": 5.039
+  },
+  {
+    "text": "duplicate this. So, CRLV",
+    "start": 640.16,
+    "duration": 5.84
+  },
+  {
+    "text": "connected in here. And then we're just",
+    "start": 643.519,
+    "duration": 4.88
+  },
+  {
+    "text": "going to do all of the same settings",
+    "start": 646.0,
+    "duration": 7.36
+  },
+  {
+    "text": "that we had over here, right? So,",
+    "start": 648.399,
+    "duration": 9.12
+  },
+  {
+    "text": "let's see. Uh, this was like 27. You can",
+    "start": 653.36,
+    "duration": 8.32
+  },
+  {
+    "text": "put in here 27. Oops. Point",
+    "start": 657.519,
+    "duration": 8.481
+  },
+  {
+    "text": "27. And then it would just be moved up",
+    "start": 661.68,
+    "duration": 7.04
+  },
+  {
+    "text": "to like up there. Again, just tracking",
+    "start": 666.0,
+    "duration": 4.48
+  },
+  {
+    "text": "it.",
+    "start": 668.72,
+    "duration": 4.48
+  },
+  {
+    "text": "Position tracker. Come over here. set it",
+    "start": 670.48,
+    "duration": 5.44
+  },
+  {
+    "text": "up the same way that we did. And then",
+    "start": 673.2,
+    "duration": 4.8
+  },
+  {
+    "text": "for the tracker itself, let's just do",
+    "start": 675.92,
+    "duration": 4.24
+  },
+  {
+    "text": "this white building. Something easy to",
+    "start": 678.0,
+    "duration": 5.2
+  },
+  {
+    "text": "track on point tracker. We can track",
+    "start": 680.16,
+    "duration": 5.2
+  },
+  {
+    "text": "that",
+    "start": 683.2,
+    "duration": 6.879
+  },
+  {
+    "text": "once we're done again in tracker 2 now.",
+    "start": 685.36,
+    "duration": 8.4
+  },
+  {
+    "text": "Offset up here. And then all you would",
+    "start": 690.079,
+    "duration": 5.2
+  },
+  {
+    "text": "need to do is come back over to the",
+    "start": 693.76,
+    "duration": 4.0
+  },
+  {
+    "text": "tools for the second layer. Obviously,",
+    "start": 695.279,
+    "duration": 3.921
+  },
+  {
+    "text": "you really want to name these so you",
+    "start": 697.76,
+    "duration": 3.36
+  },
+  {
+    "text": "don't start to lose them. But then you",
+    "start": 699.2,
+    "duration": 3.759
+  },
+  {
+    "text": "would just do your animations on and",
+    "start": 701.12,
+    "duration": 4.959
+  },
+  {
+    "text": "off. And that would pretty much be it.",
+    "start": 702.959,
+    "duration": 4.961
+  },
+  {
+    "text": "But oh, the other thing that I didn't",
+    "start": 706.079,
+    "duration": 5.281
+  },
+  {
+    "text": "really do is I didn't show you uh let's",
+    "start": 707.92,
+    "duration": 5.52
+  },
+  {
+    "text": "go back. Let's go into here and let's",
+    "start": 711.36,
+    "duration": 5.76
+  },
+  {
+    "text": "add in like an animation or two.",
+    "start": 713.44,
+    "duration": 5.92
+  },
+  {
+    "text": "Um because I didn't think of something.",
+    "start": 717.12,
+    "duration": 5.2
+  },
+  {
+    "text": "All right. So if I go",
+    "start": 719.36,
+    "duration": 6.8
+  },
+  {
+    "text": "full and full, what is an easy animation",
+    "start": 722.32,
+    "duration": 7.12
+  },
+  {
+    "text": "that I can copy here?",
+    "start": 726.16,
+    "duration": 5.04
+  },
+  {
+    "text": "Oh, okay. Okay, we have this little ball",
+    "start": 729.44,
+    "duration": 3.44
+  },
+  {
+    "text": "lighting up and moving, right? So, I'll",
+    "start": 731.2,
+    "duration": 3.199
+  },
+  {
+    "text": "just show you going in and out like",
+    "start": 732.88,
+    "duration": 5.04
+  },
+  {
+    "text": "that. Uh, in the ellipse 2, we're just",
+    "start": 734.399,
+    "duration": 5.761
+  },
+  {
+    "text": "going to go publish, right click,",
+    "start": 737.92,
+    "duration": 4.64
+  },
+  {
+    "text": "connect to. Oh man, there's a lot uh",
+    "start": 740.16,
+    "duration": 5.04
+  },
+  {
+    "text": "line with. And now both of these are",
+    "start": 742.56,
+    "duration": 4.719
+  },
+  {
+    "text": "connected together.",
+    "start": 745.2,
+    "duration": 5.04
+  },
+  {
+    "text": "From here, we can just do our little",
+    "start": 747.279,
+    "duration": 5.441
+  },
+  {
+    "text": "animation. I don't know what the timing",
+    "start": 750.24,
+    "duration": 5.92
+  },
+  {
+    "text": "was on that, but",
+    "start": 752.72,
+    "duration": 6.16
+  },
+  {
+    "text": "you could go through and do your little",
+    "start": 756.16,
+    "duration": 5.52
+  },
+  {
+    "text": "animation.",
+    "start": 758.88,
+    "duration": 5.759
+  },
+  {
+    "text": "Maybe a little bounce back, too. Come",
+    "start": 761.68,
+    "duration": 5.279
+  },
+  {
+    "text": "into the spline.",
+    "start": 764.639,
+    "duration": 4.721
+  },
+  {
+    "text": "Open this up.",
+    "start": 766.959,
+    "duration": 5.921
+  },
+  {
+    "text": "Open here. Let's see that. Highlight all",
+    "start": 769.36,
+    "duration": 7.12
+  },
+  {
+    "text": "F. Smooth. Okay. So, there is our little",
+    "start": 772.88,
+    "duration": 5.6
+  },
+  {
+    "text": "animation. Right. The reason why I want",
+    "start": 776.48,
+    "duration": 5.039
+  },
+  {
+    "text": "to do that is because if I copy this,",
+    "start": 778.48,
+    "duration": 5.44
+  },
+  {
+    "text": "right, and let's collapse that again.",
+    "start": 781.519,
+    "duration": 6.56
+  },
+  {
+    "text": "Copy and paste and now add it into that",
+    "start": 783.92,
+    "duration": 6.4
+  },
+  {
+    "text": "other part that we have tracked. One",
+    "start": 788.079,
+    "duration": 3.841
+  },
+  {
+    "text": "thing you'll notice is at the beginning",
+    "start": 790.32,
+    "duration": 3.84
+  },
+  {
+    "text": "it's doing its little animation at the",
+    "start": 791.92,
+    "duration": 4.0
+  },
+  {
+    "text": "beginning, right? And that's obviously",
+    "start": 794.16,
+    "duration": 3.76
+  },
+  {
+    "text": "not when it would start because the",
+    "start": 795.92,
+    "duration": 5.039
+  },
+  {
+    "text": "tracking is like pretty far over here,",
+    "start": 797.92,
+    "duration": 6.96
+  },
+  {
+    "text": "right? So to get that to move over, I'm",
+    "start": 800.959,
+    "duration": 6.56
+  },
+  {
+    "text": "going to click on the group,",
+    "start": 804.88,
+    "duration": 5.04
+  },
+  {
+    "text": "slide this over. I like to just have",
+    "start": 807.519,
+    "duration": 4.88
+  },
+  {
+    "text": "this on uh show only selected. And we're",
+    "start": 809.92,
+    "duration": 4.96
+  },
+  {
+    "text": "in the key frames. From here, we can",
+    "start": 812.399,
+    "duration": 4.24
+  },
+  {
+    "text": "take this group. You can see all of our",
+    "start": 814.88,
+    "duration": 3.759
+  },
+  {
+    "text": "key frames here. And we would just pull",
+    "start": 816.639,
+    "duration": 4.561
+  },
+  {
+    "text": "it over. And then that that would uh",
+    "start": 818.639,
+    "duration": 4.721
+  },
+  {
+    "text": "rettime all of our key frames. So once",
+    "start": 821.2,
+    "duration": 5.36
+  },
+  {
+    "text": "we got to here, then we can see, you",
+    "start": 823.36,
+    "duration": 5.279
+  },
+  {
+    "text": "know, that's when our little animation",
+    "start": 826.56,
+    "duration": 4.56
+  },
+  {
+    "text": "is happening. Once it it's all connected",
+    "start": 828.639,
+    "duration": 4.32
+  },
+  {
+    "text": "from there, again, all you would need to",
+    "start": 831.12,
+    "duration": 6.719
+  },
+  {
+    "text": "do is just do the blend and then uh that",
+    "start": 832.959,
+    "duration": 6.401
+  },
+  {
+    "text": "would pretty much be that. Obviously,",
+    "start": 837.839,
+    "duration": 3.041
+  },
+  {
+    "text": "all of the other animations that are",
+    "start": 839.36,
+    "duration": 4.0
+  },
+  {
+    "text": "tied in there, but that's how I would do",
+    "start": 840.88,
+    "duration": 6.399
+  },
+  {
+    "text": "this. Um it's a lot less when it comes",
+    "start": 843.36,
+    "duration": 6.4
+  },
+  {
+    "text": "to nodes and to figure out like what's",
+    "start": 847.279,
+    "duration": 5.201
+  },
+  {
+    "text": "actually going on. Again,",
+    "start": 849.76,
+    "duration": 5.28
+  },
+  {
+    "text": "it's only seven nodes versus probably",
+    "start": 852.48,
+    "duration": 4.799
+  },
+  {
+    "text": "like 12 or 13. I don't know how many are",
+    "start": 855.04,
+    "duration": 4.08
+  },
+  {
+    "text": "there. So, I think that kind of",
+    "start": 857.279,
+    "duration": 3.761
+  },
+  {
+    "text": "concludes how I would have tackled this",
+    "start": 859.12,
+    "duration": 4.159
+  },
+  {
+    "text": "project. Slightly different workflow and",
+    "start": 861.04,
+    "duration": 4.72
+  },
+  {
+    "text": "using slightly different tools, but uh",
+    "start": 863.279,
+    "duration": 5.281
+  },
+  {
+    "text": "getting the exact same results. Now, you",
+    "start": 865.76,
+    "duration": 5.759
+  },
+  {
+    "text": "can really do these projects any way you",
+    "start": 868.56,
+    "duration": 6.399
+  },
+  {
+    "text": "want. There's, you know, probably five",
+    "start": 871.519,
+    "duration": 5.601
+  },
+  {
+    "text": "other ways that you can do a similar",
+    "start": 874.959,
+    "duration": 5.041
+  },
+  {
+    "text": "result. As the guy said, he had his",
+    "start": 877.12,
+    "duration": 4.48
+  },
+  {
+    "text": "buddy do it in Premiere and After",
+    "start": 880.0,
+    "duration": 4.639
+  },
+  {
+    "text": "Effects. So, there's no wrong way. It's",
+    "start": 881.6,
+    "duration": 4.56
+  },
+  {
+    "text": "just that there might be a more",
+    "start": 884.639,
+    "duration": 3.281
+  },
+  {
+    "text": "efficient way. That's enough of me",
+    "start": 886.16,
+    "duration": 4.96
+  },
+  {
+    "text": "yapping. If you do want to um ask your",
+    "start": 887.92,
+    "duration": 4.56
+  },
+  {
+    "text": "own question, you can go over the post",
+    "start": 891.12,
+    "duration": 4.159
+  },
+  {
+    "text": "pro list, create an account, and then",
+    "start": 892.48,
+    "duration": 5.599
+  },
+  {
+    "text": "under fusion, you can add in your",
+    "start": 895.279,
+    "duration": 4.24
+  },
+  {
+    "text": "question there. There's a bunch of other",
+    "start": 898.079,
+    "duration": 3.601
+  },
+  {
+    "text": "categories as well and different",
+    "start": 899.519,
+    "duration": 4.161
+  },
+  {
+    "text": "discussions over there. But with that",
+    "start": 901.68,
+    "duration": 3.519
+  },
+  {
+    "text": "being said, my name's Justin. Thanks so",
+    "start": 903.68,
+    "duration": 2.959
+  },
+  {
+    "text": "much for watching. Till next one, guys.",
+    "start": 905.199,
+    "duration": 4.601
+  },
+  {
+    "text": "See you.",
+    "start": 906.639,
+    "duration": 3.161
+  }
+]

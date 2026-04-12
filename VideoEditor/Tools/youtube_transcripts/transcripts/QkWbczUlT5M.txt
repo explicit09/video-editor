@@ -1,0 +1,92 @@
+Today I am updating one of my most
+popular plugins for Da Vinci Resolve.
+You got some footage, drag and drop,
+boom, a pictureand picture effect right
+on the edit page. This plugin has been
+downloaded over 40,000 times. And if
+you've downloaded this previously, you
+should already have the update download
+link uh waiting for you in your email.
+Or if you're watching this video at
+launch, it should be coming soon. But
+first things first, this plugin is also
+free. So if you like it, if you like my
+other free stuff, click around the
+store, find a way to support me if you
+want. it would it would mean a lot cuz
+lots of people have downloaded this
+plugin completely for free and that's
+cool and today hey it's getting even
+better. Now I've done two main things in
+this update. Uh but if you download the
+update link you'll see that uh now we
+have a version 18 19 and 20. I am
+including past versions of the plugin in
+this download specifically because uh
+some of the new features I've added over
+the years um require certain versions of
+Resolve. So this new update is in the
+V20 that gets you right to the DRFX.
+Double click to install. And this plugin
+mostly is one big major bug fix. I have
+a past version of the plugin here. And
+as I scroll, you see this is a very long
+clip. If we get to right under an hour
+on one continuous clip, boom, no frame
+available for media out one. This is
+something I never ran into personally
+when I use this effect. And I use this
+effect on every video cuz I never have a
+clip that long. But plenty of people
+have left comments that they do run into
+this issue and then I have to like
+provide like small workarounds or tips.
+But hey, why not just change that? So,
+this new update can just go and go and
+go. This is a multi-ong hour clip and it
+just it just keeps going. That I'm sure
+will be cool enough for some people. But
+hey, while we're here, we also took
+advantage of something new in Resolve
+20. And in the past version, you'll see
+these mask shape controls. You can
+choose this shape. Uh, and then you have
+all these like subfolders to uh further
+control like uh your selection, but that
+can get kind of messy. So in the update
+in this mask shape controls, you have
+that shape selection, but then it
+automatically change the visible
+controls to whatever you select. So if
+you want to customize them, you
+absolutely can. And then go back and
+forth and change any of those. It saves
+any uh change you make. So you got one
+big bug fix and one cool sort of like UI
+cleanup in a free update to a free
+plugin. I think it's pretty cool. By the
+time this video is live, I will have
+swapped out this file. So maybe if
+you're waiting for that update email,
+you can wait around. Or if you have
+never downloaded this plugin, you can
+head over to strengthsupply.co link in
+the description. Grab picture and
+pricker pro. Grab one of my other dozens
+of free plugins or click around some of
+my paid plugins. Really cool stuff like
+proto, which I've shown off a lot
+recently. And top secret tip right now
+on my channel, like two videos ago, I
+talk about this update for pictureand
+picture pro and I kind of give a tease
+um of another really really cool thing
+coming soon. Uh it's like beyond a
+product. It's it's a it's a program that
+does some cool stuff. I don't know how
+long that video will stay on the channel
+or if I will include this in the video.
+Anyway, Picture and Picture Pro I think
+is very cool. Hopefully you do too.
+Thanks for watching and I'll see you
+next

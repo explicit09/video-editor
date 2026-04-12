@@ -58,11 +58,11 @@ public struct AudioEffectProcessor: Sendable {
         // Build EQ biquad coefficients
         var eqFilters: [BiquadFilter] = []
         if let eq = effectChain.eq {
-            for band in eq.bands where band.gain != 0 {
+            for band in eq.bands where band.gainDB != 0 {
                 let biquad = BiquadFilter.peakingEQ(
-                    frequency: band.frequency,
-                    gain: band.gain,
-                    bandwidth: band.bandwidth,
+                    frequency: band.freqHz,
+                    gain: band.gainDB,
+                    q: band.q,
                     sampleRate: sampleRate
                 )
                 eqFilters.append(biquad)
@@ -71,16 +71,16 @@ public struct AudioEffectProcessor: Sendable {
 
         // Compressor state
         var compEnvelope: Float = 0
-        let compSettings = effectChain.compressor
+        let compConfig = effectChain.compressor
 
         // Noise gate threshold
-        let noiseGateThresholdLinear: Float? = effectChain.noiseGateThreshold.map { Float(pow(10.0, $0 / 20.0)) }
+        let noiseGateThresholdLinear: Float? = effectChain.gate.map { Float(pow(10.0, $0.thresholdDB / 20.0)) }
 
         // De-esser state
         var deEsserFilter: BiquadFilter? = nil
         var deEsserEnvelope: Float = 0
-        if let freq = effectChain.deEsserFrequency, freq > 0 {
-            deEsserFilter = BiquadFilter.bandpass(frequency: freq, q: 2.0, sampleRate: sampleRate)
+        if let deEsser = effectChain.deEsser, deEsser.centerFreqHz > 0 {
+            deEsserFilter = BiquadFilter.bandpass(frequency: deEsser.centerFreqHz, q: 2.0, sampleRate: sampleRate)
         }
 
         // Process buffers
@@ -102,8 +102,8 @@ public struct AudioEffectProcessor: Sendable {
             }
 
             // Apply compression
-            if let comp = compSettings {
-                applyCompression(&samples, settings: comp, envelope: &compEnvelope, sampleRate: Float(sampleRate))
+            if let comp = compConfig {
+                applyCompression(&samples, config: comp, envelope: &compEnvelope, sampleRate: Float(sampleRate))
             }
 
             // Apply de-esser (after EQ and compression)
@@ -141,12 +141,14 @@ public struct AudioEffectProcessor: Sendable {
 
     // MARK: - Compression
 
-    private func applyCompression(_ samples: inout [Float], settings: CompressorSettings, envelope: inout Float, sampleRate: Float) {
-        let thresholdLinear = Float(pow(10.0, settings.threshold / 20.0))
-        let ratio = Float(settings.ratio)
-        let attackCoeff = exp(-1.0 / (Float(settings.attack) * sampleRate))
-        let releaseCoeff = exp(-1.0 / (Float(settings.release) * sampleRate))
-        let makeupGainLinear = Float(pow(10.0, settings.makeupGain / 20.0))
+    private func applyCompression(_ samples: inout [Float], config: CompressorConfig, envelope: inout Float, sampleRate: Float) {
+        let thresholdLinear = Float(pow(10.0, config.thresholdDB / 20.0))
+        let ratio = Float(config.ratio)
+        let attackSec = Float(config.attackMS / 1000.0)
+        let releaseSec = Float(config.releaseMS / 1000.0)
+        let attackCoeff = exp(-1.0 / (attackSec * sampleRate))
+        let releaseCoeff = exp(-1.0 / (releaseSec * sampleRate))
+        let makeupGainLinear = Float(pow(10.0, config.makeupGainDB / 20.0))
 
         for i in 0..<samples.count {
             let inputLevel = abs(samples[i])
@@ -218,10 +220,10 @@ public struct AudioEffectProcessor: Sendable {
         var x1: Float = 0, x2: Float = 0, y1: Float = 0, y2: Float = 0
 
         /// Peaking EQ biquad coefficients (Audio EQ Cookbook by Robert Bristow-Johnson)
-        static func peakingEQ(frequency: Double, gain: Double, bandwidth: Double, sampleRate: Double) -> BiquadFilter {
+        static func peakingEQ(frequency: Double, gain: Double, q: Double, sampleRate: Double) -> BiquadFilter {
             let A = Float(pow(10.0, gain / 40.0))
             let w0 = Float(2.0 * Double.pi * frequency / sampleRate)
-            let alpha = sin(w0) * Float(sinh(log(2.0) / 2.0 * bandwidth * Double(w0) / Double(sin(w0))))
+            let alpha = sin(w0) / Float(2.0 * max(q, 0.1))
 
             let b0 = 1 + alpha * A
             let b1 = -2 * cos(w0)

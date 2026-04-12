@@ -1,0 +1,5407 @@
+[
+  {
+    "text": "I get asked a lot about the process of",
+    "start": 0.08,
+    "duration": 5.32
+  },
+  {
+    "text": "how I go through and edit my podcast",
+    "start": 2.8,
+    "duration": 6.32
+  },
+  {
+    "text": "specifically my video podcast uh and my",
+    "start": 5.4,
+    "duration": 6.72
+  },
+  {
+    "text": "audio podcast but here's the thing I",
+    "start": 9.12,
+    "duration": 5.16
+  },
+  {
+    "text": "edit them both at the same time and not",
+    "start": 12.12,
+    "duration": 3.88
+  },
+  {
+    "text": "only do I edit them both at the same",
+    "start": 14.28,
+    "duration": 5.28
+  },
+  {
+    "text": "time but by using Da Vinci resolve I",
+    "start": 16.0,
+    "duration": 6.4
+  },
+  {
+    "text": "have a very easily replicatable process",
+    "start": 19.56,
+    "duration": 5.52
+  },
+  {
+    "text": "that I can go through in in repeat each",
+    "start": 22.4,
+    "duration": 5.52
+  },
+  {
+    "text": "and every week so that my podcast is",
+    "start": 25.08,
+    "duration": 4.599
+  },
+  {
+    "text": "consistent and that's something that I",
+    "start": 27.92,
+    "duration": 3.28
+  },
+  {
+    "text": "think that my my viewers and my",
+    "start": 29.679,
+    "duration": 4.321
+  },
+  {
+    "text": "listeners really appreciate it so so in",
+    "start": 31.2,
+    "duration": 5.359
+  },
+  {
+    "text": "today's episode I'm going to go through",
+    "start": 34.0,
+    "duration": 4.8
+  },
+  {
+    "text": "and show you all the way from beginning",
+    "start": 36.559,
+    "duration": 4.881
+  },
+  {
+    "text": "to end how I edit my podcast it's going",
+    "start": 38.8,
+    "duration": 4.759
+  },
+  {
+    "text": "to be a long one so buckle up and if you",
+    "start": 41.44,
+    "duration": 4.119
+  },
+  {
+    "text": "have questions that something that I",
+    "start": 43.559,
+    "duration": 4.281
+  },
+  {
+    "text": "don't cover leave it in the comments",
+    "start": 45.559,
+    "duration": 4.241
+  },
+  {
+    "text": "down below and maybe I'll address it in",
+    "start": 47.84,
+    "duration": 4.28
+  },
+  {
+    "text": "a future video let's get started so the",
+    "start": 49.8,
+    "duration": 3.64
+  },
+  {
+    "text": "first thing that I have to do is I have",
+    "start": 52.12,
+    "duration": 3.079
+  },
+  {
+    "text": "to download the files from Riverside",
+    "start": 53.44,
+    "duration": 4.0
+  },
+  {
+    "text": "which is the sponsor of today's episode",
+    "start": 55.199,
+    "duration": 5.36
+  },
+  {
+    "text": "Riverside is a podcast recording",
+    "start": 57.44,
+    "duration": 6.56
+  },
+  {
+    "text": "platform that records all of your files",
+    "start": 60.559,
+    "duration": 6.961
+  },
+  {
+    "text": "locally and then uploads them so that",
+    "start": 64.0,
+    "duration": 5.52
+  },
+  {
+    "text": "you and whoever you are talking to can",
+    "start": 67.52,
+    "duration": 4.8
+  },
+  {
+    "text": "get the highest possible quality video",
+    "start": 69.52,
+    "duration": 5.279
+  },
+  {
+    "text": "and audio when recording your podcast",
+    "start": 72.32,
+    "duration": 5.28
+  },
+  {
+    "text": "without having to know how to do it it's",
+    "start": 74.799,
+    "duration": 4.64
+  },
+  {
+    "text": "I've done I've used a million different",
+    "start": 77.6,
+    "duration": 3.879
+  },
+  {
+    "text": "solutions for recording podcasts with",
+    "start": 79.439,
+    "duration": 3.841
+  },
+  {
+    "text": "other people over the internet and",
+    "start": 81.479,
+    "duration": 3.921
+  },
+  {
+    "text": "Riverside is the one that I find works",
+    "start": 83.28,
+    "duration": 5.0
+  },
+  {
+    "text": "the best and gives the best quality now",
+    "start": 85.4,
+    "duration": 4.52
+  },
+  {
+    "text": "I do think it is worth pointing out that",
+    "start": 88.28,
+    "duration": 4.56
+  },
+  {
+    "text": "not everybody needs to use a program",
+    "start": 89.92,
+    "duration": 4.64
+  },
+  {
+    "text": "like Da Vinci resolve in order to edit",
+    "start": 92.84,
+    "duration": 3.76
+  },
+  {
+    "text": "their podcast in fact if you don't know",
+    "start": 94.56,
+    "duration": 4.68
+  },
+  {
+    "text": "how to edit video at all one of the",
+    "start": 96.6,
+    "duration": 4.28
+  },
+  {
+    "text": "coolest things about Riverside is they",
+    "start": 99.24,
+    "duration": 4.159
+  },
+  {
+    "text": "have a built-in editor that will",
+    "start": 100.88,
+    "duration": 5.0
+  },
+  {
+    "text": "essentially edit your podcast for you",
+    "start": 103.399,
+    "duration": 4.0
+  },
+  {
+    "text": "all you have to do is click on that edit",
+    "start": 105.88,
+    "duration": 3.0
+  },
+  {
+    "text": "button like I showed you just a second",
+    "start": 107.399,
+    "duration": 3.841
+  },
+  {
+    "text": "ago and then you're going to be greeted",
+    "start": 108.88,
+    "duration": 4.32
+  },
+  {
+    "text": "with the complete transcript of your",
+    "start": 111.24,
+    "duration": 4.0
+  },
+  {
+    "text": "entire show right over here on the left",
+    "start": 113.2,
+    "duration": 4.199
+  },
+  {
+    "text": "hand side as well as what it's going to",
+    "start": 115.24,
+    "duration": 4.72
+  },
+  {
+    "text": "look like if I want I can change the",
+    "start": 117.399,
+    "duration": 5.4
+  },
+  {
+    "text": "layouts or the um I can change my tracks",
+    "start": 119.96,
+    "duration": 5.519
+  },
+  {
+    "text": "around so I can like you'll notice that",
+    "start": 122.799,
+    "duration": 5.161
+  },
+  {
+    "text": "I'm over here on the bottom left but I'm",
+    "start": 125.479,
+    "duration": 4.601
+  },
+  {
+    "text": "facing to the left and so I prefer to be",
+    "start": 127.96,
+    "duration": 3.88
+  },
+  {
+    "text": "on the right hand side of the screen so",
+    "start": 130.08,
+    "duration": 4.84
+  },
+  {
+    "text": "I'm just going to move myself up and now",
+    "start": 131.84,
+    "duration": 5.32
+  },
+  {
+    "text": "I'm on the right hand side of the screen",
+    "start": 134.92,
+    "duration": 4.52
+  },
+  {
+    "text": "facing to the left I I don't think it",
+    "start": 137.16,
+    "duration": 3.92
+  },
+  {
+    "text": "matters but it's just a personal",
+    "start": 139.44,
+    "duration": 4.56
+  },
+  {
+    "text": "preference for what I like to do uh I",
+    "start": 141.08,
+    "duration": 4.96
+  },
+  {
+    "text": "can also go through and say all right",
+    "start": 144.0,
+    "duration": 4.68
+  },
+  {
+    "text": "well Carrie uh who's also known as the",
+    "start": 146.04,
+    "duration": 6.24
+  },
+  {
+    "text": "fox if I click on this I can clean up",
+    "start": 148.68,
+    "duration": 6.559
+  },
+  {
+    "text": "his audio with one click this is all",
+    "start": 152.28,
+    "duration": 4.28
+  },
+  {
+    "text": "stuff that I'm going to be doing",
+    "start": 155.239,
+    "duration": 3.681
+  },
+  {
+    "text": "manually and da Vinci resolve later but",
+    "start": 156.56,
+    "duration": 3.88
+  },
+  {
+    "text": "you don't have to do it manually",
+    "start": 158.92,
+    "duration": 3.64
+  },
+  {
+    "text": "manually you can just use Rivers siiz",
+    "start": 160.44,
+    "duration": 4.6
+  },
+  {
+    "text": "built-in stuff I can also go into the",
+    "start": 162.56,
+    "duration": 5.16
+  },
+  {
+    "text": "layout and I can do picture and picture",
+    "start": 165.04,
+    "duration": 4.76
+  },
+  {
+    "text": "which will make one person big and",
+    "start": 167.72,
+    "duration": 4.04
+  },
+  {
+    "text": "everybody else small and then it",
+    "start": 169.8,
+    "duration": 4.96
+  },
+  {
+    "text": "automatically will edit when somebody",
+    "start": 171.76,
+    "duration": 5.28
+  },
+  {
+    "text": "switches from talking like when I stop",
+    "start": 174.76,
+    "duration": 4.32
+  },
+  {
+    "text": "talking and say somebody else starts",
+    "start": 177.04,
+    "duration": 4.4
+  },
+  {
+    "text": "talking they will take over the big spot",
+    "start": 179.08,
+    "duration": 3.92
+  },
+  {
+    "text": "and I would take over one of their",
+    "start": 181.44,
+    "duration": 4.719
+  },
+  {
+    "text": "smaller spots so if I jump ahead you can",
+    "start": 183.0,
+    "duration": 6.4
+  },
+  {
+    "text": "see that you know this guy Carrie is is",
+    "start": 186.159,
+    "duration": 5.8
+  },
+  {
+    "text": "talking and it pushed me into a smaller",
+    "start": 189.4,
+    "duration": 5.04
+  },
+  {
+    "text": "window now if you notice when you hover",
+    "start": 191.959,
+    "duration": 4.64
+  },
+  {
+    "text": "over this we've got little little um",
+    "start": 194.44,
+    "duration": 5.28
+  },
+  {
+    "text": "purple icon outline I can actually drag",
+    "start": 196.599,
+    "duration": 5.481
+  },
+  {
+    "text": "this around this is a new feature where",
+    "start": 199.72,
+    "duration": 4.28
+  },
+  {
+    "text": "if I decide that you know what I want",
+    "start": 202.08,
+    "duration": 4.159
+  },
+  {
+    "text": "rust to be in the Big Frame instead of",
+    "start": 204.0,
+    "duration": 4.28
+  },
+  {
+    "text": "carry maybe maybe the editor made a",
+    "start": 206.239,
+    "duration": 4.241
+  },
+  {
+    "text": "mistake I can click on it drag it over",
+    "start": 208.28,
+    "duration": 5.319
+  },
+  {
+    "text": "here and it'll swap them and I like it's",
+    "start": 210.48,
+    "duration": 5.839
+  },
+  {
+    "text": "just super super easy to make those",
+    "start": 213.599,
+    "duration": 5.241
+  },
+  {
+    "text": "changes and I like it a lot then",
+    "start": 216.319,
+    "duration": 4.56
+  },
+  {
+    "text": "whenever you are ready to export one",
+    "start": 218.84,
+    "duration": 3.24
+  },
+  {
+    "text": "thing that I would always say that you",
+    "start": 220.879,
+    "duration": 3.961
+  },
+  {
+    "text": "should do is normalize your audio levels",
+    "start": 222.08,
+    "duration": 4.799
+  },
+  {
+    "text": "this makes sure that your listeners or",
+    "start": 224.84,
+    "duration": 4.56
+  },
+  {
+    "text": "your viewers don't have to constantly",
+    "start": 226.879,
+    "duration": 4.881
+  },
+  {
+    "text": "turn the volume up and down based on",
+    "start": 229.4,
+    "duration": 3.919
+  },
+  {
+    "text": "who's talking or how loudly they're",
+    "start": 231.76,
+    "duration": 3.96
+  },
+  {
+    "text": "talking and then if you have some",
+    "start": 233.319,
+    "duration": 5.0
+  },
+  {
+    "text": "background noise like one of our one of",
+    "start": 235.72,
+    "duration": 4.56
+  },
+  {
+    "text": "the people on the show is using a",
+    "start": 238.319,
+    "duration": 3.84
+  },
+  {
+    "text": "condenser microphone which picks up a",
+    "start": 240.28,
+    "duration": 4.4
+  },
+  {
+    "text": "lot of ambient noise in the room I can",
+    "start": 242.159,
+    "duration": 4.521
+  },
+  {
+    "text": "click on remove background noise and it",
+    "start": 244.68,
+    "duration": 4.639
+  },
+  {
+    "text": "will get rid of that background noise so",
+    "start": 246.68,
+    "duration": 5.08
+  },
+  {
+    "text": "you can't hear it uh when they're",
+    "start": 249.319,
+    "duration": 4.48
+  },
+  {
+    "text": "talking it's really great feature and on",
+    "start": 251.76,
+    "duration": 3.839
+  },
+  {
+    "text": "top of that you can also add droll and",
+    "start": 253.799,
+    "duration": 3.041
+  },
+  {
+    "text": "this is another new feature that",
+    "start": 255.599,
+    "duration": 2.841
+  },
+  {
+    "text": "Riverside recently added where you can",
+    "start": 256.84,
+    "duration": 4.0
+  },
+  {
+    "text": "go into here to your uploads and then",
+    "start": 258.44,
+    "duration": 4.4
+  },
+  {
+    "text": "you can grab a video that you've",
+    "start": 260.84,
+    "duration": 5.04
+  },
+  {
+    "text": "uploaded and you can drag that onto your",
+    "start": 262.84,
+    "duration": 5.76
+  },
+  {
+    "text": "timeline and have b-roll while you're",
+    "start": 265.88,
+    "duration": 5.039
+  },
+  {
+    "text": "talking about something which is really",
+    "start": 268.6,
+    "duration": 4.039
+  },
+  {
+    "text": "really useful so whether you're making",
+    "start": 270.919,
+    "duration": 4.641
+  },
+  {
+    "text": "video podcasts or audio podcasts or like",
+    "start": 272.639,
+    "duration": 5.041
+  },
+  {
+    "text": "me doing both you might want to give",
+    "start": 275.56,
+    "duration": 4.76
+  },
+  {
+    "text": "Riverside a try it's really really easy",
+    "start": 277.68,
+    "duration": 4.44
+  },
+  {
+    "text": "to use there's a link in the description",
+    "start": 280.32,
+    "duration": 5.0
+  },
+  {
+    "text": "down below which will save you 15% off",
+    "start": 282.12,
+    "duration": 5.04
+  },
+  {
+    "text": "and uh huge thank you to Riverside for",
+    "start": 285.32,
+    "duration": 4.2
+  },
+  {
+    "text": "sponsoring this video I've put out",
+    "start": 287.16,
+    "duration": 4.599
+  },
+  {
+    "text": "plenty of episodes where Riverside has",
+    "start": 289.52,
+    "duration": 4.32
+  },
+  {
+    "text": "done the editing for me and I think it's",
+    "start": 291.759,
+    "duration": 4.961
+  },
+  {
+    "text": "fantastic but I prefer just a little",
+    "start": 293.84,
+    "duration": 5.88
+  },
+  {
+    "text": "more control that little more control",
+    "start": 296.72,
+    "duration": 5.4
+  },
+  {
+    "text": "comes with a lot of extra work but I",
+    "start": 299.72,
+    "duration": 4.84
+  },
+  {
+    "text": "think it pays off sometimes so I still",
+    "start": 302.12,
+    "duration": 4.88
+  },
+  {
+    "text": "use Riverside to record my podcast but",
+    "start": 304.56,
+    "duration": 4.919
+  },
+  {
+    "text": "then instead of going into the editor",
+    "start": 307.0,
+    "duration": 4.08
+  },
+  {
+    "text": "what I usually will do is I will just",
+    "start": 309.479,
+    "duration": 4.28
+  },
+  {
+    "text": "come down here to my recording",
+    "start": 311.08,
+    "duration": 4.76
+  },
+  {
+    "text": "files it's going to show me all my",
+    "start": 313.759,
+    "duration": 3.921
+  },
+  {
+    "text": "recording files and I click on export",
+    "start": 315.84,
+    "duration": 4.919
+  },
+  {
+    "text": "all and then download tracks once I",
+    "start": 317.68,
+    "duration": 5.72
+  },
+  {
+    "text": "click that it's going to take a I don't",
+    "start": 320.759,
+    "duration": 4.841
+  },
+  {
+    "text": "know like 10 15 minutes to zip all of",
+    "start": 323.4,
+    "duration": 4.04
+  },
+  {
+    "text": "the tracks together and then I can",
+    "start": 325.6,
+    "duration": 4.48
+  },
+  {
+    "text": "download them and now that I've got them",
+    "start": 327.44,
+    "duration": 5.68
+  },
+  {
+    "text": "downloaded let me open up finder you can",
+    "start": 330.08,
+    "duration": 5.8
+  },
+  {
+    "text": "see them right here this is the file",
+    "start": 333.12,
+    "duration": 4.48
+  },
+  {
+    "text": "that I downloaded I'm going to double",
+    "start": 335.88,
+    "duration": 3.64
+  },
+  {
+    "text": "click on it and then once it's done I'm",
+    "start": 337.6,
+    "duration": 3.719
+  },
+  {
+    "text": "going to have my folder here and if you",
+    "start": 339.52,
+    "duration": 4.08
+  },
+  {
+    "text": "look each person is going to have a",
+    "start": 341.319,
+    "duration": 4.121
+  },
+  {
+    "text": "bunch of different files now most of",
+    "start": 343.6,
+    "duration": 4.08
+  },
+  {
+    "text": "these are extra that we really don't",
+    "start": 345.44,
+    "duration": 4.92
+  },
+  {
+    "text": "need so what I like to do is I'm going",
+    "start": 347.68,
+    "duration": 7.639
+  },
+  {
+    "text": "to open this in a different um I'm going",
+    "start": 350.36,
+    "duration": 8.88
+  },
+  {
+    "text": "to open this in a different tab open a",
+    "start": 355.319,
+    "duration": 7.44
+  },
+  {
+    "text": "new tab tab drag it off to the side and",
+    "start": 359.24,
+    "duration": 5.239
+  },
+  {
+    "text": "then I go into my video Tab and I go",
+    "start": 362.759,
+    "duration": 5.121
+  },
+  {
+    "text": "into my interview Tab and then in here I",
+    "start": 364.479,
+    "duration": 6.28
+  },
+  {
+    "text": "double click and you see this it says",
+    "start": 367.88,
+    "duration": 6.96
+  },
+  {
+    "text": "Bill raw sync I grab that file drop it",
+    "start": 370.759,
+    "duration": 7.361
+  },
+  {
+    "text": "in there I do the same thing for this",
+    "start": 374.84,
+    "duration": 6.759
+  },
+  {
+    "text": "for for that speaker same thing for this",
+    "start": 378.12,
+    "duration": 5.24
+  },
+  {
+    "text": "speaker I'm just grabbing the first",
+    "start": 381.599,
+    "duration": 5.16
+  },
+  {
+    "text": "video file that shows",
+    "start": 383.36,
+    "duration": 3.399
+  },
+  {
+    "text": "up and I'm going to go ahead and close",
+    "start": 387.56,
+    "duration": 5.479
+  },
+  {
+    "text": "that now and now I have all of these so",
+    "start": 390.24,
+    "duration": 4.6
+  },
+  {
+    "text": "what then I'm going to go ahead and do",
+    "start": 393.039,
+    "duration": 4.681
+  },
+  {
+    "text": "is I'm going to delete that folder cuz I",
+    "start": 394.84,
+    "duration": 4.16
+  },
+  {
+    "text": "really don't need that folder and I'm",
+    "start": 397.72,
+    "duration": 3.319
+  },
+  {
+    "text": "going to delete that zip file because I",
+    "start": 399.0,
+    "duration": 3.52
+  },
+  {
+    "text": "really don't need that zip file and they",
+    "start": 401.039,
+    "duration": 5.241
+  },
+  {
+    "text": "are taking up a bunch of room on my um",
+    "start": 402.52,
+    "duration": 7.6
+  },
+  {
+    "text": "on my hard drive so once I've got that I",
+    "start": 406.28,
+    "duration": 8.479
+  },
+  {
+    "text": "can get rid of chrome and I can close",
+    "start": 410.12,
+    "duration": 7.32
+  },
+  {
+    "text": "this and I'm going to make a",
+    "start": 414.759,
+    "duration": 6.481
+  },
+  {
+    "text": "new podcast I'm hit new project I'm",
+    "start": 417.44,
+    "duration": 5.479
+  },
+  {
+    "text": "going to just call this",
+    "start": 421.24,
+    "duration": 4.04
+  },
+  {
+    "text": "example",
+    "start": 422.919,
+    "duration": 5.601
+  },
+  {
+    "text": "podcast and now I'm going to go into Da",
+    "start": 425.28,
+    "duration": 4.919
+  },
+  {
+    "text": "Vinci resolve I'm going to go over here",
+    "start": 428.52,
+    "duration": 6.16
+  },
+  {
+    "text": "to my uh media pool and over here on the",
+    "start": 430.199,
+    "duration": 6.081
+  },
+  {
+    "text": "left hand side you see this thing that",
+    "start": 434.68,
+    "duration": 3.56
+  },
+  {
+    "text": "says favorites in order to put things",
+    "start": 436.28,
+    "duration": 3.319
+  },
+  {
+    "text": "here in the favorites you're just going",
+    "start": 438.24,
+    "duration": 3.04
+  },
+  {
+    "text": "to find them over here and you can just",
+    "start": 439.599,
+    "duration": 3.361
+  },
+  {
+    "text": "drag them down to your favorites now I'm",
+    "start": 441.28,
+    "duration": 3.759
+  },
+  {
+    "text": "not actually going to do that uh because",
+    "start": 442.96,
+    "duration": 3.76
+  },
+  {
+    "text": "I've already got that but my projects",
+    "start": 445.039,
+    "duration": 4.56
+  },
+  {
+    "text": "are right here and if you look I have",
+    "start": 446.72,
+    "duration": 5.479
+  },
+  {
+    "text": "have a folder called how I edit my",
+    "start": 449.599,
+    "duration": 4.361
+  },
+  {
+    "text": "podcast so I'm going to double click on",
+    "start": 452.199,
+    "duration": 3.72
+  },
+  {
+    "text": "that and then I'm going to click on",
+    "start": 453.96,
+    "duration": 3.919
+  },
+  {
+    "text": "video and I'm going to drag that down",
+    "start": 455.919,
+    "duration": 4.641
+  },
+  {
+    "text": "here to on the left hand side where it",
+    "start": 457.879,
+    "duration": 6.401
+  },
+  {
+    "text": "says Master this is the bin for this",
+    "start": 460.56,
+    "duration": 7.199
+  },
+  {
+    "text": "particular podcast once it's there I go",
+    "start": 464.28,
+    "duration": 5.96
+  },
+  {
+    "text": "jump over to the edit tab I'm going to",
+    "start": 467.759,
+    "duration": 5.601
+  },
+  {
+    "text": "close the index open up my media pool",
+    "start": 470.24,
+    "duration": 5.48
+  },
+  {
+    "text": "and I going to click on interview and",
+    "start": 473.36,
+    "duration": 5.16
+  },
+  {
+    "text": "you can see that I have all of the files",
+    "start": 475.72,
+    "duration": 5.28
+  },
+  {
+    "text": "right there now the next thing that I",
+    "start": 478.52,
+    "duration": 5.92
+  },
+  {
+    "text": "like to do is I'm going to grab my video",
+    "start": 481.0,
+    "duration": 5.479
+  },
+  {
+    "text": "I'm going to drag it onto the",
+    "start": 484.44,
+    "duration": 4.64
+  },
+  {
+    "text": "timeline started at the beginning then",
+    "start": 486.479,
+    "duration": 5.961
+  },
+  {
+    "text": "I'm going to grab the next",
+    "start": 489.08,
+    "duration": 6.88
+  },
+  {
+    "text": "speaker line them",
+    "start": 492.44,
+    "duration": 3.52
+  },
+  {
+    "text": "up and now they're all lined up and um",
+    "start": 499.52,
+    "duration": 5.959
+  },
+  {
+    "text": "as you can see if I",
+    "start": 502.759,
+    "duration": 6.28
+  },
+  {
+    "text": "zoom if I move this up I'm waiting for",
+    "start": 505.479,
+    "duration": 5.16
+  },
+  {
+    "text": "the wave forms to get built you can see",
+    "start": 509.039,
+    "duration": 3.44
+  },
+  {
+    "text": "mine's been my wave for form's been",
+    "start": 510.639,
+    "duration": 4.121
+  },
+  {
+    "text": "built and uh if I zoom",
+    "start": 512.479,
+    "duration": 5.04
+  },
+  {
+    "text": "out if you look at this you can see uh",
+    "start": 514.76,
+    "duration": 6.92
+  },
+  {
+    "text": "the our audio levels are very different",
+    "start": 517.519,
+    "duration": 7.281
+  },
+  {
+    "text": "levels and that is because we all have",
+    "start": 521.68,
+    "duration": 4.4
+  },
+  {
+    "text": "different microphones we all have",
+    "start": 524.8,
+    "duration": 3.0
+  },
+  {
+    "text": "different voices we're all recording in",
+    "start": 526.08,
+    "duration": 4.6
+  },
+  {
+    "text": "different rooms or different different",
+    "start": 527.8,
+    "duration": 5.08
+  },
+  {
+    "text": "locations and we all have different",
+    "start": 530.68,
+    "duration": 4.96
+  },
+  {
+    "text": "voices and because of that uh we want to",
+    "start": 532.88,
+    "duration": 4.959
+  },
+  {
+    "text": "be able to edit our audio on a per track",
+    "start": 535.64,
+    "duration": 3.68
+  },
+  {
+    "text": "basis which I will show you how to do",
+    "start": 537.839,
+    "duration": 3.641
+  },
+  {
+    "text": "that that later uh this is one of the",
+    "start": 539.32,
+    "duration": 3.88
+  },
+  {
+    "text": "reasons that I switched from Final Cut",
+    "start": 541.48,
+    "duration": 4.16
+  },
+  {
+    "text": "Pro over to Da Vinci resolve is because",
+    "start": 543.2,
+    "duration": 5.319
+  },
+  {
+    "text": "just the audio editing is so much better",
+    "start": 545.64,
+    "duration": 5.879
+  },
+  {
+    "text": "uh but now that I've got those included",
+    "start": 548.519,
+    "duration": 5.481
+  },
+  {
+    "text": "um you can probably notice that they're",
+    "start": 551.519,
+    "duration": 4.44
+  },
+  {
+    "text": "all just stacked on top of each other",
+    "start": 554.0,
+    "duration": 4.68
+  },
+  {
+    "text": "which is really not how we want because",
+    "start": 555.959,
+    "duration": 5.361
+  },
+  {
+    "text": "if uh if you look we've got Russ here",
+    "start": 558.68,
+    "duration": 5.12
+  },
+  {
+    "text": "and I'm going to deactivate his layer",
+    "start": 561.32,
+    "duration": 5.56
+  },
+  {
+    "text": "the other people are all underneath so",
+    "start": 563.8,
+    "duration": 5.84
+  },
+  {
+    "text": "what we need to do is put these people",
+    "start": 566.88,
+    "duration": 5.68
+  },
+  {
+    "text": "into different sections of the screen if",
+    "start": 569.64,
+    "duration": 4.56
+  },
+  {
+    "text": "I want to have everybody on screen all",
+    "start": 572.56,
+    "duration": 3.76
+  },
+  {
+    "text": "at once so what I'm going to do is I'm",
+    "start": 574.2,
+    "duration": 4.56
+  },
+  {
+    "text": "going to go over here to my media pool",
+    "start": 576.32,
+    "duration": 4.079
+  },
+  {
+    "text": "and I'm going going to come down to my",
+    "start": 578.76,
+    "duration": 3.639
+  },
+  {
+    "text": "power bins now you won't have this in",
+    "start": 580.399,
+    "duration": 4.721
+  },
+  {
+    "text": "your power bins but after you've made",
+    "start": 582.399,
+    "duration": 5.201
+  },
+  {
+    "text": "effects or you have effects that you",
+    "start": 585.12,
+    "duration": 4.76
+  },
+  {
+    "text": "like to use if you drag them into your",
+    "start": 587.6,
+    "duration": 3.799
+  },
+  {
+    "text": "power bins and if you don't see Power",
+    "start": 589.88,
+    "duration": 3.24
+  },
+  {
+    "text": "bins here you just click on this three",
+    "start": 591.399,
+    "duration": 5.161
+  },
+  {
+    "text": "dots and you click on show Power bins",
+    "start": 593.12,
+    "duration": 4.56
+  },
+  {
+    "text": "right here make sure that that has a",
+    "start": 596.56,
+    "duration": 3.56
+  },
+  {
+    "text": "check next to it the cool thing about",
+    "start": 597.68,
+    "duration": 5.56
+  },
+  {
+    "text": "power bins is whatever you put in there",
+    "start": 600.12,
+    "duration": 6.12
+  },
+  {
+    "text": "is available in every single project",
+    "start": 603.24,
+    "duration": 5.4
+  },
+  {
+    "text": "that you make which is very very useful",
+    "start": 606.24,
+    "duration": 6.32
+  },
+  {
+    "text": "so if you look here I have this uh Power",
+    "start": 608.64,
+    "duration": 6.8
+  },
+  {
+    "text": "bin which is labeled podcast camera",
+    "start": 612.56,
+    "duration": 6.56
+  },
+  {
+    "text": "positions and in order to do this before",
+    "start": 615.44,
+    "duration": 7.28
+  },
+  {
+    "text": "I grab these and use them I'm going to",
+    "start": 619.12,
+    "duration": 6.56
+  },
+  {
+    "text": "rightclick and I'm going to add tracks",
+    "start": 622.72,
+    "duration": 4.84
+  },
+  {
+    "text": "and I am going to say add tracks",
+    "start": 625.68,
+    "duration": 3.68
+  },
+  {
+    "text": "multiple tracks instead of just add",
+    "start": 627.56,
+    "duration": 4.0
+  },
+  {
+    "text": "track because that gives me the ability",
+    "start": 629.36,
+    "duration": 4.8
+  },
+  {
+    "text": "to pick where the tracks go so I'm going",
+    "start": 631.56,
+    "duration": 5.76
+  },
+  {
+    "text": "to say add tracks I'm going to add one",
+    "start": 634.16,
+    "duration": 5.799
+  },
+  {
+    "text": "video track and I'm going to add that",
+    "start": 637.32,
+    "duration": 5.0
+  },
+  {
+    "text": "below my first track and then I'm going",
+    "start": 639.959,
+    "duration": 4.721
+  },
+  {
+    "text": "to add one audio track I'm going to make",
+    "start": 642.32,
+    "duration": 3.8
+  },
+  {
+    "text": "sure that it's stereo because that's",
+    "start": 644.68,
+    "duration": 4.2
+  },
+  {
+    "text": "going to be my podcast music and I'm",
+    "start": 646.12,
+    "duration": 5.76
+  },
+  {
+    "text": "going to have that be above the first",
+    "start": 648.88,
+    "duration": 5.6
+  },
+  {
+    "text": "track so basically what's going to",
+    "start": 651.88,
+    "duration": 3.92
+  },
+  {
+    "text": "happen is I'm going to take all of these",
+    "start": 654.48,
+    "duration": 3.0
+  },
+  {
+    "text": "tracks and I'm going to shift them away",
+    "start": 655.8,
+    "duration": 3.159
+  },
+  {
+    "text": "from the middle so I'm going to hit add",
+    "start": 657.48,
+    "duration": 3.2
+  },
+  {
+    "text": "track",
+    "start": 658.959,
+    "duration": 3.921
+  },
+  {
+    "text": "and you can see those there now let's",
+    "start": 660.68,
+    "duration": 5.92
+  },
+  {
+    "text": "label each track so this is going to be",
+    "start": 662.88,
+    "duration": 7.8
+  },
+  {
+    "text": "music this is going to be bill that's me",
+    "start": 666.6,
+    "duration": 6.52
+  },
+  {
+    "text": "and this one is Carrie and this one is",
+    "start": 670.68,
+    "duration": 5.88
+  },
+  {
+    "text": "Rich and this one is",
+    "start": 673.12,
+    "duration": 6.719
+  },
+  {
+    "text": "Russ uh once I have all of those labeled",
+    "start": 676.56,
+    "duration": 5.0
+  },
+  {
+    "text": "and it the reason I'm labeling that is",
+    "start": 679.839,
+    "duration": 3.12
+  },
+  {
+    "text": "because later when we go to edit the",
+    "start": 681.56,
+    "duration": 3.6
+  },
+  {
+    "text": "audio if you look over here on the right",
+    "start": 682.959,
+    "duration": 3.841
+  },
+  {
+    "text": "hand side and I always have trouble",
+    "start": 685.16,
+    "duration": 2.88
+  },
+  {
+    "text": "dragging",
+    "start": 686.8,
+    "duration": 4.039
+  },
+  {
+    "text": "this uh you drag that out you can see",
+    "start": 688.04,
+    "duration": 6.039
+  },
+  {
+    "text": "each channel is labeled so you can apply",
+    "start": 690.839,
+    "duration": 4.961
+  },
+  {
+    "text": "your effects to each Channel",
+    "start": 694.079,
+    "duration": 3.2
+  },
+  {
+    "text": "individually which we'll come back and",
+    "start": 695.8,
+    "duration": 4.279
+  },
+  {
+    "text": "do that later so now that I've got that",
+    "start": 697.279,
+    "duration": 5.12
+  },
+  {
+    "text": "set up what I'm going to put here in",
+    "start": 700.079,
+    "duration": 5.0
+  },
+  {
+    "text": "this blank track is I'm going to drag",
+    "start": 702.399,
+    "duration": 4.601
+  },
+  {
+    "text": "there's four of us so I need somebody on",
+    "start": 705.079,
+    "duration": 4.721
+  },
+  {
+    "text": "the bottom left the bottom right the top",
+    "start": 707.0,
+    "duration": 4.32
+  },
+  {
+    "text": "left and the top right so I'm going to",
+    "start": 709.8,
+    "duration": 4.12
+  },
+  {
+    "text": "grab each one of those I'm going to drag",
+    "start": 711.32,
+    "duration": 4.44
+  },
+  {
+    "text": "it underneath and you might be wondering",
+    "start": 713.92,
+    "duration": 3.28
+  },
+  {
+    "text": "why would I drag it underneath I'm going",
+    "start": 715.76,
+    "duration": 4.079
+  },
+  {
+    "text": "to explain why in just a second okay so",
+    "start": 717.2,
+    "duration": 4.28
+  },
+  {
+    "text": "let's say I wanted somebody to be on the",
+    "start": 719.839,
+    "duration": 4.481
+  },
+  {
+    "text": "top right if I drag this up above and",
+    "start": 721.48,
+    "duration": 5.039
+  },
+  {
+    "text": "then put my playhead at that you can see",
+    "start": 724.32,
+    "duration": 6.16
+  },
+  {
+    "text": "it's moved everything to the top right",
+    "start": 726.519,
+    "duration": 5.32
+  },
+  {
+    "text": "but that means it moves everything",
+    "start": 730.48,
+    "duration": 4.32
+  },
+  {
+    "text": "that's underneath it so all four of",
+    "start": 731.839,
+    "duration": 5.841
+  },
+  {
+    "text": "these this is called an adjustment clip",
+    "start": 734.8,
+    "duration": 5.44
+  },
+  {
+    "text": "okay so an adjustment clip it it it",
+    "start": 737.68,
+    "duration": 4.8
+  },
+  {
+    "text": "adjusts everything that's underneath it",
+    "start": 740.24,
+    "duration": 5.959
+  },
+  {
+    "text": "that's why I put them underneath this",
+    "start": 742.48,
+    "duration": 5.56
+  },
+  {
+    "text": "now why am I making adjustment Clips",
+    "start": 746.199,
+    "duration": 3.44
+  },
+  {
+    "text": "like this well because my adjustment",
+    "start": 748.04,
+    "duration": 4.44
+  },
+  {
+    "text": "Clips they have all of the settings that",
+    "start": 749.639,
+    "duration": 5.56
+  },
+  {
+    "text": "I already wanted to make so let me show",
+    "start": 752.48,
+    "duration": 5.52
+  },
+  {
+    "text": "you how to make the adjustment clip that",
+    "start": 755.199,
+    "duration": 5.44
+  },
+  {
+    "text": "we're talking about here so this",
+    "start": 758.0,
+    "duration": 7.36
+  },
+  {
+    "text": "one and uh if you click on here I have",
+    "start": 760.639,
+    "duration": 5.76
+  },
+  {
+    "text": "open",
+    "start": 765.36,
+    "duration": 3.76
+  },
+  {
+    "text": "FX and",
+    "start": 766.399,
+    "duration": 6.041
+  },
+  {
+    "text": "then transform so it says open FX",
+    "start": 769.12,
+    "duration": 6.24
+  },
+  {
+    "text": "transform so I'm going to",
+    "start": 772.44,
+    "duration": 6.36
+  },
+  {
+    "text": "recreate this over here so you can see",
+    "start": 775.36,
+    "duration": 6.08
+  },
+  {
+    "text": "what it like how I made this all right",
+    "start": 778.8,
+    "duration": 5.76
+  },
+  {
+    "text": "so this is open effects transform so I'm",
+    "start": 781.44,
+    "duration": 6.959
+  },
+  {
+    "text": "going to go to my effects open FX I'm",
+    "start": 784.56,
+    "duration": 5.639
+  },
+  {
+    "text": "going to click on that and then I'm",
+    "start": 788.399,
+    "duration": 2.841
+  },
+  {
+    "text": "going to click on the search and I'm",
+    "start": 790.199,
+    "duration": 2.08
+  },
+  {
+    "text": "going to type",
+    "start": 791.24,
+    "duration": 3.959
+  },
+  {
+    "text": "transform and it's right here I'm going",
+    "start": 792.279,
+    "duration": 5.961
+  },
+  {
+    "text": "to drop it on there so now it gives me",
+    "start": 795.199,
+    "duration": 5.841
+  },
+  {
+    "text": "all of these options so I can change my",
+    "start": 798.24,
+    "duration": 6.48
+  },
+  {
+    "text": "zoom level I can shrink it down to",
+    "start": 801.04,
+    "duration": 8.12
+  },
+  {
+    "text": "however small that I want it I can also",
+    "start": 804.72,
+    "duration": 8.679
+  },
+  {
+    "text": "move it to the right whoops to the right",
+    "start": 809.16,
+    "duration": 6.679
+  },
+  {
+    "text": "or I can move it to the left I can move",
+    "start": 813.399,
+    "duration": 7.281
+  },
+  {
+    "text": "it up or down and you can also go into",
+    "start": 815.839,
+    "duration": 8.24
+  },
+  {
+    "text": "your Edge adjustment and then go crop",
+    "start": 820.68,
+    "duration": 5.599
+  },
+  {
+    "text": "and instead of actually cropping I just",
+    "start": 824.079,
+    "duration": 4.921
+  },
+  {
+    "text": "like to increase the roundness on the",
+    "start": 826.279,
+    "duration": 4.36
+  },
+  {
+    "text": "corners so if you look right here you",
+    "start": 829.0,
+    "duration": 3.959
+  },
+  {
+    "text": "can see the the corners roundness is",
+    "start": 830.639,
+    "duration": 4.76
+  },
+  {
+    "text": "changing because I'd like to have just a",
+    "start": 832.959,
+    "duration": 4.361
+  },
+  {
+    "text": "little bit of roundness on the corners I",
+    "start": 835.399,
+    "duration": 4.201
+  },
+  {
+    "text": "think it looks a little bit better and",
+    "start": 837.32,
+    "duration": 4.879
+  },
+  {
+    "text": "then finally I'm going to come back over",
+    "start": 839.6,
+    "duration": 5.039
+  },
+  {
+    "text": "here to",
+    "start": 842.199,
+    "duration": 6.32
+  },
+  {
+    "text": "my favorites and I'm going to grab this",
+    "start": 844.639,
+    "duration": 7.401
+  },
+  {
+    "text": "drop shadow it's a re resolve FX styliz",
+    "start": 848.519,
+    "duration": 5.44
+  },
+  {
+    "text": "so if you were looking for that and you",
+    "start": 852.04,
+    "duration": 4.799
+  },
+  {
+    "text": "just click on your resolve FX",
+    "start": 853.959,
+    "duration": 5.081
+  },
+  {
+    "text": "so I'm going to do I'm going to type",
+    "start": 856.839,
+    "duration": 3.761
+  },
+  {
+    "text": "drop shadow",
+    "start": 859.04,
+    "duration": 4.56
+  },
+  {
+    "text": "here and that's not where it is open",
+    "start": 860.6,
+    "duration": 4.799
+  },
+  {
+    "text": "effects drop shadow it's under open",
+    "start": 863.6,
+    "duration": 3.4
+  },
+  {
+    "text": "effects and any effect that you really",
+    "start": 865.399,
+    "duration": 3.401
+  },
+  {
+    "text": "like you can just click on this star and",
+    "start": 867.0,
+    "duration": 5.079
+  },
+  {
+    "text": "it'll save it down here in your favorit",
+    "start": 868.8,
+    "duration": 5.12
+  },
+  {
+    "text": "so if there's something that you use all",
+    "start": 872.079,
+    "duration": 4.081
+  },
+  {
+    "text": "the time like I constantly use drop",
+    "start": 873.92,
+    "duration": 4.64
+  },
+  {
+    "text": "Shadows where' it go right here I",
+    "start": 876.16,
+    "duration": 4.239
+  },
+  {
+    "text": "constantly use drop Shadows then you",
+    "start": 878.56,
+    "duration": 3.24
+  },
+  {
+    "text": "want to have that so I'm going to grab",
+    "start": 880.399,
+    "duration": 3.201
+  },
+  {
+    "text": "this I'm going to drop it on my",
+    "start": 881.8,
+    "duration": 3.88
+  },
+  {
+    "text": "adjustment clip but I can't show you the",
+    "start": 883.6,
+    "duration": 4.64
+  },
+  {
+    "text": "drop shadow because currently anything",
+    "start": 885.68,
+    "duration": 4.719
+  },
+  {
+    "text": "that I put on the screen is going to be",
+    "start": 888.24,
+    "duration": 4.039
+  },
+  {
+    "text": "adjusted by this adjustment clip so you",
+    "start": 890.399,
+    "duration": 4.081
+  },
+  {
+    "text": "can't actually show that yet so now that",
+    "start": 892.279,
+    "duration": 4.081
+  },
+  {
+    "text": "you've seen how I make an adjustment",
+    "start": 894.48,
+    "duration": 3.96
+  },
+  {
+    "text": "clip and then I take this adjustment",
+    "start": 896.36,
+    "duration": 4.52
+  },
+  {
+    "text": "clip and and I saved it so if I come",
+    "start": 898.44,
+    "duration": 4.88
+  },
+  {
+    "text": "over here podcast camera positions I can",
+    "start": 900.88,
+    "duration": 4.6
+  },
+  {
+    "text": "grab that adjustment clip and just drop",
+    "start": 903.32,
+    "duration": 3.8
+  },
+  {
+    "text": "it in there if I want but I'm not going",
+    "start": 905.48,
+    "duration": 2.96
+  },
+  {
+    "text": "to because it's not something I'm going",
+    "start": 907.12,
+    "duration": 3.68
+  },
+  {
+    "text": "to use I'm actually going to delete that",
+    "start": 908.44,
+    "duration": 4.079
+  },
+  {
+    "text": "we're going to come back to this one",
+    "start": 910.8,
+    "duration": 3.76
+  },
+  {
+    "text": "which is the top right now why did I do",
+    "start": 912.519,
+    "duration": 4.841
+  },
+  {
+    "text": "all that I put it underneath I hit",
+    "start": 914.56,
+    "duration": 5.12
+  },
+  {
+    "text": "command C or contrl C if you're on",
+    "start": 917.36,
+    "duration": 5.12
+  },
+  {
+    "text": "Windows and then I'm going to click on",
+    "start": 919.68,
+    "duration": 5.64
+  },
+  {
+    "text": "somebody and put them in the top right",
+    "start": 922.48,
+    "duration": 6.2
+  },
+  {
+    "text": "so uh I'm going to select uh my friend",
+    "start": 925.32,
+    "duration": 6.24
+  },
+  {
+    "text": "Russ here and instead of command V I'm",
+    "start": 928.68,
+    "duration": 4.839
+  },
+  {
+    "text": "going to hit option",
+    "start": 931.56,
+    "duration": 4.68
+  },
+  {
+    "text": "V and it's going to open up this this is",
+    "start": 933.519,
+    "duration": 4.481
+  },
+  {
+    "text": "going to paste my attributes and I'm",
+    "start": 936.24,
+    "duration": 3.92
+  },
+  {
+    "text": "going to say video attributes just click",
+    "start": 938.0,
+    "duration": 4.759
+  },
+  {
+    "text": "all of them and if I hit apply now you",
+    "start": 940.16,
+    "duration": 5.0
+  },
+  {
+    "text": "can see the drop Shadows there and he's",
+    "start": 942.759,
+    "duration": 4.801
+  },
+  {
+    "text": "moved up to the top right so now I got",
+    "start": 945.16,
+    "duration": 4.96
+  },
+  {
+    "text": "to look for bottom right and I'm zoomed",
+    "start": 947.56,
+    "duration": 5.04
+  },
+  {
+    "text": "out a little bit too far so I so I can't",
+    "start": 950.12,
+    "duration": 4.88
+  },
+  {
+    "text": "see there we go the names so here's",
+    "start": 952.6,
+    "duration": 6.719
+  },
+  {
+    "text": "bottom right I'm going to do command C",
+    "start": 955.0,
+    "duration": 8.92
+  },
+  {
+    "text": "click on a person option V apply you",
+    "start": 959.319,
+    "duration": 6.801
+  },
+  {
+    "text": "can't see what happened because I did",
+    "start": 963.92,
+    "duration": 4.2
+  },
+  {
+    "text": "that",
+    "start": 966.12,
+    "duration": 6.279
+  },
+  {
+    "text": "oops to a track that is invisible so you",
+    "start": 968.12,
+    "duration": 7.32
+  },
+  {
+    "text": "I did it right there to that one next",
+    "start": 972.399,
+    "duration": 7.481
+  },
+  {
+    "text": "I'm going to do bottom left command",
+    "start": 975.44,
+    "duration": 8.879
+  },
+  {
+    "text": "C option V and then one more which would",
+    "start": 979.88,
+    "duration": 9.759
+  },
+  {
+    "text": "be top left command C whoops command C",
+    "start": 984.319,
+    "duration": 9.44
+  },
+  {
+    "text": "and then option V and I hit apply so now",
+    "start": 989.639,
+    "duration": 6.161
+  },
+  {
+    "text": "all four people are where they need to",
+    "start": 993.759,
+    "duration": 4.0
+  },
+  {
+    "text": "be I'm going to zoom back out actually",
+    "start": 995.8,
+    "duration": 4.519
+  },
+  {
+    "text": "not that far and I'm going to select",
+    "start": 997.759,
+    "duration": 5.2
+  },
+  {
+    "text": "these four things and just delete them",
+    "start": 1000.319,
+    "duration": 5.52
+  },
+  {
+    "text": "because I don't need them anymore next I",
+    "start": 1002.959,
+    "duration": 4.88
+  },
+  {
+    "text": "want to put a background that goes",
+    "start": 1005.839,
+    "duration": 4.12
+  },
+  {
+    "text": "underneath everybody this is why I added",
+    "start": 1007.839,
+    "duration": 4.841
+  },
+  {
+    "text": "this track to the bottom because now if",
+    "start": 1009.959,
+    "duration": 4.36
+  },
+  {
+    "text": "I go into my effects these are just some",
+    "start": 1012.68,
+    "duration": 3.839
+  },
+  {
+    "text": "things that I've already saved I have",
+    "start": 1014.319,
+    "duration": 4.801
+  },
+  {
+    "text": "this um",
+    "start": 1016.519,
+    "duration": 5.481
+  },
+  {
+    "text": "this uh like basically like a wallpaper",
+    "start": 1019.12,
+    "duration": 4.959
+  },
+  {
+    "text": "but I'm going to grab this I'm going to",
+    "start": 1022.0,
+    "duration": 3.52
+  },
+  {
+    "text": "put it right down",
+    "start": 1024.079,
+    "duration": 3.6
+  },
+  {
+    "text": "here and you can see it doesn't take up",
+    "start": 1025.52,
+    "duration": 5.559
+  },
+  {
+    "text": "the whole podcast but command",
+    "start": 1027.679,
+    "duration": 6.561
+  },
+  {
+    "text": "C go to the end of that clip by pushing",
+    "start": 1031.079,
+    "duration": 5.12
+  },
+  {
+    "text": "down and then I'm just going to hit",
+    "start": 1034.24,
+    "duration": 4.0
+  },
+  {
+    "text": "command v a bunch of times until it",
+    "start": 1036.199,
+    "duration": 4.12
+  },
+  {
+    "text": "fills up the whole",
+    "start": 1038.24,
+    "duration": 4.28
+  },
+  {
+    "text": "thing you might say well nothing's",
+    "start": 1040.319,
+    "duration": 3.48
+  },
+  {
+    "text": "happening and that's because I'm at the",
+    "start": 1042.52,
+    "duration": 4.2
+  },
+  {
+    "text": "end of the clip each time all right well",
+    "start": 1043.799,
+    "duration": 6.161
+  },
+  {
+    "text": "now that I'm there if I click on this",
+    "start": 1046.72,
+    "duration": 4.6
+  },
+  {
+    "text": "now you can",
+    "start": 1049.96,
+    "duration": 4.839
+  },
+  {
+    "text": "see that we have this background beneath",
+    "start": 1051.32,
+    "duration": 5.96
+  },
+  {
+    "text": "underneath us if I hit play you can see",
+    "start": 1054.799,
+    "duration": 4.561
+  },
+  {
+    "text": "the podcast is happening and and we've",
+    "start": 1057.28,
+    "duration": 4.32
+  },
+  {
+    "text": "got this little animated thing happening",
+    "start": 1059.36,
+    "duration": 4.64
+  },
+  {
+    "text": "underneath and you're all set then I'm",
+    "start": 1061.6,
+    "duration": 5.12
+  },
+  {
+    "text": "going to go back into Riverside all",
+    "start": 1064.0,
+    "duration": 4.88
+  },
+  {
+    "text": "right again Riverside has this really",
+    "start": 1066.72,
+    "duration": 4.12
+  },
+  {
+    "text": "cool transcription feature so I'm going",
+    "start": 1068.88,
+    "duration": 4.679
+  },
+  {
+    "text": "to go edit create new edit and then I",
+    "start": 1070.84,
+    "duration": 4.64
+  },
+  {
+    "text": "remember that when we were having this",
+    "start": 1073.559,
+    "duration": 3.641
+  },
+  {
+    "text": "conversation somebody said something",
+    "start": 1075.48,
+    "duration": 3.679
+  },
+  {
+    "text": "very funny and I said oh that's the",
+    "start": 1077.2,
+    "duration": 4.28
+  },
+  {
+    "text": "intro because what I usually like to do",
+    "start": 1079.159,
+    "duration": 5.64
+  },
+  {
+    "text": "is find some clip that's in the middle",
+    "start": 1081.48,
+    "duration": 6.319
+  },
+  {
+    "text": "of the episode and that that might be",
+    "start": 1084.799,
+    "duration": 5.36
+  },
+  {
+    "text": "funny or interesting and I put that at",
+    "start": 1087.799,
+    "duration": 5.681
+  },
+  {
+    "text": "the very beginning of the episode just a",
+    "start": 1090.159,
+    "duration": 6.041
+  },
+  {
+    "text": "small clip and then the intro and then",
+    "start": 1093.48,
+    "duration": 5.52
+  },
+  {
+    "text": "we jump into the actual show so I'm",
+    "start": 1096.2,
+    "duration": 4.16
+  },
+  {
+    "text": "going to click on this search button",
+    "start": 1099.0,
+    "duration": 4.919
+  },
+  {
+    "text": "right here and I'm going to type",
+    "start": 1100.36,
+    "duration": 6.4
+  },
+  {
+    "text": "intro and there's four results and uh",
+    "start": 1103.919,
+    "duration": 4.361
+  },
+  {
+    "text": "you can see right here I said and",
+    "start": 1106.76,
+    "duration": 3.399
+  },
+  {
+    "text": "there's the intro and that happened at",
+    "start": 1108.28,
+    "duration": 5.759
+  },
+  {
+    "text": "about 29 minutes into the podcast so why",
+    "start": 1110.159,
+    "duration": 5.721
+  },
+  {
+    "text": "is that important well I'm going to go",
+    "start": 1114.039,
+    "duration": 4.921
+  },
+  {
+    "text": "ahead and close that and I I shouldn't",
+    "start": 1115.88,
+    "duration": 5.279
+  },
+  {
+    "text": "have moved those yet but I'm going to go",
+    "start": 1118.96,
+    "duration": 4.76
+  },
+  {
+    "text": "to about 29 minutes all right so that's",
+    "start": 1121.159,
+    "duration": 5.241
+  },
+  {
+    "text": "right around there and I'm going to find",
+    "start": 1123.72,
+    "duration": 4.88
+  },
+  {
+    "text": "the",
+    "start": 1126.4,
+    "duration": 2.2
+  },
+  {
+    "text": "intro",
+    "start": 1128.96,
+    "duration": 3.959
+  },
+  {
+    "text": "intro all right there's the intro right",
+    "start": 1130.64,
+    "duration": 4.48
+  },
+  {
+    "text": "there I heard myself say there's the",
+    "start": 1132.919,
+    "duration": 5.281
+  },
+  {
+    "text": "intro so then I'm going to hit W and",
+    "start": 1135.12,
+    "duration": 6.08
+  },
+  {
+    "text": "you'll notice let me hit undo uh I have",
+    "start": 1138.2,
+    "duration": 5.92
+  },
+  {
+    "text": "all four of us selected and I hit W and",
+    "start": 1141.2,
+    "duration": 5.56
+  },
+  {
+    "text": "that cuts and makes that into two clips",
+    "start": 1144.12,
+    "duration": 5.679
+  },
+  {
+    "text": "and then I'm going to rewind a little",
+    "start": 1146.76,
+    "duration": 3.039
+  },
+  {
+    "text": "bit it converts your PS",
+    "start": 1150.64,
+    "duration": 5.48
+  },
+  {
+    "text": "VR2",
+    "start": 1153.88,
+    "duration": 5.52
+  },
+  {
+    "text": "your and then he says convert your psvr2",
+    "start": 1156.12,
+    "duration": 6.28
+  },
+  {
+    "text": "into psvr one it's kind of funny so now",
+    "start": 1159.4,
+    "duration": 5.48
+  },
+  {
+    "text": "I'm just going to hit W again and you",
+    "start": 1162.4,
+    "duration": 3.56
+  },
+  {
+    "text": "might be wondering well what just",
+    "start": 1164.88,
+    "duration": 4.76
+  },
+  {
+    "text": "happened well if I zoom way in now",
+    "start": 1165.96,
+    "duration": 6.839
+  },
+  {
+    "text": "I have these clips this is the intro of",
+    "start": 1169.64,
+    "duration": 5.6
+  },
+  {
+    "text": "the show so here's what I'm going to do",
+    "start": 1172.799,
+    "duration": 4.081
+  },
+  {
+    "text": "I'm going to click right here I'm going",
+    "start": 1175.24,
+    "duration": 4.2
+  },
+  {
+    "text": "to click and drag and grab all of them",
+    "start": 1176.88,
+    "duration": 4.12
+  },
+  {
+    "text": "move them to the",
+    "start": 1179.44,
+    "duration": 3.119
+  },
+  {
+    "text": "right",
+    "start": 1181.0,
+    "duration": 5.84
+  },
+  {
+    "text": "then I'm going to click",
+    "start": 1182.559,
+    "duration": 6.521
+  },
+  {
+    "text": "these",
+    "start": 1186.84,
+    "duration": 5.319
+  },
+  {
+    "text": "copy shift Z to zoom",
+    "start": 1189.08,
+    "duration": 6.079
+  },
+  {
+    "text": "out paste that right",
+    "start": 1192.159,
+    "duration": 5.081
+  },
+  {
+    "text": "there there's the",
+    "start": 1195.159,
+    "duration": 5.041
+  },
+  {
+    "text": "intro yeah it converts your PSV VR2 to a",
+    "start": 1197.24,
+    "duration": 5.2
+  },
+  {
+    "text": "PS",
+    "start": 1200.2,
+    "duration": 2.24
+  },
+  {
+    "text": "VR1 all right so there's our intro now",
+    "start": 1203.559,
+    "duration": 4.281
+  },
+  {
+    "text": "at the end of the",
+    "start": 1206.32,
+    "duration": 3.2
+  },
+  {
+    "text": "intro",
+    "start": 1207.84,
+    "duration": 4.959
+  },
+  {
+    "text": "intro I'm going to cut those off all",
+    "start": 1209.52,
+    "duration": 4.639
+  },
+  {
+    "text": "right so",
+    "start": 1212.799,
+    "duration": 4.401
+  },
+  {
+    "text": "w highlight those delete what do I want",
+    "start": 1214.159,
+    "duration": 7.561
+  },
+  {
+    "text": "to do now well now I'm going to grab my",
+    "start": 1217.2,
+    "duration": 8.08
+  },
+  {
+    "text": "asset for like my logo and I'm going to",
+    "start": 1221.72,
+    "duration": 7.52
+  },
+  {
+    "text": "drag that on top of this",
+    "start": 1225.28,
+    "duration": 5.84
+  },
+  {
+    "text": "actually let me put that over there I'm",
+    "start": 1229.24,
+    "duration": 4.319
+  },
+  {
+    "text": "going to click on this so I have my two",
+    "start": 1231.12,
+    "duration": 4.88
+  },
+  {
+    "text": "windows this is my source window this is",
+    "start": 1233.559,
+    "duration": 4.401
+  },
+  {
+    "text": "my timeline window and I'm going to",
+    "start": 1236.0,
+    "duration": 4.4
+  },
+  {
+    "text": "double click on nerd Nest intro 10",
+    "start": 1237.96,
+    "duration": 4.64
+  },
+  {
+    "text": "seconds and that's right there and then",
+    "start": 1240.4,
+    "duration": 3.84
+  },
+  {
+    "text": "I only want the video part I don't want",
+    "start": 1242.6,
+    "duration": 3.28
+  },
+  {
+    "text": "the audio part so I'm going to click on",
+    "start": 1244.24,
+    "duration": 3.96
+  },
+  {
+    "text": "this and drag it down I don't need the",
+    "start": 1245.88,
+    "duration": 5.48
+  },
+  {
+    "text": "audio it's it there's blank audio anyway",
+    "start": 1248.2,
+    "duration": 5.44
+  },
+  {
+    "text": "so then if I click on this you're going",
+    "start": 1251.36,
+    "duration": 5.0
+  },
+  {
+    "text": "to notice if I get rid of that there's",
+    "start": 1253.64,
+    "duration": 4.96
+  },
+  {
+    "text": "no drop shadow there so I'm going to",
+    "start": 1256.36,
+    "duration": 5.0
+  },
+  {
+    "text": "going to go into my effects my favorites",
+    "start": 1258.6,
+    "duration": 6.319
+  },
+  {
+    "text": "come down here grab the drop shadow and",
+    "start": 1261.36,
+    "duration": 6.12
+  },
+  {
+    "text": "drop it on there and now there's a bit",
+    "start": 1264.919,
+    "duration": 4.281
+  },
+  {
+    "text": "of a drop shadow but I think it's a",
+    "start": 1267.48,
+    "duration": 4.12
+  },
+  {
+    "text": "little too is there a drop shadow no I",
+    "start": 1269.2,
+    "duration": 6.359
+  },
+  {
+    "text": "didn't actually I must have",
+    "start": 1271.6,
+    "duration": 3.959
+  },
+  {
+    "text": "missed",
+    "start": 1276.0,
+    "duration": 3.0
+  },
+  {
+    "text": "what there we go okay I double click it",
+    "start": 1281.679,
+    "duration": 5.441
+  },
+  {
+    "text": "instead uh now if you look over here",
+    "start": 1284.679,
+    "duration": 5.0
+  },
+  {
+    "text": "under on on our insector if you don't",
+    "start": 1287.12,
+    "duration": 3.96
+  },
+  {
+    "text": "see the inspector and you click this",
+    "start": 1289.679,
+    "duration": 4.441
+  },
+  {
+    "text": "it'll pop up I've got effects open",
+    "start": 1291.08,
+    "duration": 5.16
+  },
+  {
+    "text": "effects and drop Shadows turned on and I",
+    "start": 1294.12,
+    "duration": 4.799
+  },
+  {
+    "text": "can change anything I want about the",
+    "start": 1296.24,
+    "duration": 4.2
+  },
+  {
+    "text": "drop shadow so I'll make it a little",
+    "start": 1298.919,
+    "duration": 4.081
+  },
+  {
+    "text": "less blurry I'll make it a little",
+    "start": 1300.44,
+    "duration": 5.2
+  },
+  {
+    "text": "stronger of a shadow and lower the",
+    "start": 1303.0,
+    "duration": 4.12
+  },
+  {
+    "text": "distance a little bit maybe increase the",
+    "start": 1305.64,
+    "duration": 3.6
+  },
+  {
+    "text": "blur just a little bit I like the way",
+    "start": 1307.12,
+    "duration": 4.6
+  },
+  {
+    "text": "that looks then I'm just going to move",
+    "start": 1309.24,
+    "duration": 5.72
+  },
+  {
+    "text": "this to the left that's not the",
+    "start": 1311.72,
+    "duration": 7.16
+  },
+  {
+    "text": "left to the left and shrink it down just",
+    "start": 1314.96,
+    "duration": 5.56
+  },
+  {
+    "text": "a just a",
+    "start": 1318.88,
+    "duration": 5.64
+  },
+  {
+    "text": "touch so then this is the intro the",
+    "start": 1320.52,
+    "duration": 6.84
+  },
+  {
+    "text": "intro you see it pop up there next I",
+    "start": 1324.52,
+    "duration": 5.08
+  },
+  {
+    "text": "need to grab the rest of the",
+    "start": 1327.36,
+    "duration": 4.6
+  },
+  {
+    "text": "podcast and bring it back so I'll grab",
+    "start": 1329.6,
+    "duration": 4.04
+  },
+  {
+    "text": "all of those Actually I don't even need",
+    "start": 1331.96,
+    "duration": 4.12
+  },
+  {
+    "text": "to if I click on this it's going to",
+    "start": 1333.64,
+    "duration": 5.519
+  },
+  {
+    "text": "select the Gap and if I hit backspace it",
+    "start": 1336.08,
+    "duration": 4.68
+  },
+  {
+    "text": "will bring everything to the right of",
+    "start": 1339.159,
+    "duration": 3.52
+  },
+  {
+    "text": "that Gap over to the",
+    "start": 1340.76,
+    "duration": 5.279
+  },
+  {
+    "text": "left but you'll notice it also watch",
+    "start": 1342.679,
+    "duration": 6.761
+  },
+  {
+    "text": "this it also deleted these these uh",
+    "start": 1346.039,
+    "duration": 4.961
+  },
+  {
+    "text": "these things called wallpaper so I'm",
+    "start": 1349.44,
+    "duration": 3.64
+  },
+  {
+    "text": "going to show you that one more time",
+    "start": 1351.0,
+    "duration": 3.64
+  },
+  {
+    "text": "that's a problem the reason that that's",
+    "start": 1353.08,
+    "duration": 3.68
+  },
+  {
+    "text": "a problem is because this is a perfectly",
+    "start": 1354.64,
+    "duration": 4.88
+  },
+  {
+    "text": "looped wallpaper right so a perfectly",
+    "start": 1356.76,
+    "duration": 4.76
+  },
+  {
+    "text": "looped wallpaper well if I'm cutting it",
+    "start": 1359.52,
+    "duration": 3.68
+  },
+  {
+    "text": "in the middle of it and then changing it",
+    "start": 1361.52,
+    "duration": 3.0
+  },
+  {
+    "text": "well it's not going to be a perfect Loop",
+    "start": 1363.2,
+    "duration": 4.24
+  },
+  {
+    "text": "anymore so instead of clicking the Gap",
+    "start": 1364.52,
+    "duration": 5.279
+  },
+  {
+    "text": "and just hitting delete I'm going to",
+    "start": 1367.44,
+    "duration": 4.719
+  },
+  {
+    "text": "click and drag this over and once it",
+    "start": 1369.799,
+    "duration": 4.961
+  },
+  {
+    "text": "hits my if I have snapping on which is",
+    "start": 1372.159,
+    "duration": 4.241
+  },
+  {
+    "text": "this little magnet here so you turn it",
+    "start": 1374.76,
+    "duration": 3.84
+  },
+  {
+    "text": "on or off if I have it on when it gets",
+    "start": 1376.4,
+    "duration": 3.72
+  },
+  {
+    "text": "my playhead it'll just lock there and",
+    "start": 1378.6,
+    "duration": 5.6
+  },
+  {
+    "text": "now if I zoom in you can see my intro",
+    "start": 1380.12,
+    "duration": 7.559
+  },
+  {
+    "text": "intro and now the logo pops up and",
+    "start": 1384.2,
+    "duration": 4.64
+  },
+  {
+    "text": "there's you going to be music which",
+    "start": 1387.679,
+    "duration": 4.201
+  },
+  {
+    "text": "we'll add in in a little",
+    "start": 1388.84,
+    "duration": 3.04
+  },
+  {
+    "text": "bit and then there's the beginning of",
+    "start": 1392.2,
+    "duration": 6.16
+  },
+  {
+    "text": "the show so now we have most of the show",
+    "start": 1394.159,
+    "duration": 6.921
+  },
+  {
+    "text": "made if I'm not going through and adding",
+    "start": 1398.36,
+    "duration": 4.6
+  },
+  {
+    "text": "b-roll and everything to the podcast",
+    "start": 1401.08,
+    "duration": 3.479
+  },
+  {
+    "text": "which is something that I do but is very",
+    "start": 1402.96,
+    "duration": 2.92
+  },
+  {
+    "text": "timec consuming and I'm not going to",
+    "start": 1404.559,
+    "duration": 4.321
+  },
+  {
+    "text": "show that on screen right now um you",
+    "start": 1405.88,
+    "duration": 4.84
+  },
+  {
+    "text": "know what I will show one part on screen",
+    "start": 1408.88,
+    "duration": 4.44
+  },
+  {
+    "text": "so let's say in this part of the show",
+    "start": 1410.72,
+    "duration": 5.0
+  },
+  {
+    "text": "right here we're talking",
+    "start": 1413.32,
+    "duration": 4.88
+  },
+  {
+    "text": "about Monster Hunter Wilds which is a",
+    "start": 1415.72,
+    "duration": 5.12
+  },
+  {
+    "text": "new video game so what I would do is I",
+    "start": 1418.2,
+    "duration": 5.0
+  },
+  {
+    "text": "would go into my media pool and I would",
+    "start": 1420.84,
+    "duration": 5.839
+  },
+  {
+    "text": "come to my power bins and I have a",
+    "start": 1423.2,
+    "duration": 6.04
+  },
+  {
+    "text": "folder called b-roll and then I'm going",
+    "start": 1426.679,
+    "duration": 4.761
+  },
+  {
+    "text": "to go to games and then game trailers",
+    "start": 1429.24,
+    "duration": 4.679
+  },
+  {
+    "text": "and I'll",
+    "start": 1431.44,
+    "duration": 7.76
+  },
+  {
+    "text": "find the Monster Hunter Wilds footage",
+    "start": 1433.919,
+    "duration": 7.801
+  },
+  {
+    "text": "double click",
+    "start": 1439.2,
+    "duration": 7.359
+  },
+  {
+    "text": "it grab this put it on",
+    "start": 1441.72,
+    "duration": 7.52
+  },
+  {
+    "text": "top and now when we're talking I'm going",
+    "start": 1446.559,
+    "duration": 3.921
+  },
+  {
+    "text": "just going to mute",
+    "start": 1449.24,
+    "duration": 4.16
+  },
+  {
+    "text": "this when we're talking uh and then we",
+    "start": 1450.48,
+    "duration": 5.88
+  },
+  {
+    "text": "start talking about uh this particular",
+    "start": 1453.4,
+    "duration": 6.44
+  },
+  {
+    "text": "game you can see that it is going to uh",
+    "start": 1456.36,
+    "duration": 5.76
+  },
+  {
+    "text": "switch over to the b-roll but that's",
+    "start": 1459.84,
+    "duration": 4.24
+  },
+  {
+    "text": "covering the whole screen maybe I don't",
+    "start": 1462.12,
+    "duration": 3.48
+  },
+  {
+    "text": "want to cover the whole screen so here's",
+    "start": 1464.08,
+    "duration": 3.959
+  },
+  {
+    "text": "my solution for that what I do is I just",
+    "start": 1465.6,
+    "duration": 4.48
+  },
+  {
+    "text": "select one of the four of us I'm going",
+    "start": 1468.039,
+    "duration": 4.36
+  },
+  {
+    "text": "to hit command C I'm going to click on",
+    "start": 1470.08,
+    "duration": 4.52
+  },
+  {
+    "text": "my Boll I'm going to hit command or I'm",
+    "start": 1472.399,
+    "duration": 5.801
+  },
+  {
+    "text": "sorry option V and this is going to do",
+    "start": 1474.6,
+    "duration": 4.88
+  },
+  {
+    "text": "the same thing that we did before where",
+    "start": 1478.2,
+    "duration": 2.839
+  },
+  {
+    "text": "it's going to shrink it down so now it's",
+    "start": 1479.48,
+    "duration": 3.76
+  },
+  {
+    "text": "covering up one of us okay but I don't",
+    "start": 1481.039,
+    "duration": 3.721
+  },
+  {
+    "text": "want it to cover up one of us I want it",
+    "start": 1483.24,
+    "duration": 4.64
+  },
+  {
+    "text": "to be in the middle of all of us so I",
+    "start": 1484.76,
+    "duration": 5.6
+  },
+  {
+    "text": "click on the the track or not the track",
+    "start": 1487.88,
+    "duration": 4.84
+  },
+  {
+    "text": "but the clip I'm going to come over here",
+    "start": 1490.36,
+    "duration": 5.679
+  },
+  {
+    "text": "to effects and I'm going to if you look",
+    "start": 1492.72,
+    "duration": 6.4
+  },
+  {
+    "text": "my position X and position y is25",
+    "start": 1496.039,
+    "duration": 5.481
+  },
+  {
+    "text": ".250 which moves it to the upper right",
+    "start": 1499.12,
+    "duration": 5.36
+  },
+  {
+    "text": "quadrant of the screen if I just hit",
+    "start": 1501.52,
+    "duration": 5.0
+  },
+  {
+    "text": "reset on both of those it moves it to",
+    "start": 1504.48,
+    "duration": 4.76
+  },
+  {
+    "text": "the middle but it's a little too big",
+    "start": 1506.52,
+    "duration": 4.84
+  },
+  {
+    "text": "like it's covering up Rich's face and Co",
+    "start": 1509.24,
+    "duration": 3.919
+  },
+  {
+    "text": "covering up you know it's covering up",
+    "start": 1511.36,
+    "duration": 3.96
+  },
+  {
+    "text": "too much of everything but that's okay",
+    "start": 1513.159,
+    "duration": 3.441
+  },
+  {
+    "text": "because we have zoom right here",
+    "start": 1515.32,
+    "duration": 3.839
+  },
+  {
+    "text": "currently set to 0 450 all I'm going to",
+    "start": 1516.6,
+    "duration": 5.559
+  },
+  {
+    "text": "do is click on the numbers drag to the",
+    "start": 1519.159,
+    "duration": 6.281
+  },
+  {
+    "text": "left until I feel like that's the right",
+    "start": 1522.159,
+    "duration": 5.681
+  },
+  {
+    "text": "size and now I've got the b-roll and it",
+    "start": 1525.44,
+    "duration": 5.28
+  },
+  {
+    "text": "automatically has if I close this it",
+    "start": 1527.84,
+    "duration": 4.839
+  },
+  {
+    "text": "automatically has a drop shadow and",
+    "start": 1530.72,
+    "duration": 4.88
+  },
+  {
+    "text": "rounded Corners because I copied it from",
+    "start": 1532.679,
+    "duration": 5.201
+  },
+  {
+    "text": "one of the four people which made it so",
+    "start": 1535.6,
+    "duration": 5.0
+  },
+  {
+    "text": "much easier and I can you know do that",
+    "start": 1537.88,
+    "duration": 5.6
+  },
+  {
+    "text": "you know with I if maybe we're talking",
+    "start": 1540.6,
+    "duration": 4.88
+  },
+  {
+    "text": "about a different game at this point I",
+    "start": 1543.48,
+    "duration": 4.28
+  },
+  {
+    "text": "grab that",
+    "start": 1545.48,
+    "duration": 5.36
+  },
+  {
+    "text": "clip I command",
+    "start": 1547.76,
+    "duration": 7.279
+  },
+  {
+    "text": "C option V apply so then when we get to",
+    "start": 1550.84,
+    "duration": 6.48
+  },
+  {
+    "text": "this point it's going to show us another",
+    "start": 1555.039,
+    "duration": 4.961
+  },
+  {
+    "text": "clip and and I go through and I do that",
+    "start": 1557.32,
+    "duration": 4.76
+  },
+  {
+    "text": "for every single game that we're talking",
+    "start": 1560.0,
+    "duration": 4.76
+  },
+  {
+    "text": "about on the podcast because I know that",
+    "start": 1562.08,
+    "duration": 5.56
+  },
+  {
+    "text": "our audience likes to see the games that",
+    "start": 1564.76,
+    "duration": 4.44
+  },
+  {
+    "text": "we're talking about while we're talking",
+    "start": 1567.64,
+    "duration": 3.88
+  },
+  {
+    "text": "about them if they're watching on",
+    "start": 1569.2,
+    "duration": 4.599
+  },
+  {
+    "text": "YouTube when you are doing this if",
+    "start": 1571.52,
+    "duration": 4.879
+  },
+  {
+    "text": "you're making your podcast with YouTube",
+    "start": 1573.799,
+    "duration": 5.641
+  },
+  {
+    "text": "in mind it's also important to make sure",
+    "start": 1576.399,
+    "duration": 5.52
+  },
+  {
+    "text": "that you're not",
+    "start": 1579.44,
+    "duration": 5.28
+  },
+  {
+    "text": "requiring that your audience sees the",
+    "start": 1581.919,
+    "duration": 4.12
+  },
+  {
+    "text": "things that are on the screen in order",
+    "start": 1584.72,
+    "duration": 3.72
+  },
+  {
+    "text": "to get the most out of it so even though",
+    "start": 1586.039,
+    "duration": 3.841
+  },
+  {
+    "text": "we're talking about a game and I'm",
+    "start": 1588.44,
+    "duration": 3.719
+  },
+  {
+    "text": "showing it on the screen we're not",
+    "start": 1589.88,
+    "duration": 4.84
+  },
+  {
+    "text": "referring to what we're seeing during",
+    "start": 1592.159,
+    "duration": 5.601
+  },
+  {
+    "text": "the show because for the audio listeners",
+    "start": 1594.72,
+    "duration": 5.36
+  },
+  {
+    "text": "that would be a bad experience now",
+    "start": 1597.76,
+    "duration": 4.519
+  },
+  {
+    "text": "speaking of audio we got to find some",
+    "start": 1600.08,
+    "duration": 4.04
+  },
+  {
+    "text": "music to put in this so I'm going to go",
+    "start": 1602.279,
+    "duration": 4.561
+  },
+  {
+    "text": "back to my",
+    "start": 1604.12,
+    "duration": 2.72
+  },
+  {
+    "text": "intro here's my intro right here and",
+    "start": 1608.039,
+    "duration": 5.561
+  },
+  {
+    "text": "I've got my channel for music in order",
+    "start": 1611.0,
+    "duration": 4.08
+  },
+  {
+    "text": "to grab some music I'm going to go into",
+    "start": 1613.6,
+    "duration": 6.28
+  },
+  {
+    "text": "my power bins effects and and here's a",
+    "start": 1615.08,
+    "duration": 7.04
+  },
+  {
+    "text": "song I'm going to click that song and",
+    "start": 1619.88,
+    "duration": 5.039
+  },
+  {
+    "text": "drag it right over here so what I want",
+    "start": 1622.12,
+    "duration": 4.72
+  },
+  {
+    "text": "to see",
+    "start": 1624.919,
+    "duration": 4.88
+  },
+  {
+    "text": "is what does it sound like when the",
+    "start": 1626.84,
+    "duration": 7.199
+  },
+  {
+    "text": "intro Clicks in right so take a",
+    "start": 1629.799,
+    "duration": 4.24
+  },
+  {
+    "text": "look I'm looking for something right",
+    "start": 1641.0,
+    "duration": 7.2
+  },
+  {
+    "text": "there did you hear that",
+    "start": 1644.24,
+    "duration": 3.96
+  },
+  {
+    "text": "I want that to come in when the nerd",
+    "start": 1648.32,
+    "duration": 6.599
+  },
+  {
+    "text": "Nest logo pops up so I'm G to click here",
+    "start": 1651.32,
+    "duration": 5.28
+  },
+  {
+    "text": "actually just to show you what I mean",
+    "start": 1654.919,
+    "duration": 4.24
+  },
+  {
+    "text": "I'm going to click my playhead right",
+    "start": 1656.6,
+    "duration": 4.559
+  },
+  {
+    "text": "here this is what I'm looking at is",
+    "start": 1659.159,
+    "duration": 3.561
+  },
+  {
+    "text": "where my playhead is and you're just",
+    "start": 1661.159,
+    "duration": 3.321
+  },
+  {
+    "text": "going to hit a marker you see that",
+    "start": 1662.72,
+    "duration": 3.04
+  },
+  {
+    "text": "little blue tag there and then I'm just",
+    "start": 1664.48,
+    "duration": 2.679
+  },
+  {
+    "text": "going to drag",
+    "start": 1665.76,
+    "duration": 4.68
+  },
+  {
+    "text": "that blue",
+    "start": 1667.159,
+    "duration": 3.281
+  },
+  {
+    "text": "marker well I was going to drag it to",
+    "start": 1670.559,
+    "duration": 4.24
+  },
+  {
+    "text": "the left but I can't because the track",
+    "start": 1672.559,
+    "duration": 4.641
+  },
+  {
+    "text": "is too too long so I'll just cut off the",
+    "start": 1674.799,
+    "duration": 4.081
+  },
+  {
+    "text": "beginning of it",
+    "start": 1677.2,
+    "duration": 3.839
+  },
+  {
+    "text": "bring this to the",
+    "start": 1678.88,
+    "duration": 4.919
+  },
+  {
+    "text": "left and then bring that all the way out",
+    "start": 1681.039,
+    "duration": 4.601
+  },
+  {
+    "text": "to the beginning okay so the song is",
+    "start": 1683.799,
+    "duration": 2.921
+  },
+  {
+    "text": "actually not starting right in the",
+    "start": 1685.64,
+    "duration": 4.0
+  },
+  {
+    "text": "middle so here's the",
+    "start": 1686.72,
+    "duration": 2.92
+  },
+  {
+    "text": "intro which I like but the music is",
+    "start": 1690.32,
+    "duration": 5.12
+  },
+  {
+    "text": "completely covering",
+    "start": 1693.559,
+    "duration": 5.401
+  },
+  {
+    "text": "up what we're saying here in this part",
+    "start": 1695.44,
+    "duration": 6.599
+  },
+  {
+    "text": "so all I do is I click on this right",
+    "start": 1698.96,
+    "duration": 6.0
+  },
+  {
+    "text": "here and I'm going to drag it to the",
+    "start": 1702.039,
+    "duration": 6.36
+  },
+  {
+    "text": "left and I this is the right this point",
+    "start": 1704.96,
+    "duration": 5.48
+  },
+  {
+    "text": "right here where my playhead is that is",
+    "start": 1708.399,
+    "duration": 5.081
+  },
+  {
+    "text": "the point where it switches over and",
+    "start": 1710.44,
+    "duration": 5.44
+  },
+  {
+    "text": "we're not talking anymore so that's I I",
+    "start": 1713.48,
+    "duration": 4.799
+  },
+  {
+    "text": "usually go just a little bit past that",
+    "start": 1715.88,
+    "duration": 4.08
+  },
+  {
+    "text": "and then if you look at this little gray",
+    "start": 1718.279,
+    "duration": 3.88
+  },
+  {
+    "text": "dot right here it's kind of hard to see",
+    "start": 1719.96,
+    "duration": 3.839
+  },
+  {
+    "text": "if you click on that gray dot you can",
+    "start": 1722.159,
+    "duration": 5.441
+  },
+  {
+    "text": "change the shape of the curve that",
+    "start": 1723.799,
+    "duration": 5.801
+  },
+  {
+    "text": "changes the volume of the music so I'm",
+    "start": 1727.6,
+    "duration": 5.12
+  },
+  {
+    "text": "going to have it slowly increase so",
+    "start": 1729.6,
+    "duration": 4.72
+  },
+  {
+    "text": "it'll be very very quiet here and then",
+    "start": 1732.72,
+    "duration": 3.16
+  },
+  {
+    "text": "it'll get louder and louder and louder",
+    "start": 1734.32,
+    "duration": 5.28
+  },
+  {
+    "text": "so I'm going to hit play",
+    "start": 1735.88,
+    "duration": 3.72
+  },
+  {
+    "text": "and all right and then I'm going to hit",
+    "start": 1741.32,
+    "duration": 4.88
+  },
+  {
+    "text": "uh",
+    "start": 1744.799,
+    "duration": 3.961
+  },
+  {
+    "text": "Zoom get the appropriate amount of Zoom",
+    "start": 1746.2,
+    "duration": 4.0
+  },
+  {
+    "text": "let me go ahead and close my media pool",
+    "start": 1748.76,
+    "duration": 3.6
+  },
+  {
+    "text": "so I can see a little bit more and I'm",
+    "start": 1750.2,
+    "duration": 4.8
+  },
+  {
+    "text": "going to get rid of all of this extra",
+    "start": 1752.36,
+    "duration": 3.88
+  },
+  {
+    "text": "music because we don't need that during",
+    "start": 1755.0,
+    "duration": 3.6
+  },
+  {
+    "text": "the show this is just intro",
+    "start": 1756.24,
+    "duration": 6.48
+  },
+  {
+    "text": "music and then do the same thing just on",
+    "start": 1758.6,
+    "duration": 5.319
+  },
+  {
+    "text": "the other",
+    "start": 1762.72,
+    "duration": 5.839
+  },
+  {
+    "text": "side now let's go back",
+    "start": 1763.919,
+    "duration": 4.64
+  },
+  {
+    "text": "hey everybody Welcome all right then",
+    "start": 1769.12,
+    "duration": 3.48
+  },
+  {
+    "text": "there's the intro now you might think to",
+    "start": 1771.159,
+    "duration": 2.921
+  },
+  {
+    "text": "yourself well you're still kind of hard",
+    "start": 1772.6,
+    "duration": 3.079
+  },
+  {
+    "text": "to hear over the music that's because I",
+    "start": 1774.08,
+    "duration": 3.199
+  },
+  {
+    "text": "haven't mastered everything yet I",
+    "start": 1775.679,
+    "duration": 3.72
+  },
+  {
+    "text": "haven't gotten all of my levels exactly",
+    "start": 1777.279,
+    "duration": 3.88
+  },
+  {
+    "text": "where I want and I do that on a per",
+    "start": 1779.399,
+    "duration": 6.64
+  },
+  {
+    "text": "track basis uh so then I click this",
+    "start": 1781.159,
+    "duration": 8.041
+  },
+  {
+    "text": "right here which is my uh logo and the",
+    "start": 1786.039,
+    "duration": 7.081
+  },
+  {
+    "text": "music and I hit command C shift Z to",
+    "start": 1789.2,
+    "duration": 6.04
+  },
+  {
+    "text": "zoom all the way back out go all the way",
+    "start": 1793.12,
+    "duration": 5.799
+  },
+  {
+    "text": "to the end of the show",
+    "start": 1795.24,
+    "duration": 3.679
+  },
+  {
+    "text": "against",
+    "start": 1799.799,
+    "duration": 3.6
+  },
+  {
+    "text": "fers and I got to find where the show",
+    "start": 1800.64,
+    "duration": 5.08
+  },
+  {
+    "text": "actually stops all right there's the end",
+    "start": 1803.399,
+    "duration": 4.801
+  },
+  {
+    "text": "so I'm just going to zoom in I'm going",
+    "start": 1805.72,
+    "duration": 5.6
+  },
+  {
+    "text": "to select all four of these hit",
+    "start": 1808.2,
+    "duration": 5.52
+  },
+  {
+    "text": "W and then hit backspace now somebody",
+    "start": 1811.32,
+    "duration": 3.88
+  },
+  {
+    "text": "might say well Bill how come you can",
+    "start": 1813.72,
+    "duration": 3.92
+  },
+  {
+    "text": "don't just use your trim the end or trim",
+    "start": 1815.2,
+    "duration": 4.599
+  },
+  {
+    "text": "the beginning shortcuts that's because",
+    "start": 1817.64,
+    "duration": 5.2
+  },
+  {
+    "text": "if I do that it will usually mess with",
+    "start": 1819.799,
+    "duration": 5.48
+  },
+  {
+    "text": "this wallpaper which goes underneath and",
+    "start": 1822.84,
+    "duration": 4.76
+  },
+  {
+    "text": "I'm not doing a lot of cuts during the",
+    "start": 1825.279,
+    "duration": 4.601
+  },
+  {
+    "text": "podcast I just let the podcast go",
+    "start": 1827.6,
+    "duration": 4.319
+  },
+  {
+    "text": "naturally all right so now that I've got",
+    "start": 1829.88,
+    "duration": 5.039
+  },
+  {
+    "text": "that done uh I've copied from before now",
+    "start": 1831.919,
+    "duration": 6.281
+  },
+  {
+    "text": "I'm going to paste it in the intro music",
+    "start": 1834.919,
+    "duration": 5.561
+  },
+  {
+    "text": "and",
+    "start": 1838.2,
+    "duration": 6.28
+  },
+  {
+    "text": "the uh logo and I will click both of",
+    "start": 1840.48,
+    "duration": 7.559
+  },
+  {
+    "text": "these whoops wrong button I click both",
+    "start": 1844.48,
+    "duration": 5.48
+  },
+  {
+    "text": "of these I'm going to drag them to the",
+    "start": 1848.039,
+    "duration": 4.36
+  },
+  {
+    "text": "left and this is going to be the very",
+    "start": 1849.96,
+    "duration": 4.16
+  },
+  {
+    "text": "end of my podcast right here so I'm",
+    "start": 1852.399,
+    "duration": 4.441
+  },
+  {
+    "text": "going to click on the wallpaper I'm",
+    "start": 1854.12,
+    "duration": 5.08
+  },
+  {
+    "text": "going to hit e to delete the rest of",
+    "start": 1856.84,
+    "duration": 4.439
+  },
+  {
+    "text": "that I'm going to click on the music I'm",
+    "start": 1859.2,
+    "duration": 3.76
+  },
+  {
+    "text": "going to hit e to delete the rest of",
+    "start": 1861.279,
+    "duration": 5.28
+  },
+  {
+    "text": "that and then I'm going to grab this",
+    "start": 1862.96,
+    "duration": 6.36
+  },
+  {
+    "text": "handle and drag it to the end and I what",
+    "start": 1866.559,
+    "duration": 5.0
+  },
+  {
+    "text": "I usually do is I will have the music",
+    "start": 1869.32,
+    "duration": 3.92
+  },
+  {
+    "text": "fade in the opposite direction at the",
+    "start": 1871.559,
+    "duration": 3.881
+  },
+  {
+    "text": "very",
+    "start": 1873.24,
+    "duration": 2.2
+  },
+  {
+    "text": "end and I think that that's probably",
+    "start": 1876.799,
+    "duration": 7.441
+  },
+  {
+    "text": "good I'll do it a little bit more",
+    "start": 1879.399,
+    "duration": 4.841
+  },
+  {
+    "text": "[Music]",
+    "start": 1886.36,
+    "duration": 3.64
+  },
+  {
+    "text": "all right so the podcast is essentially",
+    "start": 1888.039,
+    "duration": 4.401
+  },
+  {
+    "text": "edited now all I have to do now is get",
+    "start": 1890.0,
+    "duration": 4.72
+  },
+  {
+    "text": "my audio levels right so now we're going",
+    "start": 1892.44,
+    "duration": 4.839
+  },
+  {
+    "text": "to jump into Fair light so I'm going to",
+    "start": 1894.72,
+    "duration": 5.679
+  },
+  {
+    "text": "click on Fair light and in Fair light",
+    "start": 1897.279,
+    "duration": 5.12
+  },
+  {
+    "text": "over here on the right hand side if you",
+    "start": 1900.399,
+    "duration": 3.961
+  },
+  {
+    "text": "if you don't see all of these then you",
+    "start": 1902.399,
+    "duration": 4.801
+  },
+  {
+    "text": "got to click on this and drag it to the",
+    "start": 1904.36,
+    "duration": 4.52
+  },
+  {
+    "text": "left and now I can see all of my",
+    "start": 1907.2,
+    "duration": 4.24
+  },
+  {
+    "text": "different channels uh you see that we",
+    "start": 1908.88,
+    "duration": 4.799
+  },
+  {
+    "text": "have if I zoom out there's something on",
+    "start": 1911.44,
+    "duration": 4.119
+  },
+  {
+    "text": "audio",
+    "start": 1913.679,
+    "duration": 6.321
+  },
+  {
+    "text": "6 that right there if you look that is",
+    "start": 1915.559,
+    "duration": 8.281
+  },
+  {
+    "text": "the b-roll I forgot and I I dragged in",
+    "start": 1920.0,
+    "duration": 5.559
+  },
+  {
+    "text": "the audio for that Boll so what I'm",
+    "start": 1923.84,
+    "duration": 3.92
+  },
+  {
+    "text": "going to just going to do is I'm going",
+    "start": 1925.559,
+    "duration": 5.281
+  },
+  {
+    "text": "to I'm going to go into my edit",
+    "start": 1927.76,
+    "duration": 5.44
+  },
+  {
+    "text": "Tab and I'm going to come down here and",
+    "start": 1930.84,
+    "duration": 5.64
+  },
+  {
+    "text": "I'm going to right click unlink and then",
+    "start": 1933.2,
+    "duration": 5.28
+  },
+  {
+    "text": "I'll just delete the",
+    "start": 1936.48,
+    "duration": 4.72
+  },
+  {
+    "text": "audio and now you can see the audio 6 is",
+    "start": 1938.48,
+    "duration": 4.919
+  },
+  {
+    "text": "completely empty if you right click you",
+    "start": 1941.2,
+    "duration": 4.24
+  },
+  {
+    "text": "can say delete empty tracks and it will",
+    "start": 1943.399,
+    "duration": 3.801
+  },
+  {
+    "text": "delete any tracks that don't have",
+    "start": 1945.44,
+    "duration": 3.479
+  },
+  {
+    "text": "anything in in them so I'm going to go",
+    "start": 1947.2,
+    "duration": 2.92
+  },
+  {
+    "text": "ahead and do that and it gets rid of",
+    "start": 1948.919,
+    "duration": 5.72
+  },
+  {
+    "text": "audio 6 all right now in order to get",
+    "start": 1950.12,
+    "duration": 6.76
+  },
+  {
+    "text": "your music or your audio sounding good",
+    "start": 1954.639,
+    "duration": 4.081
+  },
+  {
+    "text": "you're going to have to edit each person",
+    "start": 1956.88,
+    "duration": 3.72
+  },
+  {
+    "text": "individually because everybody's in",
+    "start": 1958.72,
+    "duration": 3.12
+  },
+  {
+    "text": "different locations with different",
+    "start": 1960.6,
+    "duration": 3.64
+  },
+  {
+    "text": "microphones and different voices and so",
+    "start": 1961.84,
+    "duration": 3.959
+  },
+  {
+    "text": "that's one of the reasons this is the",
+    "start": 1964.24,
+    "duration": 3.76
+  },
+  {
+    "text": "reason that I switched to uh resolve",
+    "start": 1965.799,
+    "duration": 4.321
+  },
+  {
+    "text": "over Final Cut is because it made track",
+    "start": 1968.0,
+    "duration": 4.519
+  },
+  {
+    "text": "editing instead of editing individual",
+    "start": 1970.12,
+    "duration": 5.519
+  },
+  {
+    "text": "Clips I can edit edit the entire track",
+    "start": 1972.519,
+    "duration": 4.921
+  },
+  {
+    "text": "at once and it makes it just so much",
+    "start": 1975.639,
+    "duration": 4.64
+  },
+  {
+    "text": "easier and they're really powerful tools",
+    "start": 1977.44,
+    "duration": 5.52
+  },
+  {
+    "text": "so the first thing that I'm going to do",
+    "start": 1980.279,
+    "duration": 5.161
+  },
+  {
+    "text": "is I'm going to take a look at mine",
+    "start": 1982.96,
+    "duration": 4.839
+  },
+  {
+    "text": "which is this track right here I'm going",
+    "start": 1985.44,
+    "duration": 4.56
+  },
+  {
+    "text": "to come up here and I'm going to click",
+    "start": 1987.799,
+    "duration": 4.6
+  },
+  {
+    "text": "on voice isolation I can't remember if",
+    "start": 1990.0,
+    "duration": 4.279
+  },
+  {
+    "text": "voice isolation is part of the free part",
+    "start": 1992.399,
+    "duration": 5.24
+  },
+  {
+    "text": "of Da Vinci resolve or the paid version",
+    "start": 1994.279,
+    "duration": 6.681
+  },
+  {
+    "text": "um but I do this every single week so",
+    "start": 1997.639,
+    "duration": 5.321
+  },
+  {
+    "text": "it's it was worth the paid version for",
+    "start": 2000.96,
+    "duration": 5.28
+  },
+  {
+    "text": "me uh I'm going to click on these little",
+    "start": 2002.96,
+    "duration": 6.76
+  },
+  {
+    "text": "um uh like controls right here and I'm",
+    "start": 2006.24,
+    "duration": 7.799
+  },
+  {
+    "text": "going to decrease my uh amount of voice",
+    "start": 2009.72,
+    "duration": 6.919
+  },
+  {
+    "text": "isolation usually for myself I usually",
+    "start": 2014.039,
+    "duration": 5.321
+  },
+  {
+    "text": "go down down to about 15 or 20 or",
+    "start": 2016.639,
+    "duration": 4.321
+  },
+  {
+    "text": "somewhere between those two because I've",
+    "start": 2019.36,
+    "duration": 4.84
+  },
+  {
+    "text": "got a pretty decent microphone setup all",
+    "start": 2020.96,
+    "duration": 6.079
+  },
+  {
+    "text": "right so that gets rid of any background",
+    "start": 2024.2,
+    "duration": 4.959
+  },
+  {
+    "text": "noise like I've got a fan going right",
+    "start": 2027.039,
+    "duration": 4.081
+  },
+  {
+    "text": "there I've got a fan on the back of my",
+    "start": 2029.159,
+    "duration": 4.561
+  },
+  {
+    "text": "camera right now um you know something",
+    "start": 2031.12,
+    "duration": 4.439
+  },
+  {
+    "text": "else happening in my house all of that",
+    "start": 2033.72,
+    "duration": 3.12
+  },
+  {
+    "text": "stuff could get picked up by this",
+    "start": 2035.559,
+    "duration": 3.521
+  },
+  {
+    "text": "microphone but if I turn on voice",
+    "start": 2036.84,
+    "duration": 4.079
+  },
+  {
+    "text": "isolation I get rid of all that",
+    "start": 2039.08,
+    "duration": 5.8
+  },
+  {
+    "text": "extraneous noise next I will go into",
+    "start": 2040.919,
+    "duration": 5.0
+  },
+  {
+    "text": "dialogue",
+    "start": 2044.88,
+    "duration": 4.84
+  },
+  {
+    "text": "leveling and dialogue leveling uh on the",
+    "start": 2045.919,
+    "duration": 5.521
+  },
+  {
+    "text": "the Baseline one or the yeah the",
+    "start": 2049.72,
+    "duration": 4.439
+  },
+  {
+    "text": "Baseline one is a little aggressive so I",
+    "start": 2051.44,
+    "duration": 6.0
+  },
+  {
+    "text": "use my default which says optimi",
+    "start": 2054.159,
+    "duration": 6.401
+  },
+  {
+    "text": "optimize moderate levels and then I turn",
+    "start": 2057.44,
+    "duration": 5.8
+  },
+  {
+    "text": "off lift soft dialogue because it's just",
+    "start": 2060.56,
+    "duration": 5.039
+  },
+  {
+    "text": "a little too aggressive I think for me",
+    "start": 2063.24,
+    "duration": 4.08
+  },
+  {
+    "text": "uh so those are the changes that I made",
+    "start": 2065.599,
+    "duration": 6.361
+  },
+  {
+    "text": "and then I I just saved that as my my",
+    "start": 2067.32,
+    "duration": 8.2
+  },
+  {
+    "text": "default next I come down here to",
+    "start": 2071.96,
+    "duration": 6.56
+  },
+  {
+    "text": "Dynamics actually before I do that click",
+    "start": 2075.52,
+    "duration": 5.839
+  },
+  {
+    "text": "on this and this tells you what order",
+    "start": 2078.52,
+    "duration": 6.28
+  },
+  {
+    "text": "will D Vinci resolve do things in so",
+    "start": 2081.359,
+    "duration": 6.48
+  },
+  {
+    "text": "right now it's set to run FX first then",
+    "start": 2084.8,
+    "duration": 6.52
+  },
+  {
+    "text": "Dynamics and then equal Equalization I",
+    "start": 2087.839,
+    "duration": 6.04
+  },
+  {
+    "text": "prefer to do the bottom one Equalization",
+    "start": 2091.32,
+    "duration": 6.88
+  },
+  {
+    "text": "first then FX then Dynamics now now",
+    "start": 2093.879,
+    "duration": 6.2
+  },
+  {
+    "text": "Dynamics let's talk about those Dynamics",
+    "start": 2098.2,
+    "duration": 5.36
+  },
+  {
+    "text": "I'm going to double click on this this",
+    "start": 2100.079,
+    "duration": 6.161
+  },
+  {
+    "text": "is where you can do expanders Gates",
+    "start": 2103.56,
+    "duration": 5.0
+  },
+  {
+    "text": "compressors and limiters and I'm going",
+    "start": 2106.24,
+    "duration": 5.2
+  },
+  {
+    "text": "to use this as a simple compressor",
+    "start": 2108.56,
+    "duration": 5.16
+  },
+  {
+    "text": "compressor so I'm going to click up here",
+    "start": 2111.44,
+    "duration": 3.639
+  },
+  {
+    "text": "to where it says default and I'm going",
+    "start": 2113.72,
+    "duration": 4.04
+  },
+  {
+    "text": "to say dialogue compression and it's",
+    "start": 2115.079,
+    "duration": 5.321
+  },
+  {
+    "text": "going to have some default stuff in",
+    "start": 2117.76,
+    "duration": 5.079
+  },
+  {
+    "text": "there but I need to find a spot where",
+    "start": 2120.4,
+    "duration": 5.16
+  },
+  {
+    "text": "I'm talking which I think I am right",
+    "start": 2122.839,
+    "duration": 5.081
+  },
+  {
+    "text": "here I'm looking",
+    "start": 2125.56,
+    "duration": 4.96
+  },
+  {
+    "text": "at Bill vo right here and then I can see",
+    "start": 2127.92,
+    "duration": 4.24
+  },
+  {
+    "text": "the waveform right here so I'm talking",
+    "start": 2130.52,
+    "duration": 4.599
+  },
+  {
+    "text": "at that point so what I'm going to do is",
+    "start": 2132.16,
+    "duration": 5.64
+  },
+  {
+    "text": "I'm going to hit play eventually some",
+    "start": 2135.119,
+    "duration": 5.041
+  },
+  {
+    "text": "and I'm you just I'm actually going to",
+    "start": 2137.8,
+    "duration": 4.88
+  },
+  {
+    "text": "turn this down I'm going to hit play and",
+    "start": 2140.16,
+    "duration": 6.24
+  },
+  {
+    "text": "you can see my output bouncing around",
+    "start": 2142.68,
+    "duration": 5.52
+  },
+  {
+    "text": "right here and what I want is for this",
+    "start": 2146.4,
+    "duration": 4.64
+  },
+  {
+    "text": "to right now it's hitting right around",
+    "start": 2148.2,
+    "duration": 4.879
+  },
+  {
+    "text": "-20 when I'm talking I want that to be",
+    "start": 2151.04,
+    "duration": 5.279
+  },
+  {
+    "text": "up around -10 so I'm going to give it",
+    "start": 2153.079,
+    "duration": 5.361
+  },
+  {
+    "text": "about 10 n",
+    "start": 2156.319,
+    "duration": 6.04
+  },
+  {
+    "text": "DB of makeup gain so basically What's",
+    "start": 2158.44,
+    "duration": 6.879
+  },
+  {
+    "text": "Happening Here is D Vinci resolve is",
+    "start": 2162.359,
+    "duration": 7.641
+  },
+  {
+    "text": "taking the loud parts of my dialogue",
+    "start": 2165.319,
+    "duration": 7.52
+  },
+  {
+    "text": "making them quieter and then I am",
+    "start": 2170.0,
+    "duration": 7.04
+  },
+  {
+    "text": "lifting everything back up so that the",
+    "start": 2172.839,
+    "duration": 6.121
+  },
+  {
+    "text": "quiet parts of the dialogue are easier",
+    "start": 2177.04,
+    "duration": 4.24
+  },
+  {
+    "text": "to hear but the loud Parts aren't like",
+    "start": 2178.96,
+    "duration": 4.879
+  },
+  {
+    "text": "blowing your ears out all right so let",
+    "start": 2181.28,
+    "duration": 4.76
+  },
+  {
+    "text": "me zoom in and find a spot where I'm",
+    "start": 2183.839,
+    "duration": 4.52
+  },
+  {
+    "text": "talking again because I stopped here we",
+    "start": 2186.04,
+    "duration": 4.88
+  },
+  {
+    "text": "go so here you can see I'm talking and",
+    "start": 2188.359,
+    "duration": 5.161
+  },
+  {
+    "text": "as I look right here it's hitting around",
+    "start": 2190.92,
+    "duration": 5.12
+  },
+  {
+    "text": "-10 but it's going up a little bit above",
+    "start": 2193.52,
+    "duration": 4.96
+  },
+  {
+    "text": "that the the thing that I've noticed is",
+    "start": 2196.04,
+    "duration": 5.0
+  },
+  {
+    "text": "is you cannot depend on this you have to",
+    "start": 2198.48,
+    "duration": 5.92
+  },
+  {
+    "text": "look down here at bus one bus one is the",
+    "start": 2201.04,
+    "duration": 6.039
+  },
+  {
+    "text": "thing that's going to be sent out with",
+    "start": 2204.4,
+    "duration": 5.0
+  },
+  {
+    "text": "to your final product at the end you",
+    "start": 2207.079,
+    "duration": 4.881
+  },
+  {
+    "text": "want that to hit around -10 at least",
+    "start": 2209.4,
+    "duration": 4.6
+  },
+  {
+    "text": "that's what I aim for so I'm watching",
+    "start": 2211.96,
+    "duration": 5.2
+  },
+  {
+    "text": "right here and I am hitting around -10",
+    "start": 2214.0,
+    "duration": 5.44
+  },
+  {
+    "text": "sometimes I'm getting as loud as5 but",
+    "start": 2217.16,
+    "duration": 4.4
+  },
+  {
+    "text": "I'm I'm hitting around -10 for the most",
+    "start": 2219.44,
+    "duration": 4.2
+  },
+  {
+    "text": "part so I think that's pretty good so",
+    "start": 2221.56,
+    "duration": 3.2
+  },
+  {
+    "text": "I'm going to go ahead and close this",
+    "start": 2223.64,
+    "duration": 4.199
+  },
+  {
+    "text": "I'll stop that from playing and next I",
+    "start": 2224.76,
+    "duration": 6.079
+  },
+  {
+    "text": "didn't stop there we go and then the",
+    "start": 2227.839,
+    "duration": 5.041
+  },
+  {
+    "text": "next thing that I'm going to do is maybe",
+    "start": 2230.839,
+    "duration": 4.721
+  },
+  {
+    "text": "a little bit of EQ I'm not going to do",
+    "start": 2232.88,
+    "duration": 3.64
+  },
+  {
+    "text": "the",
+    "start": 2235.56,
+    "duration": 3.96
+  },
+  {
+    "text": "EQ in this particular video because this",
+    "start": 2236.52,
+    "duration": 4.559
+  },
+  {
+    "text": "is already going to be a very long video",
+    "start": 2239.52,
+    "duration": 3.76
+  },
+  {
+    "text": "but if I was I would come through here",
+    "start": 2241.079,
+    "duration": 4.52
+  },
+  {
+    "text": "and I would do all of the normal",
+    "start": 2243.28,
+    "duration": 5.0
+  },
+  {
+    "text": "Equalization stuff that you would do in",
+    "start": 2245.599,
+    "duration": 5.441
+  },
+  {
+    "text": "a video but I would do that for each",
+    "start": 2248.28,
+    "duration": 3.92
+  },
+  {
+    "text": "person",
+    "start": 2251.04,
+    "duration": 2.559
+  },
+  {
+    "text": "[Music]",
+    "start": 2252.2,
+    "duration": 3.08
+  },
+  {
+    "text": "individually so I'm going to go ahead",
+    "start": 2253.599,
+    "duration": 5.72
+  },
+  {
+    "text": "and close that and then finally if uh if",
+    "start": 2255.28,
+    "duration": 6.799
+  },
+  {
+    "text": "you are somebody who who has some",
+    "start": 2259.319,
+    "duration": 4.721
+  },
+  {
+    "text": "sibilance in your voice where there's",
+    "start": 2262.079,
+    "duration": 3.76
+  },
+  {
+    "text": "like s sounds",
+    "start": 2264.04,
+    "duration": 4.52
+  },
+  {
+    "text": "are strong when you say things people",
+    "start": 2265.839,
+    "duration": 4.921
+  },
+  {
+    "text": "don't like the sound of that so what I",
+    "start": 2268.56,
+    "duration": 4.0
+  },
+  {
+    "text": "like to do is I like to click the plus",
+    "start": 2270.76,
+    "duration": 3.72
+  },
+  {
+    "text": "right here these are our effects we're",
+    "start": 2272.56,
+    "duration": 3.4
+  },
+  {
+    "text": "going to come down here to",
+    "start": 2274.48,
+    "duration": 4.24
+  },
+  {
+    "text": "Restoration and under VST I use",
+    "start": 2275.96,
+    "duration": 6.24
+  },
+  {
+    "text": "something called rx11 DS I'm going to",
+    "start": 2278.72,
+    "duration": 6.08
+  },
+  {
+    "text": "click on that I'm going to click on",
+    "start": 2282.2,
+    "duration": 4.639
+  },
+  {
+    "text": "spectral and I don't change anything",
+    "start": 2284.8,
+    "duration": 4.319
+  },
+  {
+    "text": "else I just leave it alone and it gets",
+    "start": 2286.839,
+    "duration": 4.121
+  },
+  {
+    "text": "rid of the S sound so I'm actually going",
+    "start": 2289.119,
+    "duration": 5.281
+  },
+  {
+    "text": "to bring that back up so you can see",
+    "start": 2290.96,
+    "duration": 5.84
+  },
+  {
+    "text": "what it looks like so I'm going to hit",
+    "start": 2294.4,
+    "duration": 5.32
+  },
+  {
+    "text": "play and every time you see the blue",
+    "start": 2296.8,
+    "duration": 5.2
+  },
+  {
+    "text": "show up here with a little negative",
+    "start": 2299.72,
+    "duration": 4.92
+  },
+  {
+    "text": "that's because I said the S sound and",
+    "start": 2302.0,
+    "duration": 5.119
+  },
+  {
+    "text": "it's lowering that frequency so it's",
+    "start": 2304.64,
+    "duration": 5.199
+  },
+  {
+    "text": "less harsh on people's ears so now that",
+    "start": 2307.119,
+    "duration": 4.801
+  },
+  {
+    "text": "I've got that done I'll stop that",
+    "start": 2309.839,
+    "duration": 4.801
+  },
+  {
+    "text": "playing what I will usually do is I will",
+    "start": 2311.92,
+    "duration": 5.32
+  },
+  {
+    "text": "save that as a preset so if you come up",
+    "start": 2314.64,
+    "duration": 6.199
+  },
+  {
+    "text": "here to Fair light and you go to presets",
+    "start": 2317.24,
+    "duration": 6.92
+  },
+  {
+    "text": "Library you can you can save your own",
+    "start": 2320.839,
+    "duration": 5.921
+  },
+  {
+    "text": "presets library now I'm going to show",
+    "start": 2324.16,
+    "duration": 4.48
+  },
+  {
+    "text": "you how to apply them so I'm going to",
+    "start": 2326.76,
+    "duration": 3.72
+  },
+  {
+    "text": "click on this where it says equalizer",
+    "start": 2328.64,
+    "duration": 3.88
+  },
+  {
+    "text": "presets I'm going to go to Global track",
+    "start": 2330.48,
+    "duration": 3.359
+  },
+  {
+    "text": "presets and these are the ones that I've",
+    "start": 2332.52,
+    "duration": 5.079
+  },
+  {
+    "text": "already saved so instead of doing all of",
+    "start": 2333.839,
+    "duration": 6.841
+  },
+  {
+    "text": "that stuff every single time all I do is",
+    "start": 2337.599,
+    "duration": 7.76
+  },
+  {
+    "text": "I say Bill sm7 7B that's my microphone",
+    "start": 2340.68,
+    "duration": 8.6
+  },
+  {
+    "text": "rcp2 that's my roadter Pro 2 which is my",
+    "start": 2345.359,
+    "duration": 6.601
+  },
+  {
+    "text": "mixer uh and then I'm going to this is",
+    "start": 2349.28,
+    "duration": 4.079
+  },
+  {
+    "text": "the preset that I made I'm going to",
+    "start": 2351.96,
+    "duration": 5.32
+  },
+  {
+    "text": "click on my voice and I hit apply and it",
+    "start": 2353.359,
+    "duration": 5.72
+  },
+  {
+    "text": "goes through and it applies all of the",
+    "start": 2357.28,
+    "duration": 6.52
+  },
+  {
+    "text": "presets to my voice then I have one that",
+    "start": 2359.079,
+    "duration": 9.121
+  },
+  {
+    "text": "I made for Carrie who if you look",
+    "start": 2363.8,
+    "duration": 6.799
+  },
+  {
+    "text": "look at car's waveforms they're huge",
+    "start": 2368.2,
+    "duration": 3.48
+  },
+  {
+    "text": "compared to",
+    "start": 2370.599,
+    "duration": 4.361
+  },
+  {
+    "text": "mine and if you look at Russ's",
+    "start": 2371.68,
+    "duration": 5.76
+  },
+  {
+    "text": "waveforms it's almost impossible to see",
+    "start": 2374.96,
+    "duration": 6.32
+  },
+  {
+    "text": "because Russ is a very very quiet guy um",
+    "start": 2377.44,
+    "duration": 5.2
+  },
+  {
+    "text": "well he didn't say much in the very",
+    "start": 2381.28,
+    "duration": 5.4
+  },
+  {
+    "text": "beginning oh here we go so right",
+    "start": 2382.64,
+    "duration": 6.64
+  },
+  {
+    "text": "here you can see that Russ is saying",
+    "start": 2386.68,
+    "duration": 5.639
+  },
+  {
+    "text": "he's just so quiet while he's talking so",
+    "start": 2389.28,
+    "duration": 5.16
+  },
+  {
+    "text": "I have different presets for each person",
+    "start": 2392.319,
+    "duration": 6.401
+  },
+  {
+    "text": "on the show so if I go back to my light",
+    "start": 2394.44,
+    "duration": 6.159
+  },
+  {
+    "text": "and then my presets",
+    "start": 2398.72,
+    "duration": 4.76
+  },
+  {
+    "text": "library and then I click on carry and",
+    "start": 2400.599,
+    "duration": 5.361
+  },
+  {
+    "text": "then I click on carry vo this is the",
+    "start": 2403.48,
+    "duration": 5.0
+  },
+  {
+    "text": "preset over here on the left this is the",
+    "start": 2405.96,
+    "duration": 4.96
+  },
+  {
+    "text": "track that I'm going to apply it to and",
+    "start": 2408.48,
+    "duration": 4.04
+  },
+  {
+    "text": "I'm going to hit apply and I want you to",
+    "start": 2410.92,
+    "duration": 5.0
+  },
+  {
+    "text": "watch over here you'll see that change",
+    "start": 2412.52,
+    "duration": 4.72
+  },
+  {
+    "text": "here I'll move this over so you can",
+    "start": 2415.92,
+    "duration": 2.48
+  },
+  {
+    "text": "watch those at the same time I'm going",
+    "start": 2417.24,
+    "duration": 5.96
+  },
+  {
+    "text": "to hit apply bam now we have car's stuff",
+    "start": 2418.4,
+    "duration": 7.24
+  },
+  {
+    "text": "applied although he's his voice is a",
+    "start": 2423.2,
+    "duration": 4.159
+  },
+  {
+    "text": "little more inconsistent because of that",
+    "start": 2425.64,
+    "duration": 4.64
+  },
+  {
+    "text": "that condenser m style microphone so I'm",
+    "start": 2427.359,
+    "duration": 4.48
+  },
+  {
+    "text": "going to click to where I see that he's",
+    "start": 2430.28,
+    "duration": 4.28
+  },
+  {
+    "text": "talking and I'm going to open up our",
+    "start": 2431.839,
+    "duration": 5.161
+  },
+  {
+    "text": "Dynamics and I'm going to hit",
+    "start": 2434.56,
+    "duration": 5.32
+  },
+  {
+    "text": "play and I'm watching where he's Landing",
+    "start": 2437.0,
+    "duration": 4.72
+  },
+  {
+    "text": "he's Landing a little bit louder than I",
+    "start": 2439.88,
+    "duration": 4.56
+  },
+  {
+    "text": "was so I'm going to take his makeup gain",
+    "start": 2441.72,
+    "duration": 5.68
+  },
+  {
+    "text": "and I'm going to bring it",
+    "start": 2444.44,
+    "duration": 2.96
+  },
+  {
+    "text": "down a little bit more",
+    "start": 2448.079,
+    "duration": 4.441
+  },
+  {
+    "text": "all right and uh he also has a limiter",
+    "start": 2458.359,
+    "duration": 3.361
+  },
+  {
+    "text": "turned on I'm actually going to turn",
+    "start": 2460.56,
+    "duration": 4.24
+  },
+  {
+    "text": "that off and see how that handles",
+    "start": 2461.72,
+    "duration": 5.359
+  },
+  {
+    "text": "it all right I think that that's pretty",
+    "start": 2464.8,
+    "duration": 3.48
+  },
+  {
+    "text": "good so now I'm going to go ahead and",
+    "start": 2467.079,
+    "duration": 4.321
+  },
+  {
+    "text": "close that going to stop playing going",
+    "start": 2468.28,
+    "duration": 7.48
+  },
+  {
+    "text": "to go back to my um Fair light presets",
+    "start": 2471.4,
+    "duration": 6.719
+  },
+  {
+    "text": "Library I'm going to go to",
+    "start": 2475.76,
+    "duration": 7.359
+  },
+  {
+    "text": "rich rich vo apply it just applied his I",
+    "start": 2478.119,
+    "duration": 7.521
+  },
+  {
+    "text": "got to find a spot where he's talking",
+    "start": 2483.119,
+    "duration": 4.24
+  },
+  {
+    "text": "which is right here he's talking right",
+    "start": 2485.64,
+    "duration": 3.52
+  },
+  {
+    "text": "right here I could see that cuz it says",
+    "start": 2487.359,
+    "duration": 4.0
+  },
+  {
+    "text": "Rich vo right here and that's where he's",
+    "start": 2489.16,
+    "duration": 4.4
+  },
+  {
+    "text": "talking so I'm going to hit",
+    "start": 2491.359,
+    "duration": 4.921
+  },
+  {
+    "text": "play I'm going to open up this and I'm",
+    "start": 2493.56,
+    "duration": 5.44
+  },
+  {
+    "text": "just going to watch here and then over",
+    "start": 2496.28,
+    "duration": 5.16
+  },
+  {
+    "text": "here and it looks like he's pretty",
+    "start": 2499.0,
+    "duration": 4.359
+  },
+  {
+    "text": "consistent actually he needs a little",
+    "start": 2501.44,
+    "duration": 3.919
+  },
+  {
+    "text": "bit more makeup gain cuz he's not ending",
+    "start": 2503.359,
+    "duration": 3.76
+  },
+  {
+    "text": "up in the in the yellow very often so",
+    "start": 2505.359,
+    "duration": 3.201
+  },
+  {
+    "text": "I'm just going to give him a little bit",
+    "start": 2507.119,
+    "duration": 4.72
+  },
+  {
+    "text": "more and see over here where it",
+    "start": 2508.56,
+    "duration": 5.68
+  },
+  {
+    "text": "lands I think he needs a little bit more",
+    "start": 2511.839,
+    "duration": 6.361
+  },
+  {
+    "text": "he's still a little bit quiet",
+    "start": 2514.24,
+    "duration": 3.96
+  },
+  {
+    "text": "all right I think that that's pretty",
+    "start": 2521.52,
+    "duration": 2.88
+  },
+  {
+    "text": "good and then I'm going to do the same",
+    "start": 2522.76,
+    "duration": 6.079
+  },
+  {
+    "text": "thing for Russ so we'll go Fair light",
+    "start": 2524.4,
+    "duration": 9.199
+  },
+  {
+    "text": "presets Library Russ Global Russ vo",
+    "start": 2528.839,
+    "duration": 8.081
+  },
+  {
+    "text": "apply and now I got to find",
+    "start": 2533.599,
+    "duration": 6.641
+  },
+  {
+    "text": "Russ close that find where he's talking",
+    "start": 2536.92,
+    "duration": 6.48
+  },
+  {
+    "text": "he's talking right",
+    "start": 2540.24,
+    "duration": 6.56
+  },
+  {
+    "text": "here and like I said here actually if I",
+    "start": 2543.4,
+    "duration": 6.12
+  },
+  {
+    "text": "double click on Russ you can see I'm",
+    "start": 2546.8,
+    "duration": 5.16
+  },
+  {
+    "text": "getting the gain um I'm getting the",
+    "start": 2549.52,
+    "duration": 4.12
+  },
+  {
+    "text": "limiter in there and then the gain",
+    "start": 2551.96,
+    "duration": 4.24
+  },
+  {
+    "text": "reduction and he is still",
+    "start": 2553.64,
+    "duration": 5.919
+  },
+  {
+    "text": "hitting like between -5 and -10 so I",
+    "start": 2556.2,
+    "duration": 4.919
+  },
+  {
+    "text": "need to give him just a little bit more",
+    "start": 2559.559,
+    "duration": 4.601
+  },
+  {
+    "text": "cuz he's super super quiet but at the",
+    "start": 2561.119,
+    "duration": 4.72
+  },
+  {
+    "text": "end if you mix them all and they're all",
+    "start": 2564.16,
+    "duration": 3.36
+  },
+  {
+    "text": "hitting the same levels then you're",
+    "start": 2565.839,
+    "duration": 5.041
+  },
+  {
+    "text": "going to be fine all right now I can",
+    "start": 2567.52,
+    "duration": 7.4
+  },
+  {
+    "text": "pause that so now I have all of my audio",
+    "start": 2570.88,
+    "duration": 6.679
+  },
+  {
+    "text": "set up the way that I want and I ready",
+    "start": 2574.92,
+    "duration": 5.48
+  },
+  {
+    "text": "to publish my podcast now the next thing",
+    "start": 2577.559,
+    "duration": 4.56
+  },
+  {
+    "text": "that I'm going to do is I'm going to",
+    "start": 2580.4,
+    "duration": 5.439
+  },
+  {
+    "text": "click on the deliver page and uh I",
+    "start": 2582.119,
+    "duration": 6.281
+  },
+  {
+    "text": "always make both an audio version and a",
+    "start": 2585.839,
+    "duration": 4.28
+  },
+  {
+    "text": "video version I upload the video version",
+    "start": 2588.4,
+    "duration": 3.84
+  },
+  {
+    "text": "to YouTube I also upload the video",
+    "start": 2590.119,
+    "duration": 4.641
+  },
+  {
+    "text": "version to Spotify and then I upload the",
+    "start": 2592.24,
+    "duration": 5.8
+  },
+  {
+    "text": "audio version to patreon so that patrons",
+    "start": 2594.76,
+    "duration": 5.16
+  },
+  {
+    "text": "can you know listen to the podcast",
+    "start": 2598.04,
+    "duration": 4.88
+  },
+  {
+    "text": "without any ads in it so I'm going to",
+    "start": 2599.92,
+    "duration": 5.08
+  },
+  {
+    "text": "come over here to audio podcast I'm",
+    "start": 2602.92,
+    "duration": 3.8
+  },
+  {
+    "text": "going to click on this this is a preset",
+    "start": 2605.0,
+    "duration": 3.24
+  },
+  {
+    "text": "that I made made if you want to make",
+    "start": 2606.72,
+    "duration": 4.359
+  },
+  {
+    "text": "presets you just click on custom export",
+    "start": 2608.24,
+    "duration": 4.52
+  },
+  {
+    "text": "set up everything that you want the way",
+    "start": 2611.079,
+    "duration": 3.04
+  },
+  {
+    "text": "that you want it and then if you click",
+    "start": 2612.76,
+    "duration": 4.04
+  },
+  {
+    "text": "the three dots you can then say save as",
+    "start": 2614.119,
+    "duration": 4.921
+  },
+  {
+    "text": "a new preset all right so I have two",
+    "start": 2616.8,
+    "duration": 6.0
+  },
+  {
+    "text": "presets I have my audio podcast preset",
+    "start": 2619.04,
+    "duration": 7.48
+  },
+  {
+    "text": "so I'll label this test uh or",
+    "start": 2622.8,
+    "duration": 5.24
+  },
+  {
+    "text": "example",
+    "start": 2626.52,
+    "duration": 5.079
+  },
+  {
+    "text": "podcast and then I'll click on my browse",
+    "start": 2628.04,
+    "duration": 6.279
+  },
+  {
+    "text": "and we're going to go to",
+    "start": 2631.599,
+    "duration": 8.201
+  },
+  {
+    "text": "my to YouTube projects NOP to YouTube",
+    "start": 2634.319,
+    "duration": 8.961
+  },
+  {
+    "text": "over here on the left sorry um and then",
+    "start": 2639.8,
+    "duration": 8.36
+  },
+  {
+    "text": "projects and then how I edit my podcast",
+    "start": 2643.28,
+    "duration": 6.72
+  },
+  {
+    "text": "exports",
+    "start": 2648.16,
+    "duration": 5.679
+  },
+  {
+    "text": "save but I messed up so um hold on audio",
+    "start": 2650.0,
+    "duration": 5.559
+  },
+  {
+    "text": "podcast I didn't click that so now that",
+    "start": 2653.839,
+    "duration": 4.0
+  },
+  {
+    "text": "I clicked that it's not exporting the",
+    "start": 2655.559,
+    "duration": 4.8
+  },
+  {
+    "text": "video which is important all right so",
+    "start": 2657.839,
+    "duration": 4.201
+  },
+  {
+    "text": "example",
+    "start": 2660.359,
+    "duration": 4.321
+  },
+  {
+    "text": "podcast and then I hit save and then I",
+    "start": 2662.04,
+    "duration": 4.16
+  },
+  {
+    "text": "just always check and make sure I don't",
+    "start": 2664.68,
+    "duration": 3.679
+  },
+  {
+    "text": "have upload Direct ly to YouTube I'm",
+    "start": 2666.2,
+    "duration": 4.8
+  },
+  {
+    "text": "going to add that to my render queue so",
+    "start": 2668.359,
+    "duration": 5.2
+  },
+  {
+    "text": "now it's getting ready to be delivered",
+    "start": 2671.0,
+    "duration": 4.2
+  },
+  {
+    "text": "and then I'm going to click on this",
+    "start": 2673.559,
+    "duration": 4.28
+  },
+  {
+    "text": "where it says YouTube direct upload I'm",
+    "start": 2675.2,
+    "duration": 6.04
+  },
+  {
+    "text": "going to name it example podcast and",
+    "start": 2677.839,
+    "duration": 4.921
+  },
+  {
+    "text": "it's going to go to the exact same place",
+    "start": 2681.24,
+    "duration": 4.319
+  },
+  {
+    "text": "as the last one I'm going to turn off",
+    "start": 2682.76,
+    "duration": 4.839
+  },
+  {
+    "text": "upload directly to YouTube unless you",
+    "start": 2685.559,
+    "duration": 4.881
+  },
+  {
+    "text": "want to and then I'm going to hit add to",
+    "start": 2687.599,
+    "duration": 6.0
+  },
+  {
+    "text": "render queue and now if you have one of",
+    "start": 2690.44,
+    "duration": 4.8
+  },
+  {
+    "text": "these selected with a white bar around",
+    "start": 2693.599,
+    "duration": 3.441
+  },
+  {
+    "text": "it um then it's only going to do that",
+    "start": 2695.24,
+    "duration": 5.44
+  },
+  {
+    "text": "that one but if you clict uh click in",
+    "start": 2697.04,
+    "duration": 5.36
+  },
+  {
+    "text": "this Blank Space right here and then you",
+    "start": 2700.68,
+    "duration": 3.919
+  },
+  {
+    "text": "click render all it will go through and",
+    "start": 2702.4,
+    "duration": 4.0
+  },
+  {
+    "text": "render both so you can walk away and",
+    "start": 2704.599,
+    "duration": 3.641
+  },
+  {
+    "text": "come back later when it's",
+    "start": 2706.4,
+    "duration": 3.919
+  },
+  {
+    "text": "done this",
+    "start": 2708.24,
+    "duration": 4.52
+  },
+  {
+    "text": "podcast will typically take about 2",
+    "start": 2710.319,
+    "duration": 5.481
+  },
+  {
+    "text": "hours to render on my ma this is on an",
+    "start": 2712.76,
+    "duration": 9.0
+  },
+  {
+    "text": "M3 MacBook Pro uh with 30 uh 36 gigs of",
+    "start": 2715.8,
+    "duration": 9.279
+  },
+  {
+    "text": "RAM so it takes a long time to render",
+    "start": 2721.76,
+    "duration": 5.24
+  },
+  {
+    "text": "these uh if you want to do it via",
+    "start": 2725.079,
+    "duration": 4.28
+  },
+  {
+    "text": "Riverside it takes a lot less time but",
+    "start": 2727.0,
+    "duration": 4.68
+  },
+  {
+    "text": "you have a little bit less control and I",
+    "start": 2729.359,
+    "duration": 4.361
+  },
+  {
+    "text": "just am a control freak so there you",
+    "start": 2731.68,
+    "duration": 3.84
+  },
+  {
+    "text": "have it but that's how I use denture",
+    "start": 2733.72,
+    "duration": 3.839
+  },
+  {
+    "text": "resolve in order to edit my podcast if",
+    "start": 2735.52,
+    "duration": 3.68
+  },
+  {
+    "text": "you want to know more about the sponsor",
+    "start": 2737.559,
+    "duration": 4.441
+  },
+  {
+    "text": "of this video Riverside I've got a video",
+    "start": 2739.2,
+    "duration": 4.6
+  },
+  {
+    "text": "down linked down below that you can",
+    "start": 2742.0,
+    "duration": 4.28
+  },
+  {
+    "text": "check out and uh thank you for watching",
+    "start": 2743.8,
+    "duration": 4.12
+  },
+  {
+    "text": "hopefully I'll see you on the next one",
+    "start": 2746.28,
+    "duration": 5.079
+  },
+  {
+    "text": "stay R everybody",
+    "start": 2747.92,
+    "duration": 3.439
+  }
+]

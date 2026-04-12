@@ -1,0 +1,330 @@
+- Welcome to the complete guide
+to editing a video podcast for beginners.
+In this tutorial, I'll be breaking down
+how to edit a podcast
+with multiple angles,
+and then we're also gonna be talking
+about how to create a
+social clip with captions
+so you can upload it to
+Instagram, TikTok, Facebook reels,
+or even YouTube shorts.
+So let's get into it.
+- [Voiceover] You gotta just press record.
+- Now, anytime you edit
+video, generally speaking,
+it's really important to stay organized.
+And so here you have the
+folder to the video podcast
+and I have the three different
+angles in the folder.
+So we have the wide angle, my angle,
+and then we have my guest's angle.
+His name is Sean.
+Once I drag them into this folder,
+I name them who the person is
+so that when I'm
+referencing them in editing,
+I could see it clearly.
+And then as far as the audio
+file goes I do have three files
+because I use a Zoom recorder
+to capture this conversation,
+and it actually does give me a master file
+so I'll be using that.
+And now, because we're all ready to go
+we're going to open up Adobe Premiere Pro,
+which is what I'll be using to
+demonstrate these principles.
+We're gonna start a new project here
+and I like putting all my
+files in the same folder,
+so I'm just gonna choose
+that same location
+on the desktop in the interview,
+and then I'm gonna title
+it Sean Interview, boom.
+So now it's time to drag in the files
+that we are going to be working with.
+I'm going to select the
+three angles that I need
+and then the master audio file,
+and I'm gonna drag that into the bin.
+And then once I have these files
+I'm just gonna select
+them all, right click,
+and then select create a
+multi-camera source sequence.
+This is now going to
+consolidate and sync everything
+and put it all in one sequence.
+So I'm just gonna entitle
+this Sean Interview.
+But everything is good
+to go if this matches.
+You wanna make sure the audio's selected,
+track channel one and all that stuff.
+I'm gonna hit okay, and then
+Premiere's gonna do its thing.
+But as you can see, it
+kicks out a sequence file
+right here that's called Sean Interview.
+I'm gonna right click that
+and I'm gonna hit open in timeline.
+Boom, now I am met with all my files
+in one timeline and they should be synced.
+This is the place where you
+need to make any and all tweaks
+to the color of your video,
+the framing of your video,
+and if you even wanted
+to edit some of the audio
+in regards to some audio effects.
+So in this case, you
+could see there's my clip,
+there's Sean's clip, and
+then there's that wide clip.
+So I am gonna make some quick tweaks
+before we get to actually
+editing this video podcast.
+The first tweak I'm gonna make
+is actually a color tweak.
+So I'm gonna just color
+correct a little bit of this.
+I'm gonna change my window to color.
+It's a little warm, so I'm
+just gonna cool this guy off
+till the walls look
+fairly white right there.
+Let's go to his clip.
+His clip looks pretty
+cool as far as color goes.
+My shot is a little bit further
+than I'd liked it to be,
+so I'm just going to zoom in my shot.
+Going to the effect
+controls and scaling it
+and zooming it in, frame it up, right?
+So we're just, we're just
+getting the foundations right.
+The first thing we're gonna
+do is actually trim down
+the front end of this clip
+to right when I intro it.
+So I'm just gonna create a cut here
+and slice all the way through,
+and then I'm just going
+to delete all that.
+We can also delete these audio files.
+You know, we can delete it
+just so we can have a cleaner workflow.
+The next thing we're gonna do
+is right click that same sequence.
+We can actually hit
+new sequence from clip.
+And so now we're gonna
+enable multi-cam view
+by selecting this right here,
+but you can see all the various angles
+right here on the left.
+If you don't see that icon,
+just hit the plus button
+and make sure you add it to wherever.
+Seeing this is super helpful
+because now we're gonna
+switch it in real time,
+almost like it's a live production.
+Now, you could see these
+numbers here on the top left.
+If you don't see it, you can right click
+and add the overlays.
+Number one is this angle,
+number two is this angle,
+and number three is this angle.
+I'm gonna just hit 1, 2,
+3, you could see that.
+So we wanna start on my shot,
+I'm gonna hit the space bar
+and we're gonna just start cutting.
+- So what all does it take to
+become a full-time YouTuber
+if you're a musician, maybe a sing-
+(fast forwarded audio)
+Party, that can be kind of sketch.
+- It can be.
+- [Omar] It can be.
+- You know, I feel the vibe was on.
+- [Omar] Yeah.
+- It was on point.
+- No, for sure
+- Instantly.
+- This is Sean Daniel who
+has a YouTube channel.
+- So I'm gonna stop and
+then zoom into the timeline.
+You could see that those
+cuts were literally made
+in real time.
+Let's say you made a
+mistake in this regard,
+you can just back up to where that,
+right before that mistake happened
+and then just start from there.
+And the changes you make
+while you're watching it back
+will overlay those mistakes.
+Now, the next step that I would
+actually encourage you to do
+is to simply just take a
+moment from your video podcast
+whether it be 15, 30, or 40 seconds,
+and use that as the hook
+to your video podcast.
+And then you can just put coming up
+at the bottom left of the screen
+because people know that's
+what they're about to get into.
+And you can also add music
+which leads me to talk about
+the sponsor of this video,
+which is Epidemic Sound.
+Epidemic sound is the music
+that we love using here
+at Think Media.
+And if you're looking
+for royalty free music,
+then you want to check out Epidemic Sound
+because they have an incredible library
+of not only just songs,
+but also sound effects.
+Maybe if you have a logo fly in,
+or if you want to
+transition from your podcast
+into an ad read, you
+can put a whoosh effect.
+If you wanna check out Epidemic Sound
+we actually have a special promotion
+that we are doing with them,
+and you can check out all that information
+at ThinkMediaSounds.com
+or just check out the link
+in the description below.
+Thank you, Epidemic Sound
+for sponsoring this video.
+Let's create a social media
+clip from this conversation.
+So the first thing we're gonna do
+is create the sequence
+for our vertical video.
+So we're gonna go file, new sequence,
+and your traditional video format
+when it comes to 1080
+video is 1920 by 1080.
+We're gonna reverse that 1080 by 1920.
+We're gonna call this vertical
+and then we're gonna hit, okay.
+Now we have our sequence.
+So we're just gonna go back to our edit
+and get a moment that
+stands alone by itself,
+and it shouldn't be more
+than about a minute.
+So I did find a moment, I think
+it's longer than a minute,
+but we will shorten it down.
+So I'm gonna just hit Command
++ C after selecting it,
+paste it in the vertical sequence.
+Now you can just frame the shots.
+Make sure that I'm either
+a little bit zoomed out.
+This wide angle shot, you know,
+if he's talking I can just scoot it over.
+And now we're gonna add
+captions to this clip,
+so people can read what
+it is we are saying.
+So we're gonna hit window, text,
+and then I'm gonna select
+transcribe sequence.
+And then I'm gonna select
+transcribe in and out point only.
+So I'm gonna hit transcribe,
+and for the most part
+they do a pretty good job.
+And so I'm gonna hit create captions.
+I like the single line and
+then we can just hit create.
+So now we got all these captions,
+but you could see how it's, you know,
+on the bottom of the screen.
+So I'm just gonna double
+click on this caption
+and it's gonna open up the
+ability to edit this caption.
+I like having all caps on the caption.
+I like putting it generally
+in the center of the frame.
+As far as the font goes, I
+like using Helvetica Bold.
+What's cool is you can
+create this as a style,
+so it's affecting all
+the rest of the caption.
+So I'm gonna hit create style.
+And then once you're ready to go,
+you're kind of ready
+to render out this clip
+from the podcast and
+post it on social media.
+We're gonna go to export,
+high quality 1080,
+and then we're gonna make
+sure we match source.
+If we don't do that, then it's
+gonna give us the black bars.
+And then you wanna make sure
+that you burn in your captions.
+So under captions, make
+sure this is selected.
+Put it in that same folder that we're at,
+and then we could render it, export.
+If you're at this point
+you're kind of ready to export
+both the video and the audio,
+and I'm gonna show you how to do that.
+So the first thing we're gonna do
+is mark the in and out
+point of your conversation.
+So I'm gonna hit I, and then I'm gonna go
+to the end of the video and then mark O.
+Now we're just gonna head
+over to the export tab,
+and the first thing we're gonna export
+is the audio file itself.
+So we're gonna change
+the file format to MP3
+and then change the destination
+to make sure it goes into that folder.
+We can title that Sean Interview Audio,
+and then we can export that file.
+Now that you have the
+audio file ready to upload.
+And then going back to
+export the video podcast.
+So I'm gonna just hit high
+quality 4K, export that file.
+And essentially that is all
+the basics you need to know
+when it comes to editing a video podcast.
+Editing its full length, it's
+audio, exporting those things,
+and then creating a clip.
+If you got value in this
+video, hit that like button.
+If you'd like to check out
+another video from us here
+at Think Media, go ahead
+and click or tap the screen.
+I can't wait to see you in a future video.
+Peace.

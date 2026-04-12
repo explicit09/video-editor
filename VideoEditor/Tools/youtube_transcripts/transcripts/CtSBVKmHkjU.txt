@@ -1,0 +1,338 @@
+color space transforms this must be the
+most talked about subject on DaVinci
+Resolve forums that I've seen for a long
+time so in this episode I'm going to
+demystify what is a color space
+transform how does it work is it color
+management is it better than color
+management where does it go in your node
+tree all these sort of questions are
+going to answer in this episode so this
+is a really good one for beginners but
+if you're intermediate it might answer
+some of the questions that you have as
+to where it goes in your node tree for
+example so let's take a look
+so I've got some footage here this is
+some Airy footage and I've got some red
+footage here as well so I'm just going
+to show you a couple of different color
+spaces to work with so my color space
+transform is here it's in my effects and
+I literally drag and drop it onto my
+clip and nothing happens because I
+haven't actually set anything yet and
+just to show you we are in color
+management here we are in a non-color
+managed environment we're in DaVinci y
+RGB
+color managed is the next one down Okay
+so we're in just regular DaVinci ygb
+I've got my timeline color space set to
+DaVinci wide gamma intermediate and my
+output color space is Rec 709 gamma 2.4
+because I'm delivering this for
+broadcast this is for HD regular
+television if you don't understand that
+I've done an episode called are you
+color space aware and it will explain
+what those settings are doing so you
+should check that one out I'll put a
+link to that in the description
+so here is our color space transform
+what is a color space transform well a
+color space transform is a way of
+working in different color spaces on a
+node by node basis so I want to take
+this image which looks very flat from
+this Ari color space profile into Rick
+709 all right and to do that I could use
+color Management in this case I'm going
+to use a color space transform
+so there's two things that you need to
+tell DaVinci Resolve when you're working
+in color space transforms and the first
+one is what's your input and the second
+one is what's your output so our input
+is area log C okay I know this came from
+an area camera and it's Airy log C so
+I'm going to say I'm going to say here
+in the color space very wide gamut three
+and my input gamma here
+needs to be set to array log C3 and that
+should put us into a very nice starting
+position but this looks terrible okay
+and the reason for that is our output
+color space is currently set to use
+timeline and our timeline color space
+is DaVinci white gamut so it's not rec
+709 gamma 2.4 so it's not going to look
+nice the idea here remember is to color
+manage your image so you've got a really
+good starting point for your grade I
+want to get the image looking as the
+camera intended it to be
+so I'm going to change my output color
+space as well
+and get that to be Rec 709 and we're
+going to choose
+gamma 2.4 which is a broadcast standard
+and now our image looks great this is
+ready to grade all right so what I'm
+going to do is grab a still of that
+and I'm just very quickly going to prove
+to you if I reset that node I'm just
+going to show you that that's exactly
+the same as going to color manage here
+saying save and there's the same image
+so if I do a split wipe on these you'll
+see they're absolutely identical all
+right so the color Management in a CST
+is the same as the color managed however
+I have control of where it will go in
+the nodes so the next question is where
+does it go in my node tree does it go at
+the beginning do you do this to start
+with do you do it at the end you've
+probably seen in my programming and my
+no trees that I work with my CST at the
+end but I'm going to show you an extra
+little tip as well from that so stick
+with it
+right let's come out I've color managed
+and I'm going to put that back to
+DaVinci wired gamut
+and I'm going to put my app because it's
+basically Rec 709 gamma 2.4 and to get
+that CST back on there I could just drag
+from here however before I do that I'm
+going to put three nodes on here
+okay so what I'm going to do now is show
+you why I think it should go at the end
+and not the beginning all right so my
+color space transform should be at the
+end so first of all
+let's put it at the beginning all right
+so I'm going to drag from here so I've
+literally just taken that node and
+dragged it on the first node here so
+there is our setup ariwide gamut to
+aridoxy input to Rick 79 camera 2.4 and
+these two nodes are empty so they're
+effectively doing nothing so if I go
+into my second node here even though
+it's labeled node one it's actually the
+second node because my path goes from
+here to here
+and what I'm going to do if you look at
+the parade here we've got a really nice
+clean image here this is pretty good
+we've in fact we could probably not need
+to do too much to this but I'm going to
+go extreme here and just show you I'm
+going to take my offset wheel and I'm
+going to push it hard okay and you see
+when it gets to the top here it Clips so
+we'll actually start losing data off the
+image this is because at this point here
+we've taken a big large Airy color space
+and we've condensed it down into Rick
+709 so let me show you on my
+cre chart here the there's our that's
+our color space that's how large our
+color space is from the camera and this
+is Rec 709 so it's a much smaller area
+that we could work it in and what we're
+doing on the first node is putting us
+into that smaller area so when I start
+playing with all these tools here we are
+hitting the boundaries of Rec 709 very
+quickly
+so you can see my parade we've now hit
+the limit now if I undo that so let's
+just reset that okay and what we're
+going to do now is put this CST at the
+end instead of at the beginning so I'm
+going to use this trick I'm just going
+to use command and drag which will
+literally swap the node order okay so
+it's command and drag
+my CST is now on the end so we're still
+going Aries to rec 709 but I'm going to
+grade underneath that CST all right so
+in here so this is why I prefer the CST
+workflow over the color managed workflow
+because in the color managed workflow
+it's determining this order for me right
+I'm going to do exactly the same step
+I'm going to take my offset and I'm
+going to push it hard and what you see
+this time is we get a nice roll off okay
+because we're working in a much larger
+color space first and then that is being
+brought down to rec 709 not we're going
+to Rick 709 first and then we're pushing
+our levels all right so it's a much
+larger working color space that we're in
+so that hopefully proves as to why I
+know this is Extreme but I'm not losing
+the detail the detail is still there all
+right I'm going to reset that
+now the color space transforms allow us
+to go from any color space to any color
+space so what we could do is work a
+little bit smarter than this so what I'm
+going to do is take a color space
+transform
+I'm going to put that in the beginning
+I'm going to say our input color space
+is array as we already know
+input gamma is Ary Lux E3 but my output
+color space instead of sending it to rec
+709 gamma 2.4 what I'm actually going to
+do is put this into a larger color space
+so I'm going to put it into DaVinci wide
+gamut this is actually a bigger color
+space than the Airy color space but it's
+a very good intermediate working color
+space it's very good if you've got mixed
+camera formats like we have here we've
+got Airy and red so The DaVinci wide
+gamut is a good intermediate one to use
+my Apple gamma needs to also be set to
+DaVinci intermediate so what we've done
+here is take our array color space and
+we've sent it to DaVinci wide gamut
+color space now what we can do
+at the end
+let's put another color space transform
+so this is going to be our grade this
+one on the end what we're going to do is
+take our input color space and it's not
+going to be array this time because
+we've set Airy to DaVinci here so it's
+actually we need to go from DaVinci
+color space don't you write gamut Da
+Vinci intermediate and now we're going
+to send it to rec 709 so I'm going to
+say apple cut a space for x79 gamma 2.4
+okay this still looks exactly the same
+so if I double click this which was just
+our array log C to Rick 709
+and wipe you see again they're
+absolutely identical
+because what we've done is taken Arie to
+Da Vinci here we're then going to do all
+our color grading in the middle in
+DaVinci wide gamut color space and then
+we're going to go from DaVinci wide
+gamut again down to rec 709 so with the
+effects we've just built a new pipeline
+we've got our start and our end just to
+show if I push the extreme we still get
+that nice roll off we don't get any
+clipping occurring so it's a really good
+workflow okay so let's take this to the
+next level what I want to do is get a
+really efficient workflow going on here
+we've got our first node here this is
+taking us from our camera manufacturers
+color space to our chosen working color
+space in our case DaVinci wired gamut
+this could be Aces if you prefer to work
+in Aces there's absolutely no problem
+with that as long as your final CST in
+your program takes you from that same
+working color space down to rec 709 this
+is at the final bit that we want to
+funnel it down to rec 709 color space
+in the middle of that you've got your
+grade so this could be one node 20 nodes
+30 nodes doesn't really matter what's
+going on there but we're going to keep
+that as a blank node for now we're going
+to make this really efficient so the
+thing that's unified between all the
+Clips in our timeline will be our grade
+so I'm going to keep that as a blank for
+now and our final CST okay we're always
+going to go from DaVinci wide gamut to
+rec 709 so these two things are common
+the thing that changes is the first one
+because this depends on your camera
+manufacturer or indeed if you're working
+with archive footage or iPhone that
+might just be Rec 709 doesn't matter it
+still needs setting because we're going
+to send it to DaVinci wide gamut so what
+I'm going to do is I'm going to right
+and click I'm going to reset that node
+and I'm going to save this
+as
+a node tree okay so this is going to be
+my very basic fixed notary if you like
+okay so I've got two nodes and I've got
+that CST on the end settings from
+DaVinci right gamut to rec 709 now what
+I'm going to do is apply that to all the
+Clips in my timeline
+so if I select all my clips and just
+middle Mouse click this one
+so now you can see that all the Clips in
+my timeline I've got exactly the same
+node structure but they're all wrong
+because they're all starting in DaVinci
+wide gamut and going to rec 709 whereas
+these are arry and red so what we can do
+is use groups and this is really going
+to help us so I'm going to take our red
+footage I'm going to highlight it all
+I'm going to right click and I'm going
+to add it into a new group let's call
+this red
+and now because these clips are in a
+group what we can do is go to our group
+pre-clip selection and we can use a
+color space transform
+to tell it that these clips are red so
+I've only got to do this once and it
+will apply to the whole group so we go
+red white gamma RGB and we're going to
+go red log 3G 10 and we're going to tell
+it's going to go to DaVinci wide gamut
+because that's our work in color space
+so I'm just going to set that up here
+and all these clips are now set
+correctly because they're in a group so
+this is done at group level and then all
+you got to do is go onto your clip level
+and we can just start grading away
+however many nodes you've got there
+ready to grade and your final CST is
+going to take you from DaVinci wide
+gamut back to 709 so really efficient so
+let's just put our Ari Clips in a group
+and do exactly the same I'm going to say
+add new group let's call it array
+so all our Eclipse are now in a group so
+I'm going to go to group pre-clip make
+sure you choose pre-click and not post
+clip because you want to happen this
+before you start the grade I'm going to
+put my color space transform on and
+we're going to tell it it's very wide
+gamut and it's Airy look C3 again I'm
+going to send it to DaVinci ride gamut
+DaVinci intermediate
+and these clips are all now correctly
+set up ready to start grading so if we
+come out of our group into clip and
+we're good to start grading so you can
+just fire away here just to show you
+that's all nice and smooth no clipping
+occurring and we're good to go if you
+want to see how to do this in a color
+managed environment click on this video
+here
+look after yourselves and I'll see you
+in the next episode

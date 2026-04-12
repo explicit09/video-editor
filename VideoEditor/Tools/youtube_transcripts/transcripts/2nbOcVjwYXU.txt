@@ -1,0 +1,349 @@
+In this video, I'm going to show you
+three popular grading tools that are
+quietly killing your speed, whether
+you're a pro or a beginner, and I'm
+going to show you what you can use in
+their place. Now, what we're going to
+look at today, these are just examples
+of something that I want you to have the
+ability to spot for yourself when you're
+grading. So, we're going to start with a
+question. What exactly makes a tool a
+speed killer? Well, it's pretty simple.
+A speed killer is any tool whose use
+requires some kind of compensation.
+Imagine that you had a car where every
+time you hit the accelerator, the
+steering wheel would drag off to the
+left. So, you'd have to grab it and pull
+it back to the right to keep the car on
+the road. That would be a literal speed
+killer, right? But more to the point,
+that would be an inefficient tool, and
+you'd of course be far better off with a
+car that just keeps going straight when
+you hit the gas. We're going to take a
+look now at three tools in Resolve that
+have similar behavior. They might give
+us what we want or at least some of what
+we want, but they're also going to give
+us stuff that we don't want, that we
+didn't ask for, and then we're going to
+have to compensate for if we want to use
+that tool. And we're going to start here
+in our primaries palette with one of the
+very first tools that I learned to use
+when I was grading, the offset wheel.
+Now, I'm working in a color manage setup
+here today. If you don't know what that
+is or you need to brush up on it, or you
+want to see how I set up my color
+management in my projects, I've got some
+great videos on that topic here on the
+channel. For now, I'm going to stay
+focused on the task at hand, which is
+using my offset to make an exposure
+adjustment. Because right now, we're
+sitting quite underexposed, right? So,
+let's grab this offset wheel and spin it
+to the right. And you can see as I do
+this that like by the time I get to a
+workable exposure level on my subject's
+face, my black point has gotten really
+flat and foggy, right? Like there's
+almost no contrast in the low end of
+this image. That's because offset is a
+speed killer and it requires
+compensation. And I can of course do
+that. I can compensate. I can turn off
+my offset and go to my lift here and
+pull things off to the left. Though, as
+soon as I do that, you'll notice I'm
+going to need to now go back to my
+offset and open it back up to compensate
+because spoiler alert, lift is also a
+speed killer. We're going to talk more
+about that in just a minute. But point
+being, I can absolutely get to some kind
+of workable place by playing lift and
+offset against each other. And I know
+that's true because I did it for years
+when I first began grading and I was
+able to make it work with enough effort.
+But at a certain point, I started to ask
+the question like, what if I didn't have
+to? What if there was just one tool, one
+adjustment that would give me everything
+I want and nothing that I don't so that
+I don't have to keep compensating for
+these unwanted side effects of my offset
+adjustment. Let's take a look at what
+that looks like. So, I'm going to grab a
+still of this version of things right
+here, and then we're going to reset. And
+we're now going to go over to our HDR
+palette and we're going to go to this
+exposure slider here under the global
+wheel. Okay. And what I want to do is
+wipe to the previous version that we
+just did. And I'm going to just kind of
+eyeball match to a similar exposure
+level on my subject. Like something like
+this. And if we wipe between these. So
+here's my offset. Here's the other
+version. Well, like that's not subtle,
+right? That's night and day. It's a huge
+difference. What is the difference that
+we're seeing there? It is the difference
+between using a speedkiller tool that I
+wasn't able to fully compensate for
+versus a tool that does exactly what I
+want and nothing that I don't want that
+I don't have to create any compensation
+for at all. And this really drives the
+point home that is uh worth keeping in
+mind when you're thinking about this
+speed killer topic. It's not all about
+speed. Speed and quality are so
+intertwined. Like in this case, not only
+did I get there much faster with this
+tool, I got to a much better outcome
+than I did with my offset version here.
+Could I get to something more like this
+using offset and lift? Probably. But
+would it take the same amount of time?
+Absolutely not. It would take more time
+and I would have to continue working
+those things against each other to try
+to get even close. Okay. Now, a minute
+ago, we talked about lift. Let's talk
+some more about lift. I want to go over
+here to shot number two. And if we look
+at shot number two, we're going to start
+with making a little exposure adjustment
+like we were just doing. Not much
+because I kind of like where this image
+is sitting, but let's just open it up a
+hair. And even after that adjustment,
+what I'm going to find is that in the
+low end of the image, I feel like I'd
+like to see a little bit more. It feels
+a little bit thick, a little bit
+crunchy. So, I'd like to open things up.
+And the tool that I was taught to use
+for this was lift. So, let's give it a
+try. We're going to go back over here to
+our primaries, and I'm going to grab my
+lift. And I want you to pay attention to
+what's happening in the image and in the
+histogram when I do this. Like first of
+all, I am getting what I'm looking for
+roughly speaking. Like I want to see
+more into the shadows. I'm seeing more
+into the shadows. Like that box is being
+ticked. It's just that I'm getting other
+stuff that I don't want along the way.
+That's why lift is also a speed killer.
+So as I open this up, you can see it's
+not just the low end of the image. It's
+every pixel in the image that's being
+moved. It's just that some pixels are
+moving more than others. So the idea
+that lift is a shadow adjustment, it
+just doesn't hold in the way that it
+feels like it should. It really does
+affect most of the pixels in most
+images. It just affects some of them a
+bit more than others. So as I open this
+up, what's going to most commonly happen
+if you're working in this way is you're
+going to go, okay, I got what I want,
+but now I want to maintain some contrast
+in the middle and some weight in the
+bottom. So I'm going to grab my gamma
+wheel and turn that to the left. Okay.
+and kind of like trap that uh adjustment
+just into the lower end of the image so
+it's not reaching quite so far up into
+the mid tones and highlights. Okay. But
+what happens now because gamma is also
+kind of a speed killer, gamma is going
+to start to drag down the brighter
+values, the highlights in the image. And
+before I know it, I'm going to probably
+have to go into my gain and open the
+gain up a little bit in order to
+compensate for what the gamma was doing
+that I didn't want. Okay. So you end up
+kind of chasing things and working your
+way through serial compensations once
+you get off onto this pattern and you
+end up really chasing your own tail
+quite quickly. Now with enough practice,
+you can get good at this and especially
+if you have a control surface, you can
+even get pretty fast at it. But again,
+the question that came up for me along
+my color grading journey was like, what
+if I didn't have to? What if there was a
+different way of going about this that
+didn't require these compensations and
+this tail chasing? So, let's grab a
+still of what we just did here and see
+if we can audition something like that.
+So, I'm going to go over here to my
+custom curves where I already have a
+preset anchor point which happens to
+rest right at middle exposure for the
+color space that I'm working in right
+now, which is Da Vinci widegamut
+intermediate. That means that as long as
+I don't move this anchor point, I will
+not be moving middle exposures. I will
+be moving things around middle exposure.
+And that's going to allow me to make a
+more localized shadow adjustment than
+lift does. Now, just for sort of
+comparison, take a look here in a
+separate node. If I want to see what the
+equivalent of lift is in custom curves,
+that would be this. And you can now see
+why it kind of makes sense that you
+wouldn't get anything great out of the
+image. Because look at what we're doing
+here. We're altering the contrast and
+the character of the entire image when
+we make a lift adjustment. we need to do
+something more localized that does the
+stuff that we want without also doing
+stuff that we don't want. Okay. So, what
+we can do here in node number one is I
+can go and just grab my black point, my
+lowest point, and start to scoop that up
+a little bit. And if I want to, if I
+need to, I can draw one more control
+point here, and just create a little bit
+of compression. Okay. Now, if we wipe
+between these two, I've ended up in a
+really similar spot. And if I wanted to
+get even closer, I totally could just by
+walking this black point adjustment back
+down. Okay? Or by going a little bit
+deeper with my compression if I wanted
+to. It's easier to create and it's
+easier to revise once we have uh the
+right tool for the job and we're not
+chasing things with speed killers that
+require compensation after compensation
+after compensation. So, another great
+example there of having the right tool
+in place and how quickly you can get to
+what you're looking for compared to
+using a speed killer that requires a
+compensation and so on and so forth.
+Okay, let's take a look at one more
+example. We've taken a look at two kind
+of tonal adjustments thus far. We looked
+at an exposure and now we're looking at
+a lift or a shadow adjustment, which is
+a contrast thing. Let's take a look at
+some color stuff. So here in shot number
+four,
+what my note is, what I would like to do
+is I'd like to get a little more
+saturation on my subject here. And the
+obvious tool for that, the first tool
+that most of us would intuitively think
+of would be our saturation knob here in
+our primaries palette. And check out
+what happens if I grab for this and I
+turn it to the right. I can use it to
+get to a good spot with my subject's
+skin. But if I pop back out here, take a
+look at these tomatoes and like whatever
+this paper lantern thing is here in the
+frame. They've gotten really, really
+electric by the time I get to some kind
+of change in my skin tone that I want to
+see. Now, again, we can compensate. And
+I also got good at this in my earlier
+years of grading. Like, all right, I
+guess that's just what saturation does.
+So, I'm going to learn to manage it and
+compensate for it with things like going
+to my hue versus sat curves and grabbing
+my red and dropping that down. Like
+that's making it a little bit better.
+More recently, you could go to something
+like the color slice tool and grab for
+your density. And that's going to add a
+little bit of weight to your more
+saturated colors. And by the time I kind
+of stack those things up, I've got a
+pretty decent looking net saturation
+change, right? Let's grab a still of
+this and see if it's possible to get to
+a similar place with a different tool,
+with the right tool in the first place
+that doesn't have to get me the result
+I'm after by being stacked with a bunch
+of other tools. So, let's reset this.
+And I'm going to stay right here in my
+color slice tool and instead of working
+the density, I'm just going to hit the
+saturation
+and start working that to the right like
+so. And if I wipe between these two,
+it's not identical, but it's a pretty
+similar result. and I got there with one
+single adjustment that I'm not having to
+calibrate against two other adjustments
+in order to get to a workable solution.
+It's a great final example of the power
+of having the right tool and choosing to
+forego a speed killer that you're going
+to have to create compensations against
+and often end up just chasing your tail
+with. So, there you have it. That's
+three examples of the danger and the
+hazards of a speed killer, as well as
+the power of having the right tool in
+place that's going to get you everything
+you want and nothing that you don't. And
+the thing that I want to leave you with
+is this. Finding that right tool, that
+itself takes effort. That's not always
+free. I just gave you three really good
+alternatives to three really common
+speed killers. But now that you're uh
+thinking about the idea of speed
+killers, you may discover others when
+you're grading. And you may then have to
+figure out like, okay, I know it's a
+speed killer. I can tell cuz I'm having
+to compensate for it, but what am I
+going to use instead? That in and of
+itself can take some exploration and
+some diligence and some time before you
+find it. But I want to encourage you as
+we wrap up today that it's worth the
+search because just take the first
+example we looked at uh here on shot
+number one. Once you do find that better
+approach for exposure, that's going to
+improve your results and improve your
+time to result for every single shot in
+every single project that you grade from
+that point forward. So, it takes effort.
+It takes a little bit of poking around.
+It can even take trial and error before
+you really land on the ideal alternative
+to a speed killer, but it's time really
+well spent. And when you get to a point
+where you've got a toolkit that's built
+of nothing but these really well
+selected tools, that's going to have a
+huge impact on your speed, on your
+quality of outcome, and on your
+confidence when you're grading. Thank
+you.

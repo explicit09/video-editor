@@ -1,0 +1,8322 @@
+[
+  {
+    "text": "Most people assume film is three layers,",
+    "start": 0.16,
+    "duration": 4.639
+  },
+  {
+    "text": "a red, a green, and a blue. Light hits",
+    "start": 2.399,
+    "duration": 4.48
+  },
+  {
+    "text": "them, chemistry happens, and you get an",
+    "start": 4.799,
+    "duration": 4.481
+  },
+  {
+    "text": "image. But here's what film actually is.",
+    "start": 6.879,
+    "duration": 4.401
+  },
+  {
+    "text": ">> Each of the layers like you have a slow",
+    "start": 9.28,
+    "duration": 6.239
+  },
+  {
+    "text": "emulsion, a medium, and then a fast for",
+    "start": 11.28,
+    "duration": 6.16
+  },
+  {
+    "text": "the red, green, and blue.",
+    "start": 15.519,
+    "duration": 4.001
+  },
+  {
+    "text": ">> That's nine emulsion layers. And then",
+    "start": 17.44,
+    "duration": 4.08
+  },
+  {
+    "text": "there are inter layers between them.",
+    "start": 19.52,
+    "duration": 3.919
+  },
+  {
+    "text": ">> You have inter layer, interim image",
+    "start": 21.52,
+    "duration": 3.599
+  },
+  {
+    "text": "effects. In other words, how one layer",
+    "start": 23.439,
+    "duration": 3.441
+  },
+  {
+    "text": "is affecting the other layer.",
+    "start": 25.119,
+    "duration": 4.16
+  },
+  {
+    "text": ">> Now we have 17 layers. And each layer",
+    "start": 26.88,
+    "duration": 4.479
+  },
+  {
+    "text": "doesn't just capture light, it changes",
+    "start": 29.279,
+    "duration": 4.401
+  },
+  {
+    "text": "the behavior of the layers around it.",
+    "start": 31.359,
+    "duration": 4.481
+  },
+  {
+    "text": "The whole system is interactive.",
+    "start": 33.68,
+    "duration": 4.0
+  },
+  {
+    "text": ">> You build the film such that when they",
+    "start": 35.84,
+    "duration": 3.92
+  },
+  {
+    "text": "all stack together, you get a nice",
+    "start": 37.68,
+    "duration": 3.12
+  },
+  {
+    "text": "smooth curve.",
+    "start": 39.76,
+    "duration": 2.88
+  },
+  {
+    "text": ">> If you want to understand how film works",
+    "start": 40.8,
+    "duration": 3.759
+  },
+  {
+    "text": "and how top colorists think their way",
+    "start": 42.64,
+    "duration": 4.0
+  },
+  {
+    "text": "through getting the best image, this is",
+    "start": 44.559,
+    "duration": 4.641
+  },
+  {
+    "text": "where you start. Okay. Dr. Mitchbug",
+    "start": 46.64,
+    "duration": 4.239
+  },
+  {
+    "text": "Danowitz, welcome to the show. It's been",
+    "start": 49.2,
+    "duration": 2.56
+  },
+  {
+    "text": "a long time coming.",
+    "start": 50.879,
+    "duration": 1.84
+  },
+  {
+    "text": ">> Nice being here.",
+    "start": 51.76,
+    "duration": 2.4
+  },
+  {
+    "text": ">> Yeah. A lot of people watching the show",
+    "start": 52.719,
+    "duration": 2.881
+  },
+  {
+    "text": "are going to know you from your long",
+    "start": 54.16,
+    "duration": 2.96
+  },
+  {
+    "text": "career at Kodak and from the work you've",
+    "start": 55.6,
+    "duration": 3.439
+  },
+  {
+    "text": "done with your daughter Jill and uh",
+    "start": 57.12,
+    "duration": 3.36
+  },
+  {
+    "text": "other things you've done with Karen at",
+    "start": 59.039,
+    "duration": 2.641
+  },
+  {
+    "text": "different points and the work you and I",
+    "start": 60.48,
+    "duration": 2.96
+  },
+  {
+    "text": "have done more recently with the Genesis",
+    "start": 61.68,
+    "duration": 3.6
+  },
+  {
+    "text": "plugin. But I want to like kind of start",
+    "start": 63.44,
+    "duration": 3.679
+  },
+  {
+    "text": "with a story from how we actually got",
+    "start": 65.28,
+    "duration": 4.879
+  },
+  {
+    "text": "connected because I remember back in I",
+    "start": 67.119,
+    "duration": 5.281
+  },
+  {
+    "text": "don't know 2015 2016 when I was first",
+    "start": 70.159,
+    "duration": 4.241
+  },
+  {
+    "text": "starting to get into like the filmic",
+    "start": 72.4,
+    "duration": 3.52
+  },
+  {
+    "text": "rendering of images and really wanted to",
+    "start": 74.4,
+    "duration": 3.28
+  },
+  {
+    "text": "understand that and speak that language",
+    "start": 75.92,
+    "duration": 3.6
+  },
+  {
+    "text": "and just looking for any resource to",
+    "start": 77.68,
+    "duration": 3.68
+  },
+  {
+    "text": "understand that stuff better. Of all",
+    "start": 79.52,
+    "duration": 4.32
+  },
+  {
+    "text": "things, I started stumbling into Kodak",
+    "start": 81.36,
+    "duration": 4.32
+  },
+  {
+    "text": "patent filings and reading those things",
+    "start": 83.84,
+    "duration": 3.76
+  },
+  {
+    "text": "and trying to sort of read between the",
+    "start": 85.68,
+    "duration": 3.36
+  },
+  {
+    "text": "lines as to like what was happening in",
+    "start": 87.6,
+    "duration": 3.6
+  },
+  {
+    "text": "there. And the ones that stood out to me",
+    "start": 89.04,
+    "duration": 3.759
+  },
+  {
+    "text": "had a name on there that kept popping",
+    "start": 91.2,
+    "duration": 3.76
+  },
+  {
+    "text": "up. Dr. Mitch about Danowitz. And thus",
+    "start": 92.799,
+    "duration": 4.96
+  },
+  {
+    "text": "began probably like a one or twoyear uh",
+    "start": 94.96,
+    "duration": 4.479
+  },
+  {
+    "text": "like hot and cold exchange over email",
+    "start": 97.759,
+    "duration": 3.04
+  },
+  {
+    "text": "was like, \"Hey, I've read your patent",
+    "start": 99.439,
+    "duration": 2.801
+  },
+  {
+    "text": "filings. Like, can I buy you coffee",
+    "start": 100.799,
+    "duration": 2.721
+  },
+  {
+    "text": "sometime?\" And at the time, you were",
+    "start": 102.24,
+    "duration": 3.919
+  },
+  {
+    "text": "like, \"Look, I'm retired. Like, I'm I'm,",
+    "start": 103.52,
+    "duration": 4.48
+  },
+  {
+    "text": "you know, like not really living right",
+    "start": 106.159,
+    "duration": 3.361
+  },
+  {
+    "text": "in the city anymore. Like, I wish you",
+    "start": 108.0,
+    "duration": 3.119
+  },
+  {
+    "text": "the best of luck, but I don't really",
+    "start": 109.52,
+    "duration": 3.279
+  },
+  {
+    "text": "have time.\" That was how this whole",
+    "start": 111.119,
+    "duration": 3.04
+  },
+  {
+    "text": "thing started, right?",
+    "start": 112.799,
+    "duration": 2.161
+  },
+  {
+    "text": ">> Absolutely.",
+    "start": 114.159,
+    "duration": 3.201
+  },
+  {
+    "text": ">> Yeah. And then I I guess I I wore you",
+    "start": 114.96,
+    "duration": 4.479
+  },
+  {
+    "text": "down or like what was it? I guess I at",
+    "start": 117.36,
+    "duration": 4.32
+  },
+  {
+    "text": "some point I I asked you to join and",
+    "start": 119.439,
+    "duration": 4.0
+  },
+  {
+    "text": "help me to teach a course that I was",
+    "start": 121.68,
+    "duration": 4.079
+  },
+  {
+    "text": "doing at the time on color science and I",
+    "start": 123.439,
+    "duration": 3.761
+  },
+  {
+    "text": "somehow wore you down and got you to",
+    "start": 125.759,
+    "duration": 2.801
+  },
+  {
+    "text": "agree to do it, right?",
+    "start": 127.2,
+    "duration": 3.759
+  },
+  {
+    "text": ">> Yeah. It it it it took a while, you",
+    "start": 128.56,
+    "duration": 5.2
+  },
+  {
+    "text": "know, and uh you know, because I'm I'm",
+    "start": 130.959,
+    "duration": 5.36
+  },
+  {
+    "text": "asked a lot, you know, for different",
+    "start": 133.76,
+    "duration": 6.8
+  },
+  {
+    "text": "people, but then again, you know, uh you",
+    "start": 136.319,
+    "duration": 7.28
+  },
+  {
+    "text": "had enough uh let's say",
+    "start": 140.56,
+    "duration": 6.816
+  },
+  {
+    "text": "background uh also perseverance",
+    "start": 143.599,
+    "duration": 5.201
+  },
+  {
+    "text": "[laughter]",
+    "start": 147.376,
+    "duration": 3.264
+  },
+  {
+    "text": "you know, is that that you know,",
+    "start": 148.8,
+    "duration": 4.32
+  },
+  {
+    "text": "essentially I figure that he's a guy",
+    "start": 150.64,
+    "duration": 4.319
+  },
+  {
+    "text": "worth talking to because at least he's",
+    "start": 153.12,
+    "duration": 4.0
+  },
+  {
+    "text": "kind of understands what I'm saying.",
+    "start": 154.959,
+    "duration": 3.761
+  },
+  {
+    "text": "Well, I'm I'm really grateful that",
+    "start": 157.12,
+    "duration": 2.96
+  },
+  {
+    "text": "however it came about, we ended up",
+    "start": 158.72,
+    "duration": 2.64
+  },
+  {
+    "text": "getting connected in the way we did. And",
+    "start": 160.08,
+    "duration": 2.64
+  },
+  {
+    "text": "I think the biggest reason I'm excited",
+    "start": 161.36,
+    "duration": 3.28
+  },
+  {
+    "text": "to have you on the show today is in",
+    "start": 162.72,
+    "duration": 3.76
+  },
+  {
+    "text": "addition to the things people may know",
+    "start": 164.64,
+    "duration": 3.44
+  },
+  {
+    "text": "about from your background and",
+    "start": 166.48,
+    "duration": 3.759
+  },
+  {
+    "text": "experience, the biggest impact that",
+    "start": 168.08,
+    "duration": 3.84
+  },
+  {
+    "text": "you've had on me personally is you've",
+    "start": 170.239,
+    "duration": 4.321
+  },
+  {
+    "text": "been like a really critical mentor and",
+    "start": 171.92,
+    "duration": 4.399
+  },
+  {
+    "text": "teacher to me. And I'm excited to have",
+    "start": 174.56,
+    "duration": 3.44
+  },
+  {
+    "text": "you share some of the same knowledge and",
+    "start": 176.319,
+    "duration": 3.041
+  },
+  {
+    "text": "insights and perspective that you've",
+    "start": 178.0,
+    "duration": 2.959
+  },
+  {
+    "text": "given me over the years with our",
+    "start": 179.36,
+    "duration": 3.28
+  },
+  {
+    "text": "audience. Uh just when it comes to",
+    "start": 180.959,
+    "duration": 3.521
+  },
+  {
+    "text": "making beautiful moving images because",
+    "start": 182.64,
+    "duration": 3.599
+  },
+  {
+    "text": "that's been your life for really long",
+    "start": 184.48,
+    "duration": 2.32
+  },
+  {
+    "text": "time, right?",
+    "start": 186.239,
+    "duration": 2.481
+  },
+  {
+    "text": ">> And things have changed over the years.",
+    "start": 186.8,
+    "duration": 3.12
+  },
+  {
+    "text": "Yeah. Quite a bit.",
+    "start": 188.72,
+    "duration": 4.56
+  },
+  {
+    "text": ">> Yeah. I mean from the time in the 90s",
+    "start": 189.92,
+    "duration": 6.72
+  },
+  {
+    "text": "when digital intermediate was not even",
+    "start": 193.28,
+    "duration": 5.599
+  },
+  {
+    "text": "on anybody's radar",
+    "start": 196.64,
+    "duration": 7.28
+  },
+  {
+    "text": ">> you know uh and uh where looks were",
+    "start": 198.879,
+    "duration": 7.041
+  },
+  {
+    "text": "really really in the hands of the",
+    "start": 203.92,
+    "duration": 4.64
+  },
+  {
+    "text": "cinematographers you know almost solely",
+    "start": 205.92,
+    "duration": 3.679
+  },
+  {
+    "text": ">> right [clears throat]",
+    "start": 208.56,
+    "duration": 3.44
+  },
+  {
+    "text": ">> uh and that has moved you know into you",
+    "start": 209.599,
+    "duration": 4.401
+  },
+  {
+    "text": "know of course they still have a very",
+    "start": 212.0,
+    "duration": 4.799
+  },
+  {
+    "text": "large impact you know and and they're",
+    "start": 214.0,
+    "duration": 5.599
+  },
+  {
+    "text": "the uh the architect of really the final",
+    "start": 216.799,
+    "duration": 6.16
+  },
+  {
+    "text": "look, but how the look comes together is",
+    "start": 219.599,
+    "duration": 4.64
+  },
+  {
+    "text": "just different,",
+    "start": 222.959,
+    "duration": 3.28
+  },
+  {
+    "text": ">> right? Yeah. There's there's more moving",
+    "start": 224.239,
+    "duration": 3.761
+  },
+  {
+    "text": "pieces and variables absolutely after",
+    "start": 226.239,
+    "duration": 3.601
+  },
+  {
+    "text": "the fact. Yeah. We we just talked a",
+    "start": 228.0,
+    "duration": 2.799
+  },
+  {
+    "text": "second ago about how we're going to try",
+    "start": 229.84,
+    "duration": 2.64
+  },
+  {
+    "text": "to keep this under six hours. So, I",
+    "start": 230.799,
+    "duration": 3.201
+  },
+  {
+    "text": "might be like tempting fate by",
+    "start": 232.48,
+    "duration": 2.96
+  },
+  {
+    "text": "suggesting that we go back to the",
+    "start": 234.0,
+    "duration": 2.72
+  },
+  {
+    "text": "beginning, [laughter] but let's try",
+    "start": 235.44,
+    "duration": 2.799
+  },
+  {
+    "text": "going back to, you know, like where this",
+    "start": 236.72,
+    "duration": 3.28
+  },
+  {
+    "text": "all started for you because you're a",
+    "start": 238.239,
+    "duration": 3.761
+  },
+  {
+    "text": "chemist by uh training, right? That's",
+    "start": 240.0,
+    "duration": 2.64
+  },
+  {
+    "text": "where it all began.",
+    "start": 242.0,
+    "duration": 3.12
+  },
+  {
+    "text": ">> Yeah, I'm Yeah, my PhD is in or organic",
+    "start": 242.64,
+    "duration": 5.44
+  },
+  {
+    "text": "chemistry. Uh, and you know, right out",
+    "start": 245.12,
+    "duration": 6.64
+  },
+  {
+    "text": "of school, I spent about little less",
+    "start": 248.08,
+    "duration": 5.76
+  },
+  {
+    "text": "than two years at DuPont at the",
+    "start": 251.76,
+    "duration": 4.479
+  },
+  {
+    "text": "experimental station making herbicides",
+    "start": 253.84,
+    "duration": 4.56
+  },
+  {
+    "text": "and pesticides and plant growth",
+    "start": 256.239,
+    "duration": 4.481
+  },
+  {
+    "text": "regulants and all this sort of stuff.",
+    "start": 258.4,
+    "duration": 4.32
+  },
+  {
+    "text": "And then and then, you know, I I was",
+    "start": 260.72,
+    "duration": 6.88
+  },
+  {
+    "text": "able to get into into Kodak and that was",
+    "start": 262.72,
+    "duration": 7.28
+  },
+  {
+    "text": "a happen stance. I just, you know, I",
+    "start": 267.6,
+    "duration": 4.24
+  },
+  {
+    "text": "went to school in Rochester, Rochester",
+    "start": 270.0,
+    "duration": 3.919
+  },
+  {
+    "text": "Institute of Technology. And it's",
+    "start": 271.84,
+    "duration": 5.12
+  },
+  {
+    "text": "interesting because I grew up in New",
+    "start": 273.919,
+    "duration": 4.72
+  },
+  {
+    "text": "York City. So I went to high school art",
+    "start": 276.96,
+    "duration": 5.04
+  },
+  {
+    "text": "and design, majored in photography.",
+    "start": 278.639,
+    "duration": 7.28
+  },
+  {
+    "text": "And I, you know, in my off times, I",
+    "start": 282.0,
+    "duration": 6.479
+  },
+  {
+    "text": "would, you know, get uh I would work for",
+    "start": 285.919,
+    "duration": 4.081
+  },
+  {
+    "text": "different, you know, photographers",
+    "start": 288.479,
+    "duration": 4.561
+  },
+  {
+    "text": "doing, you know, laboratory work and and",
+    "start": 290.0,
+    "duration": 6.479
+  },
+  {
+    "text": "whatever. But I got interested in",
+    "start": 293.04,
+    "duration": 5.2
+  },
+  {
+    "text": "chemistry because I was mixing my own",
+    "start": 296.479,
+    "duration": 3.361
+  },
+  {
+    "text": "chemicals.",
+    "start": 298.24,
+    "duration": 4.16
+  },
+  {
+    "text": ">> And so I decided when I went to college,",
+    "start": 299.84,
+    "duration": 4.079
+  },
+  {
+    "text": "I went to Rochester Institute of",
+    "start": 302.4,
+    "duration": 4.48
+  },
+  {
+    "text": "Technology figuring that well if I",
+    "start": 303.919,
+    "duration": 5.681
+  },
+  {
+    "text": "didn't didn't work out in chemistry.",
+    "start": 306.88,
+    "duration": 5.28
+  },
+  {
+    "text": "It's the world's best photo school. So I",
+    "start": 309.6,
+    "duration": 4.24
+  },
+  {
+    "text": "would just, you know, see if I could",
+    "start": 312.16,
+    "duration": 5.28
+  },
+  {
+    "text": "just transfer to the photos side. Well,",
+    "start": 313.84,
+    "duration": 5.52
+  },
+  {
+    "text": "ending up, you know, I was pretty good",
+    "start": 317.44,
+    "duration": 4.72
+  },
+  {
+    "text": "in chemistry and and I moved on to",
+    "start": 319.36,
+    "duration": 4.8
+  },
+  {
+    "text": "University of Wisconsin for, you know,",
+    "start": 322.16,
+    "duration": 4.879
+  },
+  {
+    "text": "for the uh the doctoral work.",
+    "start": 324.16,
+    "duration": 3.599
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 327.039,
+    "duration": 2.88
+  },
+  {
+    "text": ">> But the thing is it was it was really,",
+    "start": 327.759,
+    "duration": 5.201
+  },
+  {
+    "text": "you know, the vocational high school",
+    "start": 329.919,
+    "duration": 5.521
+  },
+  {
+    "text": "that got me, you know, started on",
+    "start": 332.96,
+    "duration": 5.36
+  },
+  {
+    "text": "things. And a after while I was near the",
+    "start": 335.44,
+    "duration": 6.08
+  },
+  {
+    "text": "end of my stint at at DuPont, my wife's",
+    "start": 338.32,
+    "duration": 5.2
+  },
+  {
+    "text": "friend was getting married in Rochester,",
+    "start": 341.52,
+    "duration": 4.0
+  },
+  {
+    "text": "so we went back up there. And so I just",
+    "start": 343.52,
+    "duration": 4.239
+  },
+  {
+    "text": "kind of popped in to Kodak and just to",
+    "start": 345.52,
+    "duration": 4.399
+  },
+  {
+    "text": "say by the way I'm here, you know, and",
+    "start": 347.759,
+    "duration": 6.081
+  },
+  {
+    "text": "you know I can you interview me? I I got",
+    "start": 349.919,
+    "duration": 6.241
+  },
+  {
+    "text": "an offer to come back and to do a formal",
+    "start": 353.84,
+    "duration": 5.04
+  },
+  {
+    "text": "interview and and I started working at",
+    "start": 356.16,
+    "duration": 5.68
+  },
+  {
+    "text": "Kodak. I was in the chem lab making you",
+    "start": 358.88,
+    "duration": 5.599
+  },
+  {
+    "text": "know making compounds for you know the",
+    "start": 361.84,
+    "duration": 5.04
+  },
+  {
+    "text": "film and whatever. I had a lot of angst",
+    "start": 364.479,
+    "duration": 4.241
+  },
+  {
+    "text": "there because I was in a chem lab for",
+    "start": 366.88,
+    "duration": 5.84
+  },
+  {
+    "text": "many many years and told myself that I",
+    "start": 368.72,
+    "duration": 5.52
+  },
+  {
+    "text": "really don't want to be in a chem lab",
+    "start": 372.72,
+    "duration": 5.44
+  },
+  {
+    "text": "anymore. So I started doing other things",
+    "start": 374.24,
+    "duration": 6.16
+  },
+  {
+    "text": "you know doing molecular orbital",
+    "start": 378.16,
+    "duration": 4.879
+  },
+  {
+    "text": "calculation work you know on dyes and",
+    "start": 380.4,
+    "duration": 5.12
+  },
+  {
+    "text": "and you know you know computer getting",
+    "start": 383.039,
+    "duration": 4.801
+  },
+  {
+    "text": "into computer programming as far as you",
+    "start": 385.52,
+    "duration": 4.64
+  },
+  {
+    "text": "molecular substructure searching and all",
+    "start": 387.84,
+    "duration": 4.32
+  },
+  {
+    "text": "this sort of stuff to all the compounds",
+    "start": 390.16,
+    "duration": 4.479
+  },
+  {
+    "text": "that you know we're doing in chem in",
+    "start": 392.16,
+    "duration": 3.92
+  },
+  {
+    "text": "Kodak. Yeah. And this is you're working",
+    "start": 394.639,
+    "duration": 3.361
+  },
+  {
+    "text": "with computers. This is 77 already",
+    "start": 396.08,
+    "duration": 3.36
+  },
+  {
+    "text": "working and like getting fluent with",
+    "start": 398.0,
+    "duration": 1.84
+  },
+  {
+    "text": "computers.",
+    "start": 399.44,
+    "duration": 3.039
+  },
+  {
+    "text": ">> Yes. And I say and I was getting into",
+    "start": 399.84,
+    "duration": 5.52
+  },
+  {
+    "text": "the computer part [snorts] for other",
+    "start": 402.479,
+    "duration": 5.28
+  },
+  {
+    "text": "things you like you know the molecular",
+    "start": 405.36,
+    "duration": 4.399
+  },
+  {
+    "text": "orbital calculations as well for based",
+    "start": 407.759,
+    "duration": 4.72
+  },
+  {
+    "text": "and then you know the substructing you",
+    "start": 409.759,
+    "duration": 5.44
+  },
+  {
+    "text": "know I it was you know I was doing you",
+    "start": 412.479,
+    "duration": 8.081
+  },
+  {
+    "text": "know mostly you know uh PL1 and but",
+    "start": 415.199,
+    "duration": 7.601
+  },
+  {
+    "text": "there was it became an opening in the",
+    "start": 420.56,
+    "duration": 6.0
+  },
+  {
+    "text": "engineering you know the uh science lab",
+    "start": 422.8,
+    "duration": 7.36
+  },
+  {
+    "text": "bit you know within within Kodak where I",
+    "start": 426.56,
+    "duration": 6.56
+  },
+  {
+    "text": "did a lot of the color research.",
+    "start": 430.16,
+    "duration": 4.479
+  },
+  {
+    "text": ">> So this was were you already in motion",
+    "start": 433.12,
+    "duration": 3.359
+  },
+  {
+    "text": "picture or was this the migration point?",
+    "start": 434.639,
+    "duration": 3.761
+  },
+  {
+    "text": ">> This was outside of motion picture. I",
+    "start": 436.479,
+    "duration": 3.761
+  },
+  {
+    "text": "was no at that point it was not yet in",
+    "start": 438.4,
+    "duration": 3.12
+  },
+  {
+    "text": "motion picture and that and this was",
+    "start": 440.24,
+    "duration": 4.88
+  },
+  {
+    "text": "like 79. I was in there and learning and",
+    "start": 441.52,
+    "duration": 6.079
+  },
+  {
+    "text": "we we we would be at the at the",
+    "start": 445.12,
+    "duration": 4.4
+  },
+  {
+    "text": "blackboard you know essentially on a",
+    "start": 447.599,
+    "duration": 5.361
+  },
+  {
+    "text": "daily basis you know you know talking",
+    "start": 449.52,
+    "duration": 5.28
+  },
+  {
+    "text": "arguing about color science about",
+    "start": 452.96,
+    "duration": 4.56
+  },
+  {
+    "text": "different ways of of approaching things",
+    "start": 454.8,
+    "duration": 4.56
+  },
+  {
+    "text": "whatever.",
+    "start": 457.52,
+    "duration": 5.44
+  },
+  {
+    "text": "And I saw that there was a need to put",
+    "start": 459.36,
+    "duration": 7.76
+  },
+  {
+    "text": "things together as far as uh as far as",
+    "start": 462.96,
+    "duration": 7.359
+  },
+  {
+    "text": "the actual uh um system when we're",
+    "start": 467.12,
+    "duration": 5.04
+  },
+  {
+    "text": "trying to solve problems. A lot of a lot",
+    "start": 470.319,
+    "duration": 4.801
+  },
+  {
+    "text": "of things the different people like the",
+    "start": 472.16,
+    "duration": 6.24
+  },
+  {
+    "text": "motion picture area uh the consumer",
+    "start": 475.12,
+    "duration": 5.84
+  },
+  {
+    "text": "films the professional films they would",
+    "start": 478.4,
+    "duration": 3.919
+  },
+  {
+    "text": "come to us and they go we have this",
+    "start": 480.96,
+    "duration": 3.76
+  },
+  {
+    "text": "problem or we have a a project we like",
+    "start": 482.319,
+    "duration": 4.32
+  },
+  {
+    "text": "to be involved in and whatever you know",
+    "start": 484.72,
+    "duration": 5.52
+  },
+  {
+    "text": "and essentially keep the look of it in",
+    "start": 486.639,
+    "duration": 4.081
+  },
+  {
+    "text": "check.",
+    "start": 490.24,
+    "duration": 2.32
+  },
+  {
+    "text": ">> So these are optical visual problems",
+    "start": 490.72,
+    "duration": 3.039
+  },
+  {
+    "text": "they're coming to you with and they're",
+    "start": 492.56,
+    "duration": 2.8
+  },
+  {
+    "text": "saying solve the chemistry to make it",
+    "start": 493.759,
+    "duration": 1.921
+  },
+  {
+    "text": "so.",
+    "start": 495.36,
+    "duration": 2.8
+  },
+  {
+    "text": ">> Yeah. Yes. Yes. And and so the uh the",
+    "start": 495.68,
+    "duration": 4.239
+  },
+  {
+    "text": "the one problem would you know would",
+    "start": 498.16,
+    "duration": 4.159
+  },
+  {
+    "text": "come up in that in that is you know like",
+    "start": 499.919,
+    "duration": 4.321
+  },
+  {
+    "text": "sometimes you you have just one film",
+    "start": 502.319,
+    "duration": 4.56
+  },
+  {
+    "text": "like a a reversal film but other times",
+    "start": 504.24,
+    "duration": 5.2
+  },
+  {
+    "text": "you have a a negative and then a print.",
+    "start": 506.879,
+    "duration": 3.04
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 509.44,
+    "duration": 2.479
+  },
+  {
+    "text": ">> Okay. And in motion picture you have a",
+    "start": 509.919,
+    "duration": 4.721
+  },
+  {
+    "text": "negative then a potential D you know",
+    "start": 511.919,
+    "duration": 4.641
+  },
+  {
+    "text": "master positive you know then you have a",
+    "start": 514.64,
+    "duration": 4.079
+  },
+  {
+    "text": "dupe negative and then you have a print",
+    "start": 516.56,
+    "duration": 4.399
+  },
+  {
+    "text": "and you know this is all before digital",
+    "start": 518.719,
+    "duration": 4.8
+  },
+  {
+    "text": "and so it become a little bit complex.",
+    "start": 520.959,
+    "duration": 5.601
+  },
+  {
+    "text": "So I went and I took spent about",
+    "start": 523.519,
+    "duration": 6.161
+  },
+  {
+    "text": "probably about a year and a half writing",
+    "start": 526.56,
+    "duration": 5.52
+  },
+  {
+    "text": "a fullblown",
+    "start": 529.68,
+    "duration": 4.48
+  },
+  {
+    "text": "model that went right from the original",
+    "start": 532.08,
+    "duration": 3.68
+  },
+  {
+    "text": "scene",
+    "start": 534.16,
+    "duration": 3.76
+  },
+  {
+    "text": "to negative [clears throat] to",
+    "start": 535.76,
+    "duration": 4.72
+  },
+  {
+    "text": "potentially, you know, master positive",
+    "start": 537.92,
+    "duration": 6.0
+  },
+  {
+    "text": "and dupe negative and print uh and then",
+    "start": 540.48,
+    "duration": 5.039
+  },
+  {
+    "text": "out. Now",
+    "start": 543.92,
+    "duration": 3.359
+  },
+  {
+    "text": ">> it was",
+    "start": 545.519,
+    "duration": 6.161
+  },
+  {
+    "text": "it was not on an image. It was mainly on",
+    "start": 547.279,
+    "duration": 6.401
+  },
+  {
+    "text": "a bunch of patches because this was all",
+    "start": 551.68,
+    "duration": 3.92
+  },
+  {
+    "text": "done in 4R,",
+    "start": 553.68,
+    "duration": 4.64
+  },
+  {
+    "text": ">> right? With very constrained processing",
+    "start": 555.6,
+    "duration": 3.679
+  },
+  {
+    "text": "power and all that, right?",
+    "start": 558.32,
+    "duration": 2.4
+  },
+  {
+    "text": ">> Constrained processing power,",
+    "start": 559.279,
+    "duration": 5.201
+  },
+  {
+    "text": "constrained memory, uh, and whatever. So",
+    "start": 560.72,
+    "duration": 6.799
+  },
+  {
+    "text": "we would be looking then at at at plots",
+    "start": 564.48,
+    "duration": 5.919
+  },
+  {
+    "text": "you know at 3D plots you know I mean",
+    "start": 567.519,
+    "duration": 6.721
+  },
+  {
+    "text": "actually 2D plots but uh and u you know",
+    "start": 570.399,
+    "duration": 6.56
+  },
+  {
+    "text": "to see well here you like here's where",
+    "start": 574.24,
+    "duration": 5.36
+  },
+  {
+    "text": "the color resides in this in the plot",
+    "start": 576.959,
+    "duration": 6.56
+  },
+  {
+    "text": "and here's where we predict it to be etc",
+    "start": 579.6,
+    "duration": 6.96
+  },
+  {
+    "text": "and make assumptions and and and and",
+    "start": 583.519,
+    "duration": 5.201
+  },
+  {
+    "text": "recommendations based on that. And this",
+    "start": 586.56,
+    "duration": 4.08
+  },
+  {
+    "text": "is pioneering stuff because like until",
+    "start": 588.72,
+    "duration": 3.52
+  },
+  {
+    "text": "you and your colleagues are starting to",
+    "start": 590.64,
+    "duration": 3.68
+  },
+  {
+    "text": "do this for the first time, the way that",
+    "start": 592.24,
+    "duration": 3.84
+  },
+  {
+    "text": "you make those predictions is with",
+    "start": 594.32,
+    "duration": 3.199
+  },
+  {
+    "text": "physical chemistry. Right.",
+    "start": 596.08,
+    "duration": 5.68
+  },
+  {
+    "text": ">> Sure. And and the problem aroused to",
+    "start": 597.519,
+    "duration": 6.801
+  },
+  {
+    "text": "that arises there is that to make a test",
+    "start": 601.76,
+    "duration": 5.68
+  },
+  {
+    "text": "emulsion at that time it took you know",
+    "start": 604.32,
+    "duration": 5.44
+  },
+  {
+    "text": "for a a set of experiments you a couple",
+    "start": 607.44,
+    "duration": 3.76
+  },
+  {
+    "text": "hundred,000 [snorts]",
+    "start": 609.76,
+    "duration": 4.24
+  },
+  {
+    "text": ">> to run that. And so you're you know the",
+    "start": 611.2,
+    "duration": 5.12
+  },
+  {
+    "text": "the the film builder would be changing",
+    "start": 614.0,
+    "duration": 5.279
+  },
+  {
+    "text": "all the little chemistry if he wants",
+    "start": 616.32,
+    "duration": 5.36
+  },
+  {
+    "text": "there you know for this this layer and",
+    "start": 619.279,
+    "duration": 5.68
+  },
+  {
+    "text": "that layer or whatever you know and then",
+    "start": 621.68,
+    "duration": 5.839
+  },
+  {
+    "text": "you you would go ahead and and put some",
+    "start": 624.959,
+    "duration": 4.401
+  },
+  {
+    "text": "test",
+    "start": 627.519,
+    "duration": 5.281
+  },
+  {
+    "text": "um test images on that or or or some",
+    "start": 629.36,
+    "duration": 6.08
+  },
+  {
+    "text": "test uh uh patches.",
+    "start": 632.8,
+    "duration": 5.2
+  },
+  {
+    "text": ">> And is that a couple hundred,000 in what",
+    "start": 635.44,
+    "duration": 5.36
+  },
+  {
+    "text": "1980s dollars for every iteration?",
+    "start": 638.0,
+    "duration": 3.44
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 640.8,
+    "duration": 0.96
+  },
+  {
+    "text": ">> Wow.",
+    "start": 641.44,
+    "duration": 2.56
+  },
+  {
+    "text": ">> Yeah. I mean it becomes it it becomes",
+    "start": 641.76,
+    "duration": 3.199
+  },
+  {
+    "text": "pretty expensive.",
+    "start": 644.0,
+    "duration": 2.16
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 644.959,
+    "duration": 7.761
+  },
+  {
+    "text": ">> So the um uh the model then was able to",
+    "start": 646.16,
+    "duration": 8.64
+  },
+  {
+    "text": "do more smart coding.",
+    "start": 652.72,
+    "duration": 6.96
+  },
+  {
+    "text": ">> Mhm. You may have a whole factorial of",
+    "start": 654.8,
+    "duration": 7.76
+  },
+  {
+    "text": "potential changes",
+    "start": 659.68,
+    "duration": 4.399
+  },
+  {
+    "text": "and instead of doing that whole",
+    "start": 662.56,
+    "duration": 3.12
+  },
+  {
+    "text": "factorial",
+    "start": 664.079,
+    "duration": 4.641
+  },
+  {
+    "text": "in coding, you do that in the model and",
+    "start": 665.68,
+    "duration": 6.24
+  },
+  {
+    "text": "then you pick out the best favorable the",
+    "start": 668.72,
+    "duration": 5.52
+  },
+  {
+    "text": "best candidates. You still have more",
+    "start": 671.92,
+    "duration": 3.52
+  },
+  {
+    "text": "than just one, right?",
+    "start": 674.24,
+    "duration": 3.36
+  },
+  {
+    "text": ">> But you have you've you've you've you've",
+    "start": 675.44,
+    "duration": 4.399
+  },
+  {
+    "text": "made a smart decision for the for that.",
+    "start": 677.6,
+    "duration": 3.84
+  },
+  {
+    "text": ">> You're doing three iterations instead of",
+    "start": 679.839,
+    "duration": 2.721
+  },
+  {
+    "text": "like 30 or whatever,",
+    "start": 681.44,
+    "duration": 1.839
+  },
+  {
+    "text": ">> right?",
+    "start": 682.56,
+    "duration": 4.32
+  },
+  {
+    "text": ">> Wow. And um yeah, so it it it really",
+    "start": 683.279,
+    "duration": 7.12
+  },
+  {
+    "text": "kind of helped uh really pair things",
+    "start": 686.88,
+    "duration": 6.639
+  },
+  {
+    "text": "down. Uh I mean one result, you know, I",
+    "start": 690.399,
+    "duration": 6.721
+  },
+  {
+    "text": "I remember one time uh and I forget",
+    "start": 693.519,
+    "duration": 5.521
+  },
+  {
+    "text": "really forget whether it was be consumer",
+    "start": 697.12,
+    "duration": 4.399
+  },
+  {
+    "text": "or professional, but it was a film that",
+    "start": 699.04,
+    "duration": 6.64
+  },
+  {
+    "text": "had a problem in the red layer where it",
+    "start": 701.519,
+    "duration": 8.641
+  },
+  {
+    "text": "it was uh it was off by about a 0.1",
+    "start": 705.68,
+    "duration": 5.68
+  },
+  {
+    "text": "density. Mhm.",
+    "start": 710.16,
+    "duration": 4.16
+  },
+  {
+    "text": ">> Well, that doesn't seem to me a lot, but",
+    "start": 711.36,
+    "duration": 5.44
+  },
+  {
+    "text": "in film building terms, that that that's",
+    "start": 714.32,
+    "duration": 5.759
+  },
+  {
+    "text": "that's big, you know, and and and they",
+    "start": 716.8,
+    "duration": 5.2
+  },
+  {
+    "text": "couldn't explain it. You couldn't why is",
+    "start": 720.079,
+    "duration": 3.44
+  },
+  {
+    "text": "this happening?",
+    "start": 722.0,
+    "duration": 3.12
+  },
+  {
+    "text": ">> And",
+    "start": 723.519,
+    "duration": 3.681
+  },
+  {
+    "text": "uh because everything, you know, all all",
+    "start": 725.12,
+    "duration": 4.24
+  },
+  {
+    "text": "the parameters that they're looking at",
+    "start": 727.2,
+    "duration": 4.639
+  },
+  {
+    "text": "were all within, you know, the the very",
+    "start": 729.36,
+    "duration": 7.279
+  },
+  {
+    "text": "tight uh uh ranges that that they were",
+    "start": 731.839,
+    "duration": 7.361
+  },
+  {
+    "text": "building film building to. Well, I used",
+    "start": 736.639,
+    "duration": 6.161
+  },
+  {
+    "text": "a model and it was interesting that",
+    "start": 739.2,
+    "duration": 5.12
+  },
+  {
+    "text": "there were about seven different",
+    "start": 742.8,
+    "duration": 3.599
+  },
+  {
+    "text": "properties",
+    "start": 744.32,
+    "duration": 7.519
+  },
+  {
+    "text": "that you know were all about a about a",
+    "start": 746.399,
+    "duration": 8.721
+  },
+  {
+    "text": "0.01 or a little bit more than 0.01 off",
+    "start": 751.839,
+    "duration": 4.401
+  },
+  {
+    "text": ">> and they're stacking",
+    "start": 755.12,
+    "duration": 3.92
+  },
+  {
+    "text": ">> but every single one of them was in the",
+    "start": 756.24,
+    "duration": 4.719
+  },
+  {
+    "text": "same direction and they all added",
+    "start": 759.04,
+    "duration": 2.72
+  },
+  {
+    "text": "together.",
+    "start": 760.959,
+    "duration": 3.041
+  },
+  {
+    "text": ">> Yeah. And so essentially just doing it",
+    "start": 761.76,
+    "duration": 4.48
+  },
+  {
+    "text": "without the computer it would be it's",
+    "start": 764.0,
+    "duration": 3.839
+  },
+  {
+    "text": "very hard to figure out what was going",
+    "start": 766.24,
+    "duration": 4.88
+  },
+  {
+    "text": "on but with the computer it was uh it",
+    "start": 767.839,
+    "duration": 6.8
+  },
+  {
+    "text": "was uh show showed uh where they were",
+    "start": 771.12,
+    "duration": 6.48
+  },
+  {
+    "text": "off and and then allowed them to do the",
+    "start": 774.639,
+    "duration": 4.64
+  },
+  {
+    "text": "modifications you know to to bring",
+    "start": 777.6,
+    "duration": 4.16
+  },
+  {
+    "text": "things in in into conformance. Well, I I",
+    "start": 779.279,
+    "duration": 4.0
+  },
+  {
+    "text": "love this because this is like something",
+    "start": 781.76,
+    "duration": 4.16
+  },
+  {
+    "text": "that resonates so much with like the",
+    "start": 783.279,
+    "duration": 3.841
+  },
+  {
+    "text": "like working and collaborative",
+    "start": 785.92,
+    "duration": 2.719
+  },
+  {
+    "text": "experiences I've had with you where",
+    "start": 787.12,
+    "duration": 2.959
+  },
+  {
+    "text": "anything from like some of the",
+    "start": 788.639,
+    "duration": 2.88
+  },
+  {
+    "text": "consulting that we've done together to",
+    "start": 790.079,
+    "duration": 3.521
+  },
+  {
+    "text": "developing Genesis to like you know I I",
+    "start": 791.519,
+    "duration": 3.681
+  },
+  {
+    "text": "I have the privilege of like I'll call",
+    "start": 793.6,
+    "duration": 3.2
+  },
+  {
+    "text": "you up sometimes if I'm just struggling",
+    "start": 795.2,
+    "duration": 3.84
+  },
+  {
+    "text": "with a color science or just a workflow",
+    "start": 796.8,
+    "duration": 4.0
+  },
+  {
+    "text": "pipeline thing but like hey I'm seeing",
+    "start": 799.04,
+    "duration": 3.44
+  },
+  {
+    "text": "this and sort of same thing like I don't",
+    "start": 800.8,
+    "duration": 3.2
+  },
+  {
+    "text": "know why I can't explain this",
+    "start": 802.48,
+    "duration": 3.52
+  },
+  {
+    "text": "discrepancy. One of the biggest lessons",
+    "start": 804.0,
+    "duration": 3.92
+  },
+  {
+    "text": "I feel like you've taught me is like you",
+    "start": 806.0,
+    "duration": 4.399
+  },
+  {
+    "text": "have to open the thing up and look at it",
+    "start": 807.92,
+    "duration": 3.599
+  },
+  {
+    "text": "piece by piece.",
+    "start": 810.399,
+    "duration": 2.641
+  },
+  {
+    "text": ">> Yeah. And this is this is where, for",
+    "start": 811.519,
+    "duration": 4.801
+  },
+  {
+    "text": "example, as many people know, I have uh",
+    "start": 813.04,
+    "duration": 7.359
+  },
+  {
+    "text": "my my two girls, Jill and Karen are both",
+    "start": 816.32,
+    "duration": 6.639
+  },
+  {
+    "text": "colorists and I've you know, of course,",
+    "start": 820.399,
+    "duration": 4.481
+  },
+  {
+    "text": "you know, I mean, I've taught them some",
+    "start": 822.959,
+    "duration": 2.641
+  },
+  {
+    "text": "color science,",
+    "start": 824.88,
+    "duration": 2.0
+  },
+  {
+    "text": ">> talk about things a little bit here and",
+    "start": 825.6,
+    "duration": 1.679
+  },
+  {
+    "text": "there,",
+    "start": 826.88,
+    "duration": 1.759
+  },
+  {
+    "text": ">> talked about a lot of color science",
+    "start": 827.279,
+    "duration": 3.521
+  },
+  {
+    "text": "along the way. Definitely. I think that",
+    "start": 828.639,
+    "duration": 5.281
+  },
+  {
+    "text": "it was very a positive thing that they",
+    "start": 830.8,
+    "duration": 5.92
+  },
+  {
+    "text": "understand a lot of the technology not",
+    "start": 833.92,
+    "duration": 7.919
+  },
+  {
+    "text": "only color but you know the the actual",
+    "start": 836.72,
+    "duration": 7.119
+  },
+  {
+    "text": "um you know the different programs that",
+    "start": 841.839,
+    "duration": 4.56
+  },
+  {
+    "text": "are used okay that",
+    "start": 843.839,
+    "duration": 5.12
+  },
+  {
+    "text": "that they're going to be used not in the",
+    "start": 846.399,
+    "duration": 5.12
+  },
+  {
+    "text": "suite but afterwards you know see what",
+    "start": 848.959,
+    "duration": 4.32
+  },
+  {
+    "text": "the rest of the team is doing for the",
+    "start": 851.519,
+    "duration": 3.521
+  },
+  {
+    "text": "deliverables right",
+    "start": 853.279,
+    "duration": 5.68
+  },
+  {
+    "text": ">> uh and u and that's that's very",
+    "start": 855.04,
+    "duration": 6.0
+  },
+  {
+    "text": "important to know about this whole",
+    "start": 858.959,
+    "duration": 4.0
+  },
+  {
+    "text": "thing, you know, I mean, you get a",
+    "start": 861.04,
+    "duration": 3.76
+  },
+  {
+    "text": "different outlook.",
+    "start": 862.959,
+    "duration": 4.161
+  },
+  {
+    "text": ">> Yeah. About it, you know, like and so I",
+    "start": 864.8,
+    "duration": 4.64
+  },
+  {
+    "text": "mean today, you know, I think is is is",
+    "start": 867.12,
+    "duration": 4.159
+  },
+  {
+    "text": "death for colorists to essentially sit",
+    "start": 869.44,
+    "duration": 4.639
+  },
+  {
+    "text": "back and and say, \"Well, just color is",
+    "start": 871.279,
+    "duration": 4.161
+  },
+  {
+    "text": "my thing. I don't care about the rest of",
+    "start": 874.079,
+    "duration": 2.32
+  },
+  {
+    "text": "the other stuff.\"",
+    "start": 875.44,
+    "duration": 1.28
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 876.399,
+    "duration": 2.0
+  },
+  {
+    "text": ">> I mean, that's really foolish. I mean,",
+    "start": 876.72,
+    "duration": 4.4
+  },
+  {
+    "text": "you need to know the whole system,",
+    "start": 878.399,
+    "duration": 4.961
+  },
+  {
+    "text": ">> you know, and and and then",
+    "start": 881.12,
+    "duration": 4.32
+  },
+  {
+    "text": ">> you'll find how you can best integrate",
+    "start": 883.36,
+    "duration": 4.64
+  },
+  {
+    "text": "your talents into that system, you know,",
+    "start": 885.44,
+    "duration": 4.72
+  },
+  {
+    "text": "or if there's a problem, you you you can",
+    "start": 888.0,
+    "duration": 5.279
+  },
+  {
+    "text": "know, well, is it on your end or is it",
+    "start": 890.16,
+    "duration": 4.239
+  },
+  {
+    "text": "down the line?",
+    "start": 893.279,
+    "duration": 3.041
+  },
+  {
+    "text": ">> Yeah. Is it in the pipeline? Is it in",
+    "start": 894.399,
+    "duration": 3.361
+  },
+  {
+    "text": "something you're doing? Yeah.",
+    "start": 896.32,
+    "duration": 3.12
+  },
+  {
+    "text": ">> I mean, it's funny. I a story is coming",
+    "start": 897.76,
+    "duration": 3.439
+  },
+  {
+    "text": "to mind. I remember one day on a",
+    "start": 899.44,
+    "duration": 3.199
+  },
+  {
+    "text": "consulting project we were working on",
+    "start": 901.199,
+    "duration": 3.681
+  },
+  {
+    "text": "where it was just you and I uh in my",
+    "start": 902.639,
+    "duration": 3.601
+  },
+  {
+    "text": "garage at the time where you know we",
+    "start": 904.88,
+    "duration": 2.639
+  },
+  {
+    "text": "were experimenting with stuff and I",
+    "start": 906.24,
+    "duration": 2.24
+  },
+  {
+    "text": "don't even remember what the problem was",
+    "start": 907.519,
+    "duration": 3.201
+  },
+  {
+    "text": "but we were trying to solve some visual",
+    "start": 908.48,
+    "duration": 3.84
+  },
+  {
+    "text": "problem and Jill happened to come by so",
+    "start": 910.72,
+    "duration": 3.119
+  },
+  {
+    "text": "the three of us could grab lunch and",
+    "start": 912.32,
+    "duration": 3.84
+  },
+  {
+    "text": "immediately she goes into like this like",
+    "start": 913.839,
+    "duration": 4.641
+  },
+  {
+    "text": "very systematic diagnosis mode as",
+    "start": 916.16,
+    "duration": 3.52
+  },
+  {
+    "text": "opposed to the mode I think a lot of",
+    "start": 918.48,
+    "duration": 2.88
+  },
+  {
+    "text": "colorists would go into like oh either",
+    "start": 919.68,
+    "duration": 3.279
+  },
+  {
+    "text": "being kind of disinterested of like cool",
+    "start": 921.36,
+    "duration": 3.279
+  },
+  {
+    "text": "I'm sure you'll figure it out or having",
+    "start": 922.959,
+    "duration": 3.601
+  },
+  {
+    "text": "more of a surface suggestion of like oh",
+    "start": 924.639,
+    "duration": 3.601
+  },
+  {
+    "text": "have you tried like maybe not doing so",
+    "start": 926.56,
+    "duration": 3.6
+  },
+  {
+    "text": "much saturation But she immediately goes",
+    "start": 928.24,
+    "duration": 3.039
+  },
+  {
+    "text": "into like, \"Okay, well, show me what you",
+    "start": 930.16,
+    "duration": 2.4
+  },
+  {
+    "text": "got going on. Show me every step of the",
+    "start": 931.279,
+    "duration": 3.12
+  },
+  {
+    "text": "process. I want to see like top level,",
+    "start": 932.56,
+    "duration": 4.16
+  },
+  {
+    "text": "how are you getting to this outcome? And",
+    "start": 934.399,
+    "duration": 3.761
+  },
+  {
+    "text": "maybe I can help you pull on the right",
+    "start": 936.72,
+    "duration": 3.359
+  },
+  {
+    "text": "levers to solve things.\" So clearly",
+    "start": 938.16,
+    "duration": 4.16
+  },
+  {
+    "text": "that's something that was imparted or",
+    "start": 940.079,
+    "duration": 3.841
+  },
+  {
+    "text": "that your kids were just born with is",
+    "start": 942.32,
+    "duration": 4.8
+  },
+  {
+    "text": "that like systems type of mindset as",
+    "start": 943.92,
+    "duration": 5.039
+  },
+  {
+    "text": "opposed to just like I just turn knobs",
+    "start": 947.12,
+    "duration": 2.88
+  },
+  {
+    "text": "until things behave.",
+    "start": 948.959,
+    "duration": 3.601
+  },
+  {
+    "text": ">> No, it's it's actually it was kind of a",
+    "start": 950.0,
+    "duration": 5.68
+  },
+  {
+    "text": "a a purposeful thing. you essentially",
+    "start": 952.56,
+    "duration": 6.32
+  },
+  {
+    "text": "well I was a scientist so I I I I would",
+    "start": 955.68,
+    "duration": 5.04
+  },
+  {
+    "text": "use like the scientific method to you",
+    "start": 958.88,
+    "duration": 3.84
+  },
+  {
+    "text": "know to solve problems you know and not",
+    "start": 960.72,
+    "duration": 4.88
+  },
+  {
+    "text": "just randomly you know guesses something",
+    "start": 962.72,
+    "duration": 4.559
+  },
+  {
+    "text": "and go from there so",
+    "start": 965.6,
+    "duration": 5.12
+  },
+  {
+    "text": ">> there's like a proper like combo of like",
+    "start": 967.279,
+    "duration": 6.24
+  },
+  {
+    "text": "motion imaging and color science like",
+    "start": 970.72,
+    "duration": 5.039
+  },
+  {
+    "text": "dynasty in the Bdanowitz family between",
+    "start": 973.519,
+    "duration": 4.401
+  },
+  {
+    "text": "your dad and then of course you and not",
+    "start": 975.759,
+    "duration": 3.52
+  },
+  {
+    "text": "only both your daughters but your son",
+    "start": 977.92,
+    "duration": 3.12
+  },
+  {
+    "text": "Jim is in the business as well right?",
+    "start": 979.279,
+    "duration": 5.12
+  },
+  {
+    "text": ">> Yes. You know, Jim Jim is a engineer.",
+    "start": 981.04,
+    "duration": 6.719
+  },
+  {
+    "text": "Jim and I did all the color work for",
+    "start": 984.399,
+    "duration": 7.36
+  },
+  {
+    "text": "Kenoflow's uh uh LED lighting systems.",
+    "start": 987.759,
+    "duration": 6.88
+  },
+  {
+    "text": "So, essentially, you know, so he has his",
+    "start": 991.759,
+    "duration": 6.241
+  },
+  {
+    "text": "own niche in in in the in in in the uh",
+    "start": 994.639,
+    "duration": 5.281
+  },
+  {
+    "text": "in the motion picture area. But",
+    "start": 998.0,
+    "duration": 3.279
+  },
+  {
+    "text": ">> yeah. Well, I mean, this is a cool thing",
+    "start": 999.92,
+    "duration": 2.479
+  },
+  {
+    "text": "to double click on because I feel like",
+    "start": 1001.279,
+    "duration": 3.68
+  },
+  {
+    "text": "if we look at Jill or Karen or at Jim,",
+    "start": 1002.399,
+    "duration": 4.8
+  },
+  {
+    "text": "clearly in all cases, like they ran with",
+    "start": 1004.959,
+    "duration": 3.761
+  },
+  {
+    "text": "the ball, but I think you handed them a",
+    "start": 1007.199,
+    "duration": 3.361
+  },
+  {
+    "text": "ball in all three cases. like you gave",
+    "start": 1008.72,
+    "duration": 4.08
+  },
+  {
+    "text": "them some foundational pieces that they",
+    "start": 1010.56,
+    "duration": 4.32
+  },
+  {
+    "text": "were able to leverage. What do you think",
+    "start": 1012.8,
+    "duration": 3.44
+  },
+  {
+    "text": "those things are? You touched on one of",
+    "start": 1014.88,
+    "duration": 2.639
+  },
+  {
+    "text": "them already, which is, you know, just",
+    "start": 1016.24,
+    "duration": 3.12
+  },
+  {
+    "text": "that idea of like learning sort of like",
+    "start": 1017.519,
+    "duration": 3.521
+  },
+  {
+    "text": "systems thinking maybe or the scientific",
+    "start": 1019.36,
+    "duration": 3.039
+  },
+  {
+    "text": "method. What do you feel like are some",
+    "start": 1021.04,
+    "duration": 2.88
+  },
+  {
+    "text": "of the other key things that you were",
+    "start": 1022.399,
+    "duration": 3.28
+  },
+  {
+    "text": "maybe able to invest into your kids that",
+    "start": 1023.92,
+    "duration": 4.24
+  },
+  {
+    "text": "allowed them to find their success?",
+    "start": 1025.679,
+    "duration": 5.041
+  },
+  {
+    "text": ">> Well, it's pursuing knowledge to solve a",
+    "start": 1028.16,
+    "duration": 4.48
+  },
+  {
+    "text": "problem. You know the things to do is",
+    "start": 1030.72,
+    "duration": 3.68
+  },
+  {
+    "text": "you got you got to take ownership of it,",
+    "start": 1032.64,
+    "duration": 4.319
+  },
+  {
+    "text": "you know, and then look at the problem",
+    "start": 1034.4,
+    "duration": 5.039
+  },
+  {
+    "text": "and talk with somebody else",
+    "start": 1036.959,
+    "duration": 7.041
+  },
+  {
+    "text": ">> and argue but ar don't argue on a",
+    "start": 1039.439,
+    "duration": 8.161
+  },
+  {
+    "text": "personal basis. You argue it on a data",
+    "start": 1044.0,
+    "duration": 5.679
+  },
+  {
+    "text": "basis. In other words, you know, like",
+    "start": 1047.6,
+    "duration": 4.64
+  },
+  {
+    "text": "you you have some data or or let's say",
+    "start": 1049.679,
+    "duration": 3.921
+  },
+  {
+    "text": "there's some data and you're",
+    "start": 1052.24,
+    "duration": 3.04
+  },
+  {
+    "text": "interpreting it one way and I'm",
+    "start": 1053.6,
+    "duration": 4.16
+  },
+  {
+    "text": "interpreting it a different way. Mhm.",
+    "start": 1055.28,
+    "duration": 4.32
+  },
+  {
+    "text": ">> You could kind of we could go back and",
+    "start": 1057.76,
+    "duration": 3.12
+  },
+  {
+    "text": "forth and back and forth.",
+    "start": 1059.6,
+    "duration": 3.12
+  },
+  {
+    "text": ">> You and I have done that a few times.",
+    "start": 1060.88,
+    "duration": 3.919
+  },
+  {
+    "text": ">> Absolutely. Absolutely. And it could be",
+    "start": 1062.72,
+    "duration": 4.24
+  },
+  {
+    "text": "kind of heated at the time, but then you",
+    "start": 1064.799,
+    "duration": 3.76
+  },
+  {
+    "text": "could go and have a beer afterwards, you",
+    "start": 1066.96,
+    "duration": 3.76
+  },
+  {
+    "text": "know, whatever. You know, and some of",
+    "start": 1068.559,
+    "duration": 4.801
+  },
+  {
+    "text": "that in our society is being lost, you",
+    "start": 1070.72,
+    "duration": 3.68
+  },
+  {
+    "text": "know,",
+    "start": 1073.36,
+    "duration": 3.04
+  },
+  {
+    "text": ">> but it's not completely lost. But, you",
+    "start": 1074.4,
+    "duration": 2.159
+  },
+  {
+    "text": "know,",
+    "start": 1076.4,
+    "duration": 1.84
+  },
+  {
+    "text": ">> it's tough to disagree because it's",
+    "start": 1076.559,
+    "duration": 2.801
+  },
+  {
+    "text": "funny like you're part of what I'm",
+    "start": 1078.24,
+    "duration": 2.48
+  },
+  {
+    "text": "hearing from you is like, well, in my",
+    "start": 1079.36,
+    "duration": 2.8
+  },
+  {
+    "text": "day, like work ethic was a",
+    "start": 1080.72,
+    "duration": 2.88
+  },
+  {
+    "text": "non-negotiable and if you didn't show up",
+    "start": 1082.16,
+    "duration": 2.639
+  },
+  {
+    "text": "and didn't work hard, then you weren't",
+    "start": 1083.6,
+    "duration": 2.56
+  },
+  {
+    "text": "going to be in a job for very long. And",
+    "start": 1084.799,
+    "duration": 3.201
+  },
+  {
+    "text": "maybe there's more flexibility or room",
+    "start": 1086.16,
+    "duration": 4.32
+  },
+  {
+    "text": "for, you know, kind of forgiveness for a",
+    "start": 1088.0,
+    "duration": 4.72
+  },
+  {
+    "text": "shortage of that in today's culture, but",
+    "start": 1090.48,
+    "duration": 3.6
+  },
+  {
+    "text": "like you you've been able to show up as",
+    "start": 1092.72,
+    "duration": 3.6
+  },
+  {
+    "text": "a dad and as a pro for your whole career",
+    "start": 1094.08,
+    "duration": 3.44
+  },
+  {
+    "text": "and your whole life.",
+    "start": 1096.32,
+    "duration": 2.8
+  },
+  {
+    "text": ">> But but that was an enjoyable part of",
+    "start": 1097.52,
+    "duration": 1.84
+  },
+  {
+    "text": "it.",
+    "start": 1099.12,
+    "duration": 2.16
+  },
+  {
+    "text": ">> No, I mean it's it's really cool. It's a",
+    "start": 1099.36,
+    "duration": 4.24
+  },
+  {
+    "text": "cool cool legacy you've you've built. Uh",
+    "start": 1101.28,
+    "duration": 4.08
+  },
+  {
+    "text": "let's go back to like those codec days",
+    "start": 1103.6,
+    "duration": 3.52
+  },
+  {
+    "text": "when you're you're starting to model",
+    "start": 1105.36,
+    "duration": 3.12
+  },
+  {
+    "text": "things in the box and you're figuring",
+    "start": 1107.12,
+    "duration": 3.439
+  },
+  {
+    "text": "out how to predict when you produce new",
+    "start": 1108.48,
+    "duration": 3.199
+  },
+  {
+    "text": "codings what's going to happen so you",
+    "start": 1110.559,
+    "duration": 2.721
+  },
+  {
+    "text": "don't have to produce as many of them.",
+    "start": 1111.679,
+    "duration": 3.441
+  },
+  {
+    "text": "Ultimately that's kind of like you know",
+    "start": 1113.28,
+    "duration": 4.48
+  },
+  {
+    "text": "first of all that's that ability and",
+    "start": 1115.12,
+    "duration": 4.799
+  },
+  {
+    "text": "that that you know like mindset of",
+    "start": 1117.76,
+    "duration": 3.76
+  },
+  {
+    "text": "problem solving and you know like doing",
+    "start": 1119.919,
+    "duration": 3.681
+  },
+  {
+    "text": "chemistry in the box as it were that's",
+    "start": 1121.52,
+    "duration": 4.0
+  },
+  {
+    "text": "you know like from my selfish POV that's",
+    "start": 1123.6,
+    "duration": 3.68
+  },
+  {
+    "text": "the genesis of genesis of our plugin",
+    "start": 1125.52,
+    "duration": 3.44
+  },
+  {
+    "text": "that we've released this year but like",
+    "start": 1127.28,
+    "duration": 3.36
+  },
+  {
+    "text": "it also uh if I'm thinking about it",
+    "start": 1128.96,
+    "duration": 3.92
+  },
+  {
+    "text": "correctly that's probably the origins of",
+    "start": 1130.64,
+    "duration": 3.84
+  },
+  {
+    "text": "what became the Kodak look management",
+    "start": 1132.88,
+    "duration": 3.12
+  },
+  {
+    "text": "system right",
+    "start": 1134.48,
+    "duration": 4.16
+  },
+  {
+    "text": ">> yes yeah and because",
+    "start": 1136.0,
+    "duration": 4.72
+  },
+  {
+    "text": "computers started to get faster we",
+    "start": 1138.64,
+    "duration": 5.6
+  },
+  {
+    "text": "started I started looking at ways of",
+    "start": 1140.72,
+    "duration": 5.92
+  },
+  {
+    "text": "taking some of that model that I had and",
+    "start": 1144.24,
+    "duration": 4.319
+  },
+  {
+    "text": "putting it into more practical terms.",
+    "start": 1146.64,
+    "duration": 4.88
+  },
+  {
+    "text": "Okay. And the look management system was",
+    "start": 1148.559,
+    "duration": 5.201
+  },
+  {
+    "text": "was essentially",
+    "start": 1151.52,
+    "duration": 6.08
+  },
+  {
+    "text": "it was still a filmic thing. But the the",
+    "start": 1153.76,
+    "duration": 5.6
+  },
+  {
+    "text": "idea was you're going to take a digital",
+    "start": 1157.6,
+    "duration": 5.28
+  },
+  {
+    "text": "camera and you take a picture on set and",
+    "start": 1159.36,
+    "duration": 7.199
+  },
+  {
+    "text": "take that still image in and essentially",
+    "start": 1162.88,
+    "duration": 6.0
+  },
+  {
+    "text": "say okay",
+    "start": 1166.559,
+    "duration": 4.081
+  },
+  {
+    "text": "how is that what what's going to that",
+    "start": 1168.88,
+    "duration": 4.4
+  },
+  {
+    "text": "going to look like if I use this type of",
+    "start": 1170.64,
+    "duration": 4.32
+  },
+  {
+    "text": "film",
+    "start": 1173.28,
+    "duration": 3.44
+  },
+  {
+    "text": "under this type of scenario",
+    "start": 1174.96,
+    "duration": 4.959
+  },
+  {
+    "text": ">> with this and this processing and and",
+    "start": 1176.72,
+    "duration": 5.28
+  },
+  {
+    "text": "this print material or whatever. Okay.",
+    "start": 1179.919,
+    "duration": 3.921
+  },
+  {
+    "text": "And then show that on the screen.",
+    "start": 1182.0,
+    "duration": 2.48
+  },
+  {
+    "text": ">> Yep.",
+    "start": 1183.84,
+    "duration": 2.8
+  },
+  {
+    "text": ">> Okay. So you could go and it gets",
+    "start": 1184.48,
+    "duration": 4.4
+  },
+  {
+    "text": "complicated but you can you can relate",
+    "start": 1186.64,
+    "duration": 7.12
+  },
+  {
+    "text": "the two. Uh and so the final end product",
+    "start": 1188.88,
+    "duration": 8.96
+  },
+  {
+    "text": "was you took these these images, you",
+    "start": 1193.76,
+    "duration": 6.24
+  },
+  {
+    "text": "selected film, you select a process, you",
+    "start": 1197.84,
+    "duration": 4.32
+  },
+  {
+    "text": "could do overexposure, underexposure,",
+    "start": 1200.0,
+    "duration": 4.48
+  },
+  {
+    "text": "you could do pull process, you could do",
+    "start": 1202.16,
+    "duration": 4.08
+  },
+  {
+    "text": "skip bleach, you could do all extra",
+    "start": 1204.48,
+    "duration": 4.96
+  },
+  {
+    "text": "stuff. And you know you could do a dupe",
+    "start": 1206.24,
+    "duration": 6.16
+  },
+  {
+    "text": "negative and uh you intraositive and",
+    "start": 1209.44,
+    "duration": 4.8
+  },
+  {
+    "text": "dupe negative and then you have a print",
+    "start": 1212.4,
+    "duration": 4.08
+  },
+  {
+    "text": "material. So it it becomes that whole",
+    "start": 1214.24,
+    "duration": 3.12
+  },
+  {
+    "text": "system",
+    "start": 1216.48,
+    "duration": 6.079
+  },
+  {
+    "text": ">> and the uh uh it worked out very nicely",
+    "start": 1217.36,
+    "duration": 10.4
+  },
+  {
+    "text": "and uh but uh be be one of the things",
+    "start": 1222.559,
+    "duration": 8.721
+  },
+  {
+    "text": "that that happened was uh you know uh",
+    "start": 1227.76,
+    "duration": 5.84
+  },
+  {
+    "text": "early on in a stage you like of course a",
+    "start": 1231.28,
+    "duration": 4.24
+  },
+  {
+    "text": "lot of Kodak management you know",
+    "start": 1233.6,
+    "duration": 6.079
+  },
+  {
+    "text": "essentially it was really entrenched in",
+    "start": 1235.52,
+    "duration": 7.2
+  },
+  {
+    "text": "the cash cow but I remember one time we",
+    "start": 1239.679,
+    "duration": 4.801
+  },
+  {
+    "text": "uh and this",
+    "start": 1242.72,
+    "duration": 3.68
+  },
+  {
+    "text": "This is I did this along with a one of",
+    "start": 1244.48,
+    "duration": 4.24
+  },
+  {
+    "text": "my buddies back there, Nan Chu. He he",
+    "start": 1246.4,
+    "duration": 6.24
+  },
+  {
+    "text": "was uh he uh he was from Paris uh Kodak",
+    "start": 1248.72,
+    "duration": 6.4
+  },
+  {
+    "text": "and he spent a year or so in in",
+    "start": 1252.64,
+    "duration": 8.0
+  },
+  {
+    "text": "Rochester and and we we we worked at uh",
+    "start": 1255.12,
+    "duration": 9.2
+  },
+  {
+    "text": "on on some things and but [snorts] um",
+    "start": 1260.64,
+    "duration": 8.64
+  },
+  {
+    "text": "you we we came up with um some you know",
+    "start": 1264.32,
+    "duration": 8.16
+  },
+  {
+    "text": "utilizing some of this modeling you know",
+    "start": 1269.28,
+    "duration": 7.279
+  },
+  {
+    "text": "3D lookup tables that you know could be",
+    "start": 1272.48,
+    "duration": 6.16
+  },
+  {
+    "text": "very very implemented it fast because",
+    "start": 1276.559,
+    "duration": 4.881
+  },
+  {
+    "text": "you you can't do that on the fly. Those",
+    "start": 1278.64,
+    "duration": 3.279
+  },
+  {
+    "text": "mathematics",
+    "start": 1281.44,
+    "duration": 2.0
+  },
+  {
+    "text": ">> all that real time processing.",
+    "start": 1281.919,
+    "duration": 3.281
+  },
+  {
+    "text": ">> Yeah. If if you have some data and you",
+    "start": 1283.44,
+    "duration": 3.92
+  },
+  {
+    "text": "want to process it, you you you you have",
+    "start": 1285.2,
+    "duration": 4.959
+  },
+  {
+    "text": "to something do do something fast.",
+    "start": 1287.36,
+    "duration": 4.319
+  },
+  {
+    "text": ">> You got to cook that process down.",
+    "start": 1290.159,
+    "duration": 3.921
+  },
+  {
+    "text": ">> Yeah. We we didn't have anything that",
+    "start": 1291.679,
+    "duration": 4.801
+  },
+  {
+    "text": "would really do it completely. You know,",
+    "start": 1294.08,
+    "duration": 4.8
+  },
+  {
+    "text": "for example, there were Kodak digital",
+    "start": 1296.48,
+    "duration": 6.16
+  },
+  {
+    "text": "cameras that would do a 17 cube lookup",
+    "start": 1298.88,
+    "duration": 5.36
+  },
+  {
+    "text": "table,",
+    "start": 1302.64,
+    "duration": 6.159
+  },
+  {
+    "text": "but that lookup table uh could only deal",
+    "start": 1304.24,
+    "duration": 7.76
+  },
+  {
+    "text": "with a certain number of frames per",
+    "start": 1308.799,
+    "duration": 5.201
+  },
+  {
+    "text": "second",
+    "start": 1312.0,
+    "duration": 4.559
+  },
+  {
+    "text": ">> and it wasn't enough for real time. So,",
+    "start": 1314.0,
+    "duration": 5.44
+  },
+  {
+    "text": "we have to take two different chips and",
+    "start": 1316.559,
+    "duration": 5.921
+  },
+  {
+    "text": "then take alternate frames through it,",
+    "start": 1319.44,
+    "duration": 4.96
+  },
+  {
+    "text": "you know, to get throughput. Well,",
+    "start": 1322.48,
+    "duration": 4.8
+  },
+  {
+    "text": "bottom line is that a lot of these",
+    "start": 1324.4,
+    "duration": 5.12
+  },
+  {
+    "text": "management, you know, motion picture,",
+    "start": 1327.28,
+    "duration": 4.32
+  },
+  {
+    "text": "you know, we were giving a a",
+    "start": 1329.52,
+    "duration": 5.279
+  },
+  {
+    "text": "presentation over at the city site and",
+    "start": 1331.6,
+    "duration": 7.04
+  },
+  {
+    "text": "uh the um uh",
+    "start": 1334.799,
+    "duration": 7.521
+  },
+  {
+    "text": "what we had is we had some",
+    "start": 1338.64,
+    "duration": 7.84
+  },
+  {
+    "text": "u digitally captured data",
+    "start": 1342.32,
+    "duration": 7.76
+  },
+  {
+    "text": "and film data. Okay. And you know so",
+    "start": 1346.48,
+    "duration": 6.4
+  },
+  {
+    "text": "essentially you know we could show on",
+    "start": 1350.08,
+    "duration": 5.2
+  },
+  {
+    "text": "the screen you know the the the digital",
+    "start": 1352.88,
+    "duration": 4.64
+  },
+  {
+    "text": "stuff and then we could show uh film.",
+    "start": 1355.28,
+    "duration": 5.2
+  },
+  {
+    "text": "Okay. And",
+    "start": 1357.52,
+    "duration": 5.84
+  },
+  {
+    "text": "um of course they look different.",
+    "start": 1360.48,
+    "duration": 6.559
+  },
+  {
+    "text": ">> Then we said okay now remember at that",
+    "start": 1363.36,
+    "duration": 5.439
+  },
+  {
+    "text": "time",
+    "start": 1367.039,
+    "duration": 4.561
+  },
+  {
+    "text": "the the thoughts were that there's no",
+    "start": 1368.799,
+    "duration": 5.201
+  },
+  {
+    "text": "way in hell that digital is going to be",
+    "start": 1371.6,
+    "duration": 3.28
+  },
+  {
+    "text": "the same as film",
+    "start": 1374.0,
+    "duration": 2.88
+  },
+  {
+    "text": ">> right? You can't match it to film",
+    "start": 1374.88,
+    "duration": 3.6
+  },
+  {
+    "text": "reproduction.",
+    "start": 1376.88,
+    "duration": 3.36
+  },
+  {
+    "text": "Well, what we did is we just, you know,",
+    "start": 1378.48,
+    "duration": 3.439
+  },
+  {
+    "text": "we we then looped it through when we had",
+    "start": 1380.24,
+    "duration": 4.16
+  },
+  {
+    "text": "that same that that that data, you know,",
+    "start": 1381.919,
+    "duration": 5.681
+  },
+  {
+    "text": "then go through a three lookup table.",
+    "start": 1384.4,
+    "duration": 3.68
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 1387.6,
+    "duration": 5.36
+  },
+  {
+    "text": ">> Uh and showed side by side and",
+    "start": 1388.08,
+    "duration": 7.04
+  },
+  {
+    "text": "some some some jaws were dropped there,",
+    "start": 1392.96,
+    "duration": 4.16
+  },
+  {
+    "text": "you know, because, you know, it was to",
+    "start": 1395.12,
+    "duration": 3.76
+  },
+  {
+    "text": "their to their point of view too damn",
+    "start": 1397.12,
+    "duration": 3.12
+  },
+  {
+    "text": "good. [laughter]",
+    "start": 1398.88,
+    "duration": 2.24
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 1400.24,
+    "duration": 2.319
+  },
+  {
+    "text": ">> Like what are you doing here?",
+    "start": 1401.12,
+    "duration": 4.0
+  },
+  {
+    "text": ">> Yeah. But it did give us, you know, a",
+    "start": 1402.559,
+    "duration": 5.441
+  },
+  {
+    "text": "lot of of of go-ahad, you know, for",
+    "start": 1405.12,
+    "duration": 4.559
+  },
+  {
+    "text": "things like that look management system",
+    "start": 1408.0,
+    "duration": 3.919
+  },
+  {
+    "text": "and whatever. You know, again, they",
+    "start": 1409.679,
+    "duration": 3.441
+  },
+  {
+    "text": "didn't think that that was going to be",
+    "start": 1411.919,
+    "duration": 2.801
+  },
+  {
+    "text": "as threatening, you know, because that",
+    "start": 1413.12,
+    "duration": 3.52
+  },
+  {
+    "text": "would, you know, help, you know, them",
+    "start": 1414.72,
+    "duration": 3.36
+  },
+  {
+    "text": "use film and whatever.",
+    "start": 1416.64,
+    "duration": 2.72
+  },
+  {
+    "text": ">> Yeah. It was sort of bounded in a way",
+    "start": 1418.08,
+    "duration": 2.88
+  },
+  {
+    "text": "that made them comfortable with the",
+    "start": 1419.36,
+    "duration": 3.439
+  },
+  {
+    "text": ">> right. But but it also was the beginning",
+    "start": 1420.96,
+    "duration": 5.92
+  },
+  {
+    "text": "of utilizing a a viewing l for example.",
+    "start": 1422.799,
+    "duration": 4.561
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 1426.88,
+    "duration": 3.44
+  },
+  {
+    "text": ">> You know in in in later in life because",
+    "start": 1427.36,
+    "duration": 5.92
+  },
+  {
+    "text": "you know for the early digital",
+    "start": 1430.32,
+    "duration": 5.68
+  },
+  {
+    "text": "intermediate",
+    "start": 1433.28,
+    "duration": 6.56
+  },
+  {
+    "text": ">> was a film scan. It was not from it it",
+    "start": 1436.0,
+    "duration": 5.679
+  },
+  {
+    "text": "was not from digital camera. It it was",
+    "start": 1439.84,
+    "duration": 3.92
+  },
+  {
+    "text": "from a film scan usually",
+    "start": 1441.679,
+    "duration": 4.401
+  },
+  {
+    "text": ">> or it could be you know CGI but mainly a",
+    "start": 1443.76,
+    "duration": 3.279
+  },
+  {
+    "text": "film scan.",
+    "start": 1446.08,
+    "duration": 4.32
+  },
+  {
+    "text": ">> Yeah. and um and and the film scans back",
+    "start": 1447.039,
+    "duration": 7.841
+  },
+  {
+    "text": "then were you know much more rigid than",
+    "start": 1450.4,
+    "duration": 6.8
+  },
+  {
+    "text": "they are today as far as as far as you",
+    "start": 1454.88,
+    "duration": 4.159
+  },
+  {
+    "text": "know what the actual data means",
+    "start": 1457.2,
+    "duration": 3.76
+  },
+  {
+    "text": ">> where the exposure sits and distribution",
+    "start": 1459.039,
+    "duration": 3.041
+  },
+  {
+    "text": "and all that.",
+    "start": 1460.96,
+    "duration": 3.68
+  },
+  {
+    "text": ">> So so you had things like say a cine on",
+    "start": 1462.08,
+    "duration": 4.16
+  },
+  {
+    "text": "DPX",
+    "start": 1464.64,
+    "duration": 4.88
+  },
+  {
+    "text": ">> so now you have",
+    "start": 1466.24,
+    "duration": 6.4
+  },
+  {
+    "text": "in in in that workflow that data would",
+    "start": 1469.52,
+    "duration": 5.44
+  },
+  {
+    "text": "go directly out to a recorder.",
+    "start": 1472.64,
+    "duration": 5.12
+  },
+  {
+    "text": ">> Okay. So you don't want to to render",
+    "start": 1474.96,
+    "duration": 4.24
+  },
+  {
+    "text": "that anymore. You just want to go out to",
+    "start": 1477.76,
+    "duration": 2.96
+  },
+  {
+    "text": "the recorder because then that will go",
+    "start": 1479.2,
+    "duration": 2.959
+  },
+  {
+    "text": "and give you the print that",
+    "start": 1480.72,
+    "duration": 3.36
+  },
+  {
+    "text": ">> the print to print out of that.",
+    "start": 1482.159,
+    "duration": 4.481
+  },
+  {
+    "text": ">> So you needed to have something that",
+    "start": 1484.08,
+    "duration": 5.76
+  },
+  {
+    "text": "goes between that data and your display",
+    "start": 1486.64,
+    "duration": 6.24
+  },
+  {
+    "text": "device that makes it look like what",
+    "start": 1489.84,
+    "duration": 4.24
+  },
+  {
+    "text": "you're going to get.",
+    "start": 1492.88,
+    "duration": 1.76
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 1494.08,
+    "duration": 3.68
+  },
+  {
+    "text": ">> Yeah. And that's where all the the u uh",
+    "start": 1494.64,
+    "duration": 5.919
+  },
+  {
+    "text": "a lot of a lot of my effort early on",
+    "start": 1497.76,
+    "duration": 5.2
+  },
+  {
+    "text": "was, you know, to produce the the best",
+    "start": 1500.559,
+    "duration": 4.561
+  },
+  {
+    "text": "that I could of",
+    "start": 1502.96,
+    "duration": 5.599
+  },
+  {
+    "text": "uh viewing L that emulates the system.",
+    "start": 1505.12,
+    "duration": 5.36
+  },
+  {
+    "text": "And this, you know, this involved, you",
+    "start": 1508.559,
+    "duration": 4.161
+  },
+  {
+    "text": "know, modeling, you know, you know, just",
+    "start": 1510.48,
+    "duration": 4.24
+  },
+  {
+    "text": "getting data from the recorder and make",
+    "start": 1512.72,
+    "duration": 4.079
+  },
+  {
+    "text": "sure the recorder is calibrated, you",
+    "start": 1514.72,
+    "duration": 4.319
+  },
+  {
+    "text": "know, getting data from, you know, the",
+    "start": 1516.799,
+    "duration": 4.561
+  },
+  {
+    "text": "final prints output and and and",
+    "start": 1519.039,
+    "duration": 3.601
+  },
+  {
+    "text": "whatever.",
+    "start": 1521.36,
+    "duration": 5.439
+  },
+  {
+    "text": ">> Okay. All that was not a model. That was",
+    "start": 1522.64,
+    "duration": 6.32
+  },
+  {
+    "text": "a this is the actual data that we",
+    "start": 1526.799,
+    "duration": 3.76
+  },
+  {
+    "text": "measured because we measured many many",
+    "start": 1528.96,
+    "duration": 3.52
+  },
+  {
+    "text": "many points you know and then you and",
+    "start": 1530.559,
+    "duration": 4.401
+  },
+  {
+    "text": "then you you you",
+    "start": 1532.48,
+    "duration": 6.559
+  },
+  {
+    "text": "process that such that you you you get a",
+    "start": 1534.96,
+    "duration": 5.68
+  },
+  {
+    "text": "threedimensional",
+    "start": 1539.039,
+    "duration": 3.201
+  },
+  {
+    "text": "you fit it to the measurement.",
+    "start": 1540.64,
+    "duration": 3.36
+  },
+  {
+    "text": ">> Yeah, right. You you do some smoothing",
+    "start": 1542.24,
+    "duration": 4.4
+  },
+  {
+    "text": "and model and and and interpolation or",
+    "start": 1544.0,
+    "duration": 6.24
+  },
+  {
+    "text": "whatever to get to get that uh uh that u",
+    "start": 1546.64,
+    "duration": 6.639
+  },
+  {
+    "text": "that that lookup table. Genesis",
+    "start": 1550.24,
+    "duration": 5.36
+  },
+  {
+    "text": "doesn't do it that way. Doesn't just do",
+    "start": 1553.279,
+    "duration": 4.4
+  },
+  {
+    "text": "like a regression saying you got you got",
+    "start": 1555.6,
+    "duration": 3.52
+  },
+  {
+    "text": "this set of data and this set. We're",
+    "start": 1557.679,
+    "duration": 3.6
+  },
+  {
+    "text": "just gonna get some some something that",
+    "start": 1559.12,
+    "duration": 3.76
+  },
+  {
+    "text": "fits the two, you know.",
+    "start": 1561.279,
+    "duration": 2.161
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 1562.88,
+    "duration": 2.56
+  },
+  {
+    "text": ">> It it's essentially it goes through and",
+    "start": 1563.44,
+    "duration": 3.92
+  },
+  {
+    "text": "essentially it it models it.",
+    "start": 1565.44,
+    "duration": 3.52
+  },
+  {
+    "text": ">> We're getting to pick up on a project",
+    "start": 1567.36,
+    "duration": 3.919
+  },
+  {
+    "text": "you started 20 plus years ago of",
+    "start": 1568.96,
+    "duration": 3.76
+  },
+  {
+    "text": "actually modeling the chemistry and not",
+    "start": 1571.279,
+    "duration": 2.88
+  },
+  {
+    "text": "just mimicking outcomes.",
+    "start": 1572.72,
+    "duration": 2.0
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 1574.159,
+    "duration": 1.041
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 1574.72,
+    "duration": 0.88
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 1575.2,
+    "duration": 1.68
+  },
+  {
+    "text": ">> I mean that's so cool. What's",
+    "start": 1575.6,
+    "duration": 3.6
+  },
+  {
+    "text": "interesting to me is like if we look at,",
+    "start": 1576.88,
+    "duration": 4.56
+  },
+  {
+    "text": "you know, the very long career that",
+    "start": 1579.2,
+    "duration": 3.76
+  },
+  {
+    "text": "you've had, we're now at a place where",
+    "start": 1581.44,
+    "duration": 4.4
+  },
+  {
+    "text": "like motion imaging is just now kind of",
+    "start": 1582.96,
+    "duration": 4.4
+  },
+  {
+    "text": "beginning to catch up to things that you",
+    "start": 1585.84,
+    "duration": 3.68
+  },
+  {
+    "text": "saw and recognize the potential in",
+    "start": 1587.36,
+    "duration": 4.48
+  },
+  {
+    "text": "decades ago. Like for example, you know,",
+    "start": 1589.52,
+    "duration": 4.08
+  },
+  {
+    "text": "you're even talking about like Kodak",
+    "start": 1591.84,
+    "duration": 3.12
+  },
+  {
+    "text": "never quite being able to round that",
+    "start": 1593.6,
+    "duration": 2.64
+  },
+  {
+    "text": "corner that, by the way, they still",
+    "start": 1594.96,
+    "duration": 2.64
+  },
+  {
+    "text": "haven't quite rounded today. That like",
+    "start": 1596.24,
+    "duration": 3.12
+  },
+  {
+    "text": "the thing is the rendering, not the",
+    "start": 1597.6,
+    "duration": 3.679
+  },
+  {
+    "text": "substrate, not the medium. Like the",
+    "start": 1599.36,
+    "duration": 4.319
+  },
+  {
+    "text": "valuable thing is the way and all the",
+    "start": 1601.279,
+    "duration": 4.481
+  },
+  {
+    "text": "R&D and decades of like research and",
+    "start": 1603.679,
+    "duration": 4.161
+  },
+  {
+    "text": "development that went into how do we put",
+    "start": 1605.76,
+    "duration": 4.0
+  },
+  {
+    "text": "pleasing images on the screen. That's",
+    "start": 1607.84,
+    "duration": 4.16
+  },
+  {
+    "text": "what's valuable to I think to both of",
+    "start": 1609.76,
+    "duration": 4.96
+  },
+  {
+    "text": "our minds about film, not the actual",
+    "start": 1612.0,
+    "duration": 4.96
+  },
+  {
+    "text": "medium itself. And that's something that",
+    "start": 1614.72,
+    "duration": 4.959
+  },
+  {
+    "text": "like is a lot more palatable and",
+    "start": 1616.96,
+    "duration": 4.0
+  },
+  {
+    "text": "probably makes more sense to people",
+    "start": 1619.679,
+    "duration": 2.961
+  },
+  {
+    "text": "listening today. But when you were",
+    "start": 1620.96,
+    "duration": 3.36
+  },
+  {
+    "text": "looking at it through that lens decades",
+    "start": 1622.64,
+    "duration": 4.159
+  },
+  {
+    "text": "ago, the management and everyone else",
+    "start": 1624.32,
+    "duration": 3.359
+  },
+  {
+    "text": "are going, \"What are you why are you",
+    "start": 1626.799,
+    "duration": 2.561
+  },
+  {
+    "text": "messing with film? Film is our thing.",
+    "start": 1627.679,
+    "duration": 2.961
+  },
+  {
+    "text": "Film is what's important.\" like the",
+    "start": 1629.36,
+    "duration": 3.28
+  },
+  {
+    "text": "medium is what's important. So this is",
+    "start": 1630.64,
+    "duration": 4.159
+  },
+  {
+    "text": "vision that you had decades ago. It's",
+    "start": 1632.64,
+    "duration": 4.96
+  },
+  {
+    "text": "now easy for all of us to jump on board",
+    "start": 1634.799,
+    "duration": 4.721
+  },
+  {
+    "text": "with you. But like for a long time you",
+    "start": 1637.6,
+    "duration": 3.6
+  },
+  {
+    "text": "were way out ahead of the curve in terms",
+    "start": 1639.52,
+    "duration": 3.92
+  },
+  {
+    "text": "of recognizing where that potential is",
+    "start": 1641.2,
+    "duration": 3.599
+  },
+  {
+    "text": "and knowing how to leverage that",
+    "start": 1643.44,
+    "duration": 3.599
+  },
+  {
+    "text": "potential for a digital medium as well",
+    "start": 1644.799,
+    "duration": 4.561
+  },
+  {
+    "text": "as like a physical photochemical one.",
+    "start": 1647.039,
+    "duration": 2.961
+  },
+  {
+    "text": ">> Sure.",
+    "start": 1649.36,
+    "duration": 3.679
+  },
+  {
+    "text": ">> Yeah. I mean it's really really cool. So",
+    "start": 1650.0,
+    "duration": 5.84
+  },
+  {
+    "text": "I mean if we think about like I could I",
+    "start": 1653.039,
+    "duration": 4.081
+  },
+  {
+    "text": "got so many different directions that we",
+    "start": 1655.84,
+    "duration": 2.959
+  },
+  {
+    "text": "could take things from here but like one",
+    "start": 1657.12,
+    "duration": 3.28
+  },
+  {
+    "text": "of the things that stands out to me when",
+    "start": 1658.799,
+    "duration": 4.081
+  },
+  {
+    "text": "you're talking about the you know the",
+    "start": 1660.4,
+    "duration": 4.159
+  },
+  {
+    "text": "development of the Kodaklook management",
+    "start": 1662.88,
+    "duration": 3.52
+  },
+  {
+    "text": "system and you know like what you were",
+    "start": 1664.559,
+    "duration": 3.841
+  },
+  {
+    "text": "really trying to do there that I think",
+    "start": 1666.4,
+    "duration": 4.24
+  },
+  {
+    "text": "gets misunderstood or discounted even",
+    "start": 1668.4,
+    "duration": 4.159
+  },
+  {
+    "text": "today is you know like we've had lots of",
+    "start": 1670.64,
+    "duration": 3.68
+  },
+  {
+    "text": "interest of course in like you know what",
+    "start": 1672.559,
+    "duration": 4.881
+  },
+  {
+    "text": "is the magic of our plug-in Genesis that",
+    "start": 1674.32,
+    "duration": 4.959
+  },
+  {
+    "text": "we built today and one of the things",
+    "start": 1677.44,
+    "duration": 3.92
+  },
+  {
+    "text": "that I feel like is we haven't talked",
+    "start": 1679.279,
+    "duration": 3.601
+  },
+  {
+    "text": "about much that we can probably share",
+    "start": 1681.36,
+    "duration": 3.6
+  },
+  {
+    "text": "today is something that you touched on",
+    "start": 1682.88,
+    "duration": 3.919
+  },
+  {
+    "text": "when you're talking about developing KMS",
+    "start": 1684.96,
+    "duration": 4.4
+  },
+  {
+    "text": "is like one of the big pieces there is",
+    "start": 1686.799,
+    "duration": 4.641
+  },
+  {
+    "text": "just getting back from whatever your",
+    "start": 1689.36,
+    "duration": 3.52
+  },
+  {
+    "text": "digital negative if you want to call it",
+    "start": 1691.44,
+    "duration": 4.16
+  },
+  {
+    "text": "that just unbuilding that into something",
+    "start": 1692.88,
+    "duration": 5.12
+  },
+  {
+    "text": "that can be fed into the model that",
+    "start": 1695.6,
+    "duration": 4.319
+  },
+  {
+    "text": "you've developed like the model itself",
+    "start": 1698.0,
+    "duration": 3.6
+  },
+  {
+    "text": "is highly complex and you have to",
+    "start": 1699.919,
+    "duration": 3.681
+  },
+  {
+    "text": "basically mimic like whatever the did",
+    "start": 1701.6,
+    "duration": 4.694
+  },
+  {
+    "text": "you say 17 layers 16 layers of right",
+    "start": 1703.6,
+    "duration": 3.76
+  },
+  {
+    "text": "[snorts] of coding and stuff.",
+    "start": 1706.294,
+    "duration": 5.385
+  },
+  {
+    "text": ">> Yeah. back back in 1951 when when uh",
+    "start": 1707.36,
+    "duration": 8.16
+  },
+  {
+    "text": "5247 first came came out and that was a",
+    "start": 1711.679,
+    "duration": 8.161
+  },
+  {
+    "text": "uh uh a an exposure index 16 daylight",
+    "start": 1715.52,
+    "duration": 5.759
+  },
+  {
+    "text": "film. [laughter]",
+    "start": 1719.84,
+    "duration": 3.12
+  },
+  {
+    "text": ">> Yeah, you need like a you know all the",
+    "start": 1721.279,
+    "duration": 2.081
+  },
+  {
+    "text": "lights.",
+    "start": 1722.96,
+    "duration": 2.4
+  },
+  {
+    "text": ">> I mean",
+    "start": 1723.36,
+    "duration": 4.64
+  },
+  {
+    "text": "essentially you like back then for the",
+    "start": 1725.36,
+    "duration": 4.559
+  },
+  {
+    "text": "for the exposures you know an action",
+    "start": 1728.0,
+    "duration": 4.494
+  },
+  {
+    "text": "film with somebody sleeping",
+    "start": 1729.919,
+    "duration": 3.521
+  },
+  {
+    "text": "[laughter]",
+    "start": 1732.494,
+    "duration": 2.466
+  },
+  {
+    "text": ">> because you couldn't do it what you do",
+    "start": 1733.44,
+    "duration": 5.119
+  },
+  {
+    "text": "it today. But anyway, uh it was",
+    "start": 1734.96,
+    "duration": 5.92
+  },
+  {
+    "text": "essentially it just had one layer for",
+    "start": 1738.559,
+    "duration": 4.72
+  },
+  {
+    "text": "the cyan, one magenta, and one yellow.",
+    "start": 1740.88,
+    "duration": 4.56
+  },
+  {
+    "text": "So for for the red, green, and blue",
+    "start": 1743.279,
+    "duration": 3.201
+  },
+  {
+    "text": "sensitive layers,",
+    "start": 1745.44,
+    "duration": 1.68
+  },
+  {
+    "text": ">> right?",
+    "start": 1746.48,
+    "duration": 3.36
+  },
+  {
+    "text": ">> Uh and",
+    "start": 1747.12,
+    "duration": 5.36
+  },
+  {
+    "text": "because of that too, and they're only",
+    "start": 1749.84,
+    "duration": 6.24
+  },
+  {
+    "text": "one layer. Uh they were limited because",
+    "start": 1752.48,
+    "duration": 6.0
+  },
+  {
+    "text": "of thickness and everything else to the",
+    "start": 1756.08,
+    "duration": 4.4
+  },
+  {
+    "text": "amount of silver you could put in there.",
+    "start": 1758.48,
+    "duration": 5.6
+  },
+  {
+    "text": "And as time progresses as you go through",
+    "start": 1760.48,
+    "duration": 6.96
+  },
+  {
+    "text": "the different you know uh uh types of",
+    "start": 1764.08,
+    "duration": 6.64
+  },
+  {
+    "text": "film throughout the years that overall",
+    "start": 1767.44,
+    "duration": 5.76
+  },
+  {
+    "text": "contrast was being decreased down in in",
+    "start": 1770.72,
+    "duration": 5.6
+  },
+  {
+    "text": "in the later 50s and early 60s down to",
+    "start": 1773.2,
+    "duration": 6.079
+  },
+  {
+    "text": "about 65 area then going down to the",
+    "start": 1776.32,
+    "duration": 6.4
+  },
+  {
+    "text": "point6 and now now for example 5219",
+    "start": 1779.279,
+    "duration": 9.041
+  },
+  {
+    "text": "is somewhere you know in the 0.5 plus",
+    "start": 1782.72,
+    "duration": 7.52
+  },
+  {
+    "text": "you you know range.",
+    "start": 1788.32,
+    "duration": 4.32
+  },
+  {
+    "text": "And the thing is that's some of that is",
+    "start": 1790.24,
+    "duration": 4.799
+  },
+  {
+    "text": "also due to being able to advertise oh",
+    "start": 1792.64,
+    "duration": 4.88
+  },
+  {
+    "text": "we have a very very much wider dynamic",
+    "start": 1795.039,
+    "duration": 2.961
+  },
+  {
+    "text": "range",
+    "start": 1797.52,
+    "duration": 0.8
+  },
+  {
+    "text": ">> right",
+    "start": 1798.0,
+    "duration": 4.48
+  },
+  {
+    "text": ">> okay and that is in accomplished by not",
+    "start": 1798.32,
+    "duration": 6.32
+  },
+  {
+    "text": "having just one layer but for each you",
+    "start": 1802.48,
+    "duration": 3.84
+  },
+  {
+    "text": "each of the layers you like you have a",
+    "start": 1804.64,
+    "duration": 6.0
+  },
+  {
+    "text": "slow emulsion a medium and then a fast",
+    "start": 1806.32,
+    "duration": 7.28
+  },
+  {
+    "text": "for the red green and blue you know",
+    "start": 1810.64,
+    "duration": 6.24
+  },
+  {
+    "text": ">> uh and uh and so that means that you can",
+    "start": 1813.6,
+    "duration": 5.28
+  },
+  {
+    "text": "have three different characteristic",
+    "start": 1816.88,
+    "duration": 3.519
+  },
+  {
+    "text": "curves",
+    "start": 1818.88,
+    "duration": 4.32
+  },
+  {
+    "text": "that kind of like intersect each other,",
+    "start": 1820.399,
+    "duration": 3.52
+  },
+  {
+    "text": ">> you know, and [clears throat] then and",
+    "start": 1823.2,
+    "duration": 3.52
+  },
+  {
+    "text": "and you build you build the film such",
+    "start": 1823.919,
+    "duration": 4.961
+  },
+  {
+    "text": "that when they all stack together, you",
+    "start": 1826.72,
+    "duration": 4.64
+  },
+  {
+    "text": "get a nice smooth curve. It gets more",
+    "start": 1828.88,
+    "duration": 4.96
+  },
+  {
+    "text": "complicated, but that expands the",
+    "start": 1831.36,
+    "duration": 3.439
+  },
+  {
+    "text": "dynamic range.",
+    "start": 1833.84,
+    "duration": 2.88
+  },
+  {
+    "text": ">> I mean, this whole thing is so",
+    "start": 1834.799,
+    "duration": 4.401
+  },
+  {
+    "text": "fascinating to me now. And it was like",
+    "start": 1836.72,
+    "duration": 3.92
+  },
+  {
+    "text": "when we first started chatting and I",
+    "start": 1839.2,
+    "duration": 2.88
+  },
+  {
+    "text": "started bothering you and like I I feel",
+    "start": 1840.64,
+    "duration": 4.24
+  },
+  {
+    "text": "like maybe maybe more recently we",
+    "start": 1842.08,
+    "duration": 4.0
+  },
+  {
+    "text": "average a little bit lower, but like",
+    "start": 1844.88,
+    "duration": 2.399
+  },
+  {
+    "text": "probably the first year that we were",
+    "start": 1846.08,
+    "duration": 2.56
+  },
+  {
+    "text": "really chatting and I'd convince you to",
+    "start": 1847.279,
+    "duration": 2.961
+  },
+  {
+    "text": "like give me the time a day. We were",
+    "start": 1848.64,
+    "duration": 2.88
+  },
+  {
+    "text": "probably I don't know how many hours a",
+    "start": 1850.24,
+    "duration": 3.039
+  },
+  {
+    "text": "week we're averaging of me just grilling",
+    "start": 1851.52,
+    "duration": 3.36
+  },
+  {
+    "text": "you with questions cuz I was so curious",
+    "start": 1853.279,
+    "duration": 3.361
+  },
+  {
+    "text": "about this stuff. And it's not that many",
+    "start": 1854.88,
+    "duration": 3.6
+  },
+  {
+    "text": "people in the world who know it the way",
+    "start": 1856.64,
+    "duration": 3.759
+  },
+  {
+    "text": "you do. Like very very few increasingly",
+    "start": 1858.48,
+    "duration": 4.319
+  },
+  {
+    "text": "few. But like one of the things that was",
+    "start": 1860.399,
+    "duration": 3.52
+  },
+  {
+    "text": "really interesting to me as we were",
+    "start": 1862.799,
+    "duration": 2.561
+  },
+  {
+    "text": "starting to get into the whole genesis",
+    "start": 1863.919,
+    "duration": 3.041
+  },
+  {
+    "text": "thing is like all right you know because",
+    "start": 1865.36,
+    "duration": 3.439
+  },
+  {
+    "text": "as you know obviously we did our",
+    "start": 1866.96,
+    "duration": 3.92
+  },
+  {
+    "text": "bottomup methodology of like exactly",
+    "start": 1868.799,
+    "duration": 4.161
+  },
+  {
+    "text": "what you described earlier what does the",
+    "start": 1870.88,
+    "duration": 4.72
+  },
+  {
+    "text": "system demand not how do we get a",
+    "start": 1872.96,
+    "duration": 5.199
+  },
+  {
+    "text": "surface visual match between like oh",
+    "start": 1875.6,
+    "duration": 4.079
+  },
+  {
+    "text": "this was done through film like how do",
+    "start": 1878.159,
+    "duration": 3.921
+  },
+  {
+    "text": "we you know spin some wheels to make the",
+    "start": 1879.679,
+    "duration": 3.841
+  },
+  {
+    "text": "digital image match to that. We did it",
+    "start": 1882.08,
+    "duration": 2.56
+  },
+  {
+    "text": "from the bottom up and modeled",
+    "start": 1883.52,
+    "duration": 2.72
+  },
+  {
+    "text": "everything. And one of the things I know",
+    "start": 1884.64,
+    "duration": 3.36
+  },
+  {
+    "text": "that really surprised me is after we got",
+    "start": 1886.24,
+    "duration": 3.6
+  },
+  {
+    "text": "through your highly complex modeling of",
+    "start": 1888.0,
+    "duration": 4.399
+  },
+  {
+    "text": "like how do we build up you know the uh",
+    "start": 1889.84,
+    "duration": 4.16
+  },
+  {
+    "text": "like digitally modeled equivalent of",
+    "start": 1892.399,
+    "duration": 4.241
+  },
+  {
+    "text": "this 17 layer system with expanded",
+    "start": 1894.0,
+    "duration": 4.559
+  },
+  {
+    "text": "latitude and like the right type of",
+    "start": 1896.64,
+    "duration": 3.36
+  },
+  {
+    "text": "inner layer color interaction between",
+    "start": 1898.559,
+    "duration": 2.96
+  },
+  {
+    "text": "the layers and all these pieces that",
+    "start": 1900.0,
+    "duration": 4.24
+  },
+  {
+    "text": "went into the model of Genesis. There's",
+    "start": 1901.519,
+    "duration": 4.561
+  },
+  {
+    "text": "still that front-end task of like how do",
+    "start": 1904.24,
+    "duration": 3.6
+  },
+  {
+    "text": "we just feed the right thing? How do we",
+    "start": 1906.08,
+    "duration": 4.8
+  },
+  {
+    "text": "get from digital negative and unbuild",
+    "start": 1907.84,
+    "duration": 5.199
+  },
+  {
+    "text": "that essentially to feed into the head",
+    "start": 1910.88,
+    "duration": 3.279
+  },
+  {
+    "text": "of that system?",
+    "start": 1913.039,
+    "duration": 4.48
+  },
+  {
+    "text": ">> And and that's not a a perfect scenario",
+    "start": 1914.159,
+    "duration": 5.76
+  },
+  {
+    "text": "because",
+    "start": 1917.519,
+    "duration": 4.481
+  },
+  {
+    "text": "if you have a spectral response of a",
+    "start": 1919.919,
+    "duration": 2.721
+  },
+  {
+    "text": "camera",
+    "start": 1922.0,
+    "duration": 1.44
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 1922.64,
+    "duration": 2.96
+  },
+  {
+    "text": ">> that's taking a scene and you have the",
+    "start": 1923.44,
+    "duration": 4.239
+  },
+  {
+    "text": "spectral response of a film taking a",
+    "start": 1925.6,
+    "duration": 5.28
+  },
+  {
+    "text": "scene. Okay. All you could do is do a",
+    "start": 1927.679,
+    "duration": 5.84
+  },
+  {
+    "text": "correlation. Now, we could take and like",
+    "start": 1930.88,
+    "duration": 5.519
+  },
+  {
+    "text": "as I do some of this stuff, I take about",
+    "start": 1933.519,
+    "duration": 6.561
+  },
+  {
+    "text": "about 3 to 4 thousand different spectra",
+    "start": 1936.399,
+    "duration": 5.12
+  },
+  {
+    "text": ">> that [clears throat] you have all sorts",
+    "start": 1940.08,
+    "duration": 3.199
+  },
+  {
+    "text": "of different, you know, real world",
+    "start": 1941.519,
+    "duration": 4.321
+  },
+  {
+    "text": "complexity and then you could compare",
+    "start": 1943.279,
+    "duration": 4.721
+  },
+  {
+    "text": "these two spectral responses.",
+    "start": 1945.84,
+    "duration": 3.04
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 1948.0,
+    "duration": 3.2
+  },
+  {
+    "text": ">> And then you could get a good fit for",
+    "start": 1948.88,
+    "duration": 3.2
+  },
+  {
+    "text": "that data.",
+    "start": 1951.2,
+    "duration": 2.56
+  },
+  {
+    "text": ">> Well, you know, as I learned from you in",
+    "start": 1952.08,
+    "duration": 3.04
+  },
+  {
+    "text": "the whole process, it's all about",
+    "start": 1953.76,
+    "duration": 3.039
+  },
+  {
+    "text": "exactly what you just described, which",
+    "start": 1955.12,
+    "duration": 3.36
+  },
+  {
+    "text": "is like what are you optimizing for?",
+    "start": 1956.799,
+    "duration": 3.521
+  },
+  {
+    "text": "Like what is your data set that you're",
+    "start": 1958.48,
+    "duration": 4.079
+  },
+  {
+    "text": "utilizing? And it's on both sides. It's",
+    "start": 1960.32,
+    "duration": 3.92
+  },
+  {
+    "text": "again not just on the front end of the",
+    "start": 1962.559,
+    "duration": 3.921
+  },
+  {
+    "text": "film system, but it's on the like",
+    "start": 1964.24,
+    "duration": 4.24
+  },
+  {
+    "text": "inversion side of the digital negative",
+    "start": 1966.48,
+    "duration": 4.0
+  },
+  {
+    "text": "because as we know like when we look at",
+    "start": 1968.48,
+    "duration": 3.919
+  },
+  {
+    "text": "camera manufacturer matrices and stuff,",
+    "start": 1970.48,
+    "duration": 3.679
+  },
+  {
+    "text": "those are really optimized for a very",
+    "start": 1972.399,
+    "duration": 4.561
+  },
+  {
+    "text": "small data set which may or may not be",
+    "start": 1974.159,
+    "duration": 5.281
+  },
+  {
+    "text": "robust enough or suitable for all",
+    "start": 1976.96,
+    "duration": 3.92
+  },
+  {
+    "text": "applications like the ones we've been",
+    "start": 1979.44,
+    "duration": 4.239
+  },
+  {
+    "text": "looking at. So that's been a a very fun",
+    "start": 1980.88,
+    "duration": 4.32
+  },
+  {
+    "text": "process to learn and figure out how to",
+    "start": 1983.679,
+    "duration": 3.441
+  },
+  {
+    "text": "optimize for just to get into the damn",
+    "start": 1985.2,
+    "duration": 3.599
+  },
+  {
+    "text": "thing. Yeah, you look at some of the",
+    "start": 1987.12,
+    "duration": 3.36
+  },
+  {
+    "text": "stuff that's published, you know, like",
+    "start": 1988.799,
+    "duration": 4.401
+  },
+  {
+    "text": "like for, you know, a a any specific",
+    "start": 1990.48,
+    "duration": 4.16
+  },
+  {
+    "text": "digital camera,",
+    "start": 1993.2,
+    "duration": 3.52
+  },
+  {
+    "text": ">> you'll see it's little triangle",
+    "start": 1994.64,
+    "duration": 4.639
+  },
+  {
+    "text": "essentially essentially and then people",
+    "start": 1996.72,
+    "duration": 3.679
+  },
+  {
+    "text": ">> you",
+    "start": 1999.279,
+    "duration": 4.081
+  },
+  {
+    "text": ">> incorrectly you call those the cameras",
+    "start": 2000.399,
+    "duration": 4.081
+  },
+  {
+    "text": "primaries. It's just not",
+    "start": 2003.36,
+    "duration": 1.6
+  },
+  {
+    "text": ">> right.",
+    "start": 2004.48,
+    "duration": 2.64
+  },
+  {
+    "text": ">> It's just that",
+    "start": 2004.96,
+    "duration": 4.48
+  },
+  {
+    "text": ">> uh you think about this way.",
+    "start": 2007.12,
+    "duration": 4.799
+  },
+  {
+    "text": ">> You you you have something like a McBth",
+    "start": 2009.44,
+    "duration": 6.56
+  },
+  {
+    "text": "color checker that those 24 patches.",
+    "start": 2011.919,
+    "duration": 6.401
+  },
+  {
+    "text": ">> Yeah. and you know what they should look",
+    "start": 2016.0,
+    "duration": 4.24
+  },
+  {
+    "text": "like and you know what you get out of",
+    "start": 2018.32,
+    "duration": 2.719
+  },
+  {
+    "text": "the camera.",
+    "start": 2020.24,
+    "duration": 1.2
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 2021.039,
+    "duration": 2.561
+  },
+  {
+    "text": ">> And so what you want to do is you want",
+    "start": 2021.44,
+    "duration": 5.68
+  },
+  {
+    "text": "to you know come up with some easy way",
+    "start": 2023.6,
+    "duration": 6.799
+  },
+  {
+    "text": "to take those raw RGB values that you",
+    "start": 2027.12,
+    "duration": 4.72
+  },
+  {
+    "text": "get out of the camera",
+    "start": 2030.399,
+    "duration": 3.201
+  },
+  {
+    "text": ">> and go to something that's meaningful in",
+    "start": 2031.84,
+    "duration": 3.28
+  },
+  {
+    "text": "the pipeline. you're on dry land and you",
+    "start": 2033.6,
+    "duration": 2.0
+  },
+  {
+    "text": "can",
+    "start": 2035.12,
+    "duration": 5.039
+  },
+  {
+    "text": ">> Absolutely. Absolutely. So, so you when",
+    "start": 2035.6,
+    "duration": 8.319
+  },
+  {
+    "text": "when when you're doing that that matrix",
+    "start": 2040.159,
+    "duration": 7.041
+  },
+  {
+    "text": "is has an it is normally 3x3 so that",
+    "start": 2043.919,
+    "duration": 7.361
+  },
+  {
+    "text": "there's no magnitude of pushing you know",
+    "start": 2047.2,
+    "duration": 4.399
+  },
+  {
+    "text": "that",
+    "start": 2051.28,
+    "duration": 2.24
+  },
+  {
+    "text": ">> and and linearity is preserved.",
+    "start": 2051.599,
+    "duration": 6.161
+  },
+  {
+    "text": ">> Exactly. So, so here you have a matrix",
+    "start": 2053.52,
+    "duration": 8.319
+  },
+  {
+    "text": "and so implied in that matrix are three",
+    "start": 2057.76,
+    "duration": 6.399
+  },
+  {
+    "text": "quote primary positions. Right.",
+    "start": 2061.839,
+    "duration": 4.08
+  },
+  {
+    "text": ">> And this is why you you get a point",
+    "start": 2064.159,
+    "duration": 4.401
+  },
+  {
+    "text": "that's outside of the CGI locus, which",
+    "start": 2065.919,
+    "duration": 5.2
+  },
+  {
+    "text": "is something you couldn't see. They're",
+    "start": 2068.56,
+    "duration": 5.039
+  },
+  {
+    "text": "so they're imaginary points, imaginary",
+    "start": 2071.119,
+    "duration": 3.76
+  },
+  {
+    "text": "color points.",
+    "start": 2073.599,
+    "duration": 3.28
+  },
+  {
+    "text": ">> And so you could have all three of them",
+    "start": 2074.879,
+    "duration": 3.52
+  },
+  {
+    "text": "being imaginary.",
+    "start": 2076.879,
+    "duration": 2.96
+  },
+  {
+    "text": ">> Okay.",
+    "start": 2078.399,
+    "duration": 3.52
+  },
+  {
+    "text": ">> But all it really means is that I'm",
+    "start": 2079.839,
+    "duration": 4.481
+  },
+  {
+    "text": "taking some RGB data, putting it through",
+    "start": 2081.919,
+    "duration": 4.801
+  },
+  {
+    "text": "this matrix, and then giving you the",
+    "start": 2084.32,
+    "duration": 4.88
+  },
+  {
+    "text": "output. Now, people sometimes look,",
+    "start": 2086.72,
+    "duration": 4.639
+  },
+  {
+    "text": "well, I can only get the colors in",
+    "start": 2089.2,
+    "duration": 4.879
+  },
+  {
+    "text": "within that. No, the matrix will still",
+    "start": 2091.359,
+    "duration": 6.641
+  },
+  {
+    "text": "work on RGB data going you that's",
+    "start": 2094.079,
+    "duration": 7.201
+  },
+  {
+    "text": "outside of that area. It's it's just",
+    "start": 2098.0,
+    "duration": 4.88
+  },
+  {
+    "text": "that",
+    "start": 2101.28,
+    "duration": 4.319
+  },
+  {
+    "text": "it's it's going to it's not going to be",
+    "start": 2102.88,
+    "duration": 5.04
+  },
+  {
+    "text": "probably as it's not going to be",
+    "start": 2105.599,
+    "duration": 2.561
+  },
+  {
+    "text": "accurate.",
+    "start": 2107.92,
+    "duration": 1.76
+  },
+  {
+    "text": ">> It'll be with diminishing accuracy.",
+    "start": 2108.16,
+    "duration": 4.08
+  },
+  {
+    "text": ">> Absolutely. Because like you've you've",
+    "start": 2109.68,
+    "duration": 4.399
+  },
+  {
+    "text": "fine-tuned that",
+    "start": 2112.24,
+    "duration": 3.68
+  },
+  {
+    "text": ">> for something a smaller set.",
+    "start": 2114.079,
+    "duration": 3.841
+  },
+  {
+    "text": ">> That's a much smaller set. Something",
+    "start": 2115.92,
+    "duration": 4.8
+  },
+  {
+    "text": "that you know people can relate to.",
+    "start": 2117.92,
+    "duration": 4.0
+  },
+  {
+    "text": ">> Yeah. I mean, it's always at this point",
+    "start": 2120.72,
+    "duration": 3.68
+  },
+  {
+    "text": "in the process where I I uh want to like",
+    "start": 2121.92,
+    "duration": 4.56
+  },
+  {
+    "text": "bring in our our friend and partner in",
+    "start": 2124.4,
+    "duration": 4.16
+  },
+  {
+    "text": "Genesis, Steve Yedlin, ASC, because he",
+    "start": 2126.48,
+    "duration": 3.52
+  },
+  {
+    "text": "he's the one like if I want to trigger",
+    "start": 2128.56,
+    "duration": 3.36
+  },
+  {
+    "text": "Steve, I just have to show him like",
+    "start": 2130.0,
+    "duration": 3.76
+  },
+  {
+    "text": "primary a primaries triangle within a",
+    "start": 2131.92,
+    "duration": 3.679
+  },
+  {
+    "text": "CIE horseshoe because he'll call he's",
+    "start": 2133.76,
+    "duration": 3.12
+  },
+  {
+    "text": "like that's BS. He calls it every he's",
+    "start": 2135.599,
+    "duration": 2.801
+  },
+  {
+    "text": "like because that's not you know like",
+    "start": 2136.88,
+    "duration": 2.959
+  },
+  {
+    "text": "the camera is an observer. It doesn't",
+    "start": 2138.4,
+    "duration": 3.28
+  },
+  {
+    "text": "have a gamut. It is an observer itself",
+    "start": 2139.839,
+    "duration": 2.801
+  },
+  {
+    "text": "which is",
+    "start": 2141.68,
+    "duration": 2.399
+  },
+  {
+    "text": ">> you know a valid point. That's another",
+    "start": 2142.64,
+    "duration": 2.16
+  },
+  {
+    "text": "way of looking at that.",
+    "start": 2144.079,
+    "duration": 3.601
+  },
+  {
+    "text": ">> Yeah. And and the thing is cameras are",
+    "start": 2144.8,
+    "duration": 5.2
+  },
+  {
+    "text": "interesting because these are made up of",
+    "start": 2147.68,
+    "duration": 5.04
+  },
+  {
+    "text": "three different dyes that are on the",
+    "start": 2150.0,
+    "duration": 3.68
+  },
+  {
+    "text": "silicon.",
+    "start": 2152.72,
+    "duration": 2.8
+  },
+  {
+    "text": ">> And of course, you know, let most of",
+    "start": 2153.68,
+    "duration": 4.56
+  },
+  {
+    "text": "audience knows that there's a bare p",
+    "start": 2155.52,
+    "duration": 4.319
+  },
+  {
+    "text": "filter pattern",
+    "start": 2158.24,
+    "duration": 4.48
+  },
+  {
+    "text": ">> which has two greens for and then a red",
+    "start": 2159.839,
+    "duration": 6.161
+  },
+  {
+    "text": "and a blue, you know, pattern. And then",
+    "start": 2162.72,
+    "duration": 5.76
+  },
+  {
+    "text": "you know when it's processed you know",
+    "start": 2166.0,
+    "duration": 7.119
+  },
+  {
+    "text": "for example if you have a a a blue pixel",
+    "start": 2168.48,
+    "duration": 6.639
+  },
+  {
+    "text": "well you got you got the blue because",
+    "start": 2173.119,
+    "duration": 5.121
+  },
+  {
+    "text": "you have a blue filter but then you you",
+    "start": 2175.119,
+    "duration": 7.041
+  },
+  {
+    "text": "have to infer what green really would go",
+    "start": 2178.24,
+    "duration": 5.359
+  },
+  {
+    "text": "along with that and what red would go",
+    "start": 2182.16,
+    "duration": 3.36
+  },
+  {
+    "text": "along with that and you use some of the",
+    "start": 2183.599,
+    "duration": 3.52
+  },
+  {
+    "text": "characterist characteristics of the",
+    "start": 2185.52,
+    "duration": 3.12
+  },
+  {
+    "text": "filters",
+    "start": 2187.119,
+    "duration": 4.161
+  },
+  {
+    "text": "but you also have the intensities of the",
+    "start": 2188.64,
+    "duration": 5.199
+  },
+  {
+    "text": "surrounding and so there's a complex you",
+    "start": 2191.28,
+    "duration": 4.799
+  },
+  {
+    "text": "know interaction there to to get things",
+    "start": 2193.839,
+    "duration": 4.481
+  },
+  {
+    "text": "out out of there. But the one thing",
+    "start": 2196.079,
+    "duration": 5.841
+  },
+  {
+    "text": "about the the digital camera",
+    "start": 2198.32,
+    "duration": 7.039
+  },
+  {
+    "text": "filters is that they're very very broad.",
+    "start": 2201.92,
+    "duration": 4.24
+  },
+  {
+    "text": ">> Mhm. [clears throat]",
+    "start": 2205.359,
+    "duration": 3.441
+  },
+  {
+    "text": ">> Because think about this way. Let's say",
+    "start": 2206.16,
+    "duration": 5.04
+  },
+  {
+    "text": "that you have a two blues. One blue at",
+    "start": 2208.8,
+    "duration": 6.96
+  },
+  {
+    "text": "420 and the other blue at uh 480. Okay.",
+    "start": 2211.2,
+    "duration": 6.56
+  },
+  {
+    "text": "480 is actually closer to a cyan, but",
+    "start": 2215.76,
+    "duration": 4.56
+  },
+  {
+    "text": "let's say for argument sake they're two",
+    "start": 2217.76,
+    "duration": 4.16
+  },
+  {
+    "text": "blues.",
+    "start": 2220.32,
+    "duration": 4.08
+  },
+  {
+    "text": "Um",
+    "start": 2221.92,
+    "duration": 5.919
+  },
+  {
+    "text": "the the blue filter is just going to",
+    "start": 2224.4,
+    "duration": 6.0
+  },
+  {
+    "text": "give you intensity and it's you know and",
+    "start": 2227.839,
+    "duration": 4.321
+  },
+  {
+    "text": "it's gonna it cannot really",
+    "start": 2230.4,
+    "duration": 4.16
+  },
+  {
+    "text": "differentiate",
+    "start": 2232.16,
+    "duration": 6.4
+  },
+  {
+    "text": "between that 420 and that 480.",
+    "start": 2234.56,
+    "duration": 5.519
+  },
+  {
+    "text": ">> Yeah, these are wavelengths in the back",
+    "start": 2238.56,
+    "duration": 3.36
+  },
+  {
+    "text": "in the spectral domain before things get",
+    "start": 2240.079,
+    "duration": 5.04
+  },
+  {
+    "text": "dumbed down to three values. But if",
+    "start": 2241.92,
+    "duration": 7.439
+  },
+  {
+    "text": "indeed you see what is now the green",
+    "start": 2245.119,
+    "duration": 7.921
+  },
+  {
+    "text": "component of that patch,",
+    "start": 2249.359,
+    "duration": 7.601
+  },
+  {
+    "text": ">> a 420 will have a very small amount of",
+    "start": 2253.04,
+    "duration": 6.88
+  },
+  {
+    "text": "green and a 480 will have a large amount",
+    "start": 2256.96,
+    "duration": 5.36
+  },
+  {
+    "text": "of green. And that differentiation is",
+    "start": 2259.92,
+    "duration": 6.159
+  },
+  {
+    "text": "going to give you the the difference in",
+    "start": 2262.32,
+    "duration": 7.44
+  },
+  {
+    "text": "color between the 420 and the 480 in a",
+    "start": 2266.079,
+    "duration": 5.76
+  },
+  {
+    "text": "in in a digital representation.",
+    "start": 2269.76,
+    "duration": 6.079
+  },
+  {
+    "text": ">> Mhm. Um so to that extent that green",
+    "start": 2271.839,
+    "duration": 6.161
+  },
+  {
+    "text": "filter",
+    "start": 2275.839,
+    "duration": 5.921
+  },
+  {
+    "text": "is not does not cut off between 500 and",
+    "start": 2278.0,
+    "duration": 6.079
+  },
+  {
+    "text": "600 or whatever you know whatever",
+    "start": 2281.76,
+    "duration": 2.72
+  },
+  {
+    "text": ">> right",
+    "start": 2284.079,
+    "duration": 4.321
+  },
+  {
+    "text": ">> because if it does if it cuts off at 500",
+    "start": 2284.48,
+    "duration": 6.24
+  },
+  {
+    "text": "it can't get give you different",
+    "start": 2288.4,
+    "duration": 4.56
+  },
+  {
+    "text": "differentiation in for the blue",
+    "start": 2290.72,
+    "duration": 5.44
+  },
+  {
+    "text": ">> so these filters have to be very broad",
+    "start": 2292.96,
+    "duration": 4.399
+  },
+  {
+    "text": "anyway it's",
+    "start": 2296.16,
+    "duration": 2.24
+  },
+  {
+    "text": ">> tricky business man it's",
+    "start": 2297.359,
+    "duration": 2.72
+  },
+  {
+    "text": ">> tricky business absolutely",
+    "start": 2298.4,
+    "duration": 4.0
+  },
+  {
+    "text": ">> something else I I uh wanted to touch on",
+    "start": 2300.079,
+    "duration": 4.641
+  },
+  {
+    "text": "that is like the there's all these",
+    "start": 2302.4,
+    "duration": 3.84
+  },
+  {
+    "text": "interesting lessons that I got from you",
+    "start": 2304.72,
+    "duration": 2.56
+  },
+  {
+    "text": "specifically when we were building",
+    "start": 2306.24,
+    "duration": 2.96
+  },
+  {
+    "text": "Genesis that are like really unexpected",
+    "start": 2307.28,
+    "duration": 3.6
+  },
+  {
+    "text": "things because obviously Genesis is just",
+    "start": 2309.2,
+    "duration": 3.52
+  },
+  {
+    "text": "like when you were doing that work at",
+    "start": 2310.88,
+    "duration": 3.68
+  },
+  {
+    "text": "the early your early days of Kodak it's",
+    "start": 2312.72,
+    "duration": 3.28
+  },
+  {
+    "text": "all in the box like it's not something",
+    "start": 2314.56,
+    "duration": 2.799
+  },
+  {
+    "text": "we are physically doing it's something",
+    "start": 2316.0,
+    "duration": 4.24
+  },
+  {
+    "text": "we are modeling in the box but like I",
+    "start": 2317.359,
+    "duration": 3.921
+  },
+  {
+    "text": "learned all these interesting lessons",
+    "start": 2320.24,
+    "duration": 2.4
+  },
+  {
+    "text": "from you along the way including things",
+    "start": 2321.28,
+    "duration": 3.2
+  },
+  {
+    "text": "that I never understood like how to",
+    "start": 2322.64,
+    "duration": 3.68
+  },
+  {
+    "text": "calibrate a film printer so that you get",
+    "start": 2324.48,
+    "duration": 3.52
+  },
+  {
+    "text": "reasonable neutrals in the middle",
+    "start": 2326.32,
+    "duration": 3.039
+  },
+  {
+    "text": "portion of your tone scale where you",
+    "start": 2328.0,
+    "duration": 3.04
+  },
+  {
+    "text": "would want to have those things and one",
+    "start": 2329.359,
+    "duration": 3.281
+  },
+  {
+    "text": "of the innov innovations that I I can",
+    "start": 2331.04,
+    "duration": 3.84
+  },
+  {
+    "text": "say just as a fan of Genesis and of the",
+    "start": 2332.64,
+    "duration": 4.719
+  },
+  {
+    "text": "model that you architected is the fact",
+    "start": 2334.88,
+    "duration": 4.16
+  },
+  {
+    "text": "that you can for the first time in like",
+    "start": 2337.359,
+    "duration": 4.401
+  },
+  {
+    "text": "the history of film, you can marry like",
+    "start": 2339.04,
+    "duration": 5.76
+  },
+  {
+    "text": "completely uh disperate generations of",
+    "start": 2341.76,
+    "duration": 5.68
+  },
+  {
+    "text": "negative and print because you are in",
+    "start": 2344.8,
+    "duration": 5.2
+  },
+  {
+    "text": "our system calibrating the printer in",
+    "start": 2347.44,
+    "duration": 4.72
+  },
+  {
+    "text": "order to make that possible. So, like I",
+    "start": 2350.0,
+    "duration": 4.88
+  },
+  {
+    "text": "mean I guess like give me give me the",
+    "start": 2352.16,
+    "duration": 4.48
+  },
+  {
+    "text": "crash course all over again like the",
+    "start": 2354.88,
+    "duration": 3.84
+  },
+  {
+    "text": "simple crash course in calibrating a",
+    "start": 2356.64,
+    "duration": 3.28
+  },
+  {
+    "text": "film printer because I never even knew",
+    "start": 2358.72,
+    "duration": 2.639
+  },
+  {
+    "text": "that was a thing until you taught it to",
+    "start": 2359.92,
+    "duration": 2.72
+  },
+  {
+    "text": "me.",
+    "start": 2361.359,
+    "duration": 3.521
+  },
+  {
+    "text": "film building only, forgetting about,",
+    "start": 2362.64,
+    "duration": 3.92
+  },
+  {
+    "text": "you know, any of the digital stuff.",
+    "start": 2364.88,
+    "duration": 3.28
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 2366.56,
+    "duration": 5.68
+  },
+  {
+    "text": ">> Each each film generation, you know, say",
+    "start": 2368.16,
+    "duration": 7.199
+  },
+  {
+    "text": "back in 1951 when you have 5247,",
+    "start": 2372.24,
+    "duration": 5.839
+  },
+  {
+    "text": "you know, you had, you know, you like",
+    "start": 2375.359,
+    "duration": 4.801
+  },
+  {
+    "text": "5381, you what they, you know, they've",
+    "start": 2378.079,
+    "duration": 5.28
+  },
+  {
+    "text": "print material of the time. Okay.",
+    "start": 2380.16,
+    "duration": 6.56
+  },
+  {
+    "text": ">> So the neutral scale, which is a tone",
+    "start": 2383.359,
+    "duration": 6.641
+  },
+  {
+    "text": "scale, the main tone scale is a product",
+    "start": 2386.72,
+    "duration": 4.56
+  },
+  {
+    "text": "of those two,",
+    "start": 2390.0,
+    "duration": 1.839
+  },
+  {
+    "text": ">> right? Okay.",
+    "start": 2391.28,
+    "duration": 1.839
+  },
+  {
+    "text": ">> And they're designed to marry.",
+    "start": 2391.839,
+    "duration": 3.28
+  },
+  {
+    "text": ">> They're designed to marry. But more or",
+    "start": 2393.119,
+    "duration": 5.201
+  },
+  {
+    "text": "even more importantly is that the specul",
+    "start": 2395.119,
+    "duration": 6.96
+  },
+  {
+    "text": "response of the print material",
+    "start": 2398.32,
+    "duration": 8.4
+  },
+  {
+    "text": "sees the dyes of that negative",
+    "start": 2402.079,
+    "duration": 7.441
+  },
+  {
+    "text": "in a certain proportion.",
+    "start": 2406.72,
+    "duration": 4.0
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 2409.52,
+    "duration": 4.4
+  },
+  {
+    "text": ">> If you change the die,",
+    "start": 2410.72,
+    "duration": 5.76
+  },
+  {
+    "text": "then you could change your contrast.",
+    "start": 2413.92,
+    "duration": 3.52
+  },
+  {
+    "text": "Mhm.",
+    "start": 2416.48,
+    "duration": 4.8
+  },
+  {
+    "text": ">> So the concept of printing density comes",
+    "start": 2417.44,
+    "duration": 6.08
+  },
+  {
+    "text": "to mind. Now printing density now",
+    "start": 2421.28,
+    "duration": 5.76
+  },
+  {
+    "text": "density is just you know you know minus",
+    "start": 2423.52,
+    "duration": 6.319
+  },
+  {
+    "text": "the log of of transmittance.",
+    "start": 2427.04,
+    "duration": 4.0
+  },
+  {
+    "text": ">> How much light's being blocked?",
+    "start": 2429.839,
+    "duration": 2.881
+  },
+  {
+    "text": ">> Yeah. You have transmittance which is a",
+    "start": 2431.04,
+    "duration": 4.799
+  },
+  {
+    "text": "linear thing. Okay. And and you just",
+    "start": 2432.72,
+    "duration": 5.52
+  },
+  {
+    "text": "take you know minus then the log of",
+    "start": 2435.839,
+    "duration": 3.921
+  },
+  {
+    "text": "that. Okay. And that's and that is",
+    "start": 2438.24,
+    "duration": 5.76
+  },
+  {
+    "text": "density. So so uh uh you have a uh",
+    "start": 2439.76,
+    "duration": 7.359
+  },
+  {
+    "text": "that's how you get your density.",
+    "start": 2444.0,
+    "duration": 6.64
+  },
+  {
+    "text": "But in doing that the transmission the",
+    "start": 2447.119,
+    "duration": 5.601
+  },
+  {
+    "text": "the measured transmission is measured",
+    "start": 2450.64,
+    "duration": 5.52
+  },
+  {
+    "text": "with a densitometer. So densitometer has",
+    "start": 2452.72,
+    "duration": 5.84
+  },
+  {
+    "text": "a certain spectral characteristic.",
+    "start": 2456.16,
+    "duration": 5.36
+  },
+  {
+    "text": ">> Anyway printing density is essentially",
+    "start": 2458.56,
+    "duration": 6.64
+  },
+  {
+    "text": "utilizing the spectral response of the",
+    "start": 2461.52,
+    "duration": 6.319
+  },
+  {
+    "text": "film the print film and the light",
+    "start": 2465.2,
+    "duration": 7.2
+  },
+  {
+    "text": "sources used as the density metric",
+    "start": 2467.839,
+    "duration": 6.081
+  },
+  {
+    "text": ">> right as the response of the sensor.",
+    "start": 2472.4,
+    "duration": 3.52
+  },
+  {
+    "text": "Essentially, it's just a normal density.",
+    "start": 2473.92,
+    "duration": 4.72
+  },
+  {
+    "text": "It's just is targeted to a specific",
+    "start": 2475.92,
+    "duration": 3.84
+  },
+  {
+    "text": "spectral response.",
+    "start": 2478.64,
+    "duration": 3.12
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 2479.76,
+    "duration": 5.599
+  },
+  {
+    "text": ">> As time progressed from 51 till now, you",
+    "start": 2481.76,
+    "duration": 8.0
+  },
+  {
+    "text": "know, to say 2383 or whatever, spectral",
+    "start": 2485.359,
+    "duration": 7.201
+  },
+  {
+    "text": "responses have changed and also dies",
+    "start": 2489.76,
+    "duration": 4.64
+  },
+  {
+    "text": "have changed.",
+    "start": 2492.56,
+    "duration": 4.32
+  },
+  {
+    "text": "You know, they they're spectually",
+    "start": 2494.4,
+    "duration": 4.32
+  },
+  {
+    "text": "somewhat different. Mhm.",
+    "start": 2496.88,
+    "duration": 5.439
+  },
+  {
+    "text": ">> So if you took a negative now of say 20,",
+    "start": 2498.72,
+    "duration": 6.32
+  },
+  {
+    "text": "you know, uh",
+    "start": 2502.319,
+    "duration": 4.721
+  },
+  {
+    "text": "5219",
+    "start": 2505.04,
+    "duration": 4.4
+  },
+  {
+    "text": "and you happen to have in a freezer",
+    "start": 2507.04,
+    "duration": 5.12
+  },
+  {
+    "text": "somewhere some, you know, some 5381 from",
+    "start": 2509.44,
+    "duration": 5.44
+  },
+  {
+    "text": "back in 1952 or something like that and",
+    "start": 2512.16,
+    "duration": 5.84
+  },
+  {
+    "text": "you printed those together,",
+    "start": 2514.88,
+    "duration": 5.68
+  },
+  {
+    "text": "uh it it would not it would not look",
+    "start": 2518.0,
+    "duration": 3.44
+  },
+  {
+    "text": "right. Right.",
+    "start": 2520.56,
+    "duration": 2.08
+  },
+  {
+    "text": ">> It would look different.",
+    "start": 2521.44,
+    "duration": 1.6
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 2522.64,
+    "duration": 3.52
+  },
+  {
+    "text": ">> Okay. However, it doesn't mean that it's",
+    "start": 2523.04,
+    "duration": 5.039
+  },
+  {
+    "text": "bad. It just means it will be different.",
+    "start": 2526.16,
+    "duration": 6.4
+  },
+  {
+    "text": "And so in today's genesis system,",
+    "start": 2528.079,
+    "duration": 6.961
+  },
+  {
+    "text": "we can do that",
+    "start": 2532.56,
+    "duration": 3.68
+  },
+  {
+    "text": "conceptually,",
+    "start": 2535.04,
+    "duration": 1.84
+  },
+  {
+    "text": ">> right?",
+    "start": 2536.24,
+    "duration": 3.2
+  },
+  {
+    "text": ">> Even though it's it's it's it's not",
+    "start": 2536.88,
+    "duration": 6.0
+  },
+  {
+    "text": "physically physically can't do that",
+    "start": 2539.44,
+    "duration": 5.2
+  },
+  {
+    "text": "because even if it was in the freezer",
+    "start": 2542.88,
+    "duration": 3.76
+  },
+  {
+    "text": "for that many years, you probably would",
+    "start": 2544.64,
+    "duration": 4.0
+  },
+  {
+    "text": "never survive. Yeah.",
+    "start": 2546.64,
+    "duration": 5.52
+  },
+  {
+    "text": ">> So, but this gives you",
+    "start": 2548.64,
+    "duration": 6.16
+  },
+  {
+    "text": "you as as a colorist",
+    "start": 2552.16,
+    "duration": 5.439
+  },
+  {
+    "text": "the the",
+    "start": 2554.8,
+    "duration": 6.0
+  },
+  {
+    "text": "room you know to create different looks,",
+    "start": 2557.599,
+    "duration": 3.601
+  },
+  {
+    "text": ">> right?",
+    "start": 2560.8,
+    "duration": 2.559
+  },
+  {
+    "text": ">> Because like even like back back then",
+    "start": 2561.2,
+    "duration": 3.84
+  },
+  {
+    "text": "like you know you go go back to some of",
+    "start": 2563.359,
+    "duration": 4.96
+  },
+  {
+    "text": "the other films like uh 5254",
+    "start": 2565.04,
+    "duration": 5.44
+  },
+  {
+    "text": "you know that's been the the late late",
+    "start": 2568.319,
+    "duration": 6.481
+  },
+  {
+    "text": "60s whatever. Uh and people say well",
+    "start": 2570.48,
+    "duration": 7.28
+  },
+  {
+    "text": "what's the look of that film? Well, what",
+    "start": 2574.8,
+    "duration": 3.84
+  },
+  {
+    "text": "did you print it on?",
+    "start": 2577.76,
+    "duration": 1.76
+  },
+  {
+    "text": ">> Print to",
+    "start": 2578.64,
+    "duration": 3.439
+  },
+  {
+    "text": ">> Well, there's two things. One is the",
+    "start": 2579.52,
+    "duration": 5.04
+  },
+  {
+    "text": "print of the time,",
+    "start": 2582.079,
+    "duration": 4.721
+  },
+  {
+    "text": "you know, was the one as I described",
+    "start": 2584.56,
+    "duration": 3.68
+  },
+  {
+    "text": "earlier, you know, that codec said,",
+    "start": 2586.8,
+    "duration": 4.319
+  },
+  {
+    "text": "\"Well, this is our our our rock as far",
+    "start": 2588.24,
+    "duration": 5.119
+  },
+  {
+    "text": "as our print and then we're going to",
+    "start": 2591.119,
+    "duration": 4.641
+  },
+  {
+    "text": "build our tone scale to that.\" But back",
+    "start": 2593.359,
+    "duration": 5.601
+  },
+  {
+    "text": "in in in the late60s, a lot of films",
+    "start": 2595.76,
+    "duration": 5.44
+  },
+  {
+    "text": "were going out into the technicolor die",
+    "start": 2598.96,
+    "duration": 4.72
+  },
+  {
+    "text": "transfer process. Mhm.",
+    "start": 2601.2,
+    "duration": 5.919
+  },
+  {
+    "text": ">> And the whole idea of tone scale and",
+    "start": 2603.68,
+    "duration": 5.919
+  },
+  {
+    "text": "whatever could be manipulated by that",
+    "start": 2607.119,
+    "duration": 4.0
+  },
+  {
+    "text": "process because those are, you know,",
+    "start": 2609.599,
+    "duration": 4.961
+  },
+  {
+    "text": "three strips of of black and white stock",
+    "start": 2611.119,
+    "duration": 4.881
+  },
+  {
+    "text": "that they could develop a different",
+    "start": 2614.56,
+    "duration": 3.36
+  },
+  {
+    "text": "contrast.",
+    "start": 2616.0,
+    "duration": 5.2
+  },
+  {
+    "text": "And furthermore, the cyan, magenta, and",
+    "start": 2617.92,
+    "duration": 5.199
+  },
+  {
+    "text": "yellow dye that you have for for the",
+    "start": 2621.2,
+    "duration": 5.119
+  },
+  {
+    "text": "normal print material that you generate",
+    "start": 2623.119,
+    "duration": 5.121
+  },
+  {
+    "text": "in, you know, in in, you know, in that",
+    "start": 2626.319,
+    "duration": 4.721
+  },
+  {
+    "text": "print material is not the same as a die",
+    "start": 2628.24,
+    "duration": 4.48
+  },
+  {
+    "text": "transfer because you could you could put",
+    "start": 2631.04,
+    "duration": 3.76
+  },
+  {
+    "text": "a whole host of different cyan, magenta,",
+    "start": 2632.72,
+    "duration": 4.24
+  },
+  {
+    "text": "and yellow dyes and or actually",
+    "start": 2634.8,
+    "duration": 4.88
+  },
+  {
+    "text": "combinations of of dyes to get certain",
+    "start": 2636.96,
+    "duration": 4.879
+  },
+  {
+    "text": "look. And that's how they they did do a",
+    "start": 2639.68,
+    "duration": 4.0
+  },
+  {
+    "text": "lot of colored looks. You mean you could",
+    "start": 2641.839,
+    "duration": 4.48
+  },
+  {
+    "text": "you could change the look of the system",
+    "start": 2643.68,
+    "duration": 5.76
+  },
+  {
+    "text": "and have a systemwide interim image",
+    "start": 2646.319,
+    "duration": 7.28
+  },
+  {
+    "text": "effect by that process. So essentially",
+    "start": 2649.44,
+    "duration": 5.84
+  },
+  {
+    "text": "there could you know if you go back to",
+    "start": 2653.599,
+    "duration": 4.561
+  },
+  {
+    "text": "the different films of the of the uh of",
+    "start": 2655.28,
+    "duration": 10.48
+  },
+  {
+    "text": "the say uh 52 uh 54 era.",
+    "start": 2658.16,
+    "duration": 10.0
+  },
+  {
+    "text": "There's all sorts of different looks,",
+    "start": 2665.76,
+    "duration": 4.559
+  },
+  {
+    "text": ">> right? And those looks could be",
+    "start": 2668.16,
+    "duration": 4.0
+  },
+  {
+    "text": "associated with what print material",
+    "start": 2670.319,
+    "duration": 3.441
+  },
+  {
+    "text": "you're using, whether it be technicolor",
+    "start": 2672.16,
+    "duration": 4.4
+  },
+  {
+    "text": "or not. And if it's technicolor, well,",
+    "start": 2673.76,
+    "duration": 4.96
+  },
+  {
+    "text": "what did they how did they work with",
+    "start": 2676.56,
+    "duration": 5.039
+  },
+  {
+    "text": "technicolors to to get that formulation,",
+    "start": 2678.72,
+    "duration": 5.84
+  },
+  {
+    "text": ">> right? And it was almost bespoke per",
+    "start": 2681.599,
+    "duration": 5.201
+  },
+  {
+    "text": "movie in many cases. Is that right?",
+    "start": 2684.56,
+    "duration": 4.4
+  },
+  {
+    "text": ">> Yeah. And and but then [clears throat]",
+    "start": 2686.8,
+    "duration": 3.68
+  },
+  {
+    "text": "there was a there's also a big",
+    "start": 2688.96,
+    "duration": 3.119
+  },
+  {
+    "text": "difference since there was there were no",
+    "start": 2690.48,
+    "duration": 5.599
+  },
+  {
+    "text": "colorists back then. The only",
+    "start": 2692.079,
+    "duration": 7.04
+  },
+  {
+    "text": "color types of person were color timer",
+    "start": 2696.079,
+    "duration": 5.681
+  },
+  {
+    "text": "and that was a person that would just",
+    "start": 2699.119,
+    "duration": 4.561
+  },
+  {
+    "text": "adjust the amount of red, green and blue",
+    "start": 2701.76,
+    "duration": 6.48
+  },
+  {
+    "text": "light that's used in the print to expose",
+    "start": 2703.68,
+    "duration": 5.36
+  },
+  {
+    "text": "the print.",
+    "start": 2708.24,
+    "duration": 3.2
+  },
+  {
+    "text": ">> So they had only a c certain amount of",
+    "start": 2709.04,
+    "duration": 6.24
+  },
+  {
+    "text": "latitude is what they can do. Okay. So a",
+    "start": 2711.44,
+    "duration": 6.72
+  },
+  {
+    "text": "lot of the real look that comes out of",
+    "start": 2715.28,
+    "duration": 6.799
+  },
+  {
+    "text": "those thing w within that era even",
+    "start": 2718.16,
+    "duration": 7.76
+  },
+  {
+    "text": "within the normal print stock was a",
+    "start": 2722.079,
+    "duration": 5.441
+  },
+  {
+    "text": "cinematographer",
+    "start": 2725.92,
+    "duration": 4.56
+  },
+  {
+    "text": ">> the ratios the production design the",
+    "start": 2727.52,
+    "duration": 4.079
+  },
+  {
+    "text": "light positions all that stuff.",
+    "start": 2730.48,
+    "duration": 2.72
+  },
+  {
+    "text": ">> Yes. And because remember back then in",
+    "start": 2731.599,
+    "duration": 4.161
+  },
+  {
+    "text": "this in in the late60s those films had a",
+    "start": 2733.2,
+    "duration": 4.24
+  },
+  {
+    "text": "much shorter latitude.",
+    "start": 2735.76,
+    "duration": 3.839
+  },
+  {
+    "text": ">> Yeah. So it's not like now we have you",
+    "start": 2737.44,
+    "duration": 3.919
+  },
+  {
+    "text": "know very very wide latitude and then",
+    "start": 2739.599,
+    "duration": 3.52
+  },
+  {
+    "text": "it's up to the colorist to you know to",
+    "start": 2741.359,
+    "duration": 3.521
+  },
+  {
+    "text": "bring in you have to either hide the",
+    "start": 2743.119,
+    "duration": 5.041
+  },
+  {
+    "text": "shadows or to bring them up. Back then",
+    "start": 2744.88,
+    "duration": 5.68
+  },
+  {
+    "text": "you know essentially if if the",
+    "start": 2748.16,
+    "duration": 5.76
+  },
+  {
+    "text": "cinematographer wanted to hide some some",
+    "start": 2750.56,
+    "duration": 5.519
+  },
+  {
+    "text": "uh some wires and stuff like that you",
+    "start": 2753.92,
+    "duration": 4.0
+  },
+  {
+    "text": "know in the shadows he just doesn't put",
+    "start": 2756.079,
+    "duration": 2.641
+  },
+  {
+    "text": "much light in the shadows.",
+    "start": 2757.92,
+    "duration": 1.76
+  },
+  {
+    "text": ">> Shove it down to the toe.",
+    "start": 2758.72,
+    "duration": 2.96
+  },
+  {
+    "text": ">> Yeah. And if he wants to to you know to",
+    "start": 2759.68,
+    "duration": 4.08
+  },
+  {
+    "text": "bring up a shadow he just puts a fill in",
+    "start": 2761.68,
+    "duration": 4.8
+  },
+  {
+    "text": "it. Yeah. you know, and yeah, I mean,",
+    "start": 2763.76,
+    "duration": 5.44
+  },
+  {
+    "text": "like I think I've told you it's about I",
+    "start": 2766.48,
+    "duration": 5.44
+  },
+  {
+    "text": "mean I I used to do a bunch of stuff",
+    "start": 2769.2,
+    "duration": 4.8
+  },
+  {
+    "text": "with Alan Davio, you know, and he's he's",
+    "start": 2771.92,
+    "duration": 5.439
+  },
+  {
+    "text": "now passed, but he he's very a great",
+    "start": 2774.0,
+    "duration": 4.0
+  },
+  {
+    "text": "cinematographer,",
+    "start": 2777.359,
+    "duration": 1.841
+  },
+  {
+    "text": ">> incredible cinematographer,",
+    "start": 2778.0,
+    "duration": 4.4
+  },
+  {
+    "text": ">> and uh",
+    "start": 2779.2,
+    "duration": 4.56
+  },
+  {
+    "text": "you know, one of the things that, you",
+    "start": 2782.4,
+    "duration": 2.88
+  },
+  {
+    "text": "know, like he used, you know, a lot of",
+    "start": 2783.76,
+    "duration": 3.44
+  },
+  {
+    "text": "people would put a gray card in the",
+    "start": 2785.28,
+    "duration": 3.76
+  },
+  {
+    "text": "scene and then they",
+    "start": 2787.2,
+    "duration": 3.119
+  },
+  {
+    "text": ">> timer something to balance against",
+    "start": 2789.04,
+    "duration": 2.88
+  },
+  {
+    "text": ">> the timer would would balance to that,",
+    "start": 2790.319,
+    "duration": 3.76
+  },
+  {
+    "text": "you know, okay. And what happens if you",
+    "start": 2791.92,
+    "duration": 3.679
+  },
+  {
+    "text": "put, you know, let's say he wanted a",
+    "start": 2794.079,
+    "duration": 4.0
+  },
+  {
+    "text": "nice really really cool scene, really",
+    "start": 2795.599,
+    "duration": 5.441
+  },
+  {
+    "text": "very cold or whatever. If he puts that t",
+    "start": 2798.079,
+    "duration": 6.641
+  },
+  {
+    "text": "that that that uh uh that gray card in",
+    "start": 2801.04,
+    "duration": 6.24
+  },
+  {
+    "text": "there, the timer would go ahead and well",
+    "start": 2804.72,
+    "duration": 4.8
+  },
+  {
+    "text": ">> make it gray. So, you know, all that",
+    "start": 2807.28,
+    "duration": 3.76
+  },
+  {
+    "text": "cool goes away.",
+    "start": 2809.52,
+    "duration": 3.68
+  },
+  {
+    "text": ">> Yeah. So, what he would do is is he",
+    "start": 2811.04,
+    "duration": 5.36
+  },
+  {
+    "text": "would have a a a gray card in in the",
+    "start": 2813.2,
+    "duration": 7.36
+  },
+  {
+    "text": "scene, but it' be closer to your camera",
+    "start": 2816.4,
+    "duration": 7.84
+  },
+  {
+    "text": "and he would light that with a 3200 lamp",
+    "start": 2820.56,
+    "duration": 4.88
+  },
+  {
+    "text": ">> with a warmer",
+    "start": 2824.24,
+    "duration": 3.76
+  },
+  {
+    "text": ">> with with a normal known lamp. Okay. And",
+    "start": 2825.44,
+    "duration": 5.12
+  },
+  {
+    "text": "so you say, \"Okay, time that.\" So, even",
+    "start": 2828.0,
+    "duration": 5.2
+  },
+  {
+    "text": "though the scene was maybe, you know,",
+    "start": 2830.56,
+    "duration": 4.4
+  },
+  {
+    "text": "7,000 Kelvin. Okay.",
+    "start": 2833.2,
+    "duration": 4.879
+  },
+  {
+    "text": ">> Yeah. He's lighting that to you to to",
+    "start": 2834.96,
+    "duration": 7.2
+  },
+  {
+    "text": "32. The timer makes that gray and then",
+    "start": 2838.079,
+    "duration": 7.28
+  },
+  {
+    "text": "the background is maintained",
+    "start": 2842.16,
+    "duration": 6.32
+  },
+  {
+    "text": "as or the main scene is is maintained as",
+    "start": 2845.359,
+    "duration": 5.441
+  },
+  {
+    "text": "as in like cool terms. I will always",
+    "start": 2848.48,
+    "duration": 3.52
+  },
+  {
+    "text": "remember you telling me that story",
+    "start": 2850.8,
+    "duration": 4.64
+  },
+  {
+    "text": "because I was personally bit by like a",
+    "start": 2852.0,
+    "duration": 6.0
+  },
+  {
+    "text": "horror strategy than Davio's like when I",
+    "start": 2855.44,
+    "duration": 3.919
+  },
+  {
+    "text": "was making movies back in film school",
+    "start": 2858.0,
+    "duration": 2.64
+  },
+  {
+    "text": "and this was right at the edge of like",
+    "start": 2859.359,
+    "duration": 2.72
+  },
+  {
+    "text": "transition to digital cinematography.",
+    "start": 2860.64,
+    "duration": 3.04
+  },
+  {
+    "text": "So, we were like very proud to be",
+    "start": 2862.079,
+    "duration": 3.841
+  },
+  {
+    "text": "shooting on 35 mil and whatever 5218 I",
+    "start": 2863.68,
+    "duration": 3.679
+  },
+  {
+    "text": "think it was at the time. We were",
+    "start": 2865.92,
+    "duration": 3.76
+  },
+  {
+    "text": "shooting tungsten film in daylight",
+    "start": 2867.359,
+    "duration": 4.881
+  },
+  {
+    "text": "because we wanted that big color swing,",
+    "start": 2869.68,
+    "duration": 4.96
+  },
+  {
+    "text": "but someone stuck a gray card in like",
+    "start": 2872.24,
+    "duration": 4.48
+  },
+  {
+    "text": "the head of one of the shots. And I",
+    "start": 2874.64,
+    "duration": 3.52
+  },
+  {
+    "text": "think it was during the telescin. We",
+    "start": 2876.72,
+    "duration": 3.119
+  },
+  {
+    "text": "weren't printing it, but in the telescin",
+    "start": 2878.16,
+    "duration": 2.88
+  },
+  {
+    "text": "like for the dailies, that's what it",
+    "start": 2879.839,
+    "duration": 2.48
+  },
+  {
+    "text": "was. Like when they were scanning us for",
+    "start": 2881.04,
+    "duration": 4.0
+  },
+  {
+    "text": "dailies, someone graded that out using",
+    "start": 2882.319,
+    "duration": 4.641
+  },
+  {
+    "text": "the gray card that we'd given them. like",
+    "start": 2885.04,
+    "duration": 4.079
+  },
+  {
+    "text": "they basically without intending us any",
+    "start": 2886.96,
+    "duration": 4.08
+  },
+  {
+    "text": "harm it got weaponized against us",
+    "start": 2889.119,
+    "duration": 3.761
+  },
+  {
+    "text": "because we put the gray card",
+    "start": 2891.04,
+    "duration": 5.2
+  },
+  {
+    "text": ">> into the frame like in that way. So it's",
+    "start": 2892.88,
+    "duration": 5.92
+  },
+  {
+    "text": "fascinating that strategy for that.",
+    "start": 2896.24,
+    "duration": 3.839
+  },
+  {
+    "text": ">> But but these are tools.",
+    "start": 2898.8,
+    "duration": 2.16
+  },
+  {
+    "text": ">> Yep.",
+    "start": 2900.079,
+    "duration": 3.04
+  },
+  {
+    "text": ">> And and the thing is you have to know",
+    "start": 2900.96,
+    "duration": 4.48
+  },
+  {
+    "text": "how you have to know which end of the",
+    "start": 2903.119,
+    "duration": 4.321
+  },
+  {
+    "text": "hammer to pick up. [laughter]",
+    "start": 2905.44,
+    "duration": 3.76
+  },
+  {
+    "text": ">> Yeah. Exactly.",
+    "start": 2907.44,
+    "duration": 4.24
+  },
+  {
+    "text": ">> You know and and so you know otherwise",
+    "start": 2909.2,
+    "duration": 5.2
+  },
+  {
+    "text": "you get kind of you behind the",
+    "start": 2911.68,
+    "duration": 3.76
+  },
+  {
+    "text": "eightball.",
+    "start": 2914.4,
+    "duration": 3.199
+  },
+  {
+    "text": ">> That's really cool. Okay. So, I've got a",
+    "start": 2915.44,
+    "duration": 3.6
+  },
+  {
+    "text": "a a question that I wanted to close us",
+    "start": 2917.599,
+    "duration": 4.161
+  },
+  {
+    "text": "with today. You've been in this business",
+    "start": 2919.04,
+    "duration": 4.559
+  },
+  {
+    "text": "for a really long time. You've got two",
+    "start": 2921.76,
+    "duration": 3.359
+  },
+  {
+    "text": "daughters who are colorists. You've got",
+    "start": 2923.599,
+    "duration": 3.361
+  },
+  {
+    "text": "another kid who's in the motion picture.",
+    "start": 2925.119,
+    "duration": 3.281
+  },
+  {
+    "text": "I mean, kids, they're all they're all",
+    "start": 2926.96,
+    "duration": 3.119
+  },
+  {
+    "text": "grown-ups now, but uh you know, you've",
+    "start": 2928.4,
+    "duration": 3.12
+  },
+  {
+    "text": "you've got all of your kids who are in",
+    "start": 2930.079,
+    "duration": 3.52
+  },
+  {
+    "text": "this business and you've been exposed to",
+    "start": 2931.52,
+    "duration": 4.559
+  },
+  {
+    "text": "all different, you know, like eras and",
+    "start": 2933.599,
+    "duration": 5.121
+  },
+  {
+    "text": "uh like walks of profession within this",
+    "start": 2936.079,
+    "duration": 4.961
+  },
+  {
+    "text": "field. When you look at colorists and",
+    "start": 2938.72,
+    "duration": 3.839
+  },
+  {
+    "text": "you know like color timers before them",
+    "start": 2941.04,
+    "duration": 2.96
+  },
+  {
+    "text": "and and the way that that role has",
+    "start": 2942.559,
+    "duration": 2.8
+  },
+  {
+    "text": "evolved over the years, when you look at",
+    "start": 2944.0,
+    "duration": 3.359
+  },
+  {
+    "text": "colorists today, whether it's your own",
+    "start": 2945.359,
+    "duration": 3.281
+  },
+  {
+    "text": "daughters or anyone else who you",
+    "start": 2947.359,
+    "duration": 3.441
+  },
+  {
+    "text": "encounter, do you feel like there are",
+    "start": 2948.64,
+    "duration": 3.76
+  },
+  {
+    "text": "things that really good colorists get",
+    "start": 2950.8,
+    "duration": 3.759
+  },
+  {
+    "text": "right or things that lesser colorists",
+    "start": 2952.4,
+    "duration": 5.28
+  },
+  {
+    "text": "miss or get wrong or overemphasize? Like",
+    "start": 2954.559,
+    "duration": 4.641
+  },
+  {
+    "text": "what's the prescription for a really",
+    "start": 2957.68,
+    "duration": 3.12
+  },
+  {
+    "text": "good colorist today that not everyone",
+    "start": 2959.2,
+    "duration": 4.08
+  },
+  {
+    "text": "understands? Well, there's not a overall",
+    "start": 2960.8,
+    "duration": 4.08
+  },
+  {
+    "text": "single prescription, but but there's",
+    "start": 2963.28,
+    "duration": 4.0
+  },
+  {
+    "text": "certain things like for example, uh",
+    "start": 2964.88,
+    "duration": 6.08
+  },
+  {
+    "text": "there's there's a lot right now of",
+    "start": 2967.28,
+    "duration": 6.64
+  },
+  {
+    "text": "let's say emphasis on things like, you",
+    "start": 2970.96,
+    "duration": 5.04
+  },
+  {
+    "text": "know, oh, I need to get this this",
+    "start": 2973.92,
+    "duration": 3.12
+  },
+  {
+    "text": "specific L.",
+    "start": 2976.0,
+    "duration": 1.76
+  },
+  {
+    "text": ">> Mhm.",
+    "start": 2977.04,
+    "duration": 2.72
+  },
+  {
+    "text": ">> That that'll make all my life easier.",
+    "start": 2977.76,
+    "duration": 3.76
+  },
+  {
+    "text": ">> Yeah. How how many of us would kill to",
+    "start": 2979.76,
+    "duration": 3.52
+  },
+  {
+    "text": "have the your Joker L that you built for",
+    "start": 2981.52,
+    "duration": 3.52
+  },
+  {
+    "text": ">> Yeah. Well, but the but the thing is",
+    "start": 2983.28,
+    "duration": 4.4
+  },
+  {
+    "text": "like uh",
+    "start": 2985.04,
+    "duration": 6.16
+  },
+  {
+    "text": "it first of all it depends upon the the",
+    "start": 2987.68,
+    "duration": 5.36
+  },
+  {
+    "text": "actual project you know like",
+    "start": 2991.2,
+    "duration": 4.48
+  },
+  {
+    "text": ">> the joker lot is all really done from",
+    "start": 2993.04,
+    "duration": 5.519
+  },
+  {
+    "text": "first principles but then Jill and I",
+    "start": 2995.68,
+    "duration": 4.08
+  },
+  {
+    "text": "altered",
+    "start": 2998.559,
+    "duration": 2.961
+  },
+  {
+    "text": ">> you tuned it for that application",
+    "start": 2999.76,
+    "duration": 3.76
+  },
+  {
+    "text": ">> altered perception",
+    "start": 3001.52,
+    "duration": 4.72
+  },
+  {
+    "text": ">> you know to get her to to a position you",
+    "start": 3003.52,
+    "duration": 4.799
+  },
+  {
+    "text": "know where then she could then utilize",
+    "start": 3006.24,
+    "duration": 5.68
+  },
+  {
+    "text": "that uh and and work with that you know",
+    "start": 3008.319,
+    "duration": 8.961
+  },
+  {
+    "text": "in in in in the the system. Now, um, one",
+    "start": 3011.92,
+    "duration": 7.52
+  },
+  {
+    "text": "point that comes out of that is that,",
+    "start": 3017.28,
+    "duration": 3.68
+  },
+  {
+    "text": "well,",
+    "start": 3019.44,
+    "duration": 3.119
+  },
+  {
+    "text": "many people think that, oh, I need to",
+    "start": 3020.96,
+    "duration": 4.159
+  },
+  {
+    "text": "have a a specific L for each scene or",
+    "start": 3022.559,
+    "duration": 4.081
+  },
+  {
+    "text": "for each whatever.",
+    "start": 3025.119,
+    "duration": 4.801
+  },
+  {
+    "text": ">> That's not the the the task of the L.",
+    "start": 3026.64,
+    "duration": 6.16
+  },
+  {
+    "text": "That that's the task of the colorist.",
+    "start": 3029.92,
+    "duration": 5.439
+  },
+  {
+    "text": ">> The Catholic colorist is to take and put",
+    "start": 3032.8,
+    "duration": 6.08
+  },
+  {
+    "text": "whatever nuances on per scene. Now, I",
+    "start": 3035.359,
+    "duration": 5.441
+  },
+  {
+    "text": "can I can see where if you have a",
+    "start": 3038.88,
+    "duration": 5.679
+  },
+  {
+    "text": "something that was that even even",
+    "start": 3040.8,
+    "duration": 6.72
+  },
+  {
+    "text": ">> grossly you have a a movie that that has",
+    "start": 3044.559,
+    "duration": 6.961
+  },
+  {
+    "text": "a you know today, some tomorrow scenes",
+    "start": 3047.52,
+    "duration": 5.839
+  },
+  {
+    "text": "and some yesterday scenes.",
+    "start": 3051.52,
+    "duration": 3.2
+  },
+  {
+    "text": ">> And you may want to have a different",
+    "start": 3053.359,
+    "duration": 3.121
+  },
+  {
+    "text": "look for each one of those. Yes, you",
+    "start": 3054.72,
+    "duration": 3.359
+  },
+  {
+    "text": "could have three different looks, you",
+    "start": 3056.48,
+    "duration": 4.079
+  },
+  {
+    "text": "know, LUTs there, but not per scene. You",
+    "start": 3058.079,
+    "duration": 4.881
+  },
+  {
+    "text": "know, you you you you use that because",
+    "start": 3060.559,
+    "duration": 4.641
+  },
+  {
+    "text": "now you what you do is you you have a",
+    "start": 3062.96,
+    "duration": 6.0
+  },
+  {
+    "text": "lot that gives you a color scenario that",
+    "start": 3065.2,
+    "duration": 8.24
+  },
+  {
+    "text": "is fluid throughout a whole range of",
+    "start": 3068.96,
+    "duration": 5.76
+  },
+  {
+    "text": "different possibilities,",
+    "start": 3073.44,
+    "duration": 2.08
+  },
+  {
+    "text": ">> right?",
+    "start": 3074.72,
+    "duration": 2.8
+  },
+  {
+    "text": ">> And and if for some reason it just",
+    "start": 3075.52,
+    "duration": 4.64
+  },
+  {
+    "text": "doesn't work for anyone scene because of",
+    "start": 3077.52,
+    "duration": 5.039
+  },
+  {
+    "text": "some aberant whatever,",
+    "start": 3080.16,
+    "duration": 4.8
+  },
+  {
+    "text": "then power windows or a little bit of,",
+    "start": 3082.559,
+    "duration": 4.401
+  },
+  {
+    "text": "you know, tweak here and there. That's",
+    "start": 3084.96,
+    "duration": 3.119
+  },
+  {
+    "text": "what you should do,",
+    "start": 3086.96,
+    "duration": 3.28
+  },
+  {
+    "text": ">> right? One of the big things and that",
+    "start": 3088.079,
+    "duration": 4.24
+  },
+  {
+    "text": "and I've talked to the girls about but",
+    "start": 3090.24,
+    "duration": 4.96
+  },
+  {
+    "text": "that that they do just",
+    "start": 3092.319,
+    "duration": 7.121
+  },
+  {
+    "text": "in in in in their daily work is to",
+    "start": 3095.2,
+    "duration": 6.24
+  },
+  {
+    "text": "collaborate talk and collaborate well",
+    "start": 3099.44,
+    "duration": 3.36
+  },
+  {
+    "text": "with your client with with your",
+    "start": 3101.44,
+    "duration": 3.36
+  },
+  {
+    "text": "cinematographer you that you're dealing",
+    "start": 3102.8,
+    "duration": 4.16
+  },
+  {
+    "text": "with be because make sure that you're on",
+    "start": 3104.8,
+    "duration": 4.48
+  },
+  {
+    "text": "the same page and make sure that that",
+    "start": 3106.96,
+    "duration": 4.32
+  },
+  {
+    "text": "you're talking the same thing. You know",
+    "start": 3109.28,
+    "duration": 4.24
+  },
+  {
+    "text": "like just recently is this question come",
+    "start": 3111.28,
+    "duration": 5.12
+  },
+  {
+    "text": "up about some about for example the",
+    "start": 3113.52,
+    "duration": 6.0
+  },
+  {
+    "text": "simur wanted an infrared infrared type",
+    "start": 3116.4,
+    "duration": 5.12
+  },
+  {
+    "text": "of look.",
+    "start": 3119.52,
+    "duration": 4.96
+  },
+  {
+    "text": "Okay that's all well and good but now uh",
+    "start": 3121.52,
+    "duration": 5.599
+  },
+  {
+    "text": "and you could do certain things but what",
+    "start": 3124.48,
+    "duration": 5.04
+  },
+  {
+    "text": "what does he mean by infrared look",
+    "start": 3127.119,
+    "duration": 4.561
+  },
+  {
+    "text": "because like if you think about in",
+    "start": 3129.52,
+    "duration": 4.0
+  },
+  {
+    "text": "photographic terms there's two types of",
+    "start": 3131.68,
+    "duration": 4.08
+  },
+  {
+    "text": "infrared. One is using infrared, you",
+    "start": 3133.52,
+    "duration": 4.799
+  },
+  {
+    "text": "know, a infrared film, you know, black",
+    "start": 3135.76,
+    "duration": 4.4
+  },
+  {
+    "text": "and white type of thing where you have",
+    "start": 3138.319,
+    "duration": 3.681
+  },
+  {
+    "text": "certain luminance changes of color",
+    "start": 3140.16,
+    "duration": 5.679
+  },
+  {
+    "text": "because the infrared. The other is a a",
+    "start": 3142.0,
+    "duration": 6.559
+  },
+  {
+    "text": "false color, you know, for for example,",
+    "start": 3145.839,
+    "duration": 4.72
+  },
+  {
+    "text": "an there's a ectochrome that's called",
+    "start": 3148.559,
+    "duration": 4.56
+  },
+  {
+    "text": "aerocchrome, which is a false color",
+    "start": 3150.559,
+    "duration": 4.481
+  },
+  {
+    "text": "ectochrome",
+    "start": 3153.119,
+    "duration": 3.841
+  },
+  {
+    "text": "where the blue layer actually is",
+    "start": 3155.04,
+    "duration": 4.24
+  },
+  {
+    "text": "sensitive to green, you know, which is,",
+    "start": 3156.96,
+    "duration": 4.159
+  },
+  {
+    "text": "you know, the the the yellow layer, you",
+    "start": 3159.28,
+    "duration": 4.64
+  },
+  {
+    "text": "know, layer. The magenta layer is",
+    "start": 3161.119,
+    "duration": 6.0
+  },
+  {
+    "text": "sensitive to red. Uh and the cyan layer",
+    "start": 3163.92,
+    "duration": 5.679
+  },
+  {
+    "text": "is sensitive to infrared. And then this",
+    "start": 3167.119,
+    "duration": 4.24
+  },
+  {
+    "text": "gives to all sorts of like really",
+    "start": 3169.599,
+    "duration": 3.841
+  },
+  {
+    "text": "interesting and wacky, you know, you",
+    "start": 3171.359,
+    "duration": 4.72
+  },
+  {
+    "text": "know, orang-ish, reddish, you know, you",
+    "start": 3173.44,
+    "duration": 6.0
+  },
+  {
+    "text": "know, foilage and and you mean you you",
+    "start": 3176.079,
+    "duration": 4.801
+  },
+  {
+    "text": "can of course balance everything. So",
+    "start": 3179.44,
+    "duration": 2.879
+  },
+  {
+    "text": "your neutral is neutral and then you",
+    "start": 3180.88,
+    "duration": 3.04
+  },
+  {
+    "text": "have, you know, flesh comes out a",
+    "start": 3182.319,
+    "duration": 2.8
+  },
+  {
+    "text": "certain way.",
+    "start": 3183.92,
+    "duration": 2.639
+  },
+  {
+    "text": ">> But well, which one is it,",
+    "start": 3185.119,
+    "duration": 3.361
+  },
+  {
+    "text": ">> right? In one case, hues are being",
+    "start": 3186.559,
+    "duration": 4.641
+  },
+  {
+    "text": "rendered way different from their scene",
+    "start": 3188.48,
+    "duration": 4.16
+  },
+  {
+    "text": "color. In another case, you've got a",
+    "start": 3191.2,
+    "duration": 3.84
+  },
+  {
+    "text": "monochrome image being built up from",
+    "start": 3192.64,
+    "duration": 3.439
+  },
+  {
+    "text": "different stimuli.",
+    "start": 3195.04,
+    "duration": 2.799
+  },
+  {
+    "text": ">> Well, for one one type of look, you",
+    "start": 3196.079,
+    "duration": 4.081
+  },
+  {
+    "text": "know, like Dela Jill in in Grand",
+    "start": 3197.839,
+    "duration": 4.161
+  },
+  {
+    "text": "Budapest Hotel where in the beginning,",
+    "start": 3200.16,
+    "duration": 3.36
+  },
+  {
+    "text": "you know, you know, they wanted",
+    "start": 3202.0,
+    "duration": 4.48
+  },
+  {
+    "text": "something that was more, you know,",
+    "start": 3203.52,
+    "duration": 5.039
+  },
+  {
+    "text": "technicol two strip type.",
+    "start": 3206.48,
+    "duration": 2.96
+  },
+  {
+    "text": ">> Okay.",
+    "start": 3208.559,
+    "duration": 3.441
+  },
+  {
+    "text": ">> Well, what do you mean by that? right?",
+    "start": 3209.44,
+    "duration": 5.28
+  },
+  {
+    "text": ">> Again, you know, and so",
+    "start": 3212.0,
+    "duration": 4.96
+  },
+  {
+    "text": "regardless of whether it be those types",
+    "start": 3214.72,
+    "duration": 5.52
+  },
+  {
+    "text": "of things or other types of things, the",
+    "start": 3216.96,
+    "duration": 6.159
+  },
+  {
+    "text": "more dialogue you get before you start",
+    "start": 3220.24,
+    "duration": 5.76
+  },
+  {
+    "text": "twiddling your knobs, you know, to talk",
+    "start": 3223.119,
+    "duration": 5.2
+  },
+  {
+    "text": "about and getting the idea of what",
+    "start": 3226.0,
+    "duration": 5.2
+  },
+  {
+    "text": "they're trying to get, what is what is",
+    "start": 3228.319,
+    "duration": 6.561
+  },
+  {
+    "text": "the the intellectual visual pallet that",
+    "start": 3231.2,
+    "duration": 5.28
+  },
+  {
+    "text": "you're looking for?",
+    "start": 3234.88,
+    "duration": 6.08
+  },
+  {
+    "text": ">> Yep. Then what you do is you go say okay",
+    "start": 3236.48,
+    "duration": 7.92
+  },
+  {
+    "text": "here are the tools or here here's how we",
+    "start": 3240.96,
+    "duration": 5.44
+  },
+  {
+    "text": "can manipulate our you know that that",
+    "start": 3244.4,
+    "duration": 5.679
+  },
+  {
+    "text": "that input image and then you can say is",
+    "start": 3246.4,
+    "duration": 4.8
+  },
+  {
+    "text": "this what you want?",
+    "start": 3250.079,
+    "duration": 1.361
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 3251.2,
+    "duration": 2.48
+  },
+  {
+    "text": ">> Oh it's good or not. Okay. How about",
+    "start": 3251.44,
+    "duration": 4.32
+  },
+  {
+    "text": "this? And then you start talking about",
+    "start": 3253.68,
+    "duration": 3.6
+  },
+  {
+    "text": "you know looking at that type of thing",
+    "start": 3255.76,
+    "duration": 4.72
+  },
+  {
+    "text": "and and that's that's I think good",
+    "start": 3257.28,
+    "duration": 4.24
+  },
+  {
+    "text": "communication.",
+    "start": 3260.48,
+    "duration": 3.44
+  },
+  {
+    "text": ">> Yeah. Totally. Well, I'll I'll observe",
+    "start": 3261.52,
+    "duration": 4.0
+  },
+  {
+    "text": "uh as we're wrapping up here that, you",
+    "start": 3263.92,
+    "duration": 2.639
+  },
+  {
+    "text": "know, like one of the fun things about",
+    "start": 3265.52,
+    "duration": 2.48
+  },
+  {
+    "text": "doing this show is I get to sit across",
+    "start": 3266.559,
+    "duration": 3.04
+  },
+  {
+    "text": "from colorists whose work I love and who",
+    "start": 3268.0,
+    "duration": 3.359
+  },
+  {
+    "text": "I want to learn more about. And",
+    "start": 3269.599,
+    "duration": 3.361
+  },
+  {
+    "text": "something that struck me certainly the",
+    "start": 3271.359,
+    "duration": 3.601
+  },
+  {
+    "text": "first time I met Jill as well as Karen",
+    "start": 3272.96,
+    "duration": 5.119
+  },
+  {
+    "text": "is you realize how much of this job is",
+    "start": 3274.96,
+    "duration": 5.68
+  },
+  {
+    "text": "not just about technical facility and",
+    "start": 3278.079,
+    "duration": 4.24
+  },
+  {
+    "text": "creative facility and prowess at the",
+    "start": 3280.64,
+    "duration": 3.12
+  },
+  {
+    "text": "track balls, but it's that ability to",
+    "start": 3282.319,
+    "duration": 3.76
+  },
+  {
+    "text": "collaborate and listen and pivot and",
+    "start": 3283.76,
+    "duration": 4.0
+  },
+  {
+    "text": "iterate with a client in a way that's",
+    "start": 3286.079,
+    "duration": 4.961
+  },
+  {
+    "text": "fun. And like without a doubt, both of",
+    "start": 3287.76,
+    "duration": 4.559
+  },
+  {
+    "text": "your daughters, meeting them for the",
+    "start": 3291.04,
+    "duration": 3.76
+  },
+  {
+    "text": "first time, like I get it. I I would be",
+    "start": 3292.319,
+    "duration": 4.081
+  },
+  {
+    "text": "very happy to spend a lot of time with",
+    "start": 3294.8,
+    "duration": 2.799
+  },
+  {
+    "text": "this person in a room because they're",
+    "start": 3296.4,
+    "duration": 2.8
+  },
+  {
+    "text": "just they're some of the things that we",
+    "start": 3297.599,
+    "duration": 2.881
+  },
+  {
+    "text": "talked about when we first began. I can",
+    "start": 3299.2,
+    "duration": 2.32
+  },
+  {
+    "text": "tell they're passionate. I can tell",
+    "start": 3300.48,
+    "duration": 2.16
+  },
+  {
+    "text": "they're curious. I can tell they're",
+    "start": 3301.52,
+    "duration": 2.88
+  },
+  {
+    "text": "willing to work hard. And if I were a",
+    "start": 3302.64,
+    "duration": 3.52
+  },
+  {
+    "text": "client, that's the kind of person who I",
+    "start": 3304.4,
+    "duration": 3.12
+  },
+  {
+    "text": "would want to spend my time and money",
+    "start": 3306.16,
+    "duration": 3.28
+  },
+  {
+    "text": "sitting with. So, it's an easy thing to",
+    "start": 3307.52,
+    "duration": 3.599
+  },
+  {
+    "text": "discount in this business is just how",
+    "start": 3309.44,
+    "duration": 3.52
+  },
+  {
+    "text": "like, you know, craft and technical",
+    "start": 3311.119,
+    "duration": 4.96
+  },
+  {
+    "text": "ability are the ticket to get you into",
+    "start": 3312.96,
+    "duration": 4.48
+  },
+  {
+    "text": "the room. But once you're in the room,",
+    "start": 3316.079,
+    "duration": 3.361
+  },
+  {
+    "text": "what really distinguishes is more of",
+    "start": 3317.44,
+    "duration": 3.84
+  },
+  {
+    "text": "that collaborative and your ability to",
+    "start": 3319.44,
+    "duration": 4.08
+  },
+  {
+    "text": "work with people. And the thing is of",
+    "start": 3321.28,
+    "duration": 4.96
+  },
+  {
+    "text": "course even in the beginning when",
+    "start": 3323.52,
+    "duration": 5.28
+  },
+  {
+    "text": "they're for both of them",
+    "start": 3326.24,
+    "duration": 4.48
+  },
+  {
+    "text": "because of their you know some of the",
+    "start": 3328.8,
+    "duration": 5.039
+  },
+  {
+    "text": "the their learning or whatever they were",
+    "start": 3330.72,
+    "duration": 5.92
+  },
+  {
+    "text": "a lot more technical competent",
+    "start": 3333.839,
+    "duration": 4.881
+  },
+  {
+    "text": ">> than especially at that time which were",
+    "start": 3336.64,
+    "duration": 6.56
+  },
+  {
+    "text": "mo mostly retread telescin operators",
+    "start": 3338.72,
+    "duration": 7.44
+  },
+  {
+    "text": "who've never seen you know dealt with",
+    "start": 3343.2,
+    "duration": 5.2
+  },
+  {
+    "text": "the you know the the film look really",
+    "start": 3346.16,
+    "duration": 4.399
+  },
+  {
+    "text": "you know it's just it's always been a",
+    "start": 3348.4,
+    "duration": 3.439
+  },
+  {
+    "text": "video look. Yep.",
+    "start": 3350.559,
+    "duration": 1.841
+  },
+  {
+    "text": ">> Okay.",
+    "start": 3351.839,
+    "duration": 2.401
+  },
+  {
+    "text": ">> And video tools",
+    "start": 3352.4,
+    "duration": 6.719
+  },
+  {
+    "text": ">> in video tools. Okay. Uh so uh so they",
+    "start": 3354.24,
+    "duration": 7.28
+  },
+  {
+    "text": "had to understand first of all that",
+    "start": 3359.119,
+    "duration": 4.081
+  },
+  {
+    "text": "whole scenario",
+    "start": 3361.52,
+    "duration": 3.52
+  },
+  {
+    "text": ">> because a lot of people are in you know",
+    "start": 3363.2,
+    "duration": 3.359
+  },
+  {
+    "text": "normally",
+    "start": 3365.04,
+    "duration": 2.88
+  },
+  {
+    "text": ">> used [snorts] to seeing services certain",
+    "start": 3366.559,
+    "duration": 4.401
+  },
+  {
+    "text": "things like that and then understanding",
+    "start": 3367.92,
+    "duration": 7.52
+  },
+  {
+    "text": "the actual workflow and and and mil that",
+    "start": 3370.96,
+    "duration": 7.52
+  },
+  {
+    "text": "all together. So I would say that fairly",
+    "start": 3375.44,
+    "duration": 5.119
+  },
+  {
+    "text": "colorist now",
+    "start": 3378.48,
+    "duration": 4.48
+  },
+  {
+    "text": "you know essentially learn as much as",
+    "start": 3380.559,
+    "duration": 5.04
+  },
+  {
+    "text": "you can about color about about the",
+    "start": 3382.96,
+    "duration": 5.599
+  },
+  {
+    "text": "different color spaces about about you",
+    "start": 3385.599,
+    "duration": 4.72
+  },
+  {
+    "text": "know the different types of workflows",
+    "start": 3388.559,
+    "duration": 3.841
+  },
+  {
+    "text": "you know uh we're talking about things",
+    "start": 3390.319,
+    "duration": 3.441
+  },
+  {
+    "text": "like when Jenna said you got you got",
+    "start": 3392.4,
+    "duration": 2.24
+  },
+  {
+    "text": "skip bleach",
+    "start": 3393.76,
+    "duration": 1.28
+  },
+  {
+    "text": ">> yep",
+    "start": 3394.64,
+    "duration": 3.6
+  },
+  {
+    "text": ">> well skip bleach in the print is",
+    "start": 3395.04,
+    "duration": 4.799
+  },
+  {
+    "text": "different from skip skip bleach in the",
+    "start": 3398.24,
+    "duration": 2.72
+  },
+  {
+    "text": "negative",
+    "start": 3399.839,
+    "duration": 2.401
+  },
+  {
+    "text": ">> I mean if you think about it you're",
+    "start": 3400.96,
+    "duration": 2.72
+  },
+  {
+    "text": "skipping bleach you're add you're",
+    "start": 3402.24,
+    "duration": 4.96
+  },
+  {
+    "text": "leaving silver in So in the case of a",
+    "start": 3403.68,
+    "duration": 8.0
+  },
+  {
+    "text": "print where you have cyan, magenta and",
+    "start": 3407.2,
+    "duration": 8.08
+  },
+  {
+    "text": "yellow layers there. Okay. That you're",
+    "start": 3411.68,
+    "duration": 6.639
+  },
+  {
+    "text": "seeing. So cyan, magenta and yellow is",
+    "start": 3415.28,
+    "duration": 4.96
+  },
+  {
+    "text": "just one. Each one is a one layer. So",
+    "start": 3418.319,
+    "duration": 4.401
+  },
+  {
+    "text": "that you have only one layer of silver.",
+    "start": 3420.24,
+    "duration": 3.119
+  },
+  {
+    "text": ">> Yep.",
+    "start": 3422.72,
+    "duration": 3.839
+  },
+  {
+    "text": ">> So the red, green, and blue have to be",
+    "start": 3423.359,
+    "duration": 6.401
+  },
+  {
+    "text": "made of two layers. So therefore the",
+    "start": 3426.559,
+    "duration": 6.401
+  },
+  {
+    "text": "effect of a skip bleach is more dramatic",
+    "start": 3429.76,
+    "duration": 4.96
+  },
+  {
+    "text": "on",
+    "start": 3432.96,
+    "duration": 3.92
+  },
+  {
+    "text": "for desaturation for red, green and blue",
+    "start": 3434.72,
+    "duration": 4.48
+  },
+  {
+    "text": "than it is say magenta and yellow. But",
+    "start": 3436.88,
+    "duration": 4.4
+  },
+  {
+    "text": "then in a negative that completely",
+    "start": 3439.2,
+    "duration": 3.04
+  },
+  {
+    "text": "reverses.",
+    "start": 3441.28,
+    "duration": 2.16
+  },
+  {
+    "text": ">> Yeah.",
+    "start": 3442.24,
+    "duration": 3.359
+  },
+  {
+    "text": ">> And so you have different you know skip",
+    "start": 3443.44,
+    "duration": 5.119
+  },
+  {
+    "text": "bleach not only contrast wise color-wise",
+    "start": 3445.599,
+    "duration": 4.72
+  },
+  {
+    "text": "you have a difference between the two.",
+    "start": 3448.559,
+    "duration": 3.841
+  },
+  {
+    "text": ">> Yeah. And the these are things you know",
+    "start": 3450.319,
+    "duration": 4.641
+  },
+  {
+    "text": "you understand that you know and you",
+    "start": 3452.4,
+    "duration": 6.159
+  },
+  {
+    "text": "know the other thing you know u",
+    "start": 3454.96,
+    "duration": 6.0
+  },
+  {
+    "text": "there's there's people now wanted to go",
+    "start": 3458.559,
+    "duration": 6.24
+  },
+  {
+    "text": "out on to a film recorder to get quote a",
+    "start": 3460.96,
+    "duration": 6.8
+  },
+  {
+    "text": "film look. Well you you know you could",
+    "start": 3464.799,
+    "duration": 4.241
+  },
+  {
+    "text": "go out there if you go out onto",
+    "start": 3467.76,
+    "duration": 3.28
+  },
+  {
+    "text": "intermediate stock you're not going to",
+    "start": 3469.04,
+    "duration": 4.0
+  },
+  {
+    "text": "get film grain because that has way way",
+    "start": 3471.04,
+    "duration": 3.759
+  },
+  {
+    "text": "too just too fine.",
+    "start": 3473.04,
+    "duration": 2.319
+  },
+  {
+    "text": ">> Yep.",
+    "start": 3474.799,
+    "duration": 4.32
+  },
+  {
+    "text": ">> Okay. um uh but it'll impart some color",
+    "start": 3475.359,
+    "duration": 5.76
+  },
+  {
+    "text": "change, but then you have to go ahead",
+    "start": 3479.119,
+    "duration": 4.081
+  },
+  {
+    "text": "and you have to take that out because",
+    "start": 3481.119,
+    "duration": 4.0
+  },
+  {
+    "text": "you want to get that back out. So all",
+    "start": 3483.2,
+    "duration": 6.24
+  },
+  {
+    "text": "you've done by recording it out because",
+    "start": 3485.119,
+    "duration": 7.68
+  },
+  {
+    "text": "if you record out at 4K and then scan it",
+    "start": 3489.44,
+    "duration": 6.24
+  },
+  {
+    "text": "back at 4K, your your net result in the",
+    "start": 3492.799,
+    "duration": 5.921
+  },
+  {
+    "text": "image structures is is less than 2K,",
+    "start": 3495.68,
+    "duration": 4.159
+  },
+  {
+    "text": ">> right?",
+    "start": 3498.72,
+    "duration": 2.24
+  },
+  {
+    "text": ">> So you've softened it.",
+    "start": 3499.839,
+    "duration": 3.841
+  },
+  {
+    "text": ">> Yep. Well, instead of spending all that",
+    "start": 3500.96,
+    "duration": 4.96
+  },
+  {
+    "text": "money for film and processing and",
+    "start": 3503.68,
+    "duration": 4.96
+  },
+  {
+    "text": "scanning, okay, why not just soften it",
+    "start": 3505.92,
+    "duration": 5.12
+  },
+  {
+    "text": "on, you know, digitally, right? Okay.",
+    "start": 3508.64,
+    "duration": 4.64
+  },
+  {
+    "text": ">> The other thing is that if you if you",
+    "start": 3511.04,
+    "duration": 4.24
+  },
+  {
+    "text": "wanted to go out onto a film such as",
+    "start": 3513.28,
+    "duration": 4.88
+  },
+  {
+    "text": "like a a 5219 or something like that or",
+    "start": 3515.28,
+    "duration": 5.44
+  },
+  {
+    "text": "or some other film, you know, yes,",
+    "start": 3518.16,
+    "duration": 5.199
+  },
+  {
+    "text": "you'll get some extra grain that way,",
+    "start": 3520.72,
+    "duration": 4.56
+  },
+  {
+    "text": "okay? But then the inter image of that",
+    "start": 3523.359,
+    "duration": 3.921
+  },
+  {
+    "text": "film is not meant for being on a",
+    "start": 3525.28,
+    "duration": 3.92
+  },
+  {
+    "text": "recorder. And so you get all sorts of",
+    "start": 3527.28,
+    "duration": 4.48
+  },
+  {
+    "text": "other wacky stuff happening. And again,",
+    "start": 3529.2,
+    "duration": 5.359
+  },
+  {
+    "text": "you know, it's probably a nice way to",
+    "start": 3531.76,
+    "duration": 5.2
+  },
+  {
+    "text": "you for a labs to make extra money, but",
+    "start": 3534.559,
+    "duration": 6.161
+  },
+  {
+    "text": "you know, um it it it doesn't do as much",
+    "start": 3536.96,
+    "duration": 5.44
+  },
+  {
+    "text": "for your final product. And that's so",
+    "start": 3540.72,
+    "duration": 4.079
+  },
+  {
+    "text": "this is the things that that in",
+    "start": 3542.4,
+    "duration": 4.24
+  },
+  {
+    "text": "collaboration with your client you could",
+    "start": 3544.799,
+    "duration": 4.081
+  },
+  {
+    "text": "talk about well what is the purpose you",
+    "start": 3546.64,
+    "duration": 3.28
+  },
+  {
+    "text": "know of doing things",
+    "start": 3548.88,
+    "duration": 2.88
+  },
+  {
+    "text": ">> and if you're bringing the right toolkit",
+    "start": 3549.92,
+    "duration": 3.919
+  },
+  {
+    "text": "and critical thinking to the process you",
+    "start": 3551.76,
+    "duration": 4.24
+  },
+  {
+    "text": "can help decide what's going to be most",
+    "start": 3553.839,
+    "duration": 2.641
+  },
+  {
+    "text": "impactful",
+    "start": 3556.0,
+    "duration": 2.48
+  },
+  {
+    "text": ">> and you have to kind of try to separate",
+    "start": 3556.48,
+    "duration": 6.48
+  },
+  {
+    "text": "out is the final intent",
+    "start": 3558.48,
+    "duration": 8.56
+  },
+  {
+    "text": "imagewise perception or is it political",
+    "start": 3562.96,
+    "duration": 4.72
+  },
+  {
+    "text": ">> right",
+    "start": 3567.04,
+    "duration": 3.44
+  },
+  {
+    "text": ">> and you know again",
+    "start": 3567.68,
+    "duration": 4.159
+  },
+  {
+    "text": "you like",
+    "start": 3570.48,
+    "duration": 3.04
+  },
+  {
+    "text": "you you just have to deal with that, you",
+    "start": 3571.839,
+    "duration": 5.28
+  },
+  {
+    "text": "know, because the everything is this is",
+    "start": 3573.52,
+    "duration": 6.079
+  },
+  {
+    "text": "a very very people oriented type of of",
+    "start": 3577.119,
+    "duration": 6.72
+  },
+  {
+    "text": "of uh of uh endeavor and so you have to",
+    "start": 3579.599,
+    "duration": 6.24
+  },
+  {
+    "text": "just take that into account also.",
+    "start": 3583.839,
+    "duration": 3.681
+  },
+  {
+    "text": ">> Yeah. You know, just because you know",
+    "start": 3585.839,
+    "duration": 4.0
+  },
+  {
+    "text": "they say I want a film look, it it may",
+    "start": 3587.52,
+    "duration": 5.92
+  },
+  {
+    "text": "just mean I want something that you know",
+    "start": 3589.839,
+    "duration": 6.081
+  },
+  {
+    "text": "I could hang my head and say I'm doing",
+    "start": 3593.44,
+    "duration": 3.28
+  },
+  {
+    "text": "something different.",
+    "start": 3595.92,
+    "duration": 2.8
+  },
+  {
+    "text": ">> Yeah. Or maybe there's just one specific",
+    "start": 3596.72,
+    "duration": 4.0
+  },
+  {
+    "text": "trait like a textural or a color thing",
+    "start": 3598.72,
+    "duration": 4.0
+  },
+  {
+    "text": "that it's like by the time you move that",
+    "start": 3600.72,
+    "duration": 3.04
+  },
+  {
+    "text": "red the right way, like that's all I",
+    "start": 3602.72,
+    "duration": 1.76
+  },
+  {
+    "text": "needed. It's fine.",
+    "start": 3603.76,
+    "duration": 2.559
+  },
+  {
+    "text": ">> Exa. Exactly. Exactly.",
+    "start": 3604.48,
+    "duration": 3.92
+  },
+  {
+    "text": ">> Well, I have an unspoken goal every time",
+    "start": 3606.319,
+    "duration": 3.921
+  },
+  {
+    "text": "that we go into a conversation, which is",
+    "start": 3608.4,
+    "duration": 5.04
+  },
+  {
+    "text": "to try to hold on to more than 50% of",
+    "start": 3610.24,
+    "duration": 5.359
+  },
+  {
+    "text": "the stuff that you teach me. I think I",
+    "start": 3613.44,
+    "duration": 3.679
+  },
+  {
+    "text": "managed to pull it off today. So, I'm",
+    "start": 3615.599,
+    "duration": 3.52
+  },
+  {
+    "text": "very happy. For everyone listening, if",
+    "start": 3617.119,
+    "duration": 3.361
+  },
+  {
+    "text": "you were able to do that, awesome. If",
+    "start": 3619.119,
+    "duration": 2.881
+  },
+  {
+    "text": "you weren't, don't feel bad because I",
+    "start": 3620.48,
+    "duration": 3.04
+  },
+  {
+    "text": "come in way below that average all the",
+    "start": 3622.0,
+    "duration": 4.0
+  },
+  {
+    "text": "time and give Dr. B a another listen.",
+    "start": 3623.52,
+    "duration": 3.92
+  },
+  {
+    "text": "And you know, I think this episode will",
+    "start": 3626.0,
+    "duration": 3.28
+  },
+  {
+    "text": "have some good repeat listening, but uh",
+    "start": 3627.44,
+    "duration": 2.8
+  },
+  {
+    "text": "yeah, I just want to thank you so much",
+    "start": 3629.28,
+    "duration": 2.559
+  },
+  {
+    "text": "for coming down and sharing your",
+    "start": 3630.24,
+    "duration": 3.44
+  },
+  {
+    "text": "insights and experience. It's been a",
+    "start": 3631.839,
+    "duration": 3.681
+  },
+  {
+    "text": "blast finally getting to put you on the",
+    "start": 3633.68,
+    "duration": 3.36
+  },
+  {
+    "text": "record.",
+    "start": 3635.52,
+    "duration": 2.72
+  },
+  {
+    "text": ">> Thanks for being here, Mitch.",
+    "start": 3637.04,
+    "duration": 2.0
+  },
+  {
+    "text": ">> Thank you much.",
+    "start": 3638.24,
+    "duration": 3.28
+  },
+  {
+    "text": ">> Hey, congrats on making it through one",
+    "start": 3639.04,
+    "duration": 4.88
+  },
+  {
+    "text": "of the most information dense episodes",
+    "start": 3641.52,
+    "duration": 5.2
+  },
+  {
+    "text": "of this show that we've ever done. So,",
+    "start": 3643.92,
+    "duration": 4.48
+  },
+  {
+    "text": "you just heard from Dr. Bogdanowitz on",
+    "start": 3646.72,
+    "duration": 3.359
+  },
+  {
+    "text": "how he was able to pioneer film",
+    "start": 3648.4,
+    "duration": 4.0
+  },
+  {
+    "text": "chemistry and film modeling decades",
+    "start": 3650.079,
+    "duration": 4.24
+  },
+  {
+    "text": "ahead of his time. But if you're like I",
+    "start": 3652.4,
+    "duration": 4.0
+  },
+  {
+    "text": "was, you might still be wondering what",
+    "start": 3654.319,
+    "duration": 4.321
+  },
+  {
+    "text": "exactly makes the film look so special,",
+    "start": 3656.4,
+    "duration": 4.08
+  },
+  {
+    "text": "so desirable, and how you can",
+    "start": 3658.64,
+    "duration": 4.32
+  },
+  {
+    "text": "incorporate it into your own work. If",
+    "start": 3660.48,
+    "duration": 4.319
+  },
+  {
+    "text": "so, I want to invite you to join me for",
+    "start": 3662.96,
+    "duration": 3.68
+  },
+  {
+    "text": "a free live webinar where we're going to",
+    "start": 3664.799,
+    "duration": 4.161
+  },
+  {
+    "text": "move from theory into practice and break",
+    "start": 3666.64,
+    "duration": 4.4
+  },
+  {
+    "text": "down the key elements of the film look",
+    "start": 3668.96,
+    "duration": 4.32
+  },
+  {
+    "text": "and how you can build them inside of",
+    "start": 3671.04,
+    "duration": 3.92
+  },
+  {
+    "text": "Resolve. We're even going to talk about",
+    "start": 3673.28,
+    "duration": 3.839
+  },
+  {
+    "text": "how you can cook that whole stack into a",
+    "start": 3674.96,
+    "duration": 3.76
+  },
+  {
+    "text": "viewing lot that you can take with you",
+    "start": 3677.119,
+    "duration": 4.081
+  },
+  {
+    "text": "on set. It's completely free and all you",
+    "start": 3678.72,
+    "duration": 4.8
+  },
+  {
+    "text": "need is a copy of Resolve. We will even",
+    "start": 3681.2,
+    "duration": 4.56
+  },
+  {
+    "text": "provide the practice footage. The only",
+    "start": 3683.52,
+    "duration": 3.92
+  },
+  {
+    "text": "catch is that we're only doing this for",
+    "start": 3685.76,
+    "duration": 3.52
+  },
+  {
+    "text": "a limited number of people because we",
+    "start": 3687.44,
+    "duration": 3.04
+  },
+  {
+    "text": "want to make sure that we're able to",
+    "start": 3689.28,
+    "duration": 2.96
+  },
+  {
+    "text": "answer every question that comes up",
+    "start": 3690.48,
+    "duration": 3.839
+  },
+  {
+    "text": "during the session. So, if you want to",
+    "start": 3692.24,
+    "duration": 3.68
+  },
+  {
+    "text": "start confidently incorporating real",
+    "start": 3694.319,
+    "duration": 3.601
+  },
+  {
+    "text": "film aesthetics into your work, click",
+    "start": 3695.92,
+    "duration": 3.439
+  },
+  {
+    "text": "the link in the description and grab",
+    "start": 3697.92,
+    "duration": 4.8
+  },
+  {
+    "text": "your seat. See you there.",
+    "start": 3699.359,
+    "duration": 3.361
+  }
+]

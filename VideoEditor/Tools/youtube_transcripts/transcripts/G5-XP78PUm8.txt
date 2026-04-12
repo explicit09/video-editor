@@ -1,0 +1,331 @@
+So today's community question over on
+post pro list. I was asked about
+tracking roads for a drone that orbits
+kind of like this video here. He wanted
+to know how to do it in Da Vinci Resolve
+and Fusion. Uh and so that's what we're
+going to dive into. If you have a
+question of your own for Dav Vinci
+Resolve Fusion or Fairlite, you can jump
+over to Postpro List, ask your question
+there. Myself or the community should be
+able to help you out. So we're going to
+tackle this. He actually sent over some
+video footage that we're going to work
+with. I just brought it into Da Vinci
+Resolve. If we take a look at this
+footage, there really isn't a lot of
+orbiting. We're just kind of going
+towards the city a little bit. And then
+right at the end, there's like a little
+bit of a like a rotation, but not really
+much. So hopefully I can show how to do
+this with the footage in which he uh
+sent me. So, we're just going to go to a
+frame that has pretty much the majority
+of whatever it is uh that we want to
+have this effect on right in the middle
+of the screen or the best view of
+whatever that is. Right? So, for now,
+I'm just going to go to the beginning of
+the frame because we're just going to
+track this road that comes from the
+bridge into the city. And we'll just go
+to the beginning. I will grab a
+background node. Let me zoom in so you
+can actually read these nodes. I'll just
+grab a background node and we will grab
+that yellow color. So there is our
+background node. I'll just view the uh
+media in or out and we will just connect
+this background into our the the output
+of our media in which we'll then make a
+merge. We'll click on the merge and I'm
+just going to bring this blend down a
+little bit to get that highlighter
+effect. I feel like this was probably
+the closest to what was in that uh demo
+video that he sent in. And then from
+here, all we're going to do is you can
+either use a polygon or a beplline. It's
+up to you. And we're just going to um
+make a path around the area that we want
+to have uh shown in this. So, I'm just
+going to grab a beplline. It's just a
+softer uh from point to point. And we
+will just connect this in. And then I'm
+just going to go around one side of the
+road, come back down, go down the other
+side of the road. And so we can zoom in
+just holding shift and mouse wheeling
+in. And we will click. You want to have
+as few points as possible, but as many
+points that is necessary. That makes
+sense. So that's what we'll be doing
+here. And somewhere over there is going
+to be the end of that road. Bring it
+over here. Bring this down
+like this.
+And there we go. So now if we take a
+look at it, it's not great. We have to
+move it a little bit here, but that's
+what we're going to do first. So
+clicking on our beplline and then just
+adjusting all the points. If we were to
+just click and move, we're going to add
+additional points. So to not do that, if
+we come up to the top bar up here, we
+have this edit only mode or shift M.
+We'll click on that and that'll only
+allow us to move the points that are
+here. And so that's what we'll do first.
+We'll just move these points to be over
+the whole street.
+And see there, we're going to come back
+down. Bring this down a little bit.
+Something like that.
+And I think majority of this is good
+from here.
+All right.
+Like that. Okay. So that is our whole
+street kind of covered. That's what
+we'll be showing here. And now that we
+have this set, one thing that uh masks
+automatically add in is the shape shape
+animation. So I just want to remove
+that. So I'll just rightclick here and
+go down to remove. That'll remove that.
+So we're not playing around with a lot
+of different animation uh tools all at
+once. From here, what we're going to do
+is now we want to have access to the
+data for every one of these points. So,
+I'm going to do is highlight all of the
+points. We're going to go to one of the
+points, right click on it, then go down
+to polygon, and go publish, publish
+points. So, now this will show all of
+the points for all of these points here.
+If you want to know which of these
+points uh in our mask is connected to
+any of these, what you can do is you can
+click on one of the points again and
+then go to polygon
+and then we'll come down here to point
+numbers. And now we can see the
+different numbers here that will
+represent these points over here.
+because we're on our um primary frame
+that we set this up. What we'll do is
+we'll just go down and we will click all
+of the key frames so that we have them
+all key framed for this particular
+frame. So right here is our playhead.
+We're at frame zero. What I'm going to
+go is to the last usable frame, right?
+So before we have that little jerking
+motion. So I would say right there is
+probably one of the last ones. And then
+from here, what we're going to do is now
+we're going to move um all of our points
+to have a new position that is uh in
+this road. Right. Right. So if we take
+this point, we move it down. Take that
+point, move it down.
+Okay. So that is our second frame,
+right? So we have this one down here
+which is at 1376 and we have our first
+one which somehow got messed up as well.
+And then if I click on this again to see
+our other one that is our second one.
+Just with all rotoscoping now we want to
+go to the middle of those points that we
+just added. So somewhere in the middle.
+So here. And now we just want to adjust
+to get everything lined up again. So,
+I'll quickly do that.
+Line up everything. That looks all good.
+Bring this back in a little bit. Bring
+this in.
+Bring this up. Okay. So, now we're
+looking pretty good. And what you'll
+notice is now we have three key frames.
+So, the first one here, the one in 700,
+and this other one over 1300. Now, we
+just need to look at in between where
+our new key frame is and our previous
+key frame. So we'll look here and we'll
+look over here and then adjust it
+accordingly. The idea here is that we
+want don't want to go through every
+single frame and make key frames. What
+we want is for Fusion to automatically
+move the mask, but we're giving it um
+references to you know in between here.
+So just interpolate the different the
+space in between and it will save a lot
+of work.
+uh in between. So that's looking good
+there. So remember we had this one here
+at 700. So we did that one. So now let's
+go to the other side in the middle. So
+over here. And that's pretty much the
+gist of it. And we'll just keep going
+until we feel like when we jump to a new
+set of key frames, there's no moving. So
+now we added this key frame here in the
+300s. And then this one over in the
+thousand. So we'll go to the left and
+right of this 300. So, we'll go
+somewhere in here and we'll take a look
+at that. For the most part, I feel like
+that is fine. Maybe slide this up ever
+so slightly. That's looking okay. Maybe
+slide this one up ever so slightly.
+Something like that. And then to the
+other side of that 300 key frame. That's
+looking pretty good. Now, we had this
+other key frame here at a th00and. So,
+we'll go to the left of that. This might
+need to come up ever so slightly. That's
+looking good. And then the other side of
+that, which is over here. and just slide
+that up just a little bit and maybe this
+one down. But for the most part, that is
+pretty good as well. So I would say for
+the most part this will follow
+as we go through here would follow this
+pretty well. Okay. And that should be
+the majority of work that we would have
+to do right to highlight something like
+this. Now, if you wanted to use a
+tracker, you could track each and every
+one of these points as well. So, I'll
+quickly show you that, right? So, let's
+say we take this one. Uh, which one
+here? This one. Number one, and I will
+just remove all the tracking data here.
+So, just double clicking will remove all
+that tracking data. Now, I can right
+click on here, go to modify with, and go
+to track,
+and then uh go over into our modifier.
+So, we have this tracker one. So, this
+is for this first tracker. As you can
+see, there's a point here. I'm just
+going to switch this over to the point
+tracker. I like it a little bit more.
+And we're not going to do every frame.
+So, let's just do every five frames.
+And all I'll do is just move this.
+Actually, I don't have any source in
+here. So, I need to put a source in
+here. So, we're going to grab our media
+in. We'll click and drag. Drop up here.
+So, now it knows what we're tracking. So
+now clicking on the beplline as I move
+this we can see this actually should
+show it.
+There we are. So we can see now in our
+tracker where we're tracking. I'm just
+going to track this sign right here. And
+I'll make the bounds just slightly
+smaller and click on this again. Go over
+into modifiers. And now we can track
+this. Where are we? We're here at the
+end. So I'm just going to track
+backwards.
+All right. So now that I track that, if
+we take a look at that one point, we can
+see that it's pretty locked on,
+right? It stays there. But obviously the
+it's way too high. So now we can do an
+offset. So if I come into modifiers, go
+into our tracker. And now we have this
+XY offset for where we want this point
+to actually be. It's still tracked to um
+it's still tracked to the sign, but now
+we're just offsetting the output of the
+tracker so that it stays so that this
+line stays within the boundaries of this
+road. So now if we as we go through
+here, we can see that that stays there.
+So if you really wanted to, you could
+use a tracker on all of these,
+but you can, you know, do it this way as
+well. You can manually do some points or
+uh automatically do them all. Now, I do
+want to show you one other thing. Go
+back into this video. If we take a look
+at
+the this point down here, after the
+fact, you could make a shape and then
+just cut it out. So, I want to quickly
+show you that. So, here is let's say we
+take out this. I don't even know what
+this is. Maybe a train station or
+something. Let's say I want to take that
+out. So after our beastline, I will just
+add in a polygon. And I will just go
+around this.
+And then in the polygon, we will just
+change the paint mode to subtract. And
+so now I have this road tracked and I
+have this as a little cutout. Now, just
+like with our uh beplline, you're going
+to have to either track this or manually
+animate it. It's up to you. The other
+things you could also do is you could do
+the magic mask. And the magic mask, I'm
+actually going to add in the video,
+right? So, we have this video um playing
+here. And because we need a source, and
+I'm just going to select all of that.
+And that's looking pretty good. Uh, and
+from here the beplline because since
+this is actually what we want, I'm going
+to go into the garbage mat and then
+invert it. Oops, that's the wrong one.
+So, I'll just I'm just right click
+dragging into here. So, I can pick
+garbage mat and then in the gar or in
+here in the mats, we'll go in the
+garbage mat and we'll just invert that.
+So, then that's not what I want. And
+then let's invert the um mask. So now we
+have that little bit cut out and then we
+will come in and so now we have this off
+using the AI. Obviously if you want this
+to be cut out a little bit more clicking
+on it we can then put some more like
+negative stuff along this and it'll
+tighten that up a little bit. So then
+there we go. Now all you would have to
+do is just track that and now you are
+using some of the AI tools if you have
+access to those. So, couple of different
+options here to do this. So, I think
+that concludes this effect. If you have
+any questions, you can go over to postp
+pro list, ask your question there.
+Someone should be able to help you out.
+If you haven't seen yet over on my
+website under free titles, I did add
+more to the free bundle. Currently,
+there are 51. They will slowly get add
+it to the community version of the pack.
+If you did want to support the pack, you
+can become part of the insiders, which
+then you have access to a few more
+titles. They will slowly get released to
+the community pack, but if you read
+through this, I will consistently add
+more stuff to the insiders that will
+then get added to the community pack.
+Just a way to um help support the
+creation of this pack that hopefully
+will become one of the biggest free
+packs uh in the community. But with that
+being said, my name's Justin. Thanks so
+much for watching. Till the next one,
+guys.

@@ -1,0 +1,1664 @@
+Most people assume film is three layers,
+a red, a green, and a blue. Light hits
+them, chemistry happens, and you get an
+image. But here's what film actually is.
+>> Each of the layers like you have a slow
+emulsion, a medium, and then a fast for
+the red, green, and blue.
+>> That's nine emulsion layers. And then
+there are inter layers between them.
+>> You have inter layer, interim image
+effects. In other words, how one layer
+is affecting the other layer.
+>> Now we have 17 layers. And each layer
+doesn't just capture light, it changes
+the behavior of the layers around it.
+The whole system is interactive.
+>> You build the film such that when they
+all stack together, you get a nice
+smooth curve.
+>> If you want to understand how film works
+and how top colorists think their way
+through getting the best image, this is
+where you start. Okay. Dr. Mitchbug
+Danowitz, welcome to the show. It's been
+a long time coming.
+>> Nice being here.
+>> Yeah. A lot of people watching the show
+are going to know you from your long
+career at Kodak and from the work you've
+done with your daughter Jill and uh
+other things you've done with Karen at
+different points and the work you and I
+have done more recently with the Genesis
+plugin. But I want to like kind of start
+with a story from how we actually got
+connected because I remember back in I
+don't know 2015 2016 when I was first
+starting to get into like the filmic
+rendering of images and really wanted to
+understand that and speak that language
+and just looking for any resource to
+understand that stuff better. Of all
+things, I started stumbling into Kodak
+patent filings and reading those things
+and trying to sort of read between the
+lines as to like what was happening in
+there. And the ones that stood out to me
+had a name on there that kept popping
+up. Dr. Mitch about Danowitz. And thus
+began probably like a one or twoyear uh
+like hot and cold exchange over email
+was like, "Hey, I've read your patent
+filings. Like, can I buy you coffee
+sometime?" And at the time, you were
+like, "Look, I'm retired. Like, I'm I'm,
+you know, like not really living right
+in the city anymore. Like, I wish you
+the best of luck, but I don't really
+have time." That was how this whole
+thing started, right?
+>> Absolutely.
+>> Yeah. And then I I guess I I wore you
+down or like what was it? I guess I at
+some point I I asked you to join and
+help me to teach a course that I was
+doing at the time on color science and I
+somehow wore you down and got you to
+agree to do it, right?
+>> Yeah. It it it it took a while, you
+know, and uh you know, because I'm I'm
+asked a lot, you know, for different
+people, but then again, you know, uh you
+had enough uh let's say
+background uh also perseverance
+[laughter]
+you know, is that that you know,
+essentially I figure that he's a guy
+worth talking to because at least he's
+kind of understands what I'm saying.
+Well, I'm I'm really grateful that
+however it came about, we ended up
+getting connected in the way we did. And
+I think the biggest reason I'm excited
+to have you on the show today is in
+addition to the things people may know
+about from your background and
+experience, the biggest impact that
+you've had on me personally is you've
+been like a really critical mentor and
+teacher to me. And I'm excited to have
+you share some of the same knowledge and
+insights and perspective that you've
+given me over the years with our
+audience. Uh just when it comes to
+making beautiful moving images because
+that's been your life for really long
+time, right?
+>> And things have changed over the years.
+Yeah. Quite a bit.
+>> Yeah. I mean from the time in the 90s
+when digital intermediate was not even
+on anybody's radar
+>> you know uh and uh where looks were
+really really in the hands of the
+cinematographers you know almost solely
+>> right [clears throat]
+>> uh and that has moved you know into you
+know of course they still have a very
+large impact you know and and they're
+the uh the architect of really the final
+look, but how the look comes together is
+just different,
+>> right? Yeah. There's there's more moving
+pieces and variables absolutely after
+the fact. Yeah. We we just talked a
+second ago about how we're going to try
+to keep this under six hours. So, I
+might be like tempting fate by
+suggesting that we go back to the
+beginning, [laughter] but let's try
+going back to, you know, like where this
+all started for you because you're a
+chemist by uh training, right? That's
+where it all began.
+>> Yeah, I'm Yeah, my PhD is in or organic
+chemistry. Uh, and you know, right out
+of school, I spent about little less
+than two years at DuPont at the
+experimental station making herbicides
+and pesticides and plant growth
+regulants and all this sort of stuff.
+And then and then, you know, I I was
+able to get into into Kodak and that was
+a happen stance. I just, you know, I
+went to school in Rochester, Rochester
+Institute of Technology. And it's
+interesting because I grew up in New
+York City. So I went to high school art
+and design, majored in photography.
+And I, you know, in my off times, I
+would, you know, get uh I would work for
+different, you know, photographers
+doing, you know, laboratory work and and
+whatever. But I got interested in
+chemistry because I was mixing my own
+chemicals.
+>> And so I decided when I went to college,
+I went to Rochester Institute of
+Technology figuring that well if I
+didn't didn't work out in chemistry.
+It's the world's best photo school. So I
+would just, you know, see if I could
+just transfer to the photos side. Well,
+ending up, you know, I was pretty good
+in chemistry and and I moved on to
+University of Wisconsin for, you know,
+for the uh the doctoral work.
+>> Mhm.
+>> But the thing is it was it was really,
+you know, the vocational high school
+that got me, you know, started on
+things. And a after while I was near the
+end of my stint at at DuPont, my wife's
+friend was getting married in Rochester,
+so we went back up there. And so I just
+kind of popped in to Kodak and just to
+say by the way I'm here, you know, and
+you know I can you interview me? I I got
+an offer to come back and to do a formal
+interview and and I started working at
+Kodak. I was in the chem lab making you
+know making compounds for you know the
+film and whatever. I had a lot of angst
+there because I was in a chem lab for
+many many years and told myself that I
+really don't want to be in a chem lab
+anymore. So I started doing other things
+you know doing molecular orbital
+calculation work you know on dyes and
+and you know you know computer getting
+into computer programming as far as you
+molecular substructure searching and all
+this sort of stuff to all the compounds
+that you know we're doing in chem in
+Kodak. Yeah. And this is you're working
+with computers. This is 77 already
+working and like getting fluent with
+computers.
+>> Yes. And I say and I was getting into
+the computer part [snorts] for other
+things you like you know the molecular
+orbital calculations as well for based
+and then you know the substructing you
+know I it was you know I was doing you
+know mostly you know uh PL1 and but
+there was it became an opening in the
+engineering you know the uh science lab
+bit you know within within Kodak where I
+did a lot of the color research.
+>> So this was were you already in motion
+picture or was this the migration point?
+>> This was outside of motion picture. I
+was no at that point it was not yet in
+motion picture and that and this was
+like 79. I was in there and learning and
+we we we would be at the at the
+blackboard you know essentially on a
+daily basis you know you know talking
+arguing about color science about
+different ways of of approaching things
+whatever.
+And I saw that there was a need to put
+things together as far as uh as far as
+the actual uh um system when we're
+trying to solve problems. A lot of a lot
+of things the different people like the
+motion picture area uh the consumer
+films the professional films they would
+come to us and they go we have this
+problem or we have a a project we like
+to be involved in and whatever you know
+and essentially keep the look of it in
+check.
+>> So these are optical visual problems
+they're coming to you with and they're
+saying solve the chemistry to make it
+so.
+>> Yeah. Yes. Yes. And and so the uh the
+the one problem would you know would
+come up in that in that is you know like
+sometimes you you have just one film
+like a a reversal film but other times
+you have a a negative and then a print.
+>> Mhm.
+>> Okay. And in motion picture you have a
+negative then a potential D you know
+master positive you know then you have a
+dupe negative and then you have a print
+and you know this is all before digital
+and so it become a little bit complex.
+So I went and I took spent about
+probably about a year and a half writing
+a fullblown
+model that went right from the original
+scene
+to negative [clears throat] to
+potentially, you know, master positive
+and dupe negative and print uh and then
+out. Now
+>> it was
+it was not on an image. It was mainly on
+a bunch of patches because this was all
+done in 4R,
+>> right? With very constrained processing
+power and all that, right?
+>> Constrained processing power,
+constrained memory, uh, and whatever. So
+we would be looking then at at at plots
+you know at 3D plots you know I mean
+actually 2D plots but uh and u you know
+to see well here you like here's where
+the color resides in this in the plot
+and here's where we predict it to be etc
+and make assumptions and and and and
+recommendations based on that. And this
+is pioneering stuff because like until
+you and your colleagues are starting to
+do this for the first time, the way that
+you make those predictions is with
+physical chemistry. Right.
+>> Sure. And and the problem aroused to
+that arises there is that to make a test
+emulsion at that time it took you know
+for a a set of experiments you a couple
+hundred,000 [snorts]
+>> to run that. And so you're you know the
+the the film builder would be changing
+all the little chemistry if he wants
+there you know for this this layer and
+that layer or whatever you know and then
+you you would go ahead and and put some
+test
+um test images on that or or or some
+test uh uh patches.
+>> And is that a couple hundred,000 in what
+1980s dollars for every iteration?
+>> Yeah.
+>> Wow.
+>> Yeah. I mean it becomes it it becomes
+pretty expensive.
+>> Yeah.
+>> So the um uh the model then was able to
+do more smart coding.
+>> Mhm. You may have a whole factorial of
+potential changes
+and instead of doing that whole
+factorial
+in coding, you do that in the model and
+then you pick out the best favorable the
+best candidates. You still have more
+than just one, right?
+>> But you have you've you've you've you've
+made a smart decision for the for that.
+>> You're doing three iterations instead of
+like 30 or whatever,
+>> right?
+>> Wow. And um yeah, so it it it really
+kind of helped uh really pair things
+down. Uh I mean one result, you know, I
+I remember one time uh and I forget
+really forget whether it was be consumer
+or professional, but it was a film that
+had a problem in the red layer where it
+it was uh it was off by about a 0.1
+density. Mhm.
+>> Well, that doesn't seem to me a lot, but
+in film building terms, that that that's
+that's big, you know, and and and they
+couldn't explain it. You couldn't why is
+this happening?
+>> And
+uh because everything, you know, all all
+the parameters that they're looking at
+were all within, you know, the the very
+tight uh uh ranges that that they were
+building film building to. Well, I used
+a model and it was interesting that
+there were about seven different
+properties
+that you know were all about a about a
+0.01 or a little bit more than 0.01 off
+>> and they're stacking
+>> but every single one of them was in the
+same direction and they all added
+together.
+>> Yeah. And so essentially just doing it
+without the computer it would be it's
+very hard to figure out what was going
+on but with the computer it was uh it
+was uh show showed uh where they were
+off and and then allowed them to do the
+modifications you know to to bring
+things in in into conformance. Well, I I
+love this because this is like something
+that resonates so much with like the
+like working and collaborative
+experiences I've had with you where
+anything from like some of the
+consulting that we've done together to
+developing Genesis to like you know I I
+I have the privilege of like I'll call
+you up sometimes if I'm just struggling
+with a color science or just a workflow
+pipeline thing but like hey I'm seeing
+this and sort of same thing like I don't
+know why I can't explain this
+discrepancy. One of the biggest lessons
+I feel like you've taught me is like you
+have to open the thing up and look at it
+piece by piece.
+>> Yeah. And this is this is where, for
+example, as many people know, I have uh
+my my two girls, Jill and Karen are both
+colorists and I've you know, of course,
+you know, I mean, I've taught them some
+color science,
+>> talk about things a little bit here and
+there,
+>> talked about a lot of color science
+along the way. Definitely. I think that
+it was very a positive thing that they
+understand a lot of the technology not
+only color but you know the the actual
+um you know the different programs that
+are used okay that
+that they're going to be used not in the
+suite but afterwards you know see what
+the rest of the team is doing for the
+deliverables right
+>> uh and u and that's that's very
+important to know about this whole
+thing, you know, I mean, you get a
+different outlook.
+>> Yeah. About it, you know, like and so I
+mean today, you know, I think is is is
+death for colorists to essentially sit
+back and and say, "Well, just color is
+my thing. I don't care about the rest of
+the other stuff."
+>> Yeah.
+>> I mean, that's really foolish. I mean,
+you need to know the whole system,
+>> you know, and and and then
+>> you'll find how you can best integrate
+your talents into that system, you know,
+or if there's a problem, you you you can
+know, well, is it on your end or is it
+down the line?
+>> Yeah. Is it in the pipeline? Is it in
+something you're doing? Yeah.
+>> I mean, it's funny. I a story is coming
+to mind. I remember one day on a
+consulting project we were working on
+where it was just you and I uh in my
+garage at the time where you know we
+were experimenting with stuff and I
+don't even remember what the problem was
+but we were trying to solve some visual
+problem and Jill happened to come by so
+the three of us could grab lunch and
+immediately she goes into like this like
+very systematic diagnosis mode as
+opposed to the mode I think a lot of
+colorists would go into like oh either
+being kind of disinterested of like cool
+I'm sure you'll figure it out or having
+more of a surface suggestion of like oh
+have you tried like maybe not doing so
+much saturation But she immediately goes
+into like, "Okay, well, show me what you
+got going on. Show me every step of the
+process. I want to see like top level,
+how are you getting to this outcome? And
+maybe I can help you pull on the right
+levers to solve things." So clearly
+that's something that was imparted or
+that your kids were just born with is
+that like systems type of mindset as
+opposed to just like I just turn knobs
+until things behave.
+>> No, it's it's actually it was kind of a
+a a purposeful thing. you essentially
+well I was a scientist so I I I I would
+use like the scientific method to you
+know to solve problems you know and not
+just randomly you know guesses something
+and go from there so
+>> there's like a proper like combo of like
+motion imaging and color science like
+dynasty in the Bdanowitz family between
+your dad and then of course you and not
+only both your daughters but your son
+Jim is in the business as well right?
+>> Yes. You know, Jim Jim is a engineer.
+Jim and I did all the color work for
+Kenoflow's uh uh LED lighting systems.
+So, essentially, you know, so he has his
+own niche in in in the in in in the uh
+in the motion picture area. But
+>> yeah. Well, I mean, this is a cool thing
+to double click on because I feel like
+if we look at Jill or Karen or at Jim,
+clearly in all cases, like they ran with
+the ball, but I think you handed them a
+ball in all three cases. like you gave
+them some foundational pieces that they
+were able to leverage. What do you think
+those things are? You touched on one of
+them already, which is, you know, just
+that idea of like learning sort of like
+systems thinking maybe or the scientific
+method. What do you feel like are some
+of the other key things that you were
+maybe able to invest into your kids that
+allowed them to find their success?
+>> Well, it's pursuing knowledge to solve a
+problem. You know the things to do is
+you got you got to take ownership of it,
+you know, and then look at the problem
+and talk with somebody else
+>> and argue but ar don't argue on a
+personal basis. You argue it on a data
+basis. In other words, you know, like
+you you have some data or or let's say
+there's some data and you're
+interpreting it one way and I'm
+interpreting it a different way. Mhm.
+>> You could kind of we could go back and
+forth and back and forth.
+>> You and I have done that a few times.
+>> Absolutely. Absolutely. And it could be
+kind of heated at the time, but then you
+could go and have a beer afterwards, you
+know, whatever. You know, and some of
+that in our society is being lost, you
+know,
+>> but it's not completely lost. But, you
+know,
+>> it's tough to disagree because it's
+funny like you're part of what I'm
+hearing from you is like, well, in my
+day, like work ethic was a
+non-negotiable and if you didn't show up
+and didn't work hard, then you weren't
+going to be in a job for very long. And
+maybe there's more flexibility or room
+for, you know, kind of forgiveness for a
+shortage of that in today's culture, but
+like you you've been able to show up as
+a dad and as a pro for your whole career
+and your whole life.
+>> But but that was an enjoyable part of
+it.
+>> No, I mean it's it's really cool. It's a
+cool cool legacy you've you've built. Uh
+let's go back to like those codec days
+when you're you're starting to model
+things in the box and you're figuring
+out how to predict when you produce new
+codings what's going to happen so you
+don't have to produce as many of them.
+Ultimately that's kind of like you know
+first of all that's that ability and
+that that you know like mindset of
+problem solving and you know like doing
+chemistry in the box as it were that's
+you know like from my selfish POV that's
+the genesis of genesis of our plugin
+that we've released this year but like
+it also uh if I'm thinking about it
+correctly that's probably the origins of
+what became the Kodak look management
+system right
+>> yes yeah and because
+computers started to get faster we
+started I started looking at ways of
+taking some of that model that I had and
+putting it into more practical terms.
+Okay. And the look management system was
+was essentially
+it was still a filmic thing. But the the
+idea was you're going to take a digital
+camera and you take a picture on set and
+take that still image in and essentially
+say okay
+how is that what what's going to that
+going to look like if I use this type of
+film
+under this type of scenario
+>> with this and this processing and and
+this print material or whatever. Okay.
+And then show that on the screen.
+>> Yep.
+>> Okay. So you could go and it gets
+complicated but you can you can relate
+the two. Uh and so the final end product
+was you took these these images, you
+selected film, you select a process, you
+could do overexposure, underexposure,
+you could do pull process, you could do
+skip bleach, you could do all extra
+stuff. And you know you could do a dupe
+negative and uh you intraositive and
+dupe negative and then you have a print
+material. So it it becomes that whole
+system
+>> and the uh uh it worked out very nicely
+and uh but uh be be one of the things
+that that happened was uh you know uh
+early on in a stage you like of course a
+lot of Kodak management you know
+essentially it was really entrenched in
+the cash cow but I remember one time we
+uh and this
+This is I did this along with a one of
+my buddies back there, Nan Chu. He he
+was uh he uh he was from Paris uh Kodak
+and he spent a year or so in in
+Rochester and and we we we worked at uh
+on on some things and but [snorts] um
+you we we came up with um some you know
+utilizing some of this modeling you know
+3D lookup tables that you know could be
+very very implemented it fast because
+you you can't do that on the fly. Those
+mathematics
+>> all that real time processing.
+>> Yeah. If if you have some data and you
+want to process it, you you you you have
+to something do do something fast.
+>> You got to cook that process down.
+>> Yeah. We we didn't have anything that
+would really do it completely. You know,
+for example, there were Kodak digital
+cameras that would do a 17 cube lookup
+table,
+but that lookup table uh could only deal
+with a certain number of frames per
+second
+>> and it wasn't enough for real time. So,
+we have to take two different chips and
+then take alternate frames through it,
+you know, to get throughput. Well,
+bottom line is that a lot of these
+management, you know, motion picture,
+you know, we were giving a a
+presentation over at the city site and
+uh the um uh
+what we had is we had some
+u digitally captured data
+and film data. Okay. And you know so
+essentially you know we could show on
+the screen you know the the the digital
+stuff and then we could show uh film.
+Okay. And
+um of course they look different.
+>> Then we said okay now remember at that
+time
+the the thoughts were that there's no
+way in hell that digital is going to be
+the same as film
+>> right? You can't match it to film
+reproduction.
+Well, what we did is we just, you know,
+we we then looped it through when we had
+that same that that that data, you know,
+then go through a three lookup table.
+>> Mhm.
+>> Uh and showed side by side and
+some some some jaws were dropped there,
+you know, because, you know, it was to
+their to their point of view too damn
+good. [laughter]
+>> Yeah.
+>> Like what are you doing here?
+>> Yeah. But it did give us, you know, a
+lot of of of go-ahad, you know, for
+things like that look management system
+and whatever. You know, again, they
+didn't think that that was going to be
+as threatening, you know, because that
+would, you know, help, you know, them
+use film and whatever.
+>> Yeah. It was sort of bounded in a way
+that made them comfortable with the
+>> right. But but it also was the beginning
+of utilizing a a viewing l for example.
+>> Mhm.
+>> You know in in in later in life because
+you know for the early digital
+intermediate
+>> was a film scan. It was not from it it
+was not from digital camera. It it was
+from a film scan usually
+>> or it could be you know CGI but mainly a
+film scan.
+>> Yeah. and um and and the film scans back
+then were you know much more rigid than
+they are today as far as as far as you
+know what the actual data means
+>> where the exposure sits and distribution
+and all that.
+>> So so you had things like say a cine on
+DPX
+>> so now you have
+in in in that workflow that data would
+go directly out to a recorder.
+>> Okay. So you don't want to to render
+that anymore. You just want to go out to
+the recorder because then that will go
+and give you the print that
+>> the print to print out of that.
+>> So you needed to have something that
+goes between that data and your display
+device that makes it look like what
+you're going to get.
+>> Yeah.
+>> Yeah. And that's where all the the u uh
+a lot of a lot of my effort early on
+was, you know, to produce the the best
+that I could of
+uh viewing L that emulates the system.
+And this, you know, this involved, you
+know, modeling, you know, you know, just
+getting data from the recorder and make
+sure the recorder is calibrated, you
+know, getting data from, you know, the
+final prints output and and and
+whatever.
+>> Okay. All that was not a model. That was
+a this is the actual data that we
+measured because we measured many many
+many points you know and then you and
+then you you you
+process that such that you you you get a
+threedimensional
+you fit it to the measurement.
+>> Yeah, right. You you do some smoothing
+and model and and and interpolation or
+whatever to get to get that uh uh that u
+that that lookup table. Genesis
+doesn't do it that way. Doesn't just do
+like a regression saying you got you got
+this set of data and this set. We're
+just gonna get some some something that
+fits the two, you know.
+>> Yeah.
+>> It it's essentially it goes through and
+essentially it it models it.
+>> We're getting to pick up on a project
+you started 20 plus years ago of
+actually modeling the chemistry and not
+just mimicking outcomes.
+>> Yeah.
+>> Yeah.
+>> Yeah.
+>> I mean that's so cool. What's
+interesting to me is like if we look at,
+you know, the very long career that
+you've had, we're now at a place where
+like motion imaging is just now kind of
+beginning to catch up to things that you
+saw and recognize the potential in
+decades ago. Like for example, you know,
+you're even talking about like Kodak
+never quite being able to round that
+corner that, by the way, they still
+haven't quite rounded today. That like
+the thing is the rendering, not the
+substrate, not the medium. Like the
+valuable thing is the way and all the
+R&D and decades of like research and
+development that went into how do we put
+pleasing images on the screen. That's
+what's valuable to I think to both of
+our minds about film, not the actual
+medium itself. And that's something that
+like is a lot more palatable and
+probably makes more sense to people
+listening today. But when you were
+looking at it through that lens decades
+ago, the management and everyone else
+are going, "What are you why are you
+messing with film? Film is our thing.
+Film is what's important." like the
+medium is what's important. So this is
+vision that you had decades ago. It's
+now easy for all of us to jump on board
+with you. But like for a long time you
+were way out ahead of the curve in terms
+of recognizing where that potential is
+and knowing how to leverage that
+potential for a digital medium as well
+as like a physical photochemical one.
+>> Sure.
+>> Yeah. I mean it's really really cool. So
+I mean if we think about like I could I
+got so many different directions that we
+could take things from here but like one
+of the things that stands out to me when
+you're talking about the you know the
+development of the Kodaklook management
+system and you know like what you were
+really trying to do there that I think
+gets misunderstood or discounted even
+today is you know like we've had lots of
+interest of course in like you know what
+is the magic of our plug-in Genesis that
+we built today and one of the things
+that I feel like is we haven't talked
+about much that we can probably share
+today is something that you touched on
+when you're talking about developing KMS
+is like one of the big pieces there is
+just getting back from whatever your
+digital negative if you want to call it
+that just unbuilding that into something
+that can be fed into the model that
+you've developed like the model itself
+is highly complex and you have to
+basically mimic like whatever the did
+you say 17 layers 16 layers of right
+[snorts] of coding and stuff.
+>> Yeah. back back in 1951 when when uh
+5247 first came came out and that was a
+uh uh a an exposure index 16 daylight
+film. [laughter]
+>> Yeah, you need like a you know all the
+lights.
+>> I mean
+essentially you like back then for the
+for the exposures you know an action
+film with somebody sleeping
+[laughter]
+>> because you couldn't do it what you do
+it today. But anyway, uh it was
+essentially it just had one layer for
+the cyan, one magenta, and one yellow.
+So for for the red, green, and blue
+sensitive layers,
+>> right?
+>> Uh and
+because of that too, and they're only
+one layer. Uh they were limited because
+of thickness and everything else to the
+amount of silver you could put in there.
+And as time progresses as you go through
+the different you know uh uh types of
+film throughout the years that overall
+contrast was being decreased down in in
+in the later 50s and early 60s down to
+about 65 area then going down to the
+point6 and now now for example 5219
+is somewhere you know in the 0.5 plus
+you you know range.
+And the thing is that's some of that is
+also due to being able to advertise oh
+we have a very very much wider dynamic
+range
+>> right
+>> okay and that is in accomplished by not
+having just one layer but for each you
+each of the layers you like you have a
+slow emulsion a medium and then a fast
+for the red green and blue you know
+>> uh and uh and so that means that you can
+have three different characteristic
+curves
+that kind of like intersect each other,
+>> you know, and [clears throat] then and
+and you build you build the film such
+that when they all stack together, you
+get a nice smooth curve. It gets more
+complicated, but that expands the
+dynamic range.
+>> I mean, this whole thing is so
+fascinating to me now. And it was like
+when we first started chatting and I
+started bothering you and like I I feel
+like maybe maybe more recently we
+average a little bit lower, but like
+probably the first year that we were
+really chatting and I'd convince you to
+like give me the time a day. We were
+probably I don't know how many hours a
+week we're averaging of me just grilling
+you with questions cuz I was so curious
+about this stuff. And it's not that many
+people in the world who know it the way
+you do. Like very very few increasingly
+few. But like one of the things that was
+really interesting to me as we were
+starting to get into the whole genesis
+thing is like all right you know because
+as you know obviously we did our
+bottomup methodology of like exactly
+what you described earlier what does the
+system demand not how do we get a
+surface visual match between like oh
+this was done through film like how do
+we you know spin some wheels to make the
+digital image match to that. We did it
+from the bottom up and modeled
+everything. And one of the things I know
+that really surprised me is after we got
+through your highly complex modeling of
+like how do we build up you know the uh
+like digitally modeled equivalent of
+this 17 layer system with expanded
+latitude and like the right type of
+inner layer color interaction between
+the layers and all these pieces that
+went into the model of Genesis. There's
+still that front-end task of like how do
+we just feed the right thing? How do we
+get from digital negative and unbuild
+that essentially to feed into the head
+of that system?
+>> And and that's not a a perfect scenario
+because
+if you have a spectral response of a
+camera
+>> Mhm.
+>> that's taking a scene and you have the
+spectral response of a film taking a
+scene. Okay. All you could do is do a
+correlation. Now, we could take and like
+as I do some of this stuff, I take about
+about 3 to 4 thousand different spectra
+>> that [clears throat] you have all sorts
+of different, you know, real world
+complexity and then you could compare
+these two spectral responses.
+>> Mhm.
+>> And then you could get a good fit for
+that data.
+>> Well, you know, as I learned from you in
+the whole process, it's all about
+exactly what you just described, which
+is like what are you optimizing for?
+Like what is your data set that you're
+utilizing? And it's on both sides. It's
+again not just on the front end of the
+film system, but it's on the like
+inversion side of the digital negative
+because as we know like when we look at
+camera manufacturer matrices and stuff,
+those are really optimized for a very
+small data set which may or may not be
+robust enough or suitable for all
+applications like the ones we've been
+looking at. So that's been a a very fun
+process to learn and figure out how to
+optimize for just to get into the damn
+thing. Yeah, you look at some of the
+stuff that's published, you know, like
+like for, you know, a a any specific
+digital camera,
+>> you'll see it's little triangle
+essentially essentially and then people
+>> you
+>> incorrectly you call those the cameras
+primaries. It's just not
+>> right.
+>> It's just that
+>> uh you think about this way.
+>> You you you have something like a McBth
+color checker that those 24 patches.
+>> Yeah. and you know what they should look
+like and you know what you get out of
+the camera.
+>> Yeah.
+>> And so what you want to do is you want
+to you know come up with some easy way
+to take those raw RGB values that you
+get out of the camera
+>> and go to something that's meaningful in
+the pipeline. you're on dry land and you
+can
+>> Absolutely. Absolutely. So, so you when
+when when you're doing that that matrix
+is has an it is normally 3x3 so that
+there's no magnitude of pushing you know
+that
+>> and and linearity is preserved.
+>> Exactly. So, so here you have a matrix
+and so implied in that matrix are three
+quote primary positions. Right.
+>> And this is why you you get a point
+that's outside of the CGI locus, which
+is something you couldn't see. They're
+so they're imaginary points, imaginary
+color points.
+>> And so you could have all three of them
+being imaginary.
+>> Okay.
+>> But all it really means is that I'm
+taking some RGB data, putting it through
+this matrix, and then giving you the
+output. Now, people sometimes look,
+well, I can only get the colors in
+within that. No, the matrix will still
+work on RGB data going you that's
+outside of that area. It's it's just
+that
+it's it's going to it's not going to be
+probably as it's not going to be
+accurate.
+>> It'll be with diminishing accuracy.
+>> Absolutely. Because like you've you've
+fine-tuned that
+>> for something a smaller set.
+>> That's a much smaller set. Something
+that you know people can relate to.
+>> Yeah. I mean, it's always at this point
+in the process where I I uh want to like
+bring in our our friend and partner in
+Genesis, Steve Yedlin, ASC, because he
+he's the one like if I want to trigger
+Steve, I just have to show him like
+primary a primaries triangle within a
+CIE horseshoe because he'll call he's
+like that's BS. He calls it every he's
+like because that's not you know like
+the camera is an observer. It doesn't
+have a gamut. It is an observer itself
+which is
+>> you know a valid point. That's another
+way of looking at that.
+>> Yeah. And and the thing is cameras are
+interesting because these are made up of
+three different dyes that are on the
+silicon.
+>> And of course, you know, let most of
+audience knows that there's a bare p
+filter pattern
+>> which has two greens for and then a red
+and a blue, you know, pattern. And then
+you know when it's processed you know
+for example if you have a a a blue pixel
+well you got you got the blue because
+you have a blue filter but then you you
+have to infer what green really would go
+along with that and what red would go
+along with that and you use some of the
+characterist characteristics of the
+filters
+but you also have the intensities of the
+surrounding and so there's a complex you
+know interaction there to to get things
+out out of there. But the one thing
+about the the digital camera
+filters is that they're very very broad.
+>> Mhm. [clears throat]
+>> Because think about this way. Let's say
+that you have a two blues. One blue at
+420 and the other blue at uh 480. Okay.
+480 is actually closer to a cyan, but
+let's say for argument sake they're two
+blues.
+Um
+the the blue filter is just going to
+give you intensity and it's you know and
+it's gonna it cannot really
+differentiate
+between that 420 and that 480.
+>> Yeah, these are wavelengths in the back
+in the spectral domain before things get
+dumbed down to three values. But if
+indeed you see what is now the green
+component of that patch,
+>> a 420 will have a very small amount of
+green and a 480 will have a large amount
+of green. And that differentiation is
+going to give you the the difference in
+color between the 420 and the 480 in a
+in in a digital representation.
+>> Mhm. Um so to that extent that green
+filter
+is not does not cut off between 500 and
+600 or whatever you know whatever
+>> right
+>> because if it does if it cuts off at 500
+it can't get give you different
+differentiation in for the blue
+>> so these filters have to be very broad
+anyway it's
+>> tricky business man it's
+>> tricky business absolutely
+>> something else I I uh wanted to touch on
+that is like the there's all these
+interesting lessons that I got from you
+specifically when we were building
+Genesis that are like really unexpected
+things because obviously Genesis is just
+like when you were doing that work at
+the early your early days of Kodak it's
+all in the box like it's not something
+we are physically doing it's something
+we are modeling in the box but like I
+learned all these interesting lessons
+from you along the way including things
+that I never understood like how to
+calibrate a film printer so that you get
+reasonable neutrals in the middle
+portion of your tone scale where you
+would want to have those things and one
+of the innov innovations that I I can
+say just as a fan of Genesis and of the
+model that you architected is the fact
+that you can for the first time in like
+the history of film, you can marry like
+completely uh disperate generations of
+negative and print because you are in
+our system calibrating the printer in
+order to make that possible. So, like I
+mean I guess like give me give me the
+crash course all over again like the
+simple crash course in calibrating a
+film printer because I never even knew
+that was a thing until you taught it to
+me.
+film building only, forgetting about,
+you know, any of the digital stuff.
+>> Yeah.
+>> Each each film generation, you know, say
+back in 1951 when you have 5247,
+you know, you had, you know, you like
+5381, you what they, you know, they've
+print material of the time. Okay.
+>> So the neutral scale, which is a tone
+scale, the main tone scale is a product
+of those two,
+>> right? Okay.
+>> And they're designed to marry.
+>> They're designed to marry. But more or
+even more importantly is that the specul
+response of the print material
+sees the dyes of that negative
+in a certain proportion.
+>> Mhm.
+>> If you change the die,
+then you could change your contrast.
+Mhm.
+>> So the concept of printing density comes
+to mind. Now printing density now
+density is just you know you know minus
+the log of of transmittance.
+>> How much light's being blocked?
+>> Yeah. You have transmittance which is a
+linear thing. Okay. And and you just
+take you know minus then the log of
+that. Okay. And that's and that is
+density. So so uh uh you have a uh
+that's how you get your density.
+But in doing that the transmission the
+the measured transmission is measured
+with a densitometer. So densitometer has
+a certain spectral characteristic.
+>> Anyway printing density is essentially
+utilizing the spectral response of the
+film the print film and the light
+sources used as the density metric
+>> right as the response of the sensor.
+Essentially, it's just a normal density.
+It's just is targeted to a specific
+spectral response.
+>> Mhm.
+>> As time progressed from 51 till now, you
+know, to say 2383 or whatever, spectral
+responses have changed and also dies
+have changed.
+You know, they they're spectually
+somewhat different. Mhm.
+>> So if you took a negative now of say 20,
+you know, uh
+5219
+and you happen to have in a freezer
+somewhere some, you know, some 5381 from
+back in 1952 or something like that and
+you printed those together,
+uh it it would not it would not look
+right. Right.
+>> It would look different.
+>> Mhm.
+>> Okay. However, it doesn't mean that it's
+bad. It just means it will be different.
+And so in today's genesis system,
+we can do that
+conceptually,
+>> right?
+>> Even though it's it's it's it's not
+physically physically can't do that
+because even if it was in the freezer
+for that many years, you probably would
+never survive. Yeah.
+>> So, but this gives you
+you as as a colorist
+the the
+room you know to create different looks,
+>> right?
+>> Because like even like back back then
+like you know you go go back to some of
+the other films like uh 5254
+you know that's been the the late late
+60s whatever. Uh and people say well
+what's the look of that film? Well, what
+did you print it on?
+>> Print to
+>> Well, there's two things. One is the
+print of the time,
+you know, was the one as I described
+earlier, you know, that codec said,
+"Well, this is our our our rock as far
+as our print and then we're going to
+build our tone scale to that." But back
+in in in the late60s, a lot of films
+were going out into the technicolor die
+transfer process. Mhm.
+>> And the whole idea of tone scale and
+whatever could be manipulated by that
+process because those are, you know,
+three strips of of black and white stock
+that they could develop a different
+contrast.
+And furthermore, the cyan, magenta, and
+yellow dye that you have for for the
+normal print material that you generate
+in, you know, in in, you know, in that
+print material is not the same as a die
+transfer because you could you could put
+a whole host of different cyan, magenta,
+and yellow dyes and or actually
+combinations of of dyes to get certain
+look. And that's how they they did do a
+lot of colored looks. You mean you could
+you could change the look of the system
+and have a systemwide interim image
+effect by that process. So essentially
+there could you know if you go back to
+the different films of the of the uh of
+the say uh 52 uh 54 era.
+There's all sorts of different looks,
+>> right? And those looks could be
+associated with what print material
+you're using, whether it be technicolor
+or not. And if it's technicolor, well,
+what did they how did they work with
+technicolors to to get that formulation,
+>> right? And it was almost bespoke per
+movie in many cases. Is that right?
+>> Yeah. And and but then [clears throat]
+there was a there's also a big
+difference since there was there were no
+colorists back then. The only
+color types of person were color timer
+and that was a person that would just
+adjust the amount of red, green and blue
+light that's used in the print to expose
+the print.
+>> So they had only a c certain amount of
+latitude is what they can do. Okay. So a
+lot of the real look that comes out of
+those thing w within that era even
+within the normal print stock was a
+cinematographer
+>> the ratios the production design the
+light positions all that stuff.
+>> Yes. And because remember back then in
+this in in the late60s those films had a
+much shorter latitude.
+>> Yeah. So it's not like now we have you
+know very very wide latitude and then
+it's up to the colorist to you know to
+bring in you have to either hide the
+shadows or to bring them up. Back then
+you know essentially if if the
+cinematographer wanted to hide some some
+uh some wires and stuff like that you
+know in the shadows he just doesn't put
+much light in the shadows.
+>> Shove it down to the toe.
+>> Yeah. And if he wants to to you know to
+bring up a shadow he just puts a fill in
+it. Yeah. you know, and yeah, I mean,
+like I think I've told you it's about I
+mean I I used to do a bunch of stuff
+with Alan Davio, you know, and he's he's
+now passed, but he he's very a great
+cinematographer,
+>> incredible cinematographer,
+>> and uh
+you know, one of the things that, you
+know, like he used, you know, a lot of
+people would put a gray card in the
+scene and then they
+>> timer something to balance against
+>> the timer would would balance to that,
+you know, okay. And what happens if you
+put, you know, let's say he wanted a
+nice really really cool scene, really
+very cold or whatever. If he puts that t
+that that that uh uh that gray card in
+there, the timer would go ahead and well
+>> make it gray. So, you know, all that
+cool goes away.
+>> Yeah. So, what he would do is is he
+would have a a a gray card in in the
+scene, but it' be closer to your camera
+and he would light that with a 3200 lamp
+>> with a warmer
+>> with with a normal known lamp. Okay. And
+so you say, "Okay, time that." So, even
+though the scene was maybe, you know,
+7,000 Kelvin. Okay.
+>> Yeah. He's lighting that to you to to
+32. The timer makes that gray and then
+the background is maintained
+as or the main scene is is maintained as
+as in like cool terms. I will always
+remember you telling me that story
+because I was personally bit by like a
+horror strategy than Davio's like when I
+was making movies back in film school
+and this was right at the edge of like
+transition to digital cinematography.
+So, we were like very proud to be
+shooting on 35 mil and whatever 5218 I
+think it was at the time. We were
+shooting tungsten film in daylight
+because we wanted that big color swing,
+but someone stuck a gray card in like
+the head of one of the shots. And I
+think it was during the telescin. We
+weren't printing it, but in the telescin
+like for the dailies, that's what it
+was. Like when they were scanning us for
+dailies, someone graded that out using
+the gray card that we'd given them. like
+they basically without intending us any
+harm it got weaponized against us
+because we put the gray card
+>> into the frame like in that way. So it's
+fascinating that strategy for that.
+>> But but these are tools.
+>> Yep.
+>> And and the thing is you have to know
+how you have to know which end of the
+hammer to pick up. [laughter]
+>> Yeah. Exactly.
+>> You know and and so you know otherwise
+you get kind of you behind the
+eightball.
+>> That's really cool. Okay. So, I've got a
+a a question that I wanted to close us
+with today. You've been in this business
+for a really long time. You've got two
+daughters who are colorists. You've got
+another kid who's in the motion picture.
+I mean, kids, they're all they're all
+grown-ups now, but uh you know, you've
+you've got all of your kids who are in
+this business and you've been exposed to
+all different, you know, like eras and
+uh like walks of profession within this
+field. When you look at colorists and
+you know like color timers before them
+and and the way that that role has
+evolved over the years, when you look at
+colorists today, whether it's your own
+daughters or anyone else who you
+encounter, do you feel like there are
+things that really good colorists get
+right or things that lesser colorists
+miss or get wrong or overemphasize? Like
+what's the prescription for a really
+good colorist today that not everyone
+understands? Well, there's not a overall
+single prescription, but but there's
+certain things like for example, uh
+there's there's a lot right now of
+let's say emphasis on things like, you
+know, oh, I need to get this this
+specific L.
+>> Mhm.
+>> That that'll make all my life easier.
+>> Yeah. How how many of us would kill to
+have the your Joker L that you built for
+>> Yeah. Well, but the but the thing is
+like uh
+it first of all it depends upon the the
+actual project you know like
+>> the joker lot is all really done from
+first principles but then Jill and I
+altered
+>> you tuned it for that application
+>> altered perception
+>> you know to get her to to a position you
+know where then she could then utilize
+that uh and and work with that you know
+in in in in the the system. Now, um, one
+point that comes out of that is that,
+well,
+many people think that, oh, I need to
+have a a specific L for each scene or
+for each whatever.
+>> That's not the the the task of the L.
+That that's the task of the colorist.
+>> The Catholic colorist is to take and put
+whatever nuances on per scene. Now, I
+can I can see where if you have a
+something that was that even even
+>> grossly you have a a movie that that has
+a you know today, some tomorrow scenes
+and some yesterday scenes.
+>> And you may want to have a different
+look for each one of those. Yes, you
+could have three different looks, you
+know, LUTs there, but not per scene. You
+know, you you you you use that because
+now you what you do is you you have a
+lot that gives you a color scenario that
+is fluid throughout a whole range of
+different possibilities,
+>> right?
+>> And and if for some reason it just
+doesn't work for anyone scene because of
+some aberant whatever,
+then power windows or a little bit of,
+you know, tweak here and there. That's
+what you should do,
+>> right? One of the big things and that
+and I've talked to the girls about but
+that that they do just
+in in in in their daily work is to
+collaborate talk and collaborate well
+with your client with with your
+cinematographer you that you're dealing
+with be because make sure that you're on
+the same page and make sure that that
+you're talking the same thing. You know
+like just recently is this question come
+up about some about for example the
+simur wanted an infrared infrared type
+of look.
+Okay that's all well and good but now uh
+and you could do certain things but what
+what does he mean by infrared look
+because like if you think about in
+photographic terms there's two types of
+infrared. One is using infrared, you
+know, a infrared film, you know, black
+and white type of thing where you have
+certain luminance changes of color
+because the infrared. The other is a a
+false color, you know, for for example,
+an there's a ectochrome that's called
+aerocchrome, which is a false color
+ectochrome
+where the blue layer actually is
+sensitive to green, you know, which is,
+you know, the the the yellow layer, you
+know, layer. The magenta layer is
+sensitive to red. Uh and the cyan layer
+is sensitive to infrared. And then this
+gives to all sorts of like really
+interesting and wacky, you know, you
+know, orang-ish, reddish, you know, you
+know, foilage and and you mean you you
+can of course balance everything. So
+your neutral is neutral and then you
+have, you know, flesh comes out a
+certain way.
+>> But well, which one is it,
+>> right? In one case, hues are being
+rendered way different from their scene
+color. In another case, you've got a
+monochrome image being built up from
+different stimuli.
+>> Well, for one one type of look, you
+know, like Dela Jill in in Grand
+Budapest Hotel where in the beginning,
+you know, you know, they wanted
+something that was more, you know,
+technicol two strip type.
+>> Okay.
+>> Well, what do you mean by that? right?
+>> Again, you know, and so
+regardless of whether it be those types
+of things or other types of things, the
+more dialogue you get before you start
+twiddling your knobs, you know, to talk
+about and getting the idea of what
+they're trying to get, what is what is
+the the intellectual visual pallet that
+you're looking for?
+>> Yep. Then what you do is you go say okay
+here are the tools or here here's how we
+can manipulate our you know that that
+that input image and then you can say is
+this what you want?
+>> Yeah.
+>> Oh it's good or not. Okay. How about
+this? And then you start talking about
+you know looking at that type of thing
+and and that's that's I think good
+communication.
+>> Yeah. Totally. Well, I'll I'll observe
+uh as we're wrapping up here that, you
+know, like one of the fun things about
+doing this show is I get to sit across
+from colorists whose work I love and who
+I want to learn more about. And
+something that struck me certainly the
+first time I met Jill as well as Karen
+is you realize how much of this job is
+not just about technical facility and
+creative facility and prowess at the
+track balls, but it's that ability to
+collaborate and listen and pivot and
+iterate with a client in a way that's
+fun. And like without a doubt, both of
+your daughters, meeting them for the
+first time, like I get it. I I would be
+very happy to spend a lot of time with
+this person in a room because they're
+just they're some of the things that we
+talked about when we first began. I can
+tell they're passionate. I can tell
+they're curious. I can tell they're
+willing to work hard. And if I were a
+client, that's the kind of person who I
+would want to spend my time and money
+sitting with. So, it's an easy thing to
+discount in this business is just how
+like, you know, craft and technical
+ability are the ticket to get you into
+the room. But once you're in the room,
+what really distinguishes is more of
+that collaborative and your ability to
+work with people. And the thing is of
+course even in the beginning when
+they're for both of them
+because of their you know some of the
+the their learning or whatever they were
+a lot more technical competent
+>> than especially at that time which were
+mo mostly retread telescin operators
+who've never seen you know dealt with
+the you know the the film look really
+you know it's just it's always been a
+video look. Yep.
+>> Okay.
+>> And video tools
+>> in video tools. Okay. Uh so uh so they
+had to understand first of all that
+whole scenario
+>> because a lot of people are in you know
+normally
+>> used [snorts] to seeing services certain
+things like that and then understanding
+the actual workflow and and and mil that
+all together. So I would say that fairly
+colorist now
+you know essentially learn as much as
+you can about color about about the
+different color spaces about about you
+know the different types of workflows
+you know uh we're talking about things
+like when Jenna said you got you got
+skip bleach
+>> yep
+>> well skip bleach in the print is
+different from skip skip bleach in the
+negative
+>> I mean if you think about it you're
+skipping bleach you're add you're
+leaving silver in So in the case of a
+print where you have cyan, magenta and
+yellow layers there. Okay. That you're
+seeing. So cyan, magenta and yellow is
+just one. Each one is a one layer. So
+that you have only one layer of silver.
+>> Yep.
+>> So the red, green, and blue have to be
+made of two layers. So therefore the
+effect of a skip bleach is more dramatic
+on
+for desaturation for red, green and blue
+than it is say magenta and yellow. But
+then in a negative that completely
+reverses.
+>> Yeah.
+>> And so you have different you know skip
+bleach not only contrast wise color-wise
+you have a difference between the two.
+>> Yeah. And the these are things you know
+you understand that you know and you
+know the other thing you know u
+there's there's people now wanted to go
+out on to a film recorder to get quote a
+film look. Well you you know you could
+go out there if you go out onto
+intermediate stock you're not going to
+get film grain because that has way way
+too just too fine.
+>> Yep.
+>> Okay. um uh but it'll impart some color
+change, but then you have to go ahead
+and you have to take that out because
+you want to get that back out. So all
+you've done by recording it out because
+if you record out at 4K and then scan it
+back at 4K, your your net result in the
+image structures is is less than 2K,
+>> right?
+>> So you've softened it.
+>> Yep. Well, instead of spending all that
+money for film and processing and
+scanning, okay, why not just soften it
+on, you know, digitally, right? Okay.
+>> The other thing is that if you if you
+wanted to go out onto a film such as
+like a a 5219 or something like that or
+or some other film, you know, yes,
+you'll get some extra grain that way,
+okay? But then the inter image of that
+film is not meant for being on a
+recorder. And so you get all sorts of
+other wacky stuff happening. And again,
+you know, it's probably a nice way to
+you for a labs to make extra money, but
+you know, um it it it doesn't do as much
+for your final product. And that's so
+this is the things that that in
+collaboration with your client you could
+talk about well what is the purpose you
+know of doing things
+>> and if you're bringing the right toolkit
+and critical thinking to the process you
+can help decide what's going to be most
+impactful
+>> and you have to kind of try to separate
+out is the final intent
+imagewise perception or is it political
+>> right
+>> and you know again
+you like
+you you just have to deal with that, you
+know, because the everything is this is
+a very very people oriented type of of
+of uh of uh endeavor and so you have to
+just take that into account also.
+>> Yeah. You know, just because you know
+they say I want a film look, it it may
+just mean I want something that you know
+I could hang my head and say I'm doing
+something different.
+>> Yeah. Or maybe there's just one specific
+trait like a textural or a color thing
+that it's like by the time you move that
+red the right way, like that's all I
+needed. It's fine.
+>> Exa. Exactly. Exactly.
+>> Well, I have an unspoken goal every time
+that we go into a conversation, which is
+to try to hold on to more than 50% of
+the stuff that you teach me. I think I
+managed to pull it off today. So, I'm
+very happy. For everyone listening, if
+you were able to do that, awesome. If
+you weren't, don't feel bad because I
+come in way below that average all the
+time and give Dr. B a another listen.
+And you know, I think this episode will
+have some good repeat listening, but uh
+yeah, I just want to thank you so much
+for coming down and sharing your
+insights and experience. It's been a
+blast finally getting to put you on the
+record.
+>> Thanks for being here, Mitch.
+>> Thank you much.
+>> Hey, congrats on making it through one
+of the most information dense episodes
+of this show that we've ever done. So,
+you just heard from Dr. Bogdanowitz on
+how he was able to pioneer film
+chemistry and film modeling decades
+ahead of his time. But if you're like I
+was, you might still be wondering what
+exactly makes the film look so special,
+so desirable, and how you can
+incorporate it into your own work. If
+so, I want to invite you to join me for
+a free live webinar where we're going to
+move from theory into practice and break
+down the key elements of the film look
+and how you can build them inside of
+Resolve. We're even going to talk about
+how you can cook that whole stack into a
+viewing lot that you can take with you
+on set. It's completely free and all you
+need is a copy of Resolve. We will even
+provide the practice footage. The only
+catch is that we're only doing this for
+a limited number of people because we
+want to make sure that we're able to
+answer every question that comes up
+during the session. So, if you want to
+start confidently incorporating real
+film aesthetics into your work, click
+the link in the description and grab
+your seat. See you there.

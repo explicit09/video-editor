@@ -1,0 +1,2167 @@
+[
+  {
+    "text": "As if podcast editing wasn't already",
+    "start": 1.439,
+    "duration": 4.641
+  },
+  {
+    "text": "time-conuming and difficult enough,",
+    "start": 4.0,
+    "duration": 4.24
+  },
+  {
+    "text": "throw video into the mix and things",
+    "start": 6.08,
+    "duration": 4.24
+  },
+  {
+    "text": "become really overwhelming. The good",
+    "start": 8.24,
+    "duration": 4.08
+  },
+  {
+    "text": "news is is that you can actually edit a",
+    "start": 10.32,
+    "duration": 5.199
+  },
+  {
+    "text": "video and audio podcast the same way and",
+    "start": 12.32,
+    "duration": 5.12
+  },
+  {
+    "text": "at the same time. And in this video, I'm",
+    "start": 15.519,
+    "duration": 3.361
+  },
+  {
+    "text": "going to share with you sevenstep",
+    "start": 17.44,
+    "duration": 3.759
+  },
+  {
+    "text": "process that is by far the quickest,",
+    "start": 18.88,
+    "duration": 4.72
+  },
+  {
+    "text": "easiest, and most professional way you",
+    "start": 21.199,
+    "duration": 4.721
+  },
+  {
+    "text": "can edit a video podcast. We've got a",
+    "start": 23.6,
+    "duration": 3.759
+  },
+  {
+    "text": "lot to cover, so we [music] better get",
+    "start": 25.92,
+    "duration": 3.279
+  },
+  {
+    "text": "started. I'm going above and beyond and",
+    "start": 27.359,
+    "duration": 5.2
+  },
+  {
+    "text": "I am going to drop some serious wisdom",
+    "start": 29.199,
+    "duration": 5.2
+  },
+  {
+    "text": "nuggets for you when it comes to your",
+    "start": 32.559,
+    "duration": 3.761
+  },
+  {
+    "text": "podcast. We're going to be using Adobe",
+    "start": 34.399,
+    "duration": 4.081
+  },
+  {
+    "text": "Premiere, which is my go-to video",
+    "start": 36.32,
+    "duration": 4.399
+  },
+  {
+    "text": "editing software. And I really recommend",
+    "start": 38.48,
+    "duration": 4.48
+  },
+  {
+    "text": "that you give Adobe Premiere a try and",
+    "start": 40.719,
+    "duration": 4.561
+  },
+  {
+    "text": "follow along with this video so that you",
+    "start": 42.96,
+    "duration": 4.56
+  },
+  {
+    "text": "can get skyrocket fast at editing your",
+    "start": 45.28,
+    "duration": 4.08
+  },
+  {
+    "text": "podcast. The technique, which is one of",
+    "start": 47.52,
+    "duration": 3.359
+  },
+  {
+    "text": "the seven steps that I'm going to show",
+    "start": 49.36,
+    "duration": 2.4
+  },
+  {
+    "text": "you, it's called",
+    "start": 50.879,
+    "duration": 2.081
+  },
+  {
+    "text": "the switching cut,",
+    "start": 51.76,
+    "duration": 3.439
+  },
+  {
+    "text": "and you are going to love me for it. I'm",
+    "start": 52.96,
+    "duration": 4.16
+  },
+  {
+    "text": "going to be editing one of our podcast",
+    "start": 55.199,
+    "duration": 4.241
+  },
+  {
+    "text": "episodes, Content Hefe. Content Hefe is",
+    "start": 57.12,
+    "duration": 4.32
+  },
+  {
+    "text": "our new podcast and it will help you to",
+    "start": 59.44,
+    "duration": 3.759
+  },
+  {
+    "text": "create better content [music] and more",
+    "start": 61.44,
+    "duration": 3.759
+  },
+  {
+    "text": "money. You can check out the podcast by",
+    "start": 63.199,
+    "duration": 3.521
+  },
+  {
+    "text": "clicking on the little I button thingy",
+    "start": 65.199,
+    "duration": 2.721
+  },
+  {
+    "text": "here and see what you think of the",
+    "start": 66.72,
+    "duration": 3.759
+  },
+  {
+    "text": "podcast or see the final result of what",
+    "start": 67.92,
+    "duration": 4.16
+  },
+  {
+    "text": "we're going to be editing in this video.",
+    "start": 70.479,
+    "duration": 4.721
+  },
+  {
+    "text": "So, without further ado, let's hop into",
+    "start": 72.08,
+    "duration": 4.88
+  },
+  {
+    "text": "Adobe Premiere and you are going to",
+    "start": 75.2,
+    "duration": 4.32
+  },
+  {
+    "text": "learn some serious game-changing",
+    "start": 76.96,
+    "duration": 4.96
+  },
+  {
+    "text": "professional editing techniques. All",
+    "start": 79.52,
+    "duration": 4.08
+  },
+  {
+    "text": "right. So, the first step with the super",
+    "start": 81.92,
+    "duration": 4.239
+  },
+  {
+    "text": "speedy method is to create a multicam",
+    "start": 83.6,
+    "duration": 4.32
+  },
+  {
+    "text": "sequence. So, first we're going to need",
+    "start": 86.159,
+    "duration": 4.0
+  },
+  {
+    "text": "to set up a new project in Premiere by",
+    "start": 87.92,
+    "duration": 4.72
+  },
+  {
+    "text": "clicking new project. And we'll title",
+    "start": 90.159,
+    "duration": 5.28
+  },
+  {
+    "text": "the project and select create. Now,",
+    "start": 92.64,
+    "duration": 4.56
+  },
+  {
+    "text": "let's drag all of the files that we're",
+    "start": 95.439,
+    "duration": 3.921
+  },
+  {
+    "text": "going to need for our project into the",
+    "start": 97.2,
+    "duration": 4.879
+  },
+  {
+    "text": "project panel in the left bottom corner.",
+    "start": 99.36,
+    "duration": 4.48
+  },
+  {
+    "text": "And like I mentioned, we only have one",
+    "start": 102.079,
+    "duration": 4.161
+  },
+  {
+    "text": "camera shot. It's a 1 125minut take, and",
+    "start": 103.84,
+    "duration": 4.559
+  },
+  {
+    "text": "it's this shot right here. I'm going to",
+    "start": 106.24,
+    "duration": 4.8
+  },
+  {
+    "text": "rename this clip to us. And then if I",
+    "start": 108.399,
+    "duration": 4.4
+  },
+  {
+    "text": "hold down control and click or right",
+    "start": 111.04,
+    "duration": 4.0
+  },
+  {
+    "text": "click on a PC, while this clip is",
+    "start": 112.799,
+    "duration": 4.721
+  },
+  {
+    "text": "selected, I see this drop-own menu. From",
+    "start": 115.04,
+    "duration": 4.719
+  },
+  {
+    "text": "this menu, let's select duplicate. And",
+    "start": 117.52,
+    "duration": 4.32
+  },
+  {
+    "text": "now I'll rename the duplicated file",
+    "start": 119.759,
+    "duration": 4.881
+  },
+  {
+    "text": "Steve. And controll-click on the Steve",
+    "start": 121.84,
+    "duration": 5.2
+  },
+  {
+    "text": "clip and duplicate it once more. And",
+    "start": 124.64,
+    "duration": 4.56
+  },
+  {
+    "text": "this time I'll rename this clip",
+    "start": 127.04,
+    "duration": 4.96
+  },
+  {
+    "text": "Veronica. Now let's controllclick or",
+    "start": 129.2,
+    "duration": 5.84
+  },
+  {
+    "text": "rightclick on the Steve clip once more.",
+    "start": 132.0,
+    "duration": 5.2
+  },
+  {
+    "text": "And this time from the drop- down menu,",
+    "start": 135.04,
+    "duration": 4.64
+  },
+  {
+    "text": "let's select new sequence from clip.",
+    "start": 137.2,
+    "duration": 4.0
+  },
+  {
+    "text": "This sequence is where we're going to",
+    "start": 139.68,
+    "duration": 3.36
+  },
+  {
+    "text": "create the shot that I want to be the",
+    "start": 141.2,
+    "duration": 4.48
+  },
+  {
+    "text": "default close-up for what we could call",
+    "start": 143.04,
+    "duration": 5.12
+  },
+  {
+    "text": "the Steve camera. And all we have to do",
+    "start": 145.68,
+    "duration": 4.559
+  },
+  {
+    "text": "is to zoom in and move the position a",
+    "start": 148.16,
+    "duration": 4.0
+  },
+  {
+    "text": "bit. This is really easy to do by",
+    "start": 150.239,
+    "duration": 4.321
+  },
+  {
+    "text": "adjusting the scale and position in the",
+    "start": 152.16,
+    "duration": 5.439
+  },
+  {
+    "text": "top left panel called effect controls.",
+    "start": 154.56,
+    "duration": 4.8
+  },
+  {
+    "text": "Once we have a nice scale and position",
+    "start": 157.599,
+    "duration": 4.0
+  },
+  {
+    "text": "for this shot, let's repeat this process",
+    "start": 159.36,
+    "duration": 4.4
+  },
+  {
+    "text": "with Veronica's shot. control or",
+    "start": 161.599,
+    "duration": 4.161
+  },
+  {
+    "text": "rightclick, select new sequence from",
+    "start": 163.76,
+    "duration": 4.0
+  },
+  {
+    "text": "clip and from the effects controls",
+    "start": 165.76,
+    "duration": 4.24
+  },
+  {
+    "text": "panel, we can change the scale and the",
+    "start": 167.76,
+    "duration": 4.0
+  },
+  {
+    "text": "position to get a nice looking shot for",
+    "start": 170.0,
+    "duration": 4.0
+  },
+  {
+    "text": "Veronica. Okay, so now I want to make a",
+    "start": 171.76,
+    "duration": 4.4
+  },
+  {
+    "text": "multicam sequence that includes the",
+    "start": 174.0,
+    "duration": 4.64
+  },
+  {
+    "text": "original clip that we renamed to us and",
+    "start": 176.16,
+    "duration": 5.04
+  },
+  {
+    "text": "the two sequences that we created named",
+    "start": 178.64,
+    "duration": 5.12
+  },
+  {
+    "text": "Steve and Veronica, not the two",
+    "start": 181.2,
+    "duration": 4.8
+  },
+  {
+    "text": "duplicated clips. This is an important",
+    "start": 183.76,
+    "duration": 5.04
+  },
+  {
+    "text": "distinction to observe. So to do this, I",
+    "start": 186.0,
+    "duration": 4.319
+  },
+  {
+    "text": "will highlight these three files by",
+    "start": 188.8,
+    "duration": 3.84
+  },
+  {
+    "text": "holding control when I click them. And",
+    "start": 190.319,
+    "duration": 4.321
+  },
+  {
+    "text": "now I have these three files highlighted",
+    "start": 192.64,
+    "duration": 4.4
+  },
+  {
+    "text": "that I want to be included in my",
+    "start": 194.64,
+    "duration": 4.64
+  },
+  {
+    "text": "sequence as camera shots, you could say.",
+    "start": 197.04,
+    "duration": 4.88
+  },
+  {
+    "text": "I will once again control or rightclick",
+    "start": 199.28,
+    "duration": 5.44
+  },
+  {
+    "text": "and this time I'll select create multi-",
+    "start": 201.92,
+    "duration": 5.44
+  },
+  {
+    "text": "camera source sequence. A menu comes up",
+    "start": 204.72,
+    "duration": 4.4
+  },
+  {
+    "text": "to allow me to make adjustments to the",
+    "start": 207.36,
+    "duration": 4.159
+  },
+  {
+    "text": "multicam. But the way it defaults is",
+    "start": 209.12,
+    "duration": 5.52
+  },
+  {
+    "text": "just peachy. So we can just press okay.",
+    "start": 211.519,
+    "duration": 5.521
+  },
+  {
+    "text": "And now a sequence has appeared in our",
+    "start": 214.64,
+    "duration": 4.48
+  },
+  {
+    "text": "project panel. If we control or",
+    "start": 217.04,
+    "duration": 4.16
+  },
+  {
+    "text": "rightclick on this sequence, we can",
+    "start": 219.12,
+    "duration": 5.36
+  },
+  {
+    "text": "again select new sequence from clip. And",
+    "start": 221.2,
+    "duration": 5.679
+  },
+  {
+    "text": "here is our multicam sequence. At first",
+    "start": 224.48,
+    "duration": 4.399
+  },
+  {
+    "text": "glance, it looks like it's just the one",
+    "start": 226.879,
+    "duration": 4.72
+  },
+  {
+    "text": "shot of Veronica. But if we hover our",
+    "start": 228.879,
+    "duration": 5.121
+  },
+  {
+    "text": "mouse over this wrench icon under the",
+    "start": 231.599,
+    "duration": 4.72
+  },
+  {
+    "text": "video here, you'll see it says settings.",
+    "start": 234.0,
+    "duration": 4.239
+  },
+  {
+    "text": "And if we click on the wrench icon,",
+    "start": 236.319,
+    "duration": 4.64
+  },
+  {
+    "text": "we'll get more options. It defaults at",
+    "start": 238.239,
+    "duration": 5.041
+  },
+  {
+    "text": "composite view, but we can also change",
+    "start": 240.959,
+    "duration": 5.441
+  },
+  {
+    "text": "it to multicam. This multicam is so",
+    "start": 243.28,
+    "duration": 4.8
+  },
+  {
+    "text": "cool. Now you can see the three",
+    "start": 246.4,
+    "duration": 3.44
+  },
+  {
+    "text": "different shots. Veronica's close-up, my",
+    "start": 248.08,
+    "duration": 3.2
+  },
+  {
+    "text": "close-up, and the wide shot of both of",
+    "start": 249.84,
+    "duration": 3.52
+  },
+  {
+    "text": "us. Premiere has also assigned numbers",
+    "start": 251.28,
+    "duration": 4.0
+  },
+  {
+    "text": "to each of these shots in order. So",
+    "start": 253.36,
+    "duration": 4.48
+  },
+  {
+    "text": "Veronica's shot is one, mine is two, and",
+    "start": 255.28,
+    "duration": 4.72
+  },
+  {
+    "text": "the wide shot is three. If I press the",
+    "start": 257.84,
+    "duration": 4.32
+  },
+  {
+    "text": "1, two, or three key on my keyboard, it",
+    "start": 260.0,
+    "duration": 3.84
+  },
+  {
+    "text": "will instantly switch to the",
+    "start": 262.16,
+    "duration": 3.52
+  },
+  {
+    "text": "corresponding shot, just like a live",
+    "start": 263.84,
+    "duration": 4.56
+  },
+  {
+    "text": "switchboard. How cool is that? You can",
+    "start": 265.68,
+    "duration": 4.56
+  },
+  {
+    "text": "also press the one, two, and three keys",
+    "start": 268.4,
+    "duration": 3.92
+  },
+  {
+    "text": "from the composite view that Premiere",
+    "start": 270.24,
+    "duration": 4.08
+  },
+  {
+    "text": "defaults as, which is what I'm going to",
+    "start": 272.32,
+    "duration": 3.84
+  },
+  {
+    "text": "do. And from this composite view, you",
+    "start": 274.32,
+    "duration": 3.36
+  },
+  {
+    "text": "can change the shot wherever the",
+    "start": 276.16,
+    "duration": 3.44
+  },
+  {
+    "text": "playhead is at by pressing one of these",
+    "start": 277.68,
+    "duration": 3.76
+  },
+  {
+    "text": "keys. This is how we are going to be",
+    "start": 279.6,
+    "duration": 4.159
+  },
+  {
+    "text": "able to switch camera angles and make",
+    "start": 281.44,
+    "duration": 4.8
+  },
+  {
+    "text": "cuts in our edit at the same time.",
+    "start": 283.759,
+    "duration": 4.241
+  },
+  {
+    "text": "The switch and cut.",
+    "start": 286.24,
+    "duration": 3.84
+  },
+  {
+    "text": "But first, we need to move on to step",
+    "start": 288.0,
+    "duration": 3.919
+  },
+  {
+    "text": "number two, and that is to sync the",
+    "start": 290.08,
+    "duration": 4.0
+  },
+  {
+    "text": "audio with the video. This step is",
+    "start": 291.919,
+    "duration": 4.401
+  },
+  {
+    "text": "pretty easy. All we do is drag the two",
+    "start": 294.08,
+    "duration": 4.32
+  },
+  {
+    "text": "audio files of our podcast microphones",
+    "start": 296.32,
+    "duration": 4.319
+  },
+  {
+    "text": "into the timeline. These files were",
+    "start": 298.4,
+    "duration": 3.84
+  },
+  {
+    "text": "recorded at the same time, so they have",
+    "start": 300.639,
+    "duration": 4.161
+  },
+  {
+    "text": "the same start and end points. Before we",
+    "start": 302.24,
+    "duration": 4.399
+  },
+  {
+    "text": "actually started the episode, we said",
+    "start": 304.8,
+    "duration": 3.6
+  },
+  {
+    "text": "the episode number out loud and we",
+    "start": 306.639,
+    "duration": 3.84
+  },
+  {
+    "text": "clapped our hands. This creates a nice",
+    "start": 308.4,
+    "duration": 4.48
+  },
+  {
+    "text": "spike in the audio file, both on our",
+    "start": 310.479,
+    "duration": 4.081
+  },
+  {
+    "text": "podcast mics and also on the camera",
+    "start": 312.88,
+    "duration": 3.68
+  },
+  {
+    "text": "microphone. So, this makes syncing",
+    "start": 314.56,
+    "duration": 4.079
+  },
+  {
+    "text": "really easy. We just have to find the",
+    "start": 316.56,
+    "duration": 4.32
+  },
+  {
+    "text": "spike on the camera audio and match it",
+    "start": 318.639,
+    "duration": 4.0
+  },
+  {
+    "text": "up with the spike on the good audio.",
+    "start": 320.88,
+    "duration": 3.44
+  },
+  {
+    "text": "Once we have them matched up, we can",
+    "start": 322.639,
+    "duration": 3.84
+  },
+  {
+    "text": "test it real quick by pressing play and",
+    "start": 324.32,
+    "duration": 2.879
+  },
+  {
+    "text": "listening.",
+    "start": 326.479,
+    "duration": 4.081
+  },
+  {
+    "text": "Hello, amigo. Amigaso.",
+    "start": 327.199,
+    "duration": 5.041
+  },
+  {
+    "text": "And now we can get rid of the camera",
+    "start": 330.56,
+    "duration": 3.84
+  },
+  {
+    "text": "audio completely cuz we don't want that",
+    "start": 332.24,
+    "duration": 4.0
+  },
+  {
+    "text": "and replace it with the good audio. To",
+    "start": 334.4,
+    "duration": 3.6
+  },
+  {
+    "text": "do this, we can select our main clip on",
+    "start": 336.24,
+    "duration": 4.64
+  },
+  {
+    "text": "the timeline and control or rightclick",
+    "start": 338.0,
+    "duration": 5.68
+  },
+  {
+    "text": "from the menu. Let's select unlink. Now",
+    "start": 340.88,
+    "duration": 5.68
+  },
+  {
+    "text": "we can delete just the audio portion of",
+    "start": 343.68,
+    "duration": 4.959
+  },
+  {
+    "text": "this clip. Once we've done that, we can",
+    "start": 346.56,
+    "duration": 4.639
+  },
+  {
+    "text": "slide the new audio up into its place.",
+    "start": 348.639,
+    "duration": 4.481
+  },
+  {
+    "text": "We can now click, hold, and drag our",
+    "start": 351.199,
+    "duration": 3.681
+  },
+  {
+    "text": "mouse to create this marquee looking",
+    "start": 353.12,
+    "duration": 3.76
+  },
+  {
+    "text": "thingy. And that will let us select all",
+    "start": 354.88,
+    "duration": 4.08
+  },
+  {
+    "text": "three clips at once. With the clip",
+    "start": 356.88,
+    "duration": 4.64
+  },
+  {
+    "text": "selected, we can control or rightclick",
+    "start": 358.96,
+    "duration": 5.359
+  },
+  {
+    "text": "and select link. And just like that,",
+    "start": 361.52,
+    "duration": 5.04
+  },
+  {
+    "text": "we've replaced the camera audio with the",
+    "start": 364.319,
+    "duration": 4.801
+  },
+  {
+    "text": "sweet audio from our podcast mics. And",
+    "start": 366.56,
+    "duration": 4.079
+  },
+  {
+    "text": "now for step three,",
+    "start": 369.12,
+    "duration": 4.24
+  },
+  {
+    "text": "insert the intro video.",
+    "start": 370.639,
+    "duration": 4.56
+  },
+  {
+    "text": "Now, this step is the easiest and it",
+    "start": 373.36,
+    "duration": 4.24
+  },
+  {
+    "text": "really takes maybe 6 seconds. We just",
+    "start": 375.199,
+    "duration": 4.401
+  },
+  {
+    "text": "slide over the main clip and drag in the",
+    "start": 377.6,
+    "duration": 3.68
+  },
+  {
+    "text": "intro video that we use for every",
+    "start": 379.6,
+    "duration": 4.8
+  },
+  {
+    "text": "podcast episode into the timeline.",
+    "start": 381.28,
+    "duration": 6.0
+  },
+  {
+    "text": "P sounds cool presents content heavy.",
+    "start": 384.4,
+    "duration": 4.48
+  },
+  {
+    "text": "But this intro video has an extra step",
+    "start": 387.28,
+    "duration": 2.96
+  },
+  {
+    "text": "that we need to take and that's this",
+    "start": 388.88,
+    "duration": 3.36
+  },
+  {
+    "text": "little transition effect at the end that",
+    "start": 390.24,
+    "duration": 4.56
+  },
+  {
+    "text": "I created in After Effects using a green",
+    "start": 392.24,
+    "duration": 5.04
+  },
+  {
+    "text": "background. So to remove this green",
+    "start": 394.8,
+    "duration": 4.399
+  },
+  {
+    "text": "color from this part of the video clip",
+    "start": 397.28,
+    "duration": 3.68
+  },
+  {
+    "text": "inside the window that holds the project",
+    "start": 399.199,
+    "duration": 3.921
+  },
+  {
+    "text": "panel, you'll find more tabs which will",
+    "start": 400.96,
+    "duration": 4.239
+  },
+  {
+    "text": "bring up more windows by clicking on",
+    "start": 403.12,
+    "duration": 4.72
+  },
+  {
+    "text": "this icon right here with the arrows.",
+    "start": 405.199,
+    "duration": 5.12
+  },
+  {
+    "text": "Let's select effects. This brings up the",
+    "start": 407.84,
+    "duration": 4.24
+  },
+  {
+    "text": "effects panel where we can search",
+    "start": 410.319,
+    "duration": 3.681
+  },
+  {
+    "text": "through Premiier's video effects. Let's",
+    "start": 412.08,
+    "duration": 4.559
+  },
+  {
+    "text": "type in ultra into the search bar and",
+    "start": 414.0,
+    "duration": 5.199
+  },
+  {
+    "text": "this will bring up the ultra key effect.",
+    "start": 416.639,
+    "duration": 4.161
+  },
+  {
+    "text": "I love this effect because you just drag",
+    "start": 419.199,
+    "duration": 3.28
+  },
+  {
+    "text": "it onto the clip and then from the",
+    "start": 420.8,
+    "duration": 4.08
+  },
+  {
+    "text": "effect controls panel top left.",
+    "start": 422.479,
+    "duration": 4.481
+  },
+  {
+    "text": "You'll see the parameters for this",
+    "start": 424.88,
+    "duration": 4.48
+  },
+  {
+    "text": "effect. There's an eyropper that lets us",
+    "start": 426.96,
+    "duration": 4.639
+  },
+  {
+    "text": "select any color from any frame. So,",
+    "start": 429.36,
+    "duration": 4.32
+  },
+  {
+    "text": "let's select the green color and boom,",
+    "start": 431.599,
+    "duration": 4.401
+  },
+  {
+    "text": "no more green. Now, I can find where I",
+    "start": 433.68,
+    "duration": 4.16
+  },
+  {
+    "text": "want the episode to start and I'll just",
+    "start": 436.0,
+    "duration": 4.16
+  },
+  {
+    "text": "slide it underneath this video intro to",
+    "start": 437.84,
+    "duration": 4.24
+  },
+  {
+    "text": "get this transition effect.",
+    "start": 440.16,
+    "duration": 5.599
+  },
+  {
+    "text": "Hello, amigo. Amigaso.",
+    "start": 442.08,
+    "duration": 5.6
+  },
+  {
+    "text": "Okay. And now on to the next step. This",
+    "start": 445.759,
+    "duration": 4.241
+  },
+  {
+    "text": "is where the real magic happens. Step",
+    "start": 447.68,
+    "duration": 3.12
+  },
+  {
+    "text": "four,",
+    "start": 450.0,
+    "duration": 3.759
+  },
+  {
+    "text": "the switch and cut.",
+    "start": 450.8,
+    "duration": 4.799
+  },
+  {
+    "text": "What we do now is to watch through the",
+    "start": 453.759,
+    "duration": 3.681
+  },
+  {
+    "text": "whole episode. And as we're watching, we",
+    "start": 455.599,
+    "duration": 3.521
+  },
+  {
+    "text": "can cut out any filler words or",
+    "start": 457.44,
+    "duration": 3.84
+  },
+  {
+    "text": "sentences that may help the delivery",
+    "start": 459.12,
+    "duration": 4.4
+  },
+  {
+    "text": "more. And we may also decide to cut out",
+    "start": 461.28,
+    "duration": 4.16
+  },
+  {
+    "text": "short sections of the episode to make a",
+    "start": 463.52,
+    "duration": 3.679
+  },
+  {
+    "text": "more straightforward and enjoyable",
+    "start": 465.44,
+    "duration": 3.44
+  },
+  {
+    "text": "episode. The recorded time of this",
+    "start": 467.199,
+    "duration": 3.761
+  },
+  {
+    "text": "episode, for example, is 25 minutes,",
+    "start": 468.88,
+    "duration": 4.0
+  },
+  {
+    "text": "which is typical. And I usually cut out",
+    "start": 470.96,
+    "duration": 4.079
+  },
+  {
+    "text": "about 5 minutes worth of time from the",
+    "start": 472.88,
+    "duration": 4.64
+  },
+  {
+    "text": "episode. So for this step, we just cut",
+    "start": 475.039,
+    "duration": 4.481
+  },
+  {
+    "text": "as usual. The magic that happens now",
+    "start": 477.52,
+    "duration": 4.079
+  },
+  {
+    "text": "that we are editing a multicam sequence",
+    "start": 479.52,
+    "duration": 4.32
+  },
+  {
+    "text": "is that now as we work our way through",
+    "start": 481.599,
+    "duration": 4.561
+  },
+  {
+    "text": "the edit, we can instantly change the",
+    "start": 483.84,
+    "duration": 4.56
+  },
+  {
+    "text": "camera shot by pressing the 1, two, or",
+    "start": 486.16,
+    "duration": 4.479
+  },
+  {
+    "text": "three keys. Wherever the playhead is",
+    "start": 488.4,
+    "duration": 4.799
+  },
+  {
+    "text": "when we press the keys, that clip will",
+    "start": 490.639,
+    "duration": 4.96
+  },
+  {
+    "text": "be changed to that corresponding shot.",
+    "start": 493.199,
+    "duration": 4.241
+  },
+  {
+    "text": "One thing I like to do with our podcast",
+    "start": 495.599,
+    "duration": 3.121
+  },
+  {
+    "text": "that makes the episode a bit more",
+    "start": 497.44,
+    "duration": 3.84
+  },
+  {
+    "text": "dynamic and digestible is to add a three",
+    "start": 498.72,
+    "duration": 5.28
+  },
+  {
+    "text": "to five second pause from talking and",
+    "start": 501.28,
+    "duration": 4.8
+  },
+  {
+    "text": "add a little bit of music in between our",
+    "start": 504.0,
+    "duration": 4.56
+  },
+  {
+    "text": "main points. So I will commonly jump",
+    "start": 506.08,
+    "duration": 4.559
+  },
+  {
+    "text": "over to Canva and make a quick video",
+    "start": 508.56,
+    "duration": 4.719
+  },
+  {
+    "text": "title card for the points which only",
+    "start": 510.639,
+    "duration": 5.441
+  },
+  {
+    "text": "takes 1 minute to export out of Canva.",
+    "start": 513.279,
+    "duration": 5.281
+  },
+  {
+    "text": "And then I drag this little Canva video",
+    "start": 516.08,
+    "duration": 5.36
+  },
+  {
+    "text": "and I drag a song into Premiere on the",
+    "start": 518.56,
+    "duration": 5.039
+  },
+  {
+    "text": "timeline. I will usually fade the song",
+    "start": 521.44,
+    "duration": 4.8
+  },
+  {
+    "text": "into the transition point and then I",
+    "start": 523.599,
+    "duration": 4.641
+  },
+  {
+    "text": "will quickly fade the song out once we",
+    "start": 526.24,
+    "duration": 3.76
+  },
+  {
+    "text": "start talking again. This is a little",
+    "start": 528.24,
+    "duration": 3.279
+  },
+  {
+    "text": "Studio Steve technique that makes",
+    "start": 530.0,
+    "duration": 3.68
+  },
+  {
+    "text": "clients really happy when you apply this",
+    "start": 531.519,
+    "duration": 4.561
+  },
+  {
+    "text": "sort of chapter style approach to their",
+    "start": 533.68,
+    "duration": 4.4
+  },
+  {
+    "text": "episodes. And it's an easy way to work",
+    "start": 536.08,
+    "duration": 3.68
+  },
+  {
+    "text": "in a little more music or sound effects",
+    "start": 538.08,
+    "duration": 3.759
+  },
+  {
+    "text": "into your episodes without sounding",
+    "start": 539.76,
+    "duration": 4.4
+  },
+  {
+    "text": "corny, cheesy, or over the top. Even to",
+    "start": 541.839,
+    "duration": 3.521
+  },
+  {
+    "text": "approach brands yourself.",
+    "start": 544.16,
+    "duration": 1.44
+  },
+  {
+    "text": "Yeah.",
+    "start": 545.36,
+    "duration": 1.44
+  },
+  {
+    "text": "So, why don't we get started with the",
+    "start": 545.6,
+    "duration": 4.359
+  },
+  {
+    "text": "first tip?",
+    "start": 546.8,
+    "duration": 3.159
+  },
+  {
+    "text": "The first uh point that I [music] want",
+    "start": 552.399,
+    "duration": 4.481
+  },
+  {
+    "text": "to share with you and that I think it's",
+    "start": 554.959,
+    "duration": 4.32
+  },
+  {
+    "text": "important is I've sped up the video of",
+    "start": 556.88,
+    "duration": 5.12
+  },
+  {
+    "text": "this whole step, but in total for this",
+    "start": 559.279,
+    "duration": 4.961
+  },
+  {
+    "text": "illustration, I spent 40 minutes on this",
+    "start": 562.0,
+    "duration": 4.399
+  },
+  {
+    "text": "step. And if you've ever edited a",
+    "start": 564.24,
+    "duration": 4.08
+  },
+  {
+    "text": "podcast before, you know that's pretty",
+    "start": 566.399,
+    "duration": 4.401
+  },
+  {
+    "text": "damn fast. And if you add to that the",
+    "start": 568.32,
+    "duration": 4.4
+  },
+  {
+    "text": "fact that I also switched the camera",
+    "start": 570.8,
+    "duration": 3.68
+  },
+  {
+    "text": "shots from three different angles in a",
+    "start": 572.72,
+    "duration": 3.679
+  },
+  {
+    "text": "stylistic way that emphasized who was",
+    "start": 574.48,
+    "duration": 4.64
+  },
+  {
+    "text": "speaking, this approach was lightning",
+    "start": 576.399,
+    "duration": 5.681
+  },
+  {
+    "text": "fast. So now that the switch and cut is",
+    "start": 579.12,
+    "duration": 4.96
+  },
+  {
+    "text": "complete, it's time to put the finishing",
+    "start": 582.08,
+    "duration": 3.6
+  },
+  {
+    "text": "touches on this episode with the next",
+    "start": 584.08,
+    "duration": 4.0
+  },
+  {
+    "text": "two steps. That is crazy cool, right?",
+    "start": 585.68,
+    "duration": 4.08
+  },
+  {
+    "text": "What did you think about the multicam?",
+    "start": 588.08,
+    "duration": 3.391
+  },
+  {
+    "text": "Are you finding value in this video?",
+    "start": 589.76,
+    "duration": 3.6
+  },
+  {
+    "text": "[music] If so, do me a favor and hit the",
+    "start": 591.471,
+    "duration": 4.209
+  },
+  {
+    "text": "like button. Remember to subscribe so",
+    "start": 593.36,
+    "duration": 4.08
+  },
+  {
+    "text": "that you can come back every week. We",
+    "start": 595.68,
+    "duration": 3.839
+  },
+  {
+    "text": "post really helpful videos that is going",
+    "start": 597.44,
+    "duration": 3.76
+  },
+  {
+    "text": "to help you to take your content",
+    "start": 599.519,
+    "duration": 3.921
+  },
+  {
+    "text": "creation to the next level. Step number",
+    "start": 601.2,
+    "duration": 5.199
+  },
+  {
+    "text": "five, treat the audio.",
+    "start": 603.44,
+    "duration": 5.36
+  },
+  {
+    "text": "First, if we don't see the audio track",
+    "start": 606.399,
+    "duration": 4.721
+  },
+  {
+    "text": "mixer, let's click on window from the",
+    "start": 608.8,
+    "duration": 4.8
+  },
+  {
+    "text": "top menu bar and we can select audio",
+    "start": 611.12,
+    "duration": 4.32
+  },
+  {
+    "text": "track mixer. This brings up the audio",
+    "start": 613.6,
+    "duration": 3.84
+  },
+  {
+    "text": "track mixer in the same area as our",
+    "start": 615.44,
+    "duration": 4.56
+  },
+  {
+    "text": "effect controls. Next, we want to access",
+    "start": 617.44,
+    "duration": 4.8
+  },
+  {
+    "text": "the inserts for these audio tracks that",
+    "start": 620.0,
+    "duration": 4.079
+  },
+  {
+    "text": "we see so that we can add some plugins.",
+    "start": 622.24,
+    "duration": 4.159
+  },
+  {
+    "text": "To do that, we click on this arrow in",
+    "start": 624.079,
+    "duration": 4.081
+  },
+  {
+    "text": "the top left corner here. Now, we can",
+    "start": 626.399,
+    "duration": 3.281
+  },
+  {
+    "text": "add any plugins we want to make the",
+    "start": 628.16,
+    "duration": 3.76
+  },
+  {
+    "text": "audio sound great. I love this feature",
+    "start": 629.68,
+    "duration": 4.159
+  },
+  {
+    "text": "in Premiere because you can use any",
+    "start": 631.92,
+    "duration": 3.919
+  },
+  {
+    "text": "thirdparty plugins you want. My favorite",
+    "start": 633.839,
+    "duration": 4.961
+  },
+  {
+    "text": "plugins for this are from Waves. Each of",
+    "start": 635.839,
+    "duration": 5.921
+  },
+  {
+    "text": "Waves plugins will cost you around $30,",
+    "start": 638.8,
+    "duration": 4.719
+  },
+  {
+    "text": "and you really only need three or four",
+    "start": 641.76,
+    "duration": 4.319
+  },
+  {
+    "text": "to create top-of-the-line audio mixes",
+    "start": 643.519,
+    "duration": 4.641
+  },
+  {
+    "text": "with just a few clicks. I will run you",
+    "start": 646.079,
+    "duration": 3.521
+  },
+  {
+    "text": "through a quick demonstration of the",
+    "start": 648.16,
+    "duration": 3.119
+  },
+  {
+    "text": "effects I typically use. That'll get",
+    "start": 649.6,
+    "duration": 3.359
+  },
+  {
+    "text": "your juices flowing. But you will need",
+    "start": 651.279,
+    "duration": 3.201
+  },
+  {
+    "text": "to take the time to understand how each",
+    "start": 652.959,
+    "duration": 3.681
+  },
+  {
+    "text": "of these effects actually work, meaning",
+    "start": 654.48,
+    "duration": 4.0
+  },
+  {
+    "text": "what they do to your audio and why they",
+    "start": 656.64,
+    "duration": 3.92
+  },
+  {
+    "text": "are important. But I will say this",
+    "start": 658.48,
+    "duration": 4.16
+  },
+  {
+    "text": "process is similar to what you will find",
+    "start": 660.56,
+    "duration": 3.839
+  },
+  {
+    "text": "in the workflow of most audio",
+    "start": 662.64,
+    "duration": 3.52
+  },
+  {
+    "text": "professionals treating podcast or",
+    "start": 664.399,
+    "duration": 4.081
+  },
+  {
+    "text": "broadcast voices. The first effect I",
+    "start": 666.16,
+    "duration": 4.64
+  },
+  {
+    "text": "like to apply is a gate. This is by far",
+    "start": 668.48,
+    "duration": 4.16
+  },
+  {
+    "text": "the biggest timesaver plugin you can",
+    "start": 670.8,
+    "duration": 4.0
+  },
+  {
+    "text": "use. What a gate does is it allows you",
+    "start": 672.64,
+    "duration": 4.24
+  },
+  {
+    "text": "to cut quieter sounds out of your",
+    "start": 674.8,
+    "duration": 4.159
+  },
+  {
+    "text": "recording while allowing only the full",
+    "start": 676.88,
+    "duration": 4.959
+  },
+  {
+    "text": "volume sounds to come through or to pass",
+    "start": 678.959,
+    "duration": 4.88
+  },
+  {
+    "text": "through the gate, you can say. Why is",
+    "start": 681.839,
+    "duration": 4.161
+  },
+  {
+    "text": "this so useful? Because it's perfect for",
+    "start": 683.839,
+    "duration": 4.481
+  },
+  {
+    "text": "cutting out microphone bleed. So, check",
+    "start": 686.0,
+    "duration": 4.32
+  },
+  {
+    "text": "this out. For example, I have Veronica's",
+    "start": 688.32,
+    "duration": 3.84
+  },
+  {
+    "text": "track here soloed, so it's the only one",
+    "start": 690.32,
+    "duration": 3.84
+  },
+  {
+    "text": "we're hearing. And with the gate active",
+    "start": 692.16,
+    "duration": 4.08
+  },
+  {
+    "text": "and set to the right level, when I am",
+    "start": 694.16,
+    "duration": 4.56
+  },
+  {
+    "text": "speaking, none of my voice can be heard",
+    "start": 696.24,
+    "duration": 4.64
+  },
+  {
+    "text": "on her track, but when she speaks, we",
+    "start": 698.72,
+    "duration": 5.44
+  },
+  {
+    "text": "hear her perfectly.",
+    "start": 700.88,
+    "duration": 3.76
+  },
+  {
+    "text": "Yeah. So,",
+    "start": 704.16,
+    "duration": 2.16
+  },
+  {
+    "text": "why don't we get started with the first",
+    "start": 704.64,
+    "duration": 4.4
+  },
+  {
+    "text": "the first uh point that I want to share",
+    "start": 706.32,
+    "duration": 5.28
+  },
+  {
+    "text": "with you. Next on the list, I will add a",
+    "start": 709.04,
+    "duration": 5.359
+  },
+  {
+    "text": "nice warm and juicy compressor. My go-to",
+    "start": 711.6,
+    "duration": 6.16
+  },
+  {
+    "text": "for this is the 1176 by Waves or Waves",
+    "start": 714.399,
+    "duration": 6.401
+  },
+  {
+    "text": "version of the 1176. Now, I will add a",
+    "start": 717.76,
+    "duration": 6.079
+  },
+  {
+    "text": "DSER. This effect will reduce the harsh",
+    "start": 720.8,
+    "duration": 5.839
+  },
+  {
+    "text": "S noises that can be overbearing and",
+    "start": 723.839,
+    "duration": 4.24
+  },
+  {
+    "text": "hurt our ears a little bit when we",
+    "start": 726.639,
+    "duration": 2.88
+  },
+  {
+    "text": "pronounce words that are heavy in the",
+    "start": 728.079,
+    "duration": 4.161
+  },
+  {
+    "text": "S's. The next effect I add is another",
+    "start": 729.519,
+    "duration": 5.281
+  },
+  {
+    "text": "noise reduction effect, the NS1 by",
+    "start": 732.24,
+    "duration": 4.399
+  },
+  {
+    "text": "Waves. It's a favorite of mine and it",
+    "start": 734.8,
+    "duration": 3.92
+  },
+  {
+    "text": "does a great job at reducing noise from",
+    "start": 736.639,
+    "duration": 2.801
+  },
+  {
+    "text": "the recordings",
+    "start": 738.72,
+    "duration": 3.919
+  },
+  {
+    "text": "episode is that we are starting being",
+    "start": 739.44,
+    "duration": 4.32
+  },
+  {
+    "text": "approached by",
+    "start": 742.639,
+    "duration": 3.44
+  },
+  {
+    "text": "and finally I like to add an EQ unit. I",
+    "start": 743.76,
+    "duration": 4.8
+  },
+  {
+    "text": "will usually use a highpass filter set",
+    "start": 746.079,
+    "duration": 4.961
+  },
+  {
+    "text": "to 80 Hz and then I will add a teeny bit",
+    "start": 748.56,
+    "duration": 4.959
+  },
+  {
+    "text": "of low. I'll kill a bit of low mid and",
+    "start": 751.04,
+    "duration": 5.599
+  },
+  {
+    "text": "high mid and then a really teeny boost",
+    "start": 753.519,
+    "duration": 6.961
+  },
+  {
+    "text": "in the 3 kHz region. I find with EQ that",
+    "start": 756.639,
+    "duration": 6.88
+  },
+  {
+    "text": "less is usually more. Now, once I have",
+    "start": 760.48,
+    "duration": 5.12
+  },
+  {
+    "text": "repeated adding this same series of",
+    "start": 763.519,
+    "duration": 4.241
+  },
+  {
+    "text": "effects to my voice or any of the",
+    "start": 765.6,
+    "duration": 3.679
+  },
+  {
+    "text": "speakers in the episode, I will finish",
+    "start": 767.76,
+    "duration": 3.12
+  },
+  {
+    "text": "up the audio mix by adding a master",
+    "start": 769.279,
+    "duration": 3.68
+  },
+  {
+    "text": "limiter. In this case, on this computer,",
+    "start": 770.88,
+    "duration": 5.12
+  },
+  {
+    "text": "I like the Waves L1 Maximizer. With",
+    "start": 772.959,
+    "duration": 4.56
+  },
+  {
+    "text": "limiters, you can really just pull the",
+    "start": 776.0,
+    "duration": 4.16
+  },
+  {
+    "text": "threshold down to minus4, -5, or - 6,",
+    "start": 777.519,
+    "duration": 3.921
+  },
+  {
+    "text": "and you'll be good to go.",
+    "start": 780.16,
+    "duration": 3.119
+  },
+  {
+    "text": "And just like that, this entire episode",
+    "start": 781.44,
+    "duration": 3.199
+  },
+  {
+    "text": "is treated, sounding",
+    "start": 783.279,
+    "duration": 2.881
+  },
+  {
+    "text": "beefy and delicious",
+    "start": 784.639,
+    "duration": 3.921
+  },
+  {
+    "text": "and ready for broadcast. Now we can move",
+    "start": 786.16,
+    "duration": 5.119
+  },
+  {
+    "text": "on to the second to last step. Step",
+    "start": 788.56,
+    "duration": 5.6
+  },
+  {
+    "text": "number six, color grade.",
+    "start": 791.279,
+    "duration": 4.401
+  },
+  {
+    "text": "You can add color grading effects",
+    "start": 794.16,
+    "duration": 4.0
+  },
+  {
+    "text": "directly onto any clip or you can create",
+    "start": 795.68,
+    "duration": 4.56
+  },
+  {
+    "text": "an adjustment layer and drag the",
+    "start": 798.16,
+    "duration": 3.84
+  },
+  {
+    "text": "adjustment layer over your entire",
+    "start": 800.24,
+    "duration": 4.159
+  },
+  {
+    "text": "project. Just be sure that you rearrange",
+    "start": 802.0,
+    "duration": 4.32
+  },
+  {
+    "text": "the order of any clips that you don't",
+    "start": 804.399,
+    "duration": 4.0
+  },
+  {
+    "text": "want to be color corrected by dragging",
+    "start": 806.32,
+    "duration": 4.56
+  },
+  {
+    "text": "them on top of the adjustment layer like",
+    "start": 808.399,
+    "duration": 5.201
+  },
+  {
+    "text": "I have done with these title cards here.",
+    "start": 810.88,
+    "duration": 5.36
+  },
+  {
+    "text": "So now let's click on window again from",
+    "start": 813.6,
+    "duration": 4.4
+  },
+  {
+    "text": "the drop-own menu and this time let's",
+    "start": 816.24,
+    "duration": 4.399
+  },
+  {
+    "text": "select lummetry color. This color panel",
+    "start": 818.0,
+    "duration": 4.8
+  },
+  {
+    "text": "appears and we can now easily apply nice",
+    "start": 820.639,
+    "duration": 3.921
+  },
+  {
+    "text": "color correction and grading to our",
+    "start": 822.8,
+    "duration": 3.839
+  },
+  {
+    "text": "footage. I will usually keep this simple",
+    "start": 824.56,
+    "duration": 4.079
+  },
+  {
+    "text": "and just start by balancing the color.",
+    "start": 826.639,
+    "duration": 3.601
+  },
+  {
+    "text": "This footage was a little heavy in the",
+    "start": 828.639,
+    "duration": 3.44
+  },
+  {
+    "text": "orange temperature. So we can cool it",
+    "start": 830.24,
+    "duration": 4.159
+  },
+  {
+    "text": "off by making it more blue and a little",
+    "start": 832.079,
+    "duration": 3.76
+  },
+  {
+    "text": "touch of magenta looks [clears throat]",
+    "start": 834.399,
+    "duration": 3.601
+  },
+  {
+    "text": "really good in this case too. Then we",
+    "start": 835.839,
+    "duration": 4.321
+  },
+  {
+    "text": "can add a touch of exposure, a little",
+    "start": 838.0,
+    "duration": 4.8
+  },
+  {
+    "text": "bit of contrast, and maybe a teeny teeny",
+    "start": 840.16,
+    "duration": 5.76
+  },
+  {
+    "text": "bit of saturation and or vibrance. And",
+    "start": 842.8,
+    "duration": 4.399
+  },
+  {
+    "text": "we'll finish it off with a little",
+    "start": 845.92,
+    "duration": 6.4
+  },
+  {
+    "text": "vignette for some added drama.",
+    "start": 847.199,
+    "duration": 7.041
+  },
+  {
+    "text": "And now for the final touch, I'm going",
+    "start": 852.32,
+    "duration": 4.0
+  },
+  {
+    "text": "to use a favorite video plugin of ours",
+    "start": 854.24,
+    "duration": 4.56
+  },
+  {
+    "text": "from Digital Anarchy. It's called Beauty",
+    "start": 856.32,
+    "duration": 4.48
+  },
+  {
+    "text": "Box. This effect allows you to use an",
+    "start": 858.8,
+    "duration": 4.08
+  },
+  {
+    "text": "eyropper to find the dark and the light",
+    "start": 860.8,
+    "duration": 3.92
+  },
+  {
+    "text": "parts of your face and then it creates a",
+    "start": 862.88,
+    "duration": 4.24
+  },
+  {
+    "text": "mask or a selection you could say of",
+    "start": 864.72,
+    "duration": 4.64
+  },
+  {
+    "text": "only your skin. Then it allows you to",
+    "start": 867.12,
+    "duration": 4.24
+  },
+  {
+    "text": "adjust some parameters to soften your",
+    "start": 869.36,
+    "duration": 4.4
+  },
+  {
+    "text": "skin complexion. Think of it as digital",
+    "start": 871.36,
+    "duration": 5.44
+  },
+  {
+    "text": "makeup or an expensive IG filter for",
+    "start": 873.76,
+    "duration": 5.519
+  },
+  {
+    "text": "Premiere. And that's it. Now the look of",
+    "start": 876.8,
+    "duration": 5.2
+  },
+  {
+    "text": "this video pops and it's more moody and",
+    "start": 879.279,
+    "duration": 3.761
+  },
+  {
+    "text": "more delicious.",
+    "start": 882.0,
+    "duration": 3.44
+  },
+  {
+    "text": "So now on to the final and probably the",
+    "start": 883.04,
+    "duration": 4.72
+  },
+  {
+    "text": "most simple step. Step number seven,",
+    "start": 885.44,
+    "duration": 3.759
+  },
+  {
+    "text": "export.",
+    "start": 887.76,
+    "duration": 3.12
+  },
+  {
+    "text": "This one's easy. We just click on the",
+    "start": 889.199,
+    "duration": 3.921
+  },
+  {
+    "text": "export tab at the very top left or we",
+    "start": 890.88,
+    "duration": 4.88
+  },
+  {
+    "text": "can press control or commandm for media",
+    "start": 893.12,
+    "duration": 4.959
+  },
+  {
+    "text": "or export media and we come to the",
+    "start": 895.76,
+    "duration": 4.639
+  },
+  {
+    "text": "export window. I like to edit in 4K.",
+    "start": 898.079,
+    "duration": 4.32
+  },
+  {
+    "text": "These episodes are going to Spotify and",
+    "start": 900.399,
+    "duration": 4.961
+  },
+  {
+    "text": "YouTube which both support 4K. So I will",
+    "start": 902.399,
+    "duration": 5.521
+  },
+  {
+    "text": "usually just select the YouTube 4K",
+    "start": 905.36,
+    "duration": 5.919
+  },
+  {
+    "text": "preset and click export.",
+    "start": 907.92,
+    "duration": 4.56
+  },
+  {
+    "text": "And there you have it. What do you",
+    "start": 911.279,
+    "duration": 2.881
+  },
+  {
+    "text": "think? Did you find this helpful? Are",
+    "start": 912.48,
+    "duration": 3.039
+  },
+  {
+    "text": "you going to be able to implement some",
+    "start": 914.16,
+    "duration": 3.119
+  },
+  {
+    "text": "of these things into your content",
+    "start": 915.519,
+    "duration": 4.081
+  },
+  {
+    "text": "strategy? Do you love me? Do you hate",
+    "start": 917.279,
+    "duration": 4.481
+  },
+  {
+    "text": "me? Let me know in the comments below.",
+    "start": 919.6,
+    "duration": 4.08
+  },
+  {
+    "text": "And again, please do me a favor and like",
+    "start": 921.76,
+    "duration": 3.519
+  },
+  {
+    "text": "this video, share it with another",
+    "start": 923.68,
+    "duration": 3.92
+  },
+  {
+    "text": "podcaster, with video podcaster, content",
+    "start": 925.279,
+    "duration": 4.161
+  },
+  {
+    "text": "creator, and subscribe to our channel.",
+    "start": 927.6,
+    "duration": 3.599
+  },
+  {
+    "text": "And until next time, remember to check",
+    "start": 929.44,
+    "duration": 3.92
+  },
+  {
+    "text": "out the finished result of this podcast.",
+    "start": 931.199,
+    "duration": 4.0
+  },
+  {
+    "text": "You can find it here by pressing the I",
+    "start": 933.36,
+    "duration": 4.32
+  },
+  {
+    "text": "button thing. Happy content creation.",
+    "start": 935.199,
+    "duration": 4.161
+  },
+  {
+    "text": "Thanks for coming to our channel and we",
+    "start": 937.68,
+    "duration": 5.12
+  },
+  {
+    "text": "will catch you on the next",
+    "start": 939.36,
+    "duration": 3.44
+  }
+]

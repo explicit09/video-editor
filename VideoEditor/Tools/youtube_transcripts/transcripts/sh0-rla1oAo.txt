@@ -1,0 +1,173 @@
+Motion VFX has been acquired by Apple.
+Motion VFX, the company that for a
+little while now has made some really
+nice plugins and preset packs for Da
+Vinci Resolve after, you know, having a
+decade plus of making those packs and
+similar for Final Cut Pro has been
+bought by Apple. Motion VFX is also the
+company that until the end of 2024
+uh was my employer for a few years. I
+worked on their Da Vinci Resolve team,
+taking a lot of past packs they had made
+for Final Cut and rebuilding them from
+scratch in the Fusion page for use in Da
+Vinci Resolve before I moved on. And for
+just over a bit of a year now, I've been
+full-time on my own making presets and
+plugins for Da Vinci Resolve. All of
+those live over at.co, including some
+really cool stuff like Proto if you have
+missed that. Uh all all of those are on
+the channel as well. So, if you like
+Dinci Resolve plugins, click on the
+channel, like and subscribe, all that
+stuff. I worked with a really great team
+over there, and based on what I have
+heard, that team no longer exists at
+Motion VFX. I'm seeing some comments
+that are maybe optimistic or just
+speculating when things are uh fresh and
+a little more up in the air, but uh a
+lot becomes clear when we go to the new
+uh Motion VFX website. First, of course,
+uh we have this banner. Motion VFX is
+becoming a part of Apple. Let's check it
+out. This is our biggest edit yet. Haha.
+Motion VFX joins Apple. We are extremely
+excited to share that Motion VFX is
+joining the Apple team to continue to
+empower creators and editors to do their
+best work. For over 15 years, we've been
+on a mission to create worldclass
+visually inspiring content and effects
+for video editors. From the very
+beginning, we've been all about quality,
+ease of use, and great design. These are
+also the features that we admire most in
+Apple's products and we're thrilled to
+be able to embrace them together. We'd
+like to take this opportunity to thank
+all our amazing customers and supporters
+who have been with us through all these
+years. You've inspired us. You've
+challenged us and you've helped our
+amazing products become what they are
+today. We are incredibly grateful to be
+part of this amazing community and
+excited to continue our work to serve
+you. This is the beginning of something
+truly wonderful. That sounds great and I
+can see why maybe people who just read
+this statement uh will say, "Hey, maybe
+we'll keep getting Da Vinci Resolve
+plugins."
+But no, I don't think so. If you scroll
+through this new website, you might
+actually notice that outside of this
+initial setting, redefine what you can
+do in Final Cut Pro, um it actually
+mentions by name Final Cut Pro, uh not
+very often. that speaks more generally
+about editing and the tools that Motion
+VFX offers or it doesn't come out and
+say, "Hey, exclusive to Final Cut Pro."
+Um, but it also does not mention Da
+Vinci Resolve or the handful of things
+they did for Premiere as well. You can
+scroll through and it's all just like
+the specific products they offer on
+their technical specifications. They do
+say minimum requirements, Mac OS and
+Final Cut Pro. And if you go to see all
+products, you will see all the products
+they offer um through the lens of the
+subscription that is now required to get
+access to uh their products that are
+made for Final Cut Pro. Even if we come
+to specific like the pack they did for
+MKBHD.
+>> Welcome to the official MKBHD motion VFX
+plugin. You scroll through, you see all
+these, you see the tags that they are in
+design studio,
+you see this single get collection
+button. If you click that, it takes you
+uh to sign up for for their main
+subscription for all their Final Cut
+products. Even if you search Resolve,
+you are going to get uh Final Cut Pro
+presets and plugins that just have
+Resolve in the title. Now, something I
+missed at first is that if on the main
+page only, you scroll all the way down
+on the footer there is a store page that
+still has Final Cut Pro, Da Vinci
+Resolve, and Adobe. If you click Final
+Cut Pro, it'll take you back to that
+previous store page where it lists
+everything they sell. Right now, if you
+click Da Vinci Resolve, they still have
+the Da Vinci Resolve store. And for any
+of these, you can click purchase and buy
+outright for Da Vinci Resolve. A lot of
+[snorts] these packs are still very
+cool, very useful, but I don't know if I
+can recommend them now. You'll have to
+decide value for yourself, but uh the
+company that made these packs is now no
+longer uh invested in the Da Vinci
+Resolve ecosystem. I will also say back
+on the main page, if you go to support,
+there is a Da Vinci Resolve section with
+some of like, you know, these frequently
+asked questions um that probably will
+still come up with their back catalog of
+Da Vinci Resolve products. But I don't
+expect any new products and even things
+like support. I guess we're just really
+hoping that no future Resolve update
+breaks most of the Motion VFX uh plug-in
+packs cuz if all of those break, that is
+a a large task that would require a Da
+Vinci Resolve team. Um which like I
+said, I do not believe exists anymore at
+Motion VFX. A bit of a bummer, but also
+I think pretty interesting. Who knows
+what Apple really wants to do with Final
+Cut Pro, but Motion VFX was the one like
+actual company that I like suggested and
+pushed to people. A handful of those
+things like Invado and Likewise that
+just has like miscellaneous presets and
+stuff. I've never suggested those to
+anyone in Da Vinci Resolve because like
+the fusion system has lots of stuff
+going on and something that is so broad
+and just accepts submissions and then
+sells those. I I have always been very
+hesitant of those. So with Motion View
+Fix out of that club, I really feel like
+the only source of plugins and presets
+uh I want to recommend are directly from
+creators. Obviously, I have all the
+stuff I've made that I sell, but there
+is a developing ecosystem of Da Vinci
+Resolve creators making their own uh
+graphics packs and presets and some
+really cool things out there. I
+recommend Jake Whips uh editor
+collection all the time. It's pretty
+comprehensive and there are a few others
+I'll probably drop in the description,
+but if you've never given the sort of
+community ecosystem for Da Vinci Resolve
+presets plugins a look, uh there is
+there is a lot there to take advantage
+of. And maybe with Motion VFX bowing out
+of that now, there will be uh even more
+opportunity for the community. I guess
+we'll all have to see. Uh but let me
+know what you think in the comments.
+Thanks for watching and I'll see you
+next

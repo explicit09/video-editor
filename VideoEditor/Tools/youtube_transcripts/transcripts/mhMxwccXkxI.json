@@ -1,0 +1,1002 @@
+[
+  {
+    "text": "So, it's been four months since the",
+    "start": 0.16,
+    "duration": 2.719
+  },
+  {
+    "text": "Blackmagic Design team announced Dav",
+    "start": 1.439,
+    "duration": 3.201
+  },
+  {
+    "text": "Vinci Resolve version 20. We've had a",
+    "start": 2.879,
+    "duration": 4.081
+  },
+  {
+    "text": "few dot releases since, but today is an",
+    "start": 4.64,
+    "duration": 4.72
+  },
+  {
+    "text": "important day because 20.1 is officially",
+    "start": 6.96,
+    "duration": 3.92
+  },
+  {
+    "text": "out. It's got loads of new features",
+    "start": 9.36,
+    "duration": 3.44
+  },
+  {
+    "text": "across all the pages. I'm going to",
+    "start": 10.88,
+    "duration": 3.759
+  },
+  {
+    "text": "install it now. I normally install at",
+    "start": 12.8,
+    "duration": 4.8
+  },
+  {
+    "text": "a.1 release and I'm going to really",
+    "start": 14.639,
+    "duration": 4.4
+  },
+  {
+    "text": "quickly just show you some of the new",
+    "start": 17.6,
+    "duration": 2.64
+  },
+  {
+    "text": "features in the color page. Now, I've",
+    "start": 19.039,
+    "duration": 3.121
+  },
+  {
+    "text": "only had this running for about 2 or 3",
+    "start": 20.24,
+    "duration": 3.36
+  },
+  {
+    "text": "hours, so I'm not going to go in too",
+    "start": 22.16,
+    "duration": 2.879
+  },
+  {
+    "text": "much depth, but let's go and take a",
+    "start": 23.6,
+    "duration": 3.519
+  },
+  {
+    "text": "look. So the main new features of 20.1",
+    "start": 25.039,
+    "duration": 3.841
+  },
+  {
+    "text": "in the color page can be found up here",
+    "start": 27.119,
+    "duration": 4.24
+  },
+  {
+    "text": "in the effects tab. Now let's start with",
+    "start": 28.88,
+    "duration": 4.08
+  },
+  {
+    "text": "this one light rays. Now this is not a",
+    "start": 31.359,
+    "duration": 3.761
+  },
+  {
+    "text": "new effect. This has been here for ages",
+    "start": 32.96,
+    "duration": 4.24
+  },
+  {
+    "text": "and but it has got a new element in it",
+    "start": 35.12,
+    "duration": 3.68
+  },
+  {
+    "text": "which makes it look really smart. So",
+    "start": 37.2,
+    "duration": 3.359
+  },
+  {
+    "text": "what I'm going to do is I'm just going",
+    "start": 38.8,
+    "duration": 3.759
+  },
+  {
+    "text": "to set up this light ray. So it's coming",
+    "start": 40.559,
+    "duration": 4.241
+  },
+  {
+    "text": "out of this window. So let's just change",
+    "start": 42.559,
+    "duration": 5.441
+  },
+  {
+    "text": "that to be angle. Just bring that over",
+    "start": 44.8,
+    "duration": 5.04
+  },
+  {
+    "text": "there. Something like that. I'm going to",
+    "start": 48.0,
+    "duration": 3.92
+  },
+  {
+    "text": "just soften it off a little bit in",
+    "start": 49.84,
+    "duration": 3.28
+  },
+  {
+    "text": "there. Something like that just for",
+    "start": 51.92,
+    "duration": 3.44
+  },
+  {
+    "text": "speed. And the other thing I need to",
+    "start": 53.12,
+    "duration": 3.919
+  },
+  {
+    "text": "check is in here. You can see that",
+    "start": 55.36,
+    "duration": 3.359
+  },
+  {
+    "text": "there's actually a light ray coming off",
+    "start": 57.039,
+    "duration": 3.04
+  },
+  {
+    "text": "this lamp which I don't want to happen.",
+    "start": 58.719,
+    "duration": 3.041
+  },
+  {
+    "text": "I just want it to come out the window.",
+    "start": 60.079,
+    "duration": 3.761
+  },
+  {
+    "text": "So let's go to our power windows. Let's",
+    "start": 61.76,
+    "duration": 5.2
+  },
+  {
+    "text": "just very quickly just draw",
+    "start": 63.84,
+    "duration": 5.44
+  },
+  {
+    "text": "around that so we can eliminate it.",
+    "start": 66.96,
+    "duration": 3.76
+  },
+  {
+    "text": "Obviously I need to invert that window",
+    "start": 69.28,
+    "duration": 3.199
+  },
+  {
+    "text": "to make that effective. I always just",
+    "start": 70.72,
+    "duration": 3.52
+  },
+  {
+    "text": "put a little bit of softness on my",
+    "start": 72.479,
+    "duration": 4.32
+  },
+  {
+    "text": "windows anyway.",
+    "start": 74.24,
+    "duration": 4.559
+  },
+  {
+    "text": "Something like that. Okay. So if I press",
+    "start": 76.799,
+    "duration": 5.121
+  },
+  {
+    "text": "shift and zed, we get back to there. Let",
+    "start": 78.799,
+    "duration": 4.401
+  },
+  {
+    "text": "me take the power window off so you can",
+    "start": 81.92,
+    "duration": 3.04
+  },
+  {
+    "text": "see what's going on. Right. So, we've",
+    "start": 83.2,
+    "duration": 4.0
+  },
+  {
+    "text": "got our light ray set up. Now, the new",
+    "start": 84.96,
+    "duration": 4.0
+  },
+  {
+    "text": "addition in here is down here and it's",
+    "start": 87.2,
+    "duration": 3.04
+  },
+  {
+    "text": "called atmosphere. Now, this is",
+    "start": 88.96,
+    "duration": 2.799
+  },
+  {
+    "text": "fantastic because what this is doing, if",
+    "start": 90.24,
+    "duration": 4.08
+  },
+  {
+    "text": "I press add atmosphere, it's giving us",
+    "start": 91.759,
+    "duration": 6.72
+  },
+  {
+    "text": "particles. So, as we play through,",
+    "start": 94.32,
+    "duration": 5.36
+  },
+  {
+    "text": "that's very subtle. Now, I'm going to",
+    "start": 98.479,
+    "duration": 3.28
+  },
+  {
+    "text": "have to increase this a bit. In fact, if",
+    "start": 99.68,
+    "duration": 4.16
+  },
+  {
+    "text": "I take the softness off just for this,",
+    "start": 101.759,
+    "duration": 3.04
+  },
+  {
+    "text": "you might be able to see it a bit",
+    "start": 103.84,
+    "duration": 3.12
+  },
+  {
+    "text": "better. And I'm going to have to",
+    "start": 104.799,
+    "duration": 3.921
+  },
+  {
+    "text": "strengthen that up. Let's just bring",
+    "start": 106.96,
+    "duration": 4.08
+  },
+  {
+    "text": "these up. And you see now that this",
+    "start": 108.72,
+    "duration": 4.24
+  },
+  {
+    "text": "actually animates.",
+    "start": 111.04,
+    "duration": 3.039
+  },
+  {
+    "text": "I don't know if you can. Yeah, you can",
+    "start": 112.96,
+    "duration": 2.64
+  },
+  {
+    "text": "just see that moving in there. Let me",
+    "start": 114.079,
+    "duration": 2.801
+  },
+  {
+    "text": "let me really exaggerate it so you can",
+    "start": 115.6,
+    "duration": 2.96
+  },
+  {
+    "text": "see what's going on. That looks really",
+    "start": 116.88,
+    "duration": 3.04
+  },
+  {
+    "text": "nice. We're getting a really convincing",
+    "start": 118.56,
+    "duration": 3.44
+  },
+  {
+    "text": "light ray coming out of there. Now, this",
+    "start": 119.92,
+    "duration": 3.839
+  },
+  {
+    "text": "is also available in the glow. So, let",
+    "start": 122.0,
+    "duration": 4.32
+  },
+  {
+    "text": "me reset that and go to glow. I love",
+    "start": 123.759,
+    "duration": 4.48
+  },
+  {
+    "text": "using glow. I use glow a lot. I probably",
+    "start": 126.32,
+    "duration": 3.359
+  },
+  {
+    "text": "use it more than I should actually. Oh,",
+    "start": 128.239,
+    "duration": 2.72
+  },
+  {
+    "text": "in fact, you can add a secondary glow.",
+    "start": 129.679,
+    "duration": 2.56
+  },
+  {
+    "text": "Now, so I need to have a play with that",
+    "start": 130.959,
+    "duration": 3.201
+  },
+  {
+    "text": "and work out exactly how that's going to",
+    "start": 132.239,
+    "duration": 4.08
+  },
+  {
+    "text": "help me. Um, like I said, I've only been",
+    "start": 134.16,
+    "duration": 3.439
+  },
+  {
+    "text": "playing on this for a few hours, but in",
+    "start": 136.319,
+    "duration": 2.801
+  },
+  {
+    "text": "here you've got exactly those same ad",
+    "start": 137.599,
+    "duration": 3.601
+  },
+  {
+    "text": "atmosphere tools. So, really convincing",
+    "start": 139.12,
+    "duration": 4.0
+  },
+  {
+    "text": "glows. Love that. Next new addition",
+    "start": 141.2,
+    "duration": 3.6
+  },
+  {
+    "text": "really quickly, if I go into here, is",
+    "start": 143.12,
+    "duration": 3.119
+  },
+  {
+    "text": "the face refine tool. Now, the face",
+    "start": 144.8,
+    "duration": 3.68
+  },
+  {
+    "text": "refinement tool had a really great",
+    "start": 146.239,
+    "duration": 4.401
+  },
+  {
+    "text": "update in version 20 already, but",
+    "start": 148.48,
+    "duration": 3.44
+  },
+  {
+    "text": "they've added something else. Now, what",
+    "start": 150.64,
+    "duration": 3.04
+  },
+  {
+    "text": "I'm going to do is let's just detect her",
+    "start": 151.92,
+    "duration": 3.679
+  },
+  {
+    "text": "face. Let's just do a quick track of",
+    "start": 153.68,
+    "duration": 3.44
+  },
+  {
+    "text": "that. Like I said, this shot's already",
+    "start": 155.599,
+    "duration": 2.961
+  },
+  {
+    "text": "graded and color managed, and I've",
+    "start": 157.12,
+    "duration": 3.199
+  },
+  {
+    "text": "rendered it out, so we can do this",
+    "start": 158.56,
+    "duration": 3.679
+  },
+  {
+    "text": "really quickly for you. And we'll just",
+    "start": 160.319,
+    "duration": 4.401
+  },
+  {
+    "text": "get that face refine going. much more",
+    "start": 162.239,
+    "duration": 4.08
+  },
+  {
+    "text": "accurate. Remember in since version 20,",
+    "start": 164.72,
+    "duration": 3.12
+  },
+  {
+    "text": "you can actually key frame these now if",
+    "start": 166.319,
+    "duration": 2.881
+  },
+  {
+    "text": "it goes off. I've done a whole episode",
+    "start": 167.84,
+    "duration": 3.2
+  },
+  {
+    "text": "on how to do that. Right. So once that's",
+    "start": 169.2,
+    "duration": 3.2
+  },
+  {
+    "text": "done, let's take that overlay off. And",
+    "start": 171.04,
+    "duration": 2.72
+  },
+  {
+    "text": "what I'm going to do just to show you",
+    "start": 172.4,
+    "duration": 3.04
+  },
+  {
+    "text": "the new feature. If I go to smoothing",
+    "start": 173.76,
+    "duration": 5.36
+  },
+  {
+    "text": "here, let's zoom in on her face. And I'm",
+    "start": 175.44,
+    "duration": 5.2
+  },
+  {
+    "text": "going to use my middle mouse just to",
+    "start": 179.12,
+    "duration": 3.36
+  },
+  {
+    "text": "move that around. And what we're going",
+    "start": 180.64,
+    "duration": 3.679
+  },
+  {
+    "text": "to do is add a little bit of smoothing",
+    "start": 182.48,
+    "duration": 3.52
+  },
+  {
+    "text": "to her face. I'm going to exaggerate it",
+    "start": 184.319,
+    "duration": 3.601
+  },
+  {
+    "text": "slightly. I would never go that strong",
+    "start": 186.0,
+    "duration": 4.56
+  },
+  {
+    "text": "on that. But what we've now got in here",
+    "start": 187.92,
+    "duration": 4.8
+  },
+  {
+    "text": "is grain. So we can actually put some",
+    "start": 190.56,
+    "duration": 4.24
+  },
+  {
+    "text": "texture back in. So again, another sort",
+    "start": 192.72,
+    "duration": 4.0
+  },
+  {
+    "text": "of texture tool for us to give us a more",
+    "start": 194.8,
+    "duration": 4.4
+  },
+  {
+    "text": "convincing smoothing there of the face",
+    "start": 196.72,
+    "duration": 4.32
+  },
+  {
+    "text": "refine. So just add that in. Let me go",
+    "start": 199.2,
+    "duration": 4.56
+  },
+  {
+    "text": "extreme so you can see what's going on.",
+    "start": 201.04,
+    "duration": 4.32
+  },
+  {
+    "text": "And there you can see the grain. Okay,",
+    "start": 203.76,
+    "duration": 4.559
+  },
+  {
+    "text": "let me take that on and off. On and off.",
+    "start": 205.36,
+    "duration": 4.48
+  },
+  {
+    "text": "So that is fantastic. I use it a bit",
+    "start": 208.319,
+    "duration": 3.441
+  },
+  {
+    "text": "more subtle than that obviously. Okay,",
+    "start": 209.84,
+    "duration": 3.44
+  },
+  {
+    "text": "so moving on to another shot. What I",
+    "start": 211.76,
+    "duration": 4.399
+  },
+  {
+    "text": "want to show you now is a new effect is",
+    "start": 213.28,
+    "duration": 5.2
+  },
+  {
+    "text": "called color tone diffuser. This is an",
+    "start": 216.159,
+    "duration": 4.08
+  },
+  {
+    "text": "army test chart. Let's grab this new",
+    "start": 218.48,
+    "duration": 3.6
+  },
+  {
+    "text": "effect, color tone diffuser. And what",
+    "start": 220.239,
+    "duration": 3.841
+  },
+  {
+    "text": "this is doing is allowing us to control",
+    "start": 222.08,
+    "duration": 4.239
+  },
+  {
+    "text": "the amount of diffusion and its color",
+    "start": 224.08,
+    "duration": 4.079
+  },
+  {
+    "text": "temperature as well. So how warm or cold",
+    "start": 226.319,
+    "duration": 3.761
+  },
+  {
+    "text": "that is. So let's just try out some of",
+    "start": 228.159,
+    "duration": 5.44
+  },
+  {
+    "text": "these presets. And I don't generally get",
+    "start": 230.08,
+    "duration": 4.879
+  },
+  {
+    "text": "on with presets to be honest. So I'm",
+    "start": 233.599,
+    "duration": 5.041
+  },
+  {
+    "text": "going to go and do clean slate. And that",
+    "start": 234.959,
+    "duration": 7.521
+  },
+  {
+    "text": "actually looks like it's not reset.",
+    "start": 238.64,
+    "duration": 5.599
+  },
+  {
+    "text": "It's still got an element on there. If I",
+    "start": 242.48,
+    "duration": 5.119
+  },
+  {
+    "text": "undo If I bypass that. What else is on",
+    "start": 244.239,
+    "duration": 5.121
+  },
+  {
+    "text": "here? Image adjustment. Is that doing",
+    "start": 247.599,
+    "duration": 3.84
+  },
+  {
+    "text": "it? No. I've only been playing with this",
+    "start": 249.36,
+    "duration": 3.68
+  },
+  {
+    "text": "for a few hours, so I haven't quite got",
+    "start": 251.439,
+    "duration": 3.041
+  },
+  {
+    "text": "my head around that, but I was hoping",
+    "start": 253.04,
+    "duration": 2.72
+  },
+  {
+    "text": "clean slate would give us an absolute",
+    "start": 254.48,
+    "duration": 3.68
+  },
+  {
+    "text": "clean starting point. Maybe that's",
+    "start": 255.76,
+    "duration": 5.199
+  },
+  {
+    "text": "coming in 20.1.1. Uh, but let's go down",
+    "start": 258.16,
+    "duration": 4.08
+  },
+  {
+    "text": "to custom because I normally like to",
+    "start": 260.959,
+    "duration": 3.201
+  },
+  {
+    "text": "build my own. So, in here, what we're",
+    "start": 262.24,
+    "duration": 3.2
+  },
+  {
+    "text": "going to do is have a look at the",
+    "start": 264.16,
+    "duration": 2.8
+  },
+  {
+    "text": "diffusion.",
+    "start": 265.44,
+    "duration": 2.96
+  },
+  {
+    "text": "Oh, I need to switch it on. Sorry. So,",
+    "start": 266.96,
+    "duration": 2.72
+  },
+  {
+    "text": "I'm going to be a bit more subtle than",
+    "start": 268.4,
+    "duration": 3.12
+  },
+  {
+    "text": "that. And down here, you've got control",
+    "start": 269.68,
+    "duration": 3.68
+  },
+  {
+    "text": "of the shadow and the highlights. So,",
+    "start": 271.52,
+    "duration": 4.08
+  },
+  {
+    "text": "let's take our shadow here and obviously",
+    "start": 273.36,
+    "duration": 4.0
+  },
+  {
+    "text": "our threshold. The softness is going to",
+    "start": 275.6,
+    "duration": 3.44
+  },
+  {
+    "text": "adjust the roll off of that. So you can",
+    "start": 277.36,
+    "duration": 2.96
+  },
+  {
+    "text": "see that happening down here on our",
+    "start": 279.04,
+    "duration": 4.0
+  },
+  {
+    "text": "waveform. As I increase or decrease the",
+    "start": 280.32,
+    "duration": 4.48
+  },
+  {
+    "text": "softness, we're adjusting the roll off",
+    "start": 283.04,
+    "duration": 3.2
+  },
+  {
+    "text": "there. And the same with our highlights",
+    "start": 284.8,
+    "duration": 4.08
+  },
+  {
+    "text": "here. And this tone lights allows us to",
+    "start": 286.24,
+    "duration": 4.72
+  },
+  {
+    "text": "adjust the color of this. So we can have",
+    "start": 288.88,
+    "duration": 4.56
+  },
+  {
+    "text": "the color of the diffusion altered just",
+    "start": 290.96,
+    "duration": 4.64
+  },
+  {
+    "text": "using this. So let's get rid of that.",
+    "start": 293.44,
+    "duration": 3.52
+  },
+  {
+    "text": "And what we have now is a new effect",
+    "start": 295.6,
+    "duration": 3.2
+  },
+  {
+    "text": "called split tone. So obviously split",
+    "start": 296.96,
+    "duration": 3.04
+  },
+  {
+    "text": "toning is to give us that film",
+    "start": 298.8,
+    "duration": 3.119
+  },
+  {
+    "text": "emulation, allowing us to sort of cool",
+    "start": 300.0,
+    "duration": 3.52
+  },
+  {
+    "text": "off the shadows, warm up the highlights,",
+    "start": 301.919,
+    "duration": 3.521
+  },
+  {
+    "text": "or make them any any temperature that",
+    "start": 303.52,
+    "duration": 3.6
+  },
+  {
+    "text": "you want. But it gives us that film",
+    "start": 305.44,
+    "duration": 3.92
+  },
+  {
+    "text": "emulation. So, let's have a look at the",
+    "start": 307.12,
+    "duration": 5.04
+  },
+  {
+    "text": "presets. We've got natural. We've got",
+    "start": 309.36,
+    "duration": 5.36
+  },
+  {
+    "text": "strong, which is very strong. That's",
+    "start": 312.16,
+    "duration": 4.319
+  },
+  {
+    "text": "giving us a really strong warmth in the",
+    "start": 314.72,
+    "duration": 3.6
+  },
+  {
+    "text": "highlights. And then we've obviously got",
+    "start": 316.479,
+    "duration": 3.681
+  },
+  {
+    "text": "custom down here. In fact, if I go to",
+    "start": 318.32,
+    "duration": 3.84
+  },
+  {
+    "text": "strong, if I change the strength. Yeah,",
+    "start": 320.16,
+    "duration": 3.84
+  },
+  {
+    "text": "that does work. Okay. So, if I go to",
+    "start": 322.16,
+    "duration": 3.92
+  },
+  {
+    "text": "custom here now, we can adjust our own",
+    "start": 324.0,
+    "duration": 5.12
+  },
+  {
+    "text": "shadow strength here. And we can adjust",
+    "start": 326.08,
+    "duration": 5.839
+  },
+  {
+    "text": "the hue. So, warm or cool. And again,",
+    "start": 329.12,
+    "duration": 3.919
+  },
+  {
+    "text": "the same with the highlights. Now, this",
+    "start": 331.919,
+    "duration": 3.041
+  },
+  {
+    "text": "neutrals button, what this is doing is",
+    "start": 333.039,
+    "duration": 3.681
+  },
+  {
+    "text": "protecting our neutral. So, if I put",
+    "start": 334.96,
+    "duration": 3.679
+  },
+  {
+    "text": "this on, you'll see if you watch here",
+    "start": 336.72,
+    "duration": 4.0
+  },
+  {
+    "text": "where we've got colorization on, you'll",
+    "start": 338.639,
+    "duration": 4.881
+  },
+  {
+    "text": "see that this goes white. So, we're",
+    "start": 340.72,
+    "duration": 4.56
+  },
+  {
+    "text": "protecting our whites and our blacks.",
+    "start": 343.52,
+    "duration": 3.92
+  },
+  {
+    "text": "So, you're getting the nice split",
+    "start": 345.28,
+    "duration": 4.4
+  },
+  {
+    "text": "toning, but without affecting your",
+    "start": 347.44,
+    "duration": 3.92
+  },
+  {
+    "text": "blacks and whites. So, really cool",
+    "start": 349.68,
+    "duration": 3.84
+  },
+  {
+    "text": "effect. And let me just show you that on",
+    "start": 351.36,
+    "duration": 3.6
+  },
+  {
+    "text": "a gray chart just so you can see what's",
+    "start": 353.52,
+    "duration": 4.48
+  },
+  {
+    "text": "going on. Apply the split zone. There is",
+    "start": 354.96,
+    "duration": 4.799
+  },
+  {
+    "text": "our shadows. There's our highlights. And",
+    "start": 358.0,
+    "duration": 3.759
+  },
+  {
+    "text": "this is this point here is neutral. This",
+    "start": 359.759,
+    "duration": 3.601
+  },
+  {
+    "text": "is controlled by the pivot which is",
+    "start": 361.759,
+    "duration": 4.72
+  },
+  {
+    "text": "here. So, we can move that up and down",
+    "start": 363.36,
+    "duration": 6.0
+  },
+  {
+    "text": "and go to our custom and you can indeed",
+    "start": 366.479,
+    "duration": 5.761
+  },
+  {
+    "text": "adjust the strength and the hue of the",
+    "start": 369.36,
+    "duration": 4.48
+  },
+  {
+    "text": "shadows and the highlights. These are",
+    "start": 372.24,
+    "duration": 3.04
+  },
+  {
+    "text": "all really great additions to the color",
+    "start": 373.84,
+    "duration": 3.04
+  },
+  {
+    "text": "page. So, I've already got an idea what",
+    "start": 375.28,
+    "duration": 2.639
+  },
+  {
+    "text": "I'm going to do with one of those new",
+    "start": 376.88,
+    "duration": 3.759
+  },
+  {
+    "text": "features in my next project. I'll do a",
+    "start": 377.919,
+    "duration": 4.081
+  },
+  {
+    "text": "more detailed episode as soon as I can.",
+    "start": 380.639,
+    "duration": 2.481
+  },
+  {
+    "text": "Think about subscribing if you haven't",
+    "start": 382.0,
+    "duration": 2.88
+  },
+  {
+    "text": "done so already. Look after yourselves.",
+    "start": 383.12,
+    "duration": 3.84
+  },
+  {
+    "text": "Enjoy your version 20.1 and I'll see you",
+    "start": 384.88,
+    "duration": 4.48
+  },
+  {
+    "text": "in the next",
+    "start": 386.96,
+    "duration": 2.4
+  }
+]

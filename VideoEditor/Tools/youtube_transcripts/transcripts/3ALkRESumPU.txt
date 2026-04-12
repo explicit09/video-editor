@@ -1,0 +1,124 @@
+Folks, it is the most wonderful time of
+the year. I'm not talking about
+Christmas silly. I am talking about NAB,
+the once a year big showcase, conference
+thingabob out in Las Vegas. That's not
+important. What's important is that at
+this big show every year, we get a brand
+new version, a brand new update to Da
+Vinci Resolve, at least historically.
+So, we're going to get one. We also
+haven't got one in a while, which I'll
+talk about in a bit. But that means it's
+also time to pick up a tradition I
+started last year where I sort of touch
+base with all of you. I talk a lot about
+Da Vinci Resolve on this channel pretty
+much exclusively. I've spent over the
+last 5 years, almost six years now,
+talking about Resolve. Uh the last five
+of that I've spent making presets and
+plugins for Da Vinci Resolve. If you
+don't know about all of that cool stuff,
+it's it's all over the channel and the
+website sterlingupply.co. But today
+we're talking about the update to
+Resolve. And here's the big question.
+What do you want to see? Inside
+question, what do you think you will
+actually see? This is exciting because
+last year specifically, it felt like we
+got um a lot of the long-standing
+feature requests that finally showed up
+in that version of Resolve. Some really
+cool stuff like text formatting that we
+had been missing for a while and we
+finally got and cool options. I think it
+was last year for like managing your
+render cache. Lots of cool stuff. But we
+don't want to look back. We want to look
+forward. So, that is the big question.
+What do you want to see in Da Vinci
+Resolve 21? I'm assuming it's version
+21. And and while we're talking about
+assumptions, I expect this to be a
+pretty crazy update. Why? Number one,
+Resolve updates in general are always
+pretty crazy, but something happened
+last year that I think a lot of people
+missed. Going back years previously, we
+have gotten an update at NAB. And
+usually that has launched into public
+beta at NAB and then been in beta for a
+while and had its full release a few
+months later. And more often than not,
+we've also had a pretty substantial
+update in like November at the end of
+the year. Now, last year we had the beta
+for Da Vinci Resolve 20 drop at NAB, but
+it got its full release shockingly
+quick. so fast that when we finally got
+uh 20.1
+um we actually got the the beta for 20.1
+faster than uh in the years previously
+the initial full big NAB version even
+got out of beta if that makes sense. Add
+on top of that that we kind of didn't
+get a big like.5 or extra substantial
+release at the very end of last year.
+Blackmagic Design has had a lot of time
+uh to cook up something special for this
+update and I absolutely expect it. I
+would be remiss if I didn't point out
+that there are a handful of outstanding
+things from the announcement last year
+that still aren't in Resolve. Notably,
+some uh AI generation. They had an AI
+set extender tool that they showed off
+last year and we haven't seen it since.
+It feels like a safe bet that we will
+get that, but also I don't think it's
+out of the question that there is a
+reason uh that we haven't seen it. Of
+course, maybe it just needed more time
+in development. Maybe they just dropped
+it. So, I guess we'll have to see.
+Obviously, whether it's that tool or
+something else, uh we'll see AI somehow.
+I feel like a lot of people like the way
+that Dav Vinci Resolve has been handling
+kind of uh AI stuff where uh they've
+sort of funneled it towards specific
+tools that are very high value in
+Resolve. Lots of audio tools that like
+are labeled AI and like kind of that
+machine learning space. But will we
+finally get that uh image or video
+generation in Resolve? I guess we'll
+see. And I guess we'll see soon. But of
+course, outside of all AI stuff, Dav
+Vinci Resolve still does a ton of stuff.
+And uh I have my personal list um that I
+might share um if I try to like round up
+feedback. But hey, this is the video
+where you get to respond and have those
+conversations in the comments. What is
+at the very top of your Da Vinci Resolve
+wish list? This was very fun when we did
+it before, so we're running it back.
+We're doing it again. I'll be down there
+in the comments absolutely as well. Um,
+and then hopefully we'll like round up
+some of these suggestions and maybe do a
+video either before or after that
+launch. Last year I think we sort of
+like reviewed after. Anyway, it doesn't
+matter. You know what it is. What do you
+want in Resolve? What do you think we'll
+actually get in Resolve? Uh, how do you
+feel about some AI stuff? I don't know.
+You got to let me know. Either way, it's
+it's cool. It's fun to talk about. It's
+all very cool. I think it is. Hopefully,
+you do, too. Thanks for watching and
+I'll see you next

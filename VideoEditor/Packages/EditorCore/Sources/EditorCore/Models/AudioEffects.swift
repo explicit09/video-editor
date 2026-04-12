@@ -1,9 +1,9 @@
 import Foundation
 
-/// Audio effect models for EQ, compression, and reverb.
-/// These define the parameters; rendering uses AVAudioEngine in a future phase.
+/// Audio effect models for EQ, compression, and dynamic processing.
+/// These define the parameters; rendering uses AVAudioEngine / AVAudioProcessingTap.
 
-// MARK: - Equalizer
+// MARK: - Legacy EQ / Compressor settings (used by VoiceCleanup, AudioEffectTap DSP)
 
 public struct EqualizerSettings: Codable, Sendable {
     public var bands: [EQBand]
@@ -51,8 +51,6 @@ public struct EqualizerSettings: Codable, Sendable {
     }
 }
 
-// MARK: - Compressor
-
 public struct CompressorSettings: Codable, Sendable {
     public var threshold: Double    // dB (e.g., -20)
     public var ratio: Double        // e.g., 4:1 = 4.0
@@ -84,34 +82,156 @@ public struct CompressorSettings: Codable, Sendable {
     }
 }
 
-// MARK: - Audio Effect Chain
+// MARK: - AudioEffectChain
 
-public struct AudioEffectChain: Codable, Sendable {
-    public var eq: EqualizerSettings?
-    public var compressor: CompressorSettings?
-    public var noiseGateThreshold: Double? // dB
-    public var deEsserFrequency: Double?   // Hz
-    public var reverbMix: Double?          // 0-1
+/// Full professional audio processing pipeline:
+/// Gate → Compressor → De-Esser → EQ → Limiter, plus optional LUFS normalization.
+public struct AudioEffectChain: Codable, Sendable, Equatable {
+    public var gate: GateConfig?
+    public var compressor: CompressorConfig?
+    public var deEsser: DeEsserConfig?
+    public var eq: EQConfig?
+    public var limiter: LimiterConfig?
+    /// Target LUFS for normalization, e.g. -16.0
+    public var normalizeLUFS: Double?
 
     public init(
-        eq: EqualizerSettings? = nil,
-        compressor: CompressorSettings? = nil,
-        noiseGateThreshold: Double? = nil,
-        deEsserFrequency: Double? = nil,
-        reverbMix: Double? = nil
+        gate: GateConfig? = nil,
+        compressor: CompressorConfig? = nil,
+        deEsser: DeEsserConfig? = nil,
+        eq: EQConfig? = nil,
+        limiter: LimiterConfig? = nil,
+        normalizeLUFS: Double? = nil
     ) {
-        self.eq = eq
+        self.gate = gate
         self.compressor = compressor
-        self.noiseGateThreshold = noiseGateThreshold
-        self.deEsserFrequency = deEsserFrequency
-        self.reverbMix = reverbMix
+        self.deEsser = deEsser
+        self.eq = eq
+        self.limiter = limiter
+        self.normalizeLUFS = normalizeLUFS
     }
 
-    /// Podcast voice preset
+    /// Podcast voice preset — gate, compression, de-essing, -16 LUFS
     public static let podcastVoice = AudioEffectChain(
-        eq: .voiceClarity,
-        compressor: .voice,
-        noiseGateThreshold: -40,
-        deEsserFrequency: 6000
+        gate: GateConfig(thresholdDB: -40),
+        compressor: CompressorConfig(ratio: 4.0, thresholdDB: -20),
+        deEsser: DeEsserConfig(centerFreqHz: 6000),
+        normalizeLUFS: -16.0
     )
+}
+
+// MARK: - GateConfig
+
+public struct GateConfig: Codable, Sendable, Equatable {
+    public var thresholdDB: Double
+    public var attackMS: Double
+    public var releaseMS: Double
+
+    public init(
+        thresholdDB: Double = -40,
+        attackMS: Double = 0.5,
+        releaseMS: Double = 50
+    ) {
+        self.thresholdDB = thresholdDB
+        self.attackMS = attackMS
+        self.releaseMS = releaseMS
+    }
+}
+
+// MARK: - CompressorConfig
+
+public struct CompressorConfig: Codable, Sendable, Equatable {
+    public var ratio: Double
+    public var attackMS: Double
+    public var releaseMS: Double
+    public var thresholdDB: Double
+    public var makeupGainDB: Double
+
+    public init(
+        ratio: Double = 4.0,
+        attackMS: Double = 5,
+        releaseMS: Double = 30,
+        thresholdDB: Double = -20,
+        makeupGainDB: Double = 3
+    ) {
+        self.ratio = ratio
+        self.attackMS = attackMS
+        self.releaseMS = releaseMS
+        self.thresholdDB = thresholdDB
+        self.makeupGainDB = makeupGainDB
+    }
+}
+
+// MARK: - DeEsserConfig
+
+public struct DeEsserConfig: Codable, Sendable, Equatable {
+    public var centerFreqHz: Double
+    public var reductionDB: Double
+
+    public init(
+        centerFreqHz: Double = 5500,
+        reductionDB: Double = -3
+    ) {
+        self.centerFreqHz = centerFreqHz
+        self.reductionDB = reductionDB
+    }
+}
+
+// MARK: - EQConfig
+
+public struct EQConfig: Codable, Sendable, Equatable {
+    public var bands: [EQBand]
+
+    public init(bands: [EQBand] = []) {
+        self.bands = bands
+    }
+}
+
+// MARK: - EQBand
+
+public struct EQBand: Codable, Sendable, Equatable {
+    public var freqHz: Double
+    public var gainDB: Double
+    public var q: Double
+    public var filterType: EQFilterType
+
+    public init(
+        freqHz: Double,
+        gainDB: Double = 0,
+        q: Double = 1.0,
+        filterType: EQFilterType = .peak
+    ) {
+        self.freqHz = freqHz
+        self.gainDB = gainDB
+        self.q = q
+        self.filterType = filterType
+    }
+}
+
+// MARK: - EQFilterType
+
+public enum EQFilterType: String, Codable, Sendable, Equatable {
+    case highPass
+    case lowPass
+    case peak
+    case lowShelf
+    case highShelf
+}
+
+// MARK: - LimiterConfig
+
+public struct LimiterConfig: Codable, Sendable, Equatable {
+    public var thresholdDB: Double
+    public var attackMS: Double
+    public var releaseMS: Double
+
+    public init(
+        thresholdDB: Double = -6,
+        attackMS: Double = 1,
+        releaseMS: Double = 75
+    ) {
+        self.thresholdDB = thresholdDB
+        self.attackMS = attackMS
+        self.releaseMS = releaseMS
+    }
 }

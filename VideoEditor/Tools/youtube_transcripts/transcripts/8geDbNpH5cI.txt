@@ -1,0 +1,338 @@
+right so i'm in project settings i'm in
+color management and this thing here
+says timeline color space what on earth
+is that i'm going to explain in this
+episode exactly what it is how it works
+and how to set it up correctly so stick
+with me to the end because all the steps
+in here are important if you want to use
+the timeline color space correctly
+so we're in project settings i'm in
+regular uncolour managed so i mean
+davinci rgb non-color managed workflow
+so let's switch it in to color
+management and take a look at this
+timeline color space
+so i'm going to first switch it in if
+you're unsure what i'm even doing here i
+have done an episode already on a
+beginner's guide to color management so
+it'd be worth watching that but we're in
+standard dynamic range automatic color
+management if i press save
+all the footage here this is red footage
+all comes into looking less flat it's
+now got a rec 709 profile on it and it's
+looking good because this is red footage
+so the davinci resolve recognizes this
+red because it's raw so it applies the
+correct parameters to it this file
+however is still looking flat because
+it's not a raw file it's xavc intro so
+resolve doesn't actually know what it is
+until i tell it so
+in the input color space alright so i'm
+gonna do that in a moment but first
+let's switch over to here
+and let's have a look what's going on so
+i'm gonna switch off automatic color
+management and that will reveal all the
+settings that are in here
+so go into custom
+and now we can see all this extra
+information that's going on behind the
+scenes so in a color managed environment
+you've got three important areas to look
+at you've got your input color space
+you've got your timeline color space
+which is what we're focusing on and
+we've got our output color space and
+these are all set to rec 709 gamma 2.4
+at the moment now my output but the
+thing that i'm monitoring on is gamma
+2.4 so that's that's what i want as my
+deliverable
+however the input color space and the
+timeline color space are working
+underneath that so that information can
+be larger than rec709 if we want it to
+be
+so our input cover space here in this
+case is red because it's raw it would
+overwrite the input color space setting
+here this setting is allowing a default
+input color space to anything that's not
+been identified so the first thing i'm
+going to do is press save
+i'm going to identify this clip as sony
+s log 3 which is what it is so i'm going
+to my input color space
+down to here so we're basically getting
+everything in its correct input color
+space first and the reason for this is
+because this is straight out the manual
+i'm just going to close these down
+because we don't actually need these
+switch my clips off and what we've got
+is our input color space here
+okay so this is our starting point we've
+got then that goes to our timeline color
+space so the timeline color space is all
+the tools down here are being processed
+in a certain color space now that can be
+different from our output color space
+and it can be different from our input
+color space so why do we want to do that
+well i'm going to show you that the
+other thing to bear in mind that is
+important is your input color space will
+always correctly send to the timeline
+color space without any clipping or
+losing any information at all obviously
+if your image is already clipped then
+that's happened but no extra clipping
+can occur from the input to the timeline
+now when it goes from its timeline color
+space to our output color space that
+might be smaller clipping can then occur
+so you need to be careful of that but
+we're monitoring all the time our output
+color space so everything else is
+happening under the hood
+right so where we're going with this i'm
+trying to get it so our timeline color
+space can be larger than it currently is
+which allows us to work in a larger
+color space
+so let me demonstrate that i'm going to
+get rid of that
+so we've got our guy here okay and let's
+just check again so our timeline color
+space is currently rec709 gamma 2.4 now
+by default that's often seen so i'm just
+going to change that to be rick719 and
+you'll also notice down here there's a
+checkbox says use color space aware
+grading tools now that's on by default
+and what that's referring to is that
+some of the tools are color space aware
+when you're in a colour managed
+environment so that's namely the hdr
+tool the colour warper the keyer and the
+curves now when you're in non-colour
+managed
+only the
+hdr tool and the colour warper i think
+are colour managed but the curves become
+non-colour managed i'm going to show you
+that as well
+this will all make sense in a moment
+right so i'm going to press save
+okay there we go now if i just go
+in our regular tools here let's just
+push up some gain here
+we're clipping a little bit now already
+but these tools are not color space
+aware these are regular these these are
+designed to work in rec 709 color space
+so the regular primary wheels that
+you're used to and they've used all the
+time and your offset is a rec 709 color
+space function
+so let me show you that if i change my
+timeline color space to something larger
+let's take davinci wide gamut for
+example
+and press save it's changed a little bit
+but nothing drastic nothing like you're
+going to see in a moment so i'm going to
+reset that
+so i'm going to reset that there i'm
+also going to put that back to rec709
+sorry the timeline color space back to
+rec709 gamma 2.4
+i hope you're sticking with this this is
+quite a hard one to actually explain so
+i'm trying my best for you here right so
+i'm going to press save on that
+and
+just before i move on to showing you
+with the color space aware tool i'm just
+going to remind you of this that you've
+probably seen many many times before but
+this is the classic cie graph rec709
+which is where we're currently set to in
+our output and also our timeline
+is
+a smaller color space within there okay
+now there are larger color spaces
+available so this blue one for example
+is arie
+okay so this is array wide gamut and
+even larger color space than that is the
+black line on the edge which is actually
+davinci wide gamut so
+you've also got red you've got aces
+there's many many different color
+sciences but rec 709 is probably one of
+the smallest ones that's in there so
+what we want to do is get our timeline
+which is basically means so you take our
+input goes to the timeline that's our
+working tools it's all all the tools
+that we use down here in the color page
+are effectively being processed in the
+timeline color space which is then been
+funneled to our output color space so if
+we could have a larger color space in
+our timeline surely that would be
+beneficial so let's have a look
+i'm going to switch that off
+there's our guy everything's looking
+really nice in here and what i'm going
+to do is use the curves because these
+are now color space aware because that
+that checkbox is
+on so just to remind you we are in
+a timeline color space of rec 709 and
+gamma 2.4
+and what i'm going to do is just push
+the highlights up and up and up
+and you see what happens is we're
+clipping okay because we've reached the
+edge of the color space rec 709
+is kicking in and we've reached the
+limits
+so our timeline working space rex 709 is
+giving us a bit more of a restricted
+workflow so what i'm going to do is
+leave that set i'm going to click down
+here i'm going to change my timeline
+color space only
+to be something larger now what i'm
+going to set it to ideally you want it
+to match what your footage is so if
+you're working all in sony s log i would
+change my timeline color space to be
+sony s log if i'm working in arri i
+would change my timeline color space to
+be arri logsy
+i would try and make it match however
+often you are working with mixed formats
+and you might even be working with some
+non-log footage as well so we can use an
+intermediate for that and what a good
+one to use is the davinci white gamut
+intermediate setting so the timeline
+color space is now set to davinci wide
+gamut you could set it to area alexa it
+doesn't matter the mapping is
+automatically done from the input ies
+log 3 would go to arri would go to rec
+79 gamma 2.4 you can set it to whatever
+you want but the davinci wide gamut
+intermediate is a really good one to use
+especially if you're not quite sure
+which one to go for so watch the sky now
+when i press save so that's gonna
+and there everything's come back because
+we're in a larger working timeline color
+space
+so we're not hitting the edges it's
+quite so quick now we've still got a
+little bit of clipping going on so we
+can ease that back and remember it's
+non-destructive going from input to
+transform so we can always just add
+another node if we need to
+and we can pull that back down and
+there's all our information we can go to
+our hdr tool and just work on the light
+area for example
+and we're working in a much larger color
+space but we're monitoring in rec 79
+gamma 2.4 because that's our output
+so let's have a look at that again just
+to show you our output color space rec
+79 and gamma 2.4
+so now you get the idea of what the
+timeline color space is let's have a
+look at how that works with csts
+so what i'm going to do is come off this
+and go to a non-color managed
+environment timeline color space rec709
+output color space same as timeline now
+i don't want my output color space to be
+the same as my timeline i want it to be
+rec709 gamma 2.4 so let's set that up
+properly
+and press save
+right i'm going to get rid of these
+and in fact what i'm going to do is
+apply my color space transform so you've
+seen me work like this before i've just
+done a very basic note tree here this is
+nothing like how i normally work but
+you've got i've got two clean nodes
+nothing on them at all and here why this
+has gone from log to looking more like
+we would expect it to
+is because i've applied a color space
+transform and i've preset this already
+so it's i've set my input color space
+sony s gamut 3 cine my input gamma is s
+log 3 and my output color space for x79
+output gamma gamma 2.4 all right
+that is how we're getting to this so i'm
+going to come
+beneath this i always grade underneath
+my cst so the cst is at the end and
+grade underneath that oh it's near the
+end
+and to check my timeline color space
+let's click on here
+rec709 scene right
+so i'm going to use the hdr tools
+because the curves are now not color
+space aware because i'm in a non-color
+managed workflow
+so let's bring up my exposure
+let's just bring down that a little bit
+and let's just push it i'm going to push
+it a bit hard so there you see that's
+all getting very overexposed and let's
+change our timeline color space remember
+don't do this during a project you need
+to do this at the beginning of your
+project i'm just showing you here the
+differences
+let's change that to be da vinci wide
+gamut
+intermediate i press save and there we
+go we've got all that detail back
+because we're in a larger color space
+so i hope that's kind of demystified
+what the timeline color space is doing
+and the difference between timeline and
+output you can have them the same if
+you're working in rec79 gamma 2.4 you
+are kind of restricting yourself a
+little bit by having that timeline color
+space set to a smaller color space but
+it works perfectly well and especially
+if you're used to just using these
+primary tools they're not going to
+behave any different anyway because
+they're not actually color space aware i
+hope that makes sense look after
+yourselves hit the subscription if
+you've enjoyed this um this one was
+quite a hard one to prepare so i would
+really appreciate it but i hope i've
+demystified it look after yourselves and
+i'll see you in the next episode
+hi lucy
+you you're going to see minions okay
+yeah i'm just recording i'll put some
+money on your card all right all right
+yep love you bye

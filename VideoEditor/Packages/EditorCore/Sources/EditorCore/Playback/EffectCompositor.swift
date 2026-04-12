@@ -770,6 +770,14 @@ public final class EffectCompositor: NSObject, AVVideoCompositing, @unchecked Se
                 targetHue: effect.parameters["targetHue"] ?? 0.33,
                 tolerance: effect.parameters["tolerance"] ?? 0.1
             )
+        case EffectInstance.typeVignette:
+            let intensity = effect.parameters["intensity"] ?? 0.5
+            let feather = effect.parameters["feather"] ?? 0.7
+            let vignetteFilter = CIFilter(name: "CIVignette")!
+            vignetteFilter.setValue(image, forKey: kCIInputImageKey)
+            vignetteFilter.setValue(intensity * 2.0, forKey: kCIInputIntensityKey)
+            vignetteFilter.setValue(feather * 10.0, forKey: kCIInputRadiusKey)
+            return vignetteFilter.outputImage ?? image
         default:
             return image
         }

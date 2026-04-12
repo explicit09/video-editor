@@ -1,0 +1,419 @@
+Now, this topic is very close to my
+heart because my side hustle when I
+started my career was shooting weddings
+and editing weddings. And if there's one
+thing that I know about it is that
+brides almost always want highkey look
+where everything is basically blown out
+and at the same time they always request
+to have a warm look. Which is why Mike
+Turner here who inspired me to do this
+video sent me this, his rec 709 and his
+final grade. There's also a log. This
+was shot on Canon. And when I saw this,
+I'm like, I need to address this and do
+a video about it. Okay, there's no
+roasting going on here. I just want to
+give my two cents to what we can do. And
+at the end, I'm also going to tell him
+what he can do with his node tree to get
+a much better result. Actually, when we
+build our look, he's going to see how
+that's going to happen. As you guys can
+clearly look at my screen, and I only
+have six nodes. I mean, this is input
+device transform, output device
+transform. So, the real dance is only
+going to happen in four nodes. And you
+saw the end result. So the goal is
+simple. We want to give them the high
+key. We want to make the image look warm
+but not dingy. And we want to build a
+node tree that is sustainable. When
+you're working on a wedding, you're
+going to have 300, 500,000 shots, and
+they're going to be in all kinds of
+different locations. So we cannot build
+complex node trees. We have to simplify
+our entire process. So, I broke it down
+into five simple steps that are going to
+give you the look that is going to get
+you hired on that next destination
+wedding you're going to shoot in Spain.
+So, if you guys are pumped, do me a
+favor cuz there's about 78% of you that
+are not following this channel, we're
+going to be putting out two videos per
+week. That is my promise if you
+subscribe to my channel today. Smash the
+like button if you enjoy content like
+this. Let's jump right in. For those
+that don't know me, my name is Kazzy. I
+work with brands like Adidas, Amazon
+Prime, Universal Studios, and I make no
+straightforward color grading tutorials
+so you can work with your dream clients.
+All right, first things first. Let's set
+up our exposure and our balance. Let's
+start with our exposure. So, I'm going
+to grab my global offset, go all the
+way, and then pull it down. Where do I
+feel like
+it looks good? The sweet spot. What if
+we do three quarters of a stop? Brings
+it up. Looks pretty good. Like that is
+putting us in the sweet spot. So once we
+start building our look, we're going to
+be able to push and get that highkey
+look. This is looking good. What about
+our balance? I'm going to be using my uh
+printer lights, but you can totally use
+your HDR offset and just do it right
+here. I just feel like I get a little
+bit more accuracy using my printer
+lights. I'm aging myself, but that's the
+process that I'm going to use. I'm going
+to be calling it out what I'm doing.
+Okay. So, I'm going to start with plus
+and minuses. Let's just start with like
+maybe adding a little bit of magenta.
+So, we're going to basically subtract
+green. Let's go there. Too much. Let's
+go back.
+That's uh that's good. What about red?
+Okay. Too much. We do want overall warm
+look. So, we want to kind of keep that
+in mind. What about cyan? Pull it back.
+I'm looking at the clouds right now. The
+clouds are starting to look pretty good.
+Do you see like they're they're starting
+to look really really good. Okay, so
+what about, you know, maybe push back on
+the green a little bit? Okay, this is
+looking better. What about our yellow?
+Do we want to add more blue? I'm looking
+at the again, the sky is looking pretty
+good. So, this is starting to look
+actually pretty decent like where we
+are. There's going to be a little bit of
+warmth, but this is like in a pretty
+good spot. Okay, so that is a pretty big
+change. first little fix to get us there
+where we want to go. Okay, this is a big
+one. That's the major one. A lot of
+people create warmth by just like start
+pushing the entire image toward that
+warm place. This is where the teeth
+start to look yellow, the dresses start
+to look dingy, everything just like, you
+know, the skin tones are looking like
+they have jaundice. Don't do that. We
+don't want to do that. We want to think
+about what they're asking for when they
+say, "Give us that warm look. Give us
+that Instagram filter look." So, let's
+do that. Let's give them that. We're
+going to do it in a very clever way. So,
+the first thing that I want to do, let's
+just set up our overall exposure to get
+that highkey look going. All right. So,
+I'm going to kind of like park my 18%
+gray so that doesn't move. I'm going to
+lift that up a little bit like that. So,
+we have that vogue like beautiful milky
+like undertones.
+And I'm going to pull this and
+put it somewhere around here. I'm just
+like looking at my dude and we're
+starting to get some
+good shape going there. And now I'm just
+going to grab my top and I'm going to p
+pull it. And I'm just like looking at
+the clouds in the back.
+I just want to give them
+A nice little pop. I mean, just look at
+this, right? Like, they're just getting
+such a beautiful pop. And we have come
+such a long way. It makes me happy. I
+mean, look at that, right? So, we're
+getting a very beautiful pop. Now, what
+else can we do? Can we ease off on the
+pop before and after? Looking good.
+Okay, that is looking good. This is
+really, really good. Okay, so that is
+fine. Now, a few things that we can do.
+Uh, break that chain and see what we can
+do here, right? Like, can we add a
+little bit more color? I feel like
+having a little bit of magenta in the
+undertones gives it like a retro look,
+like really clean. And then having maybe
+a little bit of like green up top.
+You'll see what I'm talking about. We're
+going to go in our greens. I'm going to
+take it right here. Let's punch in a
+little bit. And I'm going to pull it
+down. And just like look at his pants
+and like undertones like around here. It
+just cleans up the image so beautifully.
+And then if we just go up top and if I
+just go like this like not too much
+but just a kiss. And if I do before and
+after see like it creates like this very
+pretty like retro look. Okay. And for
+those that are shooting a ton of content
+and they just don't have the time to
+build their own recipes from ground up
+then you must try Rapid Grade. Let's
+just try this. Okay. I'm gonna drop our
+one-click look system and let's drop
+this look right here. Commercial white.
+Look at this. The kind of change that we
+made. Or how about something softer like
+retro chrome. Look at the sky. Look at
+our skin tones. Everything will latch
+on. No qualifiers are being used. Look
+at how pretty the skin tones are.
+Everything is working in Da Vinci wide
+gamut. 30 plus stops of dynamic range.
+So, you're futurep proofing yourself.
+Everything is 100% customizable. How
+about we even select something softer
+like soft rose? Look at how pretty this
+is. Or a warm kiss. Look at that. The
+skin tones will always look perfect. The
+main things, your anchors will always be
+dialed in. And again, you can customize
+it if you want to. This is a no-brainer.
+You can start for as low as $37 a month.
+And it comes with a 7-day money back
+guarantee. So, there is absolutely
+nothing to lose. Link is in the
+description. Check it out. Let's get
+back to the video. But everything is
+about to change right now. The next
+step, the third little fix, which is
+right here. We have to get into our hue
+versus hue, hue versus saturation to
+really go where we want to get that
+warmth. Our warmth, a lot of our warmth
+is going to come from here. Okay. So,
+let's go get that. Let's go in our
+yellows
+and let's start moving it around. You
+see this? We just can go right here and
+it looks really good. Like, look at
+this. Let's go in our greens and do the
+same exact thing. Just a little bit.
+Park it in the same exact area as the
+other one. And if we start to do before
+and after, like, wow. Okay. How about
+our blues? And we just want to basically
+add a little bit of cyan in there. And
+then go right here. Do the same exact
+thing. You see what's happening in the
+in the back. Like a just a tiny bit
+cyan. Not nothing too crazy. And then
+let's go to our hue versus saturation.
+Go under blue. Lift it up. Just give it
+a little bit more love. Do the same
+thing with our uh cyan. Just a little
+bit more love like right there. Okay,
+that's all we're doing. Just kissing it.
+All right. Nothing crazy. Uh let's go
+back like kind of go extreme to see like
+you know what what's the real change
+that we're making here.
+It looks good. Like everything is
+looking good and it is where we really
+want it. Okay. So this is all good. Do
+we want to push these more? I don't
+think so. like our warmth like we can if
+we want to like go here
+like if just even for the tutorials uh
+sake right like example sake so now if I
+do before and after let's actually buy
+some more real estate and if I just come
+out here and do this you see the warmth
+that we added in the bones of our image
+without like really making our footage
+look dingy like the white is still white
+and that is the cinematic look when you
+see something in Hollywood or high-end
+commercial, you're like, "Wow, like how
+is white white?" But then everything
+else is like this other thing. A lot of
+them are doing stuff like this. But I do
+want to do one thing, which is let's
+pump in warmth using our gamma. So even
+the skin tones get like this rich creamy
+color, but then offset that by using our
+gain to basically keep our whites clean.
+And then that's our fourth trick that's
+going to happen here. Okay. So, I'm
+going to go and drop my blue to add that
+warmth. I'm going to go under my green
+and see where I want to go. Maybe
+somewhere around here. My red.
+I can just take it here. Blue, like add
+that warmth. Okay. And now I'm looking
+at the sky in the back. And let's clean
+it up. So, I'm going to go in my blue,
+lift it up. I'm going to go in my
+magenta, pull it down, lift up my blue.
+And you see like now my blue is like so
+clean. And then we added so much warmth
+in the in the gamma. And you see the
+color separation that we created.
+Okay. Now, where you want to take it is
+up to you. But like look at how clean
+we're keeping our whites. Look at this
+right here. That little dance that we
+just did. We grabbed our gamma, warm it
+up, gave the skin tones that beautiful
+kiss of warmth, and then we took the
+highlights and kept it up there. Okay.
+So, this is where we're at right now.
+And now the next thing that I'm going to
+do which is going to make the biggest
+change is right here. Always, always,
+always make them look perfect. And one
+of the easiest ways to do that is just
+go here and type in glow. Okay, drop
+that on. Nothing happens. What we need
+to do is something very simple. Take the
+threshold, pull it, pull it all the way
+back. And then bring it closer to
+something like this. And then what do we
+want to do? We want to take it all the
+way to the right. Okay. So then this
+effect is very very gentle. And now we
+just want to play with it. So where do
+we want to do before and after?
+Okay. So let's park it somewhere around
+here. Now you can go right here and pick
+any color. Like you can actually like
+you know just for getting crazy we can
+just pick like some really crazy colors
+like even something like that. But what
+about if we just pick like white, like
+you know that silverish white that we
+want to add to our footage. And we just
+pick something like this. And now we do
+before and after. And like look at even
+when they're like this, how much pop we
+added in this area while leaving
+everything else as is. Now the final
+touch,
+you got to do broadstroke stuff. Okay?
+And you want to create a vignette that
+is just like this. So, one of the
+mistake that I saw with Mike, he was
+doing multiple windows. Don't do that.
+It's a wedding uh shoot. Okay, there's
+going to be a lot more shots. So, you
+don't want to mess with that. Just take
+this. Dude, what is happening? So, let's
+spread this out. Okay, pull this down to
+something like that. Spread it to
+something like that. Okay, move it a
+little bit. Just give it a little bit of
+shape. So I'm going to go
+and move it like this. If the sun is
+coming from there and just that's that's
+good enough. Let's go under gamma invert
+it. And then we just keep it realistic.
+So we go okay this is looking good. All
+right. And now if we just go here and
+look at this right there. That's looking
+really really good. So if I take this
+and go before and after what we started
+with to where we are and that warmth
+that we added without sacrificing
+anything else. So like if you look at
+his white, it stays white. We did not
+change anything on that, right? Like
+it's staying crispy, but like the
+overall image very beautifully just
+moves toward this quadrant. We're seeing
+that, but it's not overwhelming. It's
+not over the top. It is not doing
+something, you know, that we even see
+right here where it's just like it's
+taking a lot of these colors and just
+like shifting them in a way like if you
+look at the sky, it's getting too red
+here. Okay, if I go here to here, that
+is the giveaway. I'm like, oh man, is
+something is feeling really off, right?
+And then like the vignette is just so
+heavy because of this. Like I mean we
+have this vignette, then we have this,
+you know, window pulling it down. We
+have a lot applied, but then the opacity
+is pulled down. Why is our look node
+sitting right here? That should be all
+the way down here. We have like way too
+much going on, right? Like exposure and
+balance. Sure, you can keep it separate
+or you can keep it in one. So, we can
+keep like the entire process very very
+tight. What we're seeing here, what we
+did, right? Like we're just like really
+minimizing our steps. And if it's a
+wedding shoot and if that's the look
+that I created, obviously I'm going
+toward like very much like the sunset
+look, which was his objective. He wanted
+to achieve that sunset look. We can even
+just like dial back a little bit if we
+don't want to go that far. So like,
+okay, in my gamma right here, if I just
+kind of want to pull that back. And if I
+just go, well, maybe I just want to like
+kind of dial it back a little bit. So I
+just took my reds in my gamma and I
+pulled it down a little bit. And now
+it's like a very very balanced grade
+that we created. And it was just like
+this simple. So once you have command
+over these basic but very fundamental
+tools inside Resolve like look at the
+kind of effect and the kind of like
+looks we can create but that is just
+scratching the surface. Now if you
+really want to take this look to a whole
+another level then you cannot avoid
+looking at rapid grade. I'm just going
+to go here. I'm going to basically
+select one of our one-click looks which
+is 100% customizable. And let's just go
+here and select commercial white. And
+like look at this, right? So like the
+reason why it feels like it's double
+letting is because we created our
+contrast here. So as soon as we get rid
+of this, look at this. How beautiful
+that is. Or how about if we create
+something very gentle like a warm kiss
+like this look right here. Like look how
+pretty that is. Or what about if we
+select retrochrome? Look at what the
+hell happens to the sky, the leaves.
+Like are you kidding me? And look at how
+perfect the skin tones are. Like how
+good these guys look. There are 52 looks
+we create, custom looks that we create
+every year, which is one look a week,
+fully customizable, works in Da Vinci
+White Gamut, which means you have 30
+plus stops of dynamic range. Depending
+on whichever camera you're using, you
+are always futurep proof. It comes with
+a 7-day money back guarantee, and you
+can start for as low as $37 a month. So,
+this is absolutely a no-brainer. You
+should definitely check it out. Link is
+in the description. If you guys have any
+video suggestions, drop them down below.
+I will see you guys in the next one.

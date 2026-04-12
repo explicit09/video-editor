@@ -1,0 +1,591 @@
+So, in this episode, we're taking a deep
+dive into Power Windows. I use Power
+Windows all the time. I'm going to share
+with you my tips and tricks that I've
+built up over the years. I'm going to
+teach you the basics. I'm going to show
+you some more advanced techniques. And
+then I'm going to show you a Netflix
+show that I graded. I've got the actual
+grade here. I'm going to show you
+exactly what I did to relight the scene.
+So, let's go and take a look. So, we're
+in the color page. I've got three clips
+ready to go to show you everything I can
+about Power Windows. Now, this first
+one, I'm going to show you the very
+basics. So, if you do know a fair bit
+about Power Windows and you want to look
+at how I do it with my broadcast work,
+use the timestamps below and just jump
+ahead a little bit. But this is for
+absolute beginners. All right, we've got
+a shot here. I've got a few nodes on
+here. I've done some very basic color
+management. I've got episodes on color
+management. I'll put links to that in
+the description. But I've basically done
+a basic grade on this shot. Now, what
+I'm going to do is go to an empty node
+here, and I'm going to start putting
+some power windows on it. You'll find
+power windows down in this section here.
+And this one here is the power window
+icon. And you can select various
+different types. So you've got a linear
+one here. You've got a circle one.
+You've got a polygon shape here. You've
+got a curve where you can draw your own.
+And this bottom one is for gradients. So
+I'm going to slowly use each of these
+throughout this episode. Let's see what
+it's actually doing first. So if I
+select a circle power window here. All
+right. What it's done is drawn up a
+preset shape. And the green area here is
+the physical shape that it is. You can
+change that obviously by just pulling
+these handles. Okay, I can make that as
+small, large as I want. And the yellow
+inside and outside is softness. Okay, so
+let's start off without much softness.
+I'm going to put that over that taxi. By
+the way, mine are green and yellow
+because in my preferences here, I've
+changed the default color to be high
+visibility power window outlines. That's
+in user and color. I do that because
+it's easier for you to see on YouTube
+what I'm doing. All right, so we've got
+this shape, but nothing's happening.
+What is actually going on? So, what we
+want to do is brighten this taxi up. So,
+I'm going to use offset here and I'm
+just going to increase brightness. And
+I'm going to go quite extreme. But you
+see what's happening is it's only
+happening inside that window. The window
+is creating a secondary grade. We're
+isolating a section of video to actually
+do the grade on. Now, you can actually
+invert that. If I click here, I can
+actually do the opposite. So, I'm
+actually now the taxi stayed as it was
+and I've graded the outside of that
+window. So, you can choose inside or
+outside the window. So, it's really
+effective. All right, that's obviously
+quite extreme. So, let's just pull that
+back a little bit. Now, if I want to see
+what that looks like, you can click here
+and just switch that off. And I can now
+switch this node on and off. If I just
+press the little number six here, or I
+can press command D on my keyboard, I
+can see what's happening with that
+window. One of the first things that is
+good to know with Power Windows is B
+subtle. Okay, so I can see the outline
+of that. So, that's not a very good
+grade. So, we've got two options here.
+What we could do is go to our softness
+tool and just increase the softness.
+Now, I can't see the outline shape. So,
+what you need to do is just switch that
+back on. Go to power window here. And I
+can now see the shape. And I can move
+that around. You can do whatever you
+want with it. All right. So, that's just
+using the circle power window. What I
+want to do now is let's get rid of that
+one. You can switch it on and off like
+this. Okay. You can even name them. If I
+click on here, I could say taxi. So, let
+me quickly just show you the other ones.
+I don't use this one a lot, but it's
+basically a linear tool. So, it's
+already got a softness on it, and you
+can control the individual edges
+softness independently. All right, the
+next one down here is a linear tool.
+Now, this looks like it hasn't got
+softness on it, but it has. But it's
+inside and outside, so it's a bit more
+global. And let me just show you if I do
+something extreme in there, and I'll
+just show you that that is in fact
+softening off. I hope you can see that.
+Yeah, you should be able to see that on
+YouTube. This one is one that I use a
+lot. I tend to use the circle one and
+this one which is a curve tool. And this
+allows me to get a much more accurate
+shape. So I can now draw around this
+taxi.
+You see I'm doing it quite loose. I'm
+not being too tight. I tend to put more
+points on than I need. It's I think it's
+because I'm using a pen and tablet. Um
+you don't need to put as many as that
+on, but as long as they join up, it will
+complete the shape. I'm going to put a
+little bit of outside softness on there
+and a little bit inside softness. One
+thing to be careful of is if you make
+your angles too tight, what can happen
+is you can go inside out with your
+softness. So, just be careful of that.
+It doesn't look pretty. So, I'm going to
+undo that. And now, if I increase that
+offset, there we go. We pop in the taxi.
+Again, I'm just doing this for effect to
+show you. I'm not saying that's a good
+grade. Or I can do the inverse of that
+by clicking on there. So, that's what
+these are doing. This one here, by the
+way, this is a gradient. So, if I just
+click on here, I don't use this to be
+honest, but this gives you a gradient
+tool. And you can position where the
+gradient starts and how the longer this
+line is, the softer that gradient
+appears. Okay? So, it's like that.
+And another trick you can do, if I click
+here and do something like so in here,
+but let's say you want to make a bit
+more of a point in here. You don't want
+to be a complete circle. Instead of
+getting rid of it and going to the curve
+tool, what you can actually do is click
+here and say convert to bezier. And now
+what I can do is add extra points in
+here. And then you can use your inside
+and outside softness independently. So
+that's another little trick. So that's
+one example of where a window works. But
+this window is static now. Okay, we've
+got quite a lot going on in this scene.
+Let me show you what actually happened
+in this. This is a commercial I created
+years ago. And as we move through this
+scene, you'll see that this character
+here has a red tail on their coat. This
+was for the branding. So the branding of
+the commercial that we did was this red.
+And they thought it'd be nice to have
+the red pillar box in here and red in
+her coat. but it actually became a
+little bit distracting when she walked
+down the street. So, what we did was
+change the hue of it. Now, I'm going to
+show you a really good technique with
+power windows here. Let's take this coat
+here and what I'm going to do is I'm
+going to select it with let's use a
+curve. I'm going to go up to here. I'm
+going to say hue versus hue. I'm going
+to select that red and I'm just going to
+cycle through. And we actually made it
+blue. So, let me just make it actually
+blue. I'm going to stretch that out a
+little bit so it's a bit nicer.
+It wasn't quite as strong blue as that.
+Something more like that. There we go.
+That's that's exactly what it was. Now,
+the issue we've got here is it's changed
+the taxi and the pillar box. So, what's
+good to do here is to use a power
+window. So, I'm going to go to my window
+here. I've got a whole episode on how to
+do everything I'm about to show you as
+well. I'll put a link to that in the
+description. But, effectively, I'm going
+to draw a window around her and track
+it. So, we isolate just this section to
+be blue. So, I'm gonna take my little
+curve here. There's the preset shape
+from before. Now, what I could do is
+ignore that one. We can actually go up
+here and add a new one. You can have as
+many of these as you like. So, I'm going
+to add a new curve that's appearing
+here. And I'm just going to draw instead
+of rebuilding that one. It's easier for
+me to just do this. I'm just going to
+draw loosely around that shape. And you
+can see what's happening now because
+we're on inside and not outside. We've
+isolated that whole huge shift that we
+did for the whole image is now isolated
+within this power window. And what I'm
+going to do is track this. because I've
+got a window live. All you got to do is
+go into the tracker. Okay. And literally
+just press track. So I'm going to track
+forwards and backwards. And it's done.
+So if we just play that through, I just
+put my loop on.
+And she comes. And there we've got a
+perfect track of that code. Now, in this
+episode that I'm going to put a link to,
+I show you how to fix bad tracking, how
+to use Windows more advanced in
+tracking. So check that one out if you
+haven't seen it already. So before we
+move on to the full relighting that I'm
+going to show you on the actual
+broadcast job that I worked on, let's
+just take a quick look at this shot
+here. I've done some basic color
+management on this. Again, this is shot
+on uh Blackmagic camera. And what I'm
+using here is my fixed notary. This is
+freely available. There's a link in the
+description. You can download this and
+use it for free. And I've got an episode
+on how I use this note tree. I'll put a
+link to that in the description as well.
+And I've done the color management on
+here. And I've done some very basic
+color grading on here as well. Now, in
+reality on my fixed notary, my power
+windows go in some parallels down here.
+And the reason they go in parallels is
+so that I'm blending them together and
+they're not each power window is not
+then feeding the next power window. So,
+it's nice to have them in parallels.
+It's a good rule to follow. So, if
+you're enjoying this episode so far,
+drop me a comment and let me know what
+you'd like to see in future episodes.
+Also, think about subscribing if you
+haven't done so already. I don't ask
+very often. I do work hard to get these
+episodes as good as I can for you. and I
+would love it if you hit the like button
+for me. All right, let's take a look at
+what we're going to do on this one. Now,
+what often gets done and a quite a
+common technique is to use power windows
+to make a vignette. So, let me show you
+exactly how to do that. If you take a
+power window here, we're going to take a
+circle power window. And the first thing
+we do is soften off the edges. You want
+really, really soft edges on this. I'm
+going to bring that up to here.
+Sometimes I don't always have the
+vignettes out in the middle, but what
+I'd like to use for mine, I'm going to
+invert it obviously, or else it's going
+to grade inside that shape, but I use
+two different methods of doing it. The
+first one is just using gamma in the
+primary wheels. So, if I just bring that
+down, I'm going quite extreme here, but
+you can see we're getting that really
+nice sort of vignetting feel on the
+edge. Or the other trick that I use is I
+go to HDR and I just bring down exposure
+slightly.
+Okay, you got to be careful with this
+one because you are actually affecting
+your blacks and whites as well. So, I
+tend to use gamma more than I use global
+offset, but it would depend on the shot.
+So, that's how you get a basic vignette.
+Now, what you can do is then click on
+here and you can save that as a new
+preset. And I'm going to call that
+vignette.
+Or you can save it as a shared node or
+you can save as a still in your gallery.
+But I like to put it in there. Now, if I
+wanted to get that and put it on this
+shot, I can select this shot here and I
+can click on here and say vignette. And
+there it is. There's the shape ready for
+me to go. So, that's a really good tip
+as well. So, let's take a look at a real
+world example. I want to show you an
+actual job that I worked. I'm going to
+show you just how I use power windows
+and how subtle they can be, but I'm
+going to show you what a huge difference
+they really make. So, this shot here,
+this is from a Netflix show and this is
+the actual grade. So you see it's very
+similar to my fixed notary that you
+download, but it's got a little bit more
+going on in it. So it's just an
+extension of that. So this is the actual
+finished shot. I've got various things
+going on here. We've got our color
+balance going on here. There's a bit of
+temperature control. There's various
+things, but you see here I've got a
+whole section of windows. Now this
+started life as this. This is in recx
+709. There's no point me showing you
+log. Well, here's the log. This is rec
+709. And then we came to this. This is
+the grade but without any power window.
+So I want to show you exactly how I've
+used them. I'm going to do this. I'm
+going to rebuild it from scratch. So
+this shot is taken from a documentary
+that is factual crime. And we thought
+that the scene here just looks a little
+bit too bright for the subject that's
+actually being spoken about. So the
+director decided that he wanted the
+background to be set back a little bit.
+So I've got a node here called
+background. And let me show you
+traditionally how this would be done.
+I'm going to go into here. I'm going to
+do a shape. Now, what I need to do is
+get outside of the image here. So, what
+I'm going to do is go up to here. I'm
+just going to roll this back to be about
+75%. I've actually got this mapped to a
+wheel that sits on my Zenti Labs tablet
+and pen. So, that's really useful. I can
+just grab that at any point. So, what I'
+do is if we want to make her pop and the
+background darker, what I would do
+traditionally is just draw a nice loose
+shape around her
+and add plenty of softness, of course,
+as I always do. Always plenty of
+softness. I don't think I've ever done a
+power window without softness on it,
+unless even if I'm drawing around a
+laptop screen, I'd even have a couple of
+pixels. And then what we do is invert
+that. And then I'm just going to take my
+exposure here and my HDR.
+And I'm just going to drop that back
+slightly. So it looks something like
+that. Now let's just go and switch that
+window off. In fact, I don't need to do
+that here because I've got other nodes
+here with nothing on. I can just
+literally switch on another node. And
+you see that looks pretty good. But the
+problem I've got, in fact, if I just
+highlight that, you can see if I enable
+and disable. But the problem I've got is
+you can see this edging. And I want they
+wanted it quite dark back. So, this is
+not going to work in that instance. This
+is an example of when not to use a power
+window, but I still want that effect to
+happen. Now, with version 20, we've got
+this fantastic magic mask. I actually
+use magic mask on the original one, but
+that wasn't on version 20. So, I'm going
+to get rid of the power window in this
+instance. And the reason I'm putting
+this on is because I need to show you
+other things I'm doing with the power
+windows that might explain why they're
+in parallel as well. So, I'm going to
+take my background. What we did was we
+used the magic mask here, and I'm going
+to go to better mode. I'm going to do
+this properly. I'm going to do it
+exactly how I would do it in broadcast
+situation. And what we do is highlight
+her.
+Now, the reason I can't use the depth
+control is because this cushion and this
+armchair here are on the same depth as
+her. So, I'd have to use maybe depth map
+and a window, but I found it easier to
+just go straight for the magic mask. So,
+if I put my highlight tool on up here,
+you can see what's going on. It's done a
+fantastic job of getting her exactly in
+there. So, what we can do now is take
+that off. Let's invert it because I
+don't want her to be affected. And we're
+going to do that exact same move. I'm
+just going to bring down my exposure
+and drop it down something like that. I
+think we went to I can't remember the
+exact number we went to, but it was
+something around about there. Now,
+that's looking good. She's really
+popping in there, but it looks a bit
+weird. She looks still a bit too lit. In
+fact, if anything, that's probably a bit
+strong. Let's just knock it back a
+little bit.
+There we go. Right. So, she's now
+looking good. She's we've got that
+background set, but it's starting to
+look a bit dull. Now, the next thing I
+did was click on here, and this area is
+it's just a bit dead. There's nothing
+really going on there. Here, we've got a
+nice practical. We've got some photos.
+We've got the chairs, but there's not a
+lot actually going on on here. So, what
+I decided to do was take a power window
+and I did a circle power window on it
+just for speed, lots of softness, and
+pulled it out like this. But what I did
+was make it quite long.
+In fact, I made it more than that. Even
+if I just change my aspect, something
+like that. And this side, you literally
+couldn't see it. So, it did something
+like that. I'm going to invert it. And
+I'm going to bring down gamma here.
+And we're just dropping that side down.
+So, you see what's happening. If I
+switch that on and off, we're just
+dropping that side, but nothing over
+here is being affected. So, that's a
+really good way of doing. I could have
+just done that with a window drawn
+something like this, but I quite like
+using circle power windows. All right,
+the next thing I noticed if we click on
+this next node is that this lamp here.
+So, so far what we've got, if I just
+show you the windows we've done so far,
+we're dropping that background down.
+We've dropped the left side down even
+more, but this lamp here is getting
+affected by that as well. So, let's just
+adjust that. What I'll do is another
+little circle pal window. And you see
+how subtle I'm being with all these. I'm
+going to bring that down and we're going
+to just put that over here.
+I'm going to add a little bit more
+softness to it. Okay. And what I'm going
+to do is just bring up the exposure on
+that.
+Just slightly. Not I mean, look how
+little I'm bringing it up. Okay. This is
+how you're doing it when you're doing it
+for real broadcast. You don't want
+anyone to see these windows. That's the
+key of getting it right. I'm then going
+to bring up my saturation just a little
+bit. Okay. And just want to see now how
+much of a difference that's made. So,
+I'm not changing the lights coming out
+of it. I'm not making it look silly, but
+what I'm doing is just giving it a
+little bit of an edge. So, we've now got
+background, left side, and that
+practical lamp being lifted. Okay. So,
+that's all great, but what I felt was
+missing. Now, if I just click on here,
+is the room starting to look a little
+bit flat. So, she's quite lit still
+because if you remember, the room is
+actually lit like this, but it's
+starting to look a bit flat. So, what I
+did was do a final power window. I'm
+just going to draw it in. And I just
+need to come out a little bit more of
+this. And I'm going to enhance the
+lights coming in through this window.
+So, I'm going to do something like this.
+Again, I don't need to draw as many
+points as this. It's just a habit that I
+do from many, many years of doing this.
+Uh, I've not quite join the dots up
+there. There you go. Now, they're
+joined. Okay. So, now plenty of outside
+softness. I really can't stress that
+enough on this.
+Okay. Okay. I just need to be careful
+there that I don't go inside out.
+All right. Something like that. Now,
+what I'm going to do is I'm going to go
+to my tool here. I'm going to add a
+little bit of gamma.
+Let's add a bit more. Something like
+that. So, we're still getting the
+background looking dark, but we've got
+just a little bit more life coming into
+it. All right. Let's go something like
+that. Now, the issue we've got here is
+if I just take that window off
+is it doesn't look right because if I
+command D again because the light is
+actually coming in front of it. I'm
+going to you know what? I'm going to add
+a bit more into this just to exaggerate
+it just so you can see what's going on.
+And let's put that back to best fit. But
+it's a bit too strong. Sorry. I can't
+leave it like that. Um so there's the
+light coming in. Now what we need to do
+is block her from that light being
+affected through that window. All right.
+Again, we could use depth map here, but
+because I've already magic masked her,
+which is going to track all her
+movements, she lifts her hands up soon.
+I can take the magic mask that I did,
+and I can take the feed, the key from it
+into this window shot. And what happens
+now is you see we've got the light
+coming in through the window, but it's
+all going behind her. So, that is now a
+convincing effect. So, let's take a look
+at all four of those lights together.
+Now, when you're doing this amount of
+relighting work, you really want to play
+the clip back, especially as we've used
+magic mask. Now, on the actual grade, I
+checked that render first just to check
+that I wasn't getting into trouble. But
+let's play this clip back. So, on the
+left hand side, you've got the full
+grade, but without any of the power
+window work, and the right hand side is
+all that work that we did on those four
+power windows. So, we've got our base
+shot, then we darken the background,
+darken the left hand side, lifted up
+that practical light, and then we added
+that window light, but keeping our
+subject blocked. and that has
+dramatically changed that scene. So,
+that is a true real world example. You
+can see how subtle I am with those power
+windows. This is a really good practical
+example of how that works. Now, I've had
+a few comments recently in my other
+episodes just saying, "Where are you?
+Why are you not recording? Why have you
+posted so infrequently?" This year has
+been particularly busy, but I am a real
+working colorist. This is my day job is
+as a broadcast colorist. That's how I
+can give you insights like this. These
+are real world examples. I am back on
+YouTube now. I intend to get another
+episode out next week. So, I am doing a
+little window where I'm going to get as
+many out as I can, but I try my best,
+okay? But I am a real full-time
+colorist. That is my job. So, I hope you
+enjoyed this. If you have, think about
+subscribing as well. It's really good
+for me to see that. I know most of you
+don't subscribe. I get it, but I really
+do appreciate it, especially when I'm
+not posting as much as I want to. Just
+give me a bit of encouragement. Look
+after yourselves and I'll see you in the
+next episode.

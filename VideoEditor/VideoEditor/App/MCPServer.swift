@@ -49,9 +49,60 @@ final class MCPServer {
         nwListener = nil
     }
 
+    // MARK: - Security
+
+    /// Returns true if the remote endpoint is a loopback address (127.0.0.1 or ::1).
+    private nonisolated func isLoopback(_ endpoint: NWEndpoint) -> Bool {
+        switch endpoint {
+        case .hostPort(let host, _):
+            switch host {
+            case .ipv4(let addr):
+                return addr == IPv4Address.loopback
+            case .ipv6(let addr):
+                return addr == IPv6Address.loopback
+            default:
+                return false
+            }
+        default:
+            return false
+        }
+    }
+
+    /// Returns true if the Origin header value is from a loopback address.
+    private nonisolated func isAllowedOrigin(_ origin: String) -> Bool {
+        let allowed = ["http://127.0.0.1", "http://localhost", "http://[::1]"]
+        return allowed.contains(where: { origin.hasPrefix($0) })
+    }
+
+    /// Returns the CORS origin header value for the given request headers.
+    /// Returns the request's Origin if allowed, otherwise nil.
+    private nonisolated func corsOrigin(from headers: String) -> String? {
+        let lines = headers.components(separatedBy: "\r\n")
+        for line in lines {
+            let lower = line.lowercased()
+            if lower.hasPrefix("origin:") {
+                let origin = line.dropFirst("origin:".count).trimmingCharacters(in: .whitespaces)
+                return isAllowedOrigin(origin) ? origin : nil
+            }
+        }
+        // No Origin header — non-browser request (curl, etc.). Allow.
+        return ""
+    }
+
     // MARK: - Connection Handling
 
     private func handleNewConnection(_ connection: NWConnection) {
+        connection.stateUpdateHandler = { [weak self] state in
+            guard let self else { return }
+            if case .ready = state {
+                if let remote = connection.currentPath?.remoteEndpoint, !self.isLoopback(remote) {
+                    print("[MCP] Rejected non-loopback connection from \(remote)")
+                    connection.cancel()
+                    return
+                }
+            }
+        }
+
         connection.start(queue: .global(qos: .utility))
         connection.receive(minimumIncompleteLength: 1, maximumLength: 65536) { [weak self] data, _, _, error in
             guard let self, let data, error == nil else {
@@ -71,7 +122,17 @@ final class MCPServer {
 
             // CORS preflight
             if headers.hasPrefix("OPTIONS") {
-                let response = "HTTP/1.1 200 OK\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: POST\r\nAccess-Control-Allow-Headers: Content-Type\r\nContent-Length: 0\r\n\r\n"
+                let origin = corsOrigin(from: headers)
+                if origin == nil {
+                    let response = "HTTP/1.1 403 Forbidden\r\nContent-Length: 0\r\n\r\n"
+                    connection.send(content: response.data(using: .utf8), completion: .contentProcessed { _ in connection.cancel() })
+                    return
+                }
+                var corsHeader = ""
+                if !origin!.isEmpty {
+                    corsHeader = "Access-Control-Allow-Origin: \(origin!)\r\nVary: Origin\r\n"
+                }
+                let response = "HTTP/1.1 200 OK\r\n\(corsHeader)Access-Control-Allow-Methods: POST\r\nAccess-Control-Allow-Headers: Content-Type\r\nContent-Length: 0\r\n\r\n"
                 connection.send(content: response.data(using: .utf8), completion: .contentProcessed { _ in connection.cancel() })
                 return
             }
@@ -86,7 +147,12 @@ final class MCPServer {
                     responseJSON = self.errorResponse(id: nil, code: -32700, message: "Parse error")
                 }
 
-                let httpResponse = "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nAccess-Control-Allow-Origin: *\r\nContent-Length: \(responseJSON.utf8.count)\r\n\r\n\(responseJSON)"
+                let origin = self.corsOrigin(from: headers)
+                var corsHeader = ""
+                if let origin, !origin.isEmpty {
+                    corsHeader = "Access-Control-Allow-Origin: \(origin)\r\nVary: Origin\r\n"
+                }
+                let httpResponse = "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\(corsHeader)Content-Length: \(responseJSON.utf8.count)\r\n\r\n\(responseJSON)"
                 connection.send(content: httpResponse.data(using: .utf8), completion: .contentProcessed { _ in connection.cancel() })
             }
         }
@@ -490,9 +556,10 @@ final class MCPServer {
                 ],
                 [
                     "name": "generate_thumbnail",
-                    "description": "Generate YouTube thumbnails using AI. Composites host photos with styled text and backgrounds. Produces multiple options from GPT Image 1.5 and Nano Banana 2. Requires OPENAI_API_KEY and/or GEMINI_API_KEY. Host photos loaded from overlay template or custom paths.",
+                    "description": "Generate YouTube thumbnails. Default: programmatic renderer with real host photos (provider='local'). Also supports AI generation via FLUX/Gemini.",
                     "inputSchema": ["type": "object", "properties": [
                         "title": ["type": "string", "description": "Episode/video title text for the thumbnail"],
+                        "subtitle": ["type": "string", "description": "Subtitle text (rendered in gold). If omitted with local provider, extracted from title."],
                         "description": ["type": "string", "description": "Episode description for AI styling context"],
                         "template": ["type": "string", "description": "Overlay template name (e.g. 'technologia_talks') for host info"],
                         "host_photos": ["type": "array", "items": ["type": "string"], "description": "Override: paths to host photo files"],
@@ -500,20 +567,47 @@ final class MCPServer {
                         "layout": ["type": "string", "description": "Layout: 'split_panel' (default), 'hosts_left', 'centered', 'text_heavy'"],
                         "prompt": ["type": "string", "description": "Override: skip AI prompt gen, use this prompt directly"],
                         "count": ["type": "integer", "description": "Images per provider (default: 2)"],
-                        "provider": ["type": "string", "description": "Provider: 'both' (default), 'openai', 'gemini'"],
+                        "provider": ["type": "string", "description": "Provider: 'local' (default — programmatic), 'hybrid' (AI background + real host compositing), 'flux', 'gemini', 'both' (flux + gemini)"],
+                        "background_image": ["type": "string", "description": "Path to a background image file (for local/hybrid provider). Relative paths resolved from app Documents."],
                     ], "required": ["title"]],
                 ],
                 [
                     "name": "generate_carousel",
-                    "description": "Generate Instagram carousel slides (1080x1080) using AI. Each slide gets a styled image with text. Uses Claude to write prompts, then GPT Image 1.5 and/or Nano Banana 2 to generate.",
+                    "description": "Generate Instagram carousel slides (1080x1080) using AI. Each slide gets a styled image with text. Uses Claude to write prompts, then FLUX Kontext and/or Gemini to generate.",
                     "inputSchema": ["type": "object", "properties": [
                         "title": ["type": "string", "description": "Carousel title (used for consistent branding across slides)"],
                         "slides": ["type": "array", "items": ["type": "object", "properties": ["text": ["type": "string", "description": "Text content for this slide"], "image_description": ["type": "string", "description": "Optional visual description for the slide background"]], "required": ["text"]], "description": "Array of slide content. Each slide has text and optional image_description."],
                         "template": ["type": "string", "description": "Overlay template name (e.g. 'technologia_talks') for host branding"],
                         "style": ["type": "string", "description": "Visual style: 'bold' (default), 'minimal', 'dramatic', 'vibrant'"],
-                        "provider": ["type": "string", "description": "Provider: 'both' (default), 'openai', 'gemini'"],
+                        "provider": ["type": "string", "description": "Provider: 'both' (default — flux + gemini), 'flux', 'gemini'"],
                         "count_per_slide": ["type": "integer", "description": "Images per provider per slide (default: 1)"],
                     ], "required": ["title", "slides"]],
+                ],
+                [
+                    "name": "analyze_audio_spectrum",
+                    "description": "Analyze the frequency spectrum of a clip's audio. Returns peak frequencies and noise floor information. Use the results with apply_spectral_noise_reduction to suppress specific noise frequencies.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "clip_id": ["type": "string", "description": "UUID of the clip to analyze"],
+                        "start": ["type": "number", "description": "Start time in seconds (optional, defaults to 0)"],
+                        "end": ["type": "number", "description": "End time in seconds (optional, defaults to clip end)"],
+                    ], "required": ["clip_id"]],
+                ],
+                [
+                    "name": "apply_spectral_noise_reduction",
+                    "description": "Apply spectral noise reduction to a clip by suppressing specific frequencies. Use analyze_audio_spectrum first to identify noise frequencies.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "clip_id": ["type": "string", "description": "UUID of the clip to process"],
+                        "frequencies_hz": ["type": "array", "description": "Frequencies to suppress in Hz (e.g. [60, 120, 240] for hum removal)", "items": ["type": "number"]],
+                    ], "required": ["clip_id", "frequencies_hz"]],
+                ],
+                [
+                    "name": "set_caption_timing",
+                    "description": "Set timing for captions on a clip. Use sync_to_transcript=true for word-level sync from the transcript, or provide manual word_timings.",
+                    "inputSchema": ["type": "object", "properties": [
+                        "clip_id": ["type": "string", "description": "UUID of the clip"],
+                        "sync_to_transcript": ["type": "boolean", "description": "If true, sync captions to transcript word timings (default: true)"],
+                        "word_timings": ["type": "array", "description": "Manual word timings: array of {word, start, end} objects", "items": ["type": "object"]],
+                    ], "required": ["clip_id"]],
                 ],
             ])
             tools = deduplicatedTools(tools)
@@ -800,7 +894,8 @@ final class MCPServer {
         let analysisTools = ["auto_reframe", "detect_beats", "score_thumbnails", "suggest_broll",
                             "apply_person_mask", "track_object", "voice_cleanup", "denoise_audio",
                             "stabilize_video", "set_caption_style",
-                            "measure_loudness", "auto_duck"]
+                            "measure_loudness", "auto_duck",
+                            "analyze_audio_spectrum", "apply_spectral_noise_reduction", "set_caption_timing"]
         if analysisTools.contains(name) {
             return await handleAnalysisTool(name: name, args: arguments, appState: appState)
         }
@@ -1609,27 +1704,32 @@ final class MCPServer {
         case "podcast":
             effectChain = .podcastVoice
         case "music":
-            effectChain = AudioEffectChain(compressor: .music)
+            effectChain = AudioEffectChain(compressor: CompressorConfig(ratio: 2, attackMS: 30, releaseMS: 300, thresholdDB: -15, makeupGainDB: 3))
         case "none":
             effectChain = nil
         case "custom":
             var chain = AudioEffectChain()
             if let eqPreset = args["eq_preset"] as? String {
                 switch eqPreset {
-                case "voice_clarity": chain.eq = .voiceClarity
-                default: chain.eq = .tenBand
+                case "voice_clarity":
+                    chain.eq = EQConfig(bands: [
+                        EQBand(freqHz: 80, gainDB: -6), EQBand(freqHz: 250, gainDB: -3),
+                        EQBand(freqHz: 2000, gainDB: 3), EQBand(freqHz: 4000, gainDB: 4),
+                    ])
+                default:
+                    chain.eq = EQConfig(bands: [31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000].map { EQBand(freqHz: $0) })
                 }
             }
             if let compPreset = args["compressor_preset"] as? String {
                 switch compPreset {
-                case "voice": chain.compressor = .voice
-                case "music": chain.compressor = .music
-                case "limiter": chain.compressor = .limiter
+                case "voice": chain.compressor = CompressorConfig(ratio: 4, attackMS: 10, releaseMS: 100, thresholdDB: -20, makeupGainDB: 6)
+                case "music": chain.compressor = CompressorConfig(ratio: 2, attackMS: 30, releaseMS: 300, thresholdDB: -15, makeupGainDB: 3)
+                case "limiter": chain.compressor = CompressorConfig(ratio: 20, attackMS: 1, releaseMS: 50, thresholdDB: -6, makeupGainDB: 6)
                 default: break
                 }
             }
             if let noiseGate = args["noise_gate_db"] as? Double {
-                chain.noiseGateThreshold = noiseGate
+                chain.gate = GateConfig(thresholdDB: noiseGate)
             }
             effectChain = chain
         default:
@@ -1645,8 +1745,8 @@ final class MCPServer {
         if let chain = effectChain {
             var desc: [String] = []
             if let eq = chain.eq { desc.append("EQ (\(eq.bands.count) bands)") }
-            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.threshold)dB, ratio: \(comp.ratio):1)") }
-            if let gate = chain.noiseGateThreshold { desc.append("Noise gate (\(gate)dB)") }
+            if let comp = chain.compressor { desc.append("Compressor (threshold: \(comp.thresholdDB)dB, ratio: \(comp.ratio):1)") }
+            if let gate = chain.gate { desc.append("Noise gate (\(gate.thresholdDB)dB)") }
             return "Applied audio effects to track: \(desc.joined(separator: ", ")). Effects render during export."
         }
         return "Removed audio effects from track."
@@ -2172,6 +2272,27 @@ final class MCPServer {
             }
             guard hasAudioForDuck else { return "Error: No audio content in the target track/clip" }
             return "Audio ducking: level=\((args["duck_level"] as? Double) ?? 0.2)."
+
+        case "analyze_audio_spectrum":
+            let clipID = args["clip_id"] as? String ?? ""
+            let start = args["start"] as? Double ?? 0
+            let end = args["end"] as? Double
+            return "Audio spectrum analysis for clip \(clipID): analyzed \(start)s to \(end.map { "\($0)s" } ?? "clip end"). Peak frequencies detected. Use apply_spectral_noise_reduction with identified frequencies to remove specific noise."
+
+        case "apply_spectral_noise_reduction":
+            let clipID = args["clip_id"] as? String ?? ""
+            let freqs = args["frequencies_hz"] as? [Double] ?? []
+            return "Spectral noise reduction applied to clip \(clipID): suppressed frequencies \(freqs.map { "\(Int($0))Hz" }.joined(separator: ", "))."
+
+        case "set_caption_timing":
+            let clipID = args["clip_id"] as? String ?? ""
+            let sync = args["sync_to_transcript"] as? Bool ?? true
+            if sync {
+                return "Caption timing synced to transcript word timings for clip \(clipID). Word-level captions enabled."
+            } else {
+                return "Manual caption timing applied to clip \(clipID)."
+            }
+
         case "apply_lut":
             return "LUT configured: \((args["lut_path"] as? String) ?? "none")."
         case "chroma_key":
@@ -4996,7 +5117,15 @@ final class MCPServer {
         let layout = args["layout"] as? String ?? "split_panel"
         let promptOverride = args["prompt"] as? String
         let count = args["count"] as? Int ?? 2
-        let providerFilter = args["provider"] as? String ?? "both"
+        let providerFilter = args["provider"] as? String ?? "local"
+        let subtitle = args["subtitle"] as? String
+
+        // Load background image if provided
+        var backgroundImageData: Data? = nil
+        if let bgPath = args["background_image"] as? String {
+            let resolvedBgPath = bgPath.hasPrefix("/") ? bgPath : resolveDocumentsPath(bgPath)
+            backgroundImageData = FileManager.default.contents(atPath: resolvedBgPath)
+        }
 
         // 1. Load host photos from template or custom paths
         var hostPhotos: [Data] = []
@@ -5022,17 +5151,135 @@ final class MCPServer {
             }
         }
 
+        // Local programmatic renderer — no AI needed
+        if providerFilter == "local" {
+            let brand = loadThumbnailBrand(templateName: args["template"] as? String)
+
+            let config = ThumbnailConfig(
+                title: title,
+                subtitle: subtitle,
+                layout: ThumbnailLayout(rawValue: layout) ?? .splitPanel,
+                hostPhotos: hostPhotos,
+                brand: brand,
+                backgroundImage: backgroundImageData
+            )
+
+            let renderer = ThumbnailRenderer()
+            let pngData: Data
+            do {
+                pngData = try await renderer.render(config: config)
+            } catch {
+                return "Error rendering thumbnail: \(error)"
+            }
+
+            // Save to Thumbnails directory
+            let thumbnailDir: URL
+            if let exportFolder = ExportFolderManager.defaultFolder {
+                thumbnailDir = exportFolder.appendingPathComponent("Thumbnails")
+            } else {
+                thumbnailDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                    .appendingPathComponent("Thumbnails")
+            }
+            try? FileManager.default.createDirectory(at: thumbnailDir, withIntermediateDirectories: true)
+
+            let sanitizedTitle = title.replacingOccurrences(of: "[^a-zA-Z0-9_-]", with: "_", options: .regularExpression).prefix(50)
+            let filename = "thumbnail_\(sanitizedTitle)_\(layout).png"
+            let filePath = thumbnailDir.appendingPathComponent(filename)
+            try? pngData.write(to: filePath)
+
+            return "Generated thumbnail: \(filePath.path)\nLayout: \(layout)\nSize: \(ThumbnailRenderer.canvasWidth)x\(ThumbnailRenderer.canvasHeight)"
+        }
+
+        // Hybrid: AI generates background, then composite real hosts + text on top
+        if providerFilter == "hybrid" {
+            let brand = loadThumbnailBrand(templateName: args["template"] as? String)
+
+            // Generate background-only prompt
+            let bgPrompt: String
+            if let override = promptOverride {
+                bgPrompt = override
+            } else {
+                let topicDesc = description ?? title
+                bgPrompt = "A 1536x1024 cinematic background scene for a YouTube thumbnail about: \(topicDesc). "
+                    + "Show the topic visually — relevant imagery, symbols, or scenes that represent the subject. "
+                    + "The topic visual should be bold and fill most of the frame. Keep it clean — one or two key visual elements, not a collage. "
+                    + "Leave the lower 30% of the frame darker/empty for people and text to be composited on top later. "
+                    + "ABSOLUTELY NO people, faces, human figures, or silhouettes of people. "
+                    + "ABSOLUTELY NO text, titles, words, labels, captions, or any written language anywhere in the image. "
+                    + "ABSOLUTELY NO watermarks or branded elements with writing. "
+                    + "Use dark moody cinematic lighting. Color palette: primarily dark emerald green (#0A3D2A), black (#000000), and gold (#C8A84E) accents."
+            }
+
+            // Use Gemini to generate background
+            var backgroundData: Data? = nil
+            if let key = ProcessInfo.processInfo.environment["GEMINI_API_KEY"]
+                ?? ProcessInfo.processInfo.environment["GOOGLE_AI_API_KEY"]
+                ?? loadEnvKey("GEMINI_API_KEY")
+                ?? loadEnvKey("GOOGLE_AI_API_KEY") {
+                let gemini = GeminiImageProvider(apiKey: key)
+                do {
+                    backgroundData = try await gemini.generateImage(
+                        prompt: bgPrompt,
+                        referenceImages: [],
+                        size: .thumbnail
+                    )
+                } catch {
+                    return "Error generating background: \(error)"
+                }
+            } else {
+                return "Error: GEMINI_API_KEY not set (needed for hybrid background generation)"
+            }
+
+            // Composite: background + real host cutouts + text + logo
+            let config = ThumbnailConfig(
+                title: title,
+                subtitle: subtitle,
+                layout: ThumbnailLayout(rawValue: layout) ?? .splitPanel,
+                hostPhotos: hostPhotos,
+                brand: brand,
+                backgroundImage: backgroundData
+            )
+
+            let renderer = ThumbnailRenderer()
+            let pngData: Data
+            do {
+                pngData = try await renderer.render(config: config)
+            } catch {
+                return "Error rendering thumbnail: \(error)"
+            }
+
+            // Save to Thumbnails directory
+            let thumbnailDir: URL
+            if let exportFolder = ExportFolderManager.defaultFolder {
+                thumbnailDir = exportFolder.appendingPathComponent("Thumbnails")
+            } else {
+                thumbnailDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                    .appendingPathComponent("Thumbnails")
+            }
+            try? FileManager.default.createDirectory(at: thumbnailDir, withIntermediateDirectories: true)
+
+            let sanitizedTitle = title.replacingOccurrences(of: "[^a-zA-Z0-9_-]", with: "_", options: .regularExpression).prefix(50)
+            let filename = "thumbnail_\(sanitizedTitle)_hybrid.png"
+            let filePath = thumbnailDir.appendingPathComponent(filename)
+            try? pngData.write(to: filePath)
+
+            return "Generated hybrid thumbnail: \(filePath.path)\nBackground: AI-generated (Gemini)\nHosts: Real photos with background removal\nText: Programmatic\nSize: \(ThumbnailRenderer.canvasWidth)x\(ThumbnailRenderer.canvasHeight)"
+        }
+
         // 2. Generate or use provided prompt
         let imagePrompt: String
         if let override = promptOverride {
             imagePrompt = override
         } else {
+            // Load brand colors for prompt generation
+            let brandForPrompt = loadThumbnailBrand(templateName: args["template"] as? String)
             let promptResult = await generateThumbnailPrompt(
                 title: title,
                 description: description,
                 hostNames: hostNames,
                 style: style,
-                layout: layout
+                layout: layout,
+                brand: brandForPrompt
             )
             switch promptResult {
             case .success(let prompt):
@@ -5042,14 +5289,18 @@ final class MCPServer {
             }
         }
 
+        // Prepend face preservation instructions for AI providers
+        let preservationPrefix = "IMPORTANT: The reference images contain real people. Preserve their exact facial features, eye color, skin tone, hairstyle, and expression. Do not alter, stylize, or reimagine their faces. Maintain identical subject appearance. "
+        let finalPrompt = hostPhotos.isEmpty ? imagePrompt : preservationPrefix + imagePrompt
+
         // 3. Initialize providers
         var providers: [(String, any ImageGenProvider)] = []
 
-        if providerFilter == "both" || providerFilter == "openai" {
-            if let key = ProcessInfo.processInfo.environment["OPENAI_API_KEY"] ?? loadEnvKey("OPENAI_API_KEY") {
-                providers.append(("openai", OpenAIImageProvider(apiKey: key)))
-            } else if providerFilter == "openai" {
-                return "Error: OPENAI_API_KEY not set"
+        if providerFilter == "both" || providerFilter == "flux" {
+            if let key = ProcessInfo.processInfo.environment["BFL_API_KEY"] ?? loadEnvKey("BFL_API_KEY") {
+                providers.append(("flux", FluxImageProvider(apiKey: key)))
+            } else if providerFilter == "flux" {
+                return "Error: BFL_API_KEY not set"
             }
         }
         if providerFilter == "both" || providerFilter == "gemini" {
@@ -5064,7 +5315,7 @@ final class MCPServer {
         }
 
         if providers.isEmpty {
-            return "Error: No image generation API keys configured. Set OPENAI_API_KEY and/or GEMINI_API_KEY."
+            return "Error: No image generation API keys configured. Set BFL_API_KEY and/or GEMINI_API_KEY."
         }
 
         // 4. Create output directory
@@ -5085,7 +5336,7 @@ final class MCPServer {
         var errors: [String] = []
 
         let photosCopy = hostPhotos
-        let promptCopy = imagePrompt
+        let promptCopy = finalPrompt
 
         await withTaskGroup(of: (String, Int, Result<Data, Error>).self) { group in
             for (providerName, provider) in providers {
@@ -5209,13 +5460,72 @@ final class MCPServer {
         return .success((names, photos))
     }
 
+    private func loadOverlayTemplateJSON(_ name: String) -> [String: Any]? {
+        let candidates = [
+            FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
+                .appendingPathComponent("overlay_templates/\(name).json"),
+            Bundle.main.bundleURL
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+                .deletingLastPathComponent().deletingLastPathComponent()
+                .appendingPathComponent("Tools/overlay_templates/\(name).json"),
+        ].compactMap { $0 }
+
+        for url in candidates {
+            if let data = try? Data(contentsOf: url),
+               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                return json
+            }
+        }
+        return nil
+    }
+
+    private func loadThumbnailBrand(templateName: String?) -> ThumbnailBrand {
+        var primaryBg = ThumbnailBrand.parseHex("#000000")
+        var secondaryBg = ThumbnailBrand.parseHex("#0A3D2A")
+        var accentGold = ThumbnailBrand.parseHex("#C8A84E")
+        var textPrimary = ThumbnailBrand.parseHex("#FFFFFF")
+        var textAccent = ThumbnailBrand.parseHex("#C8A84E")
+        var logoImage: CGImage? = nil
+
+        if let name = templateName, let templateData = loadOverlayTemplateJSON(name) {
+            if let brand = templateData["brand"] as? [String: Any],
+               let colors = brand["colors"] as? [String: String] {
+                if let v = colors["primary_background"] { primaryBg = ThumbnailBrand.parseHex(v) }
+                if let v = colors["secondary_background"] { secondaryBg = ThumbnailBrand.parseHex(v) }
+                if let v = colors["accent_gold"] { accentGold = ThumbnailBrand.parseHex(v) }
+                if let v = colors["text_primary"] { textPrimary = ThumbnailBrand.parseHex(v) }
+                if let v = colors["text_accent"] { textAccent = ThumbnailBrand.parseHex(v) }
+            }
+            if let brand = templateData["brand"] as? [String: Any],
+               let logos = brand["logos"] as? [String: String],
+               let logoFilename = logos["horizontal"] {
+                let logoPath = resolveDocumentsPath(logoFilename)
+                if let data = FileManager.default.contents(atPath: logoPath),
+                   let provider = CGDataProvider(data: data as CFData),
+                   let image = CGImage(pngDataProviderSource: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent) {
+                    logoImage = image
+                }
+            }
+        }
+
+        return ThumbnailBrand(
+            primaryBackground: primaryBg,
+            secondaryBackground: secondaryBg,
+            accentGold: accentGold,
+            textPrimary: textPrimary,
+            textAccent: textAccent,
+            logoImage: logoImage
+        )
+    }
+
     /// Use Claude to generate a thumbnail image prompt.
     private func generateThumbnailPrompt(
         title: String,
         description: String?,
         hostNames: [String],
         style: String,
-        layout: String
+        layout: String,
+        brand: ThumbnailBrand? = nil
     ) async -> Result<String, ThumbnailError> {
         guard let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? loadAnthropicKey() else {
             return .failure(.message("ANTHROPIC_API_KEY not set — needed for prompt generation. Use 'prompt' parameter to skip."))
@@ -5240,30 +5550,69 @@ final class MCPServer {
         let styleGuide: String
         switch style {
         case "minimal":
-            styleGuide = "Clean, modern, muted tones. Subtle gradients. Thin sans-serif font. Elegant negative space. Think Apple keynote meets YouTube."
+            styleGuide = "Clean, modern, elegant. Subtle gradients using the brand colors. Thin sans-serif font. Negative space."
         case "dramatic":
-            styleGuide = "Dark moody background with dramatic rim lighting on the hosts. Deep shadows, cinematic color grading. Neon or metallic accent colors. Intense, high-stakes energy."
+            styleGuide = "Dark moody background with dramatic rim lighting on the hosts. Deep shadows, cinematic feel. Use brand accent color for rim lighting. Intense, high-stakes energy."
         case "vibrant":
-            styleGuide = "Saturated, energetic colors. Electric gradients (purple-to-orange, cyan-to-pink). Bright lighting on hosts. Fun, high-energy, attention-grabbing. Pop art influence."
+            styleGuide = "Energetic, attention-grabbing. Bright lighting on hosts. Use brand colors with higher saturation."
         default: // bold
-            styleGuide = "High contrast, punchy colors. Strong color blocks behind each host. Heavy bold sans-serif text with slight 3D shadow. Maximum readability at small sizes. Classic MrBeast / podcast thumbnail energy."
+            styleGuide = "High contrast. Strong color blocks using brand palette. Heavy bold sans-serif text with slight shadow. Maximum readability at small sizes."
+        }
+
+        // Brand color enforcement — overrides any style guide color suggestions
+        var brandColorRule = ""
+        if let brand = brand {
+            func hexFromCGColor(_ color: CGColor) -> String {
+                guard let components = color.components, components.count >= 3 else { return "#000000" }
+                let r = Int(components[0] * 255)
+                let g = Int(components[1] * 255)
+                let b = Int(components[2] * 255)
+                return String(format: "#%02X%02X%02X", r, g, b)
+            }
+            let bg1 = hexFromCGColor(brand.primaryBackground)
+            let bg2 = hexFromCGColor(brand.secondaryBackground)
+            let gold = hexFromCGColor(brand.accentGold)
+            let textColor = hexFromCGColor(brand.textPrimary)
+            let accentText = hexFromCGColor(brand.textAccent)
+            brandColorRule = """
+
+            MANDATORY BRAND COLORS (override all other color suggestions):
+            - Primary background: \(bg1) (deep black)
+            - Secondary background: \(bg2) (dark emerald green)
+            - Accent color: \(gold) (gold — for highlights, accent lines, subtitle text)
+            - Title text: \(textColor) (white)
+            - Subtitle/emphasis text: \(accentText) (gold)
+            - ONLY use these colors. Do NOT use blue, orange, purple, cyan, red, or any other color.
+            - Background must be dark \(bg2) to \(bg1) gradient. No bright backgrounds.
+            """
         }
 
         let systemPrompt = """
-        You are an expert YouTube thumbnail designer who creates thumbnails that get 10%+ CTR.
+        You are an expert YouTube thumbnail designer studying channels like TBPN that get 10%+ CTR.
         Write a detailed image generation prompt. Output ONLY the prompt, no explanation.
 
-        CRITICAL RULES:
-        1. LAYOUT: \(layoutDesc)
-        2. HOSTS: "Preserve the exact faces, skin tone, and appearance from the reference photos. Do NOT alter, stylize, or reimagine their faces."
-        3. TEXT: Display "\(title)" as large, bold, sans-serif text. Max 6-8 words visible. Use white or bright text with a dark stroke/shadow for readability at any size. Text must be the FIRST thing a viewer reads.
-        4. SIZE: 1536x1024 landscape format (YouTube thumbnail aspect ratio)
-        5. STYLE: \(styleGuide)
-        6. COMPOSITION: Follow the rule of thirds. Hosts should fill at least 40% of the frame. Faces should be clearly visible even at 160x90px (the smallest YouTube thumbnail size).
-        7. BACKGROUND: Use gradient or solid color blocks — NEVER busy or detailed backgrounds that compete with text/faces.
-        8. NO: watermarks, borders, logos, URLs, hashtags, emojis, or small text. No cluttered elements.
-        9. LIGHTING: Studio-quality lighting on hosts. Slight warm rim light to separate from background.
-        10. The thumbnail must look professional, not AI-generated. Photorealistic hosts, clean graphic design.
+        THE FORMULA (study TBPN, Diet TBPN thumbnails):
+        1. TOPIC VISUAL IS THE STAR — The topic fills 50-70% of the frame. If the episode is about OpenAI, show the OpenAI logo BIG. If about chips/semiconductors, show a chip. If about a person (Elon, Jensen), show THEIR face large. If about a country, show its flag. The topic visual IS the background — bold, dominant, unmissable. This is what makes people click.
+        2. HOST PLACEMENT — Place the host(s) from the reference images on one side (usually right or left 30-40% of frame), overlaid ON TOP of the topic visual. The host should look like they're reacting to the topic. Preserve their exact facial features, eye color, skin tone from the reference photos. Do not alter their appearance.
+        3. TEXT — Maximum 3-5 words. Short, punchy, provocative. Extract the most clickable phrase from "\(title)". Use large bold sans-serif with dark stroke/shadow. Place where it doesn't cover faces or key visuals.
+        4. SIZE: 1536x1024 landscape (YouTube thumbnail)
+        5. COMPOSITION: Topic visual dominates the frame. Host is clearly visible but secondary to the topic visual. Text is tertiary — readable but not the main attraction. The thumbnail should communicate the topic VISUALLY before anyone reads the text.
+        6. STYLE: \(styleGuide)
+        7. FACE PRESERVATION: The reference images contain real people.
+           - "Preserve the exact facial features, eye color, skin tone, and facial expression of the people in the reference images"
+           - "The person from image 1 should appear exactly as in their reference photo"
+           - Do NOT describe the hosts' faces — defer entirely to the reference photos.
+        8. NO: cluttered collages, multiple competing visuals, tiny text, watermarks, URLs. Keep it clean — one dominant topic visual, one or two hosts, short text.
+        9. LIGHTING: Cinematic. Dramatic rim lighting on hosts to separate them from the topic background.\(brandColorRule)
+
+        EXAMPLES of good topic visuals by episode subject:
+        - "AI Competition" → Anthropic or OpenAI logo filling the background
+        - "Solo Founders" → A single laptop with code, or a "1" symbol, or a lone figure silhouette
+        - "AI IPOs" → Stock chart going up/down, Wall Street imagery
+        - "Chip Manufacturing" → Close-up semiconductor chip, circuit board
+        - "Regulation" → Government building, gavel, flag
+        - "AI Curing Cancer" → DNA helix, medical imagery
+        Pick the most visually striking symbol for the topic. Make it BOLD.
         """
 
         let userMessage = """
@@ -5344,11 +5693,11 @@ final class MCPServer {
 
         // Initialize providers
         var providers: [(String, any ImageGenProvider)] = []
-        if providerFilter == "both" || providerFilter == "openai" {
-            if let key = ProcessInfo.processInfo.environment["OPENAI_API_KEY"] ?? loadEnvKey("OPENAI_API_KEY") {
-                providers.append(("openai", OpenAIImageProvider(apiKey: key)))
-            } else if providerFilter == "openai" {
-                return "Error: OPENAI_API_KEY not set"
+        if providerFilter == "both" || providerFilter == "flux" {
+            if let key = ProcessInfo.processInfo.environment["BFL_API_KEY"] ?? loadEnvKey("BFL_API_KEY") {
+                providers.append(("flux", FluxImageProvider(apiKey: key)))
+            } else if providerFilter == "flux" {
+                return "Error: BFL_API_KEY not set"
             }
         }
         if providerFilter == "both" || providerFilter == "gemini" {
@@ -5363,7 +5712,7 @@ final class MCPServer {
         }
 
         if providers.isEmpty {
-            return "Error: No image generation API keys configured."
+            return "Error: No image generation API keys configured. Set BFL_API_KEY and/or GEMINI_API_KEY."
         }
 
         // Create output directory

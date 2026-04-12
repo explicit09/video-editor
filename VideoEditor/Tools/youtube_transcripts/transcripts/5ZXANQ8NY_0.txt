@@ -1,0 +1,193 @@
+I've been teaching Da Vinci Resolve for
+many years. And over those years, I've
+taught millions of people how to color
+grade. Now, that seems crazy, but it's
+true. It's true. This is just in the
+last 365 days. And I'm not just saying
+that to brag. I mean, it is an honor for
+our team to help so many people over
+these years, teaching people in tutorial
+videos and courses and live at VidCon
+and NAB and Resolve Con and coaching
+people one-on-one and group coaching.
+There are some big lessons. the big
+things that we really need to understand
+when it comes to color grading on a
+practical level. And so if you felt a
+little bit stuck with your color
+grading, like you just can't quite get
+it, this is going to help you. The first
+thing I would tell you is that the tools
+themselves don't really matter that
+much. When it comes to which palette you
+should use on the color page or even
+what app you use to do color grading,
+it's really not as important as just
+understanding the big concepts of color
+grading. I'm talking exposure, contrast,
+saturation, kind of the main things,
+where to set your black levels, what
+white should look like, just kind of the
+big idea of color management. That stuff
+is really what you need to know. And so,
+if you don't know the basics, your first
+job is to go and check that out. I have
+lots of videos on it. But the actual
+tool that you use, whether it's curves
+or whether it's the color wheels or
+whether it's the HDR palette or some
+other thing, it isn't really that
+important because you can get a very
+similar result. You can do similar jobs
+with these different tools. The next big
+thing is to keep moving. This gets all
+of us not just in color, but in I mean
+in making videos in general, we get
+obsessed with one little part of our
+video. And in color grading, we get
+obsessed with one shot and we need to
+make it look really good. And so we
+spend lots and lots of time just trying
+to make it perfect. And one, it's never
+going to be perfect. But two, what that
+does is that focuses you on one part of
+the video and you kind of ignore the
+rest of it. And so in color grading,
+don't spend too much time on one shot
+because if you do, not only will you get
+obsessed with that one shot and ignore
+everything else, but also your eyes get
+used to what the shot looks like and
+they start to play tricks on you. And so
+that back wall that looks a little bit
+off-white, eventually your eyes are
+going to think that it's white. That
+shot that doesn't have that much
+contrast, pretty soon your eyes are just
+going to get used to it and you're going
+to be like, "Oh, it's not really that
+bad." This is why I encourage creators
+who are learning color grading to only
+spend a few seconds on each shot.
+Literally like a few seconds because
+after that your eyes start to go crazy
+and you start to overthink things. There
+is a certain wisdom to going through
+your shots as fast as you can. Now, I
+don't mean to just rush everything and
+make bad decisions. I'm saying that you
+don't have to get your shot perfect the
+first time because you can go through
+your shots and then go back and change
+them and make them a little bit better.
+make them a little bit better and work
+in passes. But you have to keep moving
+or else your color grade will take
+forever and you'll be secondguessing
+everything. The other thing that I tell
+people over and over again is to keep
+things simple because nobody does it.
+Everybody wants to make some really
+complicated color grade when they're a
+beginner. They want to have 15 different
+nodes and each one has a certain kind of
+diffusion on it and this one has a film
+look and this one desaturates it and
+this one has a L that's at 10%. I mean,
+it's just there's so much and it's
+needless. You don't need to do that. In
+fact, you're probably shooting yourself
+in the foot by over complicating things
+and making it way harder than it needs
+to be. Is there a place for having 15
+different nodes and using a certain kind
+of film emulation plugin and everything?
+Yes. Once you get comfortable with color
+grading and once you have a base system
+that you can kind of adjust and kind of
+get your workflow going a little bit
+more, then there's absolutely room for
+15 nodes. Once you're really comfortable
+with nodes and you know what they do and
+you feel like you're comfortable with
+where you're at and you can add a little
+bit more, but that's like way later. If
+you're just starting color, keep things
+ridiculously simple. In fact, if you
+want to, you don't even have to use
+notes. The only thing that really
+matters is does your image look good? Do
+you like it? And if it does, and if you
+do, it's totally okay to keep things
+really simple. Also, in color grading,
+just like most things in video editing,
+your workflow is everything. Now, what
+do I mean by workflow? I mean the order
+in which you do things, the task that
+you start with, and then the order that
+you do the things afterwards. The reason
+workflow is everything is because it's
+actually physically how you get stuff
+done. But it also helps you with the
+mental game. If you find color grading
+overwhelming and frustrating, it is
+because you don't have a good workflow.
+Think about the difference in how
+confident you are if I were to give you
+a whole bunch of blocks and tell you to
+build a house versus give you a whole
+bunch of blocks and instructions on how
+to build a house. One of those has a
+workflow, the instructions. The other
+one doesn't. And you're going to be a
+lot more confident if I give you the
+instructions. And so the more that you
+can work out your workflow. Where do you
+start? Where do you go so you don't get
+lost? The more confident you'll be, the
+more creative you'll be, the faster
+you'll work, and the better videos
+you'll make. So many people think that
+they need to learn more color grading
+tools when really all they need is a
+better workflow. That's why I want to
+invite you to my simple color workflow
+challenge. This is a 5-day live coaching
+event with me and it's designed to take
+you from overwhelmed, lost, and stressed
+in your color grading to confident and
+creative. It's live coaching with me for
+5 days and I'll walk you through the
+simplest, best workflow that I've been
+refining for years over millions of
+people to help you get that color done
+and be confident and make amazing color
+grades for your videos. And if you get a
+VIP ticket to the challenge, you get to
+show up early and ask me questions and
+I'll help you with your projects. I wish
+this was around when I was starting
+color grading. There is a ton more
+wisdom that I want to impart to you, but
+I don't have time to do it here. So,
+sign up for the live coaching with me.
+There's a link down in the description.
+We are starting our next round really
+soon. There are dates on that page. All
+you have to do is click on that button
+and you can get signed up and I'll see
+you in there. Okay. When you go through
+this challenge, it's going to
+revolutionize your color workflow. But
+don't take my word for it. Listen to
+this person. So, for anybody considering
+the class, I'd say drop uh any
+preconceived ideas you have about Da
+Vinci being too overwhelming. Uh jump
+in, follow along the the course.
+Consider it's only 10 or 15 hours, but I
+think at the end of the class, you'll
+say, "That was only 10 or 15 hours. Look
+how much I learned. I'm glad I took the
+course."
+>> There you go. It's cool.

@@ -1,0 +1,2472 @@
+[
+  {
+    "text": "Imagine you record a full 1-hour podcast",
+    "start": 0.0,
+    "duration": 3.679
+  },
+  {
+    "text": "and it doesn't perform well. Well,",
+    "start": 2.32,
+    "duration": 3.12
+  },
+  {
+    "text": "chances are is that it doesn't have a",
+    "start": 3.679,
+    "duration": 3.2
+  },
+  {
+    "text": "great intro. So, in this video, I'm",
+    "start": 5.44,
+    "duration": 2.8
+  },
+  {
+    "text": "going to explain you exactly how to",
+    "start": 6.879,
+    "duration": 3.201
+  },
+  {
+    "text": "create a podcast trailer or podcast",
+    "start": 8.24,
+    "duration": 3.76
+  },
+  {
+    "text": "intro so that you can hook people in to",
+    "start": 10.08,
+    "duration": 3.92
+  },
+  {
+    "text": "watch the full video. So, let's jump",
+    "start": 12.0,
+    "duration": 4.32
+  },
+  {
+    "text": "into it. I'm here in Premiere Pro and I",
+    "start": 14.0,
+    "duration": 5.039
+  },
+  {
+    "text": "already have a edit down and basically I",
+    "start": 16.32,
+    "duration": 4.879
+  },
+  {
+    "text": "picked some clips from a full podcast.",
+    "start": 19.039,
+    "duration": 4.961
+  },
+  {
+    "text": "The podcast is 1 hour and as you can see",
+    "start": 21.199,
+    "duration": 5.041
+  },
+  {
+    "text": "it's now like half a minute. Of course,",
+    "start": 24.0,
+    "duration": 4.32
+  },
+  {
+    "text": "you have to choose this yourself, but I",
+    "start": 26.24,
+    "duration": 4.799
+  },
+  {
+    "text": "would say stay around the half a minute",
+    "start": 28.32,
+    "duration": 4.399
+  },
+  {
+    "text": "mark. If there's a lot of good hooks,",
+    "start": 31.039,
+    "duration": 3.2
+  },
+  {
+    "text": "then you can of course make it a bit",
+    "start": 32.719,
+    "duration": 3.201
+  },
+  {
+    "text": "longer, but I would really try to keep",
+    "start": 34.239,
+    "duration": 3.361
+  },
+  {
+    "text": "it short. Now, what's cool, I'm using",
+    "start": 35.92,
+    "duration": 3.84
+  },
+  {
+    "text": "Premiere Pro and I using the transcribe",
+    "start": 37.6,
+    "duration": 3.84
+  },
+  {
+    "text": "feature so you can see the text and",
+    "start": 39.76,
+    "duration": 3.2
+  },
+  {
+    "text": "that's really nice cuz we are going to",
+    "start": 41.44,
+    "duration": 3.279
+  },
+  {
+    "text": "need that. Now, we can of course animate",
+    "start": 42.96,
+    "duration": 3.439
+  },
+  {
+    "text": "things in Premiere Pro or if you're",
+    "start": 44.719,
+    "duration": 3.761
+  },
+  {
+    "text": "using Da Vinci Resolve that also works.",
+    "start": 46.399,
+    "duration": 3.68
+  },
+  {
+    "text": "However, I want to do some more advanced",
+    "start": 48.48,
+    "duration": 3.599
+  },
+  {
+    "text": "animations with lines, blurs, things",
+    "start": 50.079,
+    "duration": 3.841
+  },
+  {
+    "text": "like that. So, I'm going to go to After",
+    "start": 52.079,
+    "duration": 3.361
+  },
+  {
+    "text": "Effects. But before I do that, I want to",
+    "start": 53.92,
+    "duration": 3.36
+  },
+  {
+    "text": "make sure that this caption is turned",
+    "start": 55.44,
+    "duration": 4.0
+  },
+  {
+    "text": "into text or this transcript is turned",
+    "start": 57.28,
+    "duration": 3.84
+  },
+  {
+    "text": "into text. So, let's go to captions,",
+    "start": 59.44,
+    "duration": 4.08
+  },
+  {
+    "text": "create captions from transcript. I'll",
+    "start": 61.12,
+    "duration": 4.399
+  },
+  {
+    "text": "keep the options the same. That doesn't",
+    "start": 63.52,
+    "duration": 3.44
+  },
+  {
+    "text": "really matter. Then, we're going to",
+    "start": 65.519,
+    "duration": 3.28
+  },
+  {
+    "text": "change it to single. I don't want double",
+    "start": 66.96,
+    "duration": 3.68
+  },
+  {
+    "text": "lines. And then I'm going to press",
+    "start": 68.799,
+    "duration": 3.921
+  },
+  {
+    "text": "create captions. The font doesn't really",
+    "start": 70.64,
+    "duration": 3.76
+  },
+  {
+    "text": "matter. The placement also not. I just",
+    "start": 72.72,
+    "duration": 3.2
+  },
+  {
+    "text": "want to make sure that I have these",
+    "start": 74.4,
+    "duration": 3.039
+  },
+  {
+    "text": "captions. I'm going to select those",
+    "start": 75.92,
+    "duration": 3.12
+  },
+  {
+    "text": "captions and I'm going to go to graphics",
+    "start": 77.439,
+    "duration": 3.281
+  },
+  {
+    "text": "and titles. And I'm going to press on",
+    "start": 79.04,
+    "duration": 3.759
+  },
+  {
+    "text": "upgrade caption to graphic. I just want",
+    "start": 80.72,
+    "duration": 3.759
+  },
+  {
+    "text": "to make sure I have these captions",
+    "start": 82.799,
+    "duration": 3.441
+  },
+  {
+    "text": "separate and this is exactly what I",
+    "start": 84.479,
+    "duration": 3.441
+  },
+  {
+    "text": "want. Now what we can do is we can",
+    "start": 86.24,
+    "duration": 3.6
+  },
+  {
+    "text": "select all of this and then we can do",
+    "start": 87.92,
+    "duration": 4.08
+  },
+  {
+    "text": "rightclick replace with after effects",
+    "start": 89.84,
+    "duration": 3.68
+  },
+  {
+    "text": "composition. Now if you want to know how",
+    "start": 92.0,
+    "duration": 4.079
+  },
+  {
+    "text": "to find the most engaging clips uh do",
+    "start": 93.52,
+    "duration": 4.16
+  },
+  {
+    "text": "join the full stack editor club. I made",
+    "start": 96.079,
+    "duration": 3.521
+  },
+  {
+    "text": "a full deep dive on this. It's basically",
+    "start": 97.68,
+    "duration": 3.6
+  },
+  {
+    "text": "to get your watch time up and really get",
+    "start": 99.6,
+    "duration": 3.519
+  },
+  {
+    "text": "results with your podcast. Link is down",
+    "start": 101.28,
+    "duration": 3.36
+  },
+  {
+    "text": "below. So again I'm going to rightclick",
+    "start": 103.119,
+    "duration": 2.96
+  },
+  {
+    "text": "and replace with After Effects",
+    "start": 104.64,
+    "duration": 2.479
+  },
+  {
+    "text": "composition. And by the way, if you're",
+    "start": 106.079,
+    "duration": 2.961
+  },
+  {
+    "text": "in other editing program like Da Vinci",
+    "start": 107.119,
+    "duration": 3.841
+  },
+  {
+    "text": "Resolve, you can just, of course, export",
+    "start": 109.04,
+    "duration": 4.24
+  },
+  {
+    "text": "your video and then import it in After",
+    "start": 110.96,
+    "duration": 4.24
+  },
+  {
+    "text": "Effects. Now, as you can see, we have a",
+    "start": 113.28,
+    "duration": 4.0
+  },
+  {
+    "text": "lot of layers. We have the video layers",
+    "start": 115.2,
+    "duration": 4.08
+  },
+  {
+    "text": "here. So, exactly what we want. However,",
+    "start": 117.28,
+    "duration": 4.64
+  },
+  {
+    "text": "I do want these to be text. Now, there's",
+    "start": 119.28,
+    "duration": 5.04
+  },
+  {
+    "text": "multiple ways to unprempose these. Uh,",
+    "start": 121.92,
+    "duration": 4.159
+  },
+  {
+    "text": "you can use multiple plugins for this.",
+    "start": 124.32,
+    "duration": 3.439
+  },
+  {
+    "text": "You can use unpremposer, you can use",
+    "start": 126.079,
+    "duration": 3.52
+  },
+  {
+    "text": "motion tools, but you can also use a",
+    "start": 127.759,
+    "duration": 5.361
+  },
+  {
+    "text": "plugin like aux. For example, I have a",
+    "start": 129.599,
+    "duration": 6.081
+  },
+  {
+    "text": "UIX here. Uh, and you can just press on",
+    "start": 133.12,
+    "duration": 5.839
+  },
+  {
+    "text": "unpremp and it will un pre-MP them and",
+    "start": 135.68,
+    "duration": 4.8
+  },
+  {
+    "text": "turn them into text layers. As you can",
+    "start": 138.959,
+    "duration": 3.521
+  },
+  {
+    "text": "see, the timing is also already nice.",
+    "start": 140.48,
+    "duration": 4.0
+  },
+  {
+    "text": "Um, maybe not perfect, but you can",
+    "start": 142.48,
+    "duration": 3.759
+  },
+  {
+    "text": "change that up. So, it's all cool. I",
+    "start": 144.48,
+    "duration": 3.6
+  },
+  {
+    "text": "will also link this down below. Now,",
+    "start": 146.239,
+    "duration": 3.681
+  },
+  {
+    "text": "what I like to do is make it a bit",
+    "start": 148.08,
+    "duration": 3.68
+  },
+  {
+    "text": "playful and like turn the text for",
+    "start": 149.92,
+    "duration": 4.08
+  },
+  {
+    "text": "example here and then change it to font.",
+    "start": 151.76,
+    "duration": 5.04
+  },
+  {
+    "text": "So, we can change this to DM sense for",
+    "start": 154.0,
+    "duration": 5.68
+  },
+  {
+    "text": "example, make it a big bigger, change it",
+    "start": 156.8,
+    "duration": 6.079
+  },
+  {
+    "text": "to width with a W, capital, and then we",
+    "start": 159.68,
+    "duration": 4.639
+  },
+  {
+    "text": "can move it here for example. And then",
+    "start": 162.879,
+    "duration": 3.521
+  },
+  {
+    "text": "what you can do is drag this out to make",
+    "start": 164.319,
+    "duration": 4.0
+  },
+  {
+    "text": "sure that these are the same length. By",
+    "start": 166.4,
+    "duration": 3.36
+  },
+  {
+    "text": "holding shift, they will snap into",
+    "start": 168.319,
+    "duration": 4.481
+  },
+  {
+    "text": "place. Then the next text or Mosy. Maybe",
+    "start": 169.76,
+    "duration": 6.08
+  },
+  {
+    "text": "it's smart to have with Alex and then",
+    "start": 172.8,
+    "duration": 5.519
+  },
+  {
+    "text": "Alex or Mosy at least on one line. So",
+    "start": 175.84,
+    "duration": 4.8
+  },
+  {
+    "text": "let's copy this text. And by the way, I",
+    "start": 178.319,
+    "duration": 4.0
+  },
+  {
+    "text": "do this by going to the text tool and",
+    "start": 180.64,
+    "duration": 3.519
+  },
+  {
+    "text": "then just clicking on the text and then",
+    "start": 182.319,
+    "duration": 4.801
+  },
+  {
+    "text": "command Ctrl + C on Windows to copy it,",
+    "start": 184.159,
+    "duration": 5.201
+  },
+  {
+    "text": "of course. And let's paste that here. Uh",
+    "start": 187.12,
+    "duration": 4.56
+  },
+  {
+    "text": "it will also change the font back, but",
+    "start": 189.36,
+    "duration": 4.159
+  },
+  {
+    "text": "that's all good. We can just type them",
+    "start": 191.68,
+    "duration": 4.4
+  },
+  {
+    "text": "in again something like this. Maybe even",
+    "start": 193.519,
+    "duration": 5.921
+  },
+  {
+    "text": "remove this comma and making this bold.",
+    "start": 196.08,
+    "duration": 5.2
+  },
+  {
+    "text": "And we can even make this a nice",
+    "start": 199.44,
+    "duration": 3.6
+  },
+  {
+    "text": "different color. Uh if our branding",
+    "start": 201.28,
+    "duration": 3.36
+  },
+  {
+    "text": "color is blue, we can change that to",
+    "start": 203.04,
+    "duration": 3.839
+  },
+  {
+    "text": "like a soft blue. Something like this.",
+    "start": 204.64,
+    "duration": 4.319
+  },
+  {
+    "text": "And this already looks nice. Maybe a bit",
+    "start": 206.879,
+    "duration": 3.681
+  },
+  {
+    "text": "bigger. And then the next one, I'm going",
+    "start": 208.959,
+    "duration": 2.881
+  },
+  {
+    "text": "to make a different font. Maybe",
+    "start": 210.56,
+    "duration": 3.039
+  },
+  {
+    "text": "something cool like this. And what I",
+    "start": 211.84,
+    "duration": 3.679
+  },
+  {
+    "text": "want to do is make sure that uh",
+    "start": 213.599,
+    "duration": 4.0
+  },
+  {
+    "text": "basically maybe this one I'm going to",
+    "start": 215.519,
+    "duration": 6.561
+  },
+  {
+    "text": "change to SF Pro Black. Or maybe make",
+    "start": 217.599,
+    "duration": 7.521
+  },
+  {
+    "text": "this maybe like thin thick text. And",
+    "start": 222.08,
+    "duration": 5.04
+  },
+  {
+    "text": "then this one with a different font.",
+    "start": 225.12,
+    "duration": 4.56
+  },
+  {
+    "text": "Maybe a bit bigger. So there's like a",
+    "start": 227.12,
+    "duration": 4.16
+  },
+  {
+    "text": "bit more contrast between this or",
+    "start": 229.68,
+    "duration": 3.52
+  },
+  {
+    "text": "basically bit more like difference",
+    "start": 231.28,
+    "duration": 3.76
+  },
+  {
+    "text": "between this. Now in terms of font, I",
+    "start": 233.2,
+    "duration": 4.399
+  },
+  {
+    "text": "was just experimenting. I don't like the",
+    "start": 235.04,
+    "duration": 4.16
+  },
+  {
+    "text": "way this looks. So what I'm going to do",
+    "start": 237.599,
+    "duration": 3.28
+  },
+  {
+    "text": "is I'm just going to select them both",
+    "start": 239.2,
+    "duration": 4.16
+  },
+  {
+    "text": "and uh make sure that they're both the",
+    "start": 240.879,
+    "duration": 4.08
+  },
+  {
+    "text": "same font. And then maybe I'm going to",
+    "start": 243.36,
+    "duration": 4.079
+  },
+  {
+    "text": "make one uh really thick and then one a",
+    "start": 244.959,
+    "duration": 4.56
+  },
+  {
+    "text": "bit more thin. So, for example, this one",
+    "start": 247.439,
+    "duration": 5.281
+  },
+  {
+    "text": "really like thick. And maybe even",
+    "start": 249.519,
+    "duration": 6.161
+  },
+  {
+    "text": "capitalize it. Make sure that this is on",
+    "start": 252.72,
+    "duration": 6.079
+  },
+  {
+    "text": "two sentences. Align that to the left.",
+    "start": 255.68,
+    "duration": 5.36
+  },
+  {
+    "text": "Increase the line height a bit. Probably",
+    "start": 258.799,
+    "duration": 4.161
+  },
+  {
+    "text": "a bit more so we can make the text a bit",
+    "start": 261.04,
+    "duration": 4.08
+  },
+  {
+    "text": "bigger. Something like this. Make that",
+    "start": 262.96,
+    "duration": 4.48
+  },
+  {
+    "text": "really bold. Let's move this and align",
+    "start": 265.12,
+    "duration": 4.639
+  },
+  {
+    "text": "this nicely. And then the what he said",
+    "start": 267.44,
+    "duration": 5.28
+  },
+  {
+    "text": "to me. Let's move this below that. And I",
+    "start": 269.759,
+    "duration": 4.641
+  },
+  {
+    "text": "do think it's a bit too thin. So, let's",
+    "start": 272.72,
+    "duration": 4.0
+  },
+  {
+    "text": "change this to maybe like medium.",
+    "start": 274.4,
+    "duration": 4.48
+  },
+  {
+    "text": "Something like this. Cool. This already",
+    "start": 276.72,
+    "duration": 4.32
+  },
+  {
+    "text": "looks nice. I think in my opinion, maybe",
+    "start": 278.88,
+    "duration": 4.24
+  },
+  {
+    "text": "this needs to be with a capital. There",
+    "start": 281.04,
+    "duration": 4.0
+  },
+  {
+    "text": "we go. I think this is already cool, but",
+    "start": 283.12,
+    "duration": 3.84
+  },
+  {
+    "text": "I want to add some texture to this. So,",
+    "start": 285.04,
+    "duration": 4.4
+  },
+  {
+    "text": "uh, let's add a noise first of all. And",
+    "start": 286.96,
+    "duration": 5.28
+  },
+  {
+    "text": "then just a normal noise. Turn the use",
+    "start": 289.44,
+    "duration": 5.44
+  },
+  {
+    "text": "color noise off and may make maybe like",
+    "start": 292.24,
+    "duration": 5.679
+  },
+  {
+    "text": "10%. It will add some like nice grain to",
+    "start": 294.88,
+    "duration": 7.12
+  },
+  {
+    "text": "it. And I will also add a gradient uh",
+    "start": 297.919,
+    "duration": 5.84
+  },
+  {
+    "text": "ramp. Let's drag that on too. Or you can",
+    "start": 302.0,
+    "duration": 3.36
+  },
+  {
+    "text": "also double click. And I'm going to set",
+    "start": 303.759,
+    "duration": 4.16
+  },
+  {
+    "text": "it to radial first of all. And then the",
+    "start": 305.36,
+    "duration": 4.96
+  },
+  {
+    "text": "points, they're completely wrong. Let's",
+    "start": 307.919,
+    "duration": 4.481
+  },
+  {
+    "text": "set this maybe to here. And then the",
+    "start": 310.32,
+    "duration": 4.96
+  },
+  {
+    "text": "white maybe like here. And basically I'm",
+    "start": 312.4,
+    "duration": 5.359
+  },
+  {
+    "text": "going to blend it with the original. Uh",
+    "start": 315.28,
+    "duration": 4.16
+  },
+  {
+    "text": "and again this will just add a bit of",
+    "start": 317.759,
+    "duration": 4.801
+  },
+  {
+    "text": "like gradient to it. So a tiny bit maybe",
+    "start": 319.44,
+    "duration": 6.64
+  },
+  {
+    "text": "blend it like on 78%. Before and after.",
+    "start": 322.56,
+    "duration": 5.6
+  },
+  {
+    "text": "It just adds like a cool effect over it",
+    "start": 326.08,
+    "duration": 3.839
+  },
+  {
+    "text": "in my opinion. We can also move this",
+    "start": 328.16,
+    "duration": 4.56
+  },
+  {
+    "text": "below the noise. I like it actually on",
+    "start": 329.919,
+    "duration": 4.961
+  },
+  {
+    "text": "top of the noise. This is already nice.",
+    "start": 332.72,
+    "duration": 5.039
+  },
+  {
+    "text": "Uh now what I might also do is uh right",
+    "start": 334.88,
+    "duration": 6.0
+  },
+  {
+    "text": "click layer styles and then drop shadow.",
+    "start": 337.759,
+    "duration": 4.801
+  },
+  {
+    "text": "And this is really ugly. So open this",
+    "start": 340.88,
+    "duration": 3.759
+  },
+  {
+    "text": "drop shadow. And let's make this size",
+    "start": 342.56,
+    "duration": 5.04
+  },
+  {
+    "text": "really big. Uh soften it. So like nicely",
+    "start": 344.639,
+    "duration": 5.921
+  },
+  {
+    "text": "soften it. And change the opacity to",
+    "start": 347.6,
+    "duration": 5.76
+  },
+  {
+    "text": "really low. Just a tiny bit. Again off",
+    "start": 350.56,
+    "duration": 4.96
+  },
+  {
+    "text": "and on. It will just add a bit of like",
+    "start": 353.36,
+    "duration": 4.64
+  },
+  {
+    "text": "texture to this and a bit of depth which",
+    "start": 355.52,
+    "duration": 4.239
+  },
+  {
+    "text": "is nice. I think this already looks",
+    "start": 358.0,
+    "duration": 4.4
+  },
+  {
+    "text": "cool. We can also uh just make it pop up",
+    "start": 359.759,
+    "duration": 5.601
+  },
+  {
+    "text": "like word by word. And to do so, I'll",
+    "start": 362.4,
+    "duration": 4.799
+  },
+  {
+    "text": "use a typewriter effect for that. So,",
+    "start": 365.36,
+    "duration": 4.08
+  },
+  {
+    "text": "for example, we can just use typewriter.",
+    "start": 367.199,
+    "duration": 4.241
+  },
+  {
+    "text": "It's a built-in preset. We can just drag",
+    "start": 369.44,
+    "duration": 3.92
+  },
+  {
+    "text": "that on. And then what we can do is open",
+    "start": 371.44,
+    "duration": 5.039
+  },
+  {
+    "text": "this and go into this text and then the",
+    "start": 373.36,
+    "duration": 5.119
+  },
+  {
+    "text": "animator. And this is the typewriter",
+    "start": 376.479,
+    "duration": 4.16
+  },
+  {
+    "text": "animator we just made. Now, if we drag",
+    "start": 378.479,
+    "duration": 3.761
+  },
+  {
+    "text": "these key frames a bit closer, you will",
+    "start": 380.639,
+    "duration": 3.68
+  },
+  {
+    "text": "see that it will just type the text,",
+    "start": 382.24,
+    "duration": 4.399
+  },
+  {
+    "text": "which actually is already a cool effect.",
+    "start": 384.319,
+    "duration": 4.16
+  },
+  {
+    "text": "Uh however, what we can also do is",
+    "start": 386.639,
+    "duration": 4.801
+  },
+  {
+    "text": "change uh the based on to words and you",
+    "start": 388.479,
+    "duration": 4.961
+  },
+  {
+    "text": "do this by opening up the advanced tab",
+    "start": 391.44,
+    "duration": 4.96
+  },
+  {
+    "text": "and we can change it to um based on",
+    "start": 393.44,
+    "duration": 4.879
+  },
+  {
+    "text": "words and that will make the words pop",
+    "start": 396.4,
+    "duration": 4.96
+  },
+  {
+    "text": "up really nicely. Now uh again this is",
+    "start": 398.319,
+    "duration": 5.761
+  },
+  {
+    "text": "really harsh so it's like tick tick tick",
+    "start": 401.36,
+    "duration": 4.48
+  },
+  {
+    "text": "that can be a way or we can make it",
+    "start": 404.08,
+    "duration": 5.839
+  },
+  {
+    "text": "smooth and to do so let's undo this. So",
+    "start": 405.84,
+    "duration": 6.56
+  },
+  {
+    "text": "let's just undo the effect and I'm going",
+    "start": 409.919,
+    "duration": 5.521
+  },
+  {
+    "text": "to make a animator myself. So I'm going",
+    "start": 412.4,
+    "duration": 5.44
+  },
+  {
+    "text": "to click on the icon next to animate and",
+    "start": 415.44,
+    "duration": 4.24
+  },
+  {
+    "text": "I'm going to change it or I'm going to",
+    "start": 417.84,
+    "duration": 4.639
+  },
+  {
+    "text": "click on position. Then let's move this",
+    "start": 419.68,
+    "duration": 6.239
+  },
+  {
+    "text": "to maybe something like this like 100 in",
+    "start": 422.479,
+    "duration": 5.361
+  },
+  {
+    "text": "this case. That will be nice. And what",
+    "start": 425.919,
+    "duration": 4.321
+  },
+  {
+    "text": "I'm also going to add uh so click on the",
+    "start": 427.84,
+    "duration": 5.04
+  },
+  {
+    "text": "arrow next to add property and then an",
+    "start": 430.24,
+    "duration": 5.519
+  },
+  {
+    "text": "opacity because I want to also make it",
+    "start": 432.88,
+    "duration": 5.92
+  },
+  {
+    "text": "fade in. And let's turn this to zero.",
+    "start": 435.759,
+    "duration": 5.121
+  },
+  {
+    "text": "And then open the range selector and",
+    "start": 438.8,
+    "duration": 4.799
+  },
+  {
+    "text": "open the advanced tab. And then uh let's",
+    "start": 440.88,
+    "duration": 6.159
+  },
+  {
+    "text": "change the shape to ramp up. Change the",
+    "start": 443.599,
+    "duration": 5.921
+  },
+  {
+    "text": "ease low to 100%. And then we're going",
+    "start": 447.039,
+    "duration": 4.72
+  },
+  {
+    "text": "to animate the offset. So let's set a",
+    "start": 449.52,
+    "duration": 4.32
+  },
+  {
+    "text": "key frame for that. Going to set it to",
+    "start": 451.759,
+    "duration": 5.921
+  },
+  {
+    "text": "go from minus 100 to 100. And as you can",
+    "start": 453.84,
+    "duration": 5.919
+  },
+  {
+    "text": "see, this already will give a really",
+    "start": 457.68,
+    "duration": 5.6
+  },
+  {
+    "text": "cool smooth animation. However, what I",
+    "start": 459.759,
+    "duration": 7.121
+  },
+  {
+    "text": "do want to do is uh also change the base",
+    "start": 463.28,
+    "duration": 6.24
+  },
+  {
+    "text": "on again because now it's on characters.",
+    "start": 466.88,
+    "duration": 4.64
+  },
+  {
+    "text": "I think it's nicer if we put it to",
+    "start": 469.52,
+    "duration": 5.04
+  },
+  {
+    "text": "words. And now let's go press U to just",
+    "start": 471.52,
+    "duration": 4.959
+  },
+  {
+    "text": "see these key frames and then drag this",
+    "start": 474.56,
+    "duration": 3.359
+  },
+  {
+    "text": "to the beginning. I'm going to quickly",
+    "start": 476.479,
+    "duration": 4.56
+  },
+  {
+    "text": "play this with Alex Mosy. There is a cut",
+    "start": 477.919,
+    "duration": 4.56
+  },
+  {
+    "text": "here. I think what I want to do is",
+    "start": 481.039,
+    "duration": 3.361
+  },
+  {
+    "text": "basically make sure that this cut is",
+    "start": 482.479,
+    "duration": 4.16
+  },
+  {
+    "text": "less visible. And to do so, we can just",
+    "start": 484.4,
+    "duration": 4.479
+  },
+  {
+    "text": "like zoom it in for example. Might also",
+    "start": 486.639,
+    "duration": 4.721
+  },
+  {
+    "text": "be easier to maybe then move it. So then",
+    "start": 488.879,
+    "duration": 4.561
+  },
+  {
+    "text": "it's going to be with Alex Moszi. What",
+    "start": 491.36,
+    "duration": 4.08
+  },
+  {
+    "text": "he said to me and then what he said to",
+    "start": 493.44,
+    "duration": 4.08
+  },
+  {
+    "text": "me. Let's pop that up. Uh what we could",
+    "start": 495.44,
+    "duration": 4.24
+  },
+  {
+    "text": "do now is use that typewriter effect and",
+    "start": 497.52,
+    "duration": 4.88
+  },
+  {
+    "text": "then open that text and what I said",
+    "start": 499.68,
+    "duration": 4.56
+  },
+  {
+    "text": "before basically going into the range",
+    "start": 502.4,
+    "duration": 4.0
+  },
+  {
+    "text": "selector going into the advanced tab and",
+    "start": 504.24,
+    "duration": 4.72
+  },
+  {
+    "text": "changing the based on to words in this",
+    "start": 506.4,
+    "duration": 5.759
+  },
+  {
+    "text": "way should be nice that it just pops up",
+    "start": 508.96,
+    "duration": 5.04
+  },
+  {
+    "text": "what he said to me let's say and then",
+    "start": 512.159,
+    "duration": 4.081
+  },
+  {
+    "text": "basically uh we can or fade it out or we",
+    "start": 514.0,
+    "duration": 4.32
+  },
+  {
+    "text": "can do like multiple things but I think",
+    "start": 516.24,
+    "duration": 4.64
+  },
+  {
+    "text": "it's sometimes also just nice to cut it",
+    "start": 518.32,
+    "duration": 5.199
+  },
+  {
+    "text": "off right so let's just select them both",
+    "start": 520.88,
+    "duration": 5.44
+  },
+  {
+    "text": "cut them off just like that so in the",
+    "start": 523.519,
+    "duration": 4.481
+  },
+  {
+    "text": "next shot, it should be gone. So, it's",
+    "start": 526.32,
+    "duration": 1.92
+  },
+  {
+    "text": "like",
+    "start": 528.0,
+    "duration": 2.399
+  },
+  {
+    "text": ">> with Alexi, what he said to me, let's",
+    "start": 528.24,
+    "duration": 5.039
+  },
+  {
+    "text": "say you were a video editor. Let's say",
+    "start": 530.399,
+    "duration": 4.961
+  },
+  {
+    "text": "you were a video editor. Maybe you can",
+    "start": 533.279,
+    "duration": 3.921
+  },
+  {
+    "text": "make these words pop up. And what we can",
+    "start": 535.36,
+    "duration": 4.88
+  },
+  {
+    "text": "do now is either uh just duplicating",
+    "start": 537.2,
+    "duration": 4.96
+  },
+  {
+    "text": "these text layers and then copy this",
+    "start": 540.24,
+    "duration": 4.719
+  },
+  {
+    "text": "text into it or we can copy the effects",
+    "start": 542.16,
+    "duration": 5.92
+  },
+  {
+    "text": "of the text. So, for example, we can go",
+    "start": 544.959,
+    "duration": 5.281
+  },
+  {
+    "text": "into the animator, we can copy the",
+    "start": 548.08,
+    "duration": 4.24
+  },
+  {
+    "text": "effects, and we can copy the layer",
+    "start": 550.24,
+    "duration": 3.92
+  },
+  {
+    "text": "styles. But in this case, because",
+    "start": 552.32,
+    "duration": 3.6
+  },
+  {
+    "text": "there's quite a lot of effects also on",
+    "start": 554.16,
+    "duration": 3.28
+  },
+  {
+    "text": "the gradient ramp, I'm just going to",
+    "start": 555.92,
+    "duration": 3.52
+  },
+  {
+    "text": "duplicate the text by hitting command D",
+    "start": 557.44,
+    "duration": 4.399
+  },
+  {
+    "text": "on my Mac or control D on Windows. And",
+    "start": 559.44,
+    "duration": 4.079
+  },
+  {
+    "text": "then you can just drag this over. Hold",
+    "start": 561.839,
+    "duration": 3.521
+  },
+  {
+    "text": "shift and then we'll snap into place.",
+    "start": 563.519,
+    "duration": 3.361
+  },
+  {
+    "text": "Then we already have this. Now let's",
+    "start": 565.36,
+    "duration": 3.68
+  },
+  {
+    "text": "copy the text over. And if you now paste",
+    "start": 566.88,
+    "duration": 4.16
+  },
+  {
+    "text": "it, it won't work because it will just",
+    "start": 569.04,
+    "duration": 4.16
+  },
+  {
+    "text": "paste the uh formatting over. The",
+    "start": 571.04,
+    "duration": 3.76
+  },
+  {
+    "text": "easiest way is to just paste it in a",
+    "start": 573.2,
+    "duration": 3.68
+  },
+  {
+    "text": "note or text editor because if we now",
+    "start": 574.8,
+    "duration": 4.479
+  },
+  {
+    "text": "copy it from here and paste it, it's not",
+    "start": 576.88,
+    "duration": 4.48
+  },
+  {
+    "text": "going to include the formatting. It will",
+    "start": 579.279,
+    "duration": 4.321
+  },
+  {
+    "text": "look really ugly. That is true. Uh",
+    "start": 581.36,
+    "duration": 3.84
+  },
+  {
+    "text": "because the radial gradient is not",
+    "start": 583.6,
+    "duration": 3.2
+  },
+  {
+    "text": "great. Maybe what I'm going to do is I'm",
+    "start": 585.2,
+    "duration": 2.96
+  },
+  {
+    "text": "going to select all of the text, make it",
+    "start": 586.8,
+    "duration": 4.719
+  },
+  {
+    "text": "a bit smaller, change the paragraph to",
+    "start": 588.16,
+    "duration": 5.44
+  },
+  {
+    "text": "be a bit like here. Then let's move the",
+    "start": 591.519,
+    "duration": 4.641
+  },
+  {
+    "text": "video editor to the next line because we",
+    "start": 593.6,
+    "duration": 4.48
+  },
+  {
+    "text": "can do something cool with that. Let's",
+    "start": 596.16,
+    "duration": 4.32
+  },
+  {
+    "text": "add another space to this uh to make",
+    "start": 598.08,
+    "duration": 4.08
+  },
+  {
+    "text": "sure that the video editor is on a",
+    "start": 600.48,
+    "duration": 3.919
+  },
+  {
+    "text": "separate line. We can again give this",
+    "start": 602.16,
+    "duration": 4.32
+  },
+  {
+    "text": "the same blue color that we had. Of",
+    "start": 604.399,
+    "duration": 3.681
+  },
+  {
+    "text": "course, it's better to copy the Xcode",
+    "start": 606.48,
+    "duration": 3.84
+  },
+  {
+    "text": "over, but hey ho. Now let's see if we",
+    "start": 608.08,
+    "duration": 4.319
+  },
+  {
+    "text": "can move this radio gradient to",
+    "start": 610.32,
+    "duration": 5.44
+  },
+  {
+    "text": "somewhere else. Maybe to the left button",
+    "start": 612.399,
+    "duration": 4.801
+  },
+  {
+    "text": "will be cool. Now I do think this",
+    "start": 615.76,
+    "duration": 3.04
+  },
+  {
+    "text": "spacing is a bit too much. So let's",
+    "start": 617.2,
+    "duration": 4.56
+  },
+  {
+    "text": "select this text and change the line",
+    "start": 618.8,
+    "duration": 5.36
+  },
+  {
+    "text": "height to maybe here. Now what I want to",
+    "start": 621.76,
+    "duration": 4.24
+  },
+  {
+    "text": "do is basically highlight this video",
+    "start": 624.16,
+    "duration": 4.08
+  },
+  {
+    "text": "editor because I think that's cool. Uh",
+    "start": 626.0,
+    "duration": 4.72
+  },
+  {
+    "text": "so let's go and go to the rectangle",
+    "start": 628.24,
+    "duration": 5.839
+  },
+  {
+    "text": "tool. I'm going to change the fill to a",
+    "start": 630.72,
+    "duration": 6.64
+  },
+  {
+    "text": "linear gradient. And let's change the",
+    "start": 634.079,
+    "duration": 7.681
+  },
+  {
+    "text": "fill color from whitish to maybe like a",
+    "start": 637.36,
+    "duration": 7.12
+  },
+  {
+    "text": "bit of like darker whitish. Make sure",
+    "start": 641.76,
+    "duration": 5.92
+  },
+  {
+    "text": "the opacity is also set to 100%. Okay.",
+    "start": 644.48,
+    "duration": 6.24
+  },
+  {
+    "text": "And then I'm going to draw a quick box",
+    "start": 647.68,
+    "duration": 4.96
+  },
+  {
+    "text": "around this. Maybe something like this.",
+    "start": 650.72,
+    "duration": 4.32
+  },
+  {
+    "text": "Press V on your keyboard to make sure to",
+    "start": 652.64,
+    "duration": 4.16
+  },
+  {
+    "text": "go to the selection tool and let's drag",
+    "start": 655.04,
+    "duration": 4.16
+  },
+  {
+    "text": "this linear gradient out. It's very",
+    "start": 656.8,
+    "duration": 4.4
+  },
+  {
+    "text": "nice. And then I want to move this below",
+    "start": 659.2,
+    "duration": 4.879
+  },
+  {
+    "text": "our text. There we go. So we have like a",
+    "start": 661.2,
+    "duration": 4.72
+  },
+  {
+    "text": "nice selection box. Let's move this a",
+    "start": 664.079,
+    "duration": 3.601
+  },
+  {
+    "text": "bit. Now I want to change the anchor",
+    "start": 665.92,
+    "duration": 3.52
+  },
+  {
+    "text": "point. Basically this is the point where",
+    "start": 667.68,
+    "duration": 4.0
+  },
+  {
+    "text": "it scales from. And to do so I need to",
+    "start": 669.44,
+    "duration": 4.24
+  },
+  {
+    "text": "use the pen behind tool. You can also",
+    "start": 671.68,
+    "duration": 3.839
+  },
+  {
+    "text": "use a tool like motion tools to just",
+    "start": 673.68,
+    "duration": 3.52
+  },
+  {
+    "text": "click on the left side. But you can also",
+    "start": 675.519,
+    "duration": 3.681
+  },
+  {
+    "text": "move it with the pen behind tool. If you",
+    "start": 677.2,
+    "duration": 3.92
+  },
+  {
+    "text": "hold command or control on Windows, it",
+    "start": 679.2,
+    "duration": 3.44
+  },
+  {
+    "text": "will snap into place. That's exactly",
+    "start": 681.12,
+    "duration": 2.88
+  },
+  {
+    "text": "what we want. And then I'm going to",
+    "start": 682.64,
+    "duration": 4.56
+  },
+  {
+    "text": "press S for scale and set a key frame.",
+    "start": 684.0,
+    "duration": 5.839
+  },
+  {
+    "text": "Unlink it. And then let's see where this",
+    "start": 687.2,
+    "duration": 5.04
+  },
+  {
+    "text": "pops up. Maybe here. So the words pop",
+    "start": 689.839,
+    "duration": 4.801
+  },
+  {
+    "text": "up. And then somewhere around here. Here",
+    "start": 692.24,
+    "duration": 5.279
+  },
+  {
+    "text": "I want to set it to zero. I probably",
+    "start": 694.64,
+    "duration": 4.8
+  },
+  {
+    "text": "have to change the timing anyway, but",
+    "start": 697.519,
+    "duration": 4.241
+  },
+  {
+    "text": "select these key frames, right click,",
+    "start": 699.44,
+    "duration": 4.32
+  },
+  {
+    "text": "key frame assistant, easy ease, and",
+    "start": 701.76,
+    "duration": 4.639
+  },
+  {
+    "text": "let's go to the graph editor. Select the",
+    "start": 703.76,
+    "duration": 4.319
+  },
+  {
+    "text": "last key frame, and then drag this",
+    "start": 706.399,
+    "duration": 3.601
+  },
+  {
+    "text": "handle all the way to the left. And",
+    "start": 708.079,
+    "duration": 4.801
+  },
+  {
+    "text": "let's go to the graph editor again to go",
+    "start": 710.0,
+    "duration": 5.76
+  },
+  {
+    "text": "out of it. And then let's turn the",
+    "start": 712.88,
+    "duration": 4.8
+  },
+  {
+    "text": "motion blur on by clicking on the motion",
+    "start": 715.76,
+    "duration": 4.56
+  },
+  {
+    "text": "blur icon and also on the text, by the",
+    "start": 717.68,
+    "duration": 4.32
+  },
+  {
+    "text": "way. I think that's actually really",
+    "start": 720.32,
+    "duration": 3.92
+  },
+  {
+    "text": "nice. If you now play this and let's say",
+    "start": 722.0,
+    "duration": 5.04
+  },
+  {
+    "text": "you were a video editor, what would",
+    "start": 724.24,
+    "duration": 5.36
+  },
+  {
+    "text": "Okay, so way too long or way too short.",
+    "start": 727.04,
+    "duration": 4.239
+  },
+  {
+    "text": "I mean, let's press U on our keyboard",
+    "start": 729.6,
+    "duration": 3.44
+  },
+  {
+    "text": "and let's move this a bit. And then",
+    "start": 731.279,
+    "duration": 4.401
+  },
+  {
+    "text": "let's start this animation maybe here.",
+    "start": 733.04,
+    "duration": 4.88
+  },
+  {
+    "text": "Okay, nice. And again, we can cut this",
+    "start": 735.68,
+    "duration": 4.32
+  },
+  {
+    "text": "off. Hold Alt and then right bracket.",
+    "start": 737.92,
+    "duration": 4.0
+  },
+  {
+    "text": "And also, I'm going to delete this text.",
+    "start": 740.0,
+    "duration": 4.16
+  },
+  {
+    "text": "I don't want to use that anyway. Now,",
+    "start": 741.92,
+    "duration": 5.12
+  },
+  {
+    "text": "this is a bit boring. So, I also want to",
+    "start": 744.16,
+    "duration": 5.679
+  },
+  {
+    "text": "make sure that it zooms in slowly. And",
+    "start": 747.04,
+    "duration": 4.72
+  },
+  {
+    "text": "to do so, I'm just going to press S on",
+    "start": 749.839,
+    "duration": 4.161
+  },
+  {
+    "text": "our keyboard on our footage. Set a key",
+    "start": 751.76,
+    "duration": 4.319
+  },
+  {
+    "text": "frame. Let's move this to the left and",
+    "start": 754.0,
+    "duration": 4.32
+  },
+  {
+    "text": "then go to the end. And by holding",
+    "start": 756.079,
+    "duration": 4.481
+  },
+  {
+    "text": "shift, it will snap. We can zoom it in a",
+    "start": 758.32,
+    "duration": 4.16
+  },
+  {
+    "text": "bit. And by the way, you can also change",
+    "start": 760.56,
+    "duration": 3.68
+  },
+  {
+    "text": "the anchor point. That's basically where",
+    "start": 762.48,
+    "duration": 3.52
+  },
+  {
+    "text": "it scales from. So, if you go back to",
+    "start": 764.24,
+    "duration": 3.44
+  },
+  {
+    "text": "the beginning, what we can do is move",
+    "start": 766.0,
+    "duration": 4.0
+  },
+  {
+    "text": "this anchor point to my face. And you do",
+    "start": 767.68,
+    "duration": 4.8
+  },
+  {
+    "text": "this by still using the pen behind tool",
+    "start": 770.0,
+    "duration": 4.32
+  },
+  {
+    "text": "that we still have selected. And then it",
+    "start": 772.48,
+    "duration": 4.64
+  },
+  {
+    "text": "will zoom into the face instead of uh",
+    "start": 774.32,
+    "duration": 4.56
+  },
+  {
+    "text": "from the center. That's also a really",
+    "start": 777.12,
+    "duration": 4.0
+  },
+  {
+    "text": "nice way to make it more engaging. And",
+    "start": 778.88,
+    "duration": 5.04
+  },
+  {
+    "text": "let's say you were a video editor. What",
+    "start": 781.12,
+    "duration": 4.56
+  },
+  {
+    "text": "would And then here, what would you do?",
+    "start": 783.92,
+    "duration": 4.08
+  },
+  {
+    "text": "I would snap that into place again. So,",
+    "start": 785.68,
+    "duration": 3.68
+  },
+  {
+    "text": "what I'm going to do is I'm going to go",
+    "start": 788.0,
+    "duration": 3.04
+  },
+  {
+    "text": "back to the beginning. Uh, I think I",
+    "start": 789.36,
+    "duration": 3.599
+  },
+  {
+    "text": "have the words what he said to me. Yeah.",
+    "start": 791.04,
+    "duration": 4.08
+  },
+  {
+    "text": "Cool. So, I can duplicate this and let's",
+    "start": 792.959,
+    "duration": 4.721
+  },
+  {
+    "text": "move this to the right. Hold shift so it",
+    "start": 795.12,
+    "duration": 4.8
+  },
+  {
+    "text": "snaps into place. Let's press U on our",
+    "start": 797.68,
+    "duration": 3.839
+  },
+  {
+    "text": "keyboard to see our key frames. And",
+    "start": 799.92,
+    "duration": 3.44
+  },
+  {
+    "text": "let's move this to the beginning. And",
+    "start": 801.519,
+    "duration": 5.521
+  },
+  {
+    "text": "let's see what he said to me. What would",
+    "start": 803.36,
+    "duration": 6.24
+  },
+  {
+    "text": "you do? Maybe I'm going to make this a",
+    "start": 807.04,
+    "duration": 4.72
+  },
+  {
+    "text": "bit more bold. And I'm also going to",
+    "start": 809.6,
+    "duration": 4.64
+  },
+  {
+    "text": "right click on this text, layer styles,",
+    "start": 811.76,
+    "duration": 4.879
+  },
+  {
+    "text": "gradient overlay. Go into the gradient",
+    "start": 814.24,
+    "duration": 4.56
+  },
+  {
+    "text": "overlay. And let's turn that opacity",
+    "start": 816.639,
+    "duration": 6.401
+  },
+  {
+    "text": "down by a lot. And click on reverse to",
+    "start": 818.8,
+    "duration": 7.839
+  },
+  {
+    "text": "on. Maybe a bit more. This nice. Make it",
+    "start": 823.04,
+    "duration": 6.08
+  },
+  {
+    "text": "a bit bigger so it fits nicely on the",
+    "start": 826.639,
+    "duration": 4.721
+  },
+  {
+    "text": "left. Remove this one. Select it.",
+    "start": 829.12,
+    "duration": 2.88
+  },
+  {
+    "text": "Delete.",
+    "start": 831.36,
+    "duration": 3.36
+  },
+  {
+    "text": ">> What would you do? What would you do?",
+    "start": 832.0,
+    "duration": 4.72
+  },
+  {
+    "text": "What would you do? And I want to",
+    "start": 834.72,
+    "duration": 4.08
+  },
+  {
+    "text": "basically make a line around this. I",
+    "start": 836.72,
+    "duration": 3.44
+  },
+  {
+    "text": "think that would be cool just to",
+    "start": 838.8,
+    "duration": 3.68
+  },
+  {
+    "text": "emphasize on this this question mark.",
+    "start": 840.16,
+    "duration": 4.479
+  },
+  {
+    "text": "So, let's go to the pen tool. Let's",
+    "start": 842.48,
+    "duration": 4.64
+  },
+  {
+    "text": "change the fill to none. Make sure",
+    "start": 844.639,
+    "duration": 4.32
+  },
+  {
+    "text": "nothing is selected, by the way. And go",
+    "start": 847.12,
+    "duration": 4.0
+  },
+  {
+    "text": "into the stroke. And again, use the same",
+    "start": 848.959,
+    "duration": 4.721
+  },
+  {
+    "text": "color that we used before uh to keep the",
+    "start": 851.12,
+    "duration": 4.159
+  },
+  {
+    "text": "style the same. And it's really",
+    "start": 853.68,
+    "duration": 4.159
+  },
+  {
+    "text": "important using the same fonts. Uh don't",
+    "start": 855.279,
+    "duration": 5.12
+  },
+  {
+    "text": "go with like 20 different fonts or 20",
+    "start": 857.839,
+    "duration": 4.24
+  },
+  {
+    "text": "different colors. It's nice to create a",
+    "start": 860.399,
+    "duration": 3.281
+  },
+  {
+    "text": "style, right? So, pick a few colors,",
+    "start": 862.079,
+    "duration": 3.601
+  },
+  {
+    "text": "pick a few fonts, and stick with it. So,",
+    "start": 863.68,
+    "duration": 4.64
+  },
+  {
+    "text": "in this case, uh, blue again, and let's,",
+    "start": 865.68,
+    "duration": 5.76
+  },
+  {
+    "text": "uh then just make a rough circle around",
+    "start": 868.32,
+    "duration": 4.4
+  },
+  {
+    "text": "this. And I'm going to do this by",
+    "start": 871.44,
+    "duration": 3.12
+  },
+  {
+    "text": "clicking and holding my mouse down. So,",
+    "start": 872.72,
+    "duration": 3.84
+  },
+  {
+    "text": "we have these cool handles. Let's make",
+    "start": 874.56,
+    "duration": 4.56
+  },
+  {
+    "text": "another handle here. And another one",
+    "start": 876.56,
+    "duration": 6.48
+  },
+  {
+    "text": "probably here. And another one here. And",
+    "start": 879.12,
+    "duration": 5.44
+  },
+  {
+    "text": "then to end it, I don't want to close",
+    "start": 883.04,
+    "duration": 3.599
+  },
+  {
+    "text": "this path. I want to actually maybe end",
+    "start": 884.56,
+    "duration": 4.399
+  },
+  {
+    "text": "it here. So, it's like a bit more",
+    "start": 886.639,
+    "duration": 4.801
+  },
+  {
+    "text": "organic. Go to the selection tool. Press",
+    "start": 888.959,
+    "duration": 4.401
+  },
+  {
+    "text": "V on your keyboard and then let's move",
+    "start": 891.44,
+    "duration": 4.639
+  },
+  {
+    "text": "this a bit so we can make this align a",
+    "start": 893.36,
+    "duration": 5.599
+  },
+  {
+    "text": "bit better. Nice. Cool. Then go into the",
+    "start": 896.079,
+    "duration": 5.44
+  },
+  {
+    "text": "shape and into the contents and into the",
+    "start": 898.959,
+    "duration": 5.041
+  },
+  {
+    "text": "shape and into the stroke. Then go into",
+    "start": 901.519,
+    "duration": 4.481
+  },
+  {
+    "text": "the taper. And basically what I want to",
+    "start": 904.0,
+    "duration": 4.48
+  },
+  {
+    "text": "do is make sure that they're a bit more",
+    "start": 906.0,
+    "duration": 5.519
+  },
+  {
+    "text": "thin at the end and at the start. So",
+    "start": 908.48,
+    "duration": 6.159
+  },
+  {
+    "text": "they're like bit more drawn. And as you",
+    "start": 911.519,
+    "duration": 4.32
+  },
+  {
+    "text": "can see that gives this really cool",
+    "start": 914.639,
+    "duration": 2.88
+  },
+  {
+    "text": "effect. So, I'm going to set the start",
+    "start": 915.839,
+    "duration": 4.56
+  },
+  {
+    "text": "length to maybe 10% and end length also",
+    "start": 917.519,
+    "duration": 6.721
+  },
+  {
+    "text": "on 10%. Make sure the uh line cap is set",
+    "start": 920.399,
+    "duration": 7.041
+  },
+  {
+    "text": "to round cap. And then let's set the",
+    "start": 924.24,
+    "duration": 6.64
+  },
+  {
+    "text": "start ease to be a bit higher, maybe",
+    "start": 927.44,
+    "duration": 6.8
+  },
+  {
+    "text": "like even 90% and the end ease also. And",
+    "start": 930.88,
+    "duration": 5.04
+  },
+  {
+    "text": "this will make it like really nice and",
+    "start": 934.24,
+    "duration": 3.68
+  },
+  {
+    "text": "and smooth. As you can see, we'll give",
+    "start": 935.92,
+    "duration": 4.0
+  },
+  {
+    "text": "this roundness to it so it's not too",
+    "start": 937.92,
+    "duration": 4.0
+  },
+  {
+    "text": "sharp. So, it looks like a marker that",
+    "start": 939.92,
+    "duration": 3.76
+  },
+  {
+    "text": "started making the circle. Now, I'm",
+    "start": 941.92,
+    "duration": 3.599
+  },
+  {
+    "text": "going to make it even more organic. So",
+    "start": 943.68,
+    "duration": 5.279
+  },
+  {
+    "text": "click on add and change that to wiggle",
+    "start": 945.519,
+    "duration": 6.88
+  },
+  {
+    "text": "paths. Then open the wiggle paths and",
+    "start": 948.959,
+    "duration": 6.081
+  },
+  {
+    "text": "change the points to smooth. I'm going",
+    "start": 952.399,
+    "duration": 4.961
+  },
+  {
+    "text": "to change the wiggle seconds to zero. I",
+    "start": 955.04,
+    "duration": 4.08
+  },
+  {
+    "text": "don't want it to be animated. And then",
+    "start": 957.36,
+    "duration": 4.0
+  },
+  {
+    "text": "the detail I'm going to lower down uh",
+    "start": 959.12,
+    "duration": 4.48
+  },
+  {
+    "text": "because the more detail you have uh the",
+    "start": 961.36,
+    "duration": 4.56
+  },
+  {
+    "text": "more it will be like really jaggedy. I'm",
+    "start": 963.6,
+    "duration": 4.64
+  },
+  {
+    "text": "going to set the detail to 100. And then",
+    "start": 965.92,
+    "duration": 4.479
+  },
+  {
+    "text": "I'm going to set the size to really low",
+    "start": 968.24,
+    "duration": 4.88
+  },
+  {
+    "text": "by holding command. Maybe like something",
+    "start": 970.399,
+    "duration": 5.44
+  },
+  {
+    "text": "like one should be fine. As you can see,",
+    "start": 973.12,
+    "duration": 5.04
+  },
+  {
+    "text": "it will just give a tiny bit of detail",
+    "start": 975.839,
+    "duration": 4.081
+  },
+  {
+    "text": "uh which I really like. Makes it a bit",
+    "start": 978.16,
+    "duration": 3.359
+  },
+  {
+    "text": "more organic. Now, of course, I want to",
+    "start": 979.92,
+    "duration": 3.839
+  },
+  {
+    "text": "animate this too. And to do so, I'm",
+    "start": 981.519,
+    "duration": 5.361
+  },
+  {
+    "text": "going to go to add trim paths and open",
+    "start": 983.759,
+    "duration": 4.721
+  },
+  {
+    "text": "the trim paths. And then we're going to",
+    "start": 986.88,
+    "duration": 4.24
+  },
+  {
+    "text": "set a key frame for the end. Now, let's",
+    "start": 988.48,
+    "duration": 4.64
+  },
+  {
+    "text": "go a bit more to the beginning, maybe",
+    "start": 991.12,
+    "duration": 5.68
+  },
+  {
+    "text": "here, and change the end to zero.",
+    "start": 993.12,
+    "duration": 5.76
+  },
+  {
+    "text": "E. Now I'm going to press U on my",
+    "start": 996.8,
+    "duration": 4.159
+  },
+  {
+    "text": "keyboard just to see the animated",
+    "start": 998.88,
+    "duration": 3.759
+  },
+  {
+    "text": "property. We can drag this out a bit.",
+    "start": 1000.959,
+    "duration": 3.761
+  },
+  {
+    "text": "And then we can even select these and",
+    "start": 1002.639,
+    "duration": 4.161
+  },
+  {
+    "text": "right click key frame assistant. Easy",
+    "start": 1004.72,
+    "duration": 4.239
+  },
+  {
+    "text": "ease. So it's like what would you do?",
+    "start": 1006.8,
+    "duration": 4.56
+  },
+  {
+    "text": "And the first thing what would you do?",
+    "start": 1008.959,
+    "duration": 4.8
+  },
+  {
+    "text": "Animation around it. Really nice. Can",
+    "start": 1011.36,
+    "duration": 4.08
+  },
+  {
+    "text": "even make this a bit more quick. Would",
+    "start": 1013.759,
+    "duration": 3.44
+  },
+  {
+    "text": "you do and the first and again we have",
+    "start": 1015.44,
+    "duration": 4.88
+  },
+  {
+    "text": "to cut this off. Uh so holding alt and",
+    "start": 1017.199,
+    "duration": 5.681
+  },
+  {
+    "text": "then right bracket on our keyboard. Same",
+    "start": 1020.32,
+    "duration": 3.999
+  },
+  {
+    "text": "with our text. And what we can even do",
+    "start": 1022.88,
+    "duration": 3.199
+  },
+  {
+    "text": "is add motion blur to this by clicking",
+    "start": 1024.319,
+    "duration": 4.081
+  },
+  {
+    "text": "on the motion blur icon on the shape",
+    "start": 1026.079,
+    "duration": 4.321
+  },
+  {
+    "text": "that we created. So it's even more",
+    "start": 1028.4,
+    "duration": 2.32
+  },
+  {
+    "text": "smooth.",
+    "start": 1030.4,
+    "duration": 1.76
+  },
+  {
+    "text": ">> And the first you do",
+    "start": 1030.72,
+    "duration": 2.8
+  },
+  {
+    "text": ">> and what I'm also going to do is select",
+    "start": 1032.16,
+    "duration": 3.84
+  },
+  {
+    "text": "this footage again, press S for scale,",
+    "start": 1033.52,
+    "duration": 4.799
+  },
+  {
+    "text": "set a key frame, drag this to the left,",
+    "start": 1036.0,
+    "duration": 5.6
+  },
+  {
+    "text": "and also make this scale really slow.",
+    "start": 1038.319,
+    "duration": 5.041
+  },
+  {
+    "text": "Now, I don't like where it's zooming in",
+    "start": 1041.6,
+    "duration": 4.479
+  },
+  {
+    "text": "on. So, I'm going to change the anchor",
+    "start": 1043.36,
+    "duration": 4.24
+  },
+  {
+    "text": "point again by clicking on the pen",
+    "start": 1046.079,
+    "duration": 4.081
+  },
+  {
+    "text": "behind tool and maybe like even moving",
+    "start": 1047.6,
+    "duration": 4.72
+  },
+  {
+    "text": "it a bit here so there's a bit more room",
+    "start": 1050.16,
+    "duration": 4.32
+  },
+  {
+    "text": "for the text. Maybe it's a bit more too",
+    "start": 1052.32,
+    "duration": 4.239
+  },
+  {
+    "text": "much zoom. So, let's zoom it in a bit",
+    "start": 1054.48,
+    "duration": 4.4
+  },
+  {
+    "text": "less. And then with the next one, we can",
+    "start": 1056.559,
+    "duration": 5.041
+  },
+  {
+    "text": "even make it snap into place by pressing",
+    "start": 1058.88,
+    "duration": 6.0
+  },
+  {
+    "text": "S and then maybe zooming it into like",
+    "start": 1061.6,
+    "duration": 6.0
+  },
+  {
+    "text": "124 or something or really high and",
+    "start": 1064.88,
+    "duration": 4.799
+  },
+  {
+    "text": "maybe like moving it a bit so the",
+    "start": 1067.6,
+    "duration": 4.56
+  },
+  {
+    "text": "difference is bigger. What would you do?",
+    "start": 1069.679,
+    "duration": 4.24
+  },
+  {
+    "text": "And the first thing you would say and",
+    "start": 1072.16,
+    "duration": 3.68
+  },
+  {
+    "text": "then some drama here and then you get",
+    "start": 1073.919,
+    "duration": 3.281
+  },
+  {
+    "text": "something like this. You can implement",
+    "start": 1075.84,
+    "duration": 3.28
+  },
+  {
+    "text": "this with any podcast to really make",
+    "start": 1077.2,
+    "duration": 3.599
+  },
+  {
+    "text": "them more engaging either for your own",
+    "start": 1079.12,
+    "duration": 3.76
+  },
+  {
+    "text": "podcast or for your client project. If",
+    "start": 1080.799,
+    "duration": 3.441
+  },
+  {
+    "text": "you want to learn even more about this",
+    "start": 1082.88,
+    "duration": 3.44
+  },
+  {
+    "text": "then do join the full stack editor club.",
+    "start": 1084.24,
+    "duration": 3.52
+  },
+  {
+    "text": "Link is down below. I have a full deep",
+    "start": 1086.32,
+    "duration": 3.12
+  },
+  {
+    "text": "dive on how to pick the right clips but",
+    "start": 1087.76,
+    "duration": 3.6
+  },
+  {
+    "text": "also the sound design of podcast",
+    "start": 1089.44,
+    "duration": 3.599
+  },
+  {
+    "text": "trailers. Then of course thanks for all",
+    "start": 1091.36,
+    "duration": 3.199
+  },
+  {
+    "text": "the support. Don't forget to subscribe",
+    "start": 1093.039,
+    "duration": 2.801
+  },
+  {
+    "text": "and then I'll see you next time. The",
+    "start": 1094.559,
+    "duration": 3.441
+  },
+  {
+    "text": "light.",
+    "start": 1095.84,
+    "duration": 2.16
+  }
+]

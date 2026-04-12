@@ -1,0 +1,347 @@
+So, in this episode, I'm going to be
+looking at film emulation techniques and
+in particular the brand new DCTL from
+Stefan atmonodes.com. He's just updated
+his film elements pack to 2.0
+and this has finally got grain in it.
+So, I've been really looking forward to
+seeing what Stefan does with grain and
+I'm going to show you in this episode.
+Now, there's 13 new elements. I'm not
+going to go through all 13. I'm going to
+pick my favorites. I've been playing
+with it for a few days. I've tried it on
+lots of different footage and the
+results are amazing. Now, this is a paid
+DCTL. If that's not of interest to you,
+I suggest you watch some other videos or
+go and have a look at some of my
+playlist. I'll put a link up here. But
+if it is of interest to you, I'm going
+to be showing you a special offer that
+Stefan's got running at the moment as
+well. But just for transparency, I have
+not been paid to make this video. This
+is not a sponsored video. I did,
+however, receive this pack for free, but
+all the views in this are entirely my
+own. Stefan has not had any say in what
+I'm doing in this video. So, let's go
+and take a look at the ones that I
+particularly like. So, I've got a
+project set up here already. This has
+already been graded. As I said, this is
+on the Ursa 12K already graded. I'm just
+going to add these extra elements from
+the DCTL. So, to install the DCTL, I'll
+show you my project settings in here.
+Color management, Da Vinci RGB, Da Vinci
+widegam intermediate is our working
+color space. And our output is REC 79
+gamma 2.4 to match my monitor as always.
+And all I did was open the L folder and
+install the DCTL pack into there.
+Then when I select DCTL, remember you
+need the full version of Studio to run a
+DCTL, apply it on here, and then I'll
+scroll down and you'll see you can see
+I've got loads of monodes in here.
+Anyway, I use monodes on all my work.
+And if we go down here is our film
+elements. Now to select them from here,
+this list is getting very long in here
+in this little DCTL list. So, what I've
+done is I've actually grabbed a still of
+each of the 13 elements in its default
+state. So, this allows me instead of
+having to scroll down that list, it
+allows me to just simply grab from here.
+So, if I want to put a vignette on, for
+example, drag and drop it on, and I've
+kept them all in their default state so
+you can see what happens. So, let me
+show you my six favorite ones. Like I
+said, I've been playing with these for
+quite a few days now. I've really tested
+it on different footage. This is 12K
+footage. Okay, the playback on these is
+fantastic. So, let's start with the dirt
+and it's called dirt hair. So, I'm going
+to drag the hair. I'm going to drop it
+on. This gives me the default setting
+for that. I'm going to press shift and F
+each time so you get a nice full screen
+and you can see what I'm playing with
+down here. So, let's play this through.
+Okay, now it's hard to see any hair in
+there, and that is because the hair is
+only going to appear every now and
+again. I've just saw one there, and
+there it is, and it looks absolutely
+great. Now, if you want to set up the
+hair length and the you can do all the
+how frequent it runs. All this is all
+listed down here. Frequency, length,
+variation, thickness, blur. I'm not
+going to read all these out. It's pretty
+obvious how it works. But an easy way
+than having to find a frame to work on
+is you just say fill the screen with
+hair. And you can even then put a gray
+background on so you can see what's
+going on. This allows you to set up how
+you want that hair looking. Now, I'm
+going to zoom in because this the hair
+elements in here look really smart. bed.
+There's not I've seen some hair where
+it's very pixelated and also you get a
+kind of glow around it. There's all
+sorts of weird things happening. This is
+just really good organic hair. It's been
+really well made. So, let me take the
+gray background off and let me change
+that. Let me find a frame with some hair
+in it. There was one. Right now, you've
+got this really nice blend mode on it as
+well, so it looks really natural. And
+that is here. Uh you can change to black
+hair as well. Uh, with black hair, you
+really want to change this to be at
+multiply, but I'm going to choose the
+white hair here. And that's it. It's
+good to go. It just looks fantastic. So,
+that is the hair option. I'm going to
+show you the same dirt, but with spots
+this time. So, I'm going to overwrite
+that one. You can obviously build these
+up together. If you're doing that, you
+want to put them in serial. Don't put
+things like texture in as parallels. You
+want this going as serial. Now, these
+are great. These look fantastic. Let me
+just play that through.
+Yeah, you can just see them flicking on
+and off there. Really cool, really
+organic. They look really natural. And
+you can change the colors. You can have
+you can have black and white mixed. And
+at the top here, you'll see that you've
+got your frequencies for whites. And
+down here, you've got your frequencies
+and your sizing and the blurring and all
+that for the black spots. But the shape
+of them is fantastic. They're really
+very realistic looking.
+So that's those. Now you can again fill
+the screen and put the dirt on. So you
+can play around with the sizing and how
+you want them to look
+and just show you we're getting realtime
+playback. So it's 24 frames a second and
+that's playing back quite happily. Bear
+in mind this has already got a grade on
+it. So there's elements already in here.
+I've even got mon nodes density going on
+on this shot as well. So it's playing
+back absolutely fine. So the next one I
+want to show you is flicker. I really
+like how this one works. I'm going to go
+to this shot here for this one. I'm
+going to drag and drop it on. And what
+it's doing, it's probably easier to show
+you actually. In here there's a
+grayscale ramp. Check your transfer
+function. By the way, this is set to
+arlog C3. I want this to be DIY gamut
+intermediate, but there are many options
+in there. And if I play this through,
+you'll see what's happening. We're
+getting a really nice subtle flicker.
+So, if I show you that on the image by
+shift F. Let's take that off and press
+play.
+Okay. It's pretty s these are really
+subtle when you go by default, but
+actually I like that. I don't want them
+to be hard, but I'm just going to
+increase it a little bit so you can see
+what's going on.
+Okay. Yeah, you can just see that
+flickering going on there.
+Really subtle, but it's really great
+effect. I've not seen anyone do that
+that well, actually. And if you go to
+the monos.com website, there is a full
+list in there of exactly what these are
+doing, what each one's doing. I don't
+want to sit here and show you 13
+different film elements. We've got
+grain. I'm going to save that for the
+end. This is my favorite one. And
+another one of my favorites, obviously,
+hellation. Let's have a look at what
+hellation is doing. So, drag and drop
+that on. Let's go to our full screen
+mode. Remember the transfer function
+needs changing here. It's defaulting to
+ar log C3. We're indivi intermediate. So
+make sure you're in the right one. This
+is this is pretty obvious. This is
+giving us really subtle hellation
+straight away. I don't actually need to
+change anything in here. But let me show
+you on and off. There's on. It's
+probably actually that is quite heavy.
+So I can either do a global blend back
+or we can just pull the size down and
+maybe lift the threshold up so it takes
+a little bit longer to kick in. But that
+is giving us really really clean lovely
+hellation.
+So the next one I want to show you
+before I show you grain is MTF. Now just
+before I show you that I want to share
+with you a special offer that Stefan's
+offering until the 1st of November 2025
+I should state because I might leave
+this video up longer than that. But
+there is €100 off the price of the film
+elements 2.0 and that is only till 1st
+of November 2025. So the pack has just
+been released. So grab it quick. And if
+you want an extra 10% off that, if you
+put the code Darren at checkout, you'll
+get €100 plus 10%. And the 10% is all
+year round. So any monos.com, you can
+apply the code Darren at checkout and
+all year round you get 10% off any of
+those DCTLs. Right, let's get on with
+it. So I'm going to drag the MTF on.
+Now, what an MTF is, this is emulating
+uh with film, the characteristic is
+areas of very high frequency tend to get
+softened a little bit. And so, I'm
+talking about things like hair. We're
+looking at areas with sharp edges, uh
+pores, things like that. Just sort of
+fine frequency areas tend to get
+softened. So, this tool allows us to
+emulate that. Now, how do we going to do
+that? Let's have a look at the MTF
+checker. Put that on. There is nothing
+on by default. So, what you need to do
+is use these these sliders here. You got
+fine detail, small detail, and coarse
+detail. Moving to the left softens.
+Moving to the right will sharpen those
+textures. And fine being our high
+frequencies. So, what I'm going to do is
+bring that down because I want to soften
+these.
+And just to highlight it, I'm going to
+make my coarse detail a little bit
+sharper. So, this is what's being
+affected. So, particularly around here
+is where we're going to get our biggest
+uh effect. So, I'm going to take that
+off. I'm going to zoom. Now, you've got
+to zoom right in. This is a really
+subtle effect. What we're trying to do
+is soften but not make the image look
+out of focus. It's not like a blur. So,
+let me just enable and disable that. You
+can just see that happening on the
+eyelashes there. So, we're not blurring.
+We're just softening off the frequency
+areas. And that is great. Now, look at
+the pause even as well. I hope that's
+coming across on YouTube. I'm just going
+to exaggerate it a little bit more just
+so you can see it.
+But this is this is just fantastic MTF.
+Now, to set this up manually is quite a
+lot of work. So, the fact we've now got
+DCTL to do it is great. So, the last few
+in here, we've got reframe, vignette
+edge, vignetting. We've got a chromatic
+aberration here. The refframe, by the
+way, just does output blanking, but it's
+got a few more options than you get with
+the Vinci Resolve. And dirt spots I've
+shown you, but I've saved the best for
+last. This is fantastic. This is the
+best grain I've used to date. This is
+I'm just show you. I'm going to drag and
+drop it on. Let's go full screen. I
+don't need to do anything. It looks
+fantastic. Oh, I do need to change the
+transfer function.
+And I'm going play that through.
+Obviously, you need a play grain. And
+I'm still getting realtime playback
+here. And bear in mind, I've got other
+grading elements already on this. This
+is the full grade. And it just looks
+great. Let me show you on a grayscale.
+See what's going on.
+And obviously, I do have options to
+change things in here. So, for example,
+taking a bit of grain out the shadows is
+normally quite nice to do. I'm going to
+take that off. Let me zoom in so you can
+see what's going on. And also with this
+grain, when you change your timeline
+resolution, the grain will transfer
+correctly. So, if you're working in HD
+or 4K, it will look correct. I'm just
+going to play this clip back a few times
+and just show you how organic it looks.
+Some of the grains I've worked with look
+like they're literally sat on top of the
+image, like an overlay. This one really
+feels like it's part of the subject. Let
+me just show you quickly how I would
+apply a few together. So, let's start
+with that grain. Now, the grain, you
+could technically put this at the front
+of the operation. I tend to work it at
+the back, but try have a little play
+around. See what you think. Uh, I'm
+going to do option S. I'm going to add
+another node. And let's put a bit of
+hellation on there. Why not? And again,
+I'm going to my full screen.
+Let's just make sure that's on Dinci
+wide gamut. This is why it's a good idea
+to make these as presets. Actually, I
+should have changed them to Da Vinci
+wide gamut when I saved it as a preset.
+Still, that would be a good idea. I'm
+going to do that when I finish this
+episode. And so there's my headlation.
+And then you put as many of these on as
+you want. Then all you got to do if you
+want to is highlight them together,
+right click and you can say create
+compound node. And this can be my
+film
+elements. Then to go in there and edit
+any of that, right click and just say
+show compound mode.
+And there's my film elements. So I'm
+sure you'll agree with me. This is a
+really wellcrafted DCTL. Stefan's done
+an absolutely fantastic job on this.
+Don't forget, you get €100 off until the
+1st of November 2025. You get an
+additional 10% off that as well if you
+put the code Darren at checkout. If
+you're watching this after November the
+1st, you can apply the code Darren at
+checkout to get 10% off any of the DCTLS
+atmonos.com. I'd like to say thanks to
+Team 2 Films for the footage. And I
+really can't wait to get playing with
+this. I can't wait to put that grain on
+an actual project. Look after yourselves
+and I'll see you in the next

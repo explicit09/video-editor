@@ -1,0 +1,1657 @@
+[
+  {
+    "text": "So today's community question over on",
+    "start": 0.16,
+    "duration": 4.48
+  },
+  {
+    "text": "post pro list. I was asked about",
+    "start": 2.159,
+    "duration": 5.841
+  },
+  {
+    "text": "tracking roads for a drone that orbits",
+    "start": 4.64,
+    "duration": 5.44
+  },
+  {
+    "text": "kind of like this video here. He wanted",
+    "start": 8.0,
+    "duration": 4.24
+  },
+  {
+    "text": "to know how to do it in Da Vinci Resolve",
+    "start": 10.08,
+    "duration": 4.8
+  },
+  {
+    "text": "and Fusion. Uh and so that's what we're",
+    "start": 12.24,
+    "duration": 4.32
+  },
+  {
+    "text": "going to dive into. If you have a",
+    "start": 14.88,
+    "duration": 2.96
+  },
+  {
+    "text": "question of your own for Dav Vinci",
+    "start": 16.56,
+    "duration": 2.879
+  },
+  {
+    "text": "Resolve Fusion or Fairlite, you can jump",
+    "start": 17.84,
+    "duration": 3.359
+  },
+  {
+    "text": "over to Postpro List, ask your question",
+    "start": 19.439,
+    "duration": 3.84
+  },
+  {
+    "text": "there. Myself or the community should be",
+    "start": 21.199,
+    "duration": 3.84
+  },
+  {
+    "text": "able to help you out. So we're going to",
+    "start": 23.279,
+    "duration": 3.681
+  },
+  {
+    "text": "tackle this. He actually sent over some",
+    "start": 25.039,
+    "duration": 3.121
+  },
+  {
+    "text": "video footage that we're going to work",
+    "start": 26.96,
+    "duration": 3.28
+  },
+  {
+    "text": "with. I just brought it into Da Vinci",
+    "start": 28.16,
+    "duration": 3.76
+  },
+  {
+    "text": "Resolve. If we take a look at this",
+    "start": 30.24,
+    "duration": 4.4
+  },
+  {
+    "text": "footage, there really isn't a lot of",
+    "start": 31.92,
+    "duration": 4.72
+  },
+  {
+    "text": "orbiting. We're just kind of going",
+    "start": 34.64,
+    "duration": 3.599
+  },
+  {
+    "text": "towards the city a little bit. And then",
+    "start": 36.64,
+    "duration": 3.2
+  },
+  {
+    "text": "right at the end, there's like a little",
+    "start": 38.239,
+    "duration": 4.401
+  },
+  {
+    "text": "bit of a like a rotation, but not really",
+    "start": 39.84,
+    "duration": 6.879
+  },
+  {
+    "text": "much. So hopefully I can show how to do",
+    "start": 42.64,
+    "duration": 6.16
+  },
+  {
+    "text": "this with the footage in which he uh",
+    "start": 46.719,
+    "duration": 5.041
+  },
+  {
+    "text": "sent me. So, we're just going to go to a",
+    "start": 48.8,
+    "duration": 6.56
+  },
+  {
+    "text": "frame that has pretty much the majority",
+    "start": 51.76,
+    "duration": 6.319
+  },
+  {
+    "text": "of whatever it is uh that we want to",
+    "start": 55.36,
+    "duration": 5.679
+  },
+  {
+    "text": "have this effect on right in the middle",
+    "start": 58.079,
+    "duration": 4.64
+  },
+  {
+    "text": "of the screen or the best view of",
+    "start": 61.039,
+    "duration": 3.921
+  },
+  {
+    "text": "whatever that is. Right? So, for now,",
+    "start": 62.719,
+    "duration": 3.841
+  },
+  {
+    "text": "I'm just going to go to the beginning of",
+    "start": 64.96,
+    "duration": 3.199
+  },
+  {
+    "text": "the frame because we're just going to",
+    "start": 66.56,
+    "duration": 3.36
+  },
+  {
+    "text": "track this road that comes from the",
+    "start": 68.159,
+    "duration": 4.161
+  },
+  {
+    "text": "bridge into the city. And we'll just go",
+    "start": 69.92,
+    "duration": 4.559
+  },
+  {
+    "text": "to the beginning. I will grab a",
+    "start": 72.32,
+    "duration": 4.0
+  },
+  {
+    "text": "background node. Let me zoom in so you",
+    "start": 74.479,
+    "duration": 3.441
+  },
+  {
+    "text": "can actually read these nodes. I'll just",
+    "start": 76.32,
+    "duration": 3.839
+  },
+  {
+    "text": "grab a background node and we will grab",
+    "start": 77.92,
+    "duration": 5.28
+  },
+  {
+    "text": "that yellow color. So there is our",
+    "start": 80.159,
+    "duration": 5.921
+  },
+  {
+    "text": "background node. I'll just view the uh",
+    "start": 83.2,
+    "duration": 5.68
+  },
+  {
+    "text": "media in or out and we will just connect",
+    "start": 86.08,
+    "duration": 6.56
+  },
+  {
+    "text": "this background into our the the output",
+    "start": 88.88,
+    "duration": 5.68
+  },
+  {
+    "text": "of our media in which we'll then make a",
+    "start": 92.64,
+    "duration": 4.24
+  },
+  {
+    "text": "merge. We'll click on the merge and I'm",
+    "start": 94.56,
+    "duration": 4.16
+  },
+  {
+    "text": "just going to bring this blend down a",
+    "start": 96.88,
+    "duration": 3.04
+  },
+  {
+    "text": "little bit to get that highlighter",
+    "start": 98.72,
+    "duration": 2.48
+  },
+  {
+    "text": "effect. I feel like this was probably",
+    "start": 99.92,
+    "duration": 6.239
+  },
+  {
+    "text": "the closest to what was in that uh demo",
+    "start": 101.2,
+    "duration": 7.599
+  },
+  {
+    "text": "video that he sent in. And then from",
+    "start": 106.159,
+    "duration": 4.561
+  },
+  {
+    "text": "here, all we're going to do is you can",
+    "start": 108.799,
+    "duration": 4.561
+  },
+  {
+    "text": "either use a polygon or a beplline. It's",
+    "start": 110.72,
+    "duration": 6.079
+  },
+  {
+    "text": "up to you. And we're just going to um",
+    "start": 113.36,
+    "duration": 6.56
+  },
+  {
+    "text": "make a path around the area that we want",
+    "start": 116.799,
+    "duration": 5.28
+  },
+  {
+    "text": "to have uh shown in this. So, I'm just",
+    "start": 119.92,
+    "duration": 4.799
+  },
+  {
+    "text": "going to grab a beplline. It's just a",
+    "start": 122.079,
+    "duration": 5.601
+  },
+  {
+    "text": "softer uh from point to point. And we",
+    "start": 124.719,
+    "duration": 5.04
+  },
+  {
+    "text": "will just connect this in. And then I'm",
+    "start": 127.68,
+    "duration": 4.32
+  },
+  {
+    "text": "just going to go around one side of the",
+    "start": 129.759,
+    "duration": 4.321
+  },
+  {
+    "text": "road, come back down, go down the other",
+    "start": 132.0,
+    "duration": 4.72
+  },
+  {
+    "text": "side of the road. And so we can zoom in",
+    "start": 134.08,
+    "duration": 4.64
+  },
+  {
+    "text": "just holding shift and mouse wheeling",
+    "start": 136.72,
+    "duration": 5.44
+  },
+  {
+    "text": "in. And we will click. You want to have",
+    "start": 138.72,
+    "duration": 6.08
+  },
+  {
+    "text": "as few points as possible, but as many",
+    "start": 142.16,
+    "duration": 4.88
+  },
+  {
+    "text": "points that is necessary. That makes",
+    "start": 144.8,
+    "duration": 5.04
+  },
+  {
+    "text": "sense. So that's what we'll be doing",
+    "start": 147.04,
+    "duration": 4.72
+  },
+  {
+    "text": "here. And somewhere over there is going",
+    "start": 149.84,
+    "duration": 3.679
+  },
+  {
+    "text": "to be the end of that road. Bring it",
+    "start": 151.76,
+    "duration": 5.759
+  },
+  {
+    "text": "over here. Bring this down",
+    "start": 153.519,
+    "duration": 6.881
+  },
+  {
+    "text": "like this.",
+    "start": 157.519,
+    "duration": 2.881
+  },
+  {
+    "text": "And there we go. So now if we take a",
+    "start": 160.879,
+    "duration": 5.281
+  },
+  {
+    "text": "look at it, it's not great. We have to",
+    "start": 163.2,
+    "duration": 4.96
+  },
+  {
+    "text": "move it a little bit here, but that's",
+    "start": 166.16,
+    "duration": 3.28
+  },
+  {
+    "text": "what we're going to do first. So",
+    "start": 168.16,
+    "duration": 3.52
+  },
+  {
+    "text": "clicking on our beplline and then just",
+    "start": 169.44,
+    "duration": 4.56
+  },
+  {
+    "text": "adjusting all the points. If we were to",
+    "start": 171.68,
+    "duration": 5.12
+  },
+  {
+    "text": "just click and move, we're going to add",
+    "start": 174.0,
+    "duration": 4.959
+  },
+  {
+    "text": "additional points. So to not do that, if",
+    "start": 176.8,
+    "duration": 4.32
+  },
+  {
+    "text": "we come up to the top bar up here, we",
+    "start": 178.959,
+    "duration": 4.64
+  },
+  {
+    "text": "have this edit only mode or shift M.",
+    "start": 181.12,
+    "duration": 4.08
+  },
+  {
+    "text": "We'll click on that and that'll only",
+    "start": 183.599,
+    "duration": 3.92
+  },
+  {
+    "text": "allow us to move the points that are",
+    "start": 185.2,
+    "duration": 4.8
+  },
+  {
+    "text": "here. And so that's what we'll do first.",
+    "start": 187.519,
+    "duration": 6.561
+  },
+  {
+    "text": "We'll just move these points to be over",
+    "start": 190.0,
+    "duration": 6.72
+  },
+  {
+    "text": "the whole street.",
+    "start": 194.08,
+    "duration": 4.32
+  },
+  {
+    "text": "And see there, we're going to come back",
+    "start": 196.72,
+    "duration": 5.68
+  },
+  {
+    "text": "down. Bring this down a little bit.",
+    "start": 198.4,
+    "duration": 6.24
+  },
+  {
+    "text": "Something like that.",
+    "start": 202.4,
+    "duration": 5.04
+  },
+  {
+    "text": "And I think majority of this is good",
+    "start": 204.64,
+    "duration": 5.28
+  },
+  {
+    "text": "from here.",
+    "start": 207.44,
+    "duration": 4.56
+  },
+  {
+    "text": "All right.",
+    "start": 209.92,
+    "duration": 5.44
+  },
+  {
+    "text": "Like that. Okay. So that is our whole",
+    "start": 212.0,
+    "duration": 6.799
+  },
+  {
+    "text": "street kind of covered. That's what",
+    "start": 215.36,
+    "duration": 6.4
+  },
+  {
+    "text": "we'll be showing here. And now that we",
+    "start": 218.799,
+    "duration": 6.8
+  },
+  {
+    "text": "have this set, one thing that uh masks",
+    "start": 221.76,
+    "duration": 7.199
+  },
+  {
+    "text": "automatically add in is the shape shape",
+    "start": 225.599,
+    "duration": 5.36
+  },
+  {
+    "text": "animation. So I just want to remove",
+    "start": 228.959,
+    "duration": 3.92
+  },
+  {
+    "text": "that. So I'll just rightclick here and",
+    "start": 230.959,
+    "duration": 3.92
+  },
+  {
+    "text": "go down to remove. That'll remove that.",
+    "start": 232.879,
+    "duration": 4.0
+  },
+  {
+    "text": "So we're not playing around with a lot",
+    "start": 234.879,
+    "duration": 5.041
+  },
+  {
+    "text": "of different animation uh tools all at",
+    "start": 236.879,
+    "duration": 5.761
+  },
+  {
+    "text": "once. From here, what we're going to do",
+    "start": 239.92,
+    "duration": 5.679
+  },
+  {
+    "text": "is now we want to have access to the",
+    "start": 242.64,
+    "duration": 5.44
+  },
+  {
+    "text": "data for every one of these points. So,",
+    "start": 245.599,
+    "duration": 4.081
+  },
+  {
+    "text": "I'm going to do is highlight all of the",
+    "start": 248.08,
+    "duration": 3.2
+  },
+  {
+    "text": "points. We're going to go to one of the",
+    "start": 249.68,
+    "duration": 4.24
+  },
+  {
+    "text": "points, right click on it, then go down",
+    "start": 251.28,
+    "duration": 5.84
+  },
+  {
+    "text": "to polygon, and go publish, publish",
+    "start": 253.92,
+    "duration": 5.2
+  },
+  {
+    "text": "points. So, now this will show all of",
+    "start": 257.12,
+    "duration": 5.359
+  },
+  {
+    "text": "the points for all of these points here.",
+    "start": 259.12,
+    "duration": 6.32
+  },
+  {
+    "text": "If you want to know which of these",
+    "start": 262.479,
+    "duration": 5.761
+  },
+  {
+    "text": "points uh in our mask is connected to",
+    "start": 265.44,
+    "duration": 4.56
+  },
+  {
+    "text": "any of these, what you can do is you can",
+    "start": 268.24,
+    "duration": 3.679
+  },
+  {
+    "text": "click on one of the points again and",
+    "start": 270.0,
+    "duration": 4.0
+  },
+  {
+    "text": "then go to polygon",
+    "start": 271.919,
+    "duration": 4.241
+  },
+  {
+    "text": "and then we'll come down here to point",
+    "start": 274.0,
+    "duration": 4.88
+  },
+  {
+    "text": "numbers. And now we can see the",
+    "start": 276.16,
+    "duration": 4.479
+  },
+  {
+    "text": "different numbers here that will",
+    "start": 278.88,
+    "duration": 3.92
+  },
+  {
+    "text": "represent these points over here.",
+    "start": 280.639,
+    "duration": 6.641
+  },
+  {
+    "text": "because we're on our um primary frame",
+    "start": 282.8,
+    "duration": 6.16
+  },
+  {
+    "text": "that we set this up. What we'll do is",
+    "start": 287.28,
+    "duration": 4.96
+  },
+  {
+    "text": "we'll just go down and we will click all",
+    "start": 288.96,
+    "duration": 5.28
+  },
+  {
+    "text": "of the key frames so that we have them",
+    "start": 292.24,
+    "duration": 4.0
+  },
+  {
+    "text": "all key framed for this particular",
+    "start": 294.24,
+    "duration": 4.56
+  },
+  {
+    "text": "frame. So right here is our playhead.",
+    "start": 296.24,
+    "duration": 4.32
+  },
+  {
+    "text": "We're at frame zero. What I'm going to",
+    "start": 298.8,
+    "duration": 5.44
+  },
+  {
+    "text": "go is to the last usable frame, right?",
+    "start": 300.56,
+    "duration": 5.76
+  },
+  {
+    "text": "So before we have that little jerking",
+    "start": 304.24,
+    "duration": 5.92
+  },
+  {
+    "text": "motion. So I would say right there is",
+    "start": 306.32,
+    "duration": 6.24
+  },
+  {
+    "text": "probably one of the last ones. And then",
+    "start": 310.16,
+    "duration": 4.16
+  },
+  {
+    "text": "from here, what we're going to do is now",
+    "start": 312.56,
+    "duration": 6.479
+  },
+  {
+    "text": "we're going to move um all of our points",
+    "start": 314.32,
+    "duration": 8.879
+  },
+  {
+    "text": "to have a new position that is uh in",
+    "start": 319.039,
+    "duration": 6.16
+  },
+  {
+    "text": "this road. Right. Right. So if we take",
+    "start": 323.199,
+    "duration": 4.72
+  },
+  {
+    "text": "this point, we move it down. Take that",
+    "start": 325.199,
+    "duration": 6.361
+  },
+  {
+    "text": "point, move it down.",
+    "start": 327.919,
+    "duration": 3.641
+  },
+  {
+    "text": "Okay. So that is our second frame,",
+    "start": 337.36,
+    "duration": 5.36
+  },
+  {
+    "text": "right? So we have this one down here",
+    "start": 341.039,
+    "duration": 5.041
+  },
+  {
+    "text": "which is at 1376 and we have our first",
+    "start": 342.72,
+    "duration": 8.0
+  },
+  {
+    "text": "one which somehow got messed up as well.",
+    "start": 346.08,
+    "duration": 6.48
+  },
+  {
+    "text": "And then if I click on this again to see",
+    "start": 350.72,
+    "duration": 4.319
+  },
+  {
+    "text": "our other one that is our second one.",
+    "start": 352.56,
+    "duration": 4.32
+  },
+  {
+    "text": "Just with all rotoscoping now we want to",
+    "start": 355.039,
+    "duration": 4.801
+  },
+  {
+    "text": "go to the middle of those points that we",
+    "start": 356.88,
+    "duration": 4.72
+  },
+  {
+    "text": "just added. So somewhere in the middle.",
+    "start": 359.84,
+    "duration": 4.96
+  },
+  {
+    "text": "So here. And now we just want to adjust",
+    "start": 361.6,
+    "duration": 6.56
+  },
+  {
+    "text": "to get everything lined up again. So,",
+    "start": 364.8,
+    "duration": 5.92
+  },
+  {
+    "text": "I'll quickly do that.",
+    "start": 368.16,
+    "duration": 5.68
+  },
+  {
+    "text": "Line up everything. That looks all good.",
+    "start": 370.72,
+    "duration": 6.08
+  },
+  {
+    "text": "Bring this back in a little bit. Bring",
+    "start": 373.84,
+    "duration": 5.12
+  },
+  {
+    "text": "this in.",
+    "start": 376.8,
+    "duration": 4.959
+  },
+  {
+    "text": "Bring this up. Okay. So, now we're",
+    "start": 378.96,
+    "duration": 4.799
+  },
+  {
+    "text": "looking pretty good. And what you'll",
+    "start": 381.759,
+    "duration": 3.921
+  },
+  {
+    "text": "notice is now we have three key frames.",
+    "start": 383.759,
+    "duration": 4.0
+  },
+  {
+    "text": "So, the first one here, the one in 700,",
+    "start": 385.68,
+    "duration": 5.519
+  },
+  {
+    "text": "and this other one over 1300. Now, we",
+    "start": 387.759,
+    "duration": 5.44
+  },
+  {
+    "text": "just need to look at in between where",
+    "start": 391.199,
+    "duration": 3.601
+  },
+  {
+    "text": "our new key frame is and our previous",
+    "start": 393.199,
+    "duration": 3.921
+  },
+  {
+    "text": "key frame. So we'll look here and we'll",
+    "start": 394.8,
+    "duration": 4.56
+  },
+  {
+    "text": "look over here and then adjust it",
+    "start": 397.12,
+    "duration": 4.4
+  },
+  {
+    "text": "accordingly. The idea here is that we",
+    "start": 399.36,
+    "duration": 3.6
+  },
+  {
+    "text": "want don't want to go through every",
+    "start": 401.52,
+    "duration": 4.239
+  },
+  {
+    "text": "single frame and make key frames. What",
+    "start": 402.96,
+    "duration": 5.92
+  },
+  {
+    "text": "we want is for Fusion to automatically",
+    "start": 405.759,
+    "duration": 6.16
+  },
+  {
+    "text": "move the mask, but we're giving it um",
+    "start": 408.88,
+    "duration": 5.759
+  },
+  {
+    "text": "references to you know in between here.",
+    "start": 411.919,
+    "duration": 5.361
+  },
+  {
+    "text": "So just interpolate the different the",
+    "start": 414.639,
+    "duration": 6.481
+  },
+  {
+    "text": "space in between and it will save a lot",
+    "start": 417.28,
+    "duration": 7.319
+  },
+  {
+    "text": "of work.",
+    "start": 421.12,
+    "duration": 3.479
+  },
+  {
+    "text": "uh in between. So that's looking good",
+    "start": 424.8,
+    "duration": 3.679
+  },
+  {
+    "text": "there. So remember we had this one here",
+    "start": 426.479,
+    "duration": 4.401
+  },
+  {
+    "text": "at 700. So we did that one. So now let's",
+    "start": 428.479,
+    "duration": 4.72
+  },
+  {
+    "text": "go to the other side in the middle. So",
+    "start": 430.88,
+    "duration": 5.439
+  },
+  {
+    "text": "over here. And that's pretty much the",
+    "start": 433.199,
+    "duration": 6.0
+  },
+  {
+    "text": "gist of it. And we'll just keep going",
+    "start": 436.319,
+    "duration": 5.6
+  },
+  {
+    "text": "until we feel like when we jump to a new",
+    "start": 439.199,
+    "duration": 4.641
+  },
+  {
+    "text": "set of key frames, there's no moving. So",
+    "start": 441.919,
+    "duration": 3.761
+  },
+  {
+    "text": "now we added this key frame here in the",
+    "start": 443.84,
+    "duration": 3.759
+  },
+  {
+    "text": "300s. And then this one over in the",
+    "start": 445.68,
+    "duration": 3.76
+  },
+  {
+    "text": "thousand. So we'll go to the left and",
+    "start": 447.599,
+    "duration": 3.921
+  },
+  {
+    "text": "right of this 300. So, we'll go",
+    "start": 449.44,
+    "duration": 4.159
+  },
+  {
+    "text": "somewhere in here and we'll take a look",
+    "start": 451.52,
+    "duration": 4.079
+  },
+  {
+    "text": "at that. For the most part, I feel like",
+    "start": 453.599,
+    "duration": 4.801
+  },
+  {
+    "text": "that is fine. Maybe slide this up ever",
+    "start": 455.599,
+    "duration": 5.281
+  },
+  {
+    "text": "so slightly. That's looking okay. Maybe",
+    "start": 458.4,
+    "duration": 4.72
+  },
+  {
+    "text": "slide this one up ever so slightly.",
+    "start": 460.88,
+    "duration": 3.92
+  },
+  {
+    "text": "Something like that. And then to the",
+    "start": 463.12,
+    "duration": 4.479
+  },
+  {
+    "text": "other side of that 300 key frame. That's",
+    "start": 464.8,
+    "duration": 4.56
+  },
+  {
+    "text": "looking pretty good. Now, we had this",
+    "start": 467.599,
+    "duration": 3.521
+  },
+  {
+    "text": "other key frame here at a th00and. So,",
+    "start": 469.36,
+    "duration": 4.559
+  },
+  {
+    "text": "we'll go to the left of that. This might",
+    "start": 471.12,
+    "duration": 4.88
+  },
+  {
+    "text": "need to come up ever so slightly. That's",
+    "start": 473.919,
+    "duration": 4.161
+  },
+  {
+    "text": "looking good. And then the other side of",
+    "start": 476.0,
+    "duration": 4.879
+  },
+  {
+    "text": "that, which is over here. and just slide",
+    "start": 478.08,
+    "duration": 5.44
+  },
+  {
+    "text": "that up just a little bit and maybe this",
+    "start": 480.879,
+    "duration": 5.44
+  },
+  {
+    "text": "one down. But for the most part, that is",
+    "start": 483.52,
+    "duration": 4.88
+  },
+  {
+    "text": "pretty good as well. So I would say for",
+    "start": 486.319,
+    "duration": 6.401
+  },
+  {
+    "text": "the most part this will follow",
+    "start": 488.4,
+    "duration": 6.639
+  },
+  {
+    "text": "as we go through here would follow this",
+    "start": 492.72,
+    "duration": 6.08
+  },
+  {
+    "text": "pretty well. Okay. And that should be",
+    "start": 495.039,
+    "duration": 6.081
+  },
+  {
+    "text": "the majority of work that we would have",
+    "start": 498.8,
+    "duration": 4.32
+  },
+  {
+    "text": "to do right to highlight something like",
+    "start": 501.12,
+    "duration": 5.12
+  },
+  {
+    "text": "this. Now, if you wanted to use a",
+    "start": 503.12,
+    "duration": 5.28
+  },
+  {
+    "text": "tracker, you could track each and every",
+    "start": 506.24,
+    "duration": 4.079
+  },
+  {
+    "text": "one of these points as well. So, I'll",
+    "start": 508.4,
+    "duration": 3.84
+  },
+  {
+    "text": "quickly show you that, right? So, let's",
+    "start": 510.319,
+    "duration": 5.041
+  },
+  {
+    "text": "say we take this one. Uh, which one",
+    "start": 512.24,
+    "duration": 5.599
+  },
+  {
+    "text": "here? This one. Number one, and I will",
+    "start": 515.36,
+    "duration": 4.4
+  },
+  {
+    "text": "just remove all the tracking data here.",
+    "start": 517.839,
+    "duration": 3.44
+  },
+  {
+    "text": "So, just double clicking will remove all",
+    "start": 519.76,
+    "duration": 3.759
+  },
+  {
+    "text": "that tracking data. Now, I can right",
+    "start": 521.279,
+    "duration": 5.201
+  },
+  {
+    "text": "click on here, go to modify with, and go",
+    "start": 523.519,
+    "duration": 5.361
+  },
+  {
+    "text": "to track,",
+    "start": 526.48,
+    "duration": 5.52
+  },
+  {
+    "text": "and then uh go over into our modifier.",
+    "start": 528.88,
+    "duration": 5.28
+  },
+  {
+    "text": "So, we have this tracker one. So, this",
+    "start": 532.0,
+    "duration": 3.839
+  },
+  {
+    "text": "is for this first tracker. As you can",
+    "start": 534.16,
+    "duration": 3.2
+  },
+  {
+    "text": "see, there's a point here. I'm just",
+    "start": 535.839,
+    "duration": 2.961
+  },
+  {
+    "text": "going to switch this over to the point",
+    "start": 537.36,
+    "duration": 3.36
+  },
+  {
+    "text": "tracker. I like it a little bit more.",
+    "start": 538.8,
+    "duration": 3.68
+  },
+  {
+    "text": "And we're not going to do every frame.",
+    "start": 540.72,
+    "duration": 4.799
+  },
+  {
+    "text": "So, let's just do every five frames.",
+    "start": 542.48,
+    "duration": 6.08
+  },
+  {
+    "text": "And all I'll do is just move this.",
+    "start": 545.519,
+    "duration": 5.521
+  },
+  {
+    "text": "Actually, I don't have any source in",
+    "start": 548.56,
+    "duration": 3.76
+  },
+  {
+    "text": "here. So, I need to put a source in",
+    "start": 551.04,
+    "duration": 3.44
+  },
+  {
+    "text": "here. So, we're going to grab our media",
+    "start": 552.32,
+    "duration": 5.04
+  },
+  {
+    "text": "in. We'll click and drag. Drop up here.",
+    "start": 554.48,
+    "duration": 6.24
+  },
+  {
+    "text": "So, now it knows what we're tracking. So",
+    "start": 557.36,
+    "duration": 5.52
+  },
+  {
+    "text": "now clicking on the beplline as I move",
+    "start": 560.72,
+    "duration": 5.679
+  },
+  {
+    "text": "this we can see this actually should",
+    "start": 562.88,
+    "duration": 5.519
+  },
+  {
+    "text": "show it.",
+    "start": 566.399,
+    "duration": 5.12
+  },
+  {
+    "text": "There we are. So we can see now in our",
+    "start": 568.399,
+    "duration": 4.401
+  },
+  {
+    "text": "tracker where we're tracking. I'm just",
+    "start": 571.519,
+    "duration": 3.76
+  },
+  {
+    "text": "going to track this sign right here. And",
+    "start": 572.8,
+    "duration": 4.4
+  },
+  {
+    "text": "I'll make the bounds just slightly",
+    "start": 575.279,
+    "duration": 4.641
+  },
+  {
+    "text": "smaller and click on this again. Go over",
+    "start": 577.2,
+    "duration": 5.68
+  },
+  {
+    "text": "into modifiers. And now we can track",
+    "start": 579.92,
+    "duration": 4.64
+  },
+  {
+    "text": "this. Where are we? We're here at the",
+    "start": 582.88,
+    "duration": 2.959
+  },
+  {
+    "text": "end. So I'm just going to track",
+    "start": 584.56,
+    "duration": 4.279
+  },
+  {
+    "text": "backwards.",
+    "start": 585.839,
+    "duration": 3.0
+  },
+  {
+    "text": "All right. So now that I track that, if",
+    "start": 588.88,
+    "duration": 5.04
+  },
+  {
+    "text": "we take a look at that one point, we can",
+    "start": 591.2,
+    "duration": 5.84
+  },
+  {
+    "text": "see that it's pretty locked on,",
+    "start": 593.92,
+    "duration": 6.72
+  },
+  {
+    "text": "right? It stays there. But obviously the",
+    "start": 597.04,
+    "duration": 6.88
+  },
+  {
+    "text": "it's way too high. So now we can do an",
+    "start": 600.64,
+    "duration": 6.879
+  },
+  {
+    "text": "offset. So if I come into modifiers, go",
+    "start": 603.92,
+    "duration": 6.16
+  },
+  {
+    "text": "into our tracker. And now we have this",
+    "start": 607.519,
+    "duration": 4.801
+  },
+  {
+    "text": "XY offset for where we want this point",
+    "start": 610.08,
+    "duration": 8.879
+  },
+  {
+    "text": "to actually be. It's still tracked to um",
+    "start": 612.32,
+    "duration": 10.0
+  },
+  {
+    "text": "it's still tracked to the sign, but now",
+    "start": 618.959,
+    "duration": 6.081
+  },
+  {
+    "text": "we're just offsetting the output of the",
+    "start": 622.32,
+    "duration": 5.36
+  },
+  {
+    "text": "tracker so that it stays so that this",
+    "start": 625.04,
+    "duration": 4.72
+  },
+  {
+    "text": "line stays within the boundaries of this",
+    "start": 627.68,
+    "duration": 4.159
+  },
+  {
+    "text": "road. So now if we as we go through",
+    "start": 629.76,
+    "duration": 3.759
+  },
+  {
+    "text": "here, we can see that that stays there.",
+    "start": 631.839,
+    "duration": 4.24
+  },
+  {
+    "text": "So if you really wanted to, you could",
+    "start": 633.519,
+    "duration": 5.44
+  },
+  {
+    "text": "use a tracker on all of these,",
+    "start": 636.079,
+    "duration": 5.601
+  },
+  {
+    "text": "but you can, you know, do it this way as",
+    "start": 638.959,
+    "duration": 6.0
+  },
+  {
+    "text": "well. You can manually do some points or",
+    "start": 641.68,
+    "duration": 5.2
+  },
+  {
+    "text": "uh automatically do them all. Now, I do",
+    "start": 644.959,
+    "duration": 4.081
+  },
+  {
+    "text": "want to show you one other thing. Go",
+    "start": 646.88,
+    "duration": 5.84
+  },
+  {
+    "text": "back into this video. If we take a look",
+    "start": 649.04,
+    "duration": 5.2
+  },
+  {
+    "text": "at",
+    "start": 652.72,
+    "duration": 3.92
+  },
+  {
+    "text": "the this point down here, after the",
+    "start": 654.24,
+    "duration": 4.32
+  },
+  {
+    "text": "fact, you could make a shape and then",
+    "start": 656.64,
+    "duration": 4.319
+  },
+  {
+    "text": "just cut it out. So, I want to quickly",
+    "start": 658.56,
+    "duration": 5.44
+  },
+  {
+    "text": "show you that. So, here is let's say we",
+    "start": 660.959,
+    "duration": 5.281
+  },
+  {
+    "text": "take out this. I don't even know what",
+    "start": 664.0,
+    "duration": 6.16
+  },
+  {
+    "text": "this is. Maybe a train station or",
+    "start": 666.24,
+    "duration": 5.36
+  },
+  {
+    "text": "something. Let's say I want to take that",
+    "start": 670.16,
+    "duration": 5.359
+  },
+  {
+    "text": "out. So after our beastline, I will just",
+    "start": 671.6,
+    "duration": 7.52
+  },
+  {
+    "text": "add in a polygon. And I will just go",
+    "start": 675.519,
+    "duration": 7.081
+  },
+  {
+    "text": "around this.",
+    "start": 679.12,
+    "duration": 3.48
+  },
+  {
+    "text": "And then in the polygon, we will just",
+    "start": 683.279,
+    "duration": 5.201
+  },
+  {
+    "text": "change the paint mode to subtract. And",
+    "start": 685.519,
+    "duration": 6.56
+  },
+  {
+    "text": "so now I have this road tracked and I",
+    "start": 688.48,
+    "duration": 7.28
+  },
+  {
+    "text": "have this as a little cutout. Now, just",
+    "start": 692.079,
+    "duration": 7.2
+  },
+  {
+    "text": "like with our uh beplline, you're going",
+    "start": 695.76,
+    "duration": 7.12
+  },
+  {
+    "text": "to have to either track this or manually",
+    "start": 699.279,
+    "duration": 6.24
+  },
+  {
+    "text": "animate it. It's up to you. The other",
+    "start": 702.88,
+    "duration": 5.44
+  },
+  {
+    "text": "things you could also do is you could do",
+    "start": 705.519,
+    "duration": 5.841
+  },
+  {
+    "text": "the magic mask. And the magic mask, I'm",
+    "start": 708.32,
+    "duration": 5.84
+  },
+  {
+    "text": "actually going to add in the video,",
+    "start": 711.36,
+    "duration": 5.12
+  },
+  {
+    "text": "right? So, we have this video um playing",
+    "start": 714.16,
+    "duration": 5.6
+  },
+  {
+    "text": "here. And because we need a source, and",
+    "start": 716.48,
+    "duration": 5.599
+  },
+  {
+    "text": "I'm just going to select all of that.",
+    "start": 719.76,
+    "duration": 5.6
+  },
+  {
+    "text": "And that's looking pretty good. Uh, and",
+    "start": 722.079,
+    "duration": 5.44
+  },
+  {
+    "text": "from here the beplline because since",
+    "start": 725.36,
+    "duration": 4.479
+  },
+  {
+    "text": "this is actually what we want, I'm going",
+    "start": 727.519,
+    "duration": 4.641
+  },
+  {
+    "text": "to go into the garbage mat and then",
+    "start": 729.839,
+    "duration": 4.721
+  },
+  {
+    "text": "invert it. Oops, that's the wrong one.",
+    "start": 732.16,
+    "duration": 4.239
+  },
+  {
+    "text": "So, I'll just I'm just right click",
+    "start": 734.56,
+    "duration": 4.399
+  },
+  {
+    "text": "dragging into here. So, I can pick",
+    "start": 736.399,
+    "duration": 5.201
+  },
+  {
+    "text": "garbage mat and then in the gar or in",
+    "start": 738.959,
+    "duration": 4.081
+  },
+  {
+    "text": "here in the mats, we'll go in the",
+    "start": 741.6,
+    "duration": 4.0
+  },
+  {
+    "text": "garbage mat and we'll just invert that.",
+    "start": 743.04,
+    "duration": 5.12
+  },
+  {
+    "text": "So, then that's not what I want. And",
+    "start": 745.6,
+    "duration": 6.72
+  },
+  {
+    "text": "then let's invert the um mask. So now we",
+    "start": 748.16,
+    "duration": 7.359
+  },
+  {
+    "text": "have that little bit cut out and then we",
+    "start": 752.32,
+    "duration": 6.319
+  },
+  {
+    "text": "will come in and so now we have this off",
+    "start": 755.519,
+    "duration": 7.041
+  },
+  {
+    "text": "using the AI. Obviously if you want this",
+    "start": 758.639,
+    "duration": 6.32
+  },
+  {
+    "text": "to be cut out a little bit more clicking",
+    "start": 762.56,
+    "duration": 5.12
+  },
+  {
+    "text": "on it we can then put some more like",
+    "start": 764.959,
+    "duration": 6.0
+  },
+  {
+    "text": "negative stuff along this and it'll",
+    "start": 767.68,
+    "duration": 5.36
+  },
+  {
+    "text": "tighten that up a little bit. So then",
+    "start": 770.959,
+    "duration": 3.841
+  },
+  {
+    "text": "there we go. Now all you would have to",
+    "start": 773.04,
+    "duration": 4.16
+  },
+  {
+    "text": "do is just track that and now you are",
+    "start": 774.8,
+    "duration": 4.24
+  },
+  {
+    "text": "using some of the AI tools if you have",
+    "start": 777.2,
+    "duration": 3.92
+  },
+  {
+    "text": "access to those. So, couple of different",
+    "start": 779.04,
+    "duration": 4.479
+  },
+  {
+    "text": "options here to do this. So, I think",
+    "start": 781.12,
+    "duration": 4.56
+  },
+  {
+    "text": "that concludes this effect. If you have",
+    "start": 783.519,
+    "duration": 4.32
+  },
+  {
+    "text": "any questions, you can go over to postp",
+    "start": 785.68,
+    "duration": 3.92
+  },
+  {
+    "text": "pro list, ask your question there.",
+    "start": 787.839,
+    "duration": 3.601
+  },
+  {
+    "text": "Someone should be able to help you out.",
+    "start": 789.6,
+    "duration": 3.679
+  },
+  {
+    "text": "If you haven't seen yet over on my",
+    "start": 791.44,
+    "duration": 4.48
+  },
+  {
+    "text": "website under free titles, I did add",
+    "start": 793.279,
+    "duration": 5.36
+  },
+  {
+    "text": "more to the free bundle. Currently,",
+    "start": 795.92,
+    "duration": 5.44
+  },
+  {
+    "text": "there are 51. They will slowly get add",
+    "start": 798.639,
+    "duration": 5.521
+  },
+  {
+    "text": "it to the community version of the pack.",
+    "start": 801.36,
+    "duration": 4.56
+  },
+  {
+    "text": "If you did want to support the pack, you",
+    "start": 804.16,
+    "duration": 4.16
+  },
+  {
+    "text": "can become part of the insiders, which",
+    "start": 805.92,
+    "duration": 4.32
+  },
+  {
+    "text": "then you have access to a few more",
+    "start": 808.32,
+    "duration": 4.88
+  },
+  {
+    "text": "titles. They will slowly get released to",
+    "start": 810.24,
+    "duration": 5.52
+  },
+  {
+    "text": "the community pack, but if you read",
+    "start": 813.2,
+    "duration": 5.12
+  },
+  {
+    "text": "through this, I will consistently add",
+    "start": 815.76,
+    "duration": 4.96
+  },
+  {
+    "text": "more stuff to the insiders that will",
+    "start": 818.32,
+    "duration": 4.079
+  },
+  {
+    "text": "then get added to the community pack.",
+    "start": 820.72,
+    "duration": 5.2
+  },
+  {
+    "text": "Just a way to um help support the",
+    "start": 822.399,
+    "duration": 5.521
+  },
+  {
+    "text": "creation of this pack that hopefully",
+    "start": 825.92,
+    "duration": 3.599
+  },
+  {
+    "text": "will become one of the biggest free",
+    "start": 827.92,
+    "duration": 4.24
+  },
+  {
+    "text": "packs uh in the community. But with that",
+    "start": 829.519,
+    "duration": 4.32
+  },
+  {
+    "text": "being said, my name's Justin. Thanks so",
+    "start": 832.16,
+    "duration": 2.799
+  },
+  {
+    "text": "much for watching. Till the next one,",
+    "start": 833.839,
+    "duration": 3.281
+  },
+  {
+    "text": "guys.",
+    "start": 834.959,
+    "duration": 2.161
+  }
+]

@@ -1,0 +1,1451 @@
+I see this way too often. People will
+get excited, get a new tool, drop it on,
+do this, and then they'll go, "This is
+absolutely awful. Nobody should be using
+it." The problem is not the tool. The
+problem is you. Listen, if you feel
+offended, that's on you. I'm not
+offended. So, in this video, I'm going
+to give you the why behind each
+parameter inside Film Look Creator. So,
+we can take this hot mess of an image
+and turn it into that. We have multiple
+shots that we're going to work on and
+we're going to create completely
+different looks. And after you have a
+little bit of this knowledge that I'm
+going to share with you, you will
+unleash your full potential from this
+particular tool, which I have to say,
+Blackmagic freaking cooked with this
+tool. So, if you guys are as pumped as I
+am, do me a favor. Let's take a pause,
+smash the like button, subscribe to the
+channel. There's about 47% of you that
+are still not subscribed. And that said,
+let's get into it. For those that don't
+know me, my name is Kazzy. I've worked
+with brands like Adidas, Amazon Prime,
+Universal Studios, and I make no just
+straightforward color grading tutorials
+so you can work with your dream clients.
+All right, so let's go ahead and reset
+this and just get rid of it. And let me
+just show you first of all what kind of
+concoction I got going on here. Very,
+very simple. Okay, we have our input
+device transform. This is REC 79. So
+we're taking Rec 79. We're going to be
+working in Da Vinci wide gamut. We're
+converting it to that and then Da Vinci
+wide gamut to rec 709. This is just how
+I roll. This is how I work on every
+single project and it's a muscle memory
+now. So, always stick with your process.
+You're just going to keep getting so
+much faster along the way. Balance is
+going to happen here. Something else is
+going to happen here that I'm going to
+share with you in a second. And then,
+uh, film look creator is going to happen
+here. Looks always happen right before
+ODT. Okay? And then we have these two
+shots. So, basically what we're going to
+do is this. We're going to create a very
+clean poppy as much punch as we can add
+to this image and just make it feel like
+we need to be there from this shot. So
+that's the look we're going to create
+here. We are going to create a
+quintessential teal and orange look
+cinematic here and we're going to create
+a postcard vintage look right here. So
+those are the three looks that we're
+going to create. See very distinct, very
+different shots. So, let's jump right in
+and start with this one. First rule, a
+lot of people make this mistake. So,
+let's start with that. Always balance
+your footage first. Please do me a
+favor. Like, you can't just drop on a
+look because you found something
+exciting and something new and then you
+just go, why is it not working? Because
+you have to do the dirty work first. You
+have to balance your image. This one
+looks pretty good, right? Like, look at
+the vectors scope. It's right in the
+dead smack center. Looks pretty balanced
+to me. Like this one, we might be okay.
+This one, not so much. I mean, it's
+leaning very much toward that yellow. I
+mean, look at the colorized waveform.
+It's just so dingy. So, we have to pull
+that out. So, I'm going to go right
+here. I'm going to use my printer
+lights. Okay. So, printer lights live
+right here. So, I'm going to be hitting
+these buttons and I'm going to be
+calling it out what I'm doing to get
+this out. So, I said like there is like
+some yellow. So, how about we subtract
+yellow? And to subtract yellow, we have
+to add blue, right? So, I'm just going
+to go full blue. So that's one full
+blue. That's two full blue. Uh maybe we
+do quarter blue. Okay. And then we go
+dial back one blue. And now I want to
+add cyan. Couple of cyan.
+Go. Always go too far. And then go.
+Okay, that was a bit much. Maybe we can
+come back like that. Maybe pull out some
+blue. Maybe cut back on the cyan just a
+little bit. And then add a red or two. I
+mean, this is looking much better than
+before. One more cyan. Okay, this is not
+bad. All right, so now like I would say,
+okay, we can lock it in right here. I
+will be happy. Like if I'm seeing this,
+I'm going Yeah, I'm going this is not
+bad. This could be our balance. Okay,
+what do we want to do with the exposure?
+Play with it. Right,
+this looks good. It's a bright sunny
+day, so this is good. So the first thing
+that I want to do anytime you're
+building a look, you can use whatever
+you want to use, but have some sort of
+chart in place. false color, things like
+that. Utility tools like where you can
+actually see what you're changing, like
+what are you manipulating in your image.
+And what I'm going to be using, and this
+is not a plug, by the way, okay? I mean,
+you guys can just literally go use
+somebody else's stuff, but this is just
+what I do from day to day. So, I'm going
+to be using Rapid Grade, which is my
+tool, but I'm just going to go ahead.
+I'm going to turn this on. The tutorial
+is not about this. So, we're just not
+going to pretend like, oh, Kazzy's going
+to turn this into one of those videos.
+So, we're going to turn this on and
+leave it to that. Okay. So basically
+what I have turned on is my color chart
+and my exposure ramp. This is all I need
+because this is like anything that I do
+afterwards to my image, right? It's
+telling me right here what's being
+manipulated. Like all the colors,
+everything, right? Like if I go do this,
+like if I if I add like everything is
+just being told to me what is happening
+and I'm seeing that change like in real
+time. We needed that. Okay. So now what
+I'm going to do is this. And that's why
+you have to balance your shot first cuz
+if you don't balance your shot, you're
+going to be like feeding wrong
+information to this like these charts
+and then everything is going to be
+broken. So now that we have that, we are
+primed and we are ready to go for film
+look creator. Drop it on. You drop it
+on. I mean, I'm not going to lie. I
+mean, you drop it on it and starts off
+like right out the gate. Like I mean, it
+starts off with a pretty good look.
+Let's buy some real estate. Let's cut
+that out. Not bad. Okay. When you drop
+it on. But sometimes this is not a good
+thing when you drop on a plugin and all
+of a sudden it's doing something. You're
+just like whoa. Like take it easy. Like
+let me start from somewhere. But I have
+to say this is a good thing what they're
+doing. So click on preset. I'm going to
+take you through like everything from
+top to bottom. All right? And how
+everything is laid out. Presets. I mean
+these are super super useful how they
+have these set up. Okay? I have to tell
+you. So we're starting off with default
+65 which is pretty laidback. Then we go
+to default 35 and all of a sudden
+there's a little bit more personality, a
+little bit heavier grain, a little bit
+heavier vignette. Then we go to
+cinematic. This is where it just becomes
+like more artsy. Like this is not
+necessarily following Kodak or Fujifilm
+or anything specific like film print
+emulation or anything like that. It's
+just like kind of doing its own thing.
+All right. And then bleach bypass,
+similar idea like but it's just really
+giving you those silver highlights up
+top and like adding a lot of punch down
+below and you're ending up with an image
+like that. And obviously everything is
+fully customizable. Like look at right
+here. Okay, so this is something that I
+really like. Like each one that we're
+changing, we're seeing the change right
+here. So like what's actually happening
+to our image? And then nostalgic is one
+of my favorites. I mean come on, this is
+actually really cool. Like this is what
+I'm saying. like bro like black magic
+cooked. So that's really cool. And then
+these are super useful. Okay, so default
+no effects. What does that mean? All the
+color changes usually get translated
+when you export it as a L. So basically
+what this is saying right here is that
+yo, you are ready to go. We're not
+applying any texture based changes that
+are spatial changes that do not get
+translated into a L. They don't get
+baked into a L. So they're saying you
+can do this and just like not bother
+with any of these texturebased tools
+that they have here or you can go to
+clean slate and then nothing is applied.
+If I do before and after, nothing is
+applied. You're just starting from a
+clean slate. So this is what I'm saying.
+They did a good job. Let's just give
+credit where the credit is due. All
+right. So what I'm going to do is like
+let's just start as everybody else
+would. Why not? Let's just start from
+here. Okay? Like that's fine. And uh we
+did say that we wanted to create clean
+look. So it makes sense. Default 65
+makes the most sense. Like it's going to
+be a 65mm grain like super light. It
+makes a lot of sense. Okay. What is
+happening with color blend? What is
+that? All these color changes like right
+here film look split tone all these
+changes live in color blend. So when I
+go forward and back like look at that.
+That's what I'm controlling here. Okay.
+So this is at full effect right now.
+This is also a pretty good thing. Like
+you can go really hard, push the look,
+create whatever you want to create, and
+then you can just come back and dial
+that back and like leave your effects,
+like all of your textural stuff like as
+is. This is your texture. Okay? And
+we're seeing that.
+See, like, and that's why these charts
+are so important. You you see the
+halation right here, like just keep an
+eye like right here. And like this
+halation effect that's happening, that's
+like really hard to see with a naked
+eye. like if you're just looking at the
+image and having a chart, that's why
+it's super super important to have that
+and they're clever with what they're
+doing, what they're leaving open, what
+they're uh closing um down. So, if you
+twirl that open, color space overrides,
+amazing. If you are, you know, setting
+up your color management, doing your
+color management a different way, you
+can set everything up here. You have
+full control. I don't recommend it.
+Don't do that. Like, just again, always
+have like a process locked in and don't
+just change it project by project. Don't
+do that. So we already have our color
+management done through our node
+management right here. So everything is
+properly set up. So then here we can
+just like leave this as is. Okay. All
+right. Let's start with the most
+important section right here. Film look.
+And film look is divided like it's its
+own thing. You see this? And then color
+settings are down here. So film look is
+its own thing. Now that is one of the
+things like that. Let's just go through
+it and try to understand what's
+happening here. So film look blend. All
+right. What is that? When I pull it
+back, it goes like this. And when I move
+forward, it does that. What is that?
+Kazzy core look is basically their
+interpretation of just a look DNA that
+is kind of dialed back and then it's
+like living underneath your entire
+plugin. So, it's kind of like sitting
+underneath your plugin. And the the
+trippy thing here is that whatever I do,
+nothing else changes. Look at this.
+Nothing else is changing, but a lot is
+changing on the image. I mean, look at
+like what's happening here. and the
+color chart and then down here exposure
+ramp like look at that. So that all is
+changing but nothing is happening here.
+So it is kind of trippy I got to tell
+you but let me fill you in on what is
+happening with these. What are they
+actually doing if these are like show
+lots or whatever that are sitting
+underneath your overall plugin. So
+cinematic is starting off point and
+basically what it's doing is keeping
+majority of the image pretty neutral and
+we can again see it in the color chart.
+It's keeping everything pretty neutral
+and then it's just like dialing back the
+colors because muted colors, you know,
+equal cinematic like not in my
+necessarily my world but in in general.
+So then it's doing a little bit of that
+and then it's also doing something
+interesting. So it's adding a little bit
+of warmth up top. Okay, let's go here.
+It's adding a little bit of warmth up
+top. I mean, why don't we just like look
+at our charts? So
+warmth is going up top. And then cooler
+tones down below, right? It's cooling it
+off like a little bit like let's see
+that. You see? So this is totally
+neutral and then it cools it off just a
+hint a kiss. Okay. Up top
+neutral
+just a hint of yellow. Just a little bit
+of warmth. So that's cinematic. All
+right. It's okay. I mean it's not my
+favorite. My favorite is this Rochester.
+This right here is inspired by Kodak. It
+has that Kodak color science cuz like
+start looking at uh the main things skin
+tones the sky and like this right here
+these colors and then if I go before and
+after how they're coming in let's
+actually compare it to cinematic
+cinematic.
+Okay, let's see this. And then we go to
+Rochester and like how it's adding depth
+to the things that actually matter like
+cyan, reds, skin tones pops them and
+then controls everything else. Whereas
+here there's like a lot of other colors
+that are getting a lot of love. But like
+dude, all we care about is this right
+here. That is the real juice. So for me,
+I like this a lot. All right. And then
+Akasaka. Akasaka. I mean, if you guys
+know how to pronounce that, let me know.
+This is uh inspired by Fujifilm color
+science. Okay. Rochester Kodak, you
+know, little bit warmer up top still
+like look at the sky and then the skin
+tones get a lot of love. Whereas
+Fujifilm focuses a lot on that cyan up
+top and creates like and the greens and
+then it just kind of like just leans the
+skin tones toward like yellow uh more
+than orange. So that's the difference
+between the two. Again, we can just see
+it right here. So Rochester, right? Like
+look at the blues. Uh opens it up a
+little bit and then this tightens it up
+quite a bit. Okay. Look at the skin
+tones here. Like they're breathing and
+then it just tightens up that too. So
+totally up to you. For me it's
+Rochester. Let's look at elated. Elated
+is just like everything is kind of
+lifted. And now this one is not based
+off of Kodak or Fujifilm. So then I'm
+out. Like I I'm I'm not really buying
+it. And it's just uh I mean what is
+that? Like I I don't know. I I I think
+it's not that great. Vintage is really
+good. Vintage I like because I feel like
+there's a lot of like right stuff
+happening here to be honest with you.
+Like these like green highlights like
+look at this right like stay right here
+and then we do before and then we do
+after. You see this I like that. I like
+that. I like that. Okay. So here neutral
+these three patches. Look at that. And
+then after and it's just bringing in
+like some just a hint of those cooler
+tones. I think it's kind of cool, man.
+Like, okay, so let's go here before and
+after. And how like I mean, look at this
+right here
+and how it just pulled it back. And then
+once again, we can we can kind of meet
+in the middle if we want to. But dude,
+vintage is kind of cool, but that's not
+what we're going for here because
+remember, clean, crisp look. Like, I
+want to put you there. I want to put
+myself there. We want to go there. So,
+Rochester is what we're going to pick
+for this. Okay. Oh, the sky is looking
+great. Like look at how the clouds just
+popped. Like all of a sudden it just
+turned into a threedimensional image. I
+like it. I like it. Okay. So this is
+what we're going to do here. So again,
+the thing that is just a little bit
+trippy is that you know it is like
+there's there's no option to kind of see
+what is being manipulated so you can
+control it. Like I mean the only slider
+you got is like on and off and in
+between. So I don't know. I've I've just
+never been a fan of like throwing on a L
+and then dialing it back. I've never
+been that guy. I know a lot of people
+are that guy that they will have like
+four different LS going on and they're
+controlling the opacity. I've just never
+done that. So, I mean, if you are into
+that kind of stuff, then this will be a
+no-brainer for you. Okay, let's come
+down. Color settings. So, what's going
+on? Exposure, contrast. Our exposure is
+handled in stops. So, basically, this is
+like in linear, which is great. Uh, so
+that's really good. Your contrast is
+built off of S-curve. So it's like very
+very clean if you want to punch it like
+or if you want to bring it back. And
+then okay another thing that I really
+like once you select a preset up here
+and then you come down here no matter
+where you go and when you like undo it
+it comes to like that value and that's
+kind of cool. It doesn't just default to
+zero or one. So that's really cool.
+Highlights obviously like if you want to
+punch your highlights we can do that.
+And if we want to pull it back we can do
+that. Once again, the better way to just
+look at these is like right here. These
+are all of our highlights, right? So,
+what are we doing? Cranking them up. But
+we're actually opening it up. Like I
+mean, so I mean again, this is why the
+chart is so important because like look
+at this. So when I'm pulling this up,
+right? I'm actually buying more like
+dynamic range. When I'm pulling it down,
+I'm just kind of like choking like
+couple of stops up top. That's another
+topic that I'm going to do a video on.
+Just stay tuned. Maybe like next video
+could be on that. But I think that's
+like a very important topic to to
+discuss, especially with what people do
+when they're creating looks. All right,
+what else is going on? So, let's come
+down. Let's look at the fade. So, fade
+is doing that thing. It's just like
+basically the opposite of what
+highlights is doing. It's compressing
+your uh your shadows and lifting them up
+and and giving you a very much like a
+film contrast if you will on the bottom
+end, right? So, like if we come down, if
+you've ever used like Visco, the the
+photo app, like it has that, right? Like
+it does that. Like look at this. like it
+just makes the the gray or the blacks
+like full-on gray. So, it does that
+thing. Um, you can even see it on the
+top, like the bottom end like what we're
+doing. So, we're kind of like buying
+dynamic range, not going to lie. So, if
+you go here, like I mean, we bought like
+a few stops down here. This is actually
+not bad. So, if I do this, we can just
+kill it. All right, so that's what we
+got going on over here. White balance is
+also in linear. So, this is way better
+than like what happens here if you uh if
+you're in your primaries. So, love that.
+Good job, Blackmagic. Tint is also in
+linear. Very, very good. Like, look at
+that. Very realistic. Very usable. Love
+that. Okay. The holy trinity. This right
+here, subtractive sat, richness, and
+bleach bypass. This is where Blackmagic
+just went off. Okay, this is what you
+should pay $300 and buy the studio
+version so you have access to film look
+creator then using their free version
+which I'm assuming that look film create
+or film look creator is not available
+with the free version I mean you can
+comment below and correct me if I'm
+wrong but subtractive sat what is
+subtractive saturation we hear it all
+the time subtractive saturation and
+normal saturation I'm actually going to
+demonstrate it for you so usually here's
+our primary saturation And if I just
+click here and go to 100, crank it all
+the way, you're going to see something.
+Okay. So, if I do before and if I do
+after,
+what happens is that when it's adding
+saturation in this in these uh different
+hues, it's doing it evenly and it's
+actually expanding them. So, it's
+bringing up the luminance value of each
+hue. All right? Each channel. and they
+just become fluorescent and they just
+like look super bright which is very
+unnatural compared to how film respond
+to saturation. So what we're going to do
+is this. I'm going to save this version.
+I'm going to go to a new version. So
+let's go to this version. I'm going to
+undo this. And this time I'm going to
+take our subtractive saturation and I'm
+going to crank it all the way. And look
+what just happened. And we can see it on
+the chart too. Actually let's use the
+chart to see what's going on. Okay. Look
+it. Look it. So normal saturation
+everything goes fluorescent right it
+brightens everything and that's digital
+saturation as garbage and now we have
+subtractive saturation. So what
+subtractive saturation does is it makes
+each hue as you pump saturation into it
+denser instead of brighter. So it's
+actually doing the opposite subtraction
+right instead of like adding to it. And
+that's what's happening here. This is
+your digital saturation using primaries.
+This is your subtractive saturation
+using film look creator. Wow. Wow. They
+executed it so well. So that's what's
+happening here. So richness is basically
+adding density, but listen, adding
+density to the colors that are already
+popping. So it's just basically getting
+into the midtones like where there's
+already weight and then it's just
+expanding on that. So, like if you have
+skin tones, right, like in a shot and
+they're properly exposed, they're
+already have like good tone. You take
+richness and you crank it and all of a
+sudden the the person pops out of the
+screen. That's what it does. I mean,
+let's just try it. Like, look at what
+it's doing. Like, look at this right
+here. It's just taking those tones that
+already have juice and it's just
+expanding on it. So, Kazzy, how is that
+different than like subtractive
+saturation? Subtractive saturation is
+being applied still to like the whole
+thing whereas richness is being applied
+to the middle portion of it and kind of
+leaving the the desaturated areas and
+like the top end kind of as is. So what
+does that translate to and what why am I
+calling these three like the holy
+trinity? Because it is crazy when you
+create a concoction using all three.
+We're about to do it right now. Okay.
+Bleach bypass. This is the process that
+film process like where you get the
+silverish highlights into your top end
+and then as you push it your bottom gets
+like this punchy punchy contrast
+injected into your image and like look
+at this. This is saving private Ryan.
+This is the movie 7. Like wow. But
+anytime you do bleach bypass normally
+you end up with this. And you don't want
+that because if you think about the
+movie 7 there was still a lot of film
+density. There was still a lot of like
+that pop. Well, this is where this
+happens. You go to film saturation and
+you just do that and you bring out some
+of those areas, right? And now watch.
+You go to richness and then this is
+where you get the depth. I mean, look at
+this right here. The skin tones. How I
+pulled that. I mean, holy,
+come on. So, look at this that we just
+created between the three. This is the
+concoction. This is how you got to work
+it. Why was it important? Well, let me
+show you why it was important. I mean,
+look at how gunky the sky is looking
+right now. And then we created this
+look. And what?
+Sorry.
+But what? This is insane, dude. Like
+this is before, this is after. Dude,
+I've never seen like a cleaner sky.
+This is what I'm saying. They cooked
+with these three parameters. Like,
+yes. I mean, I have my own plugin and
+I'm like loving their plugin. It's like
+I'm cutting sales off of my plugin, but
+I'm just I mean, I'm going to give
+flowers where the flowers are due. This
+is this is good. This is great
+execution. Okay, so this is where we're
+at so far. And the image is it's getting
+it's going there where I want to take
+it. So now you're understanding why it's
+so important to know what is it, what
+does it do, and why should we use it to
+achieve a certain result. Because if you
+just have no understanding and you just
+jump in and start moving these things
+around, you'll never stumble upon like
+how to use these three until you have a
+deeper understanding of like what each
+one is doing. Now let's get into split
+tone. So under split tone, we have two
+modes right here. We have natural and we
+have strong. Natural is like just what
+most people are used to. So the idea
+behind split toning is like, hey, we're
+we're splitting the tone. Like usually
+when something is shot on film, you
+never have like absolutely neutral
+highlights and shadows. You always have
+like, you know, some color up top and at
+the bottom. And that's split toning most
+of the time. And that's why we just
+associate film with split toning for
+that particular reason. So let's just uh
+to start off, let's just crank it all
+the way so we can at least start
+visualizing like what is really
+happening. So down here, keep an eye
+right here in the vectorscope. When I
+take the viewing angle and start moving
+it around, this is what's telling us
+what is happening. I mean, we can just
+come here and like look at what we're
+doing because the the main thing is
+going to be this right here. All right,
+which color are we adding up top? Which
+color are we adding at the bottom?
+That's just what's happening. So like
+look at these angles, right? Like what
+do we want to do? Do we want to go the
+clean route? We can go here and then we
+add this color down here. So see I mean
+all of a sudden see I didn't even have
+to look. I was just like paying
+attention to this. And this is why
+charts are so important and we ended up
+with I mean what dude? Like what just
+happened? You kidding me? Look at this.
+And we thought this was clean. Like
+what? And all I was doing was just like
+paying attention to this. Like I just
+wanted to get the colors right right
+here. That's why these things are so
+important. Okay. So now pivot when are
+we introducing the seessaw? Where are
+the warm tones coming in and then the
+cooler tones? What's the weight
+distribution like? That's the pivot. So
+if I am like uh I want to bring in
+like this. I want to keep it somewhere
+around here. I'm I'm just like making
+some you know up. But like we can
+just like re like I mean I'm just
+looking at it down here, right? like
+where do I want to bring this in? So
+even if I do before I mean it was like
+basically around where I want it to be.
+So we're like somewhere somewhere like
+that. Okay. So protect your neutrals or
+basically like any like lowsaturated
+colors is just going to protect them and
+leave them as is. You might think that's
+a great idea. Don't do that. Don't do
+that because if you actually look at
+what split tone does on a chart like
+there's a lot of manipulation that is
+happening and push and pull that is
+happening by using protect neutrals. You
+just you're asking for it. You're
+begging for it. Your image is going to
+break. So don't do it. I wouldn't
+recommend it. I would just like let let
+it seep in. Let it bleed in. That's the
+that's the nice like envelope that like
+brings everything together. We kind of
+want that honestly. So now we can just
+go under the amount and kind of dial it
+back like you know where do we want to
+bring it in because we just wanted to
+like really just again all these things
+are just cleaning up the image just
+taking us there guys like you see
+understanding it and then just going in
+and getting it like instead of just like
+you know trial and error and getting
+frustrated like oh my god I'm not
+getting like what I'm looking for. So
+imagine when I started the tutorial
+where we were to like where we are now.
+Um, obviously I'm commentating. I'm
+taking you through this. Like, but when
+I personally did this, it took me like,
+you know, 45 seconds and I was there.
+So, we're done with this. We're done
+with split toning. Okay. Now, the rest
+of it is also done beautifully because
+look at this. Okay. So, this is our
+vignette. I can crank it all the way and
+it's very controlled and that's a good
+thing. That's not a bad thing. This is
+like the first time I'm seeing an OFX
+like where it is controlled. Usually,
+it's like just too much or not enough.
+This is like good where it's just like
+hey we're putting some guard rails
+around this. Same thing is happening
+with halation. Like look at this dude.
+There's guard rails. I mean halation is
+tell like it's telling you what's
+happening right here. Right. We can even
+take the hue and like see this is why
+it's so important. I'm telling you
+that's why it's so important all of this
+right. It's all good. It's all really
+good. And then we can just like reset
+it. Reset. Reset. Reset if we just want
+to kind of like let it do its thing. So
+we can just like leave it there. Okay.
+So we have hation vignette bloom. Bloom
+is just such a good thing to have
+especially like just giving the image a
+little bit of a breathing room and
+opening it up. It it's just so important
+and especially if we had like lamp or
+something like that. So you know on this
+shot it'll probably be just like more
+useful when we get there. But for here
+I'll just leave it on default. Super
+impressed. When you pick a a specific
+preset up top and you come down it does
+give you a very good base. So, in this
+case, we wanted to go for the clean
+look. So, we started with the right
+preset and then it kind of set us up for
+success, and I'm happy about that. I
+think they did a really good job. In
+terms of the grain, we're leaving it to
+60 mm. Okay. So, this is going to help
+with that clean image because if I go
+and make it eight, like this is not
+helping with what we want to do. That is
+going to happen on a different shot.
+We're going to try that for sure. So,
+for this one, we're just going to leave
+it at 65 mm. Okay? And this is what we
+end up with. And this is really good,
+guys. Oh my god, this is really good.
+Okay, so what is flicker? Flicker is
+basically the fluctuation that is
+happening with the projector lamp when
+the film is going through it and that's
+what creates that little effect. So like
+for us, we're just going to leave it to
+like the default that they have, which
+is going to be very much dialed back.
+Gate weave is like when the film is
+actually going through what is the
+housing called like when it's going
+through it inside the projector moving
+up and down a little bit and that's what
+you're feeling here. So if we like
+really turn up the amount we should be
+able to see it a little bit more. I had
+to take a break. My camera overheated
+man. Sony just needs to fix this
+problem. It's so freaking frustrating.
+All right guys so the last thing here
+that we want to go through is film gate.
+This is basically just like different
+aspect ratios and they're a lot of fun.
+I'm not gonna lie. Like I just rolled my
+eyes when I saw that first like this
+feature, but I'm surprisingly loving it.
+And look at this. Like how cool is that?
+Because now we can turn this off and now
+we're left with this. It's just such a
+beautiful postcard. And then you can
+just go there and like uh get rid of
+enable curvature. So everything is like
+very like welllaid out and just makes so
+much sense. So from all of that
+perspective, I'm I'm very impressed. So
+let's just say that here um we built
+this look. This is a super clean look
+and we're very happy with it. So in this
+particular case, I don't want to apply
+this because uh again, we're creating
+very different u looks. So for this one,
+this is great. Now let's uh go to this
+shot. And now we want to do a teal and
+orange look and we want to do a
+cinematic look. So let's just uh drop
+that on again. And first, let's just
+make sure that it's balanced. So, I see
+it's a little bit more on the warmer
+side. So, let's just cool it off a
+little bit. So, I'm going to do teal,
+teal, and I'm going to do blue. Blue.
+So, now we're already see like this is
+why just a little bit of balancing goes
+a long way. Like, look at how much uh
+color depth we created just by doing
+that. See, before it was just seeping
+into like this warm tones and we can
+even see it in our uh waveform. And I'm
+going to do this so you guys can really
+see it. And then after, see, like now,
+like look at this. It just created like
+so much color depth automatically just
+by doing simple things. Okay, so now
+we're done with our balance. Rust looks
+good. So now we dropped our uh film look
+creator. Let's undo that. And uh let's
+go to default 35. Okay. And it gives you
+this. Um and I like that a little bit
+more grunge, a little bit more grain. Um
+I don't necessarily want to do like
+cinematic cuz uh like I just think it's
+kind of ugly. So we're going to build
+off of this. Okay. and then come down
+here. And this time we actually will
+choose Akasaka uh the Fujifilm because
+it's going to have a little bit of like
+that uh cyan seeping into it and then
+warmer tones. So it's kind of nice. And
+then again, let's just do the same
+thing. Drop this on. And then we're
+going to turn on our chart so we can see
+what we're doing. Let's come here and do
+before and after. Actually, there's one
+thing that I want to do here. So if I go
+down here
+and if I just check this on, it will
+like give us this right here, which is
+exactly what we need. So aspect ratio is
+dialed in now. So let's come here and do
+before and after. And when we do that,
+we're seeing the changes that we're
+making, which is fine. Good start for
+now, but we want to build more uh into
+that look that we really want. So we can
+just leave a lot of these as is. One
+thing that we can do is we can just go
+in our tint and we can kind of like add
+that green right like that uh John Wick
+right thing going on. Then we can go in
+our white balance and we can like either
+warm it up or we can like you know go a
+little bit more on the transformers teal
+and orange and you're seeing the kind of
+personality that we're getting out of
+this image just by doing that because
+again they're using the right
+parameters. This is why we need to know
+the why like how is it actually set up?
+I mean why and what is happening under
+the hood. And the what is the white
+balance is linear and it's not like your
+primary white balance. So that's why it
+is a lot cleaner. I mean like look at
+what we're doing right here. It's
+beautiful. And this just happened with
+temp and tint. We haven't even touched
+our split toning yet. I mean what? This
+is clean. This is good. And now what we
+want to do is jump into our main thing
+our holy trinity. So here we don't want
+to do this because we don't necessarily
+I mean we can do a little bit of it cuz
+it makes it look so cinematic. Like look
+at this. It's just making it look so
+freaking good. And then we can go in our
+subtractive set and we can push it a
+little bit. But then richness is like
+what we want to like really play with.
+We don't want to overdo it either. So
+let's uh pull it back a little bit. And
+then what do we want to do?
+Keep that somewhere around here. This is
+a very sophisticated look, guys, what
+we're creating. I mean, like, look at
+this. This is really, really good. So,
+so far so good. Let's go to split tone.
+Let's turn this on. And there's a couple
+of things that we can do. Can we try
+strong and let's just see what happens.
+So, same again. Same thing. Let's just
+crank this all the way and start seeing
+what's really happening. And it's
+telling us exactly what's happening.
+Like right here, it's telling us what's
+happening. So hue angle
+like this is so funny. If we just want
+to create like a
+this is crazy. And then we can just like
+take this and dial it back and like this
+is a very very extreme like thing
+happening here. And even then like I
+think it's just it's it's not bad. But
+okay, let's go to natural. And maybe
+natural is going to work a little bit
+better. Who knows? Let's just give it a
+shot. So we'll go here. We we'll reset
+these and we'll crank this to see what's
+really happening. And then let's start
+moving this.
+So basically the default is like the
+typical transformers teal and orange. So
+you're seeing like you know the warmer
+tones right here, right? Like the
+greenish warm tones and then like the
+teal down here. So that's what it's
+giving us. So basically that's what it's
+doing, right? So like then we just get
+to pick like how much we want to go. And
+then if we want to protect our
+highlights, again like I mentioned, I
+wouldn't recommend it. So, if I do
+before and after, I mean, it's doing
+something. I don't know if I love it, to
+be honest with you. I think it just kind
+of makes it look fake, but it does
+create some separation because then we
+can actually go back to our uh
+subtractive sat and we can like dial it
+back and see
+if that does anything or even if we want
+to take our bleach bypass and like crank
+it a little bit more. So, this is where
+we're at with these. Now, if we go under
+halation, uh, we can like really see if
+it's actually making it's very, very
+tight. Like the way they did it, I like
+it. I like it a lot. Like how it's just
+so freaking tight. And then the bloom
+effect, right? So, like now we get to
+see it. We have a bulb right here. So,
+if I do before and if I do after, but
+again, very, very subtle, right? Like
+very, very subtle like how it's doing
+it. If anything, this is going to tell
+you more of the story of like what's
+really h No, my bad. What's really
+happening with that? Okay. So, we'll
+just do before. So, it's like when you
+when you drop it on, it's very very
+tight. If you want to like open it up,
+you have to look at it right here to
+like really know if we're adding
+anything. In terms of the grain, we can
+leave it at 35. I think that's totally
+fine. And then for the film gate, I
+think we like I want to do uh 2. Yeah, I
+want to I want to do like 241. And then
+at that point, uh, that's our, let's
+just say this is our teal and orange
+look, right? So that's what we ended up
+with. So if I just like go from where we
+started to where we ended up. This is
+kind of cool. I mean, we we've come a
+long way, guys. Like look at this. We've
+done a lot with this shot. So this looks
+pretty good. All right, final shot.
+We're going to go here. And this is
+going to be a postcard. So we actually
+are going to start uh with the easiest
+thing that we can do. So, this is
+already balanced. I'm not touching that.
+This is great. So, what I'm going to do
+is this. We're going to drop it on. And
+I'm just going to do the lazy way. Okay.
+So, we're going to do nostalgic. And all
+of a sudden, we got this. So, this is
+kind of cool. Uh oh, hold on. How is
+this going to work, bro? Actually don't
+know it's going to work on that. Yeah.
+Yeah. Yeah. So, I mean, the best thing
+about it is like we can just do this.
+Like, there's so much customizability
+that we have with um everything in Rapid
+Grade. So, we can even do something like
+that, right? Something like this. So,
+now we have it and let's see what's
+going on. Let's just kind of go through
+it. Let's just figure it out like what's
+happening here. Uh, let's park it
+somewhere around here. Okay. So, what
+are you giving me here? Cinematic. I
+don't know, man. We got to do vintage,
+bro. What kind of vintage setup was
+that? Like where they didn't even select
+vintage. That makes no freaking sense.
+So, this is like way better in terms of
+like the white balance. Like, what do we
+want to do? We can just like leave it to
+what they had. I just usually picture
+like a little bit more like this kind of
+thing. Like this is clean. Like look at
+my actual my charts. Like they're
+looking clean. Okay. So what's happening
+here? Do we want to do something in the
+Do we want to like Yeah, man. I want to
+add a little bit of color, dude. So see
+this is like adding that punch into
+those tones. Can dial it back a little
+bit. Bleach bypass. Like do we want
+bleach bypass? Because what bleach
+bypass is going to do is that it's going
+to give us the clean thing that we do
+need and then still leave some color in
+there because now the richness. See? So
+see how it builds on top of each other.
+We got the clean whites and now we're
+digging in and like getting more punch
+out of it cuz before it's just making
+it's flatlining uh those specific hues.
+So split toning. Do we Oh, okay. It
+already applied it. So we didn't even
+have to worry about that. What just
+happened? Hold on. split tone.
+Do we want to go more? We can go more if
+we want to. So, see, like this was a
+preset and it was already kind of just
+like dialed in with these parameters and
+this is this is super helpful, man. This
+like super helpful and you can really
+see what it's doing. So, even if we
+leave it somewhere around here, which is
+cool. Okay, I want to show you one thing
+which is going to blow your mind. I kept
+it uh until now because this is like
+super super useful. Okay. So, first of
+all, like this sort of halation, uh, you
+guys know I'm not a massive fan of like
+that kind of halation. It just like I
+don't know, man. So, for that, I'm going
+to pull it back a little bit. And then I
+just like a little bit more red in mine.
+And then, um, we'll just leave it to
+that. So, this is like a little bit
+better. It's still there cuz like this
+is before, this is after. It's still
+there, but kind of just dialed back.
+But, let me just show you something
+very, very special about Film Look
+Creator. The grain here is a billion
+times better than your regular uh grain
+ox. And I'll I'll prove it to you
+because this is what happens. As the
+grain gets thicker, the actual film
+process adds a little bit of diffusion
+on the actual negative, right? So
+there's little bit of diffusion that is
+being applied which gives it this right
+here that you're feeling like if I do
+before and how like sharp everything is
+and then after and it just becomes
+pretty soft. Okay, let me show you this
+65 mm super sharp. Okay, 8 mm like all
+of a sudden very like soft. That usually
+does not happen with a regular grain.
+And that's why normal digital grain
+sucks. I'm going to do a full video on
+that and I'm going to prove that to you.
+Like the difference is night and day.
+Okay. And this is what's happening.
+Image defocus. Okay. So this is the
+softening that's happening. You can even
+do more softening or less softening or
+you can just like basically default to
+16 mm and then it's this much and then
+that's where we are. Do we want 16 mm or
+8 mm? We'll just go eight. We'll go
+really really hardcore. And then what's
+happening with film gate 35 and super
+eight? Yeah, we'll do super eight, bro.
+And then here we can just basically go
+back and aspect ratio and we can
+There we go. Okay. So now if we come
+back and we look at it what we created
+like look at the colors and everything
+and like look at oh man look at the sky
+to this. This looks so believable and
+good.
+Look at this.
+Oh, so you see the
+look at how good the flicker is, man.
+This is crazy. Just just like genuinely
+transform the entire shot. The gate
+weave is great. This is so good. All
+right, so now I'm going to go through
+some of my likes and dislikes of this
+OFX. So, the first dislike that I have
+is that it doesn't let you save your
+presets. it. You can just like look at
+it and it becomes custom the second you
+make a change, but you can't save it.
+And I don't like that. I mean, of
+course, you can save it. You can save it
+as like a power grade, but still like
+there should be an option for you to
+create your own concoction, name them,
+and save them. So, you can't really do
+that. Something that in Rapid Grade you
+can easily do. You can create your
+concoction, you can save it, you can
+manage your looks, and you can put them
+in your own pack. And then you can just
+start building your own library. and
+then when you're working on a certain
+project, damn, you slap it and you're
+done. You can't really do that here. So,
+that is a big drawback. The second
+dislike that I have with this tool is
+this right here. Like, I just don't know
+what is going on on the back end. And
+that is a very unsettling feeling. I
+don't like this. Like, I need to know
+what is that concoction and can I
+control that? Because if I were to uh
+take you here, let's just say we undo
+this and we build a look using rapid
+grade really fast. If we want to apply
+our base look, we go to curves and then
+we click on this film look preset. Very
+similar to what they're doing, but here
+we get to see everything. So, which
+concoction do we want to apply? And we
+have all the popular ones. 2383, 3513,
+or we can even like do a concoction
+between a negative and a film print. So,
+let's do 5217 plus 2383. Okay, so we did
+that, right? First, we're seeing
+everything all the changes that are
+being made here. Secondly, we have our
+curves that are telling us how this is
+being built. And third of all, all these
+changes are happening right here because
+now if I go select something else or
+neutral, like see, it's just all changed
+back to what it is. And now I can
+manipulate each one. I can just go in
+here and I can just do whatever I want.
+I want a little bit more green in my sky
+while still keeping the main DNA
+embedded into my look. still keeping
+5217 and 2383 but just shifting just a
+touch. So that is something that's very
+unique and especially when it comes to
+look building you need things like that
+that you just do not get here. So the
+next negative has to be skin bias. This
+thing right here breaks so fast. The
+second you move it around it just cracks
+and it doesn't really do what it's
+supposed to do. basically is supposed to
+give your skin tones like depth when you
+move it to the left and make it uh it
+makes it like warmer tones. And we can
+even see it right here what it's doing.
+And then we go to the right and it makes
+it rosy. Like look at this right here
+how that palette goes from brown to like
+you know salmon. So that's what it's
+supposed to do. So it's supposed to like
+no matter how hardcore your look is here
+like this is going to like give you what
+you want with your skin tones. But
+again, it's not the same control that if
+I go here back to rapid grade and if we
+go in our skin tones, we have a whole
+freaking tab here that gives us all of
+these controls. So let's just say if I
+kill this so I have like I can see more.
+So here we can make our skin tones like
+look at this. We can make it radiant,
+control the contrast, right? We can make
+it rosy if we want. Okay, we can make it
+even. So like if there is like some sort
+of discoloration, we can control it
+there. We can control the saturation of
+our skin tones just like right here. We
+can swing the hue of our skin tones
+separate. Okay? We can add pop to our
+skin tones. Like look at how
+three-dimensional that is. So we have so
+much more control here compared to like
+what do you want to do with your skin?
+You want to take it here, you want to
+take it there. And neither of them are
+like really good options. So that's a
+big negative. And then the third
+negative here has to be split tone. That
+also cracks very easily. If I didn't
+have my bleach bypass going on and if I
+just do this right here and if I just
+start pushing it, like look at how it's
+cracking and what it's doing. It becomes
+so nasty so fast. Like look at this.
+There's actually not a lot of give to
+like what you can do. And plus, it's
+very unintuitive. Like it's just it
+doesn't really work how your brain will
+function and you would want it to work.
+And if I take you here and show you our
+split tone and if I just go right here
+and if I turn it on, first of all, you
+turn it on and like what a huge
+difference that it's making because it's
+already dialed in to those colors that
+one would want for split toning. Just
+like look at what we're doing right
+here. And then like just look at how
+it's set up. So you want more of that
+separation, go to the right or go to the
+left if you want less of it. Balance
+pretty simple. Which way do you want it
+to lean? When do you want this? like
+split tone to come in. Okay, just that
+easy. What do you want your hues to be?
+And like look at our hues are like
+swinging in so much more control. And
+then finally, we can control our skin
+adjustments right in here. So we can
+basically swing whatever we want for
+split toning and then go individually
+into our skin hue and control it. Not to
+mention that you have way more controls
+under custom that are tucked away. And
+then you can just control how much of
+that change you want to have on your
+image. And then we can just like pull it
+back to something like that. And once
+again here like it just it's not as
+simple as that. And then having like no
+L export option is sort of a trip for me
+because you're letting us create all of
+this, right? And you even have like a 3D
+L compatible thing here that like
+basically will make sure that we can see
+what our L will look like because right
+now there's all these effects applied,
+right? Like so let's just say if I
+change this to 8 mm and it looks like
+this. Well, if we click on 3D L
+compatible, it will get rid of it
+because that is a texturebased effect,
+right? Spatial effect that is not going
+to get translated when you export a L.
+So it's basically removing that, right?
+But then where's the button to export
+the L? like we should just have it here.
+Once again, if we go here, let's say we
+do all kinds of concoctions and we just
+build our look. We go all the way down
+here. Not only we have 33 point L, we
+have 65 point L. We even have 129 point
+L. I mean, I've never seen that before.
+And we have it because there are some
+crazy users that we have that were
+building lots and they were breaking.
+They were building looks and they were
+cracking. So we had to create this
+option 129 point L that can handle all
+the changes that are offered in here. So
+uh we don't have that option here which
+is again just like a big L. And in
+general I feel like for a look
+development tool you should just have a
+lot more flexibility to what you can do.
+And I feel like yes, like I it does
+things, but it does things in a very
+straight jacket manner. And like it
+doesn't really give you a lot of control
+to like make those granular changes just
+like how I showed you here. If we go in
+our curves and if we want to like string
+some things uh individually and if we
+want to control it, if I go in my whites
+and I go, well, I want to just drop my
+whites, right? Like if I go in my curves
+and you can like really see how I'm
+controlling that and I just want to do
+that and I just want to add, you know,
+maybe like more of this film look. So I
+want to add more green in my midtones
+and then magenta in my shadows. So I
+just like was able to do that and I have
+so much granular control and that's just
+one aspect of it. And then I showed you
+like my split toning which is another
+aspect of it. But like okay, we go under
+sky and now we can control like the like
+look at this. We can control how much
+punch we want in our sky. Do we want to
+saturate it, pull back the saturation?
+Do we want to add more depth into it? Do
+we want to swing the hue? Do we want to
+take it somewhere else? Do we want to
+add a little bit more contrast or take
+it away? Like look at all this that we
+can just do this easily. And we're
+seeing the difference that is being made
+right here. Okay, come out of it. Let's
+go to foliage. What do we want to do
+here? Like look at this.
+Okay, do we want to burn this grass?
+Like we can just burn it and then we can
+add a lot more depth into it and burn it
+a little bit more and like keep it
+somewhere around here. And like look at
+our color charts how we're getting
+inside the bones of our look and
+building that. Like this is like all
+shot correction. Like look at how big of
+a change we made just right here. That's
+something that we just cannot do with
+film look creator. It's just very
+restricted. Okay. Right here in our film
+traits. We can come in here and we can
+just start doing so much more. We have
+bleach bypass. We have film grain. But
+we have film density, right? Like right
+here. And like look at the change it's
+going to make. Like look at right here.
+The kind of change that we're making by
+pushing these. Okay. Like look at this.
+It and it's so robust. I'm pushing it so
+much and it's holding it. It's just it's
+just locking it in. It's not breaking at
+all. And then I can take all of this
+like this now go before and after the
+kind of freaking change that we made and
+we can just easily go and export it.
+Once again, we can just cook it up now,
+like if that's what we want. And that's
+just something like that is just lacking
+with this tool. Like we don't have that
+many granular controls if we just want
+to go in and if we want to manipulate
+like the main main things like skin
+tones, the foliage, the sky, like these
+are all very like basic rudimentary
+things that you need to develop a very
+sophisticated look. All right, so it's
+not only all bad stuff. Now we're moving
+on to the good parts. And first thing
+that I'm going to say is this right
+here. They did a really really good job
+breaking this up. And it it these are
+genuinely helpful starting points. I
+mean, you saw default 65 was perfect to
+create this look. You saw that default
+35 was perfect to create this look and
+you saw that nostalgic was perfect to
+create this look. And this is amazing.
+This is they did a crazy good job with
+that. And then the second part, which is
+my all-time favorite part about this
+plugin, is this right here, the holy
+trinity. These three things are just
+absolutely a killer combo. Like when and
+you saw how we used it. We wielded that
+sword in every single look. And that's
+what gave us like that unique look for
+each one. And the characteristics of
+each look is so different. And it's all
+created with the same tool. And that
+right there was the main player that
+made it happen. And now film grain. I
+already talked about it in this shot.
+Like how this right here, what the grain
+is doing, how it's adding that softness,
+which actually happens to the physical
+film. And we get to have that here,
+which was just not available before. Or
+you had to spend thousands of dollars to
+actually send your footage out to have
+the grain applied that looked natural or
+realistic film grain. And now you can
+just get that right inside of this
+plugin. And they did an absolutely
+killer job. And my last but not least
+favorite thing about Filmlook Creator is
+Filmgate. I just thought that this is
+cringey and this is kind of like a weird
+thing and who's going to use it? And I'm
+telling you right now, I am loving it.
+Like I started playing with it and I'm
+just like, dude, this is so cool. This
+is really fun. All right, so what's my
+verdict then? I say that this is an
+absolute epic product if you want to
+create casual content for Instagram
+stuff and just for the web. It is great.
+I personally would not use it for the
+caliber of gigs that I work on for
+professional work. I will be sticking
+with Rapid Grade cuz there are just so
+many more advanced features and how much
+more sophisticated it is as a product
+overall compared to Film Look Creator. I
+feel like there's a lot of beta things
+that are happening here that just need
+to work out, which is going to happen
+obviously with like future updates. But
+I just think like it's not ready for
+prime time, at least for me. But
+regardless of that, now you know how to
+use film look creator like a pro and get
+the most out of it cuz ultimately that
+is the entire idea. This is still way
+better than building everything from
+scratch. It really is. So what is it
+doing? It's taking all the grunt work
+away from you so you can spend that time
+focusing on creating art because that's
+what separates the people that get paid
+the big bucks and the ones that are
+afraid that AI will replace them.
+Because if you are a trends setter, if
+you are a taste maker, nobody's taking
+your job. And on that note, make sure to
+smash the like button, subscribe to the
+channel, hit the bell icon so you can be
+notified about our future content. Love
+you guys. I'll see you in the next one.

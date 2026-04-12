@@ -1,0 +1,492 @@
+[
+  {
+    "text": "This is the fusion page in Da Vinci",
+    "start": 0.08,
+    "duration": 3.839
+  },
+  {
+    "text": "Resolve. This is pretty much where I",
+    "start": 1.76,
+    "duration": 4.559
+  },
+  {
+    "text": "live. Please no shoes inside. For over",
+    "start": 3.919,
+    "duration": 4.081
+  },
+  {
+    "text": "the last 5 years, I've been working in",
+    "start": 6.319,
+    "duration": 3.28
+  },
+  {
+    "text": "Resolve and specifically in the Fusion",
+    "start": 8.0,
+    "duration": 3.679
+  },
+  {
+    "text": "page making presets and templates and",
+    "start": 9.599,
+    "duration": 4.881
+  },
+  {
+    "text": "plugins for Resolve. Now, today I want",
+    "start": 11.679,
+    "duration": 5.36
+  },
+  {
+    "text": "to show you uh one button that I just",
+    "start": 14.48,
+    "duration": 5.68
+  },
+  {
+    "text": "found after all that time uh that lots",
+    "start": 17.039,
+    "duration": 4.641
+  },
+  {
+    "text": "of people might not think is cool, but I",
+    "start": 20.16,
+    "duration": 3.199
+  },
+  {
+    "text": "think it's pretty cool and there's no",
+    "start": 21.68,
+    "duration": 3.439
+  },
+  {
+    "text": "other reason I'm going to talk about it.",
+    "start": 23.359,
+    "duration": 4.401
+  },
+  {
+    "text": "So, you're watching a video about one",
+    "start": 25.119,
+    "duration": 6.24
+  },
+  {
+    "text": "button. Neat. If I zoom in here, you'll",
+    "start": 27.76,
+    "duration": 6.08
+  },
+  {
+    "text": "see I have Protov V3. This is my new",
+    "start": 31.359,
+    "duration": 4.801
+  },
+  {
+    "text": "preset for these high energy uh like",
+    "start": 33.84,
+    "duration": 4.32
+  },
+  {
+    "text": "glow effects. Super awesome. More info",
+    "start": 36.16,
+    "duration": 4.16
+  },
+  {
+    "text": "in the description about all of that. Um",
+    "start": 38.16,
+    "duration": 3.68
+  },
+  {
+    "text": "but we're just demonstrating something",
+    "start": 40.32,
+    "duration": 4.239
+  },
+  {
+    "text": "here. Uh because proto uh like all of my",
+    "start": 41.84,
+    "duration": 5.68
+  },
+  {
+    "text": "presets I keep as a group. Um so if I",
+    "start": 44.559,
+    "duration": 4.961
+  },
+  {
+    "text": "double click this, you'll see all the",
+    "start": 47.52,
+    "duration": 5.359
+  },
+  {
+    "text": "nodes. Uh this is how I built Proto. I",
+    "start": 49.52,
+    "duration": 5.359
+  },
+  {
+    "text": "built it natively in Fusion. And you can",
+    "start": 52.879,
+    "duration": 4.401
+  },
+  {
+    "text": "go node by node and see how I did it.",
+    "start": 54.879,
+    "duration": 4.641
+  },
+  {
+    "text": "But as you can see, this is a lot and it",
+    "start": 57.28,
+    "duration": 4.72
+  },
+  {
+    "text": "also takes up a lot of space in my work",
+    "start": 59.52,
+    "duration": 4.719
+  },
+  {
+    "text": "in my general like nodes work area,",
+    "start": 62.0,
+    "duration": 4.08
+  },
+  {
+    "text": "especially if I had other nodes going on",
+    "start": 64.239,
+    "duration": 4.401
+  },
+  {
+    "text": "and proto was just a part of that. Now,",
+    "start": 66.08,
+    "duration": 3.76
+  },
+  {
+    "text": "I'm going to do something pretty",
+    "start": 68.64,
+    "duration": 3.2
+  },
+  {
+    "text": "interesting in this giant area. I'm",
+    "start": 69.84,
+    "duration": 3.76
+  },
+  {
+    "text": "actually going to shrink down the bounds",
+    "start": 71.84,
+    "duration": 4.639
+  },
+  {
+    "text": "of this group so that it's quite a bit",
+    "start": 73.6,
+    "duration": 4.559
+  },
+  {
+    "text": "smaller.",
+    "start": 76.479,
+    "duration": 2.96
+  },
+  {
+    "text": "And you'll see this is something I can",
+    "start": 78.159,
+    "duration": 3.921
+  },
+  {
+    "text": "do because this is a group of nodes.",
+    "start": 79.439,
+    "duration": 4.481
+  },
+  {
+    "text": "When I shrink that, these nodes kind of",
+    "start": 82.08,
+    "duration": 4.48
+  },
+  {
+    "text": "like disappear inside the group. And",
+    "start": 83.92,
+    "duration": 4.559
+  },
+  {
+    "text": "when I move around, it's like the rest",
+    "start": 86.56,
+    "duration": 3.599
+  },
+  {
+    "text": "of the nodes are gone, right? And if I",
+    "start": 88.479,
+    "duration": 3.68
+  },
+  {
+    "text": "want to get them back, I kind of need to",
+    "start": 90.159,
+    "duration": 4.0
+  },
+  {
+    "text": "expand this group all the way out again,",
+    "start": 92.159,
+    "duration": 4.96
+  },
+  {
+    "text": "right? No. Uh because the other day I",
+    "start": 94.159,
+    "duration": 5.121
+  },
+  {
+    "text": "was messing around with some group stuff",
+    "start": 97.119,
+    "duration": 4.081
+  },
+  {
+    "text": "and zoomed in and you do have this X",
+    "start": 99.28,
+    "duration": 3.6
+  },
+  {
+    "text": "which will close that group. But then I",
+    "start": 101.2,
+    "duration": 3.76
+  },
+  {
+    "text": "realized that in the opposite corner",
+    "start": 102.88,
+    "duration": 4.32
+  },
+  {
+    "text": "there's this other button here that I",
+    "start": 104.96,
+    "duration": 5.04
+  },
+  {
+    "text": "had never pressed. And heyo, uh spoiler",
+    "start": 107.2,
+    "duration": 4.48
+  },
+  {
+    "text": "alert, when you press that, nothing",
+    "start": 110.0,
+    "duration": 4.079
+  },
+  {
+    "text": "changes. But now, ooh, first let me",
+    "start": 111.68,
+    "duration": 5.119
+  },
+  {
+    "text": "uncheck this. Um uh default behavior in",
+    "start": 114.079,
+    "duration": 5.201
+  },
+  {
+    "text": "these node viewer is that I if I hold",
+    "start": 116.799,
+    "duration": 4.241
+  },
+  {
+    "text": "middle mouse button and left mouse",
+    "start": 119.28,
+    "duration": 3.92
+  },
+  {
+    "text": "button, it like zooms in behavior like",
+    "start": 121.04,
+    "duration": 4.32
+  },
+  {
+    "text": "this. That's pretty interesting. But if",
+    "start": 123.2,
+    "duration": 5.279
+  },
+  {
+    "text": "I click this button and then uh click",
+    "start": 125.36,
+    "duration": 4.399
+  },
+  {
+    "text": "outside the group and do that same",
+    "start": 128.479,
+    "duration": 2.881
+  },
+  {
+    "text": "thing. It's normal. If I click inside",
+    "start": 129.759,
+    "duration": 6.401
+  },
+  {
+    "text": "the group, I can zoom and even position",
+    "start": 131.36,
+    "duration": 8.72
+  },
+  {
+    "text": "separately inside this group. So now I",
+    "start": 136.16,
+    "duration": 5.84
+  },
+  {
+    "text": "can like scale this down, show the",
+    "start": 140.08,
+    "duration": 4.96
+  },
+  {
+    "text": "entire thing, but it's not taking up the",
+    "start": 142.0,
+    "duration": 5.36
+  },
+  {
+    "text": "entire thing space in my greater node",
+    "start": 145.04,
+    "duration": 4.48
+  },
+  {
+    "text": "graph. And if I want a specific area, I",
+    "start": 147.36,
+    "duration": 4.56
+  },
+  {
+    "text": "can just zoom in right into that. This",
+    "start": 149.52,
+    "duration": 3.999
+  },
+  {
+    "text": "is something that like occasionally when",
+    "start": 151.92,
+    "duration": 3.599
+  },
+  {
+    "text": "I would like load a preset I was working",
+    "start": 153.519,
+    "duration": 3.841
+  },
+  {
+    "text": "on, like the zoom layer would be kind of",
+    "start": 155.519,
+    "duration": 3.521
+  },
+  {
+    "text": "weird, but most of the time it like",
+    "start": 157.36,
+    "duration": 3.28
+  },
+  {
+    "text": "snapped and fixed itself. I never",
+    "start": 159.04,
+    "duration": 3.6
+  },
+  {
+    "text": "realized that it was probably part of",
+    "start": 160.64,
+    "duration": 3.92
+  },
+  {
+    "text": "the workflow about this little button",
+    "start": 162.64,
+    "duration": 4.0
+  },
+  {
+    "text": "that kind of gives you this separate",
+    "start": 164.56,
+    "duration": 4.64
+  },
+  {
+    "text": "workspace inside your groups. cuz it's",
+    "start": 166.64,
+    "duration": 4.959
+  },
+  {
+    "text": "like a virtual little nodes work area.",
+    "start": 169.2,
+    "duration": 4.8
+  },
+  {
+    "text": "And if you uncheck that, it goes back.",
+    "start": 171.599,
+    "duration": 4.801
+  },
+  {
+    "text": "Uh so this does kind of like lock it if",
+    "start": 174.0,
+    "duration": 4.239
+  },
+  {
+    "text": "you change anything. So it doesn't like",
+    "start": 176.4,
+    "duration": 4.4
+  },
+  {
+    "text": "snap back. Um but if you toggle it on,",
+    "start": 178.239,
+    "duration": 4.401
+  },
+  {
+    "text": "you can sort of retain all those files",
+    "start": 180.8,
+    "duration": 3.84
+  },
+  {
+    "text": "and still like open or close this",
+    "start": 182.64,
+    "duration": 4.0
+  },
+  {
+    "text": "however you want. But then if you want",
+    "start": 184.64,
+    "duration": 4.72
+  },
+  {
+    "text": "the entire thing separately, I just",
+    "start": 186.64,
+    "duration": 5.519
+  },
+  {
+    "text": "thought that was pretty nifty. And for",
+    "start": 189.36,
+    "duration": 3.92
+  },
+  {
+    "text": "people who spend a lot of time in",
+    "start": 192.159,
+    "duration": 3.281
+  },
+  {
+    "text": "Fusion, maybe this has also slid under",
+    "start": 193.28,
+    "duration": 3.84
+  },
+  {
+    "text": "your radar. Uh, for people who don't",
+    "start": 195.44,
+    "duration": 3.68
+  },
+  {
+    "text": "spend a lot of time in Fusion, uh, go",
+    "start": 197.12,
+    "duration": 3.52
+  },
+  {
+    "text": "check out Proto because you don't need",
+    "start": 199.12,
+    "duration": 2.88
+  },
+  {
+    "text": "to mess much with Fusion for that. You",
+    "start": 200.64,
+    "duration": 3.599
+  },
+  {
+    "text": "can do that all on the edit page. Um,",
+    "start": 202.0,
+    "duration": 6.159
+  },
+  {
+    "text": "but hey, a new button. Not new, just new",
+    "start": 204.239,
+    "duration": 7.201
+  },
+  {
+    "text": "to me after a really long time. I",
+    "start": 208.159,
+    "duration": 5.201
+  },
+  {
+    "text": "thought this was cool. Hopefully you do,",
+    "start": 211.44,
+    "duration": 3.76
+  },
+  {
+    "text": "too. Thanks for watching. I'll see you",
+    "start": 213.36,
+    "duration": 4.08
+  },
+  {
+    "text": "next time.",
+    "start": 215.2,
+    "duration": 2.24
+  }
+]

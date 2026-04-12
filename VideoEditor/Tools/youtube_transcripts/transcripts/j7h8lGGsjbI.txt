@@ -1,0 +1,359 @@
+Today we're taking a look at a question
+that was asked on my community website
+postp proist where we talk everything
+Dav Vinci Resolve fusion and fair lights
+and the user was asking is there a more
+efficient way to do an animation. They
+were working on a project that had a
+tight deadline. They weren't able to do
+it. They had a friend do it in Premiere
+and I'm guessing After Effects. They
+went back to the project and they were
+just curious if there was a more
+efficient way of creating a motion
+graphic like this in Fusion compared to
+how they did it. So, I'm going to take a
+look at it and hopefully through this
+process, everyone gets a little bit of
+my insight on how I would build
+something and maybe you might learn a
+few things to introduce into your
+workflow. So, here is the project he
+sent over. And it looks like I don't
+have a font. So, let's go over here and
+take a look at what we got going on.
+And it looks like he has a bunch of
+groups. and all the groups. Okay, they
+have a title and that's probably what's
+erroring out cuz the font. So now that
+should all work. Okay, he's got a media
+out here as well. Interesting. All
+right. So,
+so there's the animation. So, why do we
+have a media out here? Do we have a
+different index? No, we don't. What is
+the index over here? Okay. So, the first
+thing is that you don't need to have
+media outs here. The reason why you can
+have multiple media outs is because
+let's say you have what do we got in
+here? Let's say we had um a composite
+and let's say this was the shot and this
+house were going to blow up and we have
+to add in uh other sources, right? So,
+an explosion and different things like
+that and maybe we want to be able to
+color grade the explosion uh on its own.
+And the tools that are in Fusion can get
+you pretty far, but they're very
+primitive compared to what's accessible
+on the color page. So, what you would do
+is here you would just change this index
+to one. It starts at zero, it goes 1 2 3
+and so on. On the color page, you would
+then add another source, and then you
+could grab just that explosion and
+composite it back in, and so on. So,
+that's the reason on why you would have
+multiple here. But for this project, you
+don't actually need that. So, let's take
+a look at this animation that we have
+here.
+All right. And let's take a look at how
+it was built. Okay. So, it looks like
+it's Why is it up there now? Is it
+transform? Okay. So, he's flipping it,
+it looks like.
+All right. It's interesting.
+All right.
+And then we have this. Is this animated?
+Yeah, it is. the little box.
+All right. What else we have here?
+What is this for?
+Oh, that's how he's Okay, that's how
+he's animating it. Why is there a
+All right. All right. So, there's a lot
+of things here that we can change. What
+is this in here? Blend. Let's turn it
+off. Okay. And then it's coming into a
+transform. What is this transform? just
+making it smaller. And then we have a
+tracker. All right. So, let me show you
+how I would do this. First, let's start.
+Let's do this like a side by side.
+First, let's start with creating this
+dot. So, these are all of like the core
+old school uh okay, I don't really want
+to call them old school, but this is
+like the old school way of creating a
+motion graphic of this nature. There's
+more efficient ways to do this, and I'll
+show you using shape. So, uh, all of the
+shape tools, let me show you here. All
+of these shape tools are actually all
+vector-based, and then you have a
+renderer, which then, uh, turns it into
+pixels, right? So, it rasterizes it.
+And,
+uh, it's just more efficient, especially
+when you're duplicating it a bunch of
+times, right? Because each one of these
+has individual pixels that it's
+accounting for and so on, where vectors
+don't have pixels. um data turned into
+pixels, but it's just location data, if
+that makes sense. So, let's uh build
+this out. So, how do we start here?
+Let's go. So, we start with an ellipse.
+So, s ellipse. We'll add an ellipse. And
+then, what else do we have? We have an
+outside. So, I'm just going to duplicate
+this. So, C while I have it selected,
+and I'm going to uh paste it. It's going
+to make a merge, right? So, it's it's
+combining those two. So, let's uh let me
+look at the final one cuz it's like down
+in the corner. So, what I'll do is I'll
+just make this smaller. And I'm just
+going to copy this over here,
+right? Okay. So, that's that one. And
+then the other one I'm going to take
+down there as well.
+And we're going to turn this
+into
+a little ring. And currently, you see it
+full. So, all we have to do is turn off
+solid. and then turn on border width. So
+there's that portion and then we have
+this line next, right? Yeah, the lines
+next. So to do the line, we're going to
+add in an S polygon
+and we will connect that in. And then
+I'm just going to, like I said, copy
+from here, the path. So it looks like it
+starts there, comes up and over.
+Currently, you don't see it in Oops.
+Currently, you don't see it in here. And
+that's just because we need to change
+the width. So now we have that.
+And what else did we have in here?
+Why do we have three paths? What is
+this?
+I'm not entirely sure. Okay. Anyways, so
+this path I think it's animated, right?
+Yeah. All right. So that would just be
+on the polygon you have a length and
+that would just be that animation.
+And then it looks like we're flipping
+it, which we don't need to do because
+I'm building it right side up. If you
+did you there's an S transform that you
+could use. What is this then? So this is
+the white box. So let's create that with
+another S polygon.
+We will connect that over. And let me
+just view
+this so I can see where it's actually
+at. Just right above. Okay. So the
+second one I'm just going to go right
+above like that. and increase its width
+and take off caps. And then our
+animation would just be using the length
+again.
+All right. And then we have text.
+So the text, I did see something that
+was a little interesting and I'll show
+you here in a second because I'm just
+going to copy this.
+We'll add our text and turn it black.
+Right. So in here you had this. you're
+using this brightness contrast to turn
+on and off the visibility of it. And you
+can actually do it in the actual uh text
+itself by coming over in the shading and
+there's an opacity. So you wouldn't
+actually need this node, right? Because
+you're just processing the same pixels
+over again. All right. So now that we
+have that in this one, we also have that
+shading element that we can or control
+that we can use to animate.
+Was there anything else in here? What is
+this done? Oh, this is to turn it on and
+off, right? Yeah. Yeah. Okay. So, we can
+do that later. Coming out of this,
+remember this is all um vector data. So,
+we need to turn it into a 2D image
+pixels. So, we'll do S render
+and bring that in. And then we're done.
+Right. So, we take I don't know how many
+nodes are here. We turn it into what is
+here? Eight. Seven nodes. Right. So
+we'll take all of this and we'll go
+group. So then we have that. And then
+down here we just made it smaller. So
+you could make it smaller inside here,
+right before the renderer or we can
+actually do it in a merge node. So what
+I'll do is coming out of here, I'm just
+going to get a multimemerge. Right? So
+we'll just connect the multimemerge up.
+And I'm just going to disconnect this
+for now. We'll get the multimemerge. And
+then we will um go out of the group into
+the multi merge. And if we take a look
+at this in the multi merge, we have this
+first um layer here. And you can name it
+whatever you want it to. But we can make
+it smaller cuz I feel like it was
+smaller before and then it was like
+looking at one of these trees or
+something like that. Right. So that was
+how that animation was. And then we just
+have to track it. So to track it there,
+we have the center. Just going to right
+click, modify width, track position. And
+I don't like using Intelllet track, so
+I'll just go point tracker. Just a
+little lighter. Um, if you have a lot of
+parallax, sometimes Intelllet Track
+works a little bit better, but for now,
+I will just use the normal tracker. And
+let's just go on this tree here.
+And we can see it in here. Uh, I change
+the per frames because you don't need to
+have every single frame tracked. You
+can, you know, skip between frames. um
+makes tracking a little quicker. And
+then we will just track track that
+location for however long you need it
+to. And then we can just stop that. Now
+we have a tracked location that it locks
+onto. Uh you'll notice that obviously
+the point isn't where the center of this
+is. So all we need to do is in the
+modifier under the tracker, we have an
+offset. So we'll just do the XY offset
+right onto that little point like that.
+And then from the beginning of this
+going all the way around you can see
+that it is locked on and tracked. So
+only other thing was that turning it on
+and off. Right. So at the beginning here
+I'll just zoom in a little bit. Uh we
+can just go blend off and then a couple
+of frames in turn it on and then at the
+other end
+on couple of frames turn it off. And I
+feel like that was all of the obviously
+I don't have these animations, but I
+showed you here where you could do all
+of those. And then that's it. So, moving
+forward with
+adding others in, all we would do from
+here, oops, is I'm just going to
+collapse this, but we would just
+duplicate this. So, CRLV
+connected in here. And then we're just
+going to do all of the same settings
+that we had over here, right? So,
+let's see. Uh, this was like 27. You can
+put in here 27. Oops. Point
+27. And then it would just be moved up
+to like up there. Again, just tracking
+it.
+Position tracker. Come over here. set it
+up the same way that we did. And then
+for the tracker itself, let's just do
+this white building. Something easy to
+track on point tracker. We can track
+that
+once we're done again in tracker 2 now.
+Offset up here. And then all you would
+need to do is come back over to the
+tools for the second layer. Obviously,
+you really want to name these so you
+don't start to lose them. But then you
+would just do your animations on and
+off. And that would pretty much be it.
+But oh, the other thing that I didn't
+really do is I didn't show you uh let's
+go back. Let's go into here and let's
+add in like an animation or two.
+Um because I didn't think of something.
+All right. So if I go
+full and full, what is an easy animation
+that I can copy here?
+Oh, okay. Okay, we have this little ball
+lighting up and moving, right? So, I'll
+just show you going in and out like
+that. Uh, in the ellipse 2, we're just
+going to go publish, right click,
+connect to. Oh man, there's a lot uh
+line with. And now both of these are
+connected together.
+From here, we can just do our little
+animation. I don't know what the timing
+was on that, but
+you could go through and do your little
+animation.
+Maybe a little bounce back, too. Come
+into the spline.
+Open this up.
+Open here. Let's see that. Highlight all
+F. Smooth. Okay. So, there is our little
+animation. Right. The reason why I want
+to do that is because if I copy this,
+right, and let's collapse that again.
+Copy and paste and now add it into that
+other part that we have tracked. One
+thing you'll notice is at the beginning
+it's doing its little animation at the
+beginning, right? And that's obviously
+not when it would start because the
+tracking is like pretty far over here,
+right? So to get that to move over, I'm
+going to click on the group,
+slide this over. I like to just have
+this on uh show only selected. And we're
+in the key frames. From here, we can
+take this group. You can see all of our
+key frames here. And we would just pull
+it over. And then that that would uh
+rettime all of our key frames. So once
+we got to here, then we can see, you
+know, that's when our little animation
+is happening. Once it it's all connected
+from there, again, all you would need to
+do is just do the blend and then uh that
+would pretty much be that. Obviously,
+all of the other animations that are
+tied in there, but that's how I would do
+this. Um it's a lot less when it comes
+to nodes and to figure out like what's
+actually going on. Again,
+it's only seven nodes versus probably
+like 12 or 13. I don't know how many are
+there. So, I think that kind of
+concludes how I would have tackled this
+project. Slightly different workflow and
+using slightly different tools, but uh
+getting the exact same results. Now, you
+can really do these projects any way you
+want. There's, you know, probably five
+other ways that you can do a similar
+result. As the guy said, he had his
+buddy do it in Premiere and After
+Effects. So, there's no wrong way. It's
+just that there might be a more
+efficient way. That's enough of me
+yapping. If you do want to um ask your
+own question, you can go over the post
+pro list, create an account, and then
+under fusion, you can add in your
+question there. There's a bunch of other
+categories as well and different
+discussions over there. But with that
+being said, my name's Justin. Thanks so
+much for watching. Till next one, guys.
+See you.

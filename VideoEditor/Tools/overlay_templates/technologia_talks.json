@@ -5,5 +5,27 @@
   "host_b_name": "Elvis Kimara",
   "host_b_title": "Co-Host · Founder, Throwly",
   "host_b_photo": "elvis.jpg",
-  "sponsors": ["LEARN-X", "Throwly", "Technologia Talks", "technologiaah.com"]
+  "sponsors": ["LEARN-X", "Throwly", "Technologia Talks", "technologiaah.com"],
+  "brand": {
+    "name": "Technolgia",
+    "colors": {
+      "primary_background": "#000000",
+      "secondary_background": "#0A3D2A",
+      "accent_gold": "#C8A84E",
+      "accent_green": "#1B5E3B",
+      "text_primary": "#FFFFFF",
+      "text_accent": "#C8A84E"
+    },
+    "logos": {
+      "card": "technolgia_logo_card.png",
+      "horizontal": "technolgia_logo_horizontal.png"
+    },
+    "thumbnail_style": {
+      "background": "Dark black base with dark emerald green gradient panels",
+      "accents": "Gold (#C8A84E) diagonal lines and border edges",
+      "text": "Title in white, subtitle/emphasis words in gold",
+      "logo_position": "top-right corner",
+      "feel": "Premium, dark luxury, professional"
+    }
+  }
 }

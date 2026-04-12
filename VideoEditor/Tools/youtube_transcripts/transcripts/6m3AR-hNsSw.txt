@@ -1,0 +1,465 @@
+They say professional colorists are able
+to color grade an image without even
+looking at it, only by looking at the
+scope.
+>> So, that video got a lot of attention.
+It got well over half a million views.
+And in this episode, I'm going to do a
+slightly different scopes tutorial. It's
+not going to be like your regular ones
+where we go through here's the waveform,
+it measures black here, it measures
+white here, here's the vector scope. I'm
+not doing any of that because I've
+already done it. 5 years ago, I did an
+episode. I checked it out before I
+started recording. It's all still
+absolutely relevant. The scopes haven't
+actually changed that much. I'll put a
+link to that in the description. There's
+loads of other ones on YouTube as well,
+but I don't think anyone's actually
+addressed what am I actually reading?
+What am I looking for as a professional
+colorist? What am I looking for in the
+scopes? Which scope do I use in which
+situation? And I'm going to address that
+in this episode. We're going to look at
+the individual scopes and each merit.
+Then I'm going to look at some footage
+at the end. I'm going to analyze it and
+explain exactly what I'm doing. So, what
+am I thinking about? Now, if you want to
+see six colorists doing a real challenge
+where they can only use one scope, you
+want to check out this series here.
+>> Oh my god.
+>> Holy.
+>> I will give them a time limit.
+>> It's absolutely brilliant. Right, let's
+take a look at first the waveform. So,
+I'm going to go and change my
+preferences. Again, I've got a tutorial
+on how to use the waveform or all these
+menus do. So, I'm not going through that
+in this. We're just going to focus on
+what am I doing with the waveform. So,
+just to remind you, it's basically
+reading from left to right. So, we got
+left to right. And to show you that,
+what we can do, if I actually play the
+image back, you can see the actual
+images in here. You can see the
+characters walking through the shot. So,
+what's great with this is I can look at
+a scene and actually I'm actually
+looking at the real scene on the
+waveform. So, this helps me with things
+like, do I need to put a power window in
+a certain area? Is the brightness not
+enough on one side? You can tell that
+because you're looking at the actual
+image. You've got a trace of the image
+here. So, this is really important in
+the waveform. So, looking at this image,
+what I'm seeing straight away is we've
+got good contrast going on. This shot's
+already been color managed. And I can
+see down here my blacks are good.
+They're not getting crushed here. So,
+I'm not clipping. I'm not going below
+zero. I've got a bit of headroom up
+here. The rule is not to have whites or
+your highlights sitting right at the
+top. The only thing that goes at the top
+is your peak white. So, I've got a nice
+bit of headroom here. It works on the
+shot. The scope is just giving me that
+information. I'm looking at the image to
+see is it pleasing to me? And it is. And
+it's also good for exposure. I can see
+everything's sitting really nicely in
+the image. I've got a good spread here.
+We've got a nice amount of contrast
+going on. But is it any good for looking
+at saturation? Well, let's crank up the
+saturation here. I'm just using primary
+methods in here. There's many different
+ways of doing saturation, but for this
+tutorial, I'm going to stick mainly to
+the primaries here. Let's bring up the
+saturation. That is really excessive.
+This is really horrible saturation, but
+I can't tell that from the waveform. It
+did move, but I can't tell what's
+actually happening just looking at this.
+This still looks like a nice balanced
+image on the waveform. Even if I put
+color eyes on, which allows you to see
+the colors going on, I still can't
+really tell what's going on. I can't
+tell that these are probably illegal
+colors. They're well out of scope. I
+just can't tell that from looking at
+that. So, the waveform isn't any good
+for saturation. So, let's reset that and
+let's have a look at the parade. So, if
+I click in here, we've got our red,
+green, and blue channels. We're seeing
+just a third of the screen. So, again,
+if I play the shot, we see the
+characters moving through. We're looking
+at an actual trace of the image. I can
+identify certain areas now. I can
+identify these two characters here. So,
+I can see if that needs adjusting in the
+scope. So, is the parade any good for
+contrast? Yes, I can see my black level
+and my white levels here. I can see that
+I've got a good spread. Let's just take
+contrast out completely.
+What you actually end up is with a gray
+image and a flat line. That's zero
+contrast. This is the same in the
+waveform as well. So, if I go to my
+waveform and show you, you just get that
+flat line. That's the parade. Let's
+reset our contrast. And now we've got
+normal contrast back in. If I increase
+contrast, you see that the scope
+expands. So, it's great for looking at
+contrast. So, can I measure exposure and
+brightness? I can, but it's a lot easier
+on a waveform. If we go back to the
+waveform, when you've got this set,
+you're looking at the whole image. I'm
+going to take that colorize off because
+I don't like having it on. So, when I'm
+looking at the colorize information, I'm
+going to be looking at the vectorscope
+or I'm going to be looking at the
+parade. So the parade's a great tool,
+but it also has the advantage of I can
+actually check my balance on here. So if
+you look at the top here where our
+whites are, you see we've got really
+good white balance going on here. But if
+I draw a line across the top, we have in
+fact got blue slightly higher. So if I
+go to my gain tool here and just going
+to bring that down slightly, I've now
+got a slightly more appealing white
+balance on here. It's just got a nicer
+look to it. It's not quite as cold. Is
+it any good for saturation? Again, let's
+crank it up. You can see that we're
+getting peaks going on here, but I can't
+really tell what's happening. I know
+that in the red channel, we've got
+something peaking in here. But it it's
+giving me a better indicator than the
+waveform, but it's still not the right
+tool to use for saturation. So, I'm
+using the waveform to check my exposure
+and my contrast, and I use the parade
+just to check the balance between the
+red, green, and blue channels. All
+right, let's move on to the histogram.
+This again is splitting us into red,
+green, and blue channels. Let's play
+through our image. And this time you see
+that we can't actually identify parts of
+the image. I can't see this character. I
+can't see this character. All we're
+seeing is a spread from black to white.
+And it's showing me how the pixels are
+spread between the red, green, and blue
+channels. So, is this any good for
+contrast? Yes, it is. We've got a nice
+wide spread here. So, we've got good
+scope across the entire range. We're not
+going right up to our highlights here,
+but we haven't got anything that's super
+white, nothing peak white. Let's just
+increase our contrast. And you can see
+that moving really nicely on the
+histogram. Now, what else is good for,
+if I reset that, is it will show me when
+I've got pixels that are hitting hard at
+black. So, this is a really good way of
+checking that you're not crushing your
+black or you're going below zero, which
+means you're going to be losing
+information in your blacks. So, let's
+have a look what happens here if I just
+move my lift up a little bit.
+There we got a nice bit of image coming
+back in here now, which means we're
+getting a bit more detail back in here.
+And just to add to that, there's nothing
+wrong with having your blacks going
+below zero, as long as that's your
+intention. So, if you enjoy these proc
+colorist deeper insights into things
+like scopes, let me know in the comments
+what else you'd like me to cover. And if
+you're gaining knowledge, think about
+subscribing. I spend a long time making
+these as good as I can for you. And let
+YouTube know if you're enjoying it by
+hitting the like button for me. Okay,
+let's have a look at the vector scope.
+And I think this is the one where most
+people have a problem really
+understanding what they're looking at.
+So, let's take a look. I'm going to go
+in here. I'm going to check my settings.
+I don't normally have the coloriz on,
+but I'll leave it on for this episode.
+Let's put the skin tone indicator on for
+later. And what are we looking at? First
+of all, let's play the shot. Can we see
+the characters in here? No. So, it's not
+really giving us a defined image just by
+looking at the vectorscope. I can't
+really see the shapes or the outlines,
+but what I can see is that there's a lot
+of red going on. And the bigger the
+trace, the more heavy the saturation is.
+So, what we're trying to do is keep just
+inside or not outside of these boxes
+here. So, we've got a lot of red going
+on. I can see that. And we can also see
+that we're pretty well balanced because
+most of the image is sitting in this
+crosshair. All right. So, we've got a
+nice bit of trace coming out, but it's
+not, for example, let me just show you
+extreme. If I did that, we're clearly
+far too warm. It looks very orange
+because we're now sat in the red and
+yellow quadrant. So, I'm going to reset
+that. So, that's what it's initially
+looking at. So, we can't see our image,
+but we can see that we've got saturation
+going on. So, can a vetoscope measure
+contrast? Well, let's increase the
+contrast here. So, it looks like it can
+because it's moving, but I can't analyze
+how much contrast I've got in that image
+looking at that. That could just be very
+heavy saturated reds. So, it's not
+analyzing contrast. The reason it's
+moved is because when you increase
+contrast, you're increasing saturation
+as well. So, this is also not the tool
+for reading exposure and for luminance
+levels, but it is great for reading
+saturation. So, if I just take all the
+saturation out, what you're left with is
+no trace at all because there's no
+saturation. So, we've just got a dot in
+the middle. Put the saturation back in.
+And there we go. Let me increase it just
+to show you. But the vetoscope has lots
+of other uses as well. I think
+classically people think it's for
+checking the skin tone, which it is.
+Now, I'm really happy where the skin
+tone sitting here. It's sitting just
+below the line. But I'm happy with that.
+If as long as you're consistently above,
+below it, or on it, that's all that
+matters. This line is not the law, as it
+were. So, but I'm going to move it
+anyway just for the purposes of this
+tutorial. I'm going to go to the two
+times zoom. This is really useful for
+just zooming in and seeing what's going
+on. I'm going to use my color slice for
+example. I'm just going to change the
+hue of it. I'm just going to line it up
+with that line. Now, we're definitely
+sitting above it now. So, maybe I'm
+going to go to offset. I wouldn't
+normally do this. I was quite happy with
+that shot, but it's sitting much more on
+the line now, just so you can see how to
+manipulate it. But the other use for the
+vectors scope is analyzing your color
+contrast. So, we've got this wall going
+on here. If I want to get that classic
+teal orange look going on, the reason
+for that is because it complements skin
+tone. If I can make this line, this is
+the blue. So this is blue and cyan. This
+is measuring the wall. If I can make
+that line come around a little bit more.
+So it's absolutely opposite. We should
+get a nicer effect on here. So if I go
+to my blue, I'm going to adjust the hue.
+I'm just looking at the vexcope. I'm
+bringing that round. And we've made that
+a little bit more teal. And if I just
+enable and disable that, you can see
+that's actually made quite a big
+difference. Remember, it's only a
+measurement tool. You want to be looking
+at the image. Am I happy with that? Am I
+do I prefer it like that? Do I prefer it
+like that? That is the creative part of
+it. So, let's analyze a few shots and
+get feedback from the scopes. So, I'm
+going to go to forup display. Let's
+change that to be the waveform. And I'm
+going to go on to this shot here. So,
+really quickly off the scopes, the
+feedback I'm getting is that we've not
+got enough contrast. Our blue channel's
+sitting a little bit low. The histogram
+is telling us that as well. We're not
+clipping anything here. And the vector
+scope is just showing me that everything
+is sitting in this quadrant here. So,
+it's sitting in the red yellow quadrant.
+Looking at the image, we can see that
+it's very warm. This whole image is very
+warm, so we need to be aware of that.
+We've also got this red spike, which is
+clearly his jumper. But let's play back
+the image. Just check that nothing
+really weird happens, like the camera
+doesn't turn round or something like
+that. So, we're good to go. Let's
+increase our highlights a little bit.
+I'm not trying to get to the top. I just
+want to increase them a bit. I'm going
+to bring this red channel down slightly
+so it matches a little bit.
+Something like that. I'm going to bring
+my blue channel up a little bit. And
+that's much better. Now, uh, still needs
+a bit more contrast in there.
+Something like that. Now, I'm just
+keeping an eye on this red spike on the
+vectors scope. Now, the red can be
+brought down in several ways. I'm going
+to choose the color slice. We could just
+pull the saturation out of it. Like
+that. That's a really easy option, but
+it doesn't actually look that nice. So,
+I'm going to reset that. Let's try
+increasing density. What I'm going to do
+is pull a bit a little bit saturation
+out of that as well. Something like
+that. So, that is much better. It's not
+perfect. It's not finished, but I'm just
+getting the initial feedback off those
+scopes. So, this shot is clearly in a
+mess. We've got a huge spike going over
+here on the vectorscope towards yellow.
+This is going to need to be addressed.
+We're going to have to get some blue in
+there somehow. We can see that on the
+histogram here. The blue channel is very
+low. It's very low on the parade. We've
+got not a lot going on in terms of
+contrast. We can see that clearly on the
+image. There's a couple of little spikes
+here. That is this lighting going on
+here. I'm not too worried about that.
+I'm not for the sake of that image. I'm
+not going to worry about those too much.
+So, what we're going to do, I think the
+vectors scope is going to be our best
+friend here. I'm just going to put that
+into full screen mode for a second. So,
+let's see what we can do. Let's start
+off with offset. And I'm going to push
+that over. And that looks absolutely
+terrible. So, I'm going to reset that.
+Let's try gain. Now, the tool I would
+normally use for this would be the RGB
+mixer, but I'm not going to cover that
+in this episode. I'll put a link to an
+episode where I actually corrected this
+shot using the RGB mixer. I'll put a
+link to that in the description. All
+right. So, the gain is actually helping
+us here. That's getting us more
+neutrals. We're pushing the yellow
+towards the blue, using the vetoscope to
+be a good guide for us, but constantly
+checking the image as well. So, all this
+really needs now, if I go back to my
+forup display, put that back to be a
+waveform is we need to sort out our
+game. So, let's bring that up again. I'm
+not worried that these are blowing out
+here. That's this. It doesn't really
+matter. Not in this shot. Maybe a bit
+more gamma in there.
+Something like that. And just bring our
+shadows down a little bit. But we really
+have saved that shot. This shot is a
+classic one that can trip you up if
+you're relying on your scopes because
+all the information is set down in the
+lower third really. And that's because
+it's shot at night. So I want it to be
+sat down there. This is a case of not
+using the scopes to just fill the whole
+scope up. I want to keep it sat down. So
+it's looking good. In fact, the only
+thing I'm concerned about a little bit.
+The histogram just shows that we're
+almost clipping. In fact, we are safe,
+but we're almost clipping. I just want
+to see what a little bit of lift would
+do to that shot. And it's fine. It's not
+making that. It's We're definitely not
+clipping. So, it's good where it was.
+The only other thing to look out for on
+my vectors scope, if I just increase the
+trace there so you can see it better,
+you can see this blue line is getting
+very close to here. That is obviously
+the car interior here. Again, nothing to
+worry about. But if it was really
+heavily saturated, we could go again to
+our color slice tool and maybe look at
+increasing the density on that or
+something like that just to help affect
+it. So the other thing I'm noticing here
+is that the vectors scope is not sat in
+the middle. It's not sat central. So I
+just want to prove something to you that
+it doesn't actually matter. So if I can
+push my offset over and centralize that.
+We've pushed the blue a little bit
+further. But now that's sitting nice in
+the middle which is what people think it
+should be. But looking at the image that
+doesn't look right. The shot should look
+warm even though it's night time and
+everything should be sat down. So this
+is a classic case of I want that to be
+read in this quadrant. So I'm g put that
+back by pressing undo. And this is good.
+So creatively I'm happy. So this shows
+you there's not one scope to beat them
+all. It's really there just as a visual
+aid. It's technically giving you
+feedback on what's happening on the
+image. The creative part of it is still
+down to you. These are great when your
+eyes are getting a bit tired, when you
+just want to check if you are actually
+white balanced. But remember, you can't
+grade with just scopes. Or can you
+>> what? Just one scope. Oh my god.
+>> Try practicing. Have a go with it. Push
+and pull them. Get used to the feedback
+information that you're getting off
+them. Look after yourselves. Enjoy your
+scopes. I'll see you in the next

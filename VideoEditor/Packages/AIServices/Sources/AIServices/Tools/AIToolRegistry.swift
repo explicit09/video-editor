@@ -87,6 +87,24 @@ public struct AIToolRegistry: Sendable {
         // Image generation tools
         generateThumbnail,
         generateCarousel,
+        // Audio processing tools
+        applyGate,
+        applyCompressor,
+        applyDeEsser,
+        applyEQ,
+        applyLimiter,
+        normalizeAudioToLUFS,
+        analyzeAudioSpectrum,
+        applySpectralNoiseReduction,
+        // Graphics tools
+        addTextOverlay,
+        addZoomEffect,
+        // Animation tools
+        applySpeedRamp,
+        // Caption tools
+        setCaptionTiming,
+        // Export tools
+        exportVideo,
     ]
 
     // MARK: - Content tools (request data on demand, save tokens)
@@ -320,6 +338,7 @@ public struct AIToolRegistry: Sendable {
         parameters: .object([
             "time": .init(type: "number", description: "Time in seconds"),
             "label": .init(type: "string", description: "Marker label"),
+            "color": .init(type: "string", description: "Marker color as hex string (default #FF0000)"),
         ], required: ["time", "label"])
     )
 
@@ -379,16 +398,18 @@ public struct AIToolRegistry: Sendable {
 
     public static let setClipEffect = AIToolDefinition(
         name: "set_clip_effect",
-        description: "Apply a visual effect to a clip. Supported types: colorCorrection (brightness/contrast/saturation/temperature), blur (radius), sharpen (sharpness).",
+        description: "Apply a visual effect to a clip. Supported types: colorCorrection (brightness/contrast/saturation/temperature), blur (radius), sharpen (sharpness), vignette (intensity/feather).",
         parameters: .object([
             "clip_id": .init(type: "string", description: "UUID of the clip"),
-            "effect_type": .init(type: "string", description: "Effect type: colorCorrection, blur, or sharpen"),
+            "effect_type": .init(type: "string", description: "Effect type: colorCorrection, blur, sharpen, or vignette"),
             "brightness": .init(type: "number", description: "Brightness adjustment (-1 to 1, default 0). Only for colorCorrection."),
             "contrast": .init(type: "number", description: "Contrast (0 to 4, default 1). Only for colorCorrection."),
             "saturation": .init(type: "number", description: "Saturation (0 to 3, default 1). Only for colorCorrection."),
             "temperature": .init(type: "number", description: "Color temperature in Kelvin (2000-10000, default 6500). Only for colorCorrection."),
             "radius": .init(type: "number", description: "Blur radius (0-100, default 10). Only for blur."),
             "sharpness": .init(type: "number", description: "Sharpness (0-2, default 0.4). Only for sharpen."),
+            "intensity": .init(type: "number", description: "Vignette intensity (0-1, default 0.5). Only for vignette."),
+            "feather": .init(type: "number", description: "Vignette feather/softness (0-1, default 0.7). Only for vignette."),
         ], required: ["clip_id", "effect_type"])
     )
 
@@ -824,6 +845,162 @@ public struct AIToolRegistry: Sendable {
         ], required: ["name"])
     )
 
+    // MARK: - Audio processing tools
+
+    public static let applyGate = AIToolDefinition(
+        name: "apply_gate",
+        description: "Apply a noise gate to an audio clip. Silences audio below the threshold. Use to remove background noise between speech.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip"),
+            "threshold_db": .init(type: "number", description: "Gate threshold in dB (default -40)"),
+            "attack_ms": .init(type: "number", description: "Attack time in milliseconds (default 0.5)"),
+            "release_ms": .init(type: "number", description: "Release time in milliseconds (default 50)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let applyCompressor = AIToolDefinition(
+        name: "apply_compressor",
+        description: "Apply dynamic range compression to an audio clip. Reduces volume peaks and evens out loudness.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip"),
+            "ratio": .init(type: "number", description: "Compression ratio (default 4)"),
+            "attack_ms": .init(type: "number", description: "Attack time in milliseconds (default 5)"),
+            "release_ms": .init(type: "number", description: "Release time in milliseconds (default 30)"),
+            "threshold_db": .init(type: "number", description: "Threshold in dB (default -20)"),
+            "makeup_gain_db": .init(type: "number", description: "Makeup gain in dB (default 3)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let applyDeEsser = AIToolDefinition(
+        name: "apply_de_esser",
+        description: "Apply de-esser to reduce sibilance (harsh 's' and 'sh' sounds) in speech.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip"),
+            "center_freq_hz": .init(type: "number", description: "Center frequency in Hz (default 5500)"),
+            "reduction_db": .init(type: "number", description: "Reduction amount in dB (default -3)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let applyEQ = AIToolDefinition(
+        name: "apply_eq",
+        description: "Apply parametric EQ to an audio clip. Specify bands with frequency, gain, Q factor, and filter type.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip"),
+            "bands": .init(type: "array", description: "Array of EQ band objects: {freq_hz, gain_db, q, filter_type}. Filter types: peak, lowShelf, highShelf, lowPass, highPass, bandPass, notch.", items: .init(type: "object")),
+        ], required: ["clip_id", "bands"])
+    )
+
+    public static let applyLimiter = AIToolDefinition(
+        name: "apply_limiter",
+        description: "Apply a brick-wall limiter to prevent audio clipping. Catches peaks above the threshold.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip"),
+            "threshold_db": .init(type: "number", description: "Limiter threshold in dB (default -6)"),
+            "attack_ms": .init(type: "number", description: "Attack time in milliseconds (default 1)"),
+            "release_ms": .init(type: "number", description: "Release time in milliseconds (default 75)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let normalizeAudioToLUFS = AIToolDefinition(
+        name: "normalize_audio_to_lufs",
+        description: "Normalize audio to a target LUFS level. Supports comma-separated clip IDs to normalize multiple clips at once.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip (supports comma-separated for multiple clips)"),
+            "target_lufs": .init(type: "number", description: "Target loudness in LUFS (default -16)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let analyzeAudioSpectrum = AIToolDefinition(
+        name: "analyze_audio_spectrum",
+        description: "Analyze the frequency spectrum of an audio clip over a time range. Returns frequency distribution data for diagnostics.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip"),
+            "start": .init(type: "number", description: "Start time in seconds (default 0)"),
+            "end": .init(type: "number", description: "End time in seconds (default: clip end)"),
+        ], required: ["clip_id"])
+    )
+
+    public static let applySpectralNoiseReduction = AIToolDefinition(
+        name: "apply_spectral_noise_reduction",
+        description: "Apply spectral noise reduction targeting specific frequencies. Use analyze_audio_spectrum first to identify problem frequencies.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the audio clip"),
+            "frequencies_hz": .init(type: "array", description: "Array of frequencies in Hz to reduce", items: .init(type: "number")),
+        ], required: ["clip_id", "frequencies_hz"])
+    )
+
+    // MARK: - Graphics tools
+
+    public static let addTextOverlay = AIToolDefinition(
+        name: "add_text_overlay",
+        description: "Add a text overlay to a video clip. Supports positioning, styling, and animation.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the video clip"),
+            "text": .init(type: "string", description: "Text to display"),
+            "start_time": .init(type: "number", description: "Start time relative to clip in seconds"),
+            "duration": .init(type: "number", description: "Duration in seconds"),
+            "position_x": .init(type: "number", description: "Horizontal position 0-1 (default 0.5, center)"),
+            "position_y": .init(type: "number", description: "Vertical position 0-1 (default 0.8, lower third)"),
+            "font_size": .init(type: "number", description: "Font size in points (default 48)"),
+            "color_hex": .init(type: "string", description: "Text color as hex (default #FFFFFF)"),
+            "background_color_hex": .init(type: "string", description: "Optional background color as hex"),
+            "animation": .init(type: "string", description: "Animation type: fadeIn, fadeOut, slideUp, slideDown, typewriter, none (default fadeIn)"),
+            "animation_duration_ms": .init(type: "number", description: "Animation duration in milliseconds (default 100)"),
+        ], required: ["clip_id", "text", "start_time", "duration"])
+    )
+
+    public static let addZoomEffect = AIToolDefinition(
+        name: "add_zoom_effect",
+        description: "Add a smooth zoom effect to a video clip. Animates from zoom_start to zoom_end over the duration.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the video clip"),
+            "start_time": .init(type: "number", description: "Start time relative to clip in seconds"),
+            "duration": .init(type: "number", description: "Duration of zoom in seconds"),
+            "zoom_start": .init(type: "number", description: "Starting zoom level (default 1.0, no zoom)"),
+            "zoom_end": .init(type: "number", description: "Ending zoom level (e.g. 1.5 = 150%)"),
+            "center_x": .init(type: "number", description: "Zoom center X 0-1 (default 0.5)"),
+            "center_y": .init(type: "number", description: "Zoom center Y 0-1 (default 0.5)"),
+        ], required: ["clip_id", "start_time", "duration", "zoom_end"])
+    )
+
+    // MARK: - Animation tools
+
+    public static let applySpeedRamp = AIToolDefinition(
+        name: "apply_speed_ramp",
+        description: "Apply a speed ramp to a clip. Smoothly transitions playback speed from speed_start to speed_end over the time range.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "start_time": .init(type: "number", description: "Start time in seconds"),
+            "end_time": .init(type: "number", description: "End time in seconds"),
+            "speed_start": .init(type: "number", description: "Starting speed multiplier"),
+            "speed_end": .init(type: "number", description: "Ending speed multiplier"),
+            "easing": .init(type: "string", description: "Easing curve: linear, easeIn, easeOut, easeInOut (default linear)"),
+        ], required: ["clip_id", "start_time", "end_time", "speed_start", "speed_end"])
+    )
+
+    // MARK: - Caption tools
+
+    public static let setCaptionTiming = AIToolDefinition(
+        name: "set_caption_timing",
+        description: "Set caption timing mode. Sync to transcript for automatic timing, or provide manual word timings.",
+        parameters: .object([
+            "clip_id": .init(type: "string", description: "UUID of the clip"),
+            "sync_to_transcript": .init(type: "boolean", description: "Sync caption timing to transcript (default true)"),
+            "word_timings": .init(type: "array", description: "Optional manual word timings array", items: .init(type: "object")),
+        ], required: ["clip_id"])
+    )
+
+    // MARK: - Export tools
+
+    public static let exportVideo = AIToolDefinition(
+        name: "export_video",
+        description: "Export the current timeline as a video file. Renders all tracks, effects, and overlays.",
+        parameters: .object([
+            "preset": .init(type: "string", description: "Export quality preset: high, medium, low, proxy (default high)"),
+            "filename": .init(type: "string", description: "Output filename (optional, auto-generated if omitted)"),
+        ], required: [])
+    )
+
     // MARK: - Image generation tools
 
     public static let generateThumbnail = AIToolDefinition(
@@ -1000,7 +1177,8 @@ public struct AIToolResolver: Sendable {
                 throw AIToolError.invalidArgument("Missing time")
             }
             let label = arguments["label"] as? String ?? ""
-            return [.setMarker(at: time, label: label)]
+            let color = arguments["color"] as? String ?? "#FF0000"
+            return [.setMarker(at: time, label: label, color: color)]
 
         case "remove_silence":
             // Handled upstream in AIChatController (needs AppState)
@@ -1062,6 +1240,11 @@ public struct AIToolResolver: Sendable {
                 effect = EffectInstance(type: "blur", parameters: ["radius": (arguments["radius"] as? Double) ?? 10])
             case "sharpen":
                 effect = EffectInstance(type: "sharpen", parameters: ["sharpness": (arguments["sharpness"] as? Double) ?? 0.4])
+            case "vignette":
+                effect = .vignette(
+                    intensity: (arguments["intensity"] as? Double) ?? 0.5,
+                    feather: (arguments["feather"] as? Double) ?? 0.7
+                )
             default:
                 throw AIToolError.invalidArgument("Unknown effect type: \(effectType)")
             }
@@ -1355,6 +1538,123 @@ public struct AIToolResolver: Sendable {
                 allIntents.append(contentsOf: intents)
             }
             return [.batch(allIntents)]
+
+        // Audio processing tools
+        case "apply_gate":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let config = GateConfig(
+                thresholdDB: (arguments["threshold_db"] as? Double) ?? -40,
+                attackMS: (arguments["attack_ms"] as? Double) ?? 0.5,
+                releaseMS: (arguments["release_ms"] as? Double) ?? 50
+            )
+            return [.applyGate(clipID: clipID, config: config)]
+
+        case "apply_compressor":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let config = CompressorConfig(
+                ratio: (arguments["ratio"] as? Double) ?? 4,
+                attackMS: (arguments["attack_ms"] as? Double) ?? 5,
+                releaseMS: (arguments["release_ms"] as? Double) ?? 30,
+                thresholdDB: (arguments["threshold_db"] as? Double) ?? -20,
+                makeupGainDB: (arguments["makeup_gain_db"] as? Double) ?? 3
+            )
+            return [.applyCompressor(clipID: clipID, config: config)]
+
+        case "apply_de_esser":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let config = DeEsserConfig(
+                centerFreqHz: (arguments["center_freq_hz"] as? Double) ?? 5500,
+                reductionDB: (arguments["reduction_db"] as? Double) ?? -3
+            )
+            return [.applyDeEsser(clipID: clipID, config: config)]
+
+        case "apply_eq":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            var bands: [EQBand] = []
+            if let bandsArray = arguments["bands"] as? [[String: Any]] {
+                for b in bandsArray {
+                    bands.append(EQBand(
+                        freqHz: (b["freq_hz"] as? Double) ?? 1000,
+                        gainDB: (b["gain_db"] as? Double) ?? 0,
+                        q: (b["q"] as? Double) ?? 1.0,
+                        filterType: EQFilterType(rawValue: (b["filter_type"] as? String) ?? "peak") ?? .peak
+                    ))
+                }
+            }
+            return [.applyEQ(clipID: clipID, config: EQConfig(bands: bands))]
+
+        case "apply_limiter":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr) else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let config = LimiterConfig(
+                thresholdDB: (arguments["threshold_db"] as? Double) ?? -6,
+                attackMS: (arguments["attack_ms"] as? Double) ?? 1,
+                releaseMS: (arguments["release_ms"] as? Double) ?? 75
+            )
+            return [.applyLimiter(clipID: clipID, config: config)]
+
+        case "normalize_audio_to_lufs":
+            guard let clipIDStr = arguments["clip_id"] as? String else {
+                throw AIToolError.invalidArgument("Missing clip_id")
+            }
+            let targetLUFS = (arguments["target_lufs"] as? Double) ?? -16
+            let clipIDs = clipIDStr.split(separator: ",").compactMap { UUID(uuidString: String($0).trimmingCharacters(in: .whitespaces)) }
+            if clipIDs.isEmpty { throw AIToolError.invalidArgument("Invalid clip_id") }
+            return clipIDs.map { .normalizeLUFS(clipID: $0, targetLUFS: targetLUFS) }
+
+        case "add_text_overlay":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr),
+                  let text = arguments["text"] as? String,
+                  let startTime = arguments["start_time"] as? Double,
+                  let duration = arguments["duration"] as? Double else {
+                throw AIToolError.invalidArgument("Missing required parameters")
+            }
+            let overlay = TextOverlay(
+                text: text, startTime: startTime, duration: duration,
+                positionX: (arguments["position_x"] as? Double) ?? 0.5,
+                positionY: (arguments["position_y"] as? Double) ?? 0.8,
+                fontSize: (arguments["font_size"] as? Double) ?? 48,
+                colorHex: (arguments["color_hex"] as? String) ?? "#FFFFFF",
+                backgroundColorHex: arguments["background_color_hex"] as? String,
+                animation: TextAnimation(rawValue: (arguments["animation"] as? String) ?? "fadeIn") ?? .fadeIn,
+                animationDurationMS: (arguments["animation_duration_ms"] as? Double) ?? 100
+            )
+            return [.addTextOverlay(clipID: clipID, overlay: overlay)]
+
+        case "add_zoom_effect":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr),
+                  let startTime = arguments["start_time"] as? Double,
+                  let duration = arguments["duration"] as? Double,
+                  let zoomEnd = arguments["zoom_end"] as? Double else {
+                throw AIToolError.invalidArgument("Missing required parameters")
+            }
+            return [.addZoomEffect(clipID: clipID, startTime: startTime, duration: duration,
+                zoomStart: (arguments["zoom_start"] as? Double) ?? 1.0, zoomEnd: zoomEnd,
+                centerX: (arguments["center_x"] as? Double) ?? 0.5, centerY: (arguments["center_y"] as? Double) ?? 0.5)]
+
+        case "apply_speed_ramp":
+            guard let clipIDStr = arguments["clip_id"] as? String, let clipID = UUID(uuidString: clipIDStr),
+                  let startTime = arguments["start_time"] as? Double,
+                  let endTime = arguments["end_time"] as? Double,
+                  let speedStart = arguments["speed_start"] as? Double,
+                  let speedEnd = arguments["speed_end"] as? Double else {
+                throw AIToolError.invalidArgument("Missing required parameters")
+            }
+            let easing = KeyframeInterpolation(rawValue: (arguments["easing"] as? String) ?? "linear") ?? .linear
+            return [.applySpeedRamp(clipID: clipID, startTime: startTime, endTime: endTime, speedStart: speedStart, speedEnd: speedEnd, easing: easing)]
+
+        // Analysis/server-handled tools — return empty intents
+        case "analyze_audio_spectrum", "apply_spectral_noise_reduction", "set_caption_timing", "export_video":
+            return []
 
         // AppState tools — handled upstream in AIChatController/MCPServer, not via intents
         case "undo", "redo", "play_pause", "seek", "toggle_loop", "get_action_log", "activate_skill":

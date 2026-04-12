@@ -1,0 +1,4177 @@
+[
+  {
+    "text": "So you've put in the effort to film some",
+    "start": 0.166,
+    "duration": 2.767
+  },
+  {
+    "text": "B-roll of yourself for",
+    "start": 2.933,
+    "duration": 1.633
+  },
+  {
+    "text": "your next YouTube video.",
+    "start": 4.566,
+    "duration": 1.434
+  },
+  {
+    "text": "You've set up the tripod, you got all the",
+    "start": 6.566,
+    "duration": 2.2
+  },
+  {
+    "text": "shots, and now that",
+    "start": 8.766,
+    "duration": 1.3
+  },
+  {
+    "text": "it's all recorded, you're",
+    "start": 10.066,
+    "duration": 1.334
+  },
+  {
+    "text": "thinking to yourself, what am I going to",
+    "start": 11.4,
+    "duration": 2.133
+  },
+  {
+    "text": "do with all of this?",
+    "start": 13.533,
+    "duration": 1.233
+  },
+  {
+    "text": "Today, I wanted to show you my process",
+    "start": 14.766,
+    "duration": 1.767
+  },
+  {
+    "text": "for editing B-roll into YouTube videos.",
+    "start": 16.533,
+    "duration": 2.6
+  },
+  {
+    "text": "We'll talk about how to combine it with",
+    "start": 19.366,
+    "duration": 1.267
+  },
+  {
+    "text": "your A-roll to create",
+    "start": 20.633,
+    "duration": 1.033
+  },
+  {
+    "text": "an engaging story and how",
+    "start": 21.666,
+    "duration": 1.8
+  },
+  {
+    "text": "to edit your B-roll to music.",
+    "start": 23.466,
+    "duration": 1.334
+  },
+  {
+    "text": "And by the way, everything that I'm going",
+    "start": 25.033,
+    "duration": 1.3
+  },
+  {
+    "text": "to show you, you can",
+    "start": 26.333,
+    "duration": 1.167
+  },
+  {
+    "text": "do for free in the free",
+    "start": 27.5,
+    "duration": 1.633
+  },
+  {
+    "text": "version of DaVinci Resolve, so you don't",
+    "start": 29.166,
+    "duration": 1.834
+  },
+  {
+    "text": "even have to buy any",
+    "start": 31.0,
+    "duration": 0.866
+  },
+  {
+    "text": "expensive software to",
+    "start": 31.866,
+    "duration": 1.5
+  },
+  {
+    "text": "get started with these editing tips.",
+    "start": 33.366,
+    "duration": 1.533
+  },
+  {
+    "text": "And by the way, thanks to Storyblocks for",
+    "start": 35.1,
+    "duration": 1.466
+  },
+  {
+    "text": "sponsoring today's video.",
+    "start": 36.566,
+    "duration": 0.9
+  },
+  {
+    "text": "We'll talk more about them later.",
+    "start": 37.733,
+    "duration": 1.033
+  },
+  {
+    "text": "First, I think we should just really",
+    "start": 39.033,
+    "duration": 1.133
+  },
+  {
+    "text": "quickly define what",
+    "start": 40.166,
+    "duration": 1.1
+  },
+  {
+    "text": "exactly is B-roll and what is",
+    "start": 41.266,
+    "duration": 2.2
+  },
+  {
+    "text": "A-roll.",
+    "start": 43.466,
+    "duration": 0.367
+  },
+  {
+    "text": "B-roll is basically supplemental footage",
+    "start": 43.833,
+    "duration": 1.867
+  },
+  {
+    "text": "that helps to enhance",
+    "start": 45.7,
+    "duration": 1.433
+  },
+  {
+    "text": "the story, but it isn't",
+    "start": 47.133,
+    "duration": 1.666
+  },
+  {
+    "text": "the main focus of the video.",
+    "start": 48.799,
+    "duration": 1.867
+  },
+  {
+    "text": "A-roll, on the other hand, is",
+    "start": 50.866,
+    "duration": 1.5
+  },
+  {
+    "text": "the main focus of the video.",
+    "start": 52.366,
+    "duration": 1.2
+  },
+  {
+    "text": "So in the case of YouTube videos like",
+    "start": 53.566,
+    "duration": 1.667
+  },
+  {
+    "text": "mine, the talking head",
+    "start": 55.233,
+    "duration": 1.1
+  },
+  {
+    "text": "part where you like see me",
+    "start": 56.333,
+    "duration": 1.033
+  },
+  {
+    "text": "chat into the camera, that's the A-roll.",
+    "start": 57.399,
+    "duration": 1.934
+  },
+  {
+    "text": "Meanwhile, all those other clips that you",
+    "start": 59.566,
+    "duration": 1.567
+  },
+  {
+    "text": "saw in the intro, for",
+    "start": 61.133,
+    "duration": 1.1
+  },
+  {
+    "text": "example, you know, of",
+    "start": 62.233,
+    "duration": 1.0
+  },
+  {
+    "text": "me like setting up my tripod and filming",
+    "start": 63.233,
+    "duration": 1.633
+  },
+  {
+    "text": "myself writing in my",
+    "start": 64.866,
+    "duration": 0.867
+  },
+  {
+    "text": "journal and all that, that is",
+    "start": 65.733,
+    "duration": 1.366
+  },
+  {
+    "text": "B-roll because it helped to enhance what",
+    "start": 67.099,
+    "duration": 1.834
+  },
+  {
+    "text": "I was saying, but it",
+    "start": 68.933,
+    "duration": 1.166
+  },
+  {
+    "text": "wasn't like the main purpose",
+    "start": 70.099,
+    "duration": 1.134
+  },
+  {
+    "text": "of the video.",
+    "start": 71.233,
+    "duration": 0.6
+  },
+  {
+    "text": "I'll admit the exact definition of this",
+    "start": 71.833,
+    "duration": 1.6
+  },
+  {
+    "text": "can be a bit fuzzy",
+    "start": 73.433,
+    "duration": 1.133
+  },
+  {
+    "text": "because sometimes clips that",
+    "start": 74.566,
+    "duration": 1.5
+  },
+  {
+    "text": "look like B-roll are",
+    "start": 76.066,
+    "duration": 1.6
+  },
+  {
+    "text": "actually the A-roll of a video.",
+    "start": 77.666,
+    "duration": 1.9
+  },
+  {
+    "text": "Let's just say if the point of the scene",
+    "start": 79.566,
+    "duration": 1.667
+  },
+  {
+    "text": "was to show me making a",
+    "start": 81.233,
+    "duration": 2.167
+  },
+  {
+    "text": "coffee in the morning.",
+    "start": 83.4,
+    "duration": 0.866
+  },
+  {
+    "text": "(upbeat music)",
+    "start": 88.4,
+    "duration": 0.533
+  },
+  {
+    "text": "(upbeat music)",
+    "start": 91.433,
+    "duration": 1.6
+  },
+  {
+    "text": "That definitely felt like a roll, right?",
+    "start": 97.133,
+    "duration": 2.567
+  },
+  {
+    "text": "But if I use those",
+    "start": 99.7,
+    "duration": 0.633
+  },
+  {
+    "text": "exact same clips over top",
+    "start": 100.333,
+    "duration": 1.9
+  },
+  {
+    "text": "of a talking head",
+    "start": 102.5,
+    "duration": 0.866
+  },
+  {
+    "text": "segment where I'm talking about",
+    "start": 103.366,
+    "duration": 1.867
+  },
+  {
+    "text": "how I love my mid afternoon coffee",
+    "start": 105.233,
+    "duration": 2.4
+  },
+  {
+    "text": "and it's so important",
+    "start": 107.633,
+    "duration": 0.9
+  },
+  {
+    "text": "for me to take a break",
+    "start": 108.533,
+    "duration": 0.9
+  },
+  {
+    "text": "around like two 30 or",
+    "start": 109.433,
+    "duration": 0.933
+  },
+  {
+    "text": "three in the afternoon",
+    "start": 110.366,
+    "duration": 0.767
+  },
+  {
+    "text": "because I need to get that caffeine hit",
+    "start": 111.133,
+    "duration": 1.733
+  },
+  {
+    "text": "to be productive for the rest of the day.",
+    "start": 112.866,
+    "duration": 1.767
+  },
+  {
+    "text": "See, in that case, it",
+    "start": 115.033,
+    "duration": 1.1
+  },
+  {
+    "text": "definitely felt like B roll, right?",
+    "start": 116.133,
+    "duration": 1.6
+  },
+  {
+    "text": "With that disclaimer out of the way",
+    "start": 117.966,
+    "duration": 1.067
+  },
+  {
+    "text": "for the purpose of today's video,",
+    "start": 119.033,
+    "duration": 1.9
+  },
+  {
+    "text": "when I talk about B roll,",
+    "start": 121.333,
+    "duration": 1.133
+  },
+  {
+    "text": "I mean supplemental clips",
+    "start": 122.733,
+    "duration": 1.467
+  },
+  {
+    "text": "that you add on top of",
+    "start": 124.2,
+    "duration": 1.166
+  },
+  {
+    "text": "like talking head footage.",
+    "start": 125.366,
+    "duration": 1.167
+  },
+  {
+    "text": "The way that I tend to",
+    "start": 126.566,
+    "duration": 0.7
+  },
+  {
+    "text": "do it in my own videos.",
+    "start": 127.266,
+    "duration": 0.9
+  },
+  {
+    "text": "And that's what I'm",
+    "start": 128.4,
+    "duration": 0.5
+  },
+  {
+    "text": "gonna show you how to edit.",
+    "start": 128.9,
+    "duration": 1.033
+  },
+  {
+    "text": "All right, before we can even start",
+    "start": 130.366,
+    "duration": 1.134
+  },
+  {
+    "text": "looking at our B roll,",
+    "start": 131.5,
+    "duration": 0.966
+  },
+  {
+    "text": "the first step in any edit",
+    "start": 132.466,
+    "duration": 1.367
+  },
+  {
+    "text": "is gonna be getting our A roll",
+    "start": 133.833,
+    "duration": 1.333
+  },
+  {
+    "text": "on the timeline.",
+    "start": 135.166,
+    "duration": 0.734
+  },
+  {
+    "text": "The way I like to do this in",
+    "start": 136.166,
+    "duration": 0.8
+  },
+  {
+    "text": "Resolve is just find the clip",
+    "start": 136.966,
+    "duration": 1.967
+  },
+  {
+    "text": "that I know is the talking",
+    "start": 139.066,
+    "duration": 1.234
+  },
+  {
+    "text": "head segment for my video.",
+    "start": 140.3,
+    "duration": 1.166
+  },
+  {
+    "text": "And I'm gonna right",
+    "start": 141.766,
+    "duration": 0.7
+  },
+  {
+    "text": "click it and then click on",
+    "start": 142.466,
+    "duration": 1.467
+  },
+  {
+    "text": "create new timeline using selected clips.",
+    "start": 144.066,
+    "duration": 2.167
+  },
+  {
+    "text": "Now to really efficiently",
+    "start": 146.533,
+    "duration": 0.933
+  },
+  {
+    "text": "edit my talking head segment,",
+    "start": 147.466,
+    "duration": 2.0
+  },
+  {
+    "text": "I'm gonna use the waveform",
+    "start": 149.466,
+    "duration": 1.4
+  },
+  {
+    "text": "and basically look for clues",
+    "start": 150.866,
+    "duration": 1.333
+  },
+  {
+    "text": "to when I need to cut",
+    "start": 152.533,
+    "duration": 1.2
+  },
+  {
+    "text": "out a certain section.",
+    "start": 153.733,
+    "duration": 0.833
+  },
+  {
+    "text": "If you're not familiar the way",
+    "start": 154.566,
+    "duration": 1.0
+  },
+  {
+    "text": "that audio waveforms work is",
+    "start": 155.633,
+    "duration": 1.5
+  },
+  {
+    "text": "anytime you see a flat line",
+    "start": 157.133,
+    "duration": 1.4
+  },
+  {
+    "text": "here that basically",
+    "start": 158.666,
+    "duration": 0.9
+  },
+  {
+    "text": "indicates that the video",
+    "start": 159.566,
+    "duration": 1.2
+  },
+  {
+    "text": "is more or less silent.",
+    "start": 160.766,
+    "duration": 1.267
+  },
+  {
+    "text": "The size of the wave",
+    "start": 162.033,
+    "duration": 1.066
+  },
+  {
+    "text": "indicates how loud the volume",
+    "start": 163.099,
+    "duration": 2.067
+  },
+  {
+    "text": "is at that point.",
+    "start": 165.166,
+    "duration": 0.867
+  },
+  {
+    "text": "So when I see a",
+    "start": 166.033,
+    "duration": 0.833
+  },
+  {
+    "text": "silent segment in my video,",
+    "start": 166.866,
+    "duration": 1.9
+  },
+  {
+    "text": "I pretty much know that",
+    "start": 169.0,
+    "duration": 1.233
+  },
+  {
+    "text": "I wasn't talking then.",
+    "start": 170.233,
+    "duration": 1.5
+  },
+  {
+    "text": "I was probably checking my",
+    "start": 171.733,
+    "duration": 1.033
+  },
+  {
+    "text": "script to see what my next line",
+    "start": 172.766,
+    "duration": 1.4
+  },
+  {
+    "text": "was supposed to be.",
+    "start": 174.166,
+    "duration": 0.8
+  },
+  {
+    "text": "So I'm just gonna use the",
+    "start": 174.966,
+    "duration": 0.967
+  },
+  {
+    "text": "blade tool and cut right",
+    "start": 175.933,
+    "duration": 1.5
+  },
+  {
+    "text": "before the waveform starts",
+    "start": 177.533,
+    "duration": 1.233
+  },
+  {
+    "text": "getting active like that.",
+    "start": 178.766,
+    "duration": 1.4
+  },
+  {
+    "text": "And then I'll use the selector",
+    "start": 180.9,
+    "duration": 1.166
+  },
+  {
+    "text": "tool here to select this part",
+    "start": 182.066,
+    "duration": 1.767
+  },
+  {
+    "text": "of the clip and then just delete it.",
+    "start": 183.833,
+    "duration": 1.533
+  },
+  {
+    "text": "And then pretty much what",
+    "start": 185.366,
+    "duration": 0.767
+  },
+  {
+    "text": "I like to do while editing",
+    "start": 186.133,
+    "duration": 0.867
+  },
+  {
+    "text": "is just play back the video",
+    "start": 187.0,
+    "duration": 1.333
+  },
+  {
+    "text": "and then start cutting out",
+    "start": 188.333,
+    "duration": 1.333
+  },
+  {
+    "text": "sections like as it's playing.",
+    "start": 189.733,
+    "duration": 1.833
+  },
+  {
+    "text": "And normally I can be fast",
+    "start": 192.433,
+    "duration": 1.4
+  },
+  {
+    "text": "enough that I can get rid",
+    "start": 193.833,
+    "duration": 2.033
+  },
+  {
+    "text": "of the pause before the",
+    "start": 195.866,
+    "duration": 2.0
+  },
+  {
+    "text": "play head even arrives",
+    "start": 197.866,
+    "duration": 1.367
+  },
+  {
+    "text": "at that point on the timeline.",
+    "start": 199.233,
+    "duration": 1.3
+  },
+  {
+    "text": "But sometimes I do have to",
+    "start": 200.533,
+    "duration": 1.533
+  },
+  {
+    "text": "pause and delete like that.",
+    "start": 202.066,
+    "duration": 2.367
+  },
+  {
+    "text": "And this is pretty much how",
+    "start": 205.099,
+    "duration": 1.6
+  },
+  {
+    "text": "I go about editing my talking",
+    "start": 206.699,
+    "duration": 1.534
+  },
+  {
+    "text": "head segments and with",
+    "start": 208.233,
+    "duration": 1.1
+  },
+  {
+    "text": "all of our pauses cut out,",
+    "start": 209.333,
+    "duration": 1.4
+  },
+  {
+    "text": "now we're ready to start",
+    "start": 210.733,
+    "duration": 1.033
+  },
+  {
+    "text": "adding B-rolls to the timeline.",
+    "start": 211.766,
+    "duration": 1.267
+  },
+  {
+    "text": "So let's go up to my",
+    "start": 213.033,
+    "duration": 0.733
+  },
+  {
+    "text": "folders here in the media pool.",
+    "start": 213.766,
+    "duration": 1.4
+  },
+  {
+    "text": "So I am a huge nerd",
+    "start": 215.199,
+    "duration": 0.934
+  },
+  {
+    "text": "for file organization.",
+    "start": 216.133,
+    "duration": 1.066
+  },
+  {
+    "text": "So when I'm filming my",
+    "start": 217.599,
+    "duration": 0.734
+  },
+  {
+    "text": "videos, I like to sort out",
+    "start": 218.333,
+    "duration": 1.2
+  },
+  {
+    "text": "which clips are for which",
+    "start": 219.633,
+    "duration": 1.433
+  },
+  {
+    "text": "scene and kind of sort them",
+    "start": 221.066,
+    "duration": 1.467
+  },
+  {
+    "text": "into folders based on that.",
+    "start": 222.533,
+    "duration": 1.267
+  },
+  {
+    "text": "If you wanna know more",
+    "start": 224.033,
+    "duration": 0.666
+  },
+  {
+    "text": "about that, I talked about it",
+    "start": 224.699,
+    "duration": 0.934
+  },
+  {
+    "text": "in this video that I made",
+    "start": 225.633,
+    "duration": 0.933
+  },
+  {
+    "text": "about how to edit faster.",
+    "start": 226.566,
+    "duration": 1.067
+  },
+  {
+    "text": "But since we're working on",
+    "start": 228.133,
+    "duration": 0.9
+  },
+  {
+    "text": "the intro, let's go into the",
+    "start": 229.033,
+    "duration": 1.233
+  },
+  {
+    "text": "folder for my intro B-roll.",
+    "start": 230.266,
+    "duration": 1.967
+  },
+  {
+    "text": "To get these clips in the",
+    "start": 232.533,
+    "duration": 0.867
+  },
+  {
+    "text": "right order and make sure",
+    "start": 233.4,
+    "duration": 0.866
+  },
+  {
+    "text": "that I'm like putting them in the",
+    "start": 234.266,
+    "duration": 1.5
+  },
+  {
+    "text": "timeline where I envisioned",
+    "start": 235.766,
+    "duration": 1.3
+  },
+  {
+    "text": "it when I was writing the",
+    "start": 237.166,
+    "duration": 1.567
+  },
+  {
+    "text": "script, I'm actually gonna pull",
+    "start": 238.733,
+    "duration": 1.233
+  },
+  {
+    "text": "up my video script in Notion",
+    "start": 239.966,
+    "duration": 2.067
+  },
+  {
+    "text": "here because the way I tend",
+    "start": 242.033,
+    "duration": 1.433
+  },
+  {
+    "text": "to format this is I will",
+    "start": 243.533,
+    "duration": 1.633
+  },
+  {
+    "text": "have a section where it's pretty",
+    "start": 245.166,
+    "duration": 2.6
+  },
+  {
+    "text": "much the script.",
+    "start": 247.766,
+    "duration": 0.867
+  },
+  {
+    "text": "This is what I'm saying",
+    "start": 248.633,
+    "duration": 0.767
+  },
+  {
+    "text": "during the talking head part.",
+    "start": 249.4,
+    "duration": 1.333
+  },
+  {
+    "text": "And then on the right",
+    "start": 251.266,
+    "duration": 0.9
+  },
+  {
+    "text": "hand side, I will have a list",
+    "start": 252.166,
+    "duration": 2.367
+  },
+  {
+    "text": "of the B-roll clips that I",
+    "start": 255.133,
+    "duration": 1.5
+  },
+  {
+    "text": "wanna capture to go along",
+    "start": 256.633,
+    "duration": 1.667
+  },
+  {
+    "text": "with that part of the script.",
+    "start": 258.3,
+    "duration": 1.366
+  },
+  {
+    "text": "So this is basically",
+    "start": 259.666,
+    "duration": 0.867
+  },
+  {
+    "text": "the segment of A-roll",
+    "start": 260.533,
+    "duration": 1.133
+  },
+  {
+    "text": "that we just edited.",
+    "start": 261.666,
+    "duration": 1.067
+  },
+  {
+    "text": "So now we're gonna be looking",
+    "start": 263.166,
+    "duration": 1.367
+  },
+  {
+    "text": "for some clips of me setting",
+    "start": 264.533,
+    "duration": 2.666
+  },
+  {
+    "text": "up the tripod, a closeup behind the",
+    "start": 267.199,
+    "duration": 2.434
+  },
+  {
+    "text": "camera of me adjusting",
+    "start": 269.633,
+    "duration": 1.3
+  },
+  {
+    "text": "it while I'm sitting in",
+    "start": 270.933,
+    "duration": 0.833
+  },
+  {
+    "text": "front of it, a point of view",
+    "start": 271.766,
+    "duration": 1.567
+  },
+  {
+    "text": "of the camera, me zooming in",
+    "start": 273.433,
+    "duration": 1.4
+  },
+  {
+    "text": "and out and adjusting focus.",
+    "start": 274.833,
+    "duration": 1.1
+  },
+  {
+    "text": "Okay, so we know we",
+    "start": 276.633,
+    "duration": 0.733
+  },
+  {
+    "text": "need to find those clips.",
+    "start": 277.366,
+    "duration": 0.833
+  },
+  {
+    "text": "So with that",
+    "start": 278.666,
+    "duration": 0.5
+  },
+  {
+    "text": "information, we're gonna start going",
+    "start": 279.166,
+    "duration": 1.334
+  },
+  {
+    "text": "through this folder.",
+    "start": 280.5,
+    "duration": 0.633
+  },
+  {
+    "text": "So if we take a look in the media pool",
+    "start": 281.133,
+    "duration": 1.433
+  },
+  {
+    "text": "here, this is the clip",
+    "start": 282.566,
+    "duration": 2.3
+  },
+  {
+    "text": "of me setting up the tripod.",
+    "start": 285.133,
+    "duration": 2.133
+  },
+  {
+    "text": "So all I'm gonna do is",
+    "start": 287.266,
+    "duration": 0.8
+  },
+  {
+    "text": "click on that and bring it",
+    "start": 288.066,
+    "duration": 1.934
+  },
+  {
+    "text": "into this preview panel here.",
+    "start": 290.066,
+    "duration": 2.133
+  },
+  {
+    "text": "In general, what we're",
+    "start": 292.466,
+    "duration": 0.6
+  },
+  {
+    "text": "seeing on the screen here is",
+    "start": 293.066,
+    "duration": 1.267
+  },
+  {
+    "text": "on the right hand side,",
+    "start": 294.433,
+    "duration": 1.167
+  },
+  {
+    "text": "this window here is a preview",
+    "start": 295.6,
+    "duration": 1.4
+  },
+  {
+    "text": "of what's happening in the timeline.",
+    "start": 297.0,
+    "duration": 1.533
+  },
+  {
+    "text": "And this window here is",
+    "start": 298.933,
+    "duration": 1.233
+  },
+  {
+    "text": "just a preview of the clips",
+    "start": 300.166,
+    "duration": 1.5
+  },
+  {
+    "text": "in the media pool that",
+    "start": 301.8,
+    "duration": 0.866
+  },
+  {
+    "text": "we're looking at specifically.",
+    "start": 302.666,
+    "duration": 1.367
+  },
+  {
+    "text": "Once I pull in a new B-roll",
+    "start": 304.566,
+    "duration": 1.2
+  },
+  {
+    "text": "clip, all I'm gonna do is press",
+    "start": 305.766,
+    "duration": 1.5
+  },
+  {
+    "text": "the space bar to start",
+    "start": 307.266,
+    "duration": 1.367
+  },
+  {
+    "text": "watching it back and decide what",
+    "start": 308.633,
+    "duration": 2.733
+  },
+  {
+    "text": "section of this clip I",
+    "start": 311.566,
+    "duration": 1.367
+  },
+  {
+    "text": "wanna include in the timeline.",
+    "start": 312.933,
+    "duration": 1.4
+  },
+  {
+    "text": "So as I'm watching it here,",
+    "start": 314.733,
+    "duration": 1.4
+  },
+  {
+    "text": "I realized like, okay, yeah,",
+    "start": 316.133,
+    "duration": 1.167
+  },
+  {
+    "text": "I remember I sort of made a",
+    "start": 317.3,
+    "duration": 1.166
+  },
+  {
+    "text": "mistake when I was setting it up",
+    "start": 318.466,
+    "duration": 1.4
+  },
+  {
+    "text": "and it didn't like look how I wanted.",
+    "start": 319.866,
+    "duration": 1.867
+  },
+  {
+    "text": "So I actually kind of redid",
+    "start": 321.733,
+    "duration": 1.9
+  },
+  {
+    "text": "that action in the same clip.",
+    "start": 323.633,
+    "duration": 1.633
+  },
+  {
+    "text": "So knowing that I'm kind of gonna wait",
+    "start": 325.833,
+    "duration": 1.533
+  },
+  {
+    "text": "and I'll press I here",
+    "start": 327.366,
+    "duration": 2.3
+  },
+  {
+    "text": "to set my in point, cause",
+    "start": 329.833,
+    "duration": 1.0
+  },
+  {
+    "text": "I know that's the beginning",
+    "start": 330.833,
+    "duration": 0.9
+  },
+  {
+    "text": "of what I wanna include in the video.",
+    "start": 331.966,
+    "duration": 1.467
+  },
+  {
+    "text": "And then when I'm sort",
+    "start": 333.966,
+    "duration": 0.733
+  },
+  {
+    "text": "of finished this action,",
+    "start": 334.699,
+    "duration": 1.2
+  },
+  {
+    "text": "I'm gonna press O to set my out point.",
+    "start": 335.899,
+    "duration": 2.667
+  },
+  {
+    "text": "And basically what I've done",
+    "start": 339.199,
+    "duration": 1.301
+  },
+  {
+    "text": "here is I've kind of pre-edited",
+    "start": 340.5,
+    "duration": 2.066
+  },
+  {
+    "text": "this clip and I've told",
+    "start": 342.833,
+    "duration": 1.3
+  },
+  {
+    "text": "resolve where I want the clip",
+    "start": 344.133,
+    "duration": 1.333
+  },
+  {
+    "text": "to start and end.",
+    "start": 345.466,
+    "duration": 1.5
+  },
+  {
+    "text": "Now all I'm gonna do is",
+    "start": 347.5,
+    "duration": 1.333
+  },
+  {
+    "text": "hover my mouse over this image",
+    "start": 348.833,
+    "duration": 2.3
+  },
+  {
+    "text": "and you'll see these two icons show up,",
+    "start": 351.133,
+    "duration": 1.867
+  },
+  {
+    "text": "one that's a little audio icon and one",
+    "start": 353.0,
+    "duration": 1.933
+  },
+  {
+    "text": "that's a video icon.",
+    "start": 354.933,
+    "duration": 0.9
+  },
+  {
+    "text": "And I'm gonna click on the",
+    "start": 356.166,
+    "duration": 1.0
+  },
+  {
+    "text": "video icon and drag that down",
+    "start": 357.166,
+    "duration": 2.267
+  },
+  {
+    "text": "to the timeline.",
+    "start": 359.566,
+    "duration": 0.567
+  },
+  {
+    "text": "And now I have my clip from",
+    "start": 360.699,
+    "duration": 1.567
+  },
+  {
+    "text": "the in point to the out point",
+    "start": 362.266,
+    "duration": 2.067
+  },
+  {
+    "text": "with just video only,",
+    "start": 364.633,
+    "duration": 1.867
+  },
+  {
+    "text": "no audio in my timeline.",
+    "start": 366.5,
+    "duration": 1.633
+  },
+  {
+    "text": "Because I've got my script handy,",
+    "start": 368.366,
+    "duration": 1.4
+  },
+  {
+    "text": "I know that this clip goes",
+    "start": 369.766,
+    "duration": 1.6
+  },
+  {
+    "text": "along with the very beginning",
+    "start": 371.366,
+    "duration": 1.833
+  },
+  {
+    "text": "of my A-roll segment.",
+    "start": 373.466,
+    "duration": 1.2
+  },
+  {
+    "text": "So I'm just gonna drag it",
+    "start": 375.1,
+    "duration": 1.066
+  },
+  {
+    "text": "to the start of the timeline",
+    "start": 376.166,
+    "duration": 1.567
+  },
+  {
+    "text": "and leave it there for now.",
+    "start": 377.966,
+    "duration": 1.0
+  },
+  {
+    "text": "Now I'm gonna do the same process again.",
+    "start": 379.166,
+    "duration": 2.6
+  },
+  {
+    "text": "So the next clip that I'm",
+    "start": 381.766,
+    "duration": 0.834
+  },
+  {
+    "text": "looking for is a closeup",
+    "start": 382.6,
+    "duration": 1.799
+  },
+  {
+    "text": "behind the camera.",
+    "start": 384.466,
+    "duration": 1.233
+  },
+  {
+    "text": "I'm adjusting the camera",
+    "start": 386.033,
+    "duration": 1.1
+  },
+  {
+    "text": "while sitting in front of it.",
+    "start": 387.133,
+    "duration": 1.3
+  },
+  {
+    "text": "All right, so I found",
+    "start": 388.466,
+    "duration": 0.733
+  },
+  {
+    "text": "the clip that I recorded",
+    "start": 389.199,
+    "duration": 1.5
+  },
+  {
+    "text": "for that point.",
+    "start": 391.0,
+    "duration": 1.199
+  },
+  {
+    "text": "And again, I'm just",
+    "start": 392.199,
+    "duration": 0.934
+  },
+  {
+    "text": "gonna press the space bar",
+    "start": 393.133,
+    "duration": 1.2
+  },
+  {
+    "text": "and let this play back and hit the I",
+    "start": 394.333,
+    "duration": 2.8
+  },
+  {
+    "text": "at the point where I",
+    "start": 397.633,
+    "duration": 0.733
+  },
+  {
+    "text": "want this clip to start",
+    "start": 398.366,
+    "duration": 1.1
+  },
+  {
+    "text": "and then hit the O for",
+    "start": 400.033,
+    "duration": 2.1
+  },
+  {
+    "text": "where I want the clip to end.",
+    "start": 402.133,
+    "duration": 1.6
+  },
+  {
+    "text": "And again, I'm just",
+    "start": 403.966,
+    "duration": 0.567
+  },
+  {
+    "text": "gonna drag the video clip",
+    "start": 404.533,
+    "duration": 1.967
+  },
+  {
+    "text": "into the timeline.",
+    "start": 406.5,
+    "duration": 1.033
+  },
+  {
+    "text": "So that's the basic process.",
+    "start": 407.533,
+    "duration": 1.333
+  },
+  {
+    "text": "I'm just gonna repeat",
+    "start": 408.866,
+    "duration": 0.667
+  },
+  {
+    "text": "that over and over again",
+    "start": 409.533,
+    "duration": 1.0
+  },
+  {
+    "text": "with all of the clips that I want to use",
+    "start": 410.533,
+    "duration": 1.933
+  },
+  {
+    "text": "for this part of the video.",
+    "start": 412.466,
+    "duration": 1.267
+  },
+  {
+    "text": "At this point, I'm",
+    "start": 413.733,
+    "duration": 0.567
+  },
+  {
+    "text": "just placing them roughly",
+    "start": 414.3,
+    "duration": 1.233
+  },
+  {
+    "text": "in the neighborhood of",
+    "start": 416.033,
+    "duration": 0.933
+  },
+  {
+    "text": "where I want them to end up",
+    "start": 416.966,
+    "duration": 1.2
+  },
+  {
+    "text": "because later on we're",
+    "start": 418.266,
+    "duration": 0.767
+  },
+  {
+    "text": "gonna adjust the timing.",
+    "start": 419.033,
+    "duration": 1.233
+  },
+  {
+    "text": "Now at this point you might be thinking,",
+    "start": 420.266,
+    "duration": 1.067
+  },
+  {
+    "text": "what do I do if I didn't",
+    "start": 421.633,
+    "duration": 2.2
+  },
+  {
+    "text": "actually film that much B-roll",
+    "start": 423.833,
+    "duration": 1.7
+  },
+  {
+    "text": "and now that I'm editing my videos,",
+    "start": 425.766,
+    "duration": 2.0
+  },
+  {
+    "text": "feeling a little bit boring?",
+    "start": 427.766,
+    "duration": 1.034
+  },
+  {
+    "text": "Then you might just",
+    "start": 428.8,
+    "duration": 0.466
+  },
+  {
+    "text": "wanna try out Storyblocks.",
+    "start": 429.266,
+    "duration": 1.167
+  },
+  {
+    "text": "Storyblocks is my go-to",
+    "start": 430.666,
+    "duration": 1.367
+  },
+  {
+    "text": "for getting interesting",
+    "start": 432.033,
+    "duration": 0.9
+  },
+  {
+    "text": "and high quality visuals",
+    "start": 432.933,
+    "duration": 1.333
+  },
+  {
+    "text": "to use in my YouTube videos.",
+    "start": 434.266,
+    "duration": 1.767
+  },
+  {
+    "text": "Storyblocks is an",
+    "start": 436.033,
+    "duration": 0.533
+  },
+  {
+    "text": "online stock media library",
+    "start": 436.566,
+    "duration": 2.1
+  },
+  {
+    "text": "with a huge variety of stock footage,",
+    "start": 439.0,
+    "duration": 1.733
+  },
+  {
+    "text": "animation templates, sound",
+    "start": 441.0,
+    "duration": 1.633
+  },
+  {
+    "text": "effects, background music,",
+    "start": 442.633,
+    "duration": 1.133
+  },
+  {
+    "text": "and more.",
+    "start": 443.966,
+    "duration": 0.167
+  },
+  {
+    "text": "It is a goldmine of",
+    "start": 444.133,
+    "duration": 1.433
+  },
+  {
+    "text": "finding stuff that you can use",
+    "start": 445.566,
+    "duration": 1.5
+  },
+  {
+    "text": "to make your YouTube",
+    "start": 447.233,
+    "duration": 0.7
+  },
+  {
+    "text": "videos more interesting.",
+    "start": 447.933,
+    "duration": 1.2
+  },
+  {
+    "text": "And when you have a",
+    "start": 449.133,
+    "duration": 0.633
+  },
+  {
+    "text": "Storyblocks subscription,",
+    "start": 449.766,
+    "duration": 0.8
+  },
+  {
+    "text": "you have full permission to use the",
+    "start": 450.866,
+    "duration": 1.734
+  },
+  {
+    "text": "content in your videos",
+    "start": 452.6,
+    "duration": 1.166
+  },
+  {
+    "text": "so you don't have to",
+    "start": 453.766,
+    "duration": 0.7
+  },
+  {
+    "text": "worry about copyright strikes.",
+    "start": 454.466,
+    "duration": 1.2
+  },
+  {
+    "text": "And all of the content on",
+    "start": 455.899,
+    "duration": 0.867
+  },
+  {
+    "text": "Storyblocks is available to you",
+    "start": 456.766,
+    "duration": 1.367
+  },
+  {
+    "text": "for one consistent",
+    "start": 458.133,
+    "duration": 1.1
+  },
+  {
+    "text": "monthly subscription price.",
+    "start": 459.233,
+    "duration": 1.466
+  },
+  {
+    "text": "So you don't have to worry",
+    "start": 460.899,
+    "duration": 0.634
+  },
+  {
+    "text": "about a pricey paper clip system",
+    "start": 461.533,
+    "duration": 1.633
+  },
+  {
+    "text": "really adding up.",
+    "start": 463.166,
+    "duration": 0.934
+  },
+  {
+    "text": "Something that I use Storyblocks for",
+    "start": 464.1,
+    "duration": 1.366
+  },
+  {
+    "text": "quite a bit actually",
+    "start": 465.466,
+    "duration": 0.8
+  },
+  {
+    "text": "is getting drone footage of",
+    "start": 466.466,
+    "duration": 1.367
+  },
+  {
+    "text": "the places that I travel to,",
+    "start": 467.833,
+    "duration": 1.5
+  },
+  {
+    "text": "particularly places where flying a drone",
+    "start": 469.333,
+    "duration": 1.8
+  },
+  {
+    "text": "is difficult or restricted.",
+    "start": 471.233,
+    "duration": 1.3
+  },
+  {
+    "text": "For example, I, a mere mortal,",
+    "start": 472.8,
+    "duration": 1.833
+  },
+  {
+    "text": "cannot fly a drone over Tokyo, Japan.",
+    "start": 474.933,
+    "duration": 2.4
+  },
+  {
+    "text": "But on Storyblocks, I",
+    "start": 477.333,
+    "duration": 1.133
+  },
+  {
+    "text": "can find clips from people",
+    "start": 478.466,
+    "duration": 1.367
+  },
+  {
+    "text": "who are allowed to do that.",
+    "start": 479.833,
+    "duration": 1.4
+  },
+  {
+    "text": "Storyblocks is like the",
+    "start": 481.433,
+    "duration": 0.966
+  },
+  {
+    "text": "antidote to boring videos.",
+    "start": 482.399,
+    "duration": 1.967
+  },
+  {
+    "text": "And if you find yourself",
+    "start": 484.666,
+    "duration": 0.834
+  },
+  {
+    "text": "editing and you're like, shoot,",
+    "start": 485.5,
+    "duration": 1.5
+  },
+  {
+    "text": "I really didn't film enough, don't worry.",
+    "start": 487.199,
+    "duration": 2.101
+  },
+  {
+    "text": "Just go to storyblocks.com slash Katie",
+    "start": 489.566,
+    "duration": 2.267
+  },
+  {
+    "text": "and you can try it",
+    "start": 492.266,
+    "duration": 0.7
+  },
+  {
+    "text": "out for yourself today.",
+    "start": 492.966,
+    "duration": 1.034
+  },
+  {
+    "text": "All right, now that all of",
+    "start": 494.233,
+    "duration": 0.9
+  },
+  {
+    "text": "our clips are in the timeline,",
+    "start": 495.133,
+    "duration": 1.233
+  },
+  {
+    "text": "it's time to get the",
+    "start": 496.366,
+    "duration": 0.967
+  },
+  {
+    "text": "timing of them right.",
+    "start": 497.333,
+    "duration": 1.2
+  },
+  {
+    "text": "As you can see, as I added my B-roll,",
+    "start": 498.533,
+    "duration": 2.166
+  },
+  {
+    "text": "I actually have more B-roll",
+    "start": 500.699,
+    "duration": 1.601
+  },
+  {
+    "text": "than I have A-roll right now,",
+    "start": 502.3,
+    "duration": 1.666
+  },
+  {
+    "text": "which we need to fix.",
+    "start": 504.066,
+    "duration": 0.9
+  },
+  {
+    "text": "But that's okay.",
+    "start": 504.966,
+    "duration": 0.634
+  },
+  {
+    "text": "This is just the natural result",
+    "start": 505.6,
+    "duration": 1.466
+  },
+  {
+    "text": "of setting your in and out points",
+    "start": 507.266,
+    "duration": 1.367
+  },
+  {
+    "text": "based on the part of",
+    "start": 508.633,
+    "duration": 1.0
+  },
+  {
+    "text": "the clip that you like,",
+    "start": 509.633,
+    "duration": 0.833
+  },
+  {
+    "text": "but we're just gonna trim it down a bit.",
+    "start": 510.466,
+    "duration": 1.767
+  },
+  {
+    "text": "So to do that, what we have to do",
+    "start": 512.233,
+    "duration": 1.3
+  },
+  {
+    "text": "is go back to the",
+    "start": 513.533,
+    "duration": 0.633
+  },
+  {
+    "text": "beginning here and play back",
+    "start": 514.166,
+    "duration": 1.5
+  },
+  {
+    "text": "and actually listen to what I'm saying",
+    "start": 515.666,
+    "duration": 1.9
+  },
+  {
+    "text": "and make sure that the",
+    "start": 518.166,
+    "duration": 1.1
+  },
+  {
+    "text": "visuals kind of match up.",
+    "start": 519.266,
+    "duration": 1.667
+  },
+  {
+    "text": "So let's take a listen.",
+    "start": 520.933,
+    "duration": 1.2
+  },
+  {
+    "text": "Filming for your YouTube",
+    "start": 522.166,
+    "duration": 1.034
+  },
+  {
+    "text": "videos can be a challenge",
+    "start": 523.2,
+    "duration": 1.3
+  },
+  {
+    "text": "when you're your own camera operator.",
+    "start": 524.5,
+    "duration": 2.133
+  },
+  {
+    "text": "Now, when I first wrote this script,",
+    "start": 526.633,
+    "duration": 1.233
+  },
+  {
+    "text": "I sort of envisioned this clip",
+    "start": 527.866,
+    "duration": 1.6
+  },
+  {
+    "text": "appearing as you hear me say,",
+    "start": 529.466,
+    "duration": 1.867
+  },
+  {
+    "text": "filming your own YouTube",
+    "start": 531.866,
+    "duration": 1.3
+  },
+  {
+    "text": "videos can be a challenge,",
+    "start": 533.166,
+    "duration": 1.4
+  },
+  {
+    "text": "like that part.",
+    "start": 534.566,
+    "duration": 0.667
+  },
+  {
+    "text": "And then when I get to the,",
+    "start": 535.666,
+    "duration": 1.133
+  },
+  {
+    "text": "when you're your own camera operator,",
+    "start": 536.799,
+    "duration": 1.6
+  },
+  {
+    "text": "I want you to actually",
+    "start": 538.399,
+    "duration": 0.834
+  },
+  {
+    "text": "see a camera on screen.",
+    "start": 539.233,
+    "duration": 1.8
+  },
+  {
+    "text": "So I'm gonna play it back one more time",
+    "start": 541.533,
+    "duration": 2.133
+  },
+  {
+    "text": "and make sure that I cut at the point",
+    "start": 543.666,
+    "duration": 2.1
+  },
+  {
+    "text": "where I want it to transition.",
+    "start": 546.133,
+    "duration": 1.333
+  },
+  {
+    "text": "Filming for your YouTube",
+    "start": 548.266,
+    "duration": 1.067
+  },
+  {
+    "text": "videos can be a challenge.",
+    "start": 549.333,
+    "duration": 1.3
+  },
+  {
+    "text": "So right before it says camera,",
+    "start": 551.2,
+    "duration": 1.4
+  },
+  {
+    "text": "I'm gonna go and make",
+    "start": 553.233,
+    "duration": 1.5
+  },
+  {
+    "text": "sure that this is a cut.",
+    "start": 554.733,
+    "duration": 1.133
+  },
+  {
+    "text": "However, maybe I actually wanna show",
+    "start": 556.299,
+    "duration": 1.901
+  },
+  {
+    "text": "a slightly different part of this clip,",
+    "start": 558.666,
+    "duration": 1.567
+  },
+  {
+    "text": "not necessarily just the first half,",
+    "start": 560.266,
+    "duration": 1.734
+  },
+  {
+    "text": "because I actually think I like the part",
+    "start": 562.0,
+    "duration": 2.233
+  },
+  {
+    "text": "where you see me",
+    "start": 564.433,
+    "duration": 1.633
+  },
+  {
+    "text": "extending the tripod like this.",
+    "start": 566.066,
+    "duration": 1.767
+  },
+  {
+    "text": "I think that's just a",
+    "start": 567.833,
+    "duration": 0.667
+  },
+  {
+    "text": "little bit more visually dynamic.",
+    "start": 568.5,
+    "duration": 1.299
+  },
+  {
+    "text": "So I'm going to actually",
+    "start": 570.433,
+    "duration": 1.3
+  },
+  {
+    "text": "delete the first section here.",
+    "start": 571.733,
+    "duration": 1.533
+  },
+  {
+    "text": "I'm gonna move this over",
+    "start": 573.633,
+    "duration": 1.367
+  },
+  {
+    "text": "and maybe I'll extend the beginning",
+    "start": 575.666,
+    "duration": 2.4
+  },
+  {
+    "text": "and then I'll go maybe",
+    "start": 578.366,
+    "duration": 1.567
+  },
+  {
+    "text": "like that and like that.",
+    "start": 579.933,
+    "duration": 2.4
+  },
+  {
+    "text": "Okay, let's take a look.",
+    "start": 582.733,
+    "duration": 1.066
+  },
+  {
+    "text": "Filming for your YouTube",
+    "start": 584.233,
+    "duration": 0.933
+  },
+  {
+    "text": "videos can be a challenge",
+    "start": 585.166,
+    "duration": 1.334
+  },
+  {
+    "text": "when you're your own camera operator.",
+    "start": 586.5,
+    "duration": 2.033
+  },
+  {
+    "text": "Okay, that's pretty good.",
+    "start": 589.7,
+    "duration": 0.966
+  },
+  {
+    "text": "So I actually need to",
+    "start": 590.666,
+    "duration": 0.8
+  },
+  {
+    "text": "make the cut like here.",
+    "start": 591.466,
+    "duration": 1.067
+  },
+  {
+    "text": "So I'll drag that back and then we'll",
+    "start": 592.966,
+    "duration": 2.333
+  },
+  {
+    "text": "just grab our next clip",
+    "start": 595.299,
+    "duration": 1.634
+  },
+  {
+    "text": "and slide it over on the",
+    "start": 596.933,
+    "duration": 1.366
+  },
+  {
+    "text": "timeline to meet the first one.",
+    "start": 598.299,
+    "duration": 2.167
+  },
+  {
+    "text": "And I'll keep listening",
+    "start": 600.766,
+    "duration": 1.0
+  },
+  {
+    "text": "and see how it matches up.",
+    "start": 601.766,
+    "duration": 1.5
+  },
+  {
+    "text": "Own camera operator.",
+    "start": 603.966,
+    "duration": 1.0
+  },
+  {
+    "text": "You don't have anyone to",
+    "start": 605.333,
+    "duration": 0.9
+  },
+  {
+    "text": "frame the shot for you?",
+    "start": 606.233,
+    "duration": 0.933
+  },
+  {
+    "text": "Now that I'm watching this,",
+    "start": 607.166,
+    "duration": 1.0
+  },
+  {
+    "text": "I actually think that I want it to be",
+    "start": 608.166,
+    "duration": 1.767
+  },
+  {
+    "text": "a little bit quicker than that.",
+    "start": 609.933,
+    "duration": 1.7
+  },
+  {
+    "text": "So I'm even gonna go back",
+    "start": 611.633,
+    "duration": 1.133
+  },
+  {
+    "text": "and shorten our first clip.",
+    "start": 612.766,
+    "duration": 2.0
+  },
+  {
+    "text": "YouTube videos can be--",
+    "start": 614.799,
+    "duration": 0.901
+  },
+  {
+    "text": "Gonna do that and like that.",
+    "start": 616.266,
+    "duration": 1.767
+  },
+  {
+    "text": "Filming for your YouTube",
+    "start": 618.166,
+    "duration": 0.967
+  },
+  {
+    "text": "videos can be a challenge",
+    "start": 619.133,
+    "duration": 1.266
+  },
+  {
+    "text": "when you're your own camera operator.",
+    "start": 620.566,
+    "duration": 1.467
+  },
+  {
+    "text": "I'm also feeling like",
+    "start": 622.233,
+    "duration": 1.0
+  },
+  {
+    "text": "this second clip here,",
+    "start": 623.233,
+    "duration": 1.233
+  },
+  {
+    "text": "it really gets more interesting",
+    "start": 624.7,
+    "duration": 1.433
+  },
+  {
+    "text": "at the point where my",
+    "start": 626.433,
+    "duration": 0.667
+  },
+  {
+    "text": "play head is right now.",
+    "start": 627.1,
+    "duration": 1.066
+  },
+  {
+    "text": "Like if we play it back from this point,",
+    "start": 628.366,
+    "duration": 1.6
+  },
+  {
+    "text": "it's a little bit like, I don't know.",
+    "start": 629.966,
+    "duration": 2.4
+  },
+  {
+    "text": "Some of this stuff, it's vibes based.",
+    "start": 632.366,
+    "duration": 1.567
+  },
+  {
+    "text": "Maybe you get what I",
+    "start": 634.2,
+    "duration": 0.566
+  },
+  {
+    "text": "mean as you see it too,",
+    "start": 634.766,
+    "duration": 1.167
+  },
+  {
+    "text": "but I feel like this is",
+    "start": 635.933,
+    "duration": 1.267
+  },
+  {
+    "text": "the point that's interesting.",
+    "start": 637.2,
+    "duration": 1.633
+  },
+  {
+    "text": "Like when I'm putting",
+    "start": 638.833,
+    "duration": 0.6
+  },
+  {
+    "text": "the camera onto the tripod,",
+    "start": 639.433,
+    "duration": 1.433
+  },
+  {
+    "text": "like that's what we wanna see.",
+    "start": 640.866,
+    "duration": 1.1
+  },
+  {
+    "text": "So I'm gonna cut that off and then again,",
+    "start": 641.966,
+    "duration": 1.967
+  },
+  {
+    "text": "just bump that clip up",
+    "start": 643.933,
+    "duration": 1.633
+  },
+  {
+    "text": "against the previous one.",
+    "start": 645.566,
+    "duration": 1.067
+  },
+  {
+    "text": "And then I feel like",
+    "start": 646.7,
+    "duration": 0.566
+  },
+  {
+    "text": "once my hand goes over",
+    "start": 647.266,
+    "duration": 1.167
+  },
+  {
+    "text": "the camera like that, it's like, eh,",
+    "start": 648.433,
+    "duration": 1.6
+  },
+  {
+    "text": "not much to see here, you know?",
+    "start": 650.533,
+    "duration": 1.7
+  },
+  {
+    "text": "Like it sort of becomes",
+    "start": 652.233,
+    "duration": 1.0
+  },
+  {
+    "text": "less visually interesting.",
+    "start": 653.233,
+    "duration": 1.267
+  },
+  {
+    "text": "So I'm gonna cut there as well",
+    "start": 654.5,
+    "duration": 2.233
+  },
+  {
+    "text": "and then just delete",
+    "start": 657.233,
+    "duration": 0.833
+  },
+  {
+    "text": "this next part of the clip.",
+    "start": 658.066,
+    "duration": 1.2
+  },
+  {
+    "text": "Something else that I",
+    "start": 659.433,
+    "duration": 0.733
+  },
+  {
+    "text": "have to play with here",
+    "start": 660.166,
+    "duration": 1.034
+  },
+  {
+    "text": "because I filmed these",
+    "start": 661.299,
+    "duration": 1.134
+  },
+  {
+    "text": "clips in 60 frames per second",
+    "start": 662.433,
+    "duration": 2.333
+  },
+  {
+    "text": "is I can actually make them slow motion.",
+    "start": 664.766,
+    "duration": 1.9
+  },
+  {
+    "text": "So I think I'm gonna try that out.",
+    "start": 667.066,
+    "duration": 1.534
+  },
+  {
+    "text": "So we'll select this clip",
+    "start": 668.6,
+    "duration": 1.433
+  },
+  {
+    "text": "and I have my",
+    "start": 670.033,
+    "duration": 0.766
+  },
+  {
+    "text": "keyboard shortcuts mapped out",
+    "start": 670.799,
+    "duration": 1.367
+  },
+  {
+    "text": "so that when I hit R on my keyboard,",
+    "start": 672.166,
+    "duration": 1.767
+  },
+  {
+    "text": "it brings up the change",
+    "start": 674.333,
+    "duration": 0.933
+  },
+  {
+    "text": "clip speed panel here.",
+    "start": 675.266,
+    "duration": 2.3
+  },
+  {
+    "text": "So I'm just gonna change",
+    "start": 677.933,
+    "duration": 1.0
+  },
+  {
+    "text": "that to 50% and click change.",
+    "start": 678.933,
+    "duration": 2.333
+  },
+  {
+    "text": "And then I'm gonna",
+    "start": 681.966,
+    "duration": 0.8
+  },
+  {
+    "text": "extend this out further.",
+    "start": 682.766,
+    "duration": 1.267
+  },
+  {
+    "text": "And I think I'm gonna do the",
+    "start": 684.6,
+    "duration": 0.733
+  },
+  {
+    "text": "same thing to this clip too",
+    "start": 685.333,
+    "duration": 1.333
+  },
+  {
+    "text": "and extend it as well.",
+    "start": 687.1,
+    "duration": 1.533
+  },
+  {
+    "text": "Now let's take a look.",
+    "start": 688.899,
+    "duration": 0.767
+  },
+  {
+    "text": "Filming for your YouTube",
+    "start": 689.966,
+    "duration": 1.0
+  },
+  {
+    "text": "videos can be a challenge",
+    "start": 690.966,
+    "duration": 1.3
+  },
+  {
+    "text": "when you're your own camera operator.",
+    "start": 692.266,
+    "duration": 2.033
+  },
+  {
+    "text": "I think we're getting there.",
+    "start": 694.733,
+    "duration": 1.233
+  },
+  {
+    "text": "Now my next clip, I",
+    "start": 695.966,
+    "duration": 1.267
+  },
+  {
+    "text": "know I wanted to start",
+    "start": 697.233,
+    "duration": 0.967
+  },
+  {
+    "text": "when I mentioned about",
+    "start": 698.466,
+    "duration": 1.1
+  },
+  {
+    "text": "like framing your own shots",
+    "start": 699.566,
+    "duration": 1.534
+  },
+  {
+    "text": "because that's sort",
+    "start": 701.1,
+    "duration": 0.833
+  },
+  {
+    "text": "of what this next clip",
+    "start": 701.933,
+    "duration": 1.1
+  },
+  {
+    "text": "really demonstrates.",
+    "start": 703.2,
+    "duration": 0.933
+  },
+  {
+    "text": "So I actually think it's this one here.",
+    "start": 705.1,
+    "duration": 2.9
+  },
+  {
+    "text": "So I'm gonna just drag that",
+    "start": 708.733,
+    "duration": 1.133
+  },
+  {
+    "text": "over to meet at that point",
+    "start": 709.866,
+    "duration": 2.167
+  },
+  {
+    "text": "and we'll take a listen.",
+    "start": 712.266,
+    "duration": 1.033
+  },
+  {
+    "text": "How do you want to",
+    "start": 713.666,
+    "duration": 0.567
+  },
+  {
+    "text": "frame the shot for you?",
+    "start": 714.233,
+    "duration": 1.1
+  },
+  {
+    "text": "See, and then I say press record",
+    "start": 715.399,
+    "duration": 1.101
+  },
+  {
+    "text": "and you see me",
+    "start": 716.5,
+    "duration": 0.6
+  },
+  {
+    "text": "pressing record in the clip.",
+    "start": 717.1,
+    "duration": 1.5
+  },
+  {
+    "text": "So that's kind of what I want you to see.",
+    "start": 719.1,
+    "duration": 1.799
+  },
+  {
+    "text": "And then this is sort of",
+    "start": 721.433,
+    "duration": 1.167
+  },
+  {
+    "text": "the second half of that clip.",
+    "start": 722.6,
+    "duration": 1.533
+  },
+  {
+    "text": "So I'm gonna move it over here as well.",
+    "start": 724.133,
+    "duration": 1.867
+  },
+  {
+    "text": "Basically you can see the",
+    "start": 726.333,
+    "duration": 1.2
+  },
+  {
+    "text": "process is pretty intuitive.",
+    "start": 727.533,
+    "duration": 1.833
+  },
+  {
+    "text": "It's just about matching up",
+    "start": 729.566,
+    "duration": 1.367
+  },
+  {
+    "text": "the visuals that you're showing",
+    "start": 730.933,
+    "duration": 1.3
+  },
+  {
+    "text": "with what you're saying in the A-roll",
+    "start": 732.5,
+    "duration": 1.666
+  },
+  {
+    "text": "and just continue to play it back,",
+    "start": 734.666,
+    "duration": 1.867
+  },
+  {
+    "text": "see how you feel about it",
+    "start": 736.833,
+    "duration": 1.267
+  },
+  {
+    "text": "as you watch it in real time",
+    "start": 738.1,
+    "duration": 1.4
+  },
+  {
+    "text": "and make adjustments as",
+    "start": 739.7,
+    "duration": 1.233
+  },
+  {
+    "text": "needed to make it feel more fluid.",
+    "start": 740.933,
+    "duration": 2.1
+  },
+  {
+    "text": "Honestly, a lot of this",
+    "start": 743.533,
+    "duration": 0.766
+  },
+  {
+    "text": "comes down to personal preference",
+    "start": 744.299,
+    "duration": 1.901
+  },
+  {
+    "text": "and taste, but I know",
+    "start": 746.366,
+    "duration": 0.967
+  },
+  {
+    "text": "that can be hard to develop.",
+    "start": 747.333,
+    "duration": 1.367
+  },
+  {
+    "text": "It takes a lot of time.",
+    "start": 748.7,
+    "duration": 1.033
+  },
+  {
+    "text": "So if you're just getting started,",
+    "start": 749.933,
+    "duration": 1.4
+  },
+  {
+    "text": "I wanted to share five kind of guidelines",
+    "start": 751.333,
+    "duration": 2.2
+  },
+  {
+    "text": "that you can work with to",
+    "start": 753.533,
+    "duration": 1.2
+  },
+  {
+    "text": "help make your final result",
+    "start": 754.733,
+    "duration": 1.2
+  },
+  {
+    "text": "look as professional",
+    "start": 756.166,
+    "duration": 0.9
+  },
+  {
+    "text": "and cinematic as possible.",
+    "start": 757.066,
+    "duration": 1.367
+  },
+  {
+    "text": "Our first clip here",
+    "start": 758.433,
+    "duration": 0.833
+  },
+  {
+    "text": "brings up a great example",
+    "start": 759.266,
+    "duration": 1.367
+  },
+  {
+    "text": "and this is my first tip for you.",
+    "start": 760.899,
+    "duration": 1.434
+  },
+  {
+    "text": "So I'm gonna show movement as it happens",
+    "start": 762.399,
+    "duration": 1.967
+  },
+  {
+    "text": "rather than seeing the beginning",
+    "start": 764.633,
+    "duration": 2.1
+  },
+  {
+    "text": "where there's kind of a pause and then",
+    "start": 766.733,
+    "duration": 1.633
+  },
+  {
+    "text": "the movement starts.",
+    "start": 768.366,
+    "duration": 0.767
+  },
+  {
+    "text": "Like if I play this back, hopefully",
+    "start": 769.466,
+    "duration": 1.167
+  },
+  {
+    "text": "you'll see what I mean.",
+    "start": 770.633,
+    "duration": 0.8
+  },
+  {
+    "text": "You can see I'm sort of paused there",
+    "start": 771.866,
+    "duration": 1.4
+  },
+  {
+    "text": "and then you kind of",
+    "start": 773.266,
+    "duration": 0.967
+  },
+  {
+    "text": "like start to see it adjust.",
+    "start": 774.233,
+    "duration": 2.066
+  },
+  {
+    "text": "Like it's really just about the speed",
+    "start": 776.566,
+    "duration": 1.567
+  },
+  {
+    "text": "that I did that with.",
+    "start": 778.133,
+    "duration": 1.367
+  },
+  {
+    "text": "But again, I don't know.",
+    "start": 779.766,
+    "duration": 2.367
+  },
+  {
+    "text": "Somehow the beginning just",
+    "start": 782.133,
+    "duration": 0.867
+  },
+  {
+    "text": "feels a bit awkward to me.",
+    "start": 783.0,
+    "duration": 1.333
+  },
+  {
+    "text": "So if I actually start more like there,",
+    "start": 784.799,
+    "duration": 2.734
+  },
+  {
+    "text": "you can almost see there's",
+    "start": 788.366,
+    "duration": 0.867
+  },
+  {
+    "text": "a little bit of motion blur",
+    "start": 789.233,
+    "duration": 1.033
+  },
+  {
+    "text": "in the shot and I'm gonna just cut off",
+    "start": 790.366,
+    "duration": 1.7
+  },
+  {
+    "text": "this beginning part and bring it over.",
+    "start": 792.066,
+    "duration": 2.2
+  },
+  {
+    "text": "It just feels a little bit more like,",
+    "start": 794.466,
+    "duration": 1.734
+  },
+  {
+    "text": "okay, we're like catching",
+    "start": 796.2,
+    "duration": 0.833
+  },
+  {
+    "text": "up with the story midway",
+    "start": 797.033,
+    "duration": 1.033
+  },
+  {
+    "text": "through the action.",
+    "start": 798.266,
+    "duration": 0.967
+  },
+  {
+    "text": "It feels more fluid to me.",
+    "start": 799.233,
+    "duration": 1.7
+  },
+  {
+    "text": "Tip number two, generally you should aim",
+    "start": 801.133,
+    "duration": 1.867
+  },
+  {
+    "text": "for your B-roll clips",
+    "start": 803.0,
+    "duration": 1.0
+  },
+  {
+    "text": "to be somewhere between",
+    "start": 804.0,
+    "duration": 1.033
+  },
+  {
+    "text": "like two and five seconds long.",
+    "start": 805.033,
+    "duration": 1.866
+  },
+  {
+    "text": "If they're too short, it feels chaotic,",
+    "start": 806.899,
+    "duration": 2.201
+  },
+  {
+    "text": "but if they're too long, it",
+    "start": 809.1,
+    "duration": 1.266
+  },
+  {
+    "text": "starts to feel a bit boring.",
+    "start": 810.366,
+    "duration": 1.134
+  },
+  {
+    "text": "Tip number three, add",
+    "start": 811.5,
+    "duration": 1.266
+  },
+  {
+    "text": "movement to your tripod shots.",
+    "start": 812.766,
+    "duration": 2.067
+  },
+  {
+    "text": "Since like me, you're",
+    "start": 814.833,
+    "duration": 1.1
+  },
+  {
+    "text": "probably gonna be using",
+    "start": 815.933,
+    "duration": 0.767
+  },
+  {
+    "text": "a lot of clips of yourself",
+    "start": 816.833,
+    "duration": 1.566
+  },
+  {
+    "text": "that you filmed by yourself.",
+    "start": 818.399,
+    "duration": 1.867
+  },
+  {
+    "text": "So that means that you",
+    "start": 820.633,
+    "duration": 0.733
+  },
+  {
+    "text": "shot them sitting on a tripod",
+    "start": 821.366,
+    "duration": 1.5
+  },
+  {
+    "text": "and they're most likely",
+    "start": 822.866,
+    "duration": 0.8
+  },
+  {
+    "text": "stationary, which is fine,",
+    "start": 823.666,
+    "duration": 1.5
+  },
+  {
+    "text": "but we can make them look",
+    "start": 825.433,
+    "duration": 1.1
+  },
+  {
+    "text": "a little bit more dynamic",
+    "start": 826.533,
+    "duration": 1.0
+  },
+  {
+    "text": "and interesting with",
+    "start": 827.766,
+    "duration": 0.867
+  },
+  {
+    "text": "just a few adjustments.",
+    "start": 828.633,
+    "duration": 1.0
+  },
+  {
+    "text": "So let's take this",
+    "start": 829.933,
+    "duration": 0.733
+  },
+  {
+    "text": "tripod one again, for example.",
+    "start": 830.666,
+    "duration": 1.6
+  },
+  {
+    "text": "I know we've watched this",
+    "start": 832.466,
+    "duration": 0.767
+  },
+  {
+    "text": "a bunch of times already,",
+    "start": 833.233,
+    "duration": 1.066
+  },
+  {
+    "text": "but you know, it's fine.",
+    "start": 834.299,
+    "duration": 1.867
+  },
+  {
+    "text": "It's like pretty like",
+    "start": 836.466,
+    "duration": 1.167
+  },
+  {
+    "text": "stable, maybe a little boring.",
+    "start": 837.633,
+    "duration": 1.8
+  },
+  {
+    "text": "So what we can do is select the clip",
+    "start": 839.7,
+    "duration": 2.5
+  },
+  {
+    "text": "and we'll bring the play head",
+    "start": 842.2,
+    "duration": 1.133
+  },
+  {
+    "text": "to the very beginning of it.",
+    "start": 843.333,
+    "duration": 1.7
+  },
+  {
+    "text": "And then I'm gonna go up",
+    "start": 845.166,
+    "duration": 0.7
+  },
+  {
+    "text": "here and click on inspector.",
+    "start": 845.866,
+    "duration": 1.334
+  },
+  {
+    "text": "My aim here is I'm gonna",
+    "start": 847.6,
+    "duration": 1.033
+  },
+  {
+    "text": "make it look like the camera",
+    "start": 848.633,
+    "duration": 1.133
+  },
+  {
+    "text": "was panning left to right.",
+    "start": 849.766,
+    "duration": 1.533
+  },
+  {
+    "text": "So in order to do that, we",
+    "start": 851.566,
+    "duration": 1.167
+  },
+  {
+    "text": "need to start by zooming in",
+    "start": 852.733,
+    "duration": 1.3
+  },
+  {
+    "text": "just a little bit so",
+    "start": 854.033,
+    "duration": 1.1
+  },
+  {
+    "text": "that we have the room",
+    "start": 855.133,
+    "duration": 1.1
+  },
+  {
+    "text": "to kind of like move the camera.",
+    "start": 856.233,
+    "duration": 1.933
+  },
+  {
+    "text": "Now that it's zoomed",
+    "start": 858.166,
+    "duration": 0.9
+  },
+  {
+    "text": "in, I'm gonna move down",
+    "start": 859.066,
+    "duration": 0.934
+  },
+  {
+    "text": "to my X position here.",
+    "start": 860.0,
+    "duration": 1.966
+  },
+  {
+    "text": "So this is kind of like",
+    "start": 861.966,
+    "duration": 0.867
+  },
+  {
+    "text": "the position of the image",
+    "start": 862.833,
+    "duration": 1.333
+  },
+  {
+    "text": "within the frame.",
+    "start": 864.333,
+    "duration": 0.833
+  },
+  {
+    "text": "And I'm just gonna click on the X value",
+    "start": 865.666,
+    "duration": 2.1
+  },
+  {
+    "text": "and just drag it over to",
+    "start": 867.933,
+    "duration": 1.7
+  },
+  {
+    "text": "the right a little bit.",
+    "start": 869.633,
+    "duration": 1.6
+  },
+  {
+    "text": "And then what I'm gonna do is click",
+    "start": 871.233,
+    "duration": 1.633
+  },
+  {
+    "text": "on this little diamond icon here",
+    "start": 872.966,
+    "duration": 2.067
+  },
+  {
+    "text": "that represents a key frame.",
+    "start": 875.233,
+    "duration": 1.5
+  },
+  {
+    "text": "Basically by clicking",
+    "start": 877.166,
+    "duration": 0.767
+  },
+  {
+    "text": "this, I'm telling resolve,",
+    "start": 877.933,
+    "duration": 1.233
+  },
+  {
+    "text": "put the video in this",
+    "start": 879.833,
+    "duration": 1.7
+  },
+  {
+    "text": "formation, like in this location",
+    "start": 881.533,
+    "duration": 2.1
+  },
+  {
+    "text": "at this time in the video.",
+    "start": 884.066,
+    "duration": 2.167
+  },
+  {
+    "text": "Now that we've done",
+    "start": 886.333,
+    "duration": 0.9
+  },
+  {
+    "text": "that, we're gonna go ahead",
+    "start": 887.233,
+    "duration": 1.367
+  },
+  {
+    "text": "and open up our little key frame timeline",
+    "start": 888.6,
+    "duration": 2.466
+  },
+  {
+    "text": "within our timeline here.",
+    "start": 891.733,
+    "duration": 1.5
+  },
+  {
+    "text": "So when we click on that, you can see",
+    "start": 893.799,
+    "duration": 2.067
+  },
+  {
+    "text": "we have this little white diamond here",
+    "start": 896.299,
+    "duration": 1.534
+  },
+  {
+    "text": "right at the beginning of the clip.",
+    "start": 897.833,
+    "duration": 1.5
+  },
+  {
+    "text": "So we're gonna go",
+    "start": 899.433,
+    "duration": 0.466
+  },
+  {
+    "text": "ahead and put our play head",
+    "start": 899.899,
+    "duration": 1.967
+  },
+  {
+    "text": "near the end and we're gonna",
+    "start": 901.866,
+    "duration": 2.3
+  },
+  {
+    "text": "go back to the X value again.",
+    "start": 904.166,
+    "duration": 1.7
+  },
+  {
+    "text": "And this time drag it a",
+    "start": 906.266,
+    "duration": 1.434
+  },
+  {
+    "text": "little bit to the left.",
+    "start": 907.7,
+    "duration": 2.266
+  },
+  {
+    "text": "I guess I went to the",
+    "start": 909.966,
+    "duration": 0.667
+  },
+  {
+    "text": "right the first time.",
+    "start": 910.633,
+    "duration": 0.933
+  },
+  {
+    "text": "And just until we're kind of like happy",
+    "start": 911.566,
+    "duration": 1.4
+  },
+  {
+    "text": "with that placement.",
+    "start": 912.966,
+    "duration": 0.867
+  },
+  {
+    "text": "Now you're gonna wanna go",
+    "start": 914.366,
+    "duration": 1.0
+  },
+  {
+    "text": "down and just like make sure",
+    "start": 915.366,
+    "duration": 1.533
+  },
+  {
+    "text": "that your little white",
+    "start": 916.899,
+    "duration": 0.834
+  },
+  {
+    "text": "key frame here is actually",
+    "start": 917.733,
+    "duration": 1.467
+  },
+  {
+    "text": "on the very end of the clip.",
+    "start": 919.2,
+    "duration": 1.8
+  },
+  {
+    "text": "And we'll do that for the",
+    "start": 921.0,
+    "duration": 0.766
+  },
+  {
+    "text": "one at the beginning as well.",
+    "start": 921.766,
+    "duration": 1.4
+  },
+  {
+    "text": "I'll just show you for",
+    "start": 923.533,
+    "duration": 0.633
+  },
+  {
+    "text": "example, if you don't do that,",
+    "start": 924.166,
+    "duration": 1.534
+  },
+  {
+    "text": "let's say the key frame is like here",
+    "start": 925.7,
+    "duration": 1.599
+  },
+  {
+    "text": "and we're playing back our clip.",
+    "start": 927.299,
+    "duration": 1.201
+  },
+  {
+    "text": "It's like nicely panning and it stops",
+    "start": 928.866,
+    "duration": 2.467
+  },
+  {
+    "text": "and it feels very abrupt.",
+    "start": 931.766,
+    "duration": 1.1
+  },
+  {
+    "text": "So I wanna make sure that",
+    "start": 933.333,
+    "duration": 1.066
+  },
+  {
+    "text": "always, always my key frames",
+    "start": 934.399,
+    "duration": 1.367
+  },
+  {
+    "text": "for movements like this",
+    "start": 935.766,
+    "duration": 1.1
+  },
+  {
+    "text": "are at the very beginning",
+    "start": 936.866,
+    "duration": 1.0
+  },
+  {
+    "text": "and very end of the clip.",
+    "start": 937.866,
+    "duration": 1.2
+  },
+  {
+    "text": "With that done, now we can watch it back.",
+    "start": 939.066,
+    "duration": 2.233
+  },
+  {
+    "text": "And you see, we have this",
+    "start": 941.299,
+    "duration": 1.534
+  },
+  {
+    "text": "lovely subtle slow movement.",
+    "start": 942.833,
+    "duration": 2.5
+  },
+  {
+    "text": "It almost makes it look",
+    "start": 945.333,
+    "duration": 1.0
+  },
+  {
+    "text": "like we had like a slider",
+    "start": 946.333,
+    "duration": 1.533
+  },
+  {
+    "text": "or something just sort of",
+    "start": 948.133,
+    "duration": 1.166
+  },
+  {
+    "text": "makes the shot more dynamic.",
+    "start": 949.299,
+    "duration": 1.734
+  },
+  {
+    "text": "Okay, my fifth and final",
+    "start": 951.433,
+    "duration": 0.9
+  },
+  {
+    "text": "tip for you is to match cuts",
+    "start": 952.333,
+    "duration": 2.3
+  },
+  {
+    "text": "between two clips with",
+    "start": 954.766,
+    "duration": 1.9
+  },
+  {
+    "text": "the action that you're doing",
+    "start": 956.666,
+    "duration": 1.534
+  },
+  {
+    "text": "in the clip.",
+    "start": 958.5,
+    "duration": 0.7
+  },
+  {
+    "text": "So for example, let's take",
+    "start": 959.633,
+    "duration": 1.067
+  },
+  {
+    "text": "a look at this clip of me",
+    "start": 960.7,
+    "duration": 1.266
+  },
+  {
+    "text": "basically walking into the",
+    "start": 962.299,
+    "duration": 1.167
+  },
+  {
+    "text": "scene, sitting down on the chair",
+    "start": 963.466,
+    "duration": 2.167
+  },
+  {
+    "text": "and then eventually",
+    "start": 965.833,
+    "duration": 1.167
+  },
+  {
+    "text": "taking a sip from my mug.",
+    "start": 967.0,
+    "duration": 2.333
+  },
+  {
+    "text": "I filmed that both at a wide",
+    "start": 969.6,
+    "duration": 1.699
+  },
+  {
+    "text": "angle and more of a closeup.",
+    "start": 971.299,
+    "duration": 3.067
+  },
+  {
+    "text": "And I wanna cut between",
+    "start": 974.366,
+    "duration": 1.033
+  },
+  {
+    "text": "the two in my sequence.",
+    "start": 975.399,
+    "duration": 1.734
+  },
+  {
+    "text": "This is where doing a match",
+    "start": 977.566,
+    "duration": 1.467
+  },
+  {
+    "text": "cut becomes really important.",
+    "start": 979.033,
+    "duration": 1.433
+  },
+  {
+    "text": "So let's just play this back.",
+    "start": 980.466,
+    "duration": 1.3
+  },
+  {
+    "text": "So I go and I take a sip and then we cut",
+    "start": 981.766,
+    "duration": 2.4
+  },
+  {
+    "text": "and then I go to take a sip again.",
+    "start": 984.166,
+    "duration": 1.567
+  },
+  {
+    "text": "And immediately, so unrealistic, right?",
+    "start": 985.733,
+    "duration": 2.333
+  },
+  {
+    "text": "Because we haven't",
+    "start": 988.1,
+    "duration": 0.6
+  },
+  {
+    "text": "matched that action correctly.",
+    "start": 988.7,
+    "duration": 1.533
+  },
+  {
+    "text": "Instead, what we're gonna",
+    "start": 990.566,
+    "duration": 0.9
+  },
+  {
+    "text": "do is as we're playing back",
+    "start": 991.466,
+    "duration": 1.6
+  },
+  {
+    "text": "the clip right before the action happens,",
+    "start": 993.066,
+    "duration": 2.0
+  },
+  {
+    "text": "we're gonna pause there",
+    "start": 995.833,
+    "duration": 0.867
+  },
+  {
+    "text": "because that is exactly",
+    "start": 996.7,
+    "duration": 1.099
+  },
+  {
+    "text": "where we wanna cut.",
+    "start": 998.033,
+    "duration": 0.7
+  },
+  {
+    "text": "And we're gonna really study like, okay,",
+    "start": 999.366,
+    "duration": 2.5
+  },
+  {
+    "text": "what is the position of",
+    "start": 1001.866,
+    "duration": 0.9
+  },
+  {
+    "text": "my hand at this moment?",
+    "start": 1002.766,
+    "duration": 1.667
+  },
+  {
+    "text": "And we're gonna make the cut there.",
+    "start": 1005.166,
+    "duration": 1.467
+  },
+  {
+    "text": "And we're gonna look for that same",
+    "start": 1006.899,
+    "duration": 1.434
+  },
+  {
+    "text": "position right there.",
+    "start": 1008.333,
+    "duration": 2.667
+  },
+  {
+    "text": "Right, it's like I",
+    "start": 1011.399,
+    "duration": 0.467
+  },
+  {
+    "text": "haven't quite taken a sip yet,",
+    "start": 1011.866,
+    "duration": 1.267
+  },
+  {
+    "text": "but I'm about to.",
+    "start": 1013.566,
+    "duration": 0.6
+  },
+  {
+    "text": "So now if we cut out these two segments",
+    "start": 1014.733,
+    "duration": 2.666
+  },
+  {
+    "text": "and bring this together,",
+    "start": 1017.633,
+    "duration": 1.233
+  },
+  {
+    "text": "we should have quite",
+    "start": 1019.7,
+    "duration": 1.033
+  },
+  {
+    "text": "a seamless transition.",
+    "start": 1020.733,
+    "duration": 2.9
+  },
+  {
+    "text": "The last thing I wanna",
+    "start": 1023.966,
+    "duration": 0.767
+  },
+  {
+    "text": "address in this beginner",
+    "start": 1024.733,
+    "duration": 1.0
+  },
+  {
+    "text": "B-roll editing video is how to edit",
+    "start": 1025.933,
+    "duration": 2.267
+  },
+  {
+    "text": "your B-roll clips to music.",
+    "start": 1028.2,
+    "duration": 1.833
+  },
+  {
+    "text": "This is for when you wanna make like a",
+    "start": 1030.033,
+    "duration": 1.233
+  },
+  {
+    "text": "cute little montage,",
+    "start": 1031.266,
+    "duration": 0.934
+  },
+  {
+    "text": "maybe to transition between scenes or",
+    "start": 1032.2,
+    "duration": 1.7
+  },
+  {
+    "text": "something like that,",
+    "start": 1033.9,
+    "duration": 0.833
+  },
+  {
+    "text": "rather than lining up",
+    "start": 1034.733,
+    "duration": 1.0
+  },
+  {
+    "text": "your clips with talking,",
+    "start": 1035.733,
+    "duration": 1.033
+  },
+  {
+    "text": "like how I just showed you.",
+    "start": 1036.766,
+    "duration": 1.033
+  },
+  {
+    "text": "So I've got my music track in the",
+    "start": 1037.799,
+    "duration": 1.367
+  },
+  {
+    "text": "timeline here already.",
+    "start": 1039.166,
+    "duration": 1.0
+  },
+  {
+    "text": "And first off, I'm just",
+    "start": 1040.166,
+    "duration": 0.933
+  },
+  {
+    "text": "gonna use the same method",
+    "start": 1041.099,
+    "duration": 0.801
+  },
+  {
+    "text": "that I showed you before of going through",
+    "start": 1041.9,
+    "duration": 2.233
+  },
+  {
+    "text": "and picking out the",
+    "start": 1044.133,
+    "duration": 0.933
+  },
+  {
+    "text": "section of each B-roll clip",
+    "start": 1045.066,
+    "duration": 1.3
+  },
+  {
+    "text": "that I would like to include.",
+    "start": 1046.366,
+    "duration": 0.967
+  },
+  {
+    "text": "So for this, let's switch it up",
+    "start": 1047.599,
+    "duration": 1.667
+  },
+  {
+    "text": "and we'll use a",
+    "start": 1049.266,
+    "duration": 1.1
+  },
+  {
+    "text": "little bit of travel B-roll",
+    "start": 1050.366,
+    "duration": 1.433
+  },
+  {
+    "text": "that I have from a trip to",
+    "start": 1051.799,
+    "duration": 2.3
+  },
+  {
+    "text": "New York I did last spring.",
+    "start": 1054.099,
+    "duration": 2.334
+  },
+  {
+    "text": "We got that in point,",
+    "start": 1056.733,
+    "duration": 1.533
+  },
+  {
+    "text": "we got that out point,",
+    "start": 1058.266,
+    "duration": 1.2
+  },
+  {
+    "text": "we got that strand bookstore.",
+    "start": 1059.733,
+    "duration": 1.7
+  },
+  {
+    "text": "Okay, so basically we've got like a",
+    "start": 1061.866,
+    "duration": 1.433
+  },
+  {
+    "text": "gaggle of clips here,",
+    "start": 1063.299,
+    "duration": 1.334
+  },
+  {
+    "text": "all various lengths, not",
+    "start": 1064.633,
+    "duration": 1.4
+  },
+  {
+    "text": "really like intentionally done.",
+    "start": 1066.033,
+    "duration": 1.6
+  },
+  {
+    "text": "And now we're gonna get",
+    "start": 1067.633,
+    "duration": 0.933
+  },
+  {
+    "text": "them in formation to the B.",
+    "start": 1068.566,
+    "duration": 2.334
+  },
+  {
+    "text": "Okay, so basically what I like to do is,",
+    "start": 1070.9,
+    "duration": 1.733
+  },
+  {
+    "text": "is I'll just bring the play head",
+    "start": 1072.633,
+    "duration": 1.133
+  },
+  {
+    "text": "to the front of the clip like this.",
+    "start": 1073.9,
+    "duration": 2.333
+  },
+  {
+    "text": "And then I'm pretty",
+    "start": 1076.366,
+    "duration": 0.534
+  },
+  {
+    "text": "much just gonna press play",
+    "start": 1076.9,
+    "duration": 1.466
+  },
+  {
+    "text": "and I am gonna try my best",
+    "start": 1078.733,
+    "duration": 1.333
+  },
+  {
+    "text": "to hit my M key to the B.",
+    "start": 1080.066,
+    "duration": 3.0
+  },
+  {
+    "text": "What this will do is, it'll",
+    "start": 1083.066,
+    "duration": 1.3
+  },
+  {
+    "text": "add markers on the timeline",
+    "start": 1084.366,
+    "duration": 1.7
+  },
+  {
+    "text": "where the beats in the music is.",
+    "start": 1086.333,
+    "duration": 1.867
+  },
+  {
+    "text": "So, well, let's do it.",
+    "start": 1088.533,
+    "duration": 1.333
+  },
+  {
+    "text": "(upbeat music)",
+    "start": 1092.299,
+    "duration": 3.134
+  },
+  {
+    "text": "Okay, that's enough key tar.",
+    "start": 1099.9,
+    "duration": 2.133
+  },
+  {
+    "text": "But yeah, basically what I've done",
+    "start": 1102.299,
+    "duration": 1.267
+  },
+  {
+    "text": "is just established",
+    "start": 1103.7,
+    "duration": 0.833
+  },
+  {
+    "text": "visual markers for myself",
+    "start": 1104.533,
+    "duration": 1.633
+  },
+  {
+    "text": "where the beats happen.",
+    "start": 1106.466,
+    "duration": 1.434
+  },
+  {
+    "text": "So now I can use that to",
+    "start": 1108.2,
+    "duration": 2.233
+  },
+  {
+    "text": "really easily line up my clips",
+    "start": 1110.433,
+    "duration": 1.9
+  },
+  {
+    "text": "to the beat.",
+    "start": 1112.633,
+    "duration": 0.633
+  },
+  {
+    "text": "So let's do that.",
+    "start": 1113.633,
+    "duration": 1.1
+  },
+  {
+    "text": "I think I'm actually gonna have my like",
+    "start": 1114.733,
+    "duration": 1.533
+  },
+  {
+    "text": "little airplane clip",
+    "start": 1116.266,
+    "duration": 1.6
+  },
+  {
+    "text": "here go on for several beats.",
+    "start": 1117.966,
+    "duration": 1.9
+  },
+  {
+    "text": "And then I will trim it here.",
+    "start": 1119.866,
+    "duration": 1.567
+  },
+  {
+    "text": "The nice thing about Resolve",
+    "start": 1121.633,
+    "duration": 0.8
+  },
+  {
+    "text": "is as I'm trimming my clip,",
+    "start": 1122.433,
+    "duration": 1.633
+  },
+  {
+    "text": "if I line up with the marker here,",
+    "start": 1124.166,
+    "duration": 2.567
+  },
+  {
+    "text": "it will actually give me a little gray",
+    "start": 1126.966,
+    "duration": 1.633
+  },
+  {
+    "text": "line that indicates,",
+    "start": 1128.599,
+    "duration": 0.834
+  },
+  {
+    "text": "hey, you're lined up, you're good to go.",
+    "start": 1129.666,
+    "duration": 1.9
+  },
+  {
+    "text": "So then I will release it.",
+    "start": 1131.833,
+    "duration": 1.333
+  },
+  {
+    "text": "And then I'll just click",
+    "start": 1133.466,
+    "duration": 0.967
+  },
+  {
+    "text": "and drag this clip over here.",
+    "start": 1134.433,
+    "duration": 1.866
+  },
+  {
+    "text": "And let's give that a",
+    "start": 1136.599,
+    "duration": 1.434
+  },
+  {
+    "text": "one beat sort of timeline.",
+    "start": 1138.033,
+    "duration": 2.0
+  },
+  {
+    "text": "Okay, let's bring this one over.",
+    "start": 1140.433,
+    "duration": 1.7
+  },
+  {
+    "text": "And again, we see that little gray line",
+    "start": 1142.599,
+    "duration": 1.567
+  },
+  {
+    "text": "to let us know we're in the right spot.",
+    "start": 1144.166,
+    "duration": 1.767
+  },
+  {
+    "text": "And so on.",
+    "start": 1148.133,
+    "duration": 0.8
+  },
+  {
+    "text": "We'll do this third",
+    "start": 1148.933,
+    "duration": 0.7
+  },
+  {
+    "text": "one to the beat as well.",
+    "start": 1149.633,
+    "duration": 1.2
+  },
+  {
+    "text": "One thing I do wanna say about this",
+    "start": 1151.2,
+    "duration": 1.366
+  },
+  {
+    "text": "is once you discover this technique,",
+    "start": 1152.7,
+    "duration": 1.833
+  },
+  {
+    "text": "you're gonna be tempted",
+    "start": 1154.533,
+    "duration": 0.833
+  },
+  {
+    "text": "to make every single cut",
+    "start": 1155.366,
+    "duration": 1.667
+  },
+  {
+    "text": "happen on the beat.",
+    "start": 1157.099,
+    "duration": 0.934
+  },
+  {
+    "text": "But I would recommend against that.",
+    "start": 1158.033,
+    "duration": 1.7
+  },
+  {
+    "text": "I think the beauty of",
+    "start": 1159.733,
+    "duration": 1.267
+  },
+  {
+    "text": "having your clips line up",
+    "start": 1161.0,
+    "duration": 1.066
+  },
+  {
+    "text": "with the beat is that it's",
+    "start": 1162.166,
+    "duration": 0.767
+  },
+  {
+    "text": "kind of this like satisfying",
+    "start": 1162.933,
+    "duration": 1.133
+  },
+  {
+    "text": "moment to the viewer of",
+    "start": 1164.233,
+    "duration": 0.9
+  },
+  {
+    "text": "like, oh yeah, like here we go.",
+    "start": 1165.133,
+    "duration": 2.0
+  },
+  {
+    "text": "But it can get repetitive really quickly.",
+    "start": 1167.133,
+    "duration": 1.966
+  },
+  {
+    "text": "So make sure to include a",
+    "start": 1169.266,
+    "duration": 1.267
+  },
+  {
+    "text": "few clips here and there",
+    "start": 1170.533,
+    "duration": 1.066
+  },
+  {
+    "text": "that are timed more",
+    "start": 1171.933,
+    "duration": 1.166
+  },
+  {
+    "text": "so based on the action",
+    "start": 1173.099,
+    "duration": 1.567
+  },
+  {
+    "text": "of what's happening in the clip",
+    "start": 1174.666,
+    "duration": 1.067
+  },
+  {
+    "text": "rather than just to",
+    "start": 1175.733,
+    "duration": 1.0
+  },
+  {
+    "text": "the timing of the music.",
+    "start": 1176.733,
+    "duration": 1.233
+  },
+  {
+    "text": "So I might even do a",
+    "start": 1177.966,
+    "duration": 1.034
+  },
+  {
+    "text": "couple that are on screen",
+    "start": 1179.0,
+    "duration": 2.033
+  },
+  {
+    "text": "for like two beats, let's say.",
+    "start": 1181.233,
+    "duration": 2.3
+  },
+  {
+    "text": "And then I think this clip here would be",
+    "start": 1183.533,
+    "duration": 1.467
+  },
+  {
+    "text": "a really good candidate",
+    "start": 1185.0,
+    "duration": 0.933
+  },
+  {
+    "text": "for just like breaking",
+    "start": 1185.933,
+    "duration": 1.433
+  },
+  {
+    "text": "the musical pattern because",
+    "start": 1187.566,
+    "duration": 1.567
+  },
+  {
+    "text": "it has such a specific action",
+    "start": 1189.133,
+    "duration": 1.267
+  },
+  {
+    "text": "to it, you know?",
+    "start": 1190.4,
+    "duration": 0.666
+  },
+  {
+    "text": "So I pull this book off the shelf",
+    "start": 1191.366,
+    "duration": 1.233
+  },
+  {
+    "text": "and then I eventually put it back on.",
+    "start": 1193.299,
+    "duration": 2.101
+  },
+  {
+    "text": "So maybe we'll like include",
+    "start": 1195.4,
+    "duration": 1.133
+  },
+  {
+    "text": "that and then cut at that point",
+    "start": 1196.533,
+    "duration": 1.533
+  },
+  {
+    "text": "which actually happens to",
+    "start": 1199.166,
+    "duration": 1.0
+  },
+  {
+    "text": "be really close to the beat.",
+    "start": 1200.166,
+    "duration": 0.967
+  },
+  {
+    "text": "So that's kind of nice.",
+    "start": 1201.433,
+    "duration": 0.866
+  },
+  {
+    "text": "So when we add it to music like that,",
+    "start": 1202.533,
+    "duration": 1.533
+  },
+  {
+    "text": "we end up with a result like this.",
+    "start": 1204.066,
+    "duration": 2.267
+  },
+  {
+    "text": "(upbeat music)",
+    "start": 1206.966,
+    "duration": 3.267
+  },
+  {
+    "text": "Kind of fun, kind of satisfying to watch.",
+    "start": 1212.633,
+    "duration": 1.9
+  },
+  {
+    "text": "And I think it's a really",
+    "start": 1214.833,
+    "duration": 0.7
+  },
+  {
+    "text": "great way to integrate the music",
+    "start": 1215.533,
+    "duration": 1.9
+  },
+  {
+    "text": "that you are using with",
+    "start": 1217.433,
+    "duration": 1.666
+  },
+  {
+    "text": "the clips that you're showing",
+    "start": 1219.099,
+    "duration": 1.0
+  },
+  {
+    "text": "and just make it feel more intentional.",
+    "start": 1220.266,
+    "duration": 1.6
+  },
+  {
+    "text": "Honestly, editing great B-roll sequences",
+    "start": 1222.466,
+    "duration": 1.667
+  },
+  {
+    "text": "really does just take time and practice.",
+    "start": 1224.299,
+    "duration": 2.167
+  },
+  {
+    "text": "But if you use these foundational skills,",
+    "start": 1226.466,
+    "duration": 1.767
+  },
+  {
+    "text": "you'll be well on your way",
+    "start": 1228.233,
+    "duration": 1.2
+  },
+  {
+    "text": "to editing awesome videos.",
+    "start": 1229.433,
+    "duration": 1.3
+  },
+  {
+    "text": "If you are looking for",
+    "start": 1231.033,
+    "duration": 1.1
+  },
+  {
+    "text": "editing support though,",
+    "start": 1232.133,
+    "duration": 1.166
+  },
+  {
+    "text": "I did wanna let you know",
+    "start": 1233.299,
+    "duration": 0.967
+  },
+  {
+    "text": "that my team of editors",
+    "start": 1234.266,
+    "duration": 1.134
+  },
+  {
+    "text": "at Creatorly Media is",
+    "start": 1235.533,
+    "duration": 1.3
+  },
+  {
+    "text": "currently accepting new clients.",
+    "start": 1236.833,
+    "duration": 1.633
+  },
+  {
+    "text": "So if you're a",
+    "start": 1238.733,
+    "duration": 0.433
+  },
+  {
+    "text": "YouTuber or a video podcaster",
+    "start": 1239.166,
+    "duration": 1.567
+  },
+  {
+    "text": "that is looking to get",
+    "start": 1240.733,
+    "duration": 1.2
+  },
+  {
+    "text": "editing off of your plate,",
+    "start": 1241.933,
+    "duration": 1.4
+  },
+  {
+    "text": "we would love to help you out.",
+    "start": 1243.333,
+    "duration": 0.966
+  },
+  {
+    "text": "You can check out all the details",
+    "start": 1244.299,
+    "duration": 0.967
+  },
+  {
+    "text": "and the pricing at creatorlymedia.com",
+    "start": 1245.266,
+    "duration": 2.3
+  },
+  {
+    "text": "and I'll link it in",
+    "start": 1247.566,
+    "duration": 0.634
+  },
+  {
+    "text": "the description as well.",
+    "start": 1248.2,
+    "duration": 1.033
+  },
+  {
+    "text": "Also, I wanna say thank you to Vicky",
+    "start": 1249.333,
+    "duration": 1.9
+  },
+  {
+    "text": "for the suggestion to make this video.",
+    "start": 1251.233,
+    "duration": 2.2
+  },
+  {
+    "text": "A ton of you seem to",
+    "start": 1253.7,
+    "duration": 0.766
+  },
+  {
+    "text": "love my ultimate guide",
+    "start": 1254.466,
+    "duration": 1.234
+  },
+  {
+    "text": "to filming yourself.",
+    "start": 1255.7,
+    "duration": 0.866
+  },
+  {
+    "text": "So thank you, Vicky, and",
+    "start": 1263.266,
+    "duration": 1.234
+  },
+  {
+    "text": "thank you for watching.",
+    "start": 1264.5,
+    "duration": 1.2
+  },
+  {
+    "text": "If you have any video",
+    "start": 1265.7,
+    "duration": 0.866
+  },
+  {
+    "text": "suggestions or tutorials",
+    "start": 1266.566,
+    "duration": 1.134
+  },
+  {
+    "text": "you'd like to see me make next,",
+    "start": 1267.7,
+    "duration": 1.366
+  },
+  {
+    "text": "please let me know in the comments",
+    "start": 1269.299,
+    "duration": 1.267
+  },
+  {
+    "text": "because I would love",
+    "start": 1270.566,
+    "duration": 0.667
+  },
+  {
+    "text": "to make them for you.",
+    "start": 1271.233,
+    "duration": 0.9
+  },
+  {
+    "text": "And as always, I hope that",
+    "start": 1272.133,
+    "duration": 1.1
+  },
+  {
+    "text": "you are having adventures",
+    "start": 1273.233,
+    "duration": 1.0
+  },
+  {
+    "text": "and following your dreams,",
+    "start": 1274.466,
+    "duration": 1.067
+  },
+  {
+    "text": "and I'll catch you in the next video.",
+    "start": 1275.533,
+    "duration": 1.7
+  },
+  {
+    "text": "Bye.",
+    "start": 1277.733,
+    "duration": 0.2
+  }
+]

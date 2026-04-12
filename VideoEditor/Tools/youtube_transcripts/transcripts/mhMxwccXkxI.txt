@@ -1,0 +1,200 @@
+So, it's been four months since the
+Blackmagic Design team announced Dav
+Vinci Resolve version 20. We've had a
+few dot releases since, but today is an
+important day because 20.1 is officially
+out. It's got loads of new features
+across all the pages. I'm going to
+install it now. I normally install at
+a.1 release and I'm going to really
+quickly just show you some of the new
+features in the color page. Now, I've
+only had this running for about 2 or 3
+hours, so I'm not going to go in too
+much depth, but let's go and take a
+look. So the main new features of 20.1
+in the color page can be found up here
+in the effects tab. Now let's start with
+this one light rays. Now this is not a
+new effect. This has been here for ages
+and but it has got a new element in it
+which makes it look really smart. So
+what I'm going to do is I'm just going
+to set up this light ray. So it's coming
+out of this window. So let's just change
+that to be angle. Just bring that over
+there. Something like that. I'm going to
+just soften it off a little bit in
+there. Something like that just for
+speed. And the other thing I need to
+check is in here. You can see that
+there's actually a light ray coming off
+this lamp which I don't want to happen.
+I just want it to come out the window.
+So let's go to our power windows. Let's
+just very quickly just draw
+around that so we can eliminate it.
+Obviously I need to invert that window
+to make that effective. I always just
+put a little bit of softness on my
+windows anyway.
+Something like that. Okay. So if I press
+shift and zed, we get back to there. Let
+me take the power window off so you can
+see what's going on. Right. So, we've
+got our light ray set up. Now, the new
+addition in here is down here and it's
+called atmosphere. Now, this is
+fantastic because what this is doing, if
+I press add atmosphere, it's giving us
+particles. So, as we play through,
+that's very subtle. Now, I'm going to
+have to increase this a bit. In fact, if
+I take the softness off just for this,
+you might be able to see it a bit
+better. And I'm going to have to
+strengthen that up. Let's just bring
+these up. And you see now that this
+actually animates.
+I don't know if you can. Yeah, you can
+just see that moving in there. Let me
+let me really exaggerate it so you can
+see what's going on. That looks really
+nice. We're getting a really convincing
+light ray coming out of there. Now, this
+is also available in the glow. So, let
+me reset that and go to glow. I love
+using glow. I use glow a lot. I probably
+use it more than I should actually. Oh,
+in fact, you can add a secondary glow.
+Now, so I need to have a play with that
+and work out exactly how that's going to
+help me. Um, like I said, I've only been
+playing on this for a few hours, but in
+here you've got exactly those same ad
+atmosphere tools. So, really convincing
+glows. Love that. Next new addition
+really quickly, if I go into here, is
+the face refine tool. Now, the face
+refinement tool had a really great
+update in version 20 already, but
+they've added something else. Now, what
+I'm going to do is let's just detect her
+face. Let's just do a quick track of
+that. Like I said, this shot's already
+graded and color managed, and I've
+rendered it out, so we can do this
+really quickly for you. And we'll just
+get that face refine going. much more
+accurate. Remember in since version 20,
+you can actually key frame these now if
+it goes off. I've done a whole episode
+on how to do that. Right. So once that's
+done, let's take that overlay off. And
+what I'm going to do just to show you
+the new feature. If I go to smoothing
+here, let's zoom in on her face. And I'm
+going to use my middle mouse just to
+move that around. And what we're going
+to do is add a little bit of smoothing
+to her face. I'm going to exaggerate it
+slightly. I would never go that strong
+on that. But what we've now got in here
+is grain. So we can actually put some
+texture back in. So again, another sort
+of texture tool for us to give us a more
+convincing smoothing there of the face
+refine. So just add that in. Let me go
+extreme so you can see what's going on.
+And there you can see the grain. Okay,
+let me take that on and off. On and off.
+So that is fantastic. I use it a bit
+more subtle than that obviously. Okay,
+so moving on to another shot. What I
+want to show you now is a new effect is
+called color tone diffuser. This is an
+army test chart. Let's grab this new
+effect, color tone diffuser. And what
+this is doing is allowing us to control
+the amount of diffusion and its color
+temperature as well. So how warm or cold
+that is. So let's just try out some of
+these presets. And I don't generally get
+on with presets to be honest. So I'm
+going to go and do clean slate. And that
+actually looks like it's not reset.
+It's still got an element on there. If I
+undo If I bypass that. What else is on
+here? Image adjustment. Is that doing
+it? No. I've only been playing with this
+for a few hours, so I haven't quite got
+my head around that, but I was hoping
+clean slate would give us an absolute
+clean starting point. Maybe that's
+coming in 20.1.1. Uh, but let's go down
+to custom because I normally like to
+build my own. So, in here, what we're
+going to do is have a look at the
+diffusion.
+Oh, I need to switch it on. Sorry. So,
+I'm going to be a bit more subtle than
+that. And down here, you've got control
+of the shadow and the highlights. So,
+let's take our shadow here and obviously
+our threshold. The softness is going to
+adjust the roll off of that. So you can
+see that happening down here on our
+waveform. As I increase or decrease the
+softness, we're adjusting the roll off
+there. And the same with our highlights
+here. And this tone lights allows us to
+adjust the color of this. So we can have
+the color of the diffusion altered just
+using this. So let's get rid of that.
+And what we have now is a new effect
+called split tone. So obviously split
+toning is to give us that film
+emulation, allowing us to sort of cool
+off the shadows, warm up the highlights,
+or make them any any temperature that
+you want. But it gives us that film
+emulation. So, let's have a look at the
+presets. We've got natural. We've got
+strong, which is very strong. That's
+giving us a really strong warmth in the
+highlights. And then we've obviously got
+custom down here. In fact, if I go to
+strong, if I change the strength. Yeah,
+that does work. Okay. So, if I go to
+custom here now, we can adjust our own
+shadow strength here. And we can adjust
+the hue. So, warm or cool. And again,
+the same with the highlights. Now, this
+neutrals button, what this is doing is
+protecting our neutral. So, if I put
+this on, you'll see if you watch here
+where we've got colorization on, you'll
+see that this goes white. So, we're
+protecting our whites and our blacks.
+So, you're getting the nice split
+toning, but without affecting your
+blacks and whites. So, really cool
+effect. And let me just show you that on
+a gray chart just so you can see what's
+going on. Apply the split zone. There is
+our shadows. There's our highlights. And
+this is this point here is neutral. This
+is controlled by the pivot which is
+here. So, we can move that up and down
+and go to our custom and you can indeed
+adjust the strength and the hue of the
+shadows and the highlights. These are
+all really great additions to the color
+page. So, I've already got an idea what
+I'm going to do with one of those new
+features in my next project. I'll do a
+more detailed episode as soon as I can.
+Think about subscribing if you haven't
+done so already. Look after yourselves.
+Enjoy your version 20.1 and I'll see you
+in the next

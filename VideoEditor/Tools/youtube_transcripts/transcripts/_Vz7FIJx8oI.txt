@@ -1,0 +1,222 @@
+When you get a command over shot
+matching, that is pretty much 90% of
+grading, okay? Because everything else
+is fun. And what holds you back most of
+the time from making magic is that
+you're lacking in that thing. So, look
+at these two shots, right? They just
+couldn't be further apart from each
+other. And they're definitely shot with
+two different cameras. You got Black
+Magic right here. You got DJI right
+here. Very different, different texture.
+We're going to match it to make it look
+like this. Uh we're going to do it in
+like I think 30 40 seconds. I'm going to
+explain everything around it because
+that is always important the why behind
+the how. But what you're going to get
+out of this, the idea is like for you to
+just basically 2x if not literally 3,
+four or 5x the time it takes you to shot
+match. If you want to see more content
+like this and if you have specific
+topics, drop it in the comment section.
+About 75% and more are not subscribed to
+our channel. So, it will mean the world
+to me if you [music] subscribe, like
+this video, share it with friends, and
+uh let's jump right in. For those that
+don't know me, my name is Kazzy. I've
+worked with brands like Adidas, Amazon
+Prime, Universal Studios, and I make no
+straightforward color grading tutorials
+so you can work with your dream clients.
+So, let's take these three shots. And
+obviously, this is a completely
+different time of day compared to these
+two. But, let's just first start with
+balancing our image. So I have my
+vectors scope to the left, waveform to
+the right. I'm looking at my waveform or
+vectorscope I should say, way far to the
+cyan world. So [music] time of day like
+this will somewhat look like that. So
+I'm not going to artificially just make
+it like completely neutral. I'm going to
+use my printer light. So I'm going to
+set this up and you guys are going to
+see what I'm going to be doing right
+here. Okay. So it's just pretty simple.
+I mean our image is right here, right?
+And we want to get it right there. So
+how do we do that? Let's just add some
+red. And then add some yellow to pull it
+somewhere around here. And then at this
+point, like do we want to add a little
+bit more red? Okay. And then let's just
+add some magentas to keep it cool. And
+then let's just add a little bit more
+blue to something like that. And then
+what if we just add just a touch more
+cyan. So we still kept a lot of like
+that personality. Let's just add one
+more blue. So, see, we're still keeping
+a lot of that personality without being
+overwhelmingly stylized. So, now we have
+this image, right? Can I just add more
+magenta? Maybe like something like this.
+I like a little bit extra blue in there.
+That's good. Okay. So, for this shot,
+I'm just going to do that. I don't need
+to mess with the overall exposure
+because it should be somewhere around
+here. So, this is overall exposure is
+looking good. I mean, if anything, maybe
+we can try bringing it down a little
+bit, but like not too much, right? Like
+I mean,
+I just really like where everything is
+at. So even like let's just say
+one two or 12 is looking fine. I'm going
+to leave it here. And then for a shot
+like this, let's just undo our balance.
+Uh this is black magic. So obviously
+there's a lot of green. Vectors scope
+exactly tells you what's going on. So
+let's pull it up. Right. So now this is
+leaning way too much between green and
+cyan. So we want to lift it up. So red
+will lift it up. And then what if we add
+a little bit of blue and like pull it
+toward this and then like you know we're
+basically just bringing it in the middle
+of that crosshair, right? And then
+obviously like you're looking at the
+asphalt and that's exactly how it should
+look. So this is looking really good,
+right? Like this is looking very
+natural. So I'm going to leave it there.
+And uh in terms of the overall exposure,
+uh where do we want to keep it? Like you
+know we want it a little bit moody. like
+let's drop it by quarter of a stop to
+make [music] it you know something like
+that and that looks good. So now we go
+to this shot and what are we seeing with
+this particular shot? So first of all
+let's just drop the exposure so we can
+basically match it to where we were. So
+even something like that. Basically one
+stop and 3/4 is not bad. And now let's
+go to our printer lights and set that
+up. So what do we have to do? Like again
+just look at the vectorscope. It's just
+simple. Just follow that. add a little
+bit of red and then at that point just
+add more blue, right? And um uh go back
+and forth and then maybe just drop one
+red and like it's a perfect match except
+one massive gotcha that we have here
+which is inevitable when you're working
+with different color science from
+different cameras. What am I talking
+about? Okay, so I'm going to do this
+thing. Okay, so I'm going to go here.
+I'm going to select these two shots and
+in here I'm going to select selected
+clips. Okay, so it's going to be showing
+me my two shots. And now if we look at
+the difference, it's very very stark. I
+mean, look at this right here versus
+that. If we actually want like more real
+estate, what we can do is this. We can
+just literally go here and so save this
+still. And now let's just bring it up.
+So, that's going to be even better if I
+go here and pop that open. Now, it
+really gets to tell me where like my
+foliage needs to be. And it's not
+matching at all. Okay. So, let's
+actually do this and try to match this
+right here. Majority of it. And it's not
+matching at all. So, what can we do? I'm
+going to create a new node right here.
+And I'm going to go in here in our color
+slice and use the tools that we have
+here. So this right here, you might
+think that this is green. This is going
+to fall under yellow. Okay. So we have
+to modify these right here. So the first
+thing that I want to do is let's just
+start with the saturation and let's just
+play with it. So let's just pull it down
+to something like that. Now let's just
+mess with our depth of that color hue.
+So let's bring it somewhere around here.
+Now let's go into the hue of that yellow
+and start moving it around. be like
+really open to like moving it around.
+Okay, so like now look at before and
+after. Now we don't have to get like a
+one one because these are moving images.
+[music] They're going to match now
+because I'm just looking at the lighter
+green to a darker green to a lighter
+green here to a darker green. So that's
+it. That's all we needed to do. So now
+if we just go between these and if I do
+before and after, you're seeing like
+this right here to that right there is a
+very very close match. Okay.
+And then obviously the real test is
+going to be to like go from here to here
+and see how well it holds up. Uh to my
+eye
+I think it's really good. I'm looking at
+these leaves right here that are
+basically lighter and darker. And I'm
+looking at these leaves right here.
+They're lighter and darker. I mean, we
+can go in our saturation and kind of
+mess with it. Bring it up and bring it
+down and see if there's a better spot. I
+think 58 is where I keep coming back to.
+So, I will park it right here. And now,
+if we go between this and that, like I
+mean, before we had this, you see how
+easy we missed that. So, this is very,
+very important anytime you're going to
+be working with different cameras. I
+mean, this is like that advanced
+technique that you're going to use and
+normally your brain will just like latch
+on to certain things. So, like we were
+trying to match like the asphalt and we
+were forgetting like everything else.
+I'm looking at this shot and I'm going
+to this shot and I'm going now it's a
+billion dollar better match. Before it
+was like going from here to here and
+going from here to here. Perfect match.
+So, there you have it. And for those
+that found this helpful, we have an
+absolutely free training. And no, we
+don't put anything behind the pay wall.
+You will get 100% what we will promise
+you. So the link is in the description.
+Tons of advanced techniques, but very
+achievable. Regardless of your skill
+set, you will be able to apply those
+techniques and get [music] instant
+results. So you should definitely check
+it out. I will see you guys in the next
+video. If you have any content
+suggestions, always, always, always
+welcome. Especially with my new vow, I
+want to put out two videos per week. I
+need your guys' help. So, drop your
+suggestions in the comment section
+below. On that note, love you guys. I'll
+see you in the next one. Peace.
+[music]

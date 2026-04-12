@@ -1,0 +1,2838 @@
+if you're brand new to resolve this is
+the video for you if you're brand new to
+video editing we're going to be moving a
+little bit fast I recommend checking out
+this video if you want to learn the very
+basics of how video editing works at all
+let's say maybe you have some experience
+with some other editing apps you're not
+a total Noob to video production but
+you've never really opened resolve you
+don't know what the whole hubub is
+whatever the hubub means well I'm going
+to teach you all the basic things you
+need to know in order to open up resolve
+18 and start making awesome videos are
+you down for that I'm also down for that
+let's uh let's go first things first
+what the heck is Da Vinci resolve well
+it is a video editor but it's more than
+a video editor you can do editing but
+you can also do color correction and
+Advanced Audio editing as well as
+effects basically everything that you
+would normally use a whole Suite of
+software for it's all kind of built into
+one program it's been the standard for
+color correction for years and years and
+it's quickly becoming a monster of of a
+program that can do absolutely anything
+that you want to do in post- production
+and it's all built together in one tool
+resolve comes in two versions there's Da
+Vinci resolve which is the free version
+and then there's Da Vinci resolve Studio
+which is the paid version the free
+version honestly is amazing for almost
+anything that you want to do if you are
+rendering at UHD or below and you don't
+need like a ton of super fancy really
+specific effects you can download the
+free version you can use it for
+commercial work there's no trial period
+there's no watermark it has all of the
+pages that we're going to explore today
+and it it's literally just amazing and
+it's free the studio version is a
+one-time purchase of$ 295 there's no
+subscription or anything like that and
+you can render above 4K and there are
+some fancy effects that you get one of
+them being the noise reduction which is
+really really good to like take out
+visual noise like from videos that's a
+major reason why people upgrade most of
+the time and it also takes a little bit
+more advantage of your Hardware so if
+you have multiple graph gra cards studio
+will give you more choices on kind of
+how you use your Hardware if you're just
+getting into resolve I would recommend
+downloading the free version seeing if
+you like it cutting a few projects with
+it and you can open up any of your
+projects from the free version of
+resolve in the studio if you ever want
+to upgrade you can even open up Studio
+Projects in the free version and it'll
+just have a watermark on anything that
+is only available in the studio version
+like if you use a specific effect or
+whatever so yeah if you want to follow
+along go ahead and download the free
+version and if you're wondering if
+there's a catch there really isn't I've
+been using the free version of resolve
+for a really long time I do have the
+studio version cuz there are some cool
+things in there but honestly the free
+version is amazing in this demo I'm
+going to be using D Vinci resolve Studio
+18 beta it's in beta at the time of
+recording this video so in the future if
+resolve 18 looks a little different
+that's probably why but nothing should
+change too much if you want to follow
+along I would get this one right here Da
+Vinci resolve 18 beta once you download
+and install D Vinci resolve and you open
+it for the first time it's going to look
+something like this you're going to have
+this window pop up this is called our
+project manager this is where all of
+your projects are stored so you can make
+a new project open an old project Import
+and Export projects anything like that
+kind of happens here something to note
+in the upper leand corner we have these
+three icons local network and Cloud most
+of the time you'll be working on local
+that just means that you're working on
+your computer like you normally would
+with a piece of software Network allows
+you to share projects over your network
+if you have kind of a specific server
+set up which is you know kind of
+advanced but you can set this up in your
+local network if you're you know in a
+production house or whatever and you can
+have multiple people working on the same
+project at the same time and have it
+just private to your own network a new
+thing that they added in resolve 18 is
+the cloud and this is kind of the same
+idea as the network except for it works
+online so you can make a project and you
+can share it with somebody who is
+anywhere in the world and you can both
+work on the same project at the same
+time so somebody can be editing in New
+York while somebody takes the clips that
+they're editing and color grades them on
+the same project in La which is just
+nuts I do have a couple videos exploring
+this but for now we're going to go to
+local and just to show you around a
+little bit I'm going to open a project
+that I had here and when you open up
+resolve it's going to look something
+like this if you have a new project you
+won't have all of these clips here but
+this will be the interface and this
+interface right here is called the cut
+page if you look down
+below there are these big buttons on the
+lower part of the screen and each one of
+these switches out the interface of
+resolve
+to do different stuff these are what we
+call pages of resolve and each page has
+a specific job for post-
+production so we're dropped into the cut
+page but we're actually going to start
+with the edit page here the edit page is
+pretty much what you would think of as a
+normal editor so something like Adobe
+Premiere or Final Cut Pro or Vegas
+everything that you could do in
+something like that that's what you do
+in the edit page this is where you put
+together timelines put together Ed
+and kind of build your project the cut
+page has a similar function but it kind
+of goes about it in a different way and
+we're going to explore that here in a
+few minutes the fusion page is all about
+effects so something that you would use
+uh after effects or apple motion or some
+kind of compositor that's what Fusion is
+for this is where you would clone stuff
+out or do green screen or lightsabers or
+muzzle flashes or composite explosions
+add fog those kind of things this is
+also where you'd make Motion Graphics
+templates lower thirds Ty
+that kind of stuff we'll switch to the
+color page the color page is all about
+color correction rather than having an
+effect on the edit page that you would
+have to add to each clip we have this
+whole interface that is designed for
+color and again this is really like the
+Hollywood standard for color correction
+it's arguably the best color correction
+app out there then we also have the fair
+Light page which is super Advanced
+really detailed uh audio editing so you
+can get as crazy as you want with your
+audio and adjust things here that you
+would normally use something like
+Protools or Adobe Audition or logic this
+is where you get into the nitty-gritty
+of all of your audio and apply things
+like equalizers and effects and all
+those kind of things to the far right we
+have the deliver
+page and this is where you actually
+export your project so people can see
+what the heck you made this is a lot
+like Adobe Media encoder basically you
+set your settings for your movie there
+are a bunch of presets up here so if you
+want to create something for YouTube you
+can click on the YouTube preset
+you can even upload directly to YouTube
+if you want to all you have to do is
+sign in to your account in the
+preferences and yeah this is kind of
+where you render things on the far left
+we also have our media page this is
+where you can browse to media on your
+system and you can import it into your
+project you can organize media into
+bins you can add all kinds of metadata
+and you can get organized now that we
+have a pretty good idea of how resolve
+is laid out let's get a little bit
+deeper first thing I'm going to do is
+make a new project in the lower right
+hand corner we have this house button
+and when we click on that that brings up
+our project manager if I want to make a
+new project I click on this new project
+button right here and we'll call this
+crash course project 2 add a couple
+practice projects here and I'll hit
+create and now we have our blank project
+I'm going to start out in the edit page
+because pretty much if you've used a
+editor before this should already look
+pretty familiar we have the two viewers
+here and we have the timeline down below
+and over here on the left is is our
+media pool the media pool is where
+everything lives for our project so this
+is where we import media kind of
+organize things into bins everything has
+to be in here in order to be used in our
+project so we can get media in here a
+couple ways I could rightclick and go to
+import media and I can select any
+footage I want to bring in and hit open
+and it'll ask me if I want to change the
+frame rate to the frame rate that I shot
+with and if I don't I'll hit don't and
+if I do want to change it I'll hit
+change that will set my project settings
+to the settings these clips things
+pretty much work how you would expect if
+you double click on a piece of media
+that'll bring it up here in this Source
+viewer and you can scrub through it you
+can set an in and an out with I and O on
+the keyboard for the beginning and the
+end of the clip I can drag this down
+into the timeline to make a new timeline
+and here's where we put together our
+story and the thing I like about this
+especially coming from other programs is
+that it's really intuitive if you've
+used Premiere or Final Cut or Vegas or
+whatever you can pretty much kind of
+guess how things work you can double
+click on something bring it down you can
+move Clips up and down in layers if you
+Mouse over the edge of a clip it lets
+you trim it and one thing to mention is
+that this tool this normal pointer tool
+is called the just normal selection mode
+and depending on where you kind of mouse
+over on the clip it kind of changes to
+do different things right so if I'm over
+the left side of a clip and I have this
+left bracket I can trim a clip I can
+bring this in if I click in between two
+clips I can kind of roll this back and
+forth again it should make a ton of
+sense if you've edited before if you're
+already confused about kind of how to
+edit and how to put things together in
+the timeline make sure to click the link
+in the description for my editing for
+noobs video please that'll explain all
+the basics and then if you want to you
+can come back to this video later a
+couple things that are a little bit
+different about resolve when you double
+click on a clip and you have it loaded
+here into this Source viewer you can add
+it to the timeline a few different ways
+of course I can have my in my outset I
+can drag this down that's one way but
+there's also these buttons right here
+and these will put this clip into my
+timeline in a couple different ways one
+would be insert which is going to put it
+right where the playhead is just like
+this we also have over right which is
+going to put it right where the playhead
+is and it's going to go over any clips
+that are in the way and it's going to
+delete them and then we also have
+replace clip which if I'm over a clip
+like this and hit replace it's going to
+replace whatever that clip was with this
+clip and so now we show just a little
+bit of that clip instead of the one that
+we had just now of the tree the other
+way we can put this down in the timeline
+is by grabbing it and dragging it over
+to the right over the timeline viewer
+and here we see we have these little
+popup things and depending on which one
+of these I drop it on it will do
+different things in the timeline so if I
+say place on top that will put it on the
+layer above and they do all kinds of
+various things one that I really like is
+append at end that's this one down here
+if I click on that no matter where my
+playhead is it will just throw this at
+the very end of the sequence so that's
+really great for doing something like
+building a rough cut I can just hit I
+and O and then append to end same thing
+I O append to end and I can kind of go
+through and do it that way I can even
+set a keyboard shortcut to append at end
+by the way if you're wanting to set
+keyboard shortcuts go up to the upper
+leth hand corner where it says Da Vinci
+resolve and go down to keyboard
+customization and you have all different
+ways to be able to do that here you can
+either start by clicking the button on
+the keyboard here and then looking up
+what that key does or you can search by
+command make sure that you have all
+commands selected here and then you can
+search for something like overwrite and
+you can look up what it's set as you can
+even hit this plus and set a new
+keyboard shortcut so if I want H to be
+overwrite I can type in h there and now
+whatever I have set here if I hit H that
+will overwrite it and go down into the
+timeline like that what I like to do is
+set appendant end to P the only reason
+being that it's right next to I and O
+and so I can just go i o p and then grab
+this next one i o p and you can really
+move through things pretty quick that
+way we're actually going to do something
+kind of like this in the cut page here
+in a second that's how you get clips
+into the timeline and how you do some
+keyboard shortcuts if you're looking to
+slip Clips you can use this trim mode
+right here click on trim edit mode and
+what this will do is if you grab the
+middle of the clip it will slip it back
+and forth if you grab the middle but
+towards kind of the bottom you can slide
+the clip and then also if you grab the
+edge like this it will kind of move
+everything with that edit which is
+really handy cuz normally with with the
+uh selection mode if I move this over
+it's going to kind of overwrite the clip
+if I move it to the left it's going to
+give us a gap but if I hit t on the
+keyboard which is the same as just
+clicking this little trim edit mode and
+I move back and forth like this it's
+going to kind of keep everything
+together really nice way to kind of
+quickly shorten things down and adjust
+your Clips very very nice tool we also
+have the blade edit tool right here just
+like razor blade in any editing app you
+might use one thing that I like to do a
+lot in resolve is split things at the
+playhead which by default is control
+backs slash that's the slash above the
+return key and that will just split it
+at the playhead so I do a lot of that
+there's also a command that will
+basically kind of trim this like that
+all the way to the playhead and that's
+control shift right bracket and you can
+trim the beginning of a clip with
+control shift left bracket that's called
+Ripple end to playhead and ripple start
+to playhead which I like to set as q and
+W so Q will just kind of do this sort of
+thing like this Q
+and the end would be W like that so
+between q and
+W I can really trim things really
+quickly really nice way to work couple
+other things to notice here I can turn
+on and off snapping by toggling this
+little button right here the little
+magnet I can also Hit N on the keyboard
+for snap and the other one is linked
+selection so this kind of gets people
+sometimes let's say we have a piece of
+media with attached audio by default if
+if you grab this and move it around the
+audio is attached to it that's because
+the audio and the video are linked and
+you have this little chain link if it's
+linked to something so you could right
+click on it and uncheck link Clips like
+that and then I can grab this and move
+it around or I can also just disable
+this chain link icon right here and that
+will not really listen to the fact that
+they're linked and so that's really nice
+to be able to do just really quickly if
+you want to say trim your audio without
+your video or vice versa but you don't
+necessarily want them to go out of sync
+at any point you can kind of do that and
+then just turn the link back on and now
+you're good one thing that I think is
+Handy is position lock so if you like
+kind of where things are but you might
+be just selecting something and adding
+effects or you know adjusting sound
+volume or something like that you can
+click on this position lock and what
+that'll do is not let you move the clips
+back and forth or up and down it just
+kind of locks your Clips but you can
+still select them and adjust attributes
+about them speaking of adjusting
+attributes anytime that you have
+something selected in the timeline or
+even anywhere in resolve really you can
+adjust its properties in the inspector
+up here in the upper part of the screen
+we have these buttons and all of these
+buttons either open or close a panel in
+the interface and this upper right one
+is called the inspector and if I turn
+that on that opens up the inspector
+right here and now for whatever I have
+selected I can adjust the properties
+with these little sliders and numbers
+and stuff cool thing about the inspector
+is that it's more than just the
+properties you can actually add some
+kind of basic effects I can do lens
+correction I can do stabilization I can
+do all these crazy things and all you
+have to do is click on it once to kind
+of open up this little menu for each of
+these items and there's just a ton of
+stuff that you can do with whatever you
+have selected and it's context sensitive
+right so if I'm not looking at anything
+or I don't have anything selected
+there's nothing there if I select a
+piece of media here in the media pool I
+can adjust its properties here in the
+inspector if I have something selected
+down in the timeline I can adjust its
+properties in the inspector and both of
+these panels the media pool and the
+inspector show up in just about every
+page of resolve and so it's good to get
+used to them basically anything that you
+have selected you adjust in the
+inspector your media pool has all of
+your media in it and actually there's
+some kind of viewer in every page as
+well so now you know a lot of resolve
+just by learning these three panels
+pretty cool so I'll take a second and
+load up a project I've been working on
+for this demo and here we have a little
+edit kind of a little commercial and
+let's explore this a little bit I have
+my edit laid out in my timeline just
+like you would think I have my voice
+over down here in the audio tracks one
+thing to note is that this voiceover is
+a mono audio clip and so I had to put it
+on a mono audio track you can rightclick
+on any of these tracks and change type
+to be whatever kind of Channel
+configuration you want so mono stereo
+5.1 whatever so this first track is mono
+but the second track is Stereo because
+this is our mic music you can kind of
+keep yourself organized by selecting
+whatever you want in the track right
+clicking and going to clip color and you
+can change the color of these
+clips and have kind of a visual
+representation of you know differences
+and stuff in the timeline if you want to
+and like I said it really kind of just
+works the way that you think it would
+work if you've used any kind of editing
+app to add a title you can go up to
+where it says effects here and click on
+that so it's bright white and then that
+will pop up our effects panel
+and we have all kinds of Transitions and
+generators and effects and filters and
+everything to put on any of our Clips
+including titles like like just plain
+text I can drag this in just like you
+would think I would I can look at it by
+putting my play head over it I can
+select it and adjust its properties here
+in the
+inspector I can adjust the font and size
+and color and all of that stuff I can
+even add a drop shadow a background all
+these kind of properties that are built
+in into that text title and if I go over
+to settings here these are the
+properties that you would normally get
+with just kind of a video clip right so
+transforming cropping all of that kind
+of stuff something to note about these
+titles is these kind of upper titles
+these are just kind of the plain text
+stuff that's available in the edit page
+but down below we have Fusion titles so
+these are titles that are usually
+animated and they use the power of the
+fusion page so we'll learn about the
+fusion page here in a minute but those
+are basically a little bit fancier they
+also take a little bit more horsepower
+to render so depending on the complexity
+of the title you might be seeing things
+kind of lag a little bit might not be
+too bad depends on your system under
+titles we have generators so we can
+generate just a solid color or a
+gradient or all these kind of things and
+again just take them and drag them into
+the timeline just like you would a video
+clip and that's how those work if you
+want to put an effect on something or a
+filter you take it and drag it onto a
+clip just like you think you would and
+that's how that works you can select the
+clip that you Dr it
+onto and go over to the inspector and
+here under the effects tab you can
+adjust any of the effects that you've
+put on there you can stack multiple
+effects you can turn them on and off
+with this little toggle switch this is
+just set up in what I think is a pretty
+intuitive way if you want to add a video
+transition or an audio transition it's
+here in the effect panel under video
+transitions I can grab any of these
+dissolves and I can drag them to right
+in between a couple clips and it'll kind
+of show me I'll drag that and I can
+select it like this and if it turns red
+then I can adjust it here in the
+inspector again
+so I can preview
+this and it works pretty
+well another thing to mention just about
+moving around in the timeline is you can
+of course take your playhead and kind of
+move it around like this there's this
+little zoom bar here and this will let
+you zoom in or out really quickly you
+can hit minus to zoom out and plus to
+zoom in what I like to do is hold down
+alt on the keyboard and roll with my
+scroll wheel on my mouse to zoom out or
+in I can also hold shift and scroll up
+or down to size my tracks either my
+video tracks up here or my audio tracks
+down here if I hold control and scroll
+left or right it moves it back and forth
+and so that's a nice way to be able to
+you know hold down alt hold down shift
+and I can kind of move around that way
+one really essential thing for moving
+around and resolve is to have a three
+button Mouse so that's a mouse with a
+scroll wheel that you can click down in
+the middle I can click down on my middle
+button on my mouse on my scroll wheel
+and I can kind of grab this and move
+this back and forth and that's a really
+nice way to kind of move in the timeline
+I can grab this midle button and just
+drag this around the same thing goes for
+the viewers I can zoom in or out just by
+rolling with the scroll wheel and I can
+middle button Mouse click and drag to
+kind of pan around in my viewer so again
+three button Mouse really important
+audio clips work just like you think
+they would you can trim them move them
+around use the trim tools everything
+that you would do with the video clips
+if you Mouse over sort of the middle
+there's this white line and you can move
+this up or down to adjust the volume
+that's the same thing as adjusting the
+volume here in the inspector if we have
+this selected this that's this volume
+slider right here in the inspector you
+can also adjust things like pan pitch
+and they even have a clip equalizer
+which is really neat if you want to just
+add a quick EQ to a clip you can do that
+and one thing I'll point out is that at
+the end of any video or audio clip
+there's this little white handle you can
+grab this and move this this way to add
+a quick fade and you can adjust the
+shape of the fade with this little white
+dot I can push this down kind of have
+this fade down kind of
+gradually whatever you feel like doing
+but that's how you do something like a
+really long fade in or out on the audio
+and it also works for the video but the
+tracks have to be a certain size first
+so if you zoom up like this then you can
+fade this in and it'll fade in from
+Black so that's a great way to do it
+without having to drag a cross fade onto
+it or something like that there's a lot
+more details in the edit page there's a
+lot we could probably go over but that's
+really the basics again if you've used
+an app like Premiere or Final Cut or
+something where you have kind of an
+interface like this with the two viewers
+and the timeline this should make a ton
+of sense this part of resolve in my
+opinion is maybe not the most boring I
+think it's really functional and it
+works really well I'd say it's certainly
+as good or better than the other editing
+apps out there I edit all of my projects
+in the edit page I don't use Premiere or
+anything like that and it's just a
+really well done very functional editing
+app but the real Beauty about resolve is
+that this timeline is shared by all of
+the other pages so at any point if I
+want to do something fancy I can just
+switch into fusion and do some fancy
+compositing I can switch over to the
+color page and do my color correction I
+can switch over to Fair light and get
+really detailed with my
+audio and I don't have to round trip or
+export or anything like that it's just a
+great environment to work in now let's
+take a look at the cut page I can get to
+the cut Page by just clicking on the cut
+button down
+here and that will open up my timeline
+here in the cut page now something to
+notice is that this right here is the
+exact same timeline as my edit page it's
+the same sequence same Clips same audio
+same everything this is just kind of a
+different way to look at it and work
+with the clips and that's common with
+all of the pages in resolve if I were to
+go to Color this is the same timeline
+these are all the clips from my timeline
+be light same thing this is my timeline
+here's all the clips and so that's
+what's really neat about resolve is you
+can just bring things into kind of these
+different workspaces and get a little
+bit more detailed kind of do what those
+spaces were designed to do so let's take
+a look at the cut page the cut page is a
+lot like the edit page but it has kind
+of a fundamental difference in approach
+the big difference is that the cut page
+is built for Speed the edit page this is
+kind of built like a traditional editor
+right you find Clips in the media pool
+you load them into your Source viewer
+you bring them into the timeline you
+chop them up move them around that kind
+of thing if you want to get detailed you
+zoom all the way in if you want to look
+at the whole thing you zoom all the way
+out but with the cut page there are a
+lot of things that are kind of stripped
+out to save you time this is really kind
+of designed for a workflow like news or
+like making a vlog something like that
+it's something that you want to get done
+really really quickly that might not be
+be that complicated so you could edit a
+feature film in the edit page and it
+would make a ton of sense to do that but
+maybe not in the cut page the cut page
+is really designed for if you want to
+put together a wedding video during the
+reception so that the bride and groom
+can see a quick cut of the video it's
+for really fast turnaround stuff that
+doesn't have to be super complicated so
+let's take a look at the interface let's
+start with the familiar on the left we
+have the media pool this acts pretty
+much like the media pool does in the
+other Pages if you double click on
+something you can open it up in the
+viewer this is where you can look at all
+of your Clips you can organize them move
+them into bins and that kind of thing
+one little difference is that is that
+you don't have a list of bins here if
+you enter a bin like this it just gives
+you these little breadcrumbs up here but
+pretty much the same idea this is how
+you import stuff if you double click on
+something it goes into the viewer here
+and there's only one viewer this viewer
+switches in between the source and the
+timeline viewer depending on what you
+have selected so if you double click
+something here in the media pool it'll
+switch to the source viewer if you click
+down into your timeline it switch to the
+timeline viewer and you can toggle this
+by these little buttons right here this
+middle button is I would say my major
+reason for using the cut page if you
+click on this this is Source tape Source
+tape what that does is it takes all of
+your footage from whatever bin you're in
+and it lines it out one after another in
+one kind of timeline here and you can
+quickly scrub through all of your
+footage and you can see everything that
+you have this is a great way to build a
+rough cut kind of like we did in the
+edit page in fact a lot of the time I
+find myself if I'm just looking for
+b-roll or kind of making a video like
+this I'll flip into the cut page to make
+a rough cut and then I'll switch over to
+the edit page to get a little bit more
+detailed the other big thing you'll
+notice about the cut page is that there
+are two timelines this upper timeline is
+the completely zoomed out view of our
+project so if I click at the beginning
+that's the very beginning of our
+timeline and at the end that's the very
+end of our timeline there is no zooming
+in or out in the bottom this is the
+zoomed in View and the zoomed in view
+the lower timeline moves under the
+playhead and in the upper timeline the
+playhead moves around and so it's kind
+of weird it's kind of something you have
+to get used to you can actually unlock
+your playhead by clicking this button
+right here and you can move the play
+head around in the lower timeline as
+well so if that's something you'd like
+to do I like to have it locked because
+then it doesn't get confusing with two
+play heads moving around I just have
+this one here and then the other one I
+can see the progress of my movie and I
+like having that kind of visual
+difference pretty much the idea here is
+that you can quickly navigate to the
+beginning of your movie in the upper
+timeline and then you can make
+adjustments really quickly in the lower
+timeline and you don't have to zoom in
+or out you can just quickly do what you
+need to do depending on how detailed it
+needs to be this upper timeline I can
+actually make edits in I can grab things
+and trim them I can move them around
+it's not just a map of the sequence it's
+actually a timeline it's just real small
+so generally you'll do this if you want
+to like take a clip and put it at the
+very end of the timeline line you can do
+that in the upper timeline whereas if
+you want to do a trim or something you
+do that in the bottom timeline I'll just
+hit contrl z a couple times the other
+thing to note is just like in the edit
+page when we switch to trim edit mode if
+I grab the edge of something it's going
+to want to not have a gap and so it's
+going to kind of move things around the
+very best that it can and sometimes that
+can mess you up like if I were to trim
+this this way see we're cutting off some
+of our audio in our vo and so that same
+thing happens by default in the cut page
+so if you have something with multiple
+layers and multiple different pieces of
+audio and you trim something like this
+it's automatically in trim mode and it's
+going to be overwriting a bunch of your
+Clips if you're not careful so the kind
+of edit that you would do in the cut
+page is generally one that's really
+simple that's just one line of Clips
+preferably clips that have on camera
+audio again something like a vlog or a
+news story where you have the microphone
+plugged into the camera so that you
+don't have to kind of sync things up
+that's a great thing to edit in the cut
+page so let's make a new timeline I'll
+just right click in the media pool and
+say create new timeline we'll just say
+create and what I generally like to do
+in the cut page like I said is double
+click on my Clips bring those up and
+bring up our source tape and remember
+how we set our keyboard shortcuts to i o
+and P earlier I can quickly say i o p i
+o p and go through and add these to the
+timeline and it's really really fast and
+you can build a rough cut really quickly
+this way especially if it's b-roll if
+it's just visual super nice again those
+are custom shortcuts but you can also
+set your in and your out like this and
+then click on one of these buttons down
+here and these are very similar to the
+overlay buttons in the edit
+page these right
+here and that they take whatever clip
+you have selected whatever ins and outs
+you have set and it will put that in the
+timeline in various different ways one
+thing that's a little different is that
+we don't have insert we have Smart
+insert because again everything's kind
+of made for speed and so you'll notice
+this little animated arrow thing what
+that's doing is marking the nearest edit
+point the nearest kind of break in the
+footage and it's saying if you do
+something that's going to look for an
+edit point it's going to happen right
+here so this smart insert looks for the
+nearest edit point and then it will
+insert this piece of footage right there
+at that edit point so if I click on
+Smart insert that's what it'll do it
+throws that clip in between the other
+two clips and as I move the playhead
+around we can see it highlights
+different edit points and so again it's
+really nice if you're wanting to move
+fast because you don't have to line this
+up like perfectly on the edit point if
+you want to put a clip in between two
+other Clips whereas normally on an
+insert if you have it off a little bit
+it'll put a little bit of this clip
+before and the rest of the clip after
+and it's just not great the other thing
+that's built for Speed are the
+transitions those are these buttons
+right here if we click on dissolve what
+this will do is find the nearest edit
+point which is this one and as we click
+that that'll add a cross dissolve right
+here so again really fast to kind of go
+through and just get kind of near that
+edit point and you can add a dissolve if
+you don't want the dissolve you can
+switch to cut and build your project
+that way the other thing that the cut
+page is surprisingly very good at is
+multi-cam I'm going to go ahead and
+import some footage here I'm going hit
+file import
+bin and this is just a bin of multi-cam
+footage that I have from one of our
+premium trainings and I'll double click
+on that to open it up and open up our
+cut page media and here we have a
+multi-cam shoot of a production meeting
+and let's say we want to do a multi-cam
+edit on this well I can select all of my
+footage that I know goes together and
+click on this little button up here
+which is sync clips and as I do that
+it's going to bring up all the clips
+that it wants to sync and I'm going to
+sync it by Audio and let's see how it
+goes I'll hit
+sync and now it's gone through and it's
+listened to the audio on every one of
+those clips and it put them together in
+a timeline kind of Stack all in sync
+even with this external audio if we're
+pretty confident everything is synced we
+can just hit save sync if we need to fix
+something we can click on this little
+button right here to unlock the sync and
+we can move things around if we need to
+but I'm going to lock that sync and hit
+save sync and now we get this little
+blue badge on the top is everything is
+synced together really what we've done
+is we told resolve that hey all of these
+go together and resolve has remembered
+kind of how they relate to each other so
+now if we want to do a multi-cam edit we
+can take any of these these clips let's
+just start with kind of the wide and I
+can drag this down into our timeline and
+I don't have to have these all together
+in the timeline because resolve sort of
+remembers and now what I can do is go
+over to the sync bin click on that right
+here and I can do a couple things as I
+play through the sequence here I see
+kind of my multi-cam sequence kind of
+play right here but the thing that I
+really like to do that I think is super
+powerful is just clicking on a camera
+that'll bring that up full screen and
+you can kind of scrub through and just
+find the interesting parts right so like
+any part in this camera where he kind of
+starts to point to something I'll just
+hit an in and an out right
+there and then I can hit this button
+source overwrite and what that will do
+is find exactly where that clip is
+supposed to go and it will just put that
+in the timeline and it bases it on this
+bottom clip here so now if we go back to
+our timeline viewer we can cut into
+exactly where we need so that makes it
+really quick to just find the clips that
+are interesting on camera and just put
+those where they go so again we'll just
+find some interesting Clips here so
+here's one in Out Source overwrite and
+that's just going to put that wherever
+it needs to go here in my sequence so it
+makes these edits actually a lot quicker
+than going through and watching the
+whole thing and having to live switch it
+really cool way to work if you do like
+the cut page there are a lot of things
+you can do you can add titles you can
+add effects you can add transitions
+there's even kind of a cool interface
+for the properties of whatever you have
+selected kind of like the inspector but
+it's a little bit more visual you can do
+things like crop and adjust things kind
+of right here in this onscreen interface
+very cool but yeah that's pretty much
+the cut page so before we get into the
+fusion color Fair light pages I want to
+take a second and check out the media
+page at the very bottom of our interface
+all the way to the left is our media
+page this is one of those pages that
+some people are going to love and some
+people are just never going to use we
+have our media pool down here it's not
+on the left anymore it's kind of down in
+the bottom but it works the same way
+this is where all of our media lives for
+our project we have a source viewer up
+here where we can preview our footage
+but in the upper left here we have our
+media storage and what this is is just a
+browser for your system so I can go
+through the files on my hard drive and I
+can really easily preview things play
+them back without having to import them
+into resolve something some people run
+into is they kind of get used to looking
+at stuff here and they're like all right
+yeah now I want to use this in my
+timeline and they go over to the edit
+page and they're like where where' it
+go well again these are just on your
+system and so you have to drag them down
+into your media pool in order for them
+to show up in the media pool in the
+other pages so I'll just get rid of that
+real quick and the media page is really
+great if you like getting organized in
+metadata that kind of thing if I double
+click on a clip here it brings up my
+metadata here in this lower right hand
+corner I can close out our audio meters
+by hitting audio right there and in the
+metadata panel we can look at all this
+information about our clips and if I go
+to the upper right hand corner click on
+this little drop down and go to all
+groups or shot and scene I have a ton of
+metadata that I can edit for this clip
+so I can add a description I can add
+comments I can add clip color or flag a
+clip a certain way something that I like
+to do if we're shooting like a short
+film or something is I can go through
+all of my Clips here and if we have
+footage that we shot actually with a
+slate is I can write down the
+information from the slate here in our
+metadata then we can sort and organize
+by that kind of metadata in the media
+pool later really really helpful and
+what's cool is I can select multiple
+shots here so these are everything at
+Sunset and I can add a sunset keyword to
+all of these and I can just scroll down
+and hit
+save and now each of these will have a
+sunset
+keyword I'll right click down here and
+make a smart bin which is basically like
+a folder that will only show clips that
+meet a certain filter so I can say
+Sunset clips and I can say keywords
+contains Sunset I can even have this
+show in all projects so when I make a
+new project it already has these filters
+kind of built up and hit create and now
+these are only the sunset Clips which is
+pretty cool normally if you put in a
+keyword it'll automatically make a smart
+bin under this keywords category
+although that's not working on my system
+under this build for some reason but
+normally that's a thing so you wouldn't
+even have to do this but you can make a
+smart bin that sorts by clip or scene or
+something like that if you want to
+really powerful way to be organized
+those are the major need to know things
+in the media page some people will love
+this page some people will flat out
+ignore it and either way is totally fine
+let's switch back to our original
+project
+here and let's just start working
+through the rest of the pages the next
+page over is the fusion page and what
+that will do when you click the fusion
+page is it will load whatever clip you
+were on into the fusion page so that you
+can do effects and compile positing and
+things on it again all the pages in
+resolve share a timeline and so we can
+actually go up to our buttons here in
+the upper left and click on clips and
+that'll bring up all the Clips in our
+timeline so we could actually go through
+here and switch clips and kind of do
+effects on any of the clips that we need
+to that's kind of one of the major ways
+that you get a clip into Fusion to
+actually start working on it the other
+thing you can do is if you're in the
+media pool in any of the pages you can
+right click in the blank space and go
+down and click new Fusion composition
+and what this will do call this Fusion
+comp one and I'll hit
+create and then that will place that
+here in the media pool and if you double
+click on it that's going to open up this
+kind of blank Fusion composition here in
+Fusion now this Fusion composition will
+live in our media pool it doesn't live
+in our timeline it's kind of a separate
+thing this is great for something that
+you want to build kind of reusable
+Graphics or you know something that you
+don't necessarily want to just live in a
+specific timeline so let's open up a
+shop here in Fusion I'm going to use
+this third shot right here all I have to
+do is be over it here in the edit page
+and then click on fusion and that will
+load it up I'll reset our layout here so
+everybody's looking at the same thing
+and let's take a look at the interface
+the very first thing here is the viewer
+and this right viewer here is by default
+what the person who watches your movie
+is going to see much like the timeline
+viewer but that's not necessarily always
+true and we'll get to that in a second
+we also have a viewer here on the left
+and we can choose a few different ways
+to view things here here on the right is
+our inspector which is open by default
+in the fusion page because you work a
+lot with the inspector in the fusion
+page down below our viewers we have our
+transport controls and our tools now
+this isn't a tool that you click and it
+changes what your mouse cursor does
+these are actually tools that you can
+kind of click and drag down into this
+space down here which is called the node
+flow I'll go ahead and hit delete here
+and we'll talk about nodes so again
+Fusion does compositing basically what
+that means is is putting things over
+other things combining images together
+trying to accomplish certain effects
+adjusting images that kind of thing and
+the way that Fusion does this is with
+something called nodes nodes are sort of
+like a flowchart and each node basically
+does one thing each little box here is a
+node and it has one major job this left
+Box by default is media in one and what
+that does is it takes the clip from our
+timeline so when we click into the
+fusion page all it does is just grab
+this clip that we're over and it brings
+it here into Fusion world and that'll
+allow us to mess with it and add effects
+and add other images and all that stuff
+but that's all that media in1 does is it
+just opens that image now if we follow
+along on this little flowchart we go
+from this little white square which is
+the output all the way into this yellow
+triangle which is the input of our media
+out one media out all it does is take
+this image that we're feeding into it
+and it puts it back into the timeline
+all of the fancy stuff that we do is
+going to be by adding nodes here in the
+middle between media in and media out so
+if I want to blur this image I can grab
+the blur tool which is to the left of
+the second divider this little teardrop
+I can grab this and then drag it down in
+between these two nodes and drop it on
+this pipe when it turns blue and now we
+have this blur effect in between our
+media in one and our media out one and
+if I move this around I can see this is
+definitely attached to those two nodes
+so let's take a look at our image well
+it doesn't look that blurry the reason
+for that is because we haven't upped our
+blur size in the inspector so I can push
+up the blur size and now I have a blurry
+image the reason my blur controls are
+right here is because I have this blur
+node selected and that's really how
+nodes work is you start typically on the
+left in Fusion but you don't have to you
+can actually go the other way if you
+want to it's all about where this white
+square output what that is connected to
+which is generally an input of another
+node so this is the blur input of the
+blur node and then the blur node takes
+that blurry image and it outputs it into
+media out
+one so we have a very simple set of
+instructions here take the image blur it
+and put it back into the timeline so now
+if we switch back to our edit timeline
+we have a blurry image makes
+sense and there are a few different
+kinds of nodes that exist here infusion
+this blur node is an example of an
+effect node an effect is something that
+you run an image through I like to say
+it like that because it helps you kind
+of remember how to hook these things up
+we have our starting image and that kind
+of goes through this blur effect and it
+makes a blurry image I'll select this
+and hit delete and I can grab a color
+corrector node and do the same thing
+I'll run this media in through this
+color
+corrector and it will change the colors
+and there are a few different kind of
+effects nodes generally anything that
+kind of messes with the image itself is
+an effect node so blurs color correction
+distortions those kind of things a lot
+of those nodes you can find here on this
+kind of second section of our tools but
+that's one type of node another type of
+node is an image node or a generator
+node and it's a node that creates an
+image of some kind so this media in node
+is actually kind of an image node cuz
+what it's doing is grabbing this image
+from the timeline and it's using that
+image for things on the far left of our
+tools here we can grab this one which is
+called a background and what that will
+do if I hook this up to our media out is
+it makes a black background if I select
+the node and then change its
+color we'll have that color of
+background so again it has one job it
+makes a colored background and you can
+adjust exactly what that background
+looks like with the inspector
+similar thing would be generating text
+so this node generates text I'll just
+hook this up to Media
+out and just like the text title in the
+edit page it makes some text and so it's
+really kind of creating a new image from
+nothing that is just this text on
+transparent now let's notice something
+we can't see anything that we're doing
+here unless it's hooked up to this media
+out node that means that this med media
+in which was our original image if we go
+back to the edit page we're not going to
+see that anymore we're just going to see
+our text that's because it's not hooked
+up to our media out if we were to unhook
+the text and hook back our media in one
+we'd see our image but we wouldn't see
+that text again if we went back to the
+edit page here we just see our image
+without the text so you have to hook up
+a node to the media out in order to see
+it in your edit let's talk about these
+viewers here this rightand viewer by
+default is kind of like the timeline
+viewer it's what the person who watches
+your project is actually going to see
+but the only reason that's true is
+because we have our media out node
+loaded into our second viewer here we're
+choosing to look at whatever our media
+out looks like in this right-hand viewer
+the reason I know that is because one it
+says it up here media out one but we
+also have this little indicator below
+the node that has a white dot on the
+right that means that this is viewing on
+the Right View I can click on this dot
+to the
+left and I can view this on my left side
+as well I can even unhook my right View
+and only view it on the left see each of
+these viewers can display any node that
+we want in our node flow a quick
+keyboard shortcut is if you select a
+node and hit one or two on the keyboard
+that will load that into the first or
+second viewer and this is great if you
+want to see something that might not
+necessarily be hooked up to your media
+out yet what I generally like to do is
+Select my media out and load that in the
+second viewer because I like this
+right-and viewer to be kind of like the
+timeline viewer and then I'll look at
+different parts of our composition by
+selecting nodes and hitting one on the
+keyboard so I can view the different
+things that they're doing this is
+especially helpful when you start to
+hook nodes up together and get more
+complicated right if I take this text
+and I run it through a
+blur I'll make this really blurry you'll
+see this isn't getting blurry at all the
+reason is we're viewing this text before
+it hits the blur in this left viewer if
+I select the blur node and hit one now
+we're going to see that blurry text so
+this is great to view kind of different
+parts of your composition and isolate
+things because pretty quickly the more
+nodes that you add the more it can get a
+little bit confusing so this is a tool
+to help you break things down a little
+bit so if Fusion is a compositing
+program and compositing is like putting
+something over something else combining
+images and stuff how do we do that well
+something that you'll notice is that
+there aren't any layers if you've ever
+used after effects or photoshop or like
+some image editing programs you're
+probably used to you know having a
+bottom layer and a top layer and a layer
+above that even in the edit page we kind
+of have this thing where if we want to
+put text over something we have this
+bottom layer here and then we have a
+layer on top of that well in Fusion we
+don't have any layers it's all done with
+nodes which can be a little bit
+intimidating for some people but I
+promise it's not that bad instead of
+using layers we use a merge node so sort
+of towards the middle here the left icon
+in this section is called a merge and if
+we bring this down this is a totally
+different kind of node up till now we
+pretty much had our yellow input on a
+node and then we've had these blue
+inputs which we'll talk about in a
+second but this merge has a yellow input
+and a green input if you Mouse over any
+of these little inputs it will tell you
+what it is so this is merge one
+background and this is merge one
+foreground now every node has a job and
+this merge has the job of putting an
+image over another image so we have to
+connect some kind of node here I'll just
+grab this connection and put it into our
+background and take the output of our
+merge and put it into our media out and
+now nothing's happening that's because
+if we walk through our chart here we
+have media ends so that's grab that
+image and then merge well nothing over
+it and then put it back into the
+timeline and so we just have the image
+let's go ahead and I'll just get rid of
+our blur for now we'll take this text
+and take the output of our text and push
+it into our merge so that it's connected
+to that green input and now we have the
+text over our image couple things to
+note because this merge puts an image
+over another image how it does it is
+controlled in the inspector so if we
+select this and go to the inspector we
+have all kinds of different properties
+about how that foreground image is
+treated including
+angle and size the center point which is
+like the position and a bunch of other
+stuff that you can play with so that's a
+way that you can quickly do something
+like put our text over our image and
+then make it smaller if we want to
+change the opacity of this foreground
+layer we do it with the blend so as I
+pull the blend to the left this makes
+our foreground more transparent and so
+we can basically kind of turn this off
+or on using this blend slider I'll go up
+to the upper right of our inspector and
+click on this little circle arrow with
+the Plus in it and that will reset
+everything in the node and now we have
+our text over our background and that's
+how we combine two images if it'll only
+do two how do we add more layers well we
+just make another merge node I could
+unhook this from our media out grab a
+merge node and connect it in between
+like this and then if I want to I don't
+know put some more text over it I can
+connect that to the
+merge and then I pretty much have three
+layers
+I have our background image here and
+then this text and this text and they're
+all merged together to look like this if
+you're like me the first time that you
+see this you're going to go gosh that's
+a lot of work to just add some text over
+something who in the world would use
+nodes why why is this and then you just
+all of your Rebel Tendencies start to
+come out and you just go gosh it's just
+so difficult to just make something
+simple in Fusion why did they build it
+this way and I'm going to agree with you
+in a couple ways the first thing is
+putting simple text over something like
+this this is kind of a lot of steps to
+just put text over something right
+especially something that you can
+probably do in the edit page but where
+the whole node thing really starts to
+take off is when you get something
+that's a little bit more complicated
+when you have you know 10 different
+layers and each one's running through an
+effect and you're color correcting each
+of the elements as they go together and
+combining them in all these different
+kinds of ways
+that's where nodes really starts to make
+a little bit more sense but for basic
+stuff yeah it kind of feels Overkill
+here's the way that I like to think
+about compositing with nodes here's how
+we often think of something that's
+creative right so however fancy it needs
+to be however many elements you're
+trying to combine in a composition
+however you know detailed you want your
+art to be we kind of think of it working
+as a graph like this right whereas the
+fancier it needs to be the more effort
+we need to put out right so if it's like
+10 fanciness points it's going to be 10
+effort if it's going to be twice as
+fancy it's going to be twice as much the
+effort and it's kind of along this line
+here and this is honestly about how it
+goes when you're compositing with layers
+right so if you just want to put text
+over something else it's not that much
+effort because it's not that fancy if
+you want to put 30 layers on top of each
+other that's going to be quite a bit of
+effort right if you want to put 60
+layers into a composition it's going to
+be about twice as hard as 30 layers and
+that's kind of how it works now with
+nodes this graph is a little different
+at first it can seem kind of complicated
+and frustrating to use all of these
+nodes to do something as simple as
+putting a couple of text layers over
+something else but once you get a little
+bit fancier when you get used to using
+nodes the effort kind of goes down a
+little bit something that's twice as
+fancy might not be twice as much work
+with nodes just because of the way that
+they're laid out and you don't have to
+search through a big stack of layers you
+kind of have everything laid out in a
+nice flowchart here in the node flow so
+that's kind of the first thing the
+second thing is there are a lot of
+shortcuts actually to make this easier
+anyway so if I get rid of these merge
+nodes I have my text which I'm going to
+have to make whether I use layers or not
+both my big text and my little text and
+at some point you're going to have to
+make a new layer put it over something
+drag it around that kind of thing well
+we can actually take the output of this
+text one and just drag it on top of the
+output of our media in one
+and that will make a merge node and hook
+it up correctly and we can take the text
+two and hook that up the same way and so
+we don't have to make that node
+ourselves and unhook it and hook
+everything back up a certain way each
+time we can just go
+Bam Bam to get our composition going in
+fact if you have an image node selected
+and you just click on one of these tools
+it's going to add the correct node after
+the image to kind of help you out so if
+I have my media in1 selected and I want
+to add some text over it all I have to
+do is have it selected and click on text
+and what that will do is add a merge
+node with the text hooked up to the
+foreground so it's really about the same
+amount of effort as making a new layer
+right the difference is that it's laid
+out in a flowchart so that when things
+get really complicated you have a whole
+map of what's going on and you don't
+have to search through an endless stack
+of layers and you can do something
+really cool with nodes in that you can
+reuse the same node in multiple places
+so what I could do is Select this merge
+here and I'll make this text really big
+and kind of move it over here to the
+left and what I'm doing is taking this
+little text and putting it over our
+image and transforming it pushing it to
+the left but I can take this same node
+this little text and I could output it
+again and merge it over everything we
+have so far and now we have another copy
+of our text so I can use this one node
+in multiple places so I'll select this
+text and say hello and I only have to
+adjust the text one time and it can be
+in multiple places that's something you
+don't really get with layers layers kind
+of have to live in one space whereas
+nodes can live in multiple spaces at
+once it's like compositing in the next
+Dimension it's awesome there's a ton to
+go over here in the fusion page I'm just
+going to hit a couple more key things
+first one is masks kind of towards the
+middle of our toolbar here we have these
+masks and I'll grab this ellipse mask
+and drag it down and this is just a
+shape that will kind of control the
+transparency of whatever we hook it up
+to and you may have noticed these little
+blue arrows on all of the nodes these
+are the place that we attach a
+mask so if I grab this ellipse mask and
+I take the output and I put it on our
+merge one what that's going to do is
+limit the text that's being added with
+our merge one to only happen under that
+mask what you're really doing with a
+mask is you're just telling whatever
+node you hook it up to to just do
+whatever the note is doing just right
+here inside of the Mask so if that's a
+merge it's saying just put this text
+over this image inside of the Mask if
+it's something like a color correction
+effect and let's just make this really
+pink you're saying just do your color
+correction inside of that mask and again
+just like any node you can output this
+mask to multiple places and have it do
+multiple jobs at the same time really
+really convenient so those are kind of
+the main basic types of nodes and you
+combine all of those kind of things
+together to make the effects that you
+want of course Fusion lets you do all
+kinds of fancy things to an image and
+really the only limit is our imagination
+for instance let's say we want to get
+rid of this little mountain peak here
+for whatever reason we don't like it
+well we could do something like paint
+this out with a paint node I can go over
+to this fourth icon over this paint
+brush and drag that in in between our
+media in and media out I'll select the
+paint node go over here to apply mode
+under
+clone I can hold control and drag to
+make a bigger
+brush hold down alt to pick
+something I kind of paint this out like
+that I can track things to things that
+are moving here in the shot by using a
+Tracker node I can get to a lot more
+different Tools in Fusion by going up to
+where it says effects and opening our
+effects panel and we have all the
+different tools that are inside a fusion
+I can also search for them like tracker
+we have different kinds of trackers we
+can use so I could use just a point
+tracker by clicking on
+that and I can select a feature that I
+want to kind of stick something to
+and I could have it follow that
+motion and now that I have that motion
+tracked I can grab this
+text and put it into this foreground
+input we'll call this
+Mountain grab our tracker and change the
+operation to match
+move and I can move my text to be right
+by that mountain and now it follows the
+motion of the camera pretty
+nice one thing to mention about Fusion
+is that a lot of the time it doesn't
+play back in real time that's because
+it's doing a bunch of fancy stuff uh
+even something like this when we're
+working with higher res footage so this
+is like 4K footage it kind of doesn't
+really play back in real time all the
+time so what you can do is enable a
+render cache that's just basically
+rendering this out and kind of thinking
+about it in advance so that you can play
+this back in real time and the best way
+to do that is just go back to the edit
+page and go up to playback and here
+under render cache make sure that this
+is on
+smart what that will do is put this red
+line on anything that it thinks it needs
+to render and once this line turns blue
+it will play back in real time and now
+we can play this back in real
+time and have it be nice last major
+concept I want to go over here in the
+fusion page is animation here in the
+inspector on the right side here next to
+any of these properties you have this
+little Diamond this is what you click to
+set a key frame remember a key frame is
+just telling one of these properties to
+be a certain value at a certain time and
+resolve can animate in between them over
+time and it works a lot like the edit
+page I can select whatever node I want
+to animate so let's say this
+tracker and I can go over to settings
+and key frame this blend parameter
+that'll be basically the opacity of that
+foreground on this tracker node and I
+can say I want this to be at full
+opacity 10 frames in or so and then on
+this first frame we'll have this blend
+at
+zero and so now that fades in so let's
+put all this stuff together and make
+something real
+quick I'm going to go ahead and open up
+this Fusion composition that I made
+earlier just by right clicking and
+saying new Fusion
+composition and now we can see all we
+have is a media out that's because we're
+not starting with a clip from the
+timeline we have to start with an image
+of some kind so what I like to do is
+start with a
+background and we'll drag this in and
+connect it to the media out and now we
+have a black screen let's go ahead and
+make some kind of graphic in fact let's
+actually spice up this graphic that we
+have here at the end of our timeline and
+I think I'm going to delete this logo
+and we're going to kind of animate this
+in Fusion make something kind of fancy
+so I'll double click on our blank Fusion
+composition here where we have our black
+background let's take the image of our
+logo and if it comes in weird I can
+select it and go over to the inspector
+and here where it says layer I can
+select whatever layer I want from
+Photoshop I'll just say merged that'll
+be everything I can also split out the
+layers and do a bunch of fancy things
+but this will be simple enough to do
+just with the flat image first of all
+let's take this logo and merge it over
+our background and I'm going to select a
+node and hit F2 to rename and we'll call
+this logo and I'm also going to right
+click and go to arrange tools to
+grid and what that'll do is snap these
+to the grid so that they're all kind of
+aligned which I think just looks nice
+and helps you keep a little bit more
+organized and and now we can do stuff
+like animate different parts of this
+logo which again I could bring in as
+specific layers if I want to but is easy
+enough to kind of duplicate these and
+we'll call this
+outside this one we'll
+call insect repellent this one we'll
+call Mountain and we can add a mask to
+just the parts that we
+want so this is the mountain I'll hit
+two to bring up this logo here in this
+second viewer I have this kind of closed
+to just be one viewer but this is viewer
+two and again
+we'll add our mask here just around
+outside and then again we'll hit two add
+a mask just around insect repellent down
+here and now I have these all isolated
+right so I have the mountain I have
+outside and I have insect repellent and
+we can put these all together
+and now we have them here as One logo
+and we can animate these separately so I
+can do something like have the mountain
+kind of rise up like
+this so what we'll do is maybe 1 second
+in we'll have the Mountain rise up to
+here I can just select the merge right
+here if I want to and go into the center
+property that's just kind of where the
+foreground is on our merge and I'll hit
+this key frame Diamond here that'll set
+a key frame at frame 30 and then at zero
+I want this to be way down here under
+the word and because we want this to
+look like it goes behind the word we can
+add another mask to our
+merge just take a rectangle mask and
+attach it to our merge here and this
+time I'm just going to put this where I
+want it to be like that and now as time
+goes on this mountain kind of Rises out
+of nothing because this is only being
+shown under the mask I'll just update
+this mask
+here and now it kind of Rises up out of
+nothing maybe we'll do the same thing
+for this insect repellent have that come
+in from behind outside maybe we'll have
+that end at like frame 40 I'll take this
+merge key frame our Center and then
+bring this back like 10 frames and then
+I'll bring insect repellent up like that
+and we'll add a rectangle mask to our
+merge and we're just going to have that
+mask be where we want to actually see
+the words so now that kind of Pops down
+like
+that so now we go outside insect
+repellent
+CR so this is looking pretty nice
+there's a couple other things that we
+want to do first this motion kind of
+jerks to a stop which never looks Pro so
+we want to be able to kind of ease that
+in and have it slow down before it stops
+easiest way to do that in the fusion
+page is with the spline panel up here in
+the buttons I'll click on spline and
+that will bring up our spline panel here
+this is just a graph of the animation in
+our
+comp and what I like to do generally is
+just check all the boxes here for
+anything that's animated and then go
+here to zoom to fit click on that and
+now we have these graphs that start at
+zero and then they go to one so this
+last key frame of this first merge I
+want to kind of slow down before it
+stops so I can take this handle and kind
+of move around this graph and now like
+think about if you were kind of driving
+a Jeep up this hill how much nicer it
+would be if the hill just kind of
+rounded off versus kind of go up a big
+sharp Hill and just go conk like that
+I'll do the same thing
+here bring that up so it's a nice smooth
+transition there if we have that smooth
+transition look at the animation now
+comes in and it slows down before it
+stops looks really
+nice yeah a quick way to set this handle
+to be flat like this is just to hit F on
+the keyboard so what I like to do
+usually is select the last key frames of
+an animation that kind of comes in and
+hit F on the keyboard that'll flatten
+both of those tangents there and now it
+can just ease in really nicely good
+couple other things I want to do for
+this little graphic is I don't want this
+to be on black I want to show something
+in the background so I'm going to grab
+this background here and instead of
+black I want this to be clear easiest
+way to do that is go here in the
+inspector and here red green and blue
+are all at zero but Alpha is at one
+let's take the alpha down to zero and
+now we have this on clear that's why we
+have this checkerboard behind it so now
+I can go back over to my edit page and
+then I can take this Fusion composition
+remember this is the one that we've been
+working on we haven't been working in
+the timeline I can go up to this and
+grab it and drag it down into our
+comp and here we have our animated
+graphic of course I can adjust this
+further in the edit page I can select
+this and grab my transform controls here
+and I can kind of scale this down if I
+want to and that might be a nice thing
+to do we can fade this in just like any
+piece of
+footage so we'll have this fade in and
+now we have that little animated logo
+isn't that nice of course we're
+animating that blur here in the edit
+page which I can quickly see by clicking
+this little button right here and then
+grabbing this drop down and selecting
+whatever I want to look at as a graph so
+we'll just say the blur size and the
+lens blur and now I can see kind of
+where this comes in and we'll just have
+this start right as
+that
+blurs and I can close
+that and now we have our little graphic
+coming in that we animated infusion
+wasn't too hard and we kind of finished
+off in the edit page isn't that
+nice that's
+nice all right let's talk about color
+down here in the bottom bar of our
+interface to bring this whole timeline
+into the color page all I have to do is
+click on color and it'll open up this
+same timeline here in our color page now
+before we get started on this I need to
+mention something called color
+management this footage is red code raw
+which by default comes in with a log
+profile that looks really flat and ugly
+but we've been working with some pretty
+nice looking footage here the reason
+this looks nice is because I have color
+management set in our project settings
+in the lower right corner of our screen
+here we can click on this little project
+settings
+Cog and here under color management I
+have my color science set to D y RGB
+color managed now this is not default
+I've had this on just so we don't have
+to look at gray nasty looking footage
+the whole time but by default it's da
+Vinci y RGB and look what happens when I
+hit save here we have this kind of gray
+uninteresting looking footage right this
+is what the footage actually looks like
+and the kind of image that we're really
+going to be bringing into our color page
+and color management is really a whole
+big topic that if you don't know
+anything about color can be a little bit
+overwhelming I do have some videos on
+color management and learning color if
+you're a noob there's links in the
+description to that but because of this
+setting setting our color science to
+color managed that's why our footage has
+looked pretty good and the short of the
+long is that this is taking our flatl
+looking footage and it's recognizing
+what camera it was shot with and it's
+doing some color correction at the end
+after we mess with it to bring it back
+to look pretty nice that means that
+everything that we do adjusting color
+really happens before it does that
+correction it's actually happening on
+this kind of grayish image the advantage
+of that is when we have something with
+pretty high dynamic range that's a big
+difference between the darkest parts of
+the shot and the lightest parts of the
+shot we're keeping as much information
+and detail here as we can before we kind
+of push it to its limits again if you're
+new to color and the seems overwhelming
+don't worry about it too much but it's
+good to know that most of the time if
+you need to color grade your footage if
+you're shooting with a modern high
+quality camera you're probably going to
+be working with a log footage and the
+very best way to deal with that log
+footage is to do all of the things that
+we're about to do here before a color
+transform of some kind a color transform
+is what takes this gray footage and
+makes it look good on your computer
+monitor or a TV or a projector or
+whatever your output is like I said
+great thing is if you don't know a whole
+lot about color correction you can go
+down to the lower right corner of
+project
+settings go to color management and
+switch color science to ygb color
+managed and hit save and that's probably
+going to be just fine for most of the
+things that you do if you have something
+like raw footage resolve is going to
+recognize the metadata from the raw
+footage and it's going to apply the
+right kind of transform to it if you
+have something that you shot in like
+prores or some other kind of more
+compressed format where it's not raw
+that log signal is kind of baked into
+the footage I'll just
+import something like that here we have
+this scene which is shot in slog 3 and
+resolve has no idea what to do with this
+because it's not raw what we can do is
+right click on the piece of media in the
+media pool and go down to input color
+space and select the uh color profile
+that we shot with so this one was s
+gamut 3 c s log 3 and when I set that
+that's going to normalize my footage and
+do a lot of the color correction work
+for me it's going to make things that
+are supposed to be black generally black
+things that are supposed to be white
+generally white add the saturation that
+needs and kind of reverse that log curve
+so that this looks pretty nice compared
+to what it did that's probably the
+simplest way to start with color you
+know if you have log footage and resolve
+is really really good at color
+management so with all that out of the
+way even if you have color Management on
+chances are you're going to want to
+adjust your footage in some way you want
+to tweak the exposure tweak the color
+cast maybe do some fancy stuff and the
+color page is where you do that let's
+take a look at the interface of course
+up here we have the viewer this is like
+our timeline viewer down below we have
+the clips that just lets me select any
+shot that's in my timeline all I have to
+do is click it and it'll highlight it in
+red it'll load it up in the viewer and
+this is going to be the shot that I'm
+working on down below we have our mini
+timeline and this is a great way to kind
+of visually see a map of what your
+timeline looks like kind of in the edit
+page it's like a little squish down
+version of it very similar to what it
+looks like here in the cut page but the
+difference is you can't do any editing
+in this little timeline it's just for
+reference most of the time I don't find
+this that helpful so just to save some
+space I go up to our buttons up top and
+just close timeline down below our clips
+and where our timeline was we have our
+color palettes this is where the magic
+happens these are all of the tools that
+we use to adjust the colors in our image
+and real quick if this looks more
+complicated and frustrating than using
+like a color Plugin or using a panel in
+your Editor to adjust your colors the
+good news news is it's actually really
+simple and you only need to know a
+little bit to be able to do some really
+cool stuff so let's take a look at some
+of the essentials I'm going to move over
+to my second shot here just because it's
+a little bit brighter and for now I'm
+going to close this panel called Gallery
+we'll talk about that in a couple
+minutes and I'll just zoom into this so
+that we can see a little bigger picture
+here so down here in the color palettes
+towards the lower left you should have a
+palette called primaries color wheels
+and dependent on how big your screen is
+what your resolution is you're either
+going to have these pallets split up
+into three sections here like this or
+they're going to be two sections or even
+one section either way it all works the
+same way you can switch out these
+palletts with these little buttons here
+these will move to different
+tools and you can follow along even if
+you have kind of a low reses monitor on
+your laptop or whether you have a big
+crazy one but we're going to start with
+this panel primaries color wheels if
+you're only going to learn one color
+palette here in the color page make make
+it this one because you can do lots and
+lots of stuff just by using these tools
+and even this little palette can look
+overwhelming but it's really only like
+three different kinds of controls we'll
+start out over here with our offset and
+there's a couple controls here there's
+the color wheel which if we grab the
+middle of this and move it around that
+changes the major color push of our
+image so if we want something to look
+pink we push it up towards the pink on
+the color wheel and it kind of looks
+pink
+right this is great for adding color
+casts or correcting color casts that
+kind of thing and down below that we
+have this little slider this is called
+the master wheel if I grab this master
+wheel and drag it back and forth that
+changes the brightness of our image I
+can push this to the right and that's
+going to brighten it I can push it to
+the left to darken it and these two
+controls are just kind of duplicated for
+what's called lift gamut and gain lift
+gives you that same control but only
+over the darkest parts of the image so
+if I want to make the darkest parts of
+the image pink I can push lift towards
+pink and that's going to make the darker
+parts pink and it's going to leave the
+brighter Parts somewhat untouched I can
+reset my lift by clicking this little
+circle Arrow same thing for gain gain is
+the brightest parts of the image so if I
+want to make the brightest parts of the
+image pink I can do that and it's going
+to adjust the sky a lot more than it
+does kind of the Shadows down here and
+so this gives you a lot of control over
+what parts of the image you want to
+color correct so if I want the brightest
+parts of the image to be kind of warm I
+can push gain towards
+warm and I can push the Shadows towards
+cool to kind of give us a little bit of
+contrast here so now I have this split
+tone looking uh image and I can reset
+the gain and the lift themselves by
+clicking on these little circle arrows
+or I can reset everything in this pet by
+clicking this plus Circle Arrow right
+here and then the gamma controls the
+midtones so if I want to push the kind
+of middle tones down I can do that that
+somewhat leaves the darker parts where
+they are and the brighter Parts where
+they are and it kind of just changes the
+midtones that works for brightness as
+well as the color cast The Other major
+control in the primaries is a little
+number slider here and there are several
+different number sliders they all
+control various aspects of the image
+like contrast I can grab this and push
+this to the right and that's going to
+increase our contrast or I can push it
+to the left and that's going to decrease
+it if I push up contrast a lot I can
+kind of adjust where it splits the
+brighter and darker parts of the image
+with this pivot control so I can push
+the pivot down and that's going to add a
+little bit more brightness to my Shadows
+but it's going to keep the same overall
+contrast or I can push it to the right
+that's going to darken my highlights a
+little bit but again keep the same
+amount of overall contrast so definitely
+get into all of these and play around
+and see what they do the ones I use the
+most often are contrast and pivot and
+saturation that just makes the colors
+stronger or weaker and then I also like
+temperature and tint I I want to warm up
+a shot I like to just take the
+temperature to the right a little bit to
+overall warm it up I can adjust green
+versus magenta with the tint and that's
+a nice way to kind of fix a white
+balance and so yeah that's really just
+one palette and that gives you just a
+ton of control over the colors in your
+Clips I can move quickly from clip to
+clip by hitting up or down on the
+keyboard so if I hit down this goes to
+the next clip and what you can do is
+quickly balance out your footage by
+holding your mouse over this master
+wheel in the offset and you can roll
+with your mouse wheel and that will
+change the offset so I can brighten this
+up darken it down just by rolling with
+my scroll wheel and I can hit up or down
+on the keyboard and I can pretty quickly
+kind of dial in the brightness of all of
+my shots just using this offset Master
+wheel I can go through and kind of
+balance out all of my shots really
+easily the next palette I would learn if
+I were you would be the curves palette
+now this works just like it does in
+Photoshop if you're used to working with
+curves if you've used Curves in After
+Effects Premiere it works the same way I
+can grab the upper part of this curve
+and this is the brightest parts of the
+image this is the white point and I can
+move this around to either make my white
+Point brighter or darker I can grab my
+black point and move that up or down or
+move it to the right to darken
+everything I can grab the middle of this
+and adjust my midtones and I can even
+make kind of a little S curve like this
+to add some nice contrast what I like
+about this is I can get really detailed
+with exactly how I want that contrast to
+come in and I can dial that in perfectly
+so that's all kind of basic color stuff
+to the right of the curves palette we
+have our key frames but if you go up to
+these upper buttons here the second one
+over is our color Scopes if you don't
+know how to read color Scopes check out
+this video it's pretty important for
+learning how to color correct but
+basically this is a graph of what your
+image actually looks like so this is
+split up into red green and blue and
+it's a graph of the brightness of the
+pixels in each Channel and usually you
+don't want the signal to go down below
+zero or above 1023 you want it to kind
+of be nicely stretched from the top to
+the bottom of this graph and so I can
+use this to kind of inform my decisions
+and so I could boost up the gain quite a
+bit to give this kind of a nicer
+exposure now depending on the context
+here I might not want this to be that
+bright I might want this to be a little
+bit darker cuz it kind of has to fit in
+with the sunset Vibe but these are tools
+that I can use to kind of help me decide
+that again I have a ton of videos on
+color correction so make sure to check
+those out on my channel I'll have links
+in the description as well couple other
+really cool things I want to show you on
+the color page you can actually select
+certain colors and adjust just those
+colors so for instance if I want to make
+these trees brighter these kind of green
+tones here in my curves palette there
+are these little tiny buttons up here
+and as I click through those those
+switch out my hsl curves what this does
+is Select something something by its Hue
+and then let you adjust its Hue so I'll
+just reset everything here real quick so
+maybe we'll pick these
+clouds grab those and it's like this
+kind of orange-ish color and if I move
+that up and down that changes the Hue of
+just those
+colors so I can make the clouds really
+pink of course it's going to kind of
+bleed into this stuff so I'd have to do
+some other fancy work but you can grab
+specific tones in the image and mess
+with them for instance maybe I want the
+fire on this marshmallow to be a little
+less yellow and a little more red I can
+take that and kind of push that more
+towards this kind of reddish orange that
+makes it really easy really simple to do
+stuff like that and there are a bunch of
+different things you can do you can
+select by Hue and change the saturation
+or the
+luminance and one of my favorites is you
+can select things that are a certain
+brightness and adjust its saturation
+right so I can kind of map this to The
+Brighter something
+gets the less saturated it's going to
+get and so we can have something like a
+white
+fire or one of my favorite tricks I can
+take the darker parts of the image and
+desaturate them so we have these really
+kind of deep blacks but we still have
+color in the image this is probably a
+little bit Overkill so we'll kind of
+bring that back and now we have these
+really deep pure blacks something else
+that's really powerful in the color page
+are the windows this fourth icon over in
+the center here this little ellipse icon
+brings up our Windows palette and what
+this does is lets you select a certain
+part of the image and if you click on
+one of these shapes I'll just click on
+the circle here this lets you select a
+certain part of the image and any
+adjustment that you make down here is
+only going to happen inside of that mask
+and so this is great for something like
+of course adding a vignette I can kind
+of feather this out like
+this and I can take the brightness down
+inside the window but if I click on this
+little button right here this will
+invert the window and now I've darkened
+the
+outside and I can enable and disable my
+color correction with this little button
+right here and so we can see the
+difference that that's making if you
+ever want to reset your shot go over
+here to the right hand side in this node
+graph right click and say reset all
+grades and nodes and that will bring
+this shot back to normal
+but I can also just select a part of an
+image like her face and maybe I want to
+brighten her face a little bit do some
+work on that maybe add a little
+saturation who knows I'll just make this
+really obvious so that we can see that
+it's happening I would never actually be
+this strong on this but we can turn this
+off and on and see that difference that
+we're making and what's really cool is
+that this adjustment that I'm making
+here I can have this follow her face by
+tracking it so I can go over to this
+next little button where it says tracker
+I'll click on that and by default it's
+going to track whatever window I have
+selected and I can hit this track
+forwards and reverse button and it's
+going to magically figure out the
+movement and just move this along with
+her
+face pretty cool and this is a really
+really simple example but this thing is
+like amazing so I could select this corn
+let's
+say just go with that and I'll track
+this back and forth and it pretty much
+instantly perfectly tracks
+this even if there's stuff that kind of
+gets in the way it does a really good
+job of holding onto that and even after
+I track it I can adjust this window and
+I can do all kinds of things to make
+this corn look better or
+worse so here's before and here's
+after so those windows are pretty darn
+amazing and what's cool is you can
+combine all of these techniques let's
+say I did want to mess with this
+Sky I can put a window over my
+sky like this and I can track this back
+and forth and soften it a little
+bit and then I can do something like use
+this Hue curve and select those clouds
+and I can make the clouds pink without
+messing with their skin really nice
+sweee tools that we have here and then
+last little bit about the color page
+even though there's so much to go over
+we do have to keep moving the color page
+uses nodes as well and so everything
+that we're doing down here actually
+lives in this first node over here and
+so what we can do is split up the major
+things that we do for our color
+correction into these various nodes to
+keep ourselves organized and separate
+the different jobs that we're doing for
+instance here we're adjusting this corn
+cob but what we probably want to do is
+start with an overall correction like I
+want to kind of brighten this and maybe
+adjust the contrast maybe in this first
+node
+we can go up to this node right click on
+it and say node label and we'll call
+this overall then I can right click on
+the Node and go to add node add serial
+and that'll make another node that's
+added in a series right so this first
+node does an overall correction and this
+second node maybe then we want to get
+more detailed and I don't know brighten
+up these hot dogs right can draw kind of
+a shape like this soften
+it maybe take our curves and kind of
+brighten up these hot dogs a little bit
+bit and we'll track it which I can just
+hit contrl T to track this
+forward alt T to track it backward
+without even having to go into that
+panel and that'll work and we'll right
+click and call this hot dogs and now
+we're kind of splitting up our color
+grade into other little Parts I can turn
+off or on a node by clicking on its
+number and so as I click on this number
+I can see the difference just on that
+node without having to mess with our
+overall correction there's a whole
+strategy for for how you kind of split
+things up in nodes I have lots of videos
+on that okay so last little bit about
+the color page let's say that you have a
+beautiful look right so I'm just going
+to make this really warm just so we can
+see what's going on this isn't the best
+look in the world but it's really
+obvious that the looks on there right
+but let's say that we want to copy this
+color grade to another shot well the
+easiest way to do that since you have a
+three button Mouse make sure that you
+have a mouse with a scroll wheel that
+you can kind of Click down on is I can
+select the clip that I want to copy this
+color grade two so this third clip and I
+can middle button Mouse click on
+whatever shot I want to copy from so
+I'll just middle button Mouse click on
+this second shot and look what happens
+that will load this color grade on this
+shot I can even shift select a bunch of
+shots here in the timeline and middle
+button Mouse click and that will load
+that look onto all of my shots so that
+makes it really easy if you have kind of
+some basic things that you want to do to
+a group of shots or to a scene or to
+your whole thing you can shift select
+everything middle button Mouse click and
+now you have it on your whole project
+the other thing that you can do if you
+really like a color grade is right click
+and say grab still and what that will do
+is add it to your gallery in the upper
+leth hand corner we have the gallery and
+this will save a still now it's sort of
+a misnomer because yes this is a still
+like a a screenshot but it's also if we
+right click on this and say display node
+graph it's also the color grade
+information from result olve and so it's
+sort of like saving a preset as well so
+you can kind of do the same thing either
+in this project or in even another
+project you can middle button Mouse
+click on this still and copy it to your
+shot or you can select all of them
+middle button Mouse click and it works
+kind of the same way there is so much
+more to go over in just in the color
+page in fact there's so much to go over
+I have a whole course on the color page
+of resolve where we start with the very
+basics of color grading and then we get
+into kind of professional techniques for
+saving time and making beautiful images
+in resolve if you're wanting to learn
+color this is the very best way to do it
+it's called professional color grading
+in D Vinci resolve there's a link right
+here as well as in the description next
+let's jump into fairlight down here in
+the lower bar let's go ahead and click
+on Fair
+light and now this will bring up our
+entire project in the fair Light page
+again Fair light is all about audio this
+is where you really get detailed when it
+comes to mixing your dialogue your music
+adding sound effects all of that stuff
+all of the audio everything that you
+hear for your project and again a lot of
+the stuff that fair light does you can
+do in the edit page so again if you're
+not really into jumping into another
+page you could do things like adjust
+sound levels and move tracks around and
+stuff in the edit page but I'll show you
+some of the basics of how fair light
+works and why you might want to uh spend
+a little bit of time here first of all
+for the interface the biggest thing is
+the timeline this is where you're going
+to be working most of the time I can
+make these tracks as big big as I want
+and similar way to zoom in and out and
+move around here in the timeline as the
+edit page so that should all make a ton
+of sense the main major difference here
+is we can really zoom in I mean even to
+the sample level which is really really
+cool by default your timeline might not
+look quite like this because you can
+turn on and off the video tracks so in
+this upper leand corner of our timeline
+we have this little icon here timeline
+view options here's where you can turn
+on and off the video tracks I like to
+have the on just so that I have again
+kind of a reference of how my audio is
+lining up to my video clips but if you
+just want to focus on audio you can turn
+that off by clicking this first little
+icon here sort of in the middle we have
+our different tools which depending on
+how you like to work and what you're
+doing you might want to play with this
+like this range selection kind of lets
+you drag a box to select multiple
+different clips and pieces of clips and
+things like that that can be really
+helpful if you're used to working that
+way most most of the time I just stay
+with the normal selection CU you can
+move things around and trim them and do
+all the things that you would normally
+expect to be able to do here one thing
+that's interesting is this edit
+selection mode this is kind of a hybrid
+of these two different modes where you
+can Mouse over the bottom of a clip and
+you can move it around with kind of this
+hand or you can Mouse over the top of
+the clip and just select part of it so
+again kind of depending on how you like
+to work if you like kind of selecting a
+range like this and working with things
+deleting things that way and editing
+things that way that might be a good way
+to work it's kind of a hybrid of these
+first two tools but yeah that's pretty
+much how the timeline Works above the
+timeline we have all of these uh super
+intimidating meters which as we play
+this back you can see the levels of each
+track and there are a lot of them you
+can also see the levels of your bus as
+well as your loudness meter now this is
+really great if you need specific
+loudness for broadcast or something like
+that works really well you can adjust
+the type of metering and everything that
+you want the other kind of panels you
+can open and close up top we have the
+metadata panel which works just like it
+does in the media page and the edit page
+and we have the inspector which again
+works like it always does in the other
+Pages as well select a clip and adjust
+it here in the
+inspector the left buttons we can open
+up our media
+pool our effects which of course just
+has audio effects here when we're in the
+fair Light page and we also have our
+index now this is actually really
+helpful because you can quickly move
+tracks around this
+way whereas you can't really do that
+here in the timeline you'd have to right
+click and move tracks up and down that
+way which is kind of a pain but you can
+click and drag them here in the
+index another really handy panel here is
+the Sound Library click on that and open
+that this is a way that you can catalog
+all of your sound effects that are on
+your system and you can have them pretty
+much always at your fingertips so the
+way that you add sounds to your library
+is you click on these three little dots
+and say add Library I'll just add our
+editor soundkit from ground control and
+I'll hit select folder and what that'll
+do is scan all of the clips and it'll
+remember their waveforms it'll remember
+what they're called and all of that
+stuff so it never has to do this again
+and depending on how many Clips you have
+it might take a couple
+minutes but once it's done then it will
+know about all of the Sounds in this
+specific folder and I'll hit okay and
+now if I want to add something like a
+whoos I can just type in whoos and all
+of the wishes that I have on my system
+will show up here in this list and I can
+double click on a sound to play
+it up here this kind of works like a
+source viewer I can hit I for in O for
+out and drag this down into a new track
+to add this
+whoo so this is a really great feature
+of resolve it's available here in the
+fair Light page and it's also actually
+in the edit page as well so again if you
+don't want to go into Fair light you can
+use in the edit page but a lot of the
+time when I'm doing sound design and
+stuff I'm going to be doing that in Fair
+light so I'll go ahead and turn off our
+Sound Library and now let's talk about
+the mixer this is where a lot of work is
+done in Fair light of course we have a
+strip for each track we have our main
+fader for each track we can arm a track
+to record and record voice over to it we
+can solo mute we have pan controls but
+we also have some built-in effects to
+this channel strip here the first one is
+is EQ if you double click on EQ that
+will bring this up with a big nice EQ
+that will affect everything on the track
+we also have some nice presets here
+which can be really helpful so I can
+just put this dialogue preset here
+camping there's nothing better than
+leaving Humanity behind for a few hours
+to reconnect with nature okay also right
+next to Dynamics here we have this kind
+of gray square if you double click on
+the gray Square this brings up our
+Dynamics window this is a really cool
+thing this will allow us to add a
+compressor and limiter and all kinds of
+things to our dialogue which can really
+help it kind of punch through a mix so
+what I'll generally do is turn on the
+compressor here and push up the ratio a
+little bit and as we play this back
+there's nothing better than leaving
+Humanity behind we can see the audio
+peing with these kind of yellow dots and
+that's really how loud the signal is
+along this kind of graph and we can kind
+of remap this signal to only get to be
+so loud and to be boosted at a certain
+point right so I can take this
+compressor and bring the threshold down
+so that we're making sure that we reduce
+the loudest parts and I can push this
+makeup up so we make sure that even the
+quietest parts are loud enough now we
+might have gone a little bit crazy here
+but we can easily add these kind of
+Dynamics
+filters to make dialogue cut through a
+mix behind for a few hours to reconnect
+with nature and from there with our
+dynamic on we can turn these signals up
+and down to kind of equalize it hours to
+reconnect with nature it doesn't take
+much to have an unforgettable trip the
+other thing that I like to do on my
+second track here is to add a scoop to
+the audio to kind of turn the
+frequencies of the music down where a
+voice comes through and so on the second
+track I'll double click on the EQ and
+we're going to turn this down right
+around 1K or so just a little bit than
+leaving Humanity behind for a few hours
+to reconnect with nature so it's just a
+lot easier to hear it does take much to
+have an unforgettable trip and depending
+on your video that might be all you need
+to do to mix it of course if you want to
+get a little bit more detailed you can
+zoom right in here and if you hold down
+alt you can add little dots to this
+volume line and you can kind of push
+this up and kind of normalize your audio
+however you think you need to there's
+also spots for effects for each track
+you can click on this little plus and
+you can add all kinds of things like
+Reverb delay Echo all that stuff and
+that's kind of where you do that so here
+if we want to add some Reverb this will
+be really reverby we'll just turn this
+way down here patio lights exactly six
+hot dogs so that's how you would do that
+if I want to get rid of an effect I can
+Mouse over it here in the channel strip
+hit that little drop down menu and say
+delete plugin and that's how it's done
+last thing I want to mention about the
+fair Light page is you can organize
+things into buses so if I had multiple
+tracks let's just go ahead and add a
+couple tracks I can right click on this
+track header and say add tracks we'll
+add two tracks below audio
+one and now let's say I want to for
+whatever reason if I have multiple
+people talking I might have multiple
+different tracks or I can move these to
+different tracks for different
+environments whatever I want to do I can
+select these and hold down alt and hit
+up or down on the keyboard to move them
+throughout the tracks but let's say for
+whatever reason I have these three
+different tracks and I want to add these
+kind of filters to all the tracks kind
+of at once I can do that with a bus so
+what I can do is I'll bring up our mixer
+a little bit here and I'm going to add a
+bus so we'll go up to Fair light and say
+bus format and here we have a list of
+all of our buses the one that's on there
+by default is called bus one and that's
+just your main output but we'll go and
+say add bus and now we have a mono bus
+we'll make this a stereo bus sounds good
+and we'll call this dialogue and we'll
+call bus one we'll call this Main and
+I'll hit okay and now what I want to do
+is Route these first three dialog tracks
+to my dialog bus here where these bus
+outputs here say main I'm going to get
+rid of main on these first three tracks
+and add dialogue and those will all go
+out to my dialogue bus and then I need
+to make sure that my dialogue bus goes
+to my main bus so now whatever is
+happening in tracks 1 2 and three are
+going to go and get processed on this
+dialogue bus and then that's going to be
+sent out to my main output so if I put
+an equalizer on this bus that's going to
+equalize all three of these tracks at
+the same time in fact I can right click
+and say copy on the this EQ and then
+paste it right here same thing for our
+Dynamics copy and paste and then we'll
+just go ahead and reset all of these by
+opening them
+up and clicking on this little reset
+Arrow right
+here and now we have that same kind of
+effect ah camping there's nothing better
+than leaving Humanity behind but it's
+applied to all of our tracks then I can
+open up the index like this and grab my
+dialog bus and can drag this up near my
+dialog tracks so that I have those kind
+of conveniently grouped together so
+that's really how fair light works again
+if you've used any kind of audio mixing
+app this should make a ton of sense
+really helpful for getting really
+detailed with your audio mix and again
+any kind of changes that we make here in
+the fair Light page are reflected in the
+edit page and so we have our extra
+tracks we have uh our buses set up and
+everything exactly how it sounds in the
+fair Light page it's just still
+available to edit and mess around with
+and color correct and all the things
+that we would normally have to go to a
+separate app to do all that stuff is
+built inside of resolve pretty cool all
+right so now we have our project it
+looks good sounds good we have our
+animations oh baby it's so great now
+it's time to render it out how do we do
+that well again if you want to just
+export something really quick and you
+don't feel like going into the other
+Pages you can always just go to file
+quick export and Export this with a
+preset and that looks pretty
+good but if you do want to get a little
+bit more detailed or you want to export
+multiple different versions different
+timelines different settings for your
+project you're going to want to use the
+deliver page in the lower right hand
+corner of our buttons here we have
+deliver and again it brings this
+timeline into the deliver page and this
+is pretty simple we have a couple
+different ways to look at our project we
+have our viewer we have our clips and we
+have our timeline now this timeline is
+something I can't do any editing with it
+just is kind of a visual representation
+of our edit and I can kind of Step
+through things with the clips but again
+this is really kind of just for
+reference most of your work in the
+deliver page is going to be over here on
+the left with the render settings along
+the top we have a bunch of presets and
+you can click into a preset and just
+render that way but what I usually do is
+click to a preset and then I switch back
+to custom and what that will do is set
+all of the custom settings to that
+preset and then I can go in and kind of
+change them from there right but you set
+your settings for whatever you want all
+your video settings here are on this
+first Tab and then as we click through
+audio we have audio settings and then we
+have file settings so how you name the
+file where you put it and all that kind
+of stuff however you get to that
+whatever settings you want you just go
+to the bottom and hit add to render
+que and what that will do is put a job
+here in the render queue now it's not
+rendering yet it's just waiting in line
+and so let's say we want to have some
+other kind of export maybe an h265
+Master whatever it is we can add that to
+the render queue as well maybe I just
+want to export audio I can switch to
+audio and you know export a wave
+whatever I want to do and hit add to
+render que and now I have all of these
+jobs here and if I select none of them
+or all of them I can go down here and
+hit this render button and it will start
+to crush on the this while I go take a
+break so it's really nice because you
+can kind of cue everything to render out
+without having to you know manually
+export each one so this is kind of like
+something like median encoder or
+compressor that's kind of built into
+resolve really nice way to do things
+I'll just cancel those for now but yeah
+that's pretty much the ins and outs of
+how resolve works the last thing I do
+want to mention is the proxy workflow
+and resolve because it's super dope all
+of this stuff that we've been working
+with are actually proxies of these red
+files you may have noticed when I go
+full
+screen you know oh it doesn't look super
+great well that's because we're using
+proxies right now and really the way
+that resolve works with proxies is
+really neat all of my footage if we have
+this little icon right here that means
+that we're using a proxy and I can
+switch between proxies by going up to
+playback and going to proxy handling and
+choosing to prefer camera Originals or
+prefer proxies or I can just disable the
+proxy so if I switch to camera original
+everything looks a lot nicer and that
+little icon disappears if I want to make
+proxies real quick I can just select
+them right click and I can say generate
+proxy media and that will render a proxy
+to the folder of my choosing based on my
+project settings under master settings
+halfway down under optimize media and
+render cache it'll be in the resolution
+and format and folder that I choose
+here and as long as you have the proxies
+linked to the clips it can just switch
+them out really easily so here's my edit
+with
+proxies and here's my edit with the
+originals super quick really easy cannot
+get enough of the proxy workflow man
+it's so good and the best part is the
+proxies will switch out by default
+before we render it so I'm never going
+to like accidentally render proxies
+unless I really really mean to here in
+the deliver page under video under
+advanced settings I can tell this to use
+my proxy media if I want to really slick
+this is how resolve works if you're just
+getting into resolve the great thing is
+you can download the free version check
+it out see if you like it and in my
+experience uh when you realize how well
+you can kind of switch in between these
+pages and how smooth of a workflow it is
+to do your edit and then jump in and do
+some quick visual effects and
+compositing switch over and do some
+color correction go over and get really
+detailed with your audio then switch
+back and edit some more I mean just
+nothing else
+Compares that was quite a bit hey if you
+learned a lot and you want to dive a
+little deeper we actually have an intro
+to resolve course it's available at
+Ground control. film there's also a link
+there in the description make sure to
+check that out hey if you had a good
+time and you learned something let me
+know in the comments that would be sweet
+Action Jackson
+Five alive number number Johnny Five
+alive do you guys see that movie call me
+Johnny short
+circuit that was a cool movie about
+robots yeah

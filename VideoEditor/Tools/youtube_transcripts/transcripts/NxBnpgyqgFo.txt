@@ -1,0 +1,494 @@
+Imagine you record a full 1-hour podcast
+and it doesn't perform well. Well,
+chances are is that it doesn't have a
+great intro. So, in this video, I'm
+going to explain you exactly how to
+create a podcast trailer or podcast
+intro so that you can hook people in to
+watch the full video. So, let's jump
+into it. I'm here in Premiere Pro and I
+already have a edit down and basically I
+picked some clips from a full podcast.
+The podcast is 1 hour and as you can see
+it's now like half a minute. Of course,
+you have to choose this yourself, but I
+would say stay around the half a minute
+mark. If there's a lot of good hooks,
+then you can of course make it a bit
+longer, but I would really try to keep
+it short. Now, what's cool, I'm using
+Premiere Pro and I using the transcribe
+feature so you can see the text and
+that's really nice cuz we are going to
+need that. Now, we can of course animate
+things in Premiere Pro or if you're
+using Da Vinci Resolve that also works.
+However, I want to do some more advanced
+animations with lines, blurs, things
+like that. So, I'm going to go to After
+Effects. But before I do that, I want to
+make sure that this caption is turned
+into text or this transcript is turned
+into text. So, let's go to captions,
+create captions from transcript. I'll
+keep the options the same. That doesn't
+really matter. Then, we're going to
+change it to single. I don't want double
+lines. And then I'm going to press
+create captions. The font doesn't really
+matter. The placement also not. I just
+want to make sure that I have these
+captions. I'm going to select those
+captions and I'm going to go to graphics
+and titles. And I'm going to press on
+upgrade caption to graphic. I just want
+to make sure I have these captions
+separate and this is exactly what I
+want. Now what we can do is we can
+select all of this and then we can do
+rightclick replace with after effects
+composition. Now if you want to know how
+to find the most engaging clips uh do
+join the full stack editor club. I made
+a full deep dive on this. It's basically
+to get your watch time up and really get
+results with your podcast. Link is down
+below. So again I'm going to rightclick
+and replace with After Effects
+composition. And by the way, if you're
+in other editing program like Da Vinci
+Resolve, you can just, of course, export
+your video and then import it in After
+Effects. Now, as you can see, we have a
+lot of layers. We have the video layers
+here. So, exactly what we want. However,
+I do want these to be text. Now, there's
+multiple ways to unprempose these. Uh,
+you can use multiple plugins for this.
+You can use unpremposer, you can use
+motion tools, but you can also use a
+plugin like aux. For example, I have a
+UIX here. Uh, and you can just press on
+unpremp and it will un pre-MP them and
+turn them into text layers. As you can
+see, the timing is also already nice.
+Um, maybe not perfect, but you can
+change that up. So, it's all cool. I
+will also link this down below. Now,
+what I like to do is make it a bit
+playful and like turn the text for
+example here and then change it to font.
+So, we can change this to DM sense for
+example, make it a big bigger, change it
+to width with a W, capital, and then we
+can move it here for example. And then
+what you can do is drag this out to make
+sure that these are the same length. By
+holding shift, they will snap into
+place. Then the next text or Mosy. Maybe
+it's smart to have with Alex and then
+Alex or Mosy at least on one line. So
+let's copy this text. And by the way, I
+do this by going to the text tool and
+then just clicking on the text and then
+command Ctrl + C on Windows to copy it,
+of course. And let's paste that here. Uh
+it will also change the font back, but
+that's all good. We can just type them
+in again something like this. Maybe even
+remove this comma and making this bold.
+And we can even make this a nice
+different color. Uh if our branding
+color is blue, we can change that to
+like a soft blue. Something like this.
+And this already looks nice. Maybe a bit
+bigger. And then the next one, I'm going
+to make a different font. Maybe
+something cool like this. And what I
+want to do is make sure that uh
+basically maybe this one I'm going to
+change to SF Pro Black. Or maybe make
+this maybe like thin thick text. And
+then this one with a different font.
+Maybe a bit bigger. So there's like a
+bit more contrast between this or
+basically bit more like difference
+between this. Now in terms of font, I
+was just experimenting. I don't like the
+way this looks. So what I'm going to do
+is I'm just going to select them both
+and uh make sure that they're both the
+same font. And then maybe I'm going to
+make one uh really thick and then one a
+bit more thin. So, for example, this one
+really like thick. And maybe even
+capitalize it. Make sure that this is on
+two sentences. Align that to the left.
+Increase the line height a bit. Probably
+a bit more so we can make the text a bit
+bigger. Something like this. Make that
+really bold. Let's move this and align
+this nicely. And then the what he said
+to me. Let's move this below that. And I
+do think it's a bit too thin. So, let's
+change this to maybe like medium.
+Something like this. Cool. This already
+looks nice. I think in my opinion, maybe
+this needs to be with a capital. There
+we go. I think this is already cool, but
+I want to add some texture to this. So,
+uh, let's add a noise first of all. And
+then just a normal noise. Turn the use
+color noise off and may make maybe like
+10%. It will add some like nice grain to
+it. And I will also add a gradient uh
+ramp. Let's drag that on too. Or you can
+also double click. And I'm going to set
+it to radial first of all. And then the
+points, they're completely wrong. Let's
+set this maybe to here. And then the
+white maybe like here. And basically I'm
+going to blend it with the original. Uh
+and again this will just add a bit of
+like gradient to it. So a tiny bit maybe
+blend it like on 78%. Before and after.
+It just adds like a cool effect over it
+in my opinion. We can also move this
+below the noise. I like it actually on
+top of the noise. This is already nice.
+Uh now what I might also do is uh right
+click layer styles and then drop shadow.
+And this is really ugly. So open this
+drop shadow. And let's make this size
+really big. Uh soften it. So like nicely
+soften it. And change the opacity to
+really low. Just a tiny bit. Again off
+and on. It will just add a bit of like
+texture to this and a bit of depth which
+is nice. I think this already looks
+cool. We can also uh just make it pop up
+like word by word. And to do so, I'll
+use a typewriter effect for that. So,
+for example, we can just use typewriter.
+It's a built-in preset. We can just drag
+that on. And then what we can do is open
+this and go into this text and then the
+animator. And this is the typewriter
+animator we just made. Now, if we drag
+these key frames a bit closer, you will
+see that it will just type the text,
+which actually is already a cool effect.
+Uh however, what we can also do is
+change uh the based on to words and you
+do this by opening up the advanced tab
+and we can change it to um based on
+words and that will make the words pop
+up really nicely. Now uh again this is
+really harsh so it's like tick tick tick
+that can be a way or we can make it
+smooth and to do so let's undo this. So
+let's just undo the effect and I'm going
+to make a animator myself. So I'm going
+to click on the icon next to animate and
+I'm going to change it or I'm going to
+click on position. Then let's move this
+to maybe something like this like 100 in
+this case. That will be nice. And what
+I'm also going to add uh so click on the
+arrow next to add property and then an
+opacity because I want to also make it
+fade in. And let's turn this to zero.
+And then open the range selector and
+open the advanced tab. And then uh let's
+change the shape to ramp up. Change the
+ease low to 100%. And then we're going
+to animate the offset. So let's set a
+key frame for that. Going to set it to
+go from minus 100 to 100. And as you can
+see, this already will give a really
+cool smooth animation. However, what I
+do want to do is uh also change the base
+on again because now it's on characters.
+I think it's nicer if we put it to
+words. And now let's go press U to just
+see these key frames and then drag this
+to the beginning. I'm going to quickly
+play this with Alex Mosy. There is a cut
+here. I think what I want to do is
+basically make sure that this cut is
+less visible. And to do so, we can just
+like zoom it in for example. Might also
+be easier to maybe then move it. So then
+it's going to be with Alex Moszi. What
+he said to me and then what he said to
+me. Let's pop that up. Uh what we could
+do now is use that typewriter effect and
+then open that text and what I said
+before basically going into the range
+selector going into the advanced tab and
+changing the based on to words in this
+way should be nice that it just pops up
+what he said to me let's say and then
+basically uh we can or fade it out or we
+can do like multiple things but I think
+it's sometimes also just nice to cut it
+off right so let's just select them both
+cut them off just like that so in the
+next shot, it should be gone. So, it's
+like
+>> with Alexi, what he said to me, let's
+say you were a video editor. Let's say
+you were a video editor. Maybe you can
+make these words pop up. And what we can
+do now is either uh just duplicating
+these text layers and then copy this
+text into it or we can copy the effects
+of the text. So, for example, we can go
+into the animator, we can copy the
+effects, and we can copy the layer
+styles. But in this case, because
+there's quite a lot of effects also on
+the gradient ramp, I'm just going to
+duplicate the text by hitting command D
+on my Mac or control D on Windows. And
+then you can just drag this over. Hold
+shift and then we'll snap into place.
+Then we already have this. Now let's
+copy the text over. And if you now paste
+it, it won't work because it will just
+paste the uh formatting over. The
+easiest way is to just paste it in a
+note or text editor because if we now
+copy it from here and paste it, it's not
+going to include the formatting. It will
+look really ugly. That is true. Uh
+because the radial gradient is not
+great. Maybe what I'm going to do is I'm
+going to select all of the text, make it
+a bit smaller, change the paragraph to
+be a bit like here. Then let's move the
+video editor to the next line because we
+can do something cool with that. Let's
+add another space to this uh to make
+sure that the video editor is on a
+separate line. We can again give this
+the same blue color that we had. Of
+course, it's better to copy the Xcode
+over, but hey ho. Now let's see if we
+can move this radio gradient to
+somewhere else. Maybe to the left button
+will be cool. Now I do think this
+spacing is a bit too much. So let's
+select this text and change the line
+height to maybe here. Now what I want to
+do is basically highlight this video
+editor because I think that's cool. Uh
+so let's go and go to the rectangle
+tool. I'm going to change the fill to a
+linear gradient. And let's change the
+fill color from whitish to maybe like a
+bit of like darker whitish. Make sure
+the opacity is also set to 100%. Okay.
+And then I'm going to draw a quick box
+around this. Maybe something like this.
+Press V on your keyboard to make sure to
+go to the selection tool and let's drag
+this linear gradient out. It's very
+nice. And then I want to move this below
+our text. There we go. So we have like a
+nice selection box. Let's move this a
+bit. Now I want to change the anchor
+point. Basically this is the point where
+it scales from. And to do so I need to
+use the pen behind tool. You can also
+use a tool like motion tools to just
+click on the left side. But you can also
+move it with the pen behind tool. If you
+hold command or control on Windows, it
+will snap into place. That's exactly
+what we want. And then I'm going to
+press S for scale and set a key frame.
+Unlink it. And then let's see where this
+pops up. Maybe here. So the words pop
+up. And then somewhere around here. Here
+I want to set it to zero. I probably
+have to change the timing anyway, but
+select these key frames, right click,
+key frame assistant, easy ease, and
+let's go to the graph editor. Select the
+last key frame, and then drag this
+handle all the way to the left. And
+let's go to the graph editor again to go
+out of it. And then let's turn the
+motion blur on by clicking on the motion
+blur icon and also on the text, by the
+way. I think that's actually really
+nice. If you now play this and let's say
+you were a video editor, what would
+Okay, so way too long or way too short.
+I mean, let's press U on our keyboard
+and let's move this a bit. And then
+let's start this animation maybe here.
+Okay, nice. And again, we can cut this
+off. Hold Alt and then right bracket.
+And also, I'm going to delete this text.
+I don't want to use that anyway. Now,
+this is a bit boring. So, I also want to
+make sure that it zooms in slowly. And
+to do so, I'm just going to press S on
+our keyboard on our footage. Set a key
+frame. Let's move this to the left and
+then go to the end. And by holding
+shift, it will snap. We can zoom it in a
+bit. And by the way, you can also change
+the anchor point. That's basically where
+it scales from. So, if you go back to
+the beginning, what we can do is move
+this anchor point to my face. And you do
+this by still using the pen behind tool
+that we still have selected. And then it
+will zoom into the face instead of uh
+from the center. That's also a really
+nice way to make it more engaging. And
+let's say you were a video editor. What
+would And then here, what would you do?
+I would snap that into place again. So,
+what I'm going to do is I'm going to go
+back to the beginning. Uh, I think I
+have the words what he said to me. Yeah.
+Cool. So, I can duplicate this and let's
+move this to the right. Hold shift so it
+snaps into place. Let's press U on our
+keyboard to see our key frames. And
+let's move this to the beginning. And
+let's see what he said to me. What would
+you do? Maybe I'm going to make this a
+bit more bold. And I'm also going to
+right click on this text, layer styles,
+gradient overlay. Go into the gradient
+overlay. And let's turn that opacity
+down by a lot. And click on reverse to
+on. Maybe a bit more. This nice. Make it
+a bit bigger so it fits nicely on the
+left. Remove this one. Select it.
+Delete.
+>> What would you do? What would you do?
+What would you do? And I want to
+basically make a line around this. I
+think that would be cool just to
+emphasize on this this question mark.
+So, let's go to the pen tool. Let's
+change the fill to none. Make sure
+nothing is selected, by the way. And go
+into the stroke. And again, use the same
+color that we used before uh to keep the
+style the same. And it's really
+important using the same fonts. Uh don't
+go with like 20 different fonts or 20
+different colors. It's nice to create a
+style, right? So, pick a few colors,
+pick a few fonts, and stick with it. So,
+in this case, uh, blue again, and let's,
+uh then just make a rough circle around
+this. And I'm going to do this by
+clicking and holding my mouse down. So,
+we have these cool handles. Let's make
+another handle here. And another one
+probably here. And another one here. And
+then to end it, I don't want to close
+this path. I want to actually maybe end
+it here. So, it's like a bit more
+organic. Go to the selection tool. Press
+V on your keyboard and then let's move
+this a bit so we can make this align a
+bit better. Nice. Cool. Then go into the
+shape and into the contents and into the
+shape and into the stroke. Then go into
+the taper. And basically what I want to
+do is make sure that they're a bit more
+thin at the end and at the start. So
+they're like bit more drawn. And as you
+can see that gives this really cool
+effect. So, I'm going to set the start
+length to maybe 10% and end length also
+on 10%. Make sure the uh line cap is set
+to round cap. And then let's set the
+start ease to be a bit higher, maybe
+like even 90% and the end ease also. And
+this will make it like really nice and
+and smooth. As you can see, we'll give
+this roundness to it so it's not too
+sharp. So, it looks like a marker that
+started making the circle. Now, I'm
+going to make it even more organic. So
+click on add and change that to wiggle
+paths. Then open the wiggle paths and
+change the points to smooth. I'm going
+to change the wiggle seconds to zero. I
+don't want it to be animated. And then
+the detail I'm going to lower down uh
+because the more detail you have uh the
+more it will be like really jaggedy. I'm
+going to set the detail to 100. And then
+I'm going to set the size to really low
+by holding command. Maybe like something
+like one should be fine. As you can see,
+it will just give a tiny bit of detail
+uh which I really like. Makes it a bit
+more organic. Now, of course, I want to
+animate this too. And to do so, I'm
+going to go to add trim paths and open
+the trim paths. And then we're going to
+set a key frame for the end. Now, let's
+go a bit more to the beginning, maybe
+here, and change the end to zero.
+E. Now I'm going to press U on my
+keyboard just to see the animated
+property. We can drag this out a bit.
+And then we can even select these and
+right click key frame assistant. Easy
+ease. So it's like what would you do?
+And the first thing what would you do?
+Animation around it. Really nice. Can
+even make this a bit more quick. Would
+you do and the first and again we have
+to cut this off. Uh so holding alt and
+then right bracket on our keyboard. Same
+with our text. And what we can even do
+is add motion blur to this by clicking
+on the motion blur icon on the shape
+that we created. So it's even more
+smooth.
+>> And the first you do
+>> and what I'm also going to do is select
+this footage again, press S for scale,
+set a key frame, drag this to the left,
+and also make this scale really slow.
+Now, I don't like where it's zooming in
+on. So, I'm going to change the anchor
+point again by clicking on the pen
+behind tool and maybe like even moving
+it a bit here so there's a bit more room
+for the text. Maybe it's a bit more too
+much zoom. So, let's zoom it in a bit
+less. And then with the next one, we can
+even make it snap into place by pressing
+S and then maybe zooming it into like
+124 or something or really high and
+maybe like moving it a bit so the
+difference is bigger. What would you do?
+And the first thing you would say and
+then some drama here and then you get
+something like this. You can implement
+this with any podcast to really make
+them more engaging either for your own
+podcast or for your client project. If
+you want to learn even more about this
+then do join the full stack editor club.
+Link is down below. I have a full deep
+dive on how to pick the right clips but
+also the sound design of podcast
+trailers. Then of course thanks for all
+the support. Don't forget to subscribe
+and then I'll see you next time. The
+light.

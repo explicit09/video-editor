@@ -1,0 +1,1137 @@
+[
+  {
+    "text": "So, in this super quick episode, I'm",
+    "start": 0.16,
+    "duration": 3.36
+  },
+  {
+    "text": "going to show you five things in the",
+    "start": 1.839,
+    "duration": 3.201
+  },
+  {
+    "text": "scopes in Dav Vinci Resolve that you may",
+    "start": 3.52,
+    "duration": 3.359
+  },
+  {
+    "text": "not know and stick to the end because",
+    "start": 5.04,
+    "duration": 3.599
+  },
+  {
+    "text": "you don't want to miss the last one. All",
+    "start": 6.879,
+    "duration": 2.961
+  },
+  {
+    "text": "right, let's have a look at the scopes",
+    "start": 8.639,
+    "duration": 3.281
+  },
+  {
+    "text": "then. So, if we press shift, command,",
+    "start": 9.84,
+    "duration": 4.719
+  },
+  {
+    "text": "and W, we can open them up into a large",
+    "start": 11.92,
+    "duration": 4.56
+  },
+  {
+    "text": "view. You can also put them onto a",
+    "start": 14.559,
+    "duration": 3.761
+  },
+  {
+    "text": "second display if you want to, which is",
+    "start": 16.48,
+    "duration": 4.0
+  },
+  {
+    "text": "what I recommend. And what I'm going to",
+    "start": 18.32,
+    "duration": 3.84
+  },
+  {
+    "text": "show you, if you click here, this is the",
+    "start": 20.48,
+    "duration": 3.52
+  },
+  {
+    "text": "main menu, and you've got something here",
+    "start": 22.16,
+    "duration": 4.0
+  },
+  {
+    "text": "called display qualifier focus. What I'm",
+    "start": 24.0,
+    "duration": 5.199
+  },
+  {
+    "text": "going to do is switch to the waveform.",
+    "start": 26.16,
+    "duration": 5.199
+  },
+  {
+    "text": "And what display qualify focus does is",
+    "start": 29.199,
+    "duration": 4.481
+  },
+  {
+    "text": "it allows us to hover over our let's say",
+    "start": 31.359,
+    "duration": 4.001
+  },
+  {
+    "text": "we want to measure the skin tone. It",
+    "start": 33.68,
+    "duration": 3.36
+  },
+  {
+    "text": "allows us to hover over and you can see",
+    "start": 35.36,
+    "duration": 3.68
+  },
+  {
+    "text": "those three circles appearing on the",
+    "start": 37.04,
+    "duration": 4.32
+  },
+  {
+    "text": "waveform. So that's display qualifier",
+    "start": 39.04,
+    "duration": 4.4
+  },
+  {
+    "text": "focus. Tip number two, change your",
+    "start": 41.36,
+    "duration": 3.92
+  },
+  {
+    "text": "waveform. What I'm going to do is click",
+    "start": 43.44,
+    "duration": 3.599
+  },
+  {
+    "text": "on the settings here. So this is main",
+    "start": 45.28,
+    "duration": 3.279
+  },
+  {
+    "text": "settings for the whole scopes. This one",
+    "start": 47.039,
+    "duration": 3.2
+  },
+  {
+    "text": "here is the settings for each individual",
+    "start": 48.559,
+    "duration": 3.921
+  },
+  {
+    "text": "scope. By default, it looks at RGB. What",
+    "start": 50.239,
+    "duration": 3.921
+  },
+  {
+    "text": "we want to do on the waveform is look at",
+    "start": 52.48,
+    "duration": 3.68
+  },
+  {
+    "text": "the Y. We want to look at the luminance",
+    "start": 54.16,
+    "duration": 3.44
+  },
+  {
+    "text": "channel. And the other thing I'm going",
+    "start": 56.16,
+    "duration": 3.52
+  },
+  {
+    "text": "to take off is colorize. Now, when we",
+    "start": 57.6,
+    "duration": 4.0
+  },
+  {
+    "text": "want to see the RGB levels, we're going",
+    "start": 59.68,
+    "duration": 3.359
+  },
+  {
+    "text": "to use the parade. But watch what",
+    "start": 61.6,
+    "duration": 3.04
+  },
+  {
+    "text": "happens now in the display qualifier",
+    "start": 63.039,
+    "duration": 3.521
+  },
+  {
+    "text": "focus. Instead of those three circles,",
+    "start": 64.64,
+    "duration": 3.36
+  },
+  {
+    "text": "which makes it a little bit harder to",
+    "start": 66.56,
+    "duration": 3.12
+  },
+  {
+    "text": "see where your levels are. If we click",
+    "start": 68.0,
+    "duration": 3.28
+  },
+  {
+    "text": "on here now, we've just got a single",
+    "start": 69.68,
+    "duration": 3.6
+  },
+  {
+    "text": "circle. So, we can see exactly where we",
+    "start": 71.28,
+    "duration": 4.159
+  },
+  {
+    "text": "are on the scopes. Switch over to the",
+    "start": 73.28,
+    "duration": 4.56
+  },
+  {
+    "text": "RGB parade and you've got the three",
+    "start": 75.439,
+    "duration": 3.921
+  },
+  {
+    "text": "individual levels, but it's a much",
+    "start": 77.84,
+    "duration": 3.279
+  },
+  {
+    "text": "clearer way of viewing it. Another tip,",
+    "start": 79.36,
+    "duration": 3.119
+  },
+  {
+    "text": "if you're working with the parade, if",
+    "start": 81.119,
+    "duration": 2.801
+  },
+  {
+    "text": "you click in here, you can actually",
+    "start": 82.479,
+    "duration": 4.161
+  },
+  {
+    "text": "select Y RGB. So you see the luminance",
+    "start": 83.92,
+    "duration": 5.04
+  },
+  {
+    "text": "and the individual RGB channels. Really",
+    "start": 86.64,
+    "duration": 4.159
+  },
+  {
+    "text": "good tip. Tip number three is zooming",
+    "start": 88.96,
+    "duration": 3.199
+  },
+  {
+    "text": "into the scopes. Now I'm going to need a",
+    "start": 90.799,
+    "duration": 2.881
+  },
+  {
+    "text": "mouse with a middle wheel on that. So",
+    "start": 92.159,
+    "duration": 3.361
+  },
+  {
+    "text": "just buy a cheap mouse, plug it in. I'm",
+    "start": 93.68,
+    "duration": 3.36
+  },
+  {
+    "text": "going to put the pen down. Got my mouse",
+    "start": 95.52,
+    "duration": 2.959
+  },
+  {
+    "text": "here. And if you press option on your",
+    "start": 97.04,
+    "duration": 3.2
+  },
+  {
+    "text": "keyboard, you can actually zoom right",
+    "start": 98.479,
+    "duration": 3.441
+  },
+  {
+    "text": "into the scopes. Now if I middle mouse",
+    "start": 100.24,
+    "duration": 3.919
+  },
+  {
+    "text": "click and drag, I can zoom around here",
+    "start": 101.92,
+    "duration": 3.6
+  },
+  {
+    "text": "as well. Now this is great. I can",
+    "start": 104.159,
+    "duration": 2.96
+  },
+  {
+    "text": "actually analyze the shadows here. So",
+    "start": 105.52,
+    "duration": 3.599
+  },
+  {
+    "text": "I'm zoomed right in and I can see",
+    "start": 107.119,
+    "duration": 3.601
+  },
+  {
+    "text": "exactly what's going on. Let's have a",
+    "start": 109.119,
+    "duration": 3.68
+  },
+  {
+    "text": "look at the vetoscope. If I bring the",
+    "start": 110.72,
+    "duration": 4.719
+  },
+  {
+    "text": "vectorscope up again, option and zoom,",
+    "start": 112.799,
+    "duration": 4.64
+  },
+  {
+    "text": "we can scroll right in. So, obviously on",
+    "start": 115.439,
+    "duration": 3.36
+  },
+  {
+    "text": "the vectorscope, you can't drag it",
+    "start": 117.439,
+    "duration": 2.801
+  },
+  {
+    "text": "around because you need it sitting on",
+    "start": 118.799,
+    "duration": 3.201
+  },
+  {
+    "text": "the correct vectors. To set that back,",
+    "start": 120.24,
+    "duration": 3.12
+  },
+  {
+    "text": "you just click up here and you can press",
+    "start": 122.0,
+    "duration": 3.2
+  },
+  {
+    "text": "reset. So, tip number four, we're going",
+    "start": 123.36,
+    "duration": 3.92
+  },
+  {
+    "text": "to use the image wipe to compare two",
+    "start": 125.2,
+    "duration": 3.6
+  },
+  {
+    "text": "shots so we can grade them better using",
+    "start": 127.28,
+    "duration": 2.959
+  },
+  {
+    "text": "the scopes. But, I'm going to take it to",
+    "start": 128.8,
+    "duration": 3.12
+  },
+  {
+    "text": "the next level. So, traditionally, you'd",
+    "start": 130.239,
+    "duration": 3.201
+  },
+  {
+    "text": "probably double click the still that's",
+    "start": 131.92,
+    "duration": 4.72
+  },
+  {
+    "text": "graded and then you can see that in your",
+    "start": 133.44,
+    "duration": 5.2
+  },
+  {
+    "text": "window here. And on the waveform, what's",
+    "start": 136.64,
+    "duration": 3.76
+  },
+  {
+    "text": "nice is we're comparing the graded shot",
+    "start": 138.64,
+    "duration": 3.52
+  },
+  {
+    "text": "on this side to the ungraded shot on",
+    "start": 140.4,
+    "duration": 2.8
+  },
+  {
+    "text": "this side. And we can then start",
+    "start": 142.16,
+    "duration": 3.04
+  },
+  {
+    "text": "balancing them up. So, let me just do a",
+    "start": 143.2,
+    "duration": 3.36
+  },
+  {
+    "text": "little bit of work in here. Something",
+    "start": 145.2,
+    "duration": 4.0
+  },
+  {
+    "text": "like that. Let's bring that down a",
+    "start": 146.56,
+    "duration": 4.64
+  },
+  {
+    "text": "little bit. But the problem is I'm only",
+    "start": 149.2,
+    "duration": 4.0
+  },
+  {
+    "text": "seeing a third of the image I want to",
+    "start": 151.2,
+    "duration": 3.52
+  },
+  {
+    "text": "grade here and two/ird of the image",
+    "start": 153.2,
+    "duration": 3.039
+  },
+  {
+    "text": "that's graded. So, what I'm going to do",
+    "start": 154.72,
+    "duration": 3.04
+  },
+  {
+    "text": "is change the style of this. I'm going",
+    "start": 156.239,
+    "duration": 4.08
+  },
+  {
+    "text": "to come off image wipe here. I'm going",
+    "start": 157.76,
+    "duration": 4.16
+  },
+  {
+    "text": "to go to this one called split screen.",
+    "start": 160.319,
+    "duration": 3.521
+  },
+  {
+    "text": "And in here, I can choose anything I",
+    "start": 161.92,
+    "duration": 3.039
+  },
+  {
+    "text": "want. So, I've got selected still",
+    "start": 163.84,
+    "duration": 3.84
+  },
+  {
+    "text": "images. So this one's selected. And the",
+    "start": 164.959,
+    "duration": 4.0
+  },
+  {
+    "text": "beauty of this is that you're seeing",
+    "start": 167.68,
+    "duration": 4.08
+  },
+  {
+    "text": "both images in full side by side. So I'm",
+    "start": 168.959,
+    "duration": 5.041
+  },
+  {
+    "text": "getting a much better representation of",
+    "start": 171.76,
+    "duration": 4.559
+  },
+  {
+    "text": "what I'm comparing to. Now the other",
+    "start": 174.0,
+    "duration": 3.599
+  },
+  {
+    "text": "nice thing with this mode is if you go",
+    "start": 176.319,
+    "duration": 3.361
+  },
+  {
+    "text": "to the vectorscope,",
+    "start": 177.599,
+    "duration": 3.681
+  },
+  {
+    "text": "they actually sit on top of each other",
+    "start": 179.68,
+    "duration": 3.52
+  },
+  {
+    "text": "in here. So if I go to my balance node",
+    "start": 181.28,
+    "duration": 4.0
+  },
+  {
+    "text": "here and just start moving my offset,",
+    "start": 183.2,
+    "duration": 4.64
+  },
+  {
+    "text": "I'll go extreme. You can see that the",
+    "start": 185.28,
+    "duration": 3.76
+  },
+  {
+    "text": "graded image is sitting still",
+    "start": 187.84,
+    "duration": 2.479
+  },
+  {
+    "text": "underneath. And all I've got to do is",
+    "start": 189.04,
+    "duration": 3.68
+  },
+  {
+    "text": "put that trace directly on top and I'm",
+    "start": 190.319,
+    "duration": 4.56
+  },
+  {
+    "text": "balanced. Absolutely fantastic. So, let",
+    "start": 192.72,
+    "duration": 3.36
+  },
+  {
+    "text": "me know in the comments if you've got",
+    "start": 194.879,
+    "duration": 2.801
+  },
+  {
+    "text": "any other scope tips or which one of",
+    "start": 196.08,
+    "duration": 3.28
+  },
+  {
+    "text": "these has been your favorite. And if",
+    "start": 197.68,
+    "duration": 3.12
+  },
+  {
+    "text": "you've enjoyed this content and you've",
+    "start": 199.36,
+    "duration": 2.64
+  },
+  {
+    "text": "learned something from it, think about",
+    "start": 200.8,
+    "duration": 2.799
+  },
+  {
+    "text": "subscribing for me. It really is",
+    "start": 202.0,
+    "duration": 3.12
+  },
+  {
+    "text": "appreciated. And if you want to let",
+    "start": 203.599,
+    "duration": 2.801
+  },
+  {
+    "text": "YouTube know that you've enjoyed this,",
+    "start": 205.12,
+    "duration": 2.96
+  },
+  {
+    "text": "hit the like button for me. So, tip",
+    "start": 206.4,
+    "duration": 2.96
+  },
+  {
+    "text": "number five is all to do with the",
+    "start": 208.08,
+    "duration": 2.64
+  },
+  {
+    "text": "vetoscopes. And what I'm going to do is",
+    "start": 209.36,
+    "duration": 2.879
+  },
+  {
+    "text": "customize them to make them even more",
+    "start": 210.72,
+    "duration": 3.2
+  },
+  {
+    "text": "useful for me. What I'm going to do is",
+    "start": 212.239,
+    "duration": 4.801
+  },
+  {
+    "text": "go into a four display. And we've got",
+    "start": 213.92,
+    "duration": 5.12
+  },
+  {
+    "text": "our vetoscope here. And if you look in",
+    "start": 217.04,
+    "duration": 3.279
+  },
+  {
+    "text": "here, you'll see that it's currently set",
+    "start": 219.04,
+    "duration": 2.88
+  },
+  {
+    "text": "to all. That means it's analyzing the",
+    "start": 220.319,
+    "duration": 3.761
+  },
+  {
+    "text": "entire image. What I want to do is make",
+    "start": 221.92,
+    "duration": 3.2
+  },
+  {
+    "text": "three more. I'm going to make a",
+    "start": 224.08,
+    "duration": 3.84
+  },
+  {
+    "text": "vectorscope here, a vetoscope here, and",
+    "start": 225.12,
+    "duration": 5.039
+  },
+  {
+    "text": "a vector scope here. This one I'm going",
+    "start": 227.92,
+    "duration": 4.239
+  },
+  {
+    "text": "to change its settings to be low. So,",
+    "start": 230.159,
+    "duration": 3.201
+  },
+  {
+    "text": "all it's going to do is read the",
+    "start": 232.159,
+    "duration": 3.521
+  },
+  {
+    "text": "shadows. This one here, I'm going to",
+    "start": 233.36,
+    "duration": 6.239
+  },
+  {
+    "text": "change it setting to be mids. And on",
+    "start": 235.68,
+    "duration": 5.759
+  },
+  {
+    "text": "this one, I'm going to set it to be",
+    "start": 239.599,
+    "duration": 4.0
+  },
+  {
+    "text": "high. So, what I've now got is three",
+    "start": 241.439,
+    "duration": 3.841
+  },
+  {
+    "text": "separate scopes that are reading the",
+    "start": 243.599,
+    "duration": 3.041
+  },
+  {
+    "text": "shadows, the mid tones, and the",
+    "start": 245.28,
+    "duration": 2.959
+  },
+  {
+    "text": "highlights. And I've got this one here",
+    "start": 246.64,
+    "duration": 3.28
+  },
+  {
+    "text": "for overall image. So, watch what",
+    "start": 248.239,
+    "duration": 4.881
+  },
+  {
+    "text": "happens when I increase the highlights.",
+    "start": 249.92,
+    "duration": 5.2
+  },
+  {
+    "text": "You can see that trace getting slightly",
+    "start": 253.12,
+    "duration": 3.519
+  },
+  {
+    "text": "bigger there. And then if I move my",
+    "start": 255.12,
+    "duration": 4.0
+  },
+  {
+    "text": "gain, you see, obviously, it's affecting",
+    "start": 256.639,
+    "duration": 4.88
+  },
+  {
+    "text": "all of it, but my focus on the scope is",
+    "start": 259.12,
+    "duration": 4.0
+  },
+  {
+    "text": "here. So, I can see exactly what's going",
+    "start": 261.519,
+    "duration": 3.761
+  },
+  {
+    "text": "on. Really useful for white balancing.",
+    "start": 263.12,
+    "duration": 3.76
+  },
+  {
+    "text": "So, for those who stayed this far in the",
+    "start": 265.28,
+    "duration": 3.199
+  },
+  {
+    "text": "video, I've got an extra bonus tip for",
+    "start": 266.88,
+    "duration": 3.2
+  },
+  {
+    "text": "you, and it's nothing to do with resolve",
+    "start": 268.479,
+    "duration": 3.041
+  },
+  {
+    "text": "scopes. So, as you may know, if you",
+    "start": 270.08,
+    "duration": 3.28
+  },
+  {
+    "text": "follow my channel, I use No Omniscope,",
+    "start": 271.52,
+    "duration": 3.92
+  },
+  {
+    "text": "which is a dedicated software for",
+    "start": 273.36,
+    "duration": 4.16
+  },
+  {
+    "text": "scopes. And there is nothing wrong with",
+    "start": 275.44,
+    "duration": 3.84
+  },
+  {
+    "text": "the resolve scopes. and the Omniscope",
+    "start": 277.52,
+    "duration": 3.119
+  },
+  {
+    "text": "gives you exactly the same readings, but",
+    "start": 279.28,
+    "duration": 3.28
+  },
+  {
+    "text": "it allows me to customize it much, much",
+    "start": 280.639,
+    "duration": 4.321
+  },
+  {
+    "text": "further and have added tools. So, it's",
+    "start": 282.56,
+    "duration": 3.6
+  },
+  {
+    "text": "absolutely fantastic. That's what I've",
+    "start": 284.96,
+    "duration": 2.799
+  },
+  {
+    "text": "got running in the background here. So,",
+    "start": 286.16,
+    "duration": 3.12
+  },
+  {
+    "text": "it's No Omniscope. Now, the reason I'm",
+    "start": 287.759,
+    "duration": 3.201
+  },
+  {
+    "text": "showing you this is because from",
+    "start": 289.28,
+    "duration": 4.16
+  },
+  {
+    "text": "November the 19th to December the 1st,",
+    "start": 290.96,
+    "duration": 4.959
+  },
+  {
+    "text": "they've got a special offer of 30% off",
+    "start": 293.44,
+    "duration": 4.64
+  },
+  {
+    "text": "either the video or a pro license. So,",
+    "start": 295.919,
+    "duration": 4.481
+  },
+  {
+    "text": "that is a fantastic deal. But even more",
+    "start": 298.08,
+    "duration": 4.72
+  },
+  {
+    "text": "than that, exclusive to my channel only,",
+    "start": 300.4,
+    "duration": 4.079
+  },
+  {
+    "text": "if you use the link below and put the",
+    "start": 302.8,
+    "duration": 3.119
+  },
+  {
+    "text": "code Darren at checkout, you're going to",
+    "start": 304.479,
+    "duration": 4.0
+  },
+  {
+    "text": "get an extra 5%. So, I've only ever seen",
+    "start": 305.919,
+    "duration": 4.401
+  },
+  {
+    "text": "it once at this price, and that was this",
+    "start": 308.479,
+    "duration": 4.241
+  },
+  {
+    "text": "time last year. So, 35%",
+    "start": 310.32,
+    "duration": 3.2
+  },
+  {
+    "text": "off. No B O B O B O B O B O B O B O B O",
+    "start": 312.72,
+    "duration": 1.84
+  },
+  {
+    "text": "B O B O Bcope Pro or No B O B O B O B O",
+    "start": 313.52,
+    "duration": 2.399
+  },
+  {
+    "text": "B O B O B O B O B O B Omniscope video.",
+    "start": 314.56,
+    "duration": 2.96
+  },
+  {
+    "text": "Use the link below code Darren. You",
+    "start": 315.919,
+    "duration": 3.041
+  },
+  {
+    "text": "won't find that deal anywhere else, not",
+    "start": 317.52,
+    "duration": 3.28
+  },
+  {
+    "text": "even on the time and pixels website. Let",
+    "start": 318.96,
+    "duration": 3.519
+  },
+  {
+    "text": "me show you my layout and then you can",
+    "start": 320.8,
+    "duration": 3.2
+  },
+  {
+    "text": "get an idea of what's going on. So, I've",
+    "start": 322.479,
+    "duration": 3.361
+  },
+  {
+    "text": "got mine on a dedicated machine, but you",
+    "start": 324.0,
+    "duration": 4.0
+  },
+  {
+    "text": "can run it inside Da Vinci Resolve. So,",
+    "start": 325.84,
+    "duration": 4.24
+  },
+  {
+    "text": "what you do is apply Omniscope effect to",
+    "start": 328.0,
+    "duration": 4.16
+  },
+  {
+    "text": "an adjustment clip. Then, if you",
+    "start": 330.08,
+    "duration": 3.839
+  },
+  {
+    "text": "highlight that and go to the effects,",
+    "start": 332.16,
+    "duration": 3.92
+  },
+  {
+    "text": "you can open Omniscope from there. So,",
+    "start": 333.919,
+    "duration": 3.601
+  },
+  {
+    "text": "this is the layout that I've got. And",
+    "start": 336.08,
+    "duration": 2.72
+  },
+  {
+    "text": "what you'll see straight away is the",
+    "start": 337.52,
+    "duration": 2.32
+  },
+  {
+    "text": "vectors scopes. I've got mine",
+    "start": 338.8,
+    "duration": 3.119
+  },
+  {
+    "text": "permanently on low, mid, and high. They",
+    "start": 339.84,
+    "duration": 4.32
+  },
+  {
+    "text": "just sit there really nicely. I've got",
+    "start": 341.919,
+    "duration": 4.081
+  },
+  {
+    "text": "my waveform, my dedicated waveform here,",
+    "start": 344.16,
+    "duration": 3.84
+  },
+  {
+    "text": "and my dedicated vectors scope here. And",
+    "start": 346.0,
+    "duration": 3.52
+  },
+  {
+    "text": "I can zoom this in and out. I can",
+    "start": 348.0,
+    "duration": 3.28
+  },
+  {
+    "text": "customize all these. You can really go",
+    "start": 349.52,
+    "duration": 3.519
+  },
+  {
+    "text": "to town on the customization. I've got",
+    "start": 351.28,
+    "duration": 3.04
+  },
+  {
+    "text": "my histogram here. I like to have a",
+    "start": 353.039,
+    "duration": 2.72
+  },
+  {
+    "text": "histogram to show me what's happening",
+    "start": 354.32,
+    "duration": 3.76
+  },
+  {
+    "text": "with my contrast. Twin Peaks is a",
+    "start": 355.759,
+    "duration": 4.88
+  },
+  {
+    "text": "dedicated scope inside the Omniscope,",
+    "start": 358.08,
+    "duration": 4.32
+  },
+  {
+    "text": "and it allows me to see really easily",
+    "start": 360.639,
+    "duration": 3.601
+  },
+  {
+    "text": "whether I'm effectively white balanced",
+    "start": 362.4,
+    "duration": 3.44
+  },
+  {
+    "text": "or not. It's a really quick tool for",
+    "start": 364.24,
+    "duration": 3.28
+  },
+  {
+    "text": "doing that. I've done a few episodes on",
+    "start": 365.84,
+    "duration": 3.12
+  },
+  {
+    "text": "Omniscope and I've got one that's",
+    "start": 367.52,
+    "duration": 3.36
+  },
+  {
+    "text": "actually dedicated to looking at Twin",
+    "start": 368.96,
+    "duration": 3.28
+  },
+  {
+    "text": "Peaks. I'll put a link to that in the",
+    "start": 370.88,
+    "duration": 3.2
+  },
+  {
+    "text": "description. This waveform here is",
+    "start": 372.24,
+    "duration": 4.72
+  },
+  {
+    "text": "showing me the bottom 15% of my blacks.",
+    "start": 374.08,
+    "duration": 5.28
+  },
+  {
+    "text": "So, it's the shadows. So, this is what I",
+    "start": 376.96,
+    "duration": 4.16
+  },
+  {
+    "text": "did uh on the resolver when we zoomed in",
+    "start": 379.36,
+    "duration": 3.679
+  },
+  {
+    "text": "using option, but this is up here all",
+    "start": 381.12,
+    "duration": 3.76
+  },
+  {
+    "text": "the time. I've always seeing the bottom",
+    "start": 383.039,
+    "duration": 3.841
+  },
+  {
+    "text": "15% of my shadows. I love that. Here's",
+    "start": 384.88,
+    "duration": 3.68
+  },
+  {
+    "text": "my overall waveform. So, don't forget",
+    "start": 386.88,
+    "duration": 3.2
+  },
+  {
+    "text": "you can customize this exactly how you",
+    "start": 388.56,
+    "duration": 3.44
+  },
+  {
+    "text": "want it to be, but I've got an extra",
+    "start": 390.08,
+    "duration": 3.679
+  },
+  {
+    "text": "four images down at the bottom. This one",
+    "start": 392.0,
+    "duration": 3.199
+  },
+  {
+    "text": "here is showing me exposure, so it's",
+    "start": 393.759,
+    "duration": 3.361
+  },
+  {
+    "text": "false color. This one is showing me my",
+    "start": 395.199,
+    "duration": 3.681
+  },
+  {
+    "text": "skin tones, so at a glance I can see",
+    "start": 397.12,
+    "duration": 3.6
+  },
+  {
+    "text": "where my skin tones are sitting. This",
+    "start": 398.88,
+    "duration": 3.36
+  },
+  {
+    "text": "one I've got set to black and white.",
+    "start": 400.72,
+    "duration": 3.36
+  },
+  {
+    "text": "It's just a very quick way of checking",
+    "start": 402.24,
+    "duration": 3.44
+  },
+  {
+    "text": "contrast. I can see noise a little bit",
+    "start": 404.08,
+    "duration": 3.28
+  },
+  {
+    "text": "easier on that as well. And this one is",
+    "start": 405.68,
+    "duration": 3.84
+  },
+  {
+    "text": "just the full color image. So that is my",
+    "start": 407.36,
+    "duration": 4.8
+  },
+  {
+    "text": "Omniscope setup. So don't forget 35%",
+    "start": 409.52,
+    "duration": 4.399
+  },
+  {
+    "text": "exclusively with the link down below.",
+    "start": 412.16,
+    "duration": 3.68
+  },
+  {
+    "text": "Put the code Darren at checkout. Look",
+    "start": 413.919,
+    "duration": 5.28
+  },
+  {
+    "text": "after yourselves. Enjoy your scopes.",
+    "start": 415.84,
+    "duration": 3.359
+  }
+]

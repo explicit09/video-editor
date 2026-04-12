@@ -283,8 +283,8 @@ public struct SetMarkerCommand: Command {
     public let name = "Set Marker"
     public let marker: Marker
 
-    public init(at time: TimeInterval, label: String) {
-        self.marker = Marker(time: time, label: label)
+    public init(at time: TimeInterval, label: String, color: String = "#FF0000") {
+        self.marker = Marker(time: time, label: label, color: color)
     }
 
     public mutating func execute(context: EditingContext) throws {
