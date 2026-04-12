@@ -2,7 +2,9 @@ import Foundation
 import CoreGraphics
 import AVFoundation
 import Vision
+#if canImport(FoundationModels)
 import FoundationModels
+#endif
 
 /// Describes video frames by running Apple Vision analysis (faces, scene classification, OCR)
 /// and synthesizing the results into natural language using the on-device foundation model.
@@ -12,8 +14,12 @@ public struct SceneDescriber: Sendable {
 
     /// Check if the on-device language model is available.
     public var isAvailable: Bool {
+        #if canImport(FoundationModels)
         guard #available(macOS 26, *) else { return false }
         return SystemLanguageModel.default.isAvailable
+        #else
+        return false
+        #endif
     }
 
     /// Describe a single video frame by analyzing it with Vision and synthesizing with the LLM.
@@ -21,12 +27,16 @@ public struct SceneDescriber: Sendable {
         // Step 1: Run Vision analysis on the frame
         let analysis = analyzeFrame(image)
 
+        #if canImport(FoundationModels)
         // Step 2: If LLM available, synthesize natural language from analysis
         guard isAvailable, #available(macOS 26, *) else { return analysis.summary }
-
         return await synthesizeDescription(analysis: analysis, context: context)
+        #else
+        return analysis.summary
+        #endif
     }
 
+    #if canImport(FoundationModels)
     @available(macOS 26, *)
     private func synthesizeDescription(analysis: FrameAnalysis, context: String?) async -> String {
         do {
@@ -44,6 +54,7 @@ public struct SceneDescriber: Sendable {
             return analysis.summary
         }
     }
+    #endif
 
     /// Describe multiple frames in batch with progress reporting.
     public func describeBatch(
